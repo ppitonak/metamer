@@ -1,0 +1,161 @@
+/*******************************************************************************
+ * JBoss, Home of Professional Open Source
+ * Copyright 2010, Red Hat, Inc. and individual contributors
+ * by the @authors tag. See the copyright.txt in the distribution for a
+ * full listing of individual contributors.
+ *
+ * This is free software; you can redistribute it and/or modify it
+ * under the terms of the GNU Lesser General Public License as
+ * published by the Free Software Foundation; either version 2.1 of
+ * the License, or (at your option) any later version.
+ *
+ * This software is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this software; if not, write to the Free
+ * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
+ * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
+ *******************************************************************************/
+
+package org.richfaces.tests.metamer.ftest;
+
+import static org.jboss.test.selenium.utils.URLUtils.buildUrl;
+import static org.testng.Assert.assertEquals;
+
+import java.net.URL;
+
+import org.jboss.test.selenium.AbstractTestCase;
+import org.jboss.test.selenium.dom.Event;
+import org.jboss.test.selenium.encapsulated.JavaScript;
+import org.jboss.test.selenium.locator.ElementLocator;
+import org.jboss.test.selenium.locator.JQueryLocator;
+import org.jboss.test.selenium.waiting.ajax.JavaScriptCondition;
+import org.richfaces.tests.metamer.TemplatesList;
+import org.richfaces.tests.metamer.ftest.annotations.Inject;
+import org.richfaces.tests.metamer.ftest.annotations.Templates;
+import org.testng.SkipException;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeMethod;
+
+/**
+ * Abstract test case used as a basis for majority of test cases.
+ * 
+ * @author <a href="mailto:ppitonak@redhat.com">Pavol Pitonak</a>
+ * @version $Revision$
+ */
+public abstract class AbstractMetamerTest extends AbstractTestCase {
+
+    /**
+     * timeout in miliseconds
+     */
+    public static final long TIMEOUT = 5000;
+
+    @Inject
+    @Templates({ "plain", "richDataTable1,redDiv", "richDataTable2,redDiv", "a4jRepeat1", "a4jRepeat2", "hDataTable1",
+        "hDataTable2", "uiRepeat1", "uiRepeat2" })
+    private TemplatesList template;
+
+    /**
+     * Returns the url to test page to be opened by Selenium
+     * 
+     * @return absolute url to the test page to be opened by Selenium
+     */
+    public abstract URL getTestUrl();
+
+    /**
+     * Opens the tested page. If templates is not empty nor null, it appends url parameter with templates.
+     * 
+     * @param templates
+     *            templates that will be used for test, e.g. "red_div"
+     */
+    @BeforeMethod(alwaysRun = true)
+    public void loadPage(Object[] templates) {
+        if (selenium == null) {
+            new SkipException("selenium isn't initialized");
+        }
+        selenium.open(buildUrl(getTestUrl() + "?templates=" + template.toString()));
+        selenium.waitForPageToLoad(TIMEOUT);
+    }
+    
+    /**
+     * Invalidates session by clicking on a button on tested page.
+     */
+    @AfterMethod(alwaysRun = true)
+    public void invalidateSession() {
+        selenium.deleteAllVisibleCookies();
+    }
+
+    /**
+     * Forces the current thread sleep for given time.
+     * 
+     * @param millis
+     *            number of miliseconds for which the thread will sleep
+     */
+    @Deprecated
+    protected void waitFor(long millis) {
+        try {
+            Thread.sleep(millis);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Factory method for creating instances of class JQueryLocator which locates the element using <a
+     * href="http://api.jquery.com/category/selectors/">JQuery Selector</a> syntax. It adds "div.content " in front of
+     * each selector.
+     * 
+     * @param jquerySelector
+     *            the jquery selector
+     * @return the j query locator
+     * @see JQueryLocator
+     */
+    public static JQueryLocator pjq(String jquerySelector) {
+        return new JQueryLocator("div.content " + jquerySelector);
+    }
+
+    /**
+     * A helper method for testing javascripts events. It sets alert('testedevent') to the input field for given event
+     * and fires the event. Then it checks the message in the alert dialog.
+     * 
+     * @param event
+     *            JavaScript event to be tested
+     * @param element
+     *            locator of tested element
+     */
+    protected void testFireEvent(Event event, ElementLocator<?> element) {
+        ElementLocator<?> eventInput = pjq("input[id$=on" + event.getEventName() + "Input]");
+        final String value = "alert('" + event.getEventName() + "')";
+
+        selenium.type(eventInput, value);
+        selenium.waitForPageToLoad(TIMEOUT);
+
+        selenium.fireEvent(element, event);
+        
+        waitGui.until(new JavaScriptCondition() {
+            public JavaScript getJavaScriptCondition() {
+                return new JavaScript("selenium.isAlertPresent()");
+            }
+        });
+        
+        assertEquals(selenium.getAlert(), event.getEventName(), event.getEventName()
+            + " attribute did not change correctly");
+    }
+
+    /**
+     * Hides header, footer and inputs for attributes.
+     */
+    protected void hideControls() {
+        selenium.getEval(new JavaScript("window.hideControls()"));
+    }
+
+    /**
+     * Shows header, footer and inputs for attributes.
+     */
+    protected void showControls() {
+        selenium.getEval(new JavaScript("window.showControls()"));
+    }
+}

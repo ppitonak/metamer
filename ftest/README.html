@@ -1,0 +1,152 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+<style>
+body { font-family: sans-serif; }
+h1 { color: darkblue; }
+.indent { text-indent: 2em; }
+</style>
+</head>
+<body>
+	<h1>RichFaces-Demo - functional-test</h1>
+	
+	<p>(Stub for the Metamer Functional Test)</p>
+	
+	<h2>About</h2>
+	
+	<h3>Introduction</h3>
+	<p>Functional test uses Maven and TestNG to run integration tests, which consist of automated browser testing using <a href="http://seleniumhq.org/">Selenium web application testing system</a>.</p>
+	
+	<h3>Structure</h3>
+	<p>Each component from <a href="http://livedemo.exadel.com/richfaces-demo/index.jsp">RichFaces-Demo application</a> corresponds with one package of test cases (except of components which share one presentation like <i>data table, column and column group</i>).</p>
+	<p>Each package is divided to one or more test cases presenting features of one component, traditionally distinguished by own tab.</p>
+	
+	<h3>Location</h3>
+	<p>All test cases are under <tt>src/test/richfaces/integrationTest</tt> package, separated to packages by component name such as</p>
+	<p class="indent"><tt>org.jboss.richfaces.integrationTest.dataTable</tt></p>
+	<p>and each test case is named by feature it corresponds like</p>
+	<p class="indent"><tt>org.jboss.richfaces.integrationTest.dataTable.ExtendedDataModelTestCase</tt></p>
+	
+	<h3>TestNG descriptor</h3>
+	<p>All of the tests forms suite and they are enumerated in TestNG descriptor <tt>src/test/resources/testng.xml</tt>.</p>
+	
+	<h3>Logging</h3>
+	<p>By default selenium local instance of SeleniumServer logs to file <tt>target/selenium/selenium-server.log</tt>.</p>
+	
+	<h3>Resources</h3>
+	<p>The majority of locators and assert values used in test are externalized in <tt>*.properties</tt> files.</p>
+	<p>You can find all string belonging to the given package of test cases in path such as <tt>src/test/resources/${package}/locators.properties</tt> (<tt>*/messages.properties</tt> respectively).</p>
+	
+	<h2>Build environment</h2>
+	<p>Recommended: Maven 2.1.0, SunJDK 1.6.0_16</p>
+	<p>Requires locally built <tt>selenium-testing-lib library</tt> (obtain it from <a href="http://anonsvn.jboss.org/repos/richfaces/branches/community/3.3.X/test-applications/selenium-testing-lib/">SVN repository</a>)</p>
+	
+	<h2>Command-line usage</h2>
+	
+	<h3>Basics</h3>
+	<p>Tests run in <tt>integration-test</tt> phase, but also <tt>post-integration-test</tt> contains finalization processes.</p>
+	<p>So basic operation which you may want to trigger is run all of the tests - this operation requires specification of browser to use (propagated to Selenium configuration; <a href="http://seleniumhq.org/docs/">consult documentation</a>):</p>
+	<p class="indent"><tt>$ <b>mvn post-integration-test -Dbrowser="*firefox"</b></tt></p>
+	<p>(we can use also <tt>verify</tt> phase adequately since it is more simple to type)</p>
+	<p class="indent"><tt>$ mvn <b>verify</b> -Dbrowser="*firefox"</tt></p>
+	<p>This command run the tests using externally run container. This is default behaviour, but you probably want to prepare all of the necessary stuff in container instead:</p>
+	
+	<h3>Container specification</h3>
+	<p>Build are using Cargo to run richfaces-demo inside container. To use that, you must specify <tt>containerId</tt> definition:</p>
+	<p class="indent"><tt>$ mvn verify -Dbrowser="*firefox" <b>-DcontainerId=tomcat6x</b></tt></p>
+	<p>Configuration now supports:</p>
+	<ul>
+		<li>tomcat6x</li>
+		<li>jboss5x <i>(can be use to run inside JBoss AS 6.X too)</i></li>
+	</ul>
+	<p>By default, build is configured to obtain container installation archive from URL in specified version. In that way is container downloaded automatically (note: Cargo is caching the downloaded binary).</p>
+	<p>You can specify the version manually by redefining <tt>container.version</tt>:</p>
+	<p class="indent"><tt>$ mvn verify -Dbrowser="*firefox" -DcontainerId=tomcat6x <b>-Dcontainer.version=6.0.18</b></tt></p>
+	<p>You also may want avoid downloading container (note: it is highly recommended to specify the version of container to overwrite default version, because build isn't able to obtain it automatically from archive):</p>
+	<p class="indent"><tt>$ mvn verify -Dbrowser="*firefox" -DcontainerId=tomcat6x <b>-Dcontainer.version=6.0.18 -Dcontainer.installer.url=file:/home/foo/binaries/apacha-tomcat-6.0.18.zip</b></tt></p>
+	<p>(notice the <tt>file:/</tt> prefix in <tt>container.installer.url</tt> definition)</p>
+	
+	<h3>Running one-off tests</h3>
+	<p>By default, complete suite specified in TestNG descriptor are run during <tt>integration-test</tt> phase.</p>
+	<p>If you want to run only selected tests, use comma-separated list of paths specifing the test cases (you can use wildcards). For example:</p>
+	<p>
+		<div class="indent"><tt>$ mvn ... <b>-Dtest=TooltipTestCase</b></tt></div>
+		<div class="indent"><tt>$ mvn ... <b>-Dtest="extendedDataTable/*"</b></tt> <i>(run all of the tests for EDT)</i></div>
+		<div class="indent"><tt>$ mvn ... <b>-Dtest="ActionParameter*,tooltip/*"</b></tt> <i>(run ActionParameterTestCase and all of the tests for Tooltip)</i></div>
+		<div class="indent"><tt>$ mvn ... <b>-Dtest="*Validator*"</b></tt> <i>(run all validator tests)</i></div>
+	</p>
+	
+	<h3>Selenium configuration</h3>
+	<p>Additional settings which influence selenium configuration defaults:</p>
+	
+	<h4>Maximizing selenium window with tested application</h4>
+	<p class="indent"><tt>$ mvn ... <b>-Dselenium.maximize=true</b></tt></p>
+	
+	<h4>Run selenium in debugging mode</h4>
+	<p>This mode allows force to use selenium debug mode and also browser side logging (note: this combination is very verbose):</p>
+	<p class="indent"><tt>$ mvn ... <b>-Dselenium.debug=true</b></tt></p>
+	
+	<h4>Changing host and port of SeleniumServer</h4>
+	<p>By default build uses local selenium (<tt>localhost:8444</tt>) started in <tt>pre-integration-test</tt> phase, but you can define other host and/or port too:</p>
+	<p class="indent"><tt>$ mvn ... <b>-Dselenium.host=remote.host -Dselenium.port=4444</b></tt></p>
+	<p>(note: despite of specifying other host for connecting remote SeleniumServer, the local instance of SeleniumServer is triggered automatically on the specified port <tt>${selenium.port}</tt> listening on <tt>0.0.0.0</tt> - but you can turn the local Selenium session off by disabling it's profile: <tt>-P '!local-selenium-session'</tt>)</p>
+	<p>(note: build automatically prepares JavaScript extensions for SeleniumServer, so it is necessary to copy that extensions from <tt>target/test-classes/custom-extensions.js</tt> and start designated SeleniumServer with switch <tt>-userExtension</tt> pointed to that file - the <tt>custom-extensions.js</tt> are built in <tt>process-test-resources</tt> phase)</p>
+	
+	<h3>Which richfaces-demo artifact use?</h3>
+	<p>(You may omit following examples if you aren't using Cargo (containerId definition) to deploy richfaces-demo.)</p>
+	<p>By default, selenium obtains newest snapshot of richfaces-demo from <a href="http://snapshots.jboss.org/maven2/org/richfaces/samples/richfaces-demo/">snapshots.jboss.org</a>, but you may want to override version - in that case use one of following methods to specify artifact what you want to be tested:</p>
+	
+	<h4>Specifying release version</h4>
+	<p class="indent"><tt>$ mvn ... <b>-Ddemo.version=3.3.3.BETA1</b></tt></p>
+	<p>But especially when testing release, you may want to specify suitable profile for given container, so let specify classifier of richfaces-demo artifact:</p>
+	<p class="indent"><tt>$ mvn ... -DcontainerId=tomcat6x ... -Ddemo.version=3.3.3.BETA1 <b>-Ddemo.classifier=tomcat6</b></tt></p>
+	<p class="indent"><tt>$ mvn ... -DcontainerId=jboss5x ... -Ddemo.version=3.3.3.BETA1 <b>-Ddemo.classifier=jee5</b></tt></p>
+	<p>(If you don't define <tt>demo.classifier</tt>, standard behaviour (no classifier) taken precedence and you should use only JavaEE 5 compatible containers (don't use <tt>tomcat6x</tt>))</p>
+	<p class="indent"><tt>$ mvn ... -DcontainerId=jboss5x ... -Ddemo.version=3.3.3.BETA1</tt> <i>(defaults to <tt>-Ddemo.classifier=""</tt>)</i></p>
+	
+	<h4>Use local richfaces-demo artifact</h4>
+	<p>If you want use artifact on your local filesystem (specified by location), just use:</p>
+	<p class="indent"><tt>$ mvn ... <b>-Ddemo.location=../richfaces-demo.war</b></tt></p>
+	<p>or</p>
+	<p class="indent"><tt>$ mvn ... <b>-Ddemo.location=$HOME/richfaces-demo-3.3.3-20100104.212113-50.war</b></tt></p>
+	<p>This is very usable for:</p>
+	<ul>
+		<li>locally built or modified artifacts</li>
+		<li>testing snapshots other than the latest</li>
+	</ul>
+	
+	<h3>Application context</h3>
+	<p>You can redefine application context, where application actually resides (defaults to <tt>http://localhost:8080/richfaces-demo/</tt>) in following way:</p>
+	<p class="indent"><tt>$ mvn ... <b>-Dcontext.root=http://some.host/ -Dcontext.path=/deployed/richfaces-demo/</b></tt></p>
+	<p>(note: this definition points Selenium where application resides, so the host must be available from host where selenium instance is running)</p>
+	
+	<h3>Use prepared template of Firefox profile</h3>
+	<p>If you already have Firefox's profile prepared for testing (e.g. when you have there installed own extenssions), you may use it as template for Selenium:</p>
+	<p class="indent"><tt>$ mvn ... -Dbrowser="*firefox" <b>-DfirefoxProfileTemplate="$HOME/.mozilla/8vykwrsm.default"</b></tt></p>
+	<p>(note: don't be scared about using such profile since Selenium makes a working copy of given profile first)</p>
+	
+	<h3>Testing JSF2</h3>
+	<p>It is necessary to use <b>jsf2</b> definition to run test properly configured for JSF2:</p>
+	<p class="indent"><tt>$ mvn ... <b>-Djsf2</b></tt></p>
+	<p>(note: that definition implies turning profile <tt><b>jsf2_0</b></tt> on: <tt>-Pjsf2_0</tt>)</p>
+	
+	<h2>Configuration by default</h2>
+	<p>All of the definitions above are configured with respect of configuration by default paragidm, so it is possible to achieve different behaviours with varying combinations.</p>
+	<p>All default values are specified in pom.xml in properties.</p>
+	
+	<h2>Special configurations</h2>
+	
+	<h3>Debugging</h3>
+	<p>If you want to use the selenium server or container without running the test suite (e.g. for debugging purposes), you may find the following examples useful:</p>
+	
+	<h4>Run container only</h4>
+	<p class="indent"><tt>$ mvn verify <b>-DcontainerId=tomcat6x -Dmaven.test.skip=true -P press-key-to-shutdown-server</b></tt></p>
+	
+	<h4>Run Selenium server only</h4>
+	<p class="indent"><tt>$ mvn verify <b>-P 'press-key-to-shutdown-server,local-selenim-session,!integration-test,!container-demoapp-deployable-dependency'</b></tt></p>
+	
+	<h4>Run integration test suite only</h4>
+	<p>If you have already running selenium server and container, you can just run a test suite:</p>
+	<p class="indent"><tt>$ mvn verify -Dbrowser="*firefox" <b>-P '!local-selenium-session,!container-demoapp-deployable-dependency'</b></tt></p>
+</body>
+</html>

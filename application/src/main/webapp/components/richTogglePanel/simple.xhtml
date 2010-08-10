@@ -1,0 +1,117 @@
+<!--
+JBoss, Home of Professional Open Source
+Copyright 2010, Red Hat, Inc. and individual contributors
+by the @authors tag. See the copyright.txt in the distribution for a
+full listing of individual contributors.
+
+This is free software; you can redistribute it and/or modify it
+under the terms of the GNU Lesser General Public License as
+published by the Free Software Foundation; either version 2.1 of
+the License, or (at your option) any later version.
+
+This software is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public
+License along with this software; if not, write to the Free
+Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
+02110-1301 USA, or see the FSF site: http://www.fsf.org.
+-->
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:metamer="http://java.sun.com/jsf/composite/metamer"
+      xmlns:rich="http://richfaces.org/rich">
+
+    <ui:composition template="/templates/template.xhtml">
+
+        <ui:define name="head">
+            <f:metadata>
+                <f:viewParam name="templates" value="#{templateBean.templates}">
+                    <f:converter converterId="templatesListConverter" />
+                </f:viewParam>
+            </f:metadata>
+        </ui:define>
+
+        <ui:define name="outOfTemplateBefore">
+        </ui:define>
+
+        <ui:define name="component">
+            
+            <h:commandLink value="Toggle Panel Item 1">
+                <rich:toggleControl forPanel="richTogglePanel" targetItem="item1" />
+            </h:commandLink>
+            <h:outputText value=" | " />
+            <h:commandLink value="Toggle Panel Item 2">
+                <rich:toggleControl forPanel="richTogglePanel" targetItem="item2" />
+            </h:commandLink>
+            <h:outputText value=" | " />
+            <h:commandLink value="Toggle Panel Item 3">
+                <rich:toggleControl forPanel="richTogglePanel" targetItem="item3" />
+            </h:commandLink>
+
+            <br/><br/>
+
+            <rich:togglePanel id="richTogglePanel"
+                              activeItem="#{richTogglePanelBean.attributes['activeItem'].value}"
+                              bypassUpdates="#{richTogglePanelBean.attributes['bypassUpdates'].value}"
+                              converter="#{richTogglePanelBean.attributes['converter'].value}"
+                              data="#{richTogglePanelBean.attributes['data'].value}"
+                              dir="#{richTogglePanelBean.attributes['dir'].value}"
+                              execute="#{richTogglePanelBean.attributes['execute'].value}"
+                              firstItem="#{richTogglePanelBean.attributes['firstItem'].value}"
+                              immediate="#{richTogglePanelBean.attributes['immediate'].value}"
+                              itemByIndex="#{richTogglePanelBean.attributes['itemByIndex'].value}"
+                              itemChangeListener="#{richTogglePanelBean.attributes['itemChangeListener'].value}"
+                              itemChangeListeners="#{richTogglePanelBean.attributes['itemChangeListeners'].value}"
+                              lang="#{richTogglePanelBean.attributes['lang'].value}"
+                              lastItem="#{richTogglePanelBean.attributes['lastItem'].value}"
+                              limitToList="#{richTogglePanelBean.attributes['limitToList'].value}"
+                              localValue="#{richTogglePanelBean.attributes['localValue'].value}"
+                              localValueSet="#{richTogglePanelBean.attributes['localValueSet'].value}"
+                              nextItem="#{richTogglePanelBean.attributes['nextItem'].value}"
+                              onbeforedomupdate="#{richTogglePanelBean.attributes['onbeforedomupdate'].value}"
+                              onclick="#{richTogglePanelBean.attributes['onclick'].value}"
+                              oncomplete="#{richTogglePanelBean.attributes['oncomplete'].value}"
+                              ondblclick="#{richTogglePanelBean.attributes['ondblclick'].value}"
+                              onitemchange="#{richTogglePanelBean.attributes['onitemchange'].value}"
+                              onitemchanged="#{richTogglePanelBean.attributes['onitemchanged'].value}"
+                              onmousedown="#{richTogglePanelBean.attributes['onmousedown'].value}"
+                              onmousemove="#{richTogglePanelBean.attributes['onmousemove'].value}"
+                              onmouseout="#{richTogglePanelBean.attributes['onmouseout'].value}"
+                              onmouseover="#{richTogglePanelBean.attributes['onmouseover'].value}"
+                              onmouseup="#{richTogglePanelBean.attributes['onmouseup'].value}"
+                              prevItem="#{richTogglePanelBean.attributes['prevItem'].value}"
+                              render="#{richTogglePanelBean.attributes['render'].value}"
+                              rendered="#{richTogglePanelBean.attributes['rendered'].value}"
+                              required="#{richTogglePanelBean.attributes['required'].value}"
+                              status="#{richTogglePanelBean.attributes['status'].value}"
+                              style="#{richTogglePanelBean.attributes['style'].value}"
+                              styleClass="#{richTogglePanelBean.attributes['styleClass'].value}"
+                              submittedActiveItem="#{richTogglePanelBean.attributes['submittedActiveItem'].value}"
+                              submittedValue="#{richTogglePanelBean.attributes['submittedValue'].value}"
+                              switchType="#{richTogglePanelBean.attributes['switchType'].value}"
+                              title="#{richTogglePanelBean.attributes['title'].value}"
+                              valid="#{richTogglePanelBean.attributes['valid'].value}"
+                              value="#{richTogglePanelBean.attributes['value'].value}"
+                              >
+                <rich:togglePanelItem id="item1" name="item1">
+                    <p>content of panel 1</p>
+                </rich:togglePanelItem>
+                <rich:togglePanelItem id="item2" name="item2">
+                    <p>content of panel 2</p>
+                </rich:togglePanelItem>
+                <rich:togglePanelItem id="item3" name="item3">
+                    <p>content of panel 3</p>
+                </rich:togglePanelItem>
+            </rich:togglePanel>
+        </ui:define>
+
+        <ui:define name="outOfTemplateAfter">
+            <metamer:attributes value="#{richTogglePanelBean.attributes}" id="attributes" />
+        </ui:define>
+
+    </ui:composition>
+</html>

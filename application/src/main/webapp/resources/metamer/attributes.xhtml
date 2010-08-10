@@ -1,0 +1,50 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" 
+      xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:composite="http://java.sun.com/jsf/composite">
+
+    <h:body>
+        <composite:interface>
+            <composite:attribute name="id" type="java.lang.String" />
+            <composite:attribute name="value" type="org.richfaces.tests.metamer.Attributes" required="true"
+                                 shortDescription="Representation of attributes of a component." />
+            <composite:attribute name="render" />
+            <composite:attribute name="columns" default="2" type="int" shortDescription="some description for columns" />
+        </composite:interface>
+
+        <composite:implementation>
+
+            <h:outputStylesheet library="metamer/css" name="attributes.ecss" />
+
+            <h:panelGrid id="#{cc.attrs.id}" columns="#{cc.attrs.columns * 2}" styleClass="attributes"
+                         columnClasses="attributes-first-column, attributes-second-column, attributes-first-column, attributes-second-column">
+                <c:forEach items="#{cc.attrs.value}" var="entry">
+                    <h:panelGroup layout="block">
+                        <h:outputLabel id="#{entry.key}Label" value="#{entry.key}" style="margin-right: 5px;" />
+                        <h:graphicImage value="/resources/images/help.png" title="#{entry.value.help}"
+                                        rendered="#{entry.value.help != null}" height="28px;"
+                                        style="vertical-align: middle;" styleClass="attribute-help" >
+                        </h:graphicImage>
+                    </h:panelGroup>
+
+                    <c:choose>
+                        <c:when test="#{entry.value.boolean}">
+                            <h:selectBooleanCheckbox id="#{entry.key}Input" value="#{entry.value.value}" onchange="submit()" />
+                        </c:when>
+
+                        <c:when test="#{entry.value.selectOptions != null}">
+                            <h:selectOneRadio id="#{entry.key}Input" value="#{entry.value.value}" onchange="submit()"
+                                              layout="pageDirection">
+                                <f:selectItems value="#{entry.value.selectOptions}" />
+                            </h:selectOneRadio>
+                        </c:when>
+
+                        <c:otherwise>
+                            <h:inputText id="#{entry.key}Input" value="#{entry.value.value}" style="width: 200px;" onchange="submit()" />
+                        </c:otherwise>
+                    </c:choose>
+
+                </c:forEach>
+            </h:panelGrid>
+        </composite:implementation>
+    </h:body>
+</html>

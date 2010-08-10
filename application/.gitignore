@@ -1,0 +1,9 @@
+/.checkstyle
+/.classpath
+/.project
+/.settings
+/target
+/profiles.xml
+/nbactions.xml
+/faces-config.NavData
+/nb-configuration.xml

@@ -1,0 +1,12 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="seleniumTest">
+
+    <test name="Component Tests">
+        <parameter name="templates" value="plain richDataTable1,redDiv richDataTable2,redDiv a4jRepeat1 a4jRepeat2 hDataTable1 hDataTable2 uiRepeat1 uiRepeat2"/>
+        <packages>
+            <package name="org.richfaces.tests.metamer.ftest" />
+        </packages>
+    </test>
+
+</suite>
+

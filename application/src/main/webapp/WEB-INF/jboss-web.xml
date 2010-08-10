@@ -1,0 +1,3 @@
+<jboss-web>
+    <context-root>metamer</context-root>
+</jboss-web>
