@@ -107,22 +107,7 @@
             </dependency>
             <dependency>
                 <groupId>org.richfaces.ui</groupId>
-                <artifactId>richfaces-components-bom</artifactId>
-                <version>${version.richfaces}</version>
-                <scope>import</scope>
-                <type>pom</type>
-            </dependency>
-            <dependency>
-                <groupId>org.richfaces.ui.iteration</groupId>
-                <artifactId>richfaces-ui-iteration-bom</artifactId>
-                <version>${version.richfaces}</version>
-                <scope>import</scope>
-                <type>pom</type>
-            </dependency>
-            
-            <dependency>
-                <groupId>org.richfaces.ui.output</groupId>
-                <artifactId>richfaces-ui-output-bom</artifactId>
+                <artifactId>richfaces-ui-parent</artifactId>
                 <version>${version.richfaces}</version>
                 <scope>import</scope>
                 <type>pom</type>

@@ -44,18 +44,19 @@
         <dependency>
             <groupId>org.richfaces.ui</groupId>
             <artifactId>richfaces-components-ui</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.richfaces.ui.iteration</groupId>
-            <artifactId>richfaces-ui-iteration-ui</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.richfaces.ui.output</groupId>
-            <artifactId>richfaces-ui-output-ui</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.richfaces.ui.misc</groupId>
-            <artifactId>richfaces-ui-misc-ui</artifactId>
+            <!-- Mojarra has to be excluded because we want to be able to create also
+            binaries with MyFaces
+            see https://jira.jboss.org/browse/RFPL-719 -->
+            <exclusions>
+                <exclusion>
+                    <groupId>com.sun.faces</groupId>
+                    <artifactId>jsf-api</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>com.sun.faces</groupId>
+                    <artifactId>jsf-impl</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>org.richfaces.cdk</groupId>
@@ -258,62 +259,6 @@
                         <artifactId>maven-war-plugin</artifactId>
                         <configuration>
                             <webappDirectory>${project.build.directory}/${project.build.finalName}-jee6
-                            </webappDirectory>
-                        </configuration>
-                    </plugin>
-                </plugins>
-            </build>
-
-            <dependencies>
-                <dependency>
-                    <groupId>${jsf2.api.groupid}</groupId>
-                    <artifactId>${jsf2.api.artifactid}</artifactId>
-                    <scope>provided</scope>
-                </dependency>
-                <dependency>
-                    <groupId>${jsf2.impl.groupid}</groupId>
-                    <artifactId>${jsf2.impl.artifactid}</artifactId>
-                    <scope>provided</scope>
-                </dependency>
-                <dependency>
-                    <groupId>javax.transaction</groupId>
-                    <artifactId>jta</artifactId>
-                    <version>1.1</version>
-                    <scope>provided</scope>
-                </dependency>
-
-                <dependency>
-                    <groupId>javax.el</groupId>
-                    <artifactId>el-api</artifactId>
-                    <scope>provided</scope>
-                </dependency>
-
-                <dependency>
-                    <groupId>org.slf4j</groupId>
-                    <artifactId>slf4j-api</artifactId>
-                    <scope>provided</scope>
-                </dependency>
-                <dependency>
-                    <groupId>org.slf4j</groupId>
-                    <artifactId>slf4j-log4j12</artifactId>
-                    <scope>provided</scope>
-                </dependency>
-                <dependency>
-                    <groupId>log4j</groupId>
-                    <artifactId>log4j</artifactId>
-                    <version>1.2.16</version>
-                    <scope>provided</scope>
-                </dependency>
-            </dependencies>
-        </profile>
-        <profile>
-            <id>glassfish3</id>
-            <build>
-                <plugins>
-                    <plugin>
-                        <artifactId>maven-war-plugin</artifactId>
-                        <configuration>
-                            <webappDirectory>${project.build.directory}/${project.build.finalName}-glassfish3
                             </webappDirectory>
                         </configuration>
                     </plugin>
