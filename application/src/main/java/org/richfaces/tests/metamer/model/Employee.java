@@ -32,8 +32,6 @@ import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
-import org.richfaces.event.ToggleEvent;
-
 /**
  * Java bean representing an employee.
  *
@@ -52,7 +50,6 @@ public class Employee implements Serializable {
     private String name;
     private String title;
     private List <Company> companies;
-    private boolean expand;
     private List<String[]> phones = new ArrayList<String[]>();
     private Date birthdate;
     private Color favoriteColor;
@@ -187,18 +184,6 @@ public class Employee implements Serializable {
         hash = hash * 17 + title.hashCode();
         hash = hash * 17 + (companies == null ? 0 : companies.hashCode());
         return hash;
-    }
-
-    public void toggle(ToggleEvent event) {
-        this.expand = event.isExpanded();
-    }
-
-    public boolean isExpand() {
-        return expand;
-    }
-
-    public void setExpand(boolean expand) {
-        this.expand = expand;
     }
 
 }
