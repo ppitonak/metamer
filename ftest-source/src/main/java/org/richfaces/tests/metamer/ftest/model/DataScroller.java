@@ -41,7 +41,7 @@ public class DataScroller extends AbstractModel<JQueryLocator> {
 
     protected static final String CLASS_DISABLED = "rf-ds-dis";
 
-    AjaxSelenium selenium = AjaxSeleniumProxy.getInstance();
+    protected AjaxSelenium selenium = AjaxSeleniumProxy.getInstance();
 
     ReferencedLocator<JQueryLocator> numberedPages = ref(root, "> .rf-ds-dtl");
     ReferencedLocator<JQueryLocator> specificNumberedPage = ref(root, "> .rf-ds-dtl:textEquals('{0}')");
