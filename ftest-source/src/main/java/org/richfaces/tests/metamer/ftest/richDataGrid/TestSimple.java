@@ -21,12 +21,16 @@
  *******************************************************************************/
 package org.richfaces.tests.metamer.ftest.richDataGrid;
 
+import static java.lang.Math.ceil;
+import static java.lang.Math.max;
+import static java.lang.Math.min;
 import static org.jboss.test.selenium.guard.request.RequestTypeGuardFactory.guardHttp;
+import static org.jboss.test.selenium.locator.LocatorFactory.jq;
 import static org.jboss.test.selenium.utils.URLUtils.buildUrl;
-import static java.lang.Math.*;
+import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.fail;
 
 import java.net.URL;
-import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
@@ -40,15 +44,8 @@ import org.richfaces.tests.metamer.ftest.annotations.Inject;
 import org.richfaces.tests.metamer.ftest.annotations.Use;
 import org.richfaces.tests.metamer.ftest.model.DataGrid;
 import org.richfaces.tests.metamer.model.Capital;
-import org.richfaces.util.CollectionsUtils;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-
-import com.google.inject.internal.Collections2;
-import com.google.inject.internal.cglib.core.CollectionUtils;
-
-import static org.jboss.test.selenium.locator.LocatorFactory.*;
-import static org.testng.Assert.*;
 
 /**
  * @author <a href="mailto:lfryc@redhat.com">Lukas Fryc</a>
