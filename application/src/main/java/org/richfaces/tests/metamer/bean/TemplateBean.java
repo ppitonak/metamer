@@ -46,6 +46,7 @@ public class TemplateBean implements Serializable {
     private List<String> dataTableModel = new ArrayList<String>();
     private TemplatesList templates;
     private int templateIndex = 0;
+    private boolean renderForm;
 
     @PostConstruct
     public void init() {
@@ -54,6 +55,8 @@ public class TemplateBean implements Serializable {
         dataTableModel.add("row 2");
         dataTableModel.add("row 3");
         dataTableModel.add("row 4");
+
+        renderForm = true;
     }
 
     /**
@@ -99,4 +102,13 @@ public class TemplateBean implements Serializable {
     public String getNextTemplate() {
         return templates.get(++templateIndex).toString();
     }
+
+    public boolean isRenderForm() {
+        return renderForm;
+    }
+
+    public void setRenderForm(boolean renderForm) {
+        this.renderForm = renderForm;
+    }
+    
 }
