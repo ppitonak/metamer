@@ -27,18 +27,54 @@ import java.net.URL;
 
 import javax.xml.bind.JAXBException;
 
+import org.jboss.test.selenium.locator.JQueryLocator;
+import org.richfaces.tests.metamer.ftest.annotations.Inject;
 import org.richfaces.tests.metamer.ftest.annotations.Use;
+import org.richfaces.tests.metamer.ftest.model.DataScroller;
+import org.richfaces.tests.metamer.ftest.richDataScroller.PaginationTester;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 /**
  * @author <a href="mailto:lfryc@redhat.com">Lukas Fryc</a>
  * @version $Revision$
  */
-@Use(field = "elements", ints = { 7 })
+@Use(field = "elements", ints = 7)
 public class TestPagination extends AbstractDataGridTest {
+
+    @Inject
+    @Use("dataScrollerLocator*")
+    JQueryLocator dataScrollerLocator;
+    JQueryLocator dataScrollerLocator1 = PaginationTester.DATA_SCROLLER_OUTSIDE_TABLE;
+    JQueryLocator dataScrollerLocator2 = PaginationTester.DATA_SCROLLER_IN_TABLE_FOOTER;
+
+    PaginationTester paginationTester = new PaginationTester() {
+
+        @Override
+        protected void verifyBeforeScrolling() {
+        }
+
+        @Override
+        protected void verifyAfterScrolling() {
+            page = getDataScroller().getCurrentPage();
+            lastPage = getDataScroller().getLastPage();
+            verifyGrid();
+        }
+    };
+
+    DataScroller dataScroller = paginationTester.getDataScroller();
 
     public TestPagination() throws JAXBException {
         super();
+    }
+
+    @BeforeMethod
+    public void setupDataScroller() {
+        dataScroller.setRoot(dataScrollerLocator);
+
+        int lastPage = dataScroller.obtainLastPage();
+        dataScroller.setLastPage(lastPage);
+        paginationTester.initializeTestedPages(lastPage);
     }
 
     @Override
@@ -47,7 +83,21 @@ public class TestPagination extends AbstractDataGridTest {
     }
 
     @Test
-    public void testPagination() {
-        
+    @Use(field = "columns", ints = { 1, 3, 11, ELEMENTS_TOTAL / 2, ELEMENTS_TOTAL - 1, ELEMENTS_TOTAL,
+        ELEMENTS_TOTAL + 1 })
+    public void testColumnsAttribute() {
+        paginationTester.testNumberedPages();
+    }
+
+    @Test
+    @Use(field = "elements", ints = { 0, 1, ELEMENTS_TOTAL / 2, ELEMENTS_TOTAL - 1, ELEMENTS_TOTAL, ELEMENTS_TOTAL + 1 })
+    public void testElementsAttribute() {
+        paginationTester.testNumberedPages();
+    }
+
+    @Test
+    @Use(field = "first", ints = { 0, 1, ELEMENTS_TOTAL / 2, ELEMENTS_TOTAL - 1, ELEMENTS_TOTAL, ELEMENTS_TOTAL + 1 })
+    public void testFirstAttribute() {
+        paginationTester.testNumberedPages();
     }
 }

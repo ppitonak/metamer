@@ -24,15 +24,17 @@ package org.richfaces.tests.metamer.ftest.richDataScroller;
 import static org.jboss.test.selenium.guard.request.RequestTypeGuardFactory.guardHttp;
 import static org.jboss.test.selenium.locator.LocatorFactory.id;
 import static org.jboss.test.selenium.utils.URLUtils.buildUrl;
-import static org.testng.Assert.*;
+import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.assertFalse;
 
 import java.net.URL;
 
 import org.jboss.test.selenium.locator.IdLocator;
+import org.jboss.test.selenium.locator.JQueryLocator;
 import org.richfaces.tests.metamer.ftest.AbstractMetamerTest;
 import org.richfaces.tests.metamer.ftest.annotations.Inject;
 import org.richfaces.tests.metamer.ftest.annotations.Use;
-import org.richfaces.tests.metamer.ftest.model.AssertingDataScroller;
+import org.richfaces.tests.metamer.ftest.model.DataScroller;
 import org.richfaces.tests.metamer.ftest.model.DataTable;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -45,19 +47,6 @@ import org.testng.annotations.Test;
  */
 public class TestPagination extends AbstractMetamerTest {
 
-    private static final int[] PAGES = new int[] { 3, 6, 1, 4, 6, 2, 4, 5 };
-
-    @Inject
-    @Use(value = { "dataScroller*" })
-    AssertingDataScroller dataScroller;
-    AssertingDataScroller dataScroller1 = new AssertingDataScroller("outside-table", pjq("span.rf-ds[id$=scroller1]"));
-    AssertingDataScroller dataScroller2 = new AssertingDataScroller("in-table-footer", pjq("span.rf-ds[id$=scroller2]"));
-
-    IdLocator attributeFastStep = id("form:attributes:fastStepInput");
-    IdLocator attributeMaxPages = id("form:attributes:maxPagesInput");
-
-    DataTable dataTable = new DataTable(pjq("table.rf-dt[id$=richDataTable]"));
-
     @Inject
     @Use(ints = { 2, 3 })
     int fastStep;
@@ -66,8 +55,33 @@ public class TestPagination extends AbstractMetamerTest {
     @Use(ints = { 3, 4 })
     int maxPages;
 
-    public TestPagination() {
-    }
+    @Inject
+    @Use("dataScrollerLocator*")
+    JQueryLocator dataScrollerLocator;
+    JQueryLocator dataScrollerLocator1 = PaginationTester.DATA_SCROLLER_OUTSIDE_TABLE;
+    JQueryLocator dataScrollerLocator2 = PaginationTester.DATA_SCROLLER_IN_TABLE_FOOTER;
+
+    PaginationTester paginationTester = new PaginationTester() {
+
+        @Override
+        protected void verifyBeforeScrolling() {
+            tableText = dataTable.getTableText();
+        }
+
+        @Override
+        protected void verifyAfterScrolling() {
+            assertFalse(tableText.equals(dataTable.getTableText()));
+            assertEquals(maxPages, dataScroller.getCountOfVisiblePages());
+        }
+    };
+
+    IdLocator attributeFastStep = id("form:attributes:fastStepInput");
+    IdLocator attributeMaxPages = id("form:attributes:maxPagesInput");
+
+    DataScroller dataScroller = paginationTester.getDataScroller();
+    DataTable dataTable = new DataTable(pjq("table.rf-dt[id$=richDataTable]"));
+
+    String tableText;
 
     @Override
     public URL getTestUrl() {
@@ -75,21 +89,20 @@ public class TestPagination extends AbstractMetamerTest {
     }
 
     @BeforeMethod
-    public void prepareAttributes() {
+    public void prepareComponent() {
         guardHttp(selenium).type(attributeFastStep, String.valueOf(fastStep));
         guardHttp(selenium).type(attributeMaxPages, String.valueOf(maxPages));
+
+        dataScroller.setRoot(dataScrollerLocator);
+        dataScroller.setFastStep(fastStep);
+
+        int lastPage = dataScroller.obtainLastPage();
+        dataScroller.setLastPage(lastPage);
+        paginationTester.initializeTestedPages(lastPage);
     }
 
     @Test
-    public void testNumberedPagesWithMaxPagesAndFastStep() {
-        dataScroller.setFastStep(fastStep);
-        dataScroller.setLastPage(dataScroller.getLastPage());
-
-        for (int pageNumber : PAGES) {
-            String tableText = dataTable.getTableText();
-            dataScroller.gotoPage(pageNumber);
-            assertFalse(tableText.equals(dataTable.getTableText()));
-            assertEquals(maxPages, dataScroller.getCountOfVisiblePages());
-        }
+    public void testNumberedPages() {
+        paginationTester.testNumberedPages();
     }
 }

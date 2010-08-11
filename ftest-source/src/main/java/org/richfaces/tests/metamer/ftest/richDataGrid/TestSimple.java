@@ -49,21 +49,18 @@ public class TestSimple extends AbstractDataGridTest {
     @Use(field = "columns", ints = { 1, 3, 11, ELEMENTS_TOTAL / 2, ELEMENTS_TOTAL - 1, ELEMENTS_TOTAL,
         ELEMENTS_TOTAL + 1 })
     public void testColumnsAttribute() {
-        verifyCounts();
-        verifyElements();
+        verifyGrid();
     }
 
     @Test
     @Use(field = "elements", ints = { 0, 1, ELEMENTS_TOTAL / 2, ELEMENTS_TOTAL - 1, ELEMENTS_TOTAL, ELEMENTS_TOTAL + 1 })
     public void testElementsAttribute() {
-        verifyCounts();
-        verifyElements();
+        verifyGrid();
     }
 
     @Test
     @Use(field = "first", ints = { 0, 1, ELEMENTS_TOTAL / 2, ELEMENTS_TOTAL - 1, ELEMENTS_TOTAL, ELEMENTS_TOTAL + 1 })
     public void testFirstAttribute() {
-        verifyCounts();
-        verifyElements();
+        verifyGrid();
     }
 }

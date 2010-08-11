@@ -24,6 +24,7 @@ package org.richfaces.tests.metamer.ftest.model;
 
 import static org.jboss.test.selenium.guard.request.RequestTypeGuardFactory.guardXhr;
 import static org.jboss.test.selenium.locator.reference.ReferencedLocator.ref;
+import static org.jboss.test.selenium.utils.text.SimplifiedFormat.format;
 
 import org.jboss.test.selenium.framework.AjaxSelenium;
 import org.jboss.test.selenium.framework.AjaxSeleniumProxy;
@@ -69,8 +70,16 @@ public class DataScroller extends AbstractModel<JQueryLocator> {
         this.fastStep = fastStep;
     }
 
+    public Integer getFastStep() {
+        return fastStep;
+    }
+
     public void setLastPage(int pageNumber) {
         this.lastPage = pageNumber;
+    }
+
+    public Integer getLastPage() {
+        return lastPage;
     }
 
     public void gotoFirstPage() {
@@ -86,18 +95,25 @@ public class DataScroller extends AbstractModel<JQueryLocator> {
     }
 
     public void gotoPage(int pageNumber) {
+        if (lastPage != null && (pageNumber < 1 || pageNumber > lastPage)) {
+            throw new IllegalStateException(format("The given pageNumber '{0}' is out of range of pages <1,{1}>", pageNumber, lastPage));
+        }
         while (pageNumber > getLastVisiblePage()) {
-            fastForward();
+            fastForward(pageNumber);
         }
 
         while (pageNumber < getFirstVisiblePage()) {
-            fastRewind();
+            fastRewind(pageNumber);
+        }
+        
+        if (pageNumber == getCurrentPage()) {
+            return;
         }
 
         clickPageButton(pageNumber);
     }
 
-    public void fastForward() {
+    public void fastForward(Integer pageNumber) {
         if (selenium.belongsClass(fastForwardButton, CLASS_DISABLED)) {
             if (fastStep != null && lastPage != null) {
                 if (getCurrentPage() + fastStep > lastPage) {
@@ -109,11 +125,21 @@ public class DataScroller extends AbstractModel<JQueryLocator> {
                 gotoPage(getLastVisiblePage());
             }
         } else {
+            if (pageNumber != null && lastPage != null) {
+                if (Math.abs(getLastVisiblePage() - pageNumber) > Math.abs(lastPage - pageNumber)) {
+                    clickLastPageButton();
+                    return;
+                }
+            }
+            if (fastStep == null) {
+                gotoPage(getLastVisiblePage());
+                return;
+            }
             clickFastForward();
         }
     }
 
-    public void fastRewind() {
+    public void fastRewind(Integer pageNumber) {
         if (selenium.belongsClass(fastRewindButton, CLASS_DISABLED)) {
             if (fastStep != null) {
                 if (getCurrentPage() - fastStep <= 0) {
@@ -125,7 +151,18 @@ public class DataScroller extends AbstractModel<JQueryLocator> {
                 gotoPage(getFirstVisiblePage());
             }
         } else {
+            if (pageNumber != null) {
+                if (Math.abs(getFirstVisiblePage() - pageNumber) > pageNumber) {
+                    clickFirstPageButton();
+                    return;
+                }
+            }
+            if (fastStep == null) {
+                gotoPage(getFirstVisiblePage());
+                return;
+            }
             clickFastRewind();
+
         }
     }
 
@@ -151,7 +188,10 @@ public class DataScroller extends AbstractModel<JQueryLocator> {
         return integer(selenium.getText(lastVisiblePage));
     }
 
-    public int getLastPage() {
+    public int obtainLastPage() {
+        if (!hasPages()) {
+            return 1;
+        }
         int startPage = getCurrentPage();
         clickLastPageButton();
         int lastPage = getCurrentPage();

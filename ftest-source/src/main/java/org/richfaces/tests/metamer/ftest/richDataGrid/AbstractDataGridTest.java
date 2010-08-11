@@ -72,6 +72,13 @@ public abstract class AbstractDataGridTest extends AbstractMetamerTest {
     @Use(empty = true)
     Integer first;
 
+    int expectedFirst;
+    int expectedElements;
+    int expectedColumns;
+    double expectedRows;
+    int page = 1;
+    int lastPage = 1;
+
     @SuppressWarnings("restriction")
     public AbstractDataGridTest() throws JAXBException {
         capitals = Model.unmarshallCapitals();
@@ -89,31 +96,72 @@ public abstract class AbstractDataGridTest extends AbstractMetamerTest {
         guardHttp(selenium).type(inputLocator, v);
     }
 
-    protected void verifyCounts() {
-        int nFirst = first == null ? 0 : min(ELEMENTS_TOTAL, max(0, first));
-        int nElements = (elements == null ? ELEMENTS_TOTAL : min(elements, ELEMENTS_TOTAL)) - nFirst;
-        int nColumns = columns;
-        double nRows = ceil((float) nElements / columns);
+    protected void verifyGrid() {
+        countExpectedValues();
+        verifyCounts();
+        verifyElements();
+    }
 
-        assertEquals(dataGrid.getElementCount(), (int) nElements);
-        assertEquals(dataGrid.getColumnCount(), (int) nColumns);
-        assertEquals(dataGrid.getRowCount(), (int) nRows);
+    protected void verifyCounts() {
+        try {
+            assertEquals(dataGrid.getElementCount(), (int) expectedElements, "elements");
+            assertEquals(dataGrid.getColumnCount(), (int) expectedColumns, "columns");
+            assertEquals(dataGrid.getRowCount(), (int) expectedRows, "rows");
+        } catch (AssertionError e) {
+            throw e;
+        }
     }
 
     protected void verifyElements() {
-        int nFirst = first == null ? 0 : min(ELEMENTS_TOTAL, max(0, first));
-        int nElements = (elements == null ? ELEMENTS_TOTAL : min(elements, ELEMENTS_TOTAL)) - nFirst;
+        int elementNumber;
+        try {
+            Iterator<Capital> capitalIterator = getExpectedCapitalsIterator();
+            Iterator<JQueryLocator> elementIterator = dataGrid.iterateElements();
 
-        Iterator<Capital> capitalIterator = capitals.subList(nFirst, nFirst + nElements).iterator();
-        Iterator<JQueryLocator> elementIterator = dataGrid.iterateElements();
-
-        while (capitalIterator.hasNext()) {
-            final Capital capital = capitalIterator.next();
-            if (!elementIterator.hasNext()) {
-                fail("there should be next element for state name: " + capital.getState());
+            elementNumber = 1;
+            while (capitalIterator.hasNext()) {
+                final Capital capital = capitalIterator.next();
+                if (!elementIterator.hasNext()) {
+                    fail("there should be next element for state name: " + capital.getState());
+                }
+                elementNumber += 1;
+                final JQueryLocator element = elementIterator.next().getChild(jq("span"));
+                assertEquals(selenium.getText(element), capital.getState());
             }
-            final JQueryLocator element = elementIterator.next().getChild(jq("span"));
-            assertEquals(selenium.getText(element), capital.getState());
+        } catch (AssertionError e) {
+            throw e;
         }
+    }
+
+    protected void countExpectedValues() {
+        if (elements == null) {
+            elements = ELEMENTS_TOTAL;
+        }
+
+        if (first == null) {
+            first = 0;
+        }
+
+        int firstOnPage = ((page - 1) * elements);
+        int firstInRange = min(ELEMENTS_TOTAL, max(0, first));
+
+        expectedFirst = firstOnPage + firstInRange;
+
+        int elementsInRange = min(elements, ELEMENTS_TOTAL);
+        expectedElements = elementsInRange;
+        if (page == lastPage) {
+            if (elements == 0) {
+                expectedElements = ELEMENTS_TOTAL - expectedFirst;
+            } else {
+                expectedElements = min(elements, ELEMENTS_TOTAL - expectedFirst);
+            }
+        }
+
+        expectedRows = ceil((float) expectedElements / columns);
+        expectedColumns = columns;
+    }
+
+    private Iterator<Capital> getExpectedCapitalsIterator() {
+        return capitals.subList(expectedFirst, expectedFirst + expectedElements).iterator();
     }
 }
