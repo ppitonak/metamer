@@ -21,6 +21,10 @@
  *******************************************************************************/
 package org.richfaces.tests.metamer.ftest;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import org.apache.commons.lang.StringUtils;
 import org.jboss.test.selenium.listener.FailureLoggingTestListener;
 import org.jboss.test.selenium.utils.testng.TestInfo;
 import org.testng.ITestResult;
@@ -35,7 +39,17 @@ public class MetamerFailureLoggingTestListener extends FailureLoggingTestListene
         String packageName = TestInfo.getContainingPackageName(result);
         String className = TestInfo.getClassName(result);
         String methodName = TestInfo.getMethodName(result);
-        String testInfo = MetamerTestInfo.getConfigurationInfo().replaceAll(" ", "");
+
+        String testInfo = MetamerTestInfo.getConfigurationInfo();
+        testInfo = StringUtils.replaceChars(testInfo, "\\/*?\"<>|", "");
+        testInfo = StringUtils.replaceChars(testInfo, "\r\n \t", "_");
+        testInfo = StringUtils.replaceChars(testInfo, ":", "-");
+
+        // derives template and sort it as sub-directory after other attributes
+        Matcher matcher = Pattern.compile("^(template-[^,]+),(.*)$").matcher(testInfo);
+        if (matcher.find()) {
+            testInfo = matcher.group(2) + "/" + matcher.group(1);
+        }
 
         return packageName + "/" + className + "/" + methodName + "/" + testInfo;
     }

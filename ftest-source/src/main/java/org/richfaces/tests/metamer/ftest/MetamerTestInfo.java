@@ -22,8 +22,14 @@
 package org.richfaces.tests.metamer.ftest;
 
 import java.lang.reflect.Field;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+
+import org.apache.commons.lang.StringUtils;
 
 /**
  * @author <a href="mailto:ppitonak@redhat.com">Lukas Fryc</a>
@@ -35,22 +41,32 @@ public final class MetamerTestInfo {
 
     public static String getConfigurationInfo() {
         Map<Field, Object> configuration = MatrixConfigurator.getCurrentConfiguration();
-        StringBuffer info = new StringBuffer();
+
+        List<String> info = new LinkedList<String>();
         if (!configuration.isEmpty()) {
             for (Entry<Field, Object> entry : configuration.entrySet()) {
                 final String name = entry.getKey().getName();
                 final Object value = entry.getValue();
 
                 if (value != null) {
-                    if (info.length() > 0) {
-                        info.append(", ");
-                    }
-                    info.append(name + ": " + value);
+                    info.add(name + ": " + value);
                 }
             }
         }
 
-        return info.toString();
+        Collections.sort(info, new Comparator<String>() {
+            public int compare(String o1, String o2) {
+                if (o1.startsWith("template: ")) {
+                    return -1;
+                }
+                if (o2.startsWith("template: ")) {
+                    return 1;
+                }
+                return o1.length() - o2.length();
+            }
+        });
+
+        return StringUtils.join(info, ", ");
     }
 
     public static String getConfigurationInfoInParenthesses() {
