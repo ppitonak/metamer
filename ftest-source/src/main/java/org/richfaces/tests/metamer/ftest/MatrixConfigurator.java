@@ -283,11 +283,12 @@ public class MatrixConfigurator extends TestMethodSelector implements IAnnotatio
         Object testInstance = getTestInstance(testClass);
         for (int i = 0; i < useAnnotation.value().length; i++) {
             boolean satisfied = false;
-            for (Field field : testClass.getDeclaredFields()) {
-                String name = useAnnotation.value()[i];
-                name = StringUtils.replace(name, "*", ".+");
-                name = StringUtils.replace(name, "?", ".");
-                Pattern pattern = Pattern.compile(name);
+            String namePattern = useAnnotation.value()[i];
+            namePattern = StringUtils.replace(namePattern, "*", ".+");
+            namePattern = StringUtils.replace(namePattern, "?", ".");
+            
+            for (Field field : getAllFields(testClass)) { 
+                Pattern pattern = Pattern.compile(namePattern);
                 if (pattern.matcher(field.getName()).matches()) {
                     boolean isArray = field.getType().isArray();
                     Class<?> representedType;
@@ -311,7 +312,7 @@ public class MatrixConfigurator extends TestMethodSelector implements IAnnotatio
             if (satisfied) {
                 continue;
             }
-            throw new IllegalStateException("cannot find the field satysfying injection point");
+            throw new IllegalStateException("cannot find the field satysfying injection point with name pattern: " + useAnnotation.value()[i]);
         }
         return result;
     }
