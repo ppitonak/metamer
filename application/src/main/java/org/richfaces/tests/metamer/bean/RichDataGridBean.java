@@ -78,6 +78,7 @@ public class RichDataGridBean implements Serializable {
         attributes.remove("rowData");
         attributes.remove("rowIndex");
         attributes.remove("rowKey");
+        attributes.remove("relativeRowIndex");
     }
 
     public Attributes getAttributes() {
