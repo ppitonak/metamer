@@ -66,10 +66,18 @@ public class RichDataGridBean implements Serializable {
         // TODO has to be tested in other way
         attributes.remove("componentState");
         attributes.remove("rowKeyVar");
+        attributes.remove("rowKeyConverter");
         attributes.remove("stateVar");
         attributes.remove("value");
         attributes.remove("var");
-
+        
+        // should be hidden
+        attributes.remove("rows");
+        attributes.remove("rowAvailable");
+        attributes.remove("rowCount");
+        attributes.remove("rowData");
+        attributes.remove("rowIndex");
+        attributes.remove("rowKey");
     }
 
     public Attributes getAttributes() {
