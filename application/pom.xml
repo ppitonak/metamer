@@ -43,6 +43,10 @@
         <!-- RichFaces 4 -->
         <dependency>
             <groupId>org.richfaces.ui</groupId>
+            <artifactId>richfaces-components-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.richfaces.ui</groupId>
             <artifactId>richfaces-components-ui</artifactId>
             <!-- Mojarra has to be excluded because we want to be able to create also
             binaries with MyFaces
