@@ -34,36 +34,20 @@ import org.testng.annotations.Test;
  * @author <a href="mailto:lfryc@redhat.com">Lukas Fryc</a>
  * @version $Revision$
  */
-public class TestSimple extends AbstractDataGridTest {
+@Use(field = "elements", ints = { 7 })
+public class TestPagination extends AbstractDataGridTest {
 
-    public TestSimple() throws JAXBException {
+    public TestPagination() throws JAXBException {
         super();
     }
 
     @Override
     public URL getTestUrl() {
-        return buildUrl(contextPath, "faces/components/richDataGrid/simple.xhtml");
+        return buildUrl(contextPath, "faces/components/richDataGrid/scroller.xhtml");
     }
 
     @Test
-    @Use(field = "columns", ints = { 1, 3, 11, ELEMENTS_TOTAL / 2, ELEMENTS_TOTAL - 1, ELEMENTS_TOTAL,
-        ELEMENTS_TOTAL + 1 })
-    public void testColumnsAttribute() {
-        verifyCounts();
-        verifyElements();
-    }
-
-    @Test
-    @Use(field = "elements", ints = { 0, 1, ELEMENTS_TOTAL / 2, ELEMENTS_TOTAL - 1, ELEMENTS_TOTAL, ELEMENTS_TOTAL + 1 })
-    public void testElementsAttribute() {
-        verifyCounts();
-        verifyElements();
-    }
-
-    @Test
-    @Use(field = "first", ints = { 0, 1, ELEMENTS_TOTAL / 2, ELEMENTS_TOTAL - 1, ELEMENTS_TOTAL, ELEMENTS_TOTAL + 1 })
-    public void testFirstAttribute() {
-        verifyCounts();
-        verifyElements();
+    public void testPagination() {
+        
     }
 }
