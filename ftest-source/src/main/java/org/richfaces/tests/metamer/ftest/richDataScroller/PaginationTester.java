@@ -21,7 +21,7 @@
  *******************************************************************************/
 package org.richfaces.tests.metamer.ftest.richDataScroller;
 
-import org.jboss.test.selenium.locator.JQueryLocator;
+import org.richfaces.tests.metamer.ftest.model.AssertingDataScroller;
 import org.richfaces.tests.metamer.ftest.model.DataScroller;
 
 import static org.richfaces.tests.metamer.ftest.AbstractMetamerTest.pjq;
@@ -33,8 +33,10 @@ import static java.lang.Math.*;
  */
 public abstract class PaginationTester {
 
-    public static final JQueryLocator DATA_SCROLLER_OUTSIDE_TABLE = pjq("span.rf-ds[id$=scroller1]");
-    public static final JQueryLocator DATA_SCROLLER_IN_TABLE_FOOTER = pjq("span.rf-ds[id$=scroller2]");
+    public static final AssertingDataScroller DATA_SCROLLER_OUTSIDE_TABLE = new AssertingDataScroller(
+        "ds-outside-table", pjq("span.rf-ds[id$=scroller1]"));
+    public static final AssertingDataScroller DATA_SCROLLER_IN_TABLE_FOOTER = new AssertingDataScroller(
+        "ds-in-table-footer", pjq("span.rf-ds[id$=scroller2]"));
 
     protected DataScroller dataScroller;
     private int[] testPages;
@@ -45,10 +47,6 @@ public abstract class PaginationTester {
         for (int i = 0; i < testPages.length; i++) {
             testPages[i] = min(l, max(1, testPages[i]));
         }
-    }
-
-    public DataScroller getDataScroller() {
-        return dataScroller;
     }
 
     public void setDataScroller(DataScroller dataScroller) {

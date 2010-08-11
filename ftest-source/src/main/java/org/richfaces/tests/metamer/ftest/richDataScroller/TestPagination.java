@@ -30,7 +30,6 @@ import static org.testng.Assert.assertFalse;
 import java.net.URL;
 
 import org.jboss.test.selenium.locator.IdLocator;
-import org.jboss.test.selenium.locator.JQueryLocator;
 import org.richfaces.tests.metamer.ftest.AbstractMetamerTest;
 import org.richfaces.tests.metamer.ftest.annotations.Inject;
 import org.richfaces.tests.metamer.ftest.annotations.Use;
@@ -56,10 +55,10 @@ public class TestPagination extends AbstractMetamerTest {
     int maxPages;
 
     @Inject
-    @Use("dataScrollerLocator*")
-    JQueryLocator dataScrollerLocator;
-    JQueryLocator dataScrollerLocator1 = PaginationTester.DATA_SCROLLER_OUTSIDE_TABLE;
-    JQueryLocator dataScrollerLocator2 = PaginationTester.DATA_SCROLLER_IN_TABLE_FOOTER;
+    @Use("dataScroller*")
+    DataScroller dataScroller;
+    DataScroller dataScroller1 = PaginationTester.DATA_SCROLLER_OUTSIDE_TABLE;
+    DataScroller dataScroller2 = PaginationTester.DATA_SCROLLER_IN_TABLE_FOOTER;
 
     PaginationTester paginationTester = new PaginationTester() {
 
@@ -77,8 +76,7 @@ public class TestPagination extends AbstractMetamerTest {
 
     IdLocator attributeFastStep = id("form:attributes:fastStepInput");
     IdLocator attributeMaxPages = id("form:attributes:maxPagesInput");
-
-    DataScroller dataScroller = paginationTester.getDataScroller();
+    
     DataTable dataTable = new DataTable(pjq("table.rf-dt[id$=richDataTable]"));
 
     String tableText;
@@ -93,7 +91,7 @@ public class TestPagination extends AbstractMetamerTest {
         guardHttp(selenium).type(attributeFastStep, String.valueOf(fastStep));
         guardHttp(selenium).type(attributeMaxPages, String.valueOf(maxPages));
 
-        dataScroller.setRoot(dataScrollerLocator);
+        paginationTester.setDataScroller(dataScroller);
         dataScroller.setFastStep(fastStep);
 
         int lastPage = dataScroller.obtainLastPage();

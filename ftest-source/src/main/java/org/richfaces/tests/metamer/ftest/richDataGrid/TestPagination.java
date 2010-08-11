@@ -27,7 +27,6 @@ import java.net.URL;
 
 import javax.xml.bind.JAXBException;
 
-import org.jboss.test.selenium.locator.JQueryLocator;
 import org.richfaces.tests.metamer.ftest.annotations.Inject;
 import org.richfaces.tests.metamer.ftest.annotations.Use;
 import org.richfaces.tests.metamer.ftest.model.DataScroller;
@@ -43,10 +42,10 @@ import org.testng.annotations.Test;
 public class TestPagination extends AbstractDataGridTest {
 
     @Inject
-    @Use("dataScrollerLocator*")
-    JQueryLocator dataScrollerLocator;
-    JQueryLocator dataScrollerLocator1 = PaginationTester.DATA_SCROLLER_OUTSIDE_TABLE;
-    JQueryLocator dataScrollerLocator2 = PaginationTester.DATA_SCROLLER_IN_TABLE_FOOTER;
+    @Use("dataScroller*")
+    DataScroller dataScroller;
+    DataScroller dataScroller1 = PaginationTester.DATA_SCROLLER_OUTSIDE_TABLE;
+    DataScroller dataScroller2 = PaginationTester.DATA_SCROLLER_IN_TABLE_FOOTER;
 
     PaginationTester paginationTester = new PaginationTester() {
 
@@ -56,13 +55,11 @@ public class TestPagination extends AbstractDataGridTest {
 
         @Override
         protected void verifyAfterScrolling() {
-            page = getDataScroller().getCurrentPage();
-            lastPage = getDataScroller().getLastPage();
+            page = dataScroller.getCurrentPage();
+            lastPage = dataScroller.getLastPage();
             verifyGrid();
         }
     };
-
-    DataScroller dataScroller = paginationTester.getDataScroller();
 
     public TestPagination() throws JAXBException {
         super();
@@ -70,7 +67,7 @@ public class TestPagination extends AbstractDataGridTest {
 
     @BeforeMethod
     public void setupDataScroller() {
-        dataScroller.setRoot(dataScrollerLocator);
+        paginationTester.setDataScroller(dataScroller);
 
         int lastPage = dataScroller.obtainLastPage();
         dataScroller.setLastPage(lastPage);
