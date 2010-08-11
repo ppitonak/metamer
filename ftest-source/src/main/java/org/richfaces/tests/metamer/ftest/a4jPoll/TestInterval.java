@@ -21,22 +21,27 @@
  *******************************************************************************/
 package org.richfaces.tests.metamer.ftest.a4jPoll;
 
+import java.io.IOException;
 import java.net.URL;
 
+import org.apache.commons.httpclient.HttpException;
 import org.jboss.test.selenium.dom.Event;
 import org.jboss.test.selenium.locator.Attribute;
 import org.jboss.test.selenium.locator.AttributeLocator;
 import org.jboss.test.selenium.locator.IdLocator;
 import org.jboss.test.selenium.locator.JQueryLocator;
 import org.richfaces.tests.metamer.ftest.AbstractMetamerTest;
+import org.richfaces.tests.metamer.ftest.annotations.Inject;
+import org.richfaces.tests.metamer.ftest.annotations.Templates;
+import org.richfaces.tests.metamer.ftest.annotations.Use;
 import org.testng.annotations.Test;
 
 import static org.jboss.test.selenium.utils.URLUtils.buildUrl;
 import static org.jboss.test.selenium.locator.LocatorFactory.*;
 import static org.testng.Assert.*;
-import static org.jboss.test.selenium.SystemProperties.isSeleniumDebug;
 import static org.jboss.test.selenium.utils.text.SimplifiedFormat.format;
 import static org.jboss.test.selenium.utils.PrimitiveUtils.*;
+import static org.jboss.test.selenium.guard.request.RequestTypeGuardFactory.*;
 
 /**
  * Tests the a4j:poll component.
@@ -44,22 +49,39 @@ import static org.jboss.test.selenium.utils.PrimitiveUtils.*;
  * @author <a href="mailto:lfryc@redhat.com">Lukas Fryc</a>
  * @version $Revision$
  */
-public class TestPoll extends AbstractMetamerTest {
+public class TestInterval extends AbstractMetamerTest {
 
-    private static final Attribute ATTRIBUTE_TITLE = new Attribute("title");
-    private static final int[] TEST_INTERVAL_VALUES = new int[]{1000, 5000, 500};
-    private static final int TEST_INTERVAL_ITERATIONS = 5;
-    private static final int MAX_DEVIATION = 100;
-    private static final int MAX_AVERAGE_DEVIATION = 50;
+    private static final int ITERATION_COUNT = 5;
+
+    @Inject
+    int interval;
 
     IdLocator attributeEnabled = id("form:attributes:enabledInput");
     IdLocator attributeInterval = id("form:attributes:intervalInput");
     JQueryLocator time = pjq("span[id$=time]");
-    AttributeLocator<?> clientTime = pjq("span[id$=clientDate]").getAttribute(ATTRIBUTE_TITLE);
+    AttributeLocator<?> clientTime = pjq("span[id$=clientDate]").getAttribute(Attribute.TITLE);
+
+    long startTime;
+
+    long deviationTotal = 0;
+    long devicationCount = 0;
 
     @Override
     public URL getTestUrl() {
         return buildUrl(contextPath, "faces/components/a4jPoll/simple.xhtml");
+    }
+
+    @Test
+    @Use(field = "interval", ints = { 1000 })
+    public void testClientAllTemplates() throws HttpException, IOException {
+        testClient();
+    }
+
+    @Test
+    @Use(field = "interval", ints = { 500, 5000 })
+    @Templates(value = "plain")
+    public void testClientDifferentIntervals() throws HttpException, IOException {
+        testClient();
     }
 
     /**
@@ -86,64 +108,66 @@ public class TestPoll extends AbstractMetamerTest {
      * deviations isn't greater than {@link #MAX_AVERAGE_DEVIATION}.
      * </p>
      */
-    @Test(groups = "client-side-perf")
-    public void testIntervalFromClientPerspective() {
+    public void testClient() {
+        guardHttp(selenium).type(attributeInterval, String.valueOf(interval));
 
-        long total = 0;
-        long count = 0;
-        for (int interval : TEST_INTERVAL_VALUES) {
-            selenium.type(attributeInterval, String.valueOf(interval));
-            selenium.waitForPageToLoad();
+        selenium.check(attributeEnabled);
+        guardHttp(selenium).fireEvent(attributeEnabled, Event.CHANGE);
 
-            selenium.check(attributeEnabled);
-            selenium.fireEvent(attributeEnabled, Event.CHANGE);
-            selenium.waitForPageToLoad();
-
-            selenium.getPageExtensions().install();
-
-            long currentTime = getClientTime();
-
-            for (int i = 0; i <= TEST_INTERVAL_ITERATIONS; i++) {
-                long runtime = System.currentTimeMillis();
-                selenium.getRequestInterceptor().clearRequestTypeDone();
-                selenium.getRequestInterceptor().waitForRequestTypeChange();
-                runtime -= getClientTime();
-                if (i > 0) {
-
-                    long deviation = Math.abs(interval - Math.abs(runtime));
-                    if (isSeleniumDebug()) {
-                        System.out.println(format("deviation for interval {0}: {1}", interval, deviation));
-                    }
-                    assertTrue(deviation <= MAX_DEVIATION, format(
-                        "Particular deviation ({2}) for interval {0} was greater than {1}", interval, MAX_DEVIATION,
-                        deviation));
-                    total += deviation;
-                    count += 1;
-                }
-                currentTime += runtime;
-            }
-
-            selenium.uncheck(attributeEnabled);
-            selenium.fireEvent(attributeEnabled, Event.CHANGE);
-            selenium.waitForPageToLoad();
+        waitForPoll();
+        for (int i = 0; i < ITERATION_COUNT; i++) {
+            startInterval();
+            waitForPoll();
+            validateInterval();
         }
 
-        long averageDeviation = total / count;
+        validateAverageDeviation();
+    }
 
-        if (isSeleniumDebug()) {
-            System.out.println(format("total average deviation: {0}", averageDeviation));
+    private void startInterval() {
+        startTime = System.currentTimeMillis();
+    }
+
+    private void waitForPoll() {
+        selenium.getPageExtensions().install();
+        selenium.getRequestInterceptor().clearRequestTypeDone();
+        selenium.getRequestInterceptor().waitForRequestTypeChange();
+    }
+
+    private void validateInterval() {
+        long runTime = getClientTime() - startTime;
+        long deviation = Math.abs(interval - runTime);
+
+        if (seleniumDebug) {
+            System.out.println(format("deviation for interval {0}: {1}", interval, deviation));
         }
 
-        assertTrue(averageDeviation <= MAX_AVERAGE_DEVIATION, format(
-            "Average deviation ({1}) was greater than given maximum {0}", MAX_AVERAGE_DEVIATION, averageDeviation));
+        assertTrue(deviation <= interval,
+            format("Deviation ({0}) is greater than one interval {1}", deviation, interval));
+
+        deviationTotal += deviation;
+        devicationCount += 1;
+    }
+
+    private void validateAverageDeviation() {
+        long maximumAvgDeviation = Math.min(interval / 4, 1000);
+        long averageDeviation = deviationTotal / devicationCount;
+
+        if (seleniumDebug) {
+            System.out.println("averageDeviation: " + averageDeviation);
+        }
+        assertTrue(
+            averageDeviation <= maximumAvgDeviation,
+            format("Average deviation for all the intervals ({0}) should not be greater than defined maximum {1}",
+                averageDeviation, maximumAvgDeviation));
     }
 
     /**
      * Returns the time of poll event (the time when arrived the response from server)
+     * 
      * @return the time of poll event (the time when arrived the response from server)
      */
     private long getClientTime() {
         return asLong(selenium.getAttribute(clientTime));
     }
-
 }

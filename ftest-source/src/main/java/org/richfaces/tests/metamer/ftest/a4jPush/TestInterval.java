@@ -43,23 +43,22 @@ import org.testng.annotations.Test;
  * @version $Revision$
  */
 public class TestInterval extends AbstractPushTest {
-
-    private static final Attribute ATTRIBUTE_TITLE = new Attribute("title");
+    
     private static final int DEFAULT_COUNTER_STEP = 2;
     private static final int ITERATION_COUNT = 3;
     private static final int MULTIPLE_PUSH_COUNT = 5;
 
-    AttributeLocator<?> clientTime = pjq("span[id$=clientDate]").getAttribute(ATTRIBUTE_TITLE);
-
-    private long startTime;
-    private int counter;
-    private int counterStep;
-
-    private long deviationTotal = 0;
-    private long deviationCount = 0;
-
     @Inject
-    private int interval;
+    int interval;
+
+    AttributeLocator<?> clientTime = pjq("span[id$=clientDate]").getAttribute(Attribute.TITLE);
+
+    long startTime;
+    int counter;
+    int counterStep;
+
+    long deviationTotal = 0;
+    long deviationCount = 0;
 
     /**
      * <p>
@@ -82,21 +81,7 @@ public class TestInterval extends AbstractPushTest {
     @Test
     @Use(field = "interval", ints = { 1000 })
     public void testClientAllTemplates() throws HttpException, IOException {
-        counterStep = DEFAULT_COUNTER_STEP;
-        pushAttributes.setInterval(interval);
-
-        pushAndWait(1);
-        for (int i = 0; i < ITERATION_COUNT; i++) {
-            startIntervalAndCounter();
-            pushAndWait(1);
-            validateIntervalAndCounter(interval);
-
-            startIntervalAndCounter();
-            pushAndWait(MULTIPLE_PUSH_COUNT);
-            validateIntervalAndCounter(interval);
-        }
-
-        validateAverageDeviation();
+        testClient();
     }
 
     /**
@@ -121,6 +106,10 @@ public class TestInterval extends AbstractPushTest {
     @Use(field = "interval", ints = { 500, 5000 })
     @Templates(value = "plain")
     public void testClientDifferentIntervals() throws HttpException, IOException {
+        testClient();
+    }
+
+    private void testClient() throws HttpException, IOException {
         counterStep = DEFAULT_COUNTER_STEP;
         pushAttributes.setInterval(interval);
 
@@ -128,11 +117,11 @@ public class TestInterval extends AbstractPushTest {
         for (int i = 0; i < ITERATION_COUNT; i++) {
             startIntervalAndCounter();
             pushAndWait(1);
-            validateIntervalAndCounter(interval);
+            validateIntervalAndCounter();
 
             startIntervalAndCounter();
             pushAndWait(MULTIPLE_PUSH_COUNT);
-            validateIntervalAndCounter(interval);
+            validateIntervalAndCounter();
         }
 
         validateAverageDeviation();
@@ -163,7 +152,7 @@ public class TestInterval extends AbstractPushTest {
      * Validates that counter have been increased by right value.
      * </p>
      */
-    private void validateIntervalAndCounter(int interval) {
+    private void validateIntervalAndCounter() {
         long runTime = getClientTime() - startTime;
         long deviation = Math.abs(interval - runTime);
 
