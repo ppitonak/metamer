@@ -46,7 +46,7 @@ public class MetamerFailureLoggingTestListener extends FailureLoggingTestListene
         testInfo = StringUtils.replaceChars(testInfo, ":", "-");
 
         // derives template and sort it as sub-directory after other attributes
-        Matcher matcher = Pattern.compile("^(template-[^,]+),(.*)$").matcher(testInfo);
+        Matcher matcher = Pattern.compile("^(template-[^;]+);(.*)$").matcher(testInfo);
         if (matcher.find()) {
             testInfo = matcher.group(2) + "/" + matcher.group(1);
         }

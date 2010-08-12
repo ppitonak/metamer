@@ -66,7 +66,7 @@ public final class MetamerTestInfo {
             }
         });
 
-        return StringUtils.join(info, ", ");
+        return StringUtils.join(info, "; ");
     }
 
     public static String getConfigurationInfoInParenthesses() {
