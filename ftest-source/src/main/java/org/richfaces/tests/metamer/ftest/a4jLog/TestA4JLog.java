@@ -53,9 +53,9 @@ public class TestA4JLog extends AbstractMetamerTest {
     private JQueryLocator submitButton = pjq("input[id$=submitButton]");
     private JQueryLocator output = pjq("span[id$=out]");
 
-    private JQueryLocator log = pjq("div.rich-log");
-    private JQueryLocator levelSelect = pjq("div.rich-log select");
-    private JQueryLocator logMsg = pjq("div.rich-log div.rich-log-contents div");
+    private JQueryLocator log = pjq("div.rf-log");
+    private JQueryLocator levelSelect = pjq("div.rf-log select");
+    private JQueryLocator logMsg = pjq("div.rf-log div.rf-log-contents div");
 
     @Override
     public URL getTestUrl() {
@@ -86,7 +86,7 @@ public class TestA4JLog extends AbstractMetamerTest {
 
     @Test
     public void testClearButton() {
-        JQueryLocator clearButton = pjq("div.rich-log button");
+        JQueryLocator clearButton = pjq("div.rf-log button");
 
         selenium.typeKeys(input, "RichFaces 4");
         selenium.click(submitButton);
@@ -217,7 +217,7 @@ public class TestA4JLog extends AbstractMetamerTest {
             return;
         }
         
-        String output = selenium.getText(msgType).replaceAll("\\[.*\\]:$", "");
+        String output = selenium.getText(msgType).replaceAll(" *\\[.*\\]:$", "");
         assertEquals(output, logLevel.toString().toLowerCase(), "Message type in log.");
         output = selenium.getText(msgContent);
         assertEquals(output, logLevel.toString(), "Message content.");
