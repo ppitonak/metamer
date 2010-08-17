@@ -48,19 +48,6 @@
         <dependency>
             <groupId>org.richfaces.ui</groupId>
             <artifactId>richfaces-components-ui</artifactId>
-            <!-- Mojarra has to be excluded because we want to be able to create also
-            binaries with MyFaces
-            see https://jira.jboss.org/browse/RFPL-719 -->
-            <exclusions>
-                <exclusion>
-                    <groupId>com.sun.faces</groupId>
-                    <artifactId>jsf-api</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>com.sun.faces</groupId>
-                    <artifactId>jsf-impl</artifactId>
-                </exclusion>
-            </exclusions>
         </dependency>
         <dependency>
             <groupId>org.richfaces.cdk</groupId>
@@ -287,6 +274,39 @@
                     <scope>provided</scope>
                 </dependency>
 
+                <dependency>
+                    <groupId>javax.el</groupId>
+                    <artifactId>el-api</artifactId>
+                    <scope>provided</scope>
+                </dependency>
+            </dependencies>
+        </profile>
+        <profile>
+            <id>myfaces</id>
+            <activation>
+                <property>
+                    <name>jsf_profile</name>
+                    <value>myfaces</value>
+                </property>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <artifactId>maven-war-plugin</artifactId>
+                        <configuration>
+                            <webappDirectory>${project.build.directory}/${project.build.finalName}-myfaces</webappDirectory>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+
+            <dependencies>
+                <dependency>
+                    <groupId>javax.transaction</groupId>
+                    <artifactId>jta</artifactId>
+                    <version>1.1</version>
+                    <scope>provided</scope>
+                </dependency>
                 <dependency>
                     <groupId>javax.el</groupId>
                     <artifactId>el-api</artifactId>
