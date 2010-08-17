@@ -53,7 +53,15 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                             rendered="#{a4jStatusBean.attributes['rendered'].value}"
                             value="#{a4jStatusBean.attributes['value'].value}">
                     <f:facet name="start">
-                        <h:outputText id="statusText" style="font-size: large; color: red;" value="WORKING"/>
+                        <h:outputText id="statusTextStart" style="font-size: large; color: red;" value="START" />
+                    </f:facet>
+        
+                    <f:facet name="stop">
+                        <h:outputText id="statusTextStop" style="font-size: large; color: red;" value="STOP" />
+                    </f:facet>
+        
+                    <f:facet name="error">
+                        <h:outputText id="statusTextError" style="font-size: large; color: red;" value="ERROR" />
                     </f:facet>
                 </a4j:status>
             </fieldset>

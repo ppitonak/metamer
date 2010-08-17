@@ -38,8 +38,8 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 
         <ui:define name="outOfTemplateBefore">
         	<fieldset>
-        		<legend>facets settings</legend>
-            	<h:panelGrid id="facetGrid" columns="2">
+        		<legend>Facets Settings</legend>
+            	<h:panelGrid id="facetsSettings" columns="2">
 	            	<h:outputText value="Facet Start: " />
 	            	<h:inputText value="#{a4jStatusBean.facetStartValue}" />
 	            	
@@ -48,9 +48,9 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 	            	
 	            	<h:outputText value="Facet Error: " />
 	            	<h:inputText value="#{a4jStatusBean.facetErrorValue}" />
+	            	
+	            	<a4j:commandButton id="apply" value="Apply instantly" render="status,facetGrid" execute="facetGrid" />
             	</h:panelGrid>
-            	
-            	<a4j:commandButton render="status,facetGrid" execute="facetGrid" />
             </fieldset>
         </ui:define>
 
@@ -66,17 +66,20 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                             onsuccess="#{a4jStatusBean.attributes['onsuccess'].value}"
                             rendered="#{a4jStatusBean.attributes['rendered'].value}"
                             value="#{a4jStatusBean.attributes['value'].value}">
-                            
+
                     <f:facet name="start">
-                        <h:outputText id="statusTextStart" style="font-size: large; color: red;" value="#{a4jStatusBean.facetStartValue}" rendered="#{not empty a4jStatusBean.facetStartValue}"/>
+                        <h:outputText id="statusTextStart" style="font-size: large; color: red;"
+                            value="#{a4jStatusBean.facetStartValue}" rendered="#{not empty a4jStatusBean.facetStartValue}" />
                     </f:facet>
-                    
+        
                     <f:facet name="stop">
-                        <h:outputText id="statusTextStop" style="font-size: large; color: red;" value="#{a4jStatusBean.facetStopValue}" rendered="#{not empty a4jStatusBean.facetStopValue}"/>
+                        <h:outputText id="statusTextStop" style="font-size: large; color: red;"
+                            value="#{a4jStatusBean.facetStopValue}" rendered="#{not empty a4jStatusBean.facetStopValue}" />
                     </f:facet>
-                    
+        
                     <f:facet name="error">
-                        <h:outputText id="statusTextError" style="font-size: large; color: red;" value="#{a4jStatusBean.facetErrorValue}" rendered="#{not empty a4jStatusBean.facetErrorValue}"/>
+                        <h:outputText id="statusTextError" style="font-size: large; color: red;"
+                            value="#{a4jStatusBean.facetErrorValue}" rendered="#{not empty a4jStatusBean.facetErrorValue}" />
                     </f:facet>
                 </a4j:status>
             </fieldset>

@@ -47,15 +47,31 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 
                 <h:commandButton id="button1" value="Named status 1" onclick="statusFunction1(); return false;" />
                 <a4j:status name="status1">
-                    <f:facet name="start">
-                        <h:outputText id="statusText1" style="color: red;" value="WORKING"/>
-                    </f:facet>
-                </a4j:status>
+                <f:facet name="start">
+                    <h:outputText id="status1TextStart" style="font-size: large; color: red;" value="START" />
+                </f:facet>
+
+                <f:facet name="stop">
+                    <h:outputText id="status1TextStop" style="font-size: large; color: red;" value="STOP" />
+                </f:facet>
+
+                <f:facet name="error">
+                    <h:outputText id="status1TextError" style="font-size: large; color: red;" value="ERROR" />
+                </f:facet>
+            </a4j:status>
 
                 <h:commandButton id="button2" value="Named status 2" onclick="statusFunction2(); return false;" />
                 <a4j:status name="status2">
                     <f:facet name="start">
-                        <h:outputText id="statusText2" style="color: red;" value="WORKING"/>
+                        <h:outputText id="status2TextStart" style="font-size: large; color: red;" value="START" />
+                    </f:facet>
+    
+                    <f:facet name="stop">
+                        <h:outputText id="status2TextStop" style="font-size: large; color: red;" value="STOP" />
+                    </f:facet>
+    
+                    <f:facet name="error">
+                        <h:outputText id="status2TextError" style="font-size: large; color: red;" value="ERROR" />
                     </f:facet>
                 </a4j:status>
             </h:panelGrid>
