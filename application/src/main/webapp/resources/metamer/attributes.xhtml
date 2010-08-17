@@ -1,19 +1,23 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" 
-      xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:composite="http://java.sun.com/jsf/composite">
+      xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:composite="http://java.sun.com/jsf/composite" xmlns:a4j="http://richfaces.org/a4j">
 
     <h:body>
         <composite:interface>
             <composite:attribute name="id" type="java.lang.String" />
             <composite:attribute name="value" type="org.richfaces.tests.metamer.Attributes" required="true"
                                  shortDescription="Representation of attributes of a component." />
-            <composite:attribute name="render" />
-            <composite:attribute name="columns" default="2" type="int" shortDescription="some description for columns" />
+            <composite:attribute name="render" default="@none" />
+            <composite:attribute name="execute" default="@form" />
+            <composite:attribute name="columns" default="2" type="int" shortDescription="The number of columns into which list of attributes will be rendered" />
+            <composite:attribute name="type" default="server" type="java.lang.String" shortDescription="The type of request done for changing the attribute (server/ajax)" />
         </composite:interface>
 
         <composite:implementation>
 
             <h:outputStylesheet library="metamer/css" name="attributes.ecss" />
+            
+            <a4j:jsFunction name="submitAjax" execute="#{cc.attrs.execute}" render="#{cc.attrs.render}" />
 
             <h:panelGrid id="#{cc.attrs.id}" columns="#{cc.attrs.columns * 2}" styleClass="attributes"
                          columnClasses="attributes-first-column, attributes-second-column, attributes-first-column, attributes-second-column">
@@ -28,18 +32,18 @@
 
                     <c:choose>
                         <c:when test="#{entry.value.boolean}">
-                            <h:selectBooleanCheckbox id="#{entry.key}Input" value="#{entry.value.value}" onchange="submit()" />
+                            <h:selectBooleanCheckbox id="#{entry.key}Input" value="#{entry.value.value}" onchange="#{cc.attrs.type == 'server' ? 'submit()' : 'submitAjax()'}" />
                         </c:when>
 
                         <c:when test="#{entry.value.selectOptions != null}">
-                            <h:selectOneRadio id="#{entry.key}Input" value="#{entry.value.value}" onchange="submit()"
+                            <h:selectOneRadio id="#{entry.key}Input" value="#{entry.value.value}" onchange="#{cc.attrs.type == 'server' ? 'submit()' : 'submitAjax()'}"
                                               layout="pageDirection">
                                 <f:selectItems value="#{entry.value.selectOptions}" />
                             </h:selectOneRadio>
                         </c:when>
 
                         <c:otherwise>
-                            <h:inputText id="#{entry.key}Input" value="#{entry.value.value}" style="width: 200px;" onchange="submit()" />
+                            <h:inputText id="#{entry.key}Input" value="#{entry.value.value}" style="width: 200px;" onchange="#{cc.attrs.type == 'server' ? 'submit()' : 'submitAjax()'}" />
                         </c:otherwise>
                     </c:choose>
 
