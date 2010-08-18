@@ -23,8 +23,8 @@ package org.jboss.test.selenium.locator.reference;
 
 import org.jboss.test.selenium.locator.AbstractElementLocator;
 import org.jboss.test.selenium.locator.CompoundableLocator;
+import org.jboss.test.selenium.locator.ElementLocationStrategy;
 import org.jboss.test.selenium.locator.IterableLocator;
-import org.jboss.test.selenium.locator.type.LocationStrategy;
 import org.jboss.test.selenium.utils.text.SimplifiedFormat;
 
 /**
@@ -71,7 +71,7 @@ public class ReferencedLocator<T extends IterableLocator<T> & CompoundableLocato
         return getReferenced().getRawLocator();
     }
 
-    public LocationStrategy getLocationStrategy() {
+    public ElementLocationStrategy getLocationStrategy() {
         return reference.getLocator().getLocationStrategy();
     }
 
