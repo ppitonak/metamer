@@ -22,8 +22,6 @@
 
 package org.richfaces.tests.metamer;
 
-import org.richfaces.tests.metamer.Template;
-import org.richfaces.tests.metamer.TemplatesList;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import static org.testng.Assert.*;
