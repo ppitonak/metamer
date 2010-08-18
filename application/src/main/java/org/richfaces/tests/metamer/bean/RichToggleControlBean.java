@@ -56,7 +56,7 @@ public class RichToggleControlBean implements Serializable {
 
         attributes = Attributes.getBehaviorAttributes(ToggleControl.class, getClass());
 
-        attributes.setAttribute("forPanel", "panel1");
+        attributes.setAttribute("targetPanel", "panel1");
         attributes.setAttribute("targetItem", "item1");
 
         // TODO following attributes have to be tested in another way

@@ -40,16 +40,16 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 
         <ui:define name="component">
 
-            <h:commandLink value="Toggle Panel Item 1">
-                <rich:toggleControl forPanel="panel1" targetItem="item1" />
+            <h:commandLink id="tcLink1" value="Toggle Panel Item 1">
+                <rich:toggleControl targetPanel="panel1" targetItem="item1" />
             </h:commandLink>
             <h:outputText value=" | " />
-            <h:commandLink value="Toggle Panel Item 2">
-                <rich:toggleControl forPanel="panel1" targetItem="item2" />
+            <h:commandLink id="tcLink2" value="Toggle Panel Item 2">
+                <rich:toggleControl targetPanel="panel1" targetItem="item2" />
             </h:commandLink>
             <h:outputText value=" | " />
-            <h:commandLink value="Toggle Panel Item 3">
-                <rich:toggleControl forPanel="panel1" targetItem="item3" />
+            <h:commandLink id="tcLink3" value="Toggle Panel Item 3">
+                <rich:toggleControl targetPanel="panel1" targetItem="item3" />
             </h:commandLink>
 
             <br/><br/>
