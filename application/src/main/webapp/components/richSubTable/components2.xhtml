@@ -23,7 +23,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
       xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:metamer="http://java.sun.com/jsf/composite/metamer"
-      xmlns:rich="http://richfaces.org/rich">
+      xmlns:rich="http://richfaces.org/rich" xmlns:a4j="http://richfaces.org/a4j">
 
     <ui:composition template="/templates/template.xhtml">
 
@@ -55,7 +55,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                         <rich:column>
                             <h:outputText id="columnHeaderName" value="Name" />
                             <br/>
-                            <h:outputText id="columnHeaderNameComponent" value="h:inplaceInput" />
+                            <h:outputText id="columnHeaderNameComponent" value="rich:inplaceInput" />
                         </rich:column>
                         <rich:column>
                             <h:outputText id="columnHeaderTitle" value="Title" />
@@ -118,7 +118,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                         <h:outputText value="#{item.sex}" />
                     </rich:column>
                     <rich:column>
-                        <h:outputText value="#{item.name}" />
+                        <rich:inplaceInput id="nameInput" value="#{item.name}" defaultLabel="Click here to edit"/>
                     </rich:column>
                     <rich:column>
                         <h:outputText value="#{item.title}" />

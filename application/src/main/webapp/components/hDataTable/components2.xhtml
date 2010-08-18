@@ -113,10 +113,11 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                     <f:facet name="header">
                         <h:outputText id="columnHeaderName" value="Name" />
                         <br/>
-                        <h:outputText id="columnHeaderNameComponent" value="h:inplaceInput" />
+                        <h:outputText id="columnHeaderNameComponent" value="rich:inplaceInput" />
                     </f:facet>
 
-                    <h:outputText value="#{record.name}" />
+                    <rich:inplaceInput id="nameInput" value="#{record.name}" defaultLabel="Click here to edit"/>
+
                     <f:facet name="footer">
                         <h:outputText id="columnFooterState" value="Name" />
                     </f:facet>
