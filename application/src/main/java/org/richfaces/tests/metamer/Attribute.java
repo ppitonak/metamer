@@ -22,6 +22,7 @@
 
 package org.richfaces.tests.metamer;
 
+import java.io.Serializable;
 import java.util.List;
 
 import javax.faces.model.SelectItem;
@@ -35,8 +36,9 @@ import org.slf4j.LoggerFactory;
  * @author <a href="mailto:ppitonak@redhat.com">Pavol Pitonak</a>
  * @version $Revision$
  */
-public class Attribute {
-
+public class Attribute implements Serializable {
+    private static final long serialVersionUID = -6716974687380275186L;
+    
     private Logger logger;
     private String name;
     private Object value;
