@@ -41,13 +41,13 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
         		<legend>Facets Settings</legend>
             	<h:panelGrid id="facetsSettings" columns="2">
 	            	<h:outputText value="Facet Start: " />
-	            	<h:inputText value="#{a4jStatusBean.facetStartValue}" />
+	            	<h:inputText id="facetStartTextInput" value="#{a4jStatusBean.facetStartValue}" />
 	            	
 	            	<h:outputText value="Facet Stop: " />
-	            	<h:inputText value="#{a4jStatusBean.facetStopValue}" />
+	            	<h:inputText id="facetStopTextInput" value="#{a4jStatusBean.facetStopValue}" />
 	            	
 	            	<h:outputText value="Facet Error: " />
-	            	<h:inputText value="#{a4jStatusBean.facetErrorValue}" />
+	            	<h:inputText id="facetErrorTextInput" value="#{a4jStatusBean.facetErrorValue}" />
 	            	
 	            	<a4j:commandButton id="apply" value="Apply instantly" render="status,facetGrid" execute="facetGrid" />
             	</h:panelGrid>

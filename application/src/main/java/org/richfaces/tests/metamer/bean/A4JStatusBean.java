@@ -62,6 +62,11 @@ public class A4JStatusBean implements Serializable {
 
         attributes = Attributes.getUIComponentAttributes(UIStatus.class, getClass());
         attributes.setAttribute("rendered", true);
+
+        // hidden attributes
+        attributes.remove("converter");
+        attributes.remove("localValue");
+        attributes.remove("value");
     }
 
     public Attributes getAttributes() {
