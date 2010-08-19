@@ -39,31 +39,26 @@ import static org.richfaces.tests.metamer.ftest.AbstractMetamerTest.pjq;
  */
 public class AbstractComponentAttributes {
 
-    private Type type;
-
-    public static class Type {
-        public static Type SERVER = new Type();
-        public static Type AJAX = new Type();
-    }
-
-    public AbstractComponentAttributes() {
-        this(Type.SERVER);
-    }
-
-    public AbstractComponentAttributes(Type type) {
-        Validate.notNull(type);
-        this.type = type;
-    }
-
     AjaxSelenium selenium = AjaxSeleniumProxy.getInstance();
 
     JQueryLocator propertyLocator = pjq("input[id$={0}Input]");
+
+    ApplyType applyType;
+
+    public AbstractComponentAttributes() {
+        this(ApplyType.SERVER);
+    }
+
+    public AbstractComponentAttributes(ApplyType type) {
+        Validate.notNull(type);
+        this.applyType = type;
+    }
 
     protected String getProperty(String propertyName) {
         final ElementLocator<?> locator = propertyLocator.format(propertyName);
         return selenium.getValue(locator);
     }
-    
+
     protected void setProperty(String propertyName, Object value) {
         final ElementLocator<?> locator = propertyLocator.format(propertyName);
         final AttributeLocator<?> typeLocator = locator.getAttribute(new org.jboss.test.selenium.locator.Attribute(
@@ -74,21 +69,25 @@ public class AbstractComponentAttributes {
         String valueAsString = value.toString();
         // INPUT TEXT
         if ("text".equals(inputType)) {
-            if (type == Type.SERVER) {
+            if (applyType == ApplyType.SERVER) {
                 guardHttp(selenium).type(locator, valueAsString);
-            } else if (type == Type.AJAX) {
+            } else if (applyType == ApplyType.AJAX) {
                 guardXhr(selenium).type(locator, valueAsString);
             }
             // INPUT CHECKBOX
         } else if ("checkbox".equals(inputType)) {
             boolean checked = Boolean.valueOf(valueAsString);
 
-            if (type == Type.SERVER) {
+            if (applyType == ApplyType.SERVER) {
                 guardHttp(selenium).check(locator, checked);
-            } else if (type == Type.AJAX) {
+            } else if (applyType == ApplyType.AJAX) {
                 selenium.check(locator, checked);
                 guardXhr(selenium).fireEvent(locator, Event.CHANGE);
             }
         }
+    }
+
+    public static enum ApplyType {
+        SERVER, AJAX
     }
 }

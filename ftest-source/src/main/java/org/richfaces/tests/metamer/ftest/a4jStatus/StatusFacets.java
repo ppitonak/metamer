@@ -5,7 +5,7 @@ import org.richfaces.tests.metamer.ftest.AbstractComponentAttributes;
 public class StatusFacets extends AbstractComponentAttributes {
 
     public StatusFacets() {
-        super(AbstractComponentAttributes.Type.AJAX);
+        super(AbstractComponentAttributes.ApplyType.AJAX);
     }
 
     public void setStartText(String startText) {

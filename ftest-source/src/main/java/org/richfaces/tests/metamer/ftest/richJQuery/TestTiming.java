@@ -36,15 +36,15 @@ import static org.jboss.test.selenium.locator.LocatorFactory.*;
  * @version $Revision$
  */
 public class TestTiming extends AbstractMetamerTest {
-    
+
     JQueryLocator button = jq("#jQueryTestButton");
-    
+
+    RichJQueryAttributes attributes = new RichJQueryAttributes();
+
     @Override
     public URL getTestUrl() {
         return buildUrl(contextPath, "faces/components/richJQuery/simple.xhtml");
     }
-
-    RichJQueryAttributes attributes = new RichJQueryAttributes();
 
     @Test
     public void testImmediate() {

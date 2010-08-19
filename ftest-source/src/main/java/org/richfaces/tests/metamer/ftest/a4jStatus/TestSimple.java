@@ -21,19 +21,12 @@
  *******************************************************************************/
 package org.richfaces.tests.metamer.ftest.a4jStatus;
 
+import static org.jboss.test.selenium.utils.URLUtils.buildUrl;
+
 import java.net.URL;
 
-import org.jboss.test.selenium.encapsulated.JavaScript;
-import org.jboss.test.selenium.locator.ElementLocator;
-import org.jboss.test.selenium.locator.JQueryLocator;
-import org.jboss.test.selenium.waiting.retrievers.TextRetriever;
-import org.richfaces.tests.metamer.ftest.AbstractMetamerTest;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-
-import static org.jboss.test.selenium.utils.URLUtils.*;
-import static org.jboss.test.selenium.encapsulated.JavaScript.js;
-import static org.testng.Assert.*;
 
 /**
  * @author <a href="mailto:lfryc@redhat.com">Lukas Fryc</a>

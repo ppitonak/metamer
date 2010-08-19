@@ -34,12 +34,12 @@ import org.testng.annotations.Test;
  * @version $Revision$
  */
 public class TestFacets extends AbstracStatusTest {
+    StatusFacets facets = new StatusFacets();
+
     @Override
     public URL getTestUrl() {
         return buildUrl(contextPath, "faces/components/a4jStatus/simple.xhtml");
     }
-
-    StatusFacets facets = new StatusFacets();
 
     @BeforeMethod
     public void installStatusExtensions() {
@@ -66,6 +66,8 @@ public class TestFacets extends AbstracStatusTest {
             case ERROR:
                 facets.setErrorText(facets.getErrorText() + "*");
                 break;
+            default:
+                throw new IllegalStateException();
         }
 
         final String startText = facets.getStartText();
