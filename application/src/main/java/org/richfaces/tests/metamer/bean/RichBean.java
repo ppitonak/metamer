@@ -109,6 +109,7 @@ public class RichBean implements Serializable {
         components.put("commandButton", "JSF Command Button");
         components.put("hDataTable", "JSF Data Table");
         components.put("richAccordion", "Rich Accordion");
+        components.put("richAccordionItem", "Rich Accordion Item");
         components.put("richColumn", "Rich Column");
         components.put("richComponentControl", "Rich Component Control");
         components.put("richDataGrid", "Rich Data Grid");
