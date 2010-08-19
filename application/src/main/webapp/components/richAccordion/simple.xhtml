@@ -1,0 +1,137 @@
+<!--
+JBoss, Home of Professional Open Source
+Copyright 2010, Red Hat, Inc. and individual contributors
+by the @authors tag. See the copyright.txt in the distribution for a
+full listing of individual contributors.
+
+This is free software; you can redistribute it and/or modify it
+under the terms of the GNU Lesser General Public License as
+published by the Free Software Foundation; either version 2.1 of
+the License, or (at your option) any later version.
+
+This software is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public
+License along with this software; if not, write to the Free
+Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
+02110-1301 USA, or see the FSF site: http://www.fsf.org.
+-->
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:metamer="http://java.sun.com/jsf/composite/metamer"
+      xmlns:rich="http://richfaces.org/rich">
+
+    <ui:composition template="/templates/template.xhtml">
+
+        <ui:define name="head">
+            <f:metadata>
+                <f:viewParam name="templates" value="#{templateBean.templates}">
+                    <f:converter converterId="templatesListConverter" />
+                </f:viewParam>
+            </f:metadata>
+        </ui:define>
+
+        <ui:define name="outOfTemplateBefore">
+        </ui:define>
+
+        <ui:define name="component">
+            <rich:accordion id="accordion"
+                            activeItem="#{richAccordionBean.attributes['activeItem'].value}"
+                            bypassUpdates="#{richAccordionBean.attributes['bypassUpdates'].value}"
+                            converter="#{richAccordionBean.attributes['converter'].value}"
+                            cycledSwitching="#{richAccordionBean.attributes['cycledSwitching'].value}"
+                            data="#{richAccordionBean.attributes['data'].value}"
+                            dir="#{richAccordionBean.attributes['dir'].value}"
+                            execute="#{richAccordionBean.attributes['execute'].value}"
+                            firstItem="#{richAccordionBean.attributes['firstItem'].value}"
+                            immediate="#{richAccordionBean.attributes['immediate'].value}"
+                            itemByIndex="#{richAccordionBean.attributes['itemByIndex'].value}"
+                            itemChangeListener="#{richAccordionBean.attributes['itemChangeListener'].value}"
+                            itemChangeListeners="#{richAccordionBean.attributes['itemChangeListeners'].value}"
+                            itemContentClass="#{richAccordionBean.attributes['itemContentClass'].value}"
+                            itemHeaderClass="#{richAccordionBean.attributes['itemHeaderClass'].value}"
+                            itemHeaderClassActive="#{richAccordionBean.attributes['itemHeaderClassActive'].value}"
+                            itemHeaderClassDisabled="#{richAccordionBean.attributes['itemHeaderClassDisabled'].value}"
+                            itemHeaderClassInactive="#{richAccordionBean.attributes['itemHeaderClassInactive'].value}"
+                            lang="#{richAccordionBean.attributes['lang'].value}"
+                            lastItem="#{richAccordionBean.attributes['lastItem'].value}"
+                            limitToList="#{richAccordionBean.attributes['limitToList'].value}"
+                            localValue="#{richAccordionBean.attributes['localValue'].value}"
+                            localValueSet="#{richAccordionBean.attributes['localValueSet'].value}"
+                            nextItem="#{richAccordionBean.attributes['nextItem'].value}"
+                            onbeforeitemchange="#{richAccordionBean.attributes['onbeforeitemchange'].value}"
+                            onclick="#{richAccordionBean.attributes['onclick'].value}"
+                            ondblclick="#{richAccordionBean.attributes['ondblclick'].value}"
+                            onitemchange="#{richAccordionBean.attributes['onitemchange'].value}"
+                            onmousedown="#{richAccordionBean.attributes['onmousedown'].value}"
+                            onmousemove="#{richAccordionBean.attributes['onmousemove'].value}"
+                            onmouseout="#{richAccordionBean.attributes['onmouseout'].value}"
+                            onmouseover="#{richAccordionBean.attributes['onmouseover'].value}"
+                            onmouseup="#{richAccordionBean.attributes['onmouseup'].value}"
+                            prevItem="#{richAccordionBean.attributes['prevItem'].value}"
+                            render="#{richAccordionBean.attributes['render'].value}"
+                            rendered="#{richAccordionBean.attributes['rendered'].value}"
+                            required="#{richAccordionBean.attributes['required'].value}"
+                            status="#{richAccordionBean.attributes['status'].value}"
+                            style="#{richAccordionBean.attributes['style'].value}"
+                            styleClass="#{richAccordionBean.attributes['styleClass'].value}"
+                            submittedActiveItem="#{richAccordionBean.attributes['submittedActiveItem'].value}"
+                            submittedValue="#{richAccordionBean.attributes['submittedValue'].value}"
+                            switchType="#{richAccordionBean.attributes['switchType'].value}"
+                            title="#{richAccordionBean.attributes['title'].value}"
+                            valid="#{richAccordionBean.attributes['valid'].value}"
+                            value="#{richAccordionBean.attributes['value'].value}"
+                            >
+
+                <rich:accordionItem id="item1" name="item1"  header="Item 1">
+                    content of item 1
+                </rich:accordionItem>
+                <rich:accordionItem id="item2" name="item2"  header="Item 2">
+                    content of item 2
+                </rich:accordionItem>
+                <rich:accordionItem id="item3" name="item3"  header="Item 3">
+                    content of item 3
+                </rich:accordionItem>
+                <rich:accordionItem id="item4" name="item4"  header="Item 4">
+                    content of item 4
+                </rich:accordionItem>
+            </rich:accordion>
+
+            <br/><br/>
+            <fieldset>
+                <legend>JavaScript API</legend>
+
+                <h:commandButton id="switchButton1" value="switch to item1">
+                    <rich:componentControl id="componentControl1" event="click" operation="switchToItem" target="accordion" >
+                        <f:param value="item1" />
+                    </rich:componentControl>
+                </h:commandButton>
+                <h:commandButton id="switchButton2" value="switch to item2">
+                    <rich:componentControl id="componentControl2" event="click" operation="switchToItem" target="accordion" >
+                        <f:param value="item2" />
+                    </rich:componentControl>
+                </h:commandButton>
+                <h:commandButton id="switchButton3" value="switch to item3">
+                    <rich:componentControl id="componentControl1" event="click" operation="switchToItem" target="accordion" >
+                        <f:param value="item3" />
+                    </rich:componentControl>
+                </h:commandButton>
+                <h:commandButton id="switchButton4" value="switch to item4">
+                    <rich:componentControl id="componentControl1" event="click" operation="switchToItem" target="accordion" >
+                        <f:param value="item4" />
+                    </rich:componentControl>
+                </h:commandButton>
+
+            </fieldset>
+        </ui:define>
+
+        <ui:define name="outOfTemplateAfter">
+            <metamer:attributes value="#{richAccordionBean.attributes}" id="attributes" />
+        </ui:define>
+
+    </ui:composition>
+</html>
