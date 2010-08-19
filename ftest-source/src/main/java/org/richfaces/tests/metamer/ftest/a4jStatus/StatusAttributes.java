@@ -19,37 +19,33 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  *******************************************************************************/
-package org.richfaces.tests.metamer.ftest.richJQuery;
+package org.richfaces.tests.metamer.ftest.a4jStatus;
 
-import org.richfaces.component.JQueryTiming;
+import org.jboss.test.selenium.encapsulated.JavaScript;
 import org.richfaces.tests.metamer.ftest.AbstractComponentAttributes;
 
 /**
  * @author <a href="mailto:lfryc@redhat.com">Lukas Fryc</a>
  * @version $Revision$
  */
-public class RichJQueryAttributes extends AbstractComponentAttributes {
-    public void setAttachType(String attachType) {
-        setProperty("attachType", attachType);
+public class StatusAttributes extends AbstractComponentAttributes {
+    public void setOnError(JavaScript javaScript) {
+        setProperty("onerror", javaScript.toString());
     }
-
-    public void setEvent(String event) {
-        setProperty("event", event);
+    
+    public void setOnStart(JavaScript javaScript) {
+        setProperty("onstart", javaScript.toString());
     }
-
-    public void setQuery(String query) {
-        setProperty("query", query);
+    
+    public void setOnStop(JavaScript javaScript) {
+        setProperty("onstop", javaScript.toString());
     }
-
+    
+    public void setOnSuccess(JavaScript javaScript) {
+        setProperty("onsuccess", javaScript.toString());
+    }
+    
     public void setRendered(boolean rendered) {
-        setProperty("rendered", rendered);
-    }
-
-    public void setSelector(String selector) {
-        setProperty("selector", selector);
-    }
-
-    public void setTiming(JQueryTiming timing) {
-        setProperty("timing", timing.toString());
+        setProperty("rendered", Boolean.toString(rendered));
     }
 }

@@ -21,8 +21,11 @@
  *******************************************************************************/
 package org.richfaces.tests.metamer.ftest;
 
+import org.apache.commons.lang.Validate;
+import org.jboss.test.selenium.dom.Event;
 import org.jboss.test.selenium.framework.AjaxSelenium;
 import org.jboss.test.selenium.framework.AjaxSeleniumProxy;
+import org.jboss.test.selenium.locator.AttributeLocator;
 import org.jboss.test.selenium.locator.ElementLocator;
 import org.jboss.test.selenium.locator.JQueryLocator;
 
@@ -34,12 +37,52 @@ import static org.richfaces.tests.metamer.ftest.AbstractMetamerTest.pjq;
  * @version $Revision$
  */
 public class AbstractComponentAttributes {
+
+    private Type type;
+
+    public static class Type {
+        public static Type SERVER = new Type();
+        public static Type AJAX = new Type();
+    }
+
+    public AbstractComponentAttributes() {
+        this(Type.SERVER);
+    }
+
+    public AbstractComponentAttributes(Type type) {
+        Validate.notNull(type);
+        this.type = type;
+    }
+
     AjaxSelenium selenium = AjaxSeleniumProxy.getInstance();
 
     JQueryLocator propertyLocator = pjq("input[id$={0}Input]");
 
-    protected void setProperty(String propertyName, String value) {
+    protected void setProperty(String propertyName, Object value) {
         final ElementLocator<?> locator = propertyLocator.format(propertyName);
-        guardHttp(selenium).type(locator, value);
+        final AttributeLocator<?> typeLocator = locator.getAttribute(new org.jboss.test.selenium.locator.Attribute(
+            "type"));
+
+        String inputType = selenium.getAttribute(typeLocator);
+
+        String valueAsString = value.toString();
+        // INPUT TEXT
+        if ("text".equals(inputType)) {
+            if (type == Type.SERVER) {
+                guardHttp(selenium).type(locator, valueAsString);
+            } else if (type == Type.AJAX) {
+                selenium.type(locator, valueAsString);
+            }
+            // INPUT CHECKBOX
+        } else if ("checkbox".equals(inputType)) {
+            boolean checked = Boolean.valueOf(valueAsString);
+
+            if (type == Type.SERVER) {
+                guardHttp(selenium).check(locator, checked);
+            } else if (type == Type.AJAX) {
+                selenium.check(locator, checked);
+                selenium.fireEvent(locator, Event.CHANGE);
+            }
+        }
     }
 }
