@@ -20,31 +20,55 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 var Metamer = {
+	halts : new Array(),
+	sequenceId : 0,
+	haltIterator : 0,
 	haltEnabled : false,
-	halt : false,
-	callback : null,
-	object : null,
-	content : null,
-	wait : function() {
-		if (Metamer.haltEnabled && Metamer.halt) {
-			setTimeout("Metamer.wait()", 100);
+	passes : 0,
+	wait : function(metamerHalt) {
+		Metamer.halts.push(metamerHalt);
+		Metamer._wait(metamerHalt.id);
+	},
+	_wait : function(id) {
+		var metamerHalt = Metamer.halts[id];
+		if (metamerHalt.halt) {
+			setTimeout("Metamer._wait(" + id + ")", 100);
 		} else {
-			Metamer.halt = false;
-			Metamer.callback();
+			metamerHalt.callback(metamerHalt.xhr, metamerHalt.content);
 		}
+	},
+	unhalt : function() {
+		var metamerHalt = Metamer.halts[Metamer.haltIterator];
+		Metamer.haltIterator += 1;
+		metamerHalt.halt = false;
+	},
+	isHalted : function() {
+		return Metamer.sequenceId > Metamer.haltIterator;
+	},
+	waitForHalt : function() {
+		return Metamer.sequenceId == 1 + Metamer.haltIterator;
 	}
 };
+
+var MetamerHalt = function(xhr, content, callback) {
+	this.halt = true;
+	this.xhr = xhr;
+	this.content = content;
+	this.callback = callback;
+	this.id = Metamer.sequenceId++;
+}
 
 Metamer.XHRWrapperInjection = {
 	send : RichFacesSelenium.XHRWrapper.prototype.send
 };
 
 RichFacesSelenium.XHRWrapper.prototype.send = function(content) {
-	Metamer.halt = true;
-	Metamer.object = this;
-	Metamer.content = content;
-	Metamer.callback = function() {
-		Metamer.XHRWrapperInjection.send.call(Metamer.object, Metamer.content);
-	};
-	Metamer.wait();
+	if (Metamer.haltEnabled) {
+		var metamerHalt = new MetamerHalt(this, content, function(xhr, content1) {
+			Metamer.XHRWrapperInjection.send.call(xhr, content1);
+		});
+		Metamer.wait(metamerHalt);
+	} else {
+		Metamer.XHRWrapperInjection.send.call(this, content);
+	}
 };

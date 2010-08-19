@@ -64,11 +64,11 @@ public abstract class AbstracStatusTest extends AbstractMetamerTest {
     }
 
     void waitForHalt() {
-        selenium.waitForCondition(js("selenium.browserbot.getCurrentWindow().Metamer.halt == true"));
+        selenium.waitForCondition(js("selenium.browserbot.getCurrentWindow().Metamer.waitForHalt()"));
     }
 
     void unhalt() {
-        selenium.getEval(js("selenium.browserbot.getCurrentWindow().Metamer.halt = false"));
+        selenium.getEval(js("selenium.browserbot.getCurrentWindow().Metamer.unhalt()"));
     }
 
     void enableHalt() {
