@@ -20,12 +20,13 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 var Metamer = {
+	haltEnabled : false,
 	halt : false,
 	callback : null,
 	object : null,
 	content : null,
 	wait : function() {
-		if (Metamer.halt) {
+		if (Metamer.haltEnabled && Metamer.halt) {
 			setTimeout("Metamer.wait()", 100);
 		} else {
 			Metamer.halt = false;

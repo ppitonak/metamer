@@ -30,6 +30,7 @@ import org.jboss.test.selenium.locator.ElementLocator;
 import org.jboss.test.selenium.locator.JQueryLocator;
 
 import static org.jboss.test.selenium.guard.request.RequestTypeGuardFactory.guardHttp;
+import static org.jboss.test.selenium.guard.request.RequestTypeGuardFactory.guardXhr;
 import static org.richfaces.tests.metamer.ftest.AbstractMetamerTest.pjq;
 
 /**
@@ -58,6 +59,11 @@ public class AbstractComponentAttributes {
 
     JQueryLocator propertyLocator = pjq("input[id$={0}Input]");
 
+    protected String getProperty(String propertyName) {
+        final ElementLocator<?> locator = propertyLocator.format(propertyName);
+        return selenium.getValue(locator);
+    }
+    
     protected void setProperty(String propertyName, Object value) {
         final ElementLocator<?> locator = propertyLocator.format(propertyName);
         final AttributeLocator<?> typeLocator = locator.getAttribute(new org.jboss.test.selenium.locator.Attribute(
@@ -71,7 +77,7 @@ public class AbstractComponentAttributes {
             if (type == Type.SERVER) {
                 guardHttp(selenium).type(locator, valueAsString);
             } else if (type == Type.AJAX) {
-                selenium.type(locator, valueAsString);
+                guardXhr(selenium).type(locator, valueAsString);
             }
             // INPUT CHECKBOX
         } else if ("checkbox".equals(inputType)) {
@@ -81,7 +87,7 @@ public class AbstractComponentAttributes {
                 guardHttp(selenium).check(locator, checked);
             } else if (type == Type.AJAX) {
                 selenium.check(locator, checked);
-                selenium.fireEvent(locator, Event.CHANGE);
+                guardXhr(selenium).fireEvent(locator, Event.CHANGE);
             }
         }
     }

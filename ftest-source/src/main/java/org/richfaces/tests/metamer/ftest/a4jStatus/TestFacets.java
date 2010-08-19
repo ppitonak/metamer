@@ -21,29 +21,25 @@
  *******************************************************************************/
 package org.richfaces.tests.metamer.ftest.a4jStatus;
 
+import static org.jboss.test.selenium.utils.URLUtils.buildUrl;
+
 import java.net.URL;
 
-import org.jboss.test.selenium.encapsulated.JavaScript;
 import org.jboss.test.selenium.locator.ElementLocator;
-import org.jboss.test.selenium.locator.JQueryLocator;
-import org.jboss.test.selenium.waiting.retrievers.TextRetriever;
-import org.richfaces.tests.metamer.ftest.AbstractMetamerTest;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-
-import static org.jboss.test.selenium.utils.URLUtils.*;
-import static org.jboss.test.selenium.encapsulated.JavaScript.js;
-import static org.testng.Assert.*;
 
 /**
  * @author <a href="mailto:lfryc@redhat.com">Lukas Fryc</a>
  * @version $Revision$
  */
-public class TestSimple extends AbstracStatusTest {
+public class TestFacets extends AbstracStatusTest {
     @Override
     public URL getTestUrl() {
         return buildUrl(contextPath, "faces/components/a4jStatus/simple.xhtml");
     }
+
+    StatusFacets facets = new StatusFacets();
 
     @BeforeMethod
     public void installStatusExtensions() {
@@ -51,26 +47,34 @@ public class TestSimple extends AbstracStatusTest {
     }
 
     @Test
-    public void testRequestButton1() {
-        testRequestButton(button1, "START", "STOP");
+    public void testInterleavedChangingOfFacets() {
+        for (int i = 0; i < 13; i++) {
+            ElementLocator<?> button = (i % 2 == 0) ? button2 : buttonError;
+            IterateStatus iterateStatus = IterateStatus.values()[i % IterateStatus.values().length];
+            testChangingFacet(button, iterateStatus);
+        }
     }
 
-    @Test
-    public void testRequestButton2() {
-        testRequestButton(button2, "START", "STOP");
+    void testChangingFacet(ElementLocator<?> button, IterateStatus iterateStatus) {
+        switch (iterateStatus) {
+            case START:
+                facets.setStartText(facets.getStartText() + "*");
+                break;
+            case STOP:
+                facets.setStopText(facets.getStopText() + "*");
+                break;
+            case ERROR:
+                facets.setErrorText(facets.getErrorText() + "*");
+                break;
+        }
+
+        final String startText = facets.getStartText();
+        final String stopText = (button == buttonError) ? facets.getErrorText() : facets.getStopText();
+
+        testRequestButton(button, startText, stopText);
     }
 
-    @Test
-    public void testRequestButtonError() {
-        testRequestButton(buttonError, "START", "ERROR");
-    }
-
-    @Test
-    public void testInterleaving() {
-        testRequestButton1();
-        testRequestButtonError();
-        testRequestButton2();
-        testRequestButtonError();
-        testRequestButton1();
+    private static enum IterateStatus {
+        START, STOP, ERROR
     }
 }
