@@ -21,8 +21,6 @@
  *******************************************************************************/
 package org.richfaces.tests.metamer.ftest;
 
-import org.apache.commons.lang.Validate;
-import org.jboss.test.selenium.dom.Event;
 import org.jboss.test.selenium.framework.AjaxSelenium;
 import org.jboss.test.selenium.framework.AjaxSeleniumProxy;
 import org.jboss.test.selenium.locator.AttributeLocator;
@@ -30,7 +28,6 @@ import org.jboss.test.selenium.locator.ElementLocator;
 import org.jboss.test.selenium.locator.JQueryLocator;
 
 import static org.jboss.test.selenium.guard.request.RequestTypeGuardFactory.guardHttp;
-import static org.jboss.test.selenium.guard.request.RequestTypeGuardFactory.guardXhr;
 import static org.richfaces.tests.metamer.ftest.AbstractMetamerTest.pjq;
 
 /**
@@ -39,20 +36,9 @@ import static org.richfaces.tests.metamer.ftest.AbstractMetamerTest.pjq;
  */
 public class AbstractComponentAttributes {
 
-    AjaxSelenium selenium = AjaxSeleniumProxy.getInstance();
+    protected AjaxSelenium selenium = AjaxSeleniumProxy.getInstance();
 
     JQueryLocator propertyLocator = pjq("input[id$={0}Input]");
-
-    ApplyType applyType;
-
-    public AbstractComponentAttributes() {
-        this(ApplyType.SERVER);
-    }
-
-    public AbstractComponentAttributes(ApplyType type) {
-        Validate.notNull(type);
-        this.applyType = type;
-    }
 
     protected String getProperty(String propertyName) {
         final ElementLocator<?> locator = propertyLocator.format(propertyName);
@@ -67,27 +53,21 @@ public class AbstractComponentAttributes {
         String inputType = selenium.getAttribute(typeLocator);
 
         String valueAsString = value.toString();
-        // INPUT TEXT
+
         if ("text".equals(inputType)) {
-            if (applyType == ApplyType.SERVER) {
-                guardHttp(selenium).type(locator, valueAsString);
-            } else if (applyType == ApplyType.AJAX) {
-                guardXhr(selenium).type(locator, valueAsString);
-            }
-            // INPUT CHECKBOX
+            applyText(locator, valueAsString);
         } else if ("checkbox".equals(inputType)) {
             boolean checked = Boolean.valueOf(valueAsString);
 
-            if (applyType == ApplyType.SERVER) {
-                guardHttp(selenium).check(locator, checked);
-            } else if (applyType == ApplyType.AJAX) {
-                selenium.check(locator, checked);
-                guardXhr(selenium).fireEvent(locator, Event.CHANGE);
-            }
+            applyCheckbox(locator, checked);
         }
     }
 
-    public static enum ApplyType {
-        SERVER, AJAX
+    protected void applyText(ElementLocator<?> locator, String value) {
+        guardHttp(selenium).type(locator, value);
+    }
+
+    protected void applyCheckbox(ElementLocator<?> locator, boolean checked) {
+        guardHttp(selenium).check(locator, checked);
     }
 }
