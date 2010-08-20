@@ -134,7 +134,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                         </ul>
                     </rich:column>
                     <rich:column>
-                        <h:outputText value="#{item.numberOfKids}" />
+                        <rich:inputNumberSlider id="numOfKidsSlider" value="#{item.numberOfKids}" maxValue="5"/>
                     </rich:column>
                     <f:facet name="footer">
                         <h:outputText value="Total of #{list[0].sex == 'MALE' ? 'men' : 'women'}: #{list.size()}" />
