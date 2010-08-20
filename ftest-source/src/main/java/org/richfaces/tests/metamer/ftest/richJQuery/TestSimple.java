@@ -38,9 +38,12 @@ import org.testng.annotations.Test;
  * @author <a href="mailto:lfryc@redhat.com">Lukas Fryc</a>
  * @version $Revision$
  */
-public class TestTiming extends AbstractMetamerTest {
+public class TestSimple extends AbstractMetamerTest {
 
-    JQueryLocator button = jq("input:button[id$=jQueryTestButton]");
+    JQueryLocator button = jq("#jQueryTestButton");
+    JQueryLocator rebind = jq("#rebindOneClickButton");
+    JQueryLocator addLiveComponent = jq("input[id$=addComponentButton]");
+    JQueryLocator liveTestComponent = jq("div.liveTestComponent");
 
     RichJQueryAttributes attributes = new RichJQueryAttributes();
 
@@ -49,13 +52,70 @@ public class TestTiming extends AbstractMetamerTest {
         return buildUrl(contextPath, "faces/components/richJQuery/simple.xhtml");
     }
 
+    @Test
+    public void testDefaultTiming() {
+        setupDomReadyTypeAttributes();
+        attributes.setTiming(null);
+        assertEquals("red", selenium.getStyle(button, CssProperty.COLOR));
+    }
+
+    @Test
+    public void testTimingImmediate() {
+        setupImmediateTypeAttributes();
+        selenium.click(button);
+        waitGui.until(styleEquals.locator(button).property(CssProperty.COLOR).value("red"));
+    }
+
+    @Test
+    public void testTimingDomReady() {
+        setupDomReadyTypeAttributes();
+        assertEquals("red", selenium.getStyle(button, CssProperty.COLOR));
+    }
+
+    @Test
+    public void testAttachTypeOne() {
+        setupImmediateTypeAttributes();
+        attributes.setAttachType("one");
+        attributes.setQuery(js("alert('first')"));
+
+        selenium.click(button);
+        waitGui.until(alertEquals.message("first"));
+        selenium.click(button);
+        selenium.click(button);
+
+        for (int i = 0; i < 3; i++) {
+            selenium.click(rebind);
+            selenium.click(button);
+            waitGui.until(alertEquals.message("one attachType rebound event"));
+        }
+    }
+
+    @Test
+    public void testAttachTypeLive() {
+        for (int count = 1; count <= 4; count++) {
+            if (count > 1) {
+                selenium.click(addLiveComponent);
+                waitAjax.until(countEquals.locator(liveTestComponent).count(count));
+            }
+
+            for (int i = 1; i <= count; i++) {
+                JQueryLocator component = liveTestComponent.getNthOccurence(i);
+
+                String message = selenium.getText(component);
+                selenium.click(component);
+                waitGui.until(alertEquals.message(message));
+            }
+
+        }
+    }
+
     private void setupImmediateTypeAttributes() {
         attributes.setEvent("click");
         attributes.setQuery(js("$(this).css('color', 'red')"));
         attributes.setSelector(button);
         attributes.setTiming(JQueryTiming.immediate);
     }
-    
+
     private void setupDomReadyTypeAttributes() {
         attributes.setEvent(null);
         attributes.setQuery(js("css('color', 'red')"));
@@ -63,23 +123,4 @@ public class TestTiming extends AbstractMetamerTest {
         attributes.setTiming(JQueryTiming.domready);
     }
 
-    @Test
-    public void testImmediate() {
-        setupImmediateTypeAttributes();
-        selenium.click(button);
-        waitGui.until(styleEquals.locator(button).property(CssProperty.COLOR).value("red"));
-    }
-
-    @Test
-    public void testDomReady() {
-        setupDomReadyTypeAttributes();
-        assertEquals("red", selenium.getStyle(button, CssProperty.COLOR));
-    }
-    
-    @Test
-    public void testDomReadyByDefault() {
-        setupDomReadyTypeAttributes();
-        attributes.setTiming(null);
-        assertEquals("red", selenium.getStyle(button, CssProperty.COLOR));
-    }
 }
