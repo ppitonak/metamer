@@ -21,22 +21,18 @@
  *******************************************************************************/
 package org.richfaces.tests.metamer.ftest.richJQuery;
 
+import static org.jboss.test.selenium.encapsulated.JavaScript.js;
+import static org.jboss.test.selenium.locator.LocatorFactory.jq;
+import static org.jboss.test.selenium.utils.URLUtils.buildUrl;
+import static org.testng.Assert.assertEquals;
+
 import java.net.URL;
 
 import org.jboss.test.selenium.css.CssProperty;
-import org.jboss.test.selenium.encapsulated.JavaScript;
 import org.jboss.test.selenium.locator.JQueryLocator;
-import org.jboss.test.selenium.waiting.conditions.StyleEquals;
 import org.richfaces.component.JQueryTiming;
 import org.richfaces.tests.metamer.ftest.AbstractMetamerTest;
 import org.testng.annotations.Test;
-
-import static org.jboss.test.selenium.utils.URLUtils.*;
-import static org.jboss.test.selenium.locator.LocatorFactory.*;
-import static org.jboss.test.selenium.guard.request.RequestTypeGuardFactory.guardXhr;
-import static org.testng.Assert.assertEquals;
-import static org.jboss.test.selenium.encapsulated.JavaScript.js;
-import static org.jboss.test.selenium.utils.text.SimplifiedFormat.format;
 
 /**
  * @author <a href="mailto:lfryc@redhat.com">Lukas Fryc</a>
