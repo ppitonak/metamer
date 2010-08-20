@@ -50,9 +50,9 @@
     </licenses>
 
     <scm>
-        <connection>scm:svn:http://anonsvn.jboss.org/repos/richfaces/root/tests/metamer/trunk</connection>
-        <developerConnection>scm:svn:https://svn.jboss.org/repos/richfaces/root/tests/metamer/trunk</developerConnection>
-        <url>http://fisheye.jboss.org/browse/RichFaces/root/tests/metamer/trunk</url>
+        <connection>scm:svn:http://anonsvn.jboss.org/repos/richfaces/modules/tests/metamer/trunk</connection>
+        <developerConnection>scm:svn:https://svn.jboss.org/repos/richfaces/modules/tests/metamer/trunk</developerConnection>
+        <url>http://fisheye.jboss.org/browse/RichFaces/modules/tests/metamer/trunk</url>
     </scm>
 
     <distributionManagement>
@@ -131,8 +131,8 @@
                 <artifactId>maven-release-plugin</artifactId>
                 <configuration>
                     <arguments>-Dselenium.test.skip=true -Dselenium.server.skip=true</arguments>
-                    <tagBase>https://svn.jboss.org/repos/richfaces/root/tests/metamer/tags</tagBase>
-                    <branchBase>https://svn.jboss.org/repos/richfaces/root/tests/metamer/branches</branchBase>
+                    <tagBase>http://anonsvn.jboss.org/repos/richfaces/modules/tests/metamer/tags</tagBase>
+                    <branchBase>http://anonsvn.jboss.org/repos/richfaces/modules/tests/metamer/branches</branchBase>
                 </configuration>
             </plugin>
         </plugins>

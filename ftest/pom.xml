@@ -35,9 +35,9 @@
 	<packaging>pom</packaging>
 
 	<scm>
-		<connection>scm:svn:http://anonsvn.jboss.org/repos/richfaces/root/tests/metamer/trunk/ftest</connection>
-		<developerConnection>scm:svn:https://svn.jboss.org/repos/richfaces/root/tests/metamer/ftest</developerConnection>
-		<url>http://fisheye.jboss.org/browse/RichFaces/root/tests/metamer/trunk/ftest</url>
+		<connection>scm:svn:http://anonsvn.jboss.org/repos/richfaces/modules/tests/metamer/trunk/ftest</connection>
+		<developerConnection>scm:svn:https://svn.jboss.org/repos/richfaces/modules/tests/metamer/trunk/ftest</developerConnection>
+		<url>http://fisheye.jboss.org/browse/RichFaces/modules/tests/metamer/trunk/ftest</url>
 	</scm>
 
 	<licenses>
