@@ -52,6 +52,9 @@ public class AbstractComponentAttributes {
 
         String inputType = selenium.getAttribute(typeLocator);
 
+        if (value == null) {
+            value = "";
+        }
         String valueAsString = value.toString();
 
         if ("text".equals(inputType)) {
