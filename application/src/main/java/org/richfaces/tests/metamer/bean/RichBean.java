@@ -111,6 +111,7 @@ public class RichBean implements Serializable {
         components.put("richAccordion", "Rich Accordion");
         components.put("richAccordionItem", "Rich Accordion Item");
         components.put("richColumn", "Rich Column");
+        components.put("richColumnGroup", "Rich Column Group");
         components.put("richComponentControl", "Rich Component Control");
         components.put("richDataGrid", "Rich Data Grid");
         components.put("richDataScroller", "Rich Data Scroller");
