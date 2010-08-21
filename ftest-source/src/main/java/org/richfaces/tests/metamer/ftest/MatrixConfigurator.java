@@ -66,13 +66,12 @@ public class MatrixConfigurator extends TestMethodSelector implements IAnnotatio
     IMethodInterceptor {
 
     static Map<Field, Object> currentConfiguration;
-    
+
     Map<Class<?>, Map<Method, Configuration>> configurations = new HashMap<Class<?>, Map<Method, Configuration>>();
     LinkedList<Method> methods = new LinkedList<Method>();
     boolean methodConfigured = false;
     Field templatesField = null;
-    
-    
+
     public static Map<Field, Object> getCurrentConfiguration() {
         return currentConfiguration;
     }
@@ -104,8 +103,12 @@ public class MatrixConfigurator extends TestMethodSelector implements IAnnotatio
             || m.isAfterSuiteConfiguration() || m.isAfterTestConfiguration();
     }
 
-    private void configureMethod(ITestResult testResult) {
-        Method realMethod = ((Queue<Method>) methods).poll();
+    private Method getCurrentRealMethod() {
+        return ((Queue<Method>) methods).poll();
+    }
+
+    protected void configureMethod(ITestResult testResult) {
+        Method realMethod = getCurrentRealMethod();
 
         if (realMethod == null) {
             throw new IllegalStateException("can't find more configured methods");
@@ -157,8 +160,10 @@ public class MatrixConfigurator extends TestMethodSelector implements IAnnotatio
                 if (field.getAnnotation(Use.class) != null) {
                     parameters.put(field, getUseParameter(realClass, field.getType(), field.getAnnotation(Use.class)));
                 } else if (field.getAnnotation(Templates.class) != null) {
-                    parameters.put(field,
-                        getTemplatesParameter(realClass, field.getType(), field.getAnnotation(Templates.class), parameters));
+                    parameters.put(
+                        field,
+                        getTemplatesParameter(realClass, field.getType(), field.getAnnotation(Templates.class),
+                            parameters));
                     templatesField = field;
                 } else {
                     parameters.put(field, null);
@@ -166,7 +171,7 @@ public class MatrixConfigurator extends TestMethodSelector implements IAnnotatio
                 }
             }
         }
-        
+
         if (templatesField == null) {
             throw new IllegalStateException("there is no field annotated @Templates in " + realClass.getName());
         }
@@ -181,7 +186,7 @@ public class MatrixConfigurator extends TestMethodSelector implements IAnnotatio
         } finally {
             templatesField = null;
         }
-        
+
         if (!unsatisfied.isEmpty()) {
             throw new IllegalStateException("cannot satisfy following injection points: " + unsatisfied.toString());
         }
@@ -222,7 +227,8 @@ public class MatrixConfigurator extends TestMethodSelector implements IAnnotatio
             }
             if (annotation.annotationType() == Templates.class) {
                 Templates templatesAnnotation = (Templates) annotation;
-                parameters.put(templatesField, getTemplatesParameter(testClass, templatesField.getType(), templatesAnnotation, parameters));
+                parameters.put(templatesField,
+                    getTemplatesParameter(testClass, templatesField.getType(), templatesAnnotation, parameters));
             }
         }
     }
@@ -286,8 +292,8 @@ public class MatrixConfigurator extends TestMethodSelector implements IAnnotatio
             String namePattern = useAnnotation.value()[i];
             namePattern = StringUtils.replace(namePattern, "*", ".+");
             namePattern = StringUtils.replace(namePattern, "?", ".");
-            
-            for (Field field : getAllFields(testClass)) { 
+
+            for (Field field : getAllFields(testClass)) {
                 Pattern pattern = Pattern.compile(namePattern);
                 if (pattern.matcher(field.getName()).matches()) {
                     boolean isArray = field.getType().isArray();
@@ -312,7 +318,8 @@ public class MatrixConfigurator extends TestMethodSelector implements IAnnotatio
             if (satisfied) {
                 continue;
             }
-            throw new IllegalStateException("cannot find the field satysfying injection point with name pattern: " + useAnnotation.value()[i]);
+            throw new IllegalStateException("cannot find the field satysfying injection point with name pattern: "
+                + useAnnotation.value()[i]);
         }
         return result;
     }
@@ -362,20 +369,20 @@ public class MatrixConfigurator extends TestMethodSelector implements IAnnotatio
         }
 
         List<TemplatesList> templates = null;
-        
+
         // if templates was already set, load them
         if (templatesField != null) {
             templates = (List<TemplatesList>) parameters.get(templatesField);
         }
-        
+
         // get user defined templates
         List<TemplatesList> userTemplates = MetamerProperties.getTemplates();
-        
+
         // if "value" is defined, takes precedens
         if (templatesAnnotation.value().length > 0) {
             templates = MetamerProperties.parseTemplates(templatesAnnotation.value());
         }
-        
+
         // include all "include" to current list
         if (templatesAnnotation.include().length > 0) {
             List<TemplatesList> includeTemplates = MetamerProperties.parseTemplates(templatesAnnotation.include());
@@ -386,7 +393,7 @@ public class MatrixConfigurator extends TestMethodSelector implements IAnnotatio
                 templates.addAll(includeTemplates);
             }
         }
-        
+
         // exclude all "exclude" from current list
         if (templatesAnnotation.exclude().length > 0) {
             List<TemplatesList> excludeTemplates = MetamerProperties.parseTemplates(templatesAnnotation.exclude());
@@ -394,7 +401,7 @@ public class MatrixConfigurator extends TestMethodSelector implements IAnnotatio
                 templates.removeAll(excludeTemplates);
             }
         }
-        
+
         // remove all templates which wasn't in user defined set
         if (userTemplates != null) {
             if (templates == null) {

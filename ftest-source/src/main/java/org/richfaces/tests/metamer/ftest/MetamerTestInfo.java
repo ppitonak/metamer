@@ -28,8 +28,12 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.apache.commons.lang.StringUtils;
+import org.jboss.test.selenium.utils.testng.TestInfo;
+import org.testng.ITestResult;
 
 /**
  * @author <a href="mailto:ppitonak@redhat.com">Lukas Fryc</a>
@@ -71,5 +75,24 @@ public final class MetamerTestInfo {
 
     public static String getConfigurationInfoInParenthesses() {
         return "{ " + getConfigurationInfo() + " }";
+    }
+    
+    public static String getAssociatedFilename(ITestResult result) {
+        String packageName = TestInfo.getContainingPackageName(result);
+        String className = TestInfo.getClassName(result);
+        String methodName = TestInfo.getMethodName(result);
+
+        String testInfo = getConfigurationInfo();
+        testInfo = StringUtils.replaceChars(testInfo, "\\/*?\"<>|", "");
+        testInfo = StringUtils.replaceChars(testInfo, "\r\n \t", "_");
+        testInfo = StringUtils.replaceChars(testInfo, ":", "-");
+
+        // derives template and sort it as sub-directory after other attributes
+        Matcher matcher = Pattern.compile("^(template-[^;]+);(.*)$").matcher(testInfo);
+        if (matcher.find()) {
+            testInfo = matcher.group(2) + "/" + matcher.group(1);
+        }
+
+        return packageName + "/" + className + "/" + methodName + "/" + testInfo;
     }
 }
