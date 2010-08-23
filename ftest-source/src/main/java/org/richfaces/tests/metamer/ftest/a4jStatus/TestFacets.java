@@ -71,7 +71,7 @@ public class TestFacets extends AbstracStatusTest {
         }
 
         final String startText = facets.getStartText();
-        final String stopText = (button == buttonError) ? facets.getErrorText() : facets.getStopText();
+        final String stopText = (button.getAsString().equals(buttonError.getAsString())) ? facets.getErrorText() : facets.getStopText();
 
         testRequestButton(button, startText, stopText);
     }
