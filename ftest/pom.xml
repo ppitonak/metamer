@@ -79,8 +79,8 @@
 
 	<properties>
 		<context.path>/metamer/</context.path>
-		<deployable.version>4.0.0.20100824-M2</deployable.version>
-		<ftest.source.version>4.0.0.20100824-M2</ftest.source.version>
+		<deployable.version>4.0.0-SNAPSHOT</deployable.version>
+		<ftest.source.version>4.0.0-SNAPSHOT</ftest.source.version>
 		<testng.suite.xml>src/test/resources/testng.xml</testng.suite.xml>
 	</properties>
 
