@@ -23,7 +23,7 @@ mvn release:clean clean ${CONF}
 read -p 'Press ENTER to dry run...'
 mvn release:prepare -DdryRun=true ${CONF} || exit 1
 read -p 'Press ENTER to clean...'
-mvn release:clean
+mvn release:clean ${CONF}
 read -p 'Press ENTER to prepare...'
 mvn clean release:prepare ${CONF} || exit 1
 read -p 'Press ENTER to perform...'
