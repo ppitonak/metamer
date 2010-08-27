@@ -7,8 +7,17 @@ echo "Is this version correct?"
 read -p 'Press ENTER to continue or Ctrl+C for exit...'
 read -p 'Enter release version: ' RELEASE
 read -p 'Enter new development version: ' DEVELOPMENT
+read -p 'Enter path to the settings.xml: ' MVN_SETTINGS
+
 CONF="--batch-mode -Dtag=metamer-${RELEASE} -DreleaseVersion=${RELEASE} -DdevelopmentVersion=${DEVELOPMENT}"
+
+if [ -n "$MVN_SETTINGS" ]; then
+   echo "**** NIE JE PRAZDNE $MVN_SETTINGS"
+   CONF="$CONF -s $MVN_SETTINGS"; 
+fi
+
 echo "Configuration: ${CONF}"
+
 read -p 'Press ENTER to clean...'
 mvn release:clean clean
 read -p 'Press ENTER to dry run...'
