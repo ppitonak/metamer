@@ -22,19 +22,13 @@
 package org.richfaces.tests.metamer.bean;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 
 import org.richfaces.component.UIColumn;
-
 import org.richfaces.tests.metamer.Attributes;
-import org.richfaces.tests.metamer.model.Employee;
-import org.richfaces.tests.metamer.model.Employee.Sex;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -50,13 +44,8 @@ public class RichColumnBean implements Serializable {
 
     private static final long serialVersionUID = -1L;
     private static Logger logger;
-    private Attributes attributes;
-    @ManagedProperty(value = "#{model.employees}")
-    private List<Employee> employees;
-    private List<List<Employee>> lists;
-    // true = model, false = empty table
-    private boolean state;
-
+    private Attributes attributes;   
+   
     /**
      * Initializes the managed bean.
      */
@@ -66,29 +55,17 @@ public class RichColumnBean implements Serializable {
         logger.debug("initializing bean " + getClass().getName());
 
         attributes = Attributes.getUIComponentAttributes(UIColumn.class, getClass());
-
-       
-//        attributes.setAttribute("rendered", true);
-  
-        // TODO these attributes have to be tested in another way
-  //      attributes.remove("componentState");
-    
-        List<Employee> men = new ArrayList<Employee>();
-        List<Employee> women = new ArrayList<Employee>();
-
-        for (Employee e : employees) {
-            if (e.getSex() == Sex.MALE) {
-                men.add(e);
-            } else {
-                women.add(e);
-            }
-        }
-
-        lists = new ArrayList<List<Employee>>();
-        lists.add(men);
-        lists.add(women);
-
-        state = true;
+        attributes.setAttribute("rendered", true);
+        attributes.setAttribute("columnSpan", 1);        
+        
+        /*breakRowBefore=""
+			 colspan=""
+			 comparator=""
+			 filter=""
+			 filterValue=""
+			 rendered=""
+			 rowspan=""
+			 sortOrder=""*/
     }
 
     public Attributes getAttributes() {
@@ -99,28 +76,5 @@ public class RichColumnBean implements Serializable {
         this.attributes = attributes;
     }
 
-    public List<Employee> getEmployees() {
-        return employees;
-    }
-
-    public void setEmployees(List<Employee> employees) {
-        this.employees = employees;
-    }
-
-    public List<List<Employee>> getLists() {
-        return lists;
-    }
-
-    public void setLists(List<List<Employee>> lists) {
-        this.lists = lists;
-    }
-
-    public boolean isState() {
-        return state;
-    }
-
-    public void setState(boolean state) {
-        this.state = state;
-    }
-
+    
 }

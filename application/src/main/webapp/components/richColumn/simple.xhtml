@@ -40,7 +40,35 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
         </ui:define>
 
         <ui:define name="component">
-           
+        
+         <rich:dataTable id="richDataTable"
+         				 rendered="true"
+                         value="#{model.capitals}"
+                         rows="5" 
+                         var="record"                          
+                          >                                    
+                <rich:column id="columnState"
+                			 rendered="#{richColumnBean.attributes['rendered'].value}"
+                			 colspan="#{richColumnBean.attributes['colspan'].value}"
+                			 sortOrder="#{richColumnBean.attributes['sortOrder'].value}"
+                			 >      
+                    <f:facet name="header">
+                        <h:outputText id="columnHeaderState" value="State" />
+                    </f:facet>                    
+                    <h:outputText value="#{record.state}" />
+                    <f:facet name="footer">
+                        <h:outputText id="columnFooterState" value="State" />
+                    </f:facet>
+                </rich:column>
+                <rich:column id="columnCapital"                			 
+                			 filter="#{richColumnBean.attributes['filter'].value}"
+                			 >      
+                    <f:facet name="header">
+                        <h:outputText id="columnCapitalState" value="Capital" />
+                    </f:facet>                    
+                    <h:outputText value="#{record.name}" />                  
+                </rich:column>                                   
+            </rich:dataTable>
         </ui:define>
 
         <ui:define name="outOfTemplateAfter">
