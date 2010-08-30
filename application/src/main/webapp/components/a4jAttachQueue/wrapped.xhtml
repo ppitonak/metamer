@@ -67,15 +67,15 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
             <a4j:ajax event="keyup" render="output1, output2" execute="@form" onbegin="addRequest();"
                       oncomplete="printCounts()" onbeforedomupdate="addUpdate()">
                 <a4j:attachQueue id="a4jAttachQueue"
-                                 ignoreDupResponses="#{a4jAttachQueueBean.attributes1['ignoreDupResponses'].value}"
-                                 name="#{a4jAttachQueueBean.attributes1['name'].value}"
-                                 onrequestdequeue="#{a4jAttachQueueBean.attributes1['onrequestdequeue'].value}"
-                                 onrequestqueue="#{a4jAttachQueueBean.attributes1['onrequestqueue'].value}"
-                                 queueId="#{a4jAttachQueueBean.attributes1['queueId'].value}"
-                                 rendered="#{a4jAttachQueueBean.attributes1['rendered'].value}"
-                                 requestDelay="#{a4jAttachQueueBean.attributes1['requestDelay'].value}"
-                                 requestGroupingId="#{a4jAttachQueueBean.attributes1['requestGroupingId'].value}"
-                                 timeout="#{a4jAttachQueueBean.attributes1['timeout'].value}"/>
+                                 ignoreDupResponses="#{a4jAttachQueueBean.attributes['ignoreDupResponses'].value}"
+                                 name="#{a4jAttachQueueBean.attributes['name'].value}"
+                                 onrequestdequeue="#{a4jAttachQueueBean.attributes['onrequestdequeue'].value}"
+                                 onrequestqueue="#{a4jAttachQueueBean.attributes['onrequestqueue'].value}"
+                                 queueId="#{a4jAttachQueueBean.attributes['queueId'].value}"
+                                 rendered="#{a4jAttachQueueBean.attributes['rendered'].value}"
+                                 requestDelay="#{a4jAttachQueueBean.attributes['requestDelay'].value}"
+                                 requestGroupingId="#{a4jAttachQueueBean.attributes['requestGroupingId'].value}"
+                                 timeout="#{a4jAttachQueueBean.attributes['timeout'].value}"/>
 
                 <h:inputText id="input1" value="#{a4jAttachQueueBean.text1}" onkeyup="addEvent();"/>
                 <h:inputText id="input2" value="#{a4jAttachQueueBean.text2}" onkeyup="addEvent();"/>
@@ -97,7 +97,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
         </ui:define>
 
         <ui:define name="outOfTemplateAfter">
-            <metamer:attributes value="#{a4jAttachQueueBean.attributes1}" id="attributes" />
+            <metamer:attributes value="#{a4jAttachQueueBean.attributes}" id="attributes" />
         </ui:define>
 
     </ui:composition>
