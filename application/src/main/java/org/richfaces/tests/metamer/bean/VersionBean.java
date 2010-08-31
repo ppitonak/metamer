@@ -28,7 +28,7 @@ import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
 
 import org.richfaces.log.RichfacesLogger;
-import org.slf4j.Logger;
+import org.richfaces.log.Logger;
 
 /**
  * Vendor and version information for project Metamer.
