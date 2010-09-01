@@ -103,7 +103,7 @@ public class MatrixConfigurator extends TestMethodSelector implements IAnnotatio
             || m.isAfterSuiteConfiguration() || m.isAfterTestConfiguration();
     }
 
-    private Method getCurrentRealMethod() {
+    protected Method getCurrentRealMethod() {
         return ((Queue<Method>) methods).poll();
     }
 
