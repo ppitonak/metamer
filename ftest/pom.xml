@@ -37,7 +37,7 @@
 	<scm>
 		<connection>scm:svn:http://anonsvn.jboss.org/repos/richfaces/modules/tests/metamer/trunk/ftest</connection>
 		<developerConnection>scm:svn:https://svn.jboss.org/repos/richfaces/modules/tests/metamer/trunk/ftest</developerConnection>
-		<url>scm:svn:http://anonsvn.jboss.org/repos/richfaces/modules/tests/metamer/trunk/ftest</url>
+		<url>http://fisheye.jboss.org/browse/RichFaces/modules/tests/metamer/trunk/ftest</url>
 	</scm>
 
 	<licenses>

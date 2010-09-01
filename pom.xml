@@ -52,7 +52,7 @@
     <scm>
         <connection>scm:svn:http://anonsvn.jboss.org/repos/richfaces/modules/tests/metamer/trunk</connection>
         <developerConnection>scm:svn:https://svn.jboss.org/repos/richfaces/modules/tests/metamer/trunk</developerConnection>
-        <url>scm:svn:http://anonsvn.jboss.org/repos/richfaces/modules/tests/metamer/trunk</url>
+        <url>http://fisheye.jboss.org/browse/RichFaces/modules/tests/metamer/trunk</url>
     </scm>
 
     <distributionManagement>
