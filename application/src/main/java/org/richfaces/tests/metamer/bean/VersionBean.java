@@ -21,11 +21,20 @@
  *******************************************************************************/
 package org.richfaces.tests.metamer.bean;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.io.InputStream;
+import java.net.URL;
+import java.security.CodeSource;
 import java.util.Properties;
+import java.util.jar.JarInputStream;
+import java.util.jar.Manifest;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
+import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpServletRequest;
 
 import org.richfaces.log.RichfacesLogger;
 import org.richfaces.log.Logger;
@@ -47,6 +56,7 @@ public final class VersionBean {
     private String scmRevision;
     private String scmTimestamp;
     private String fullVersion;
+    private String jsfVersion;
 
     /**
      * Initializes the managed bean.
@@ -100,6 +110,61 @@ public final class VersionBean {
 
         fullVersion = implementationTitle + " by " + implementationVendor + ", version " + implementationVersion + " SVN r. " + scmRevision;
         return fullVersion;
+    }
+
+    public String getJavaVersion() {
+        return System.getProperty("java.runtime.name") + " " + System.getProperty("java.runtime.version");
+    }
+
+    public String getOsVersion() {
+        return System.getProperty("os.name") + " " + System.getProperty("os.version");
+    }
+
+    public String getJsfVersion() {
+        if (jsfVersion != null) {
+            return jsfVersion;
+        }
+
+        FacesContext facesContext = FacesContext.getCurrentInstance();
+        if (facesContext == null) {
+            return null;
+        }
+
+        Class<?> applicationClass = facesContext.getApplication().getClass();
+        JarInputStream jarInputStream = null;
+
+        try {
+            CodeSource codeSource = applicationClass.getProtectionDomain().getCodeSource();
+            URL url = codeSource.getLocation();
+            File file = new File(url.getFile());
+            jarInputStream = new JarInputStream(new FileInputStream(file));
+            Manifest manifest = jarInputStream.getManifest();
+
+            if (manifest != null && manifest.getMainAttributes() != null) {
+                jsfVersion = manifest.getMainAttributes().getValue("Implementation-Title");
+                jsfVersion += " ";
+                jsfVersion += manifest.getMainAttributes().getValue("Implementation-Version");
+            } else {
+                jsfVersion = "Unknown version of JSF";
+            }
+        } catch (Exception e) {
+            LOGGER.error(e);
+        } finally {
+            if (jarInputStream != null) {
+                try {
+                    jarInputStream.close();
+                } catch (IOException e) {
+                    LOGGER.error(e);
+                }
+            }
+        }
+
+        return jsfVersion;
+    }
+
+    public String getBrowserVersion() {
+        HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+        return request.getHeader("user-agent");
     }
 
     @Override
