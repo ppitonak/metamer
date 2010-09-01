@@ -105,8 +105,8 @@ public final class Attributes implements Map<String, Attribute>, Serializable {
             }
         }
 
-        logger.info(attributes.keySet().toString());
-
+        logger.debug(attributes.keySet().toString());
+        
         loadHelp();
         loadSelectOptions();
     }

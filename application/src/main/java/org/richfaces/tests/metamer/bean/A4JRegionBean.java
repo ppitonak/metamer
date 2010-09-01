@@ -70,7 +70,7 @@ public class A4JRegionBean implements Serializable {
     @PostConstruct
     public void init() {
         logger = LoggerFactory.getLogger(getClass());
-        logger.info("initializing bean " + getClass().getName());
+        logger.debug("initializing bean " + getClass().getName());
 
         user1 = new Employee();
         user2 = new Employee();

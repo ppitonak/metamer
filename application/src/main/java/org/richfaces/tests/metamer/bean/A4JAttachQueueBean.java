@@ -55,7 +55,7 @@ public class A4JAttachQueueBean implements Serializable {
     @PostConstruct
     public void init() {
         logger = LoggerFactory.getLogger(getClass());
-        logger.info("initializing bean " + getClass().getName());
+        logger.debug("initializing bean " + getClass().getName());
 
         // initialize attributes
         attributes = Attributes.getUIComponentAttributes(UIAttachQueue.class, getClass());

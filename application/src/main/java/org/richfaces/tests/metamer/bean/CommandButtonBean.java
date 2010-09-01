@@ -58,7 +58,7 @@ public class CommandButtonBean implements Serializable {
     @PostConstruct
     public void init() {
         logger = LoggerFactory.getLogger(getClass());
-        logger.info("initializing bean " + getClass().getName());
+        logger.debug("initializing bean " + getClass().getName());
 
         attributes = Attributes.getUIComponentAttributes(HtmlCommandButton.class, getClass());
 

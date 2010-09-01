@@ -56,7 +56,7 @@ public class A4JJSFunctionBean implements Serializable {
     @PostConstruct
     public void init() {
         logger = LoggerFactory.getLogger(getClass());
-        logger.info("initializing bean " + getClass().getName());
+        logger.debug("initializing bean " + getClass().getName());
         year = Integer.parseInt(new SimpleDateFormat("yyyy").format(new Date()));
 
         // initialize attributes
