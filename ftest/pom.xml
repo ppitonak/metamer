@@ -79,6 +79,7 @@
 
 	<properties>
 		<context.path>/metamer/</context.path>
+		<deployable.classifier>mojarra</deployable.classifier>
 		<deployable.version>4.0.0-SNAPSHOT</deployable.version>
 		<ftest.source.version>4.0.0-SNAPSHOT</ftest.source.version>
 		<testng.suite.xml>src/test/resources/testng.xml</testng.suite.xml>
@@ -95,6 +96,7 @@
 		<dependency>
 			<groupId>org.richfaces.tests</groupId>
 			<artifactId>metamer</artifactId>
+			<classifier>${deployable.classifier}</classifier>
 			<type>${deployable.type}</type>
 			<version>${deployable.version}</version>
 		</dependency>
@@ -136,6 +138,7 @@
 										<groupId>org.richfaces.tests</groupId>
 										<artifactId>metamer</artifactId>
 										<type>${deployable.type}</type>
+										<classifier>${deployable.classifier}</classifier>
 										<properties>
 											<context>${context.deploy.path}</context>
 										</properties>
