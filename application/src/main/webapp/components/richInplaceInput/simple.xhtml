@@ -45,8 +45,35 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                                defaultLabel="#{richInplaceInputBean.attributes['defaultLabel'].value}"
                                editEvent="#{richInplaceInputBean.attributes['editEvent'].value}"
                                immediate="#{richInplaceInputBean.attributes['immediate'].value}"
+                               inputWidth="#{richInplaceInputBean.attributes['inputWidth'].value}"
                                localValue="#{richInplaceInputBean.attributes['localValue'].value}"
                                localValueSet="#{richInplaceInputBean.attributes['localValueSet'].value}"
+                               onInputBlur="#{richInplaceInputBean.attributes['onInputBlur'].value}"
+                               onInputClick="#{richInplaceInputBean.attributes['onInputClick'].value}"
+                               onInputDblClick="#{richInplaceInputBean.attributes['onInputDblClick'].value}"
+                               onInputFocus="#{richInplaceInputBean.attributes['onInputFocus'].value}"
+                               onInputKeydown="#{richInplaceInputBean.attributes['onInputKeydown'].value}"
+                               onInputKeypress="#{richInplaceInputBean.attributes['onInputKeypress'].value}"
+                               onInputKeyup="#{richInplaceInputBean.attributes['onInputKeyup'].value}"
+                               onInputMousedown="#{richInplaceInputBean.attributes['onInputMousedown'].value}"
+                               onInputMousemove="#{richInplaceInputBean.attributes['onInputMousemove'].value}"
+                               onInputMouseout="#{richInplaceInputBean.attributes['onInputMouseout'].value}"
+                               onInputMouseover="#{richInplaceInputBean.attributes['onInputMouseover'].value}"
+                               onInputMouseup="#{richInplaceInputBean.attributes['onInputMouseup'].value}"
+                               onblur="#{richInplaceInputBean.attributes['onblur'].value}"
+                               onchange="#{richInplaceInputBean.attributes['onchange'].value}"
+                               onclick="#{richInplaceInputBean.attributes['onclick'].value}"
+                               ondblclick="#{richInplaceInputBean.attributes['ondblclick'].value}"
+                               onfocus="#{richInplaceInputBean.attributes['onfocus'].value}"
+                               onkeydown="#{richInplaceInputBean.attributes['onkeydown'].value}"
+                               onkeypress="#{richInplaceInputBean.attributes['onkeypress'].value}"
+                               onkeyup="#{richInplaceInputBean.attributes['onkeyup'].value}"
+                               onmousedown="#{richInplaceInputBean.attributes['onmousedown'].value}"
+                               onmousemove="#{richInplaceInputBean.attributes['onmousemove'].value}"
+                               onmouseout="#{richInplaceInputBean.attributes['onmouseout'].value}"
+                               onmouseover="#{richInplaceInputBean.attributes['onmouseover'].value}"
+                               onmouseup="#{richInplaceInputBean.attributes['onmouseup'].value}"
+                               onselect="#{richInplaceInputBean.attributes['onselect'].value}"
                                rendered="#{richInplaceInputBean.attributes['rendered'].value}"
                                required="#{richInplaceInputBean.attributes['required'].value}"
                                requiredMessage="#{richInplaceInputBean.attributes['requiredMessage'].value}"
@@ -62,9 +89,9 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                                valueChangeListener="#{richInplaceInputBean.attributes['valueChangeListener'].value}"
                                valueChangeListeners="#{richInplaceInputBean.attributes['valueChangeListeners'].value}"
                                >
-                <ui:remove>
-                    <a4j:ajax id="inplaceInputAjax" event="change" render="output"/>
-                </ui:remove>
+
+                <a4j:ajax id="inplaceInputAjax" event="change" render="output"/>
+
             </rich:inplaceInput>
 
             <br/><br/>

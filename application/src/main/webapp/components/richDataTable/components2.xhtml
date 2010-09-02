@@ -104,7 +104,9 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                         <h:outputText id="columnHeaderNameComponent" value="rich:inplaceInput" />
                     </f:facet>
 
-                    <rich:inplaceInput id="nameInput" value="#{record.name}" defaultLabel="Click here to edit"/>
+                    <rich:inplaceInput id="nameInput" value="#{record.name}" defaultLabel="Click here to edit">
+                        <a4j:ajax id="inplaceInputAjax" event="change"/>
+                    </rich:inplaceInput>
 
                     <f:facet name="footer">
                         <h:outputText id="columnFooterState" value="Name" />
