@@ -83,18 +83,6 @@ public abstract class AbstractMetamerTest extends AbstractTestCase {
     }
 
     /**
-     * Optimization for skipping all subsequent test method invocations, if the method failed for plan template.
-     */
-    @AfterMethod(alwaysRun = true)
-    public void skipAllAfterPlainTemplateFailure(ITestResult result) {
-        if (template.size() == 1 && template.get(0) == Template.PLAIN) {
-            if (result.getStatus() == ITestResult.FAILURE) {
-                result.getMethod().setSkipFailedInvocations(true);
-            }
-        }
-    }
-
-    /**
      * Invalidates session by clicking on a button on tested page.
      */
     @AfterMethod(alwaysRun = true)
