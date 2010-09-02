@@ -48,12 +48,12 @@ import org.richfaces.tests.metamer.ftest.annotations.Inject;
 import org.richfaces.tests.metamer.ftest.annotations.Templates;
 import org.richfaces.tests.metamer.ftest.annotations.Use;
 import org.richfaces.tests.metamer.ftest.annotations.Uses;
-import org.testng.IAnnotationTransformer;
 import org.testng.IInvokedMethod;
 import org.testng.IInvokedMethodListener;
 import org.testng.IMethodInstance;
 import org.testng.IMethodInterceptor;
 import org.testng.ITestContext;
+import org.testng.ITestListener;
 import org.testng.ITestNGMethod;
 import org.testng.ITestResult;
 import org.testng.annotations.ITestAnnotation;
@@ -62,8 +62,8 @@ import org.testng.annotations.ITestAnnotation;
  * @author <a href="mailto:ppitonak@redhat.com">Lukas Fryc</a>
  * @version $Revision$
  */
-public class MatrixConfigurator extends TestMethodSelector implements IAnnotationTransformer, IInvokedMethodListener,
-    IMethodInterceptor {
+public class MatrixConfigurator extends TestMethodSelector implements IInvokedMethodListener, IMethodInterceptor,
+    ITestListener {
 
     static Map<Field, Object> currentConfiguration;
 
@@ -96,6 +96,10 @@ public class MatrixConfigurator extends TestMethodSelector implements IAnnotatio
 
             methodConfigured = true;
         }
+    }
+
+    public void onTestSkipped(ITestResult result) {
+        configureMethod(result);
     }
 
     private boolean isAfterConfiguration(ITestNGMethod m) {
@@ -145,6 +149,7 @@ public class MatrixConfigurator extends TestMethodSelector implements IAnnotatio
         super.transform(annotation, testClass, testConstructor, testMethod);
         int invocationCount = createConfiguration(testMethod.getDeclaringClass(), testMethod);
         annotation.setInvocationCount(invocationCount);
+        annotation.setSkipFailedInvocations(true);
     }
 
     public int createConfiguration(Class<?> realClass, Method realMethod) {
@@ -473,5 +478,23 @@ public class MatrixConfigurator extends TestMethodSelector implements IAnnotatio
         public void remove() {
             throw new UnsupportedOperationException();
         }
+    }
+
+    public void onTestStart(ITestResult result) {
+    }
+
+    public void onTestSuccess(ITestResult result) {
+    }
+
+    public void onTestFailure(ITestResult result) {
+    }
+
+    public void onTestFailedButWithinSuccessPercentage(ITestResult result) {
+    }
+
+    public void onStart(ITestContext context) {
+    }
+
+    public void onFinish(ITestContext context) {
     }
 }
