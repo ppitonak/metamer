@@ -29,6 +29,7 @@ import javax.xml.bind.JAXBException;
 
 import org.richfaces.tests.metamer.ftest.annotations.Inject;
 import org.richfaces.tests.metamer.ftest.annotations.Use;
+import org.richfaces.tests.metamer.ftest.annotations.Uses;
 import org.richfaces.tests.metamer.ftest.model.DataScroller;
 import org.richfaces.tests.metamer.ftest.richDataScroller.PaginationTester;
 import org.testng.annotations.BeforeMethod;
@@ -38,11 +39,10 @@ import org.testng.annotations.Test;
  * @author <a href="mailto:lfryc@redhat.com">Lukas Fryc</a>
  * @version $Revision$
  */
-@Use(field = "elements", ints = 7)
-public class TestPagination extends AbstractDataGridTest {
+@Uses({ @Use(field = "elements", ints = 7), @Use(field = "dataScroller", value = "dataScroller2") })
+public abstract class AbstractScrollerTest extends AbstractDataGridTest {
 
     @Inject
-    @Use("dataScroller*")
     DataScroller dataScroller;
     DataScroller dataScroller1 = PaginationTester.DATA_SCROLLER_OUTSIDE_TABLE;
     DataScroller dataScroller2 = PaginationTester.DATA_SCROLLER_IN_TABLE_FOOTER;
@@ -61,7 +61,7 @@ public class TestPagination extends AbstractDataGridTest {
         }
     };
 
-    public TestPagination() throws JAXBException {
+    public AbstractScrollerTest() throws JAXBException {
         super();
     }
 
@@ -79,22 +79,30 @@ public class TestPagination extends AbstractDataGridTest {
         return buildUrl(contextPath, "faces/components/richDataGrid/scroller.xhtml");
     }
 
-    @Test
-    @Use(field = "columns", ints = { 1, 3, 11, ELEMENTS_TOTAL / 2, ELEMENTS_TOTAL - 1, ELEMENTS_TOTAL,
-        ELEMENTS_TOTAL + 1 })
+    // @Test
+    // @Use(field = "columns", ints = { 1, 3, 11, ELEMENTS_TOTAL / 2, ELEMENTS_TOTAL - 1, ELEMENTS_TOTAL,
+    // ELEMENTS_TOTAL + 1 })
+    @Use(field = "columns", ints = { 3 })
     public void testColumnsAttribute() {
         paginationTester.testNumberedPages();
     }
 
-    @Test
-    @Use(field = "elements", ints = { 0, 1, ELEMENTS_TOTAL / 2, ELEMENTS_TOTAL - 1, ELEMENTS_TOTAL, ELEMENTS_TOTAL + 1 })
+    // @Test
+    // @Use(field = "elements", ints = { 0, 1, ELEMENTS_TOTAL / 2, ELEMENTS_TOTAL - 1, ELEMENTS_TOTAL, ELEMENTS_TOTAL +
+    // 1 })
+    @Use(field = "elements", ints = { 3 })
     public void testElementsAttribute() {
         paginationTester.testNumberedPages();
     }
 
-    @Test
-    @Use(field = "first", ints = { 0, 1, ELEMENTS_TOTAL / 2, ELEMENTS_TOTAL - 1, ELEMENTS_TOTAL, ELEMENTS_TOTAL + 1 })
-    public void testFirstAttribute() {
+    // @Test
+    // @Use(field = "first", ints = { 0, 1, ELEMENTS_TOTAL / 2, ELEMENTS_TOTAL - 1, ELEMENTS_TOTAL, ELEMENTS_TOTAL + 1
+    // })
+    @Use(field = "first", ints = { 3 })
+    public void testFirstAttributeDoesntInfluentScroller() {
+        // the attribute for component was already set, now verify that this attribute doesn't influent rendering (it
+        // means dataGrid with scroller ignores this attribute, it means it is always equal to zero)
+        first = 0;
         paginationTester.testNumberedPages();
     }
 }
