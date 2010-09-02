@@ -33,9 +33,11 @@ import org.jboss.test.selenium.encapsulated.JavaScript;
 import org.jboss.test.selenium.locator.ElementLocator;
 import org.jboss.test.selenium.locator.JQueryLocator;
 import org.jboss.test.selenium.waiting.ajax.JavaScriptCondition;
+import org.richfaces.tests.metamer.Template;
 import org.richfaces.tests.metamer.TemplatesList;
 import org.richfaces.tests.metamer.ftest.annotations.Inject;
 import org.richfaces.tests.metamer.ftest.annotations.Templates;
+import org.testng.ITestResult;
 import org.testng.SkipException;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
@@ -79,7 +81,19 @@ public abstract class AbstractMetamerTest extends AbstractTestCase {
         selenium.open(buildUrl(getTestUrl() + "?templates=" + template.toString()));
         selenium.waitForPageToLoad(TIMEOUT);
     }
-    
+
+    /**
+     * Optimization for skipping all subsequent test method invocations, if the method failed for plan template.
+     */
+    @AfterMethod(alwaysRun = true)
+    public void skipAllAfterPlainTemplateFailure(ITestResult result) {
+        if (template.size() == 1 && template.get(0) == Template.PLAIN) {
+            if (result.getStatus() == ITestResult.FAILURE) {
+                result.getMethod().setSkipFailedInvocations(true);
+            }
+        }
+    }
+
     /**
      * Invalidates session by clicking on a button on tested page.
      */
@@ -134,13 +148,13 @@ public abstract class AbstractMetamerTest extends AbstractTestCase {
         selenium.waitForPageToLoad(TIMEOUT);
 
         selenium.fireEvent(element, event);
-        
+
         waitGui.until(new JavaScriptCondition() {
             public JavaScript getJavaScriptCondition() {
                 return new JavaScript("selenium.isAlertPresent()");
             }
         });
-        
+
         assertEquals(selenium.getAlert(), event.getEventName(), event.getEventName()
             + " attribute did not change correctly");
     }

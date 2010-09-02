@@ -98,8 +98,30 @@ public class MatrixConfigurator extends TestMethodSelector implements IInvokedMe
         }
     }
 
+    public void onTestStart(ITestResult result) {
+        if (!methodConfigured) {
+            configureMethod(result);
+            methodConfigured = true;
+        }
+    }
+
+    public void onTestSuccess(ITestResult result) {
+        methodConfigured = false;
+    }
+
+    public void onTestFailure(ITestResult result) {
+        methodConfigured = false;
+    }
+
     public void onTestSkipped(ITestResult result) {
-        configureMethod(result);
+        if (!methodConfigured) {
+            configureMethod(result);
+        }
+        methodConfigured = false;
+    }
+
+    public void onTestFailedButWithinSuccessPercentage(ITestResult result) {
+        methodConfigured = false;
     }
 
     private boolean isAfterConfiguration(ITestNGMethod m) {
@@ -139,17 +161,10 @@ public class MatrixConfigurator extends TestMethodSelector implements IInvokedMe
         }
     }
 
-    public void afterInvocation(IInvokedMethod method, ITestResult testResult) {
-        if (method.isTestMethod()) {
-            methodConfigured = false;
-        }
-    }
-
     public void transform(ITestAnnotation annotation, Class testClass, Constructor testConstructor, Method testMethod) {
         super.transform(annotation, testClass, testConstructor, testMethod);
         int invocationCount = createConfiguration(testMethod.getDeclaringClass(), testMethod);
         annotation.setInvocationCount(invocationCount);
-        annotation.setSkipFailedInvocations(true);
     }
 
     public int createConfiguration(Class<?> realClass, Method realMethod) {
@@ -480,21 +495,12 @@ public class MatrixConfigurator extends TestMethodSelector implements IInvokedMe
         }
     }
 
-    public void onTestStart(ITestResult result) {
-    }
-
-    public void onTestSuccess(ITestResult result) {
-    }
-
-    public void onTestFailure(ITestResult result) {
-    }
-
-    public void onTestFailedButWithinSuccessPercentage(ITestResult result) {
-    }
-
     public void onStart(ITestContext context) {
     }
 
     public void onFinish(ITestContext context) {
+    }
+    
+    public void afterInvocation(IInvokedMethod method, ITestResult testResult) {
     }
 }
