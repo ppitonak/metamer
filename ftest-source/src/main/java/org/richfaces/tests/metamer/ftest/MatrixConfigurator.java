@@ -41,6 +41,7 @@ import java.util.regex.Pattern;
 
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
+import org.jboss.test.selenium.SystemProperties;
 import org.jboss.test.selenium.listener.TestMethodSelector;
 import org.richfaces.tests.metamer.Template;
 import org.richfaces.tests.metamer.TemplatesList;
@@ -134,6 +135,10 @@ public class MatrixConfigurator extends TestMethodSelector implements IInvokedMe
     }
 
     protected void configureMethod(ITestResult testResult) {
+        if (SystemProperties.isSeleniumDebug()) {
+            System.out.println("$configureMethod");
+        }
+        
         Method realMethod = getCurrentRealMethod();
 
         if (realMethod == null) {
