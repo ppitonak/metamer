@@ -28,11 +28,16 @@ import org.richfaces.tests.metamer.ftest.annotations.Use;
 import org.testng.annotations.Test;
 
 /**
+ * <p>
+ * Templates: doesn't work inside iteration components.
+ * </p>
+ * 
  * @author <a href="mailto:lfryc@redhat.com">Lukas Fryc</a>
  * @version $Revision$
  */
 @Use(field = "dataScroller", value = "dataScroller1")
-@Templates(value = "plain")
+@Templates(exclude = { "a4jRepeat1", "a4jRepeat2", "hDataTable1", "hDataTable2", "richDataTable1,redDiv",
+    "richDataTable2,redDiv", "uiRepeat1", "uiRepeat2" })
 public class TestScrollerOutsideTable extends AbstractScrollerTest {
 
     public TestScrollerOutsideTable() throws JAXBException {

@@ -29,6 +29,7 @@ import java.net.URL;
 
 import org.jboss.test.selenium.locator.IdLocator;
 import org.richfaces.tests.metamer.ftest.AbstractMetamerTest;
+import org.richfaces.tests.metamer.ftest.annotations.Templates;
 import org.richfaces.tests.metamer.ftest.model.AssertingDataScroller;
 import org.richfaces.tests.metamer.ftest.model.DataScroller;
 import org.richfaces.tests.metamer.ftest.model.DataTable;
@@ -66,11 +67,19 @@ public class TestScroller extends AbstractMetamerTest {
     }
 
     /**
+     * <p>
      * Tests row count for scroller outside of the EDT.
+     * </p>
+     * 
+     * <p>
+     * Templates: doesn't work inside iteration components.
+     * </p>
      * 
      * @see {@link #testRowCount(DataScroller)}
      */
     @Test
+    @Templates(exclude = { "a4jRepeat1", "a4jRepeat2", "hDataTable1", "hDataTable2", "richDataTable1,redDiv",
+        "richDataTable2,redDiv", "uiRepeat1", "uiRepeat2" })
     public void testRowCountOutsideTable() {
         testRowCount(dataScroller1);
     }
