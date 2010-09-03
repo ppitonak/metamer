@@ -21,7 +21,13 @@
  *******************************************************************************/
 package org.richfaces.tests.metamer.ftest;
 
+import java.io.File;
+import java.io.IOException;
+
+import org.apache.commons.io.FileUtils;
+import org.apache.commons.lang.StringUtils;
 import org.jboss.test.selenium.listener.FailureLoggingTestListener;
+import org.richfaces.tests.metamer.ftest.annotations.IssueTracking;
 import org.testng.ITestResult;
 
 /**
@@ -38,5 +44,21 @@ public class MetamerFailureLoggingTestListener extends FailureLoggingTestListene
     protected String getSeleniumLogIdentification(ITestResult result) {
         String id = super.getSeleniumLogIdentification(result);
         return id + " " + MetamerTestInfo.getConfigurationInfoInParenthesses();
+    }
+
+    @Override
+    protected void onFailure(ITestResult result) {
+        super.onFailure(result);
+        IssueTracking issueTracking = result.getMethod().getMethod().getAnnotation(IssueTracking.class);
+        if (issueTracking != null && issueTracking.value().length > 0) {
+            String issues = StringUtils.join(issueTracking.value(), "\n");
+            String filenameIdentification = getFilenameIdentification(result);
+            File issueTrackingOutputFile = new File(failuresOutputDir, filenameIdentification + "/issues.txt");
+            try {
+                FileUtils.writeStringToFile(issueTrackingOutputFile, issues);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
     }
 }

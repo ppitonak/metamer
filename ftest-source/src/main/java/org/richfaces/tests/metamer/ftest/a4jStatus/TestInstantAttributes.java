@@ -30,6 +30,7 @@ import java.net.URL;
 
 import org.jboss.test.selenium.encapsulated.JavaScript;
 import org.jboss.test.selenium.locator.ElementLocator;
+import org.richfaces.tests.metamer.ftest.annotations.IssueTracking;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
@@ -74,6 +75,8 @@ public class TestInstantAttributes extends AbstracStatusTest {
     }
 
     @Test
+    @IssueTracking({ "https://jira.jboss.org/browse/RF-9118",
+        "https://javaserverfaces.dev.java.net/issues/show_bug.cgi?id=1788" })
     public void testOnError() {
         for (int i = 0; i < 2; i++) {
             attributes.setOnError(alert.parametrize("error" + i));
