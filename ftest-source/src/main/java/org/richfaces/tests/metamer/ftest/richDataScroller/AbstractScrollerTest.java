@@ -36,7 +36,6 @@ import org.richfaces.tests.metamer.ftest.annotations.Use;
 import org.richfaces.tests.metamer.ftest.model.DataScroller;
 import org.richfaces.tests.metamer.ftest.model.DataTable;
 import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.Test;
 
 /**
  * Test the functionality of switching pages using DataScroller bound to DataTable.
@@ -44,7 +43,7 @@ import org.testng.annotations.Test;
  * @author <a href="mailto:lfryc@redhat.com">Lukas Fryc</a>
  * @version $Revision$
  */
-public class TestPagination extends AbstractMetamerTest {
+public abstract class AbstractScrollerTest extends AbstractMetamerTest {
 
     @Inject
     @Use(ints = { 2, 3 })
@@ -55,7 +54,6 @@ public class TestPagination extends AbstractMetamerTest {
     int maxPages;
 
     @Inject
-    @Use("dataScroller*")
     DataScroller dataScroller;
     DataScroller dataScroller1 = PaginationTester.DATA_SCROLLER_OUTSIDE_TABLE;
     DataScroller dataScroller2 = PaginationTester.DATA_SCROLLER_IN_TABLE_FOOTER;
@@ -76,7 +74,7 @@ public class TestPagination extends AbstractMetamerTest {
 
     IdLocator attributeFastStep = id("form:attributes:fastStepInput");
     IdLocator attributeMaxPages = id("form:attributes:maxPagesInput");
-    
+
     DataTable dataTable = new DataTable(pjq("table.rf-dt[id$=richDataTable]"));
 
     String tableText;
@@ -99,7 +97,6 @@ public class TestPagination extends AbstractMetamerTest {
         paginationTester.initializeTestedPages(lastPage);
     }
 
-    @Test
     public void testNumberedPages() {
         paginationTester.testNumberedPages();
     }

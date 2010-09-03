@@ -39,7 +39,7 @@ import org.testng.annotations.Test;
  * @author <a href="mailto:lfryc@redhat.com">Lukas Fryc</a>
  * @version $Revision$
  */
-@Uses({ @Use(field = "elements", ints = 7), @Use(field = "dataScroller", value = "dataScroller2") })
+@Use(field = "elements", ints = 7)
 public abstract class AbstractScrollerTest extends AbstractDataGridTest {
 
     @Inject
@@ -79,26 +79,18 @@ public abstract class AbstractScrollerTest extends AbstractDataGridTest {
         return buildUrl(contextPath, "faces/components/richDataGrid/scroller.xhtml");
     }
 
-    // @Test
-    // @Use(field = "columns", ints = { 1, 3, 11, ELEMENTS_TOTAL / 2, ELEMENTS_TOTAL - 1, ELEMENTS_TOTAL,
-    // ELEMENTS_TOTAL + 1 })
-    @Use(field = "columns", ints = { 3 })
+    @Use(field = "columns", ints = { 1, 3, 11, ELEMENTS_TOTAL / 2, ELEMENTS_TOTAL - 1, ELEMENTS_TOTAL,
+        ELEMENTS_TOTAL + 1 })
     public void testColumnsAttribute() {
         paginationTester.testNumberedPages();
     }
 
-    // @Test
-    // @Use(field = "elements", ints = { 0, 1, ELEMENTS_TOTAL / 2, ELEMENTS_TOTAL - 1, ELEMENTS_TOTAL, ELEMENTS_TOTAL +
-    // 1 })
-    @Use(field = "elements", ints = { 3 })
+    @Use(field = "elements", ints = { 0, 1, ELEMENTS_TOTAL / 2, ELEMENTS_TOTAL - 1, ELEMENTS_TOTAL, ELEMENTS_TOTAL + 1 })
     public void testElementsAttribute() {
         paginationTester.testNumberedPages();
     }
 
-    // @Test
-    // @Use(field = "first", ints = { 0, 1, ELEMENTS_TOTAL / 2, ELEMENTS_TOTAL - 1, ELEMENTS_TOTAL, ELEMENTS_TOTAL + 1
-    // })
-    @Use(field = "first", ints = { 3 })
+    @Use(field = "first", ints = { 0, 1, ELEMENTS_TOTAL / 2, ELEMENTS_TOTAL - 1, ELEMENTS_TOTAL, ELEMENTS_TOTAL + 1 })
     public void testFirstAttributeDoesntInfluentScroller() {
         // the attribute for component was already set, now verify that this attribute doesn't influent rendering (it
         // means dataGrid with scroller ignores this attribute, it means it is always equal to zero)
