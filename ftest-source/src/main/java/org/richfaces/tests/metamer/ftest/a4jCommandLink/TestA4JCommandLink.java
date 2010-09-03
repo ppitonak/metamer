@@ -34,6 +34,7 @@ import org.jboss.test.selenium.locator.Attribute;
 import org.jboss.test.selenium.locator.AttributeLocator;
 import org.jboss.test.selenium.locator.JQueryLocator;
 import org.richfaces.tests.metamer.ftest.AbstractMetamerTest;
+import org.richfaces.tests.metamer.ftest.annotations.IssueTracking;
 import org.testng.annotations.Test;
 
 /**
@@ -269,6 +270,7 @@ public class TestA4JCommandLink extends AbstractMetamerTest {
     }
 
     @Test
+    @IssueTracking("https://jira.jboss.org/browse/RF-9307")
     public void testStyleClass() {
         JQueryLocator bold = pjq("input[name$=styleClassInput][value=bold]");
         JQueryLocator strike = pjq("input[name$=styleClassInput][value=strike]");
