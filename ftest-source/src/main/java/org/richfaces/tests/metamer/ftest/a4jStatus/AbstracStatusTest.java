@@ -21,10 +21,9 @@
  *******************************************************************************/
 package org.richfaces.tests.metamer.ftest.a4jStatus;
 
-import static org.jboss.test.selenium.encapsulated.JavaScript.js;
 import static org.testng.Assert.assertEquals;
 
-import org.jboss.test.selenium.encapsulated.JavaScript;
+import org.jboss.cheiron.halt.SendHalt;
 import org.jboss.test.selenium.locator.ElementLocator;
 import org.jboss.test.selenium.locator.JQueryLocator;
 import org.jboss.test.selenium.waiting.retrievers.TextRetriever;
@@ -44,38 +43,14 @@ public abstract class AbstracStatusTest extends AbstractMetamerTest {
 
     TextRetriever retrieveStatus = retrieveText.locator(status);
 
-    JavaScript extension = JavaScript.fromResource(getClass().getPackage().getName().replaceAll("\\.", "/")
-        + "/status-halt.js");
-
-    void installStatusExtensions() {
-        selenium.getPageExtensions().install();
-        selenium.runScript(extension);
-    }
-
     void testRequestButton(ElementLocator<?> button, String startStatusText, String stopStatusText) {
-        enableHalt();
+        SendHalt.enable();
         selenium.click(button);
-        waitForHalt();
+        SendHalt halt = SendHalt.getHalt();
         assertEquals(retrieveStatus.retrieve(), startStatusText);
-        unhalt();
+        halt.unhalt();
         waitAjax.waitForChange(startStatusText, retrieveStatus);
         assertEquals(retrieveStatus.retrieve(), stopStatusText);
-        disableHalt();
-    }
-
-    void waitForHalt() {
-        selenium.waitForCondition(js("selenium.browserbot.getCurrentWindow().Metamer.waitForHalt()"));
-    }
-
-    void unhalt() {
-        selenium.getEval(js("selenium.browserbot.getCurrentWindow().Metamer.unhalt()"));
-    }
-
-    void enableHalt() {
-        selenium.getEval(js("selenium.browserbot.getCurrentWindow().Metamer.haltEnabled = true"));
-    }
-
-    void disableHalt() {
-        selenium.getEval(js("selenium.browserbot.getCurrentWindow().Metamer.haltEnabled = false"));
+        SendHalt.disable();
     }
 }

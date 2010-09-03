@@ -28,10 +28,10 @@ import static org.testng.Assert.assertEquals;
 
 import java.net.URL;
 
+import org.jboss.cheiron.halt.SendHalt;
 import org.jboss.test.selenium.encapsulated.JavaScript;
 import org.jboss.test.selenium.locator.ElementLocator;
 import org.richfaces.tests.metamer.ftest.annotations.IssueTracking;
-import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 /**
@@ -54,23 +54,17 @@ public class TestInstantAttributes extends AbstracStatusTest {
         return buildUrl(contextPath, "faces/components/a4jStatus/instantAttributes.xhtml");
     }
 
-    @BeforeMethod
-    public void installStatusExtensions() {
-        super.installStatusExtensions();
-    }
-
     @Test
     public void testOnStart() {
         for (int i = 0; i < 2; i++) {
             attributes.setOnStart(alert.parametrize("start" + 1));
 
-            enableHalt();
+            SendHalt.enable();
             selenium.click(button1);
             selenium.waitForCondition(js("selenium.isAlertPresent()"));
             assertEquals(selenium.getAlert(), "start" + 1);
-            waitForHalt();
-            unhalt();
-            disableHalt();
+            SendHalt.getHalt().unhalt();
+            SendHalt.disable();
         }
     }
 

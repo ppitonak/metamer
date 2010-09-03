@@ -25,7 +25,6 @@ import static org.jboss.test.selenium.utils.URLUtils.buildUrl;
 
 import java.net.URL;
 
-import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 /**
@@ -36,11 +35,6 @@ public class TestSimple extends AbstracStatusTest {
     @Override
     public URL getTestUrl() {
         return buildUrl(contextPath, "faces/components/a4jStatus/simple.xhtml");
-    }
-
-    @BeforeMethod
-    public void installStatusExtensions() {
-        super.installStatusExtensions();
     }
 
     @Test
