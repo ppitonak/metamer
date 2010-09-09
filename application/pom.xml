@@ -109,9 +109,6 @@
 
         <plugins>
             <plugin>
-                <artifactId>maven-checkstyle-plugin</artifactId>
-            </plugin>
-            <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <configuration>
                     <source>1.5</source>
@@ -225,6 +222,21 @@
     </build>
 
     <profiles>
+    	<profile>
+    		<id>checkstyle</id>
+    		<activation>
+    			<property>
+    				<name>!eclipse</name>
+    			</property>
+    		</activation>
+    		<build>
+    			<plugins>
+	   				<plugin>
+	                	<artifactId>maven-checkstyle-plugin</artifactId>
+	            	</plugin>
+   				</plugins>
+    		</build>
+    	</profile>
     	<profile>
             <id>mojarra</id>
             <activation>
