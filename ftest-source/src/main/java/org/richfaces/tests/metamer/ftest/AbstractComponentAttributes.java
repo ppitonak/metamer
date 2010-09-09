@@ -21,6 +21,7 @@
  *******************************************************************************/
 package org.richfaces.tests.metamer.ftest;
 
+import org.jboss.test.selenium.dom.Event;
 import org.jboss.test.selenium.framework.AjaxSelenium;
 import org.jboss.test.selenium.framework.AjaxSeleniumProxy;
 import org.jboss.test.selenium.locator.AttributeLocator;
@@ -71,6 +72,7 @@ public class AbstractComponentAttributes {
     }
 
     protected void applyCheckbox(ElementLocator<?> locator, boolean checked) {
-        guardHttp(selenium).check(locator, checked);
+        selenium.check(locator, checked);
+        guardHttp(selenium).fireEvent(locator, Event.CHANGE);
     }
 }
