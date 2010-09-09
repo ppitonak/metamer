@@ -34,7 +34,6 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                 </f:viewParam>
             </f:metadata>
             <h:outputStylesheet library="css" name="a4jPush.css"/>
-            <h:outputScript library="script" name="date-format.js" />
         </ui:define>
 
         <ui:define name="outOfTemplateBefore">
@@ -48,16 +47,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                 	<f:convertDateTime pattern="dd.MM.yyyy HH:mm:ss.SSS" />
                 </h:outputText>
                 ***
-                <h:outputText value="Client: " />
-                <h:outputText id="clientDate" value="" title="" />
-               	<script type="text/javascript">
-               	//<![CDATA[
-	               	var now = new Date();
-	               	jQuery("div.content span[id$=clientDate]")
-              			.text(now.format("dd.mm.yyyy HH:MM:ss.l", false))
-              			.attr("title", now.getTime());
-               	//]]>
-               	</script>
+                <metamer:clientTime id="clientDate" label="Client: " />
                 ***
                 <h:outputText value="Counter: " />
                 <h:outputText id="outputCounter" value="#{a4jPushBean.counter}"/>

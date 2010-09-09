@@ -43,7 +43,7 @@ import org.testng.annotations.Test;
  * @version $Revision$
  */
 public class TestInterval extends AbstractPushTest {
-    
+
     private static final int DEFAULT_COUNTER_STEP = 2;
     private static final int ITERATION_COUNT = 3;
     private static final int MULTIPLE_PUSH_COUNT = 5;
@@ -51,7 +51,7 @@ public class TestInterval extends AbstractPushTest {
     @Inject
     int interval;
 
-    AttributeLocator<?> clientTime = pjq("span[id$=clientDate]").getAttribute(Attribute.TITLE);
+    AttributeLocator<?> clientTime = pjq("span[id$=metamerOutputTime]").getAttribute(Attribute.TITLE);
 
     long startTime;
     int counter;
