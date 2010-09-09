@@ -26,7 +26,7 @@ import static org.testng.Assert.assertEquals;
 
 import java.net.URL;
 
-import org.jboss.cheiron.halt.SendHalt;
+import org.jboss.cheiron.halt.XHRHalter;
 import org.jboss.test.selenium.locator.JQueryLocator;
 import org.jboss.test.selenium.waiting.retrievers.TextRetriever;
 import org.testng.annotations.Test;
@@ -50,82 +50,82 @@ public class TestReferencedUsage extends AbstracStatusTest {
 
     @Test
     public void testClickBothButtonsInSequence() {
-        SendHalt.enable();
+        XHRHalter.enable();
         selenium.click(button1);
-        SendHalt halt = SendHalt.getHalt();
+        XHRHalter halt = getCurrentXHRHalter();
         assertEquals(retrieveStatus1.retrieve(), "START");
         assertEquals(retrieveStatus2.retrieve(), "STOP");
-        halt.unhalt();
+        halt.complete();
         waitAjax.waitForChange("START", retrieveStatus1);
         selenium.click(button2);
-        halt = SendHalt.getHalt();
+        halt = getCurrentXHRHalter();
         assertEquals(retrieveStatus1.retrieve(), "STOP");
         assertEquals(retrieveStatus2.retrieve(), "START");
-        halt.unhalt();
+        halt.complete();
         waitAjax.waitForChange("START", retrieveStatus2);
         assertEquals(retrieveStatus1.retrieve(), "STOP");
         assertEquals(retrieveStatus2.retrieve(), "STOP");
-        SendHalt.disable();
+        XHRHalter.disable();
     }
 
     @Test
     public void testClickBothButtonsImmediately() {
-        SendHalt.enable();
+        XHRHalter.enable();
         selenium.click(button1);
         selenium.click(button2);
-        SendHalt halt = SendHalt.getHalt();
+        XHRHalter halt = getCurrentXHRHalter();
         assertEquals(retrieveStatus1.retrieve(), "START");
         assertEquals(retrieveStatus2.retrieve(), "STOP");
-        halt.unhalt();
-        halt = SendHalt.getHalt();
+        halt.complete();
+        halt.waitForOpen();
         assertEquals(retrieveStatus1.retrieve(), "STOP");
         assertEquals(retrieveStatus2.retrieve(), "START");
-        halt.unhalt();
+        halt.complete();
         waitAjax.waitForChange("START", retrieveStatus2);
         assertEquals(retrieveStatus1.retrieve(), "STOP");
         assertEquals(retrieveStatus2.retrieve(), "STOP");
-        SendHalt.disable();
+        XHRHalter.disable();
     }
 
     /**
      * @Test TODO: selenium is causing 3 requests, but manually we triggers 2 requests (use Firebug to reproduce)
      */
     public void testClickFirstButtonThenSecondButtonThenAgainFirstButtonImmediately() {
-        SendHalt.enable();
+        XHRHalter.enable();
         selenium.click(button1);
         selenium.click(button2);
         selenium.click(button1);
-        SendHalt halt = SendHalt.getHalt();
+        XHRHalter halt = XHRHalter.getHandleBlocking();
         assertEquals(retrieveStatus1.retrieve(), "START");
         assertEquals(retrieveStatus2.retrieve(), "STOP");
-        halt.unhalt();
-        halt = SendHalt.getHalt();
+        halt.complete();
+        halt.waitForOpen();
         assertEquals(retrieveStatus1.retrieve(), "START");
         assertEquals(retrieveStatus2.retrieve(), "STOP");
-        halt.unhalt();
+        halt.complete();
         waitAjax.waitForChange("START", retrieveStatus1);
         assertEquals(retrieveStatus1.retrieve(), "STOP");
         assertEquals(retrieveStatus2.retrieve(), "STOP");
-        SendHalt.disable();
+        XHRHalter.disable();
     }
 
     @Test
     public void testDoubleClick() {
-        SendHalt.enable();
+        XHRHalter.enable();
         selenium.click(button1);
-        SendHalt halt = SendHalt.getHalt();
+        XHRHalter halt = getCurrentXHRHalter();
         assertEquals(retrieveStatus1.retrieve(), "START");
         assertEquals(retrieveStatus2.retrieve(), "STOP");
-        halt.unhalt();
+        halt.complete();
         selenium.click(button1);
-        halt = SendHalt.getHalt();
+        halt.waitForOpen();
         assertEquals(retrieveStatus1.retrieve(), "START");
         assertEquals(retrieveStatus2.retrieve(), "STOP");
-        halt.unhalt();
+        halt.complete();
         waitAjax.waitForChange("START", retrieveStatus1);
         assertEquals(retrieveStatus1.retrieve(), "STOP");
         assertEquals(retrieveStatus2.retrieve(), "STOP");
-        SendHalt.disable();
+        XHRHalter.disable();
     }
 
 }

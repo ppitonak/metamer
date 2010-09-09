@@ -23,11 +23,13 @@ package org.richfaces.tests.metamer.ftest.a4jStatus;
 
 import static org.testng.Assert.assertEquals;
 
-import org.jboss.cheiron.halt.SendHalt;
+import org.jboss.cheiron.halt.XHRHalter;
 import org.jboss.test.selenium.locator.ElementLocator;
 import org.jboss.test.selenium.locator.JQueryLocator;
 import org.jboss.test.selenium.waiting.retrievers.TextRetriever;
 import org.richfaces.tests.metamer.ftest.AbstractMetamerTest;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeMethod;
 
 /**
  * @author <a href="mailto:lfryc@redhat.com">Lukas Fryc</a>
@@ -43,14 +45,30 @@ public abstract class AbstracStatusTest extends AbstractMetamerTest {
 
     TextRetriever retrieveStatus = retrieveText.locator(status);
 
+    XHRHalter haltHandler;
+    
+    @BeforeMethod
+    public void cleanXHRHalter() {
+        haltHandler = null;
+    }
+    
+    protected XHRHalter getCurrentXHRHalter() {
+        if (haltHandler == null) {
+            haltHandler = XHRHalter.getHandleBlocking();
+        } else {
+            haltHandler.waitForOpen();
+        }
+        return haltHandler;
+    }
+    
     void testRequestButton(ElementLocator<?> button, String startStatusText, String stopStatusText) {
-        SendHalt.enable();
+        XHRHalter.enable();
         selenium.click(button);
-        SendHalt halt = SendHalt.getHalt();
+        XHRHalter halt = getCurrentXHRHalter();
         assertEquals(retrieveStatus.retrieve(), startStatusText);
-        halt.unhalt();
+        halt.complete();
         waitAjax.waitForChange(startStatusText, retrieveStatus);
         assertEquals(retrieveStatus.retrieve(), stopStatusText);
-        SendHalt.disable();
+        XHRHalter.disable();
     }
 }
