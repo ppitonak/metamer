@@ -36,37 +36,53 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
         </ui:define>
 
         <ui:define name="outOfTemplateBefore">
-           
+
         </ui:define>
 
         <ui:define name="component">
-        
-         <rich:dataTable id="richDataTable"
-         				 rendered="true"
-                         value="#{model.capitals}"
-                         rows="5" 
-                         var="record"                          
-                          >                                    
+
+            <rich:dataTable id="richDataTable"
+                            rendered="true"
+                            value="#{model.capitals}"
+                            rows="5"
+                            var="record">
+
                 <rich:column id="columnState"
-                			 rendered="#{richColumnBean.attributes['rendered'].value}"
-                			 colspan="#{richColumnBean.attributes['colspan'].value}"
-                			 sortOrder="#{richColumnBean.attributes['sortOrder'].value}"
-                			 >      
+                             breakRowBefore="#{richColumnBean.attributes['breakRowBefore'].value}"
+                             colspan="#{richColumnBean.attributes['colspan'].value}"
+                             columnSpan="#{richColumnBean.attributes['columnSpan'].value}"
+                             comparator="#{richColumnBean.attributes['comparator'].value}"
+                             filter="#{richColumnBean.attributes['filter'].value}"
+                             filterField="#{richColumnBean.attributes['filterField'].value}"
+                             filterValue="#{richColumnBean.attributes['filterValue'].value}"
+                             footer="#{richColumnBean.attributes['footer'].value}"
+                             header="#{richColumnBean.attributes['header'].value}"
+                             rendered="#{richColumnBean.attributes['rendered'].value}"
+                             rowspan="#{richColumnBean.attributes['rowspan'].value}"
+                             sortField="#{richColumnBean.attributes['sortField'].value}"
+                             sortOrder="#{richColumnBean.attributes['sortOrder'].value}"
+                             >
                     <f:facet name="header">
                         <h:outputText id="columnHeaderState" value="State" />
                     </f:facet>                    
-                    <h:outputText value="#{record.state}" />
+
+                    <h:outputText id="state" value="#{record.state}" />
+
                     <f:facet name="footer">
                         <h:outputText id="columnFooterState" value="State" />
                     </f:facet>
                 </rich:column>
-                <rich:column id="columnCapital"                			 
-                			 filter="#{richColumnBean.attributes['filter'].value}"
-                			 >      
+
+                <rich:column id="columnCapital">
                     <f:facet name="header">
-                        <h:outputText id="columnCapitalState" value="Capital" />
+                        <h:outputText id="columnHeaderCapital" value="Capital" />
                     </f:facet>                    
-                    <h:outputText value="#{record.name}" />                  
+
+                    <h:outputText id="capital" value="#{record.name}" />
+
+                    <f:facet name="footer">
+                        <h:outputText id="columnFooterCapital" value="Capital" />
+                    </f:facet>
                 </rich:column>                                   
             </rich:dataTable>
         </ui:define>

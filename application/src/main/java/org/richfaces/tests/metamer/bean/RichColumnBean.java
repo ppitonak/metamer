@@ -35,7 +35,7 @@ import org.slf4j.LoggerFactory;
 /**
  * Managed bean for rich:column
  *
- * @author <a href="mailto:pjha@redhat.com">Prabhat Jha</a>
+ * @author <a href="mailto:pjha@redhat.com">Prabhat Jha</a>, <a href="mailto:ppitonak@redhat.com">Pavol Pitonak</a>
  * @version $Revision$
  */
 @ManagedBean(name = "richColumnBean")
@@ -56,16 +56,8 @@ public class RichColumnBean implements Serializable {
 
         attributes = Attributes.getUIComponentAttributes(UIColumn.class, getClass());
         attributes.setAttribute("rendered", true);
-        attributes.setAttribute("columnSpan", 1);        
+        attributes.setAttribute("colspan", 1);
         
-        /*breakRowBefore=""
-			 colspan=""
-			 comparator=""
-			 filter=""
-			 filterValue=""
-			 rendered=""
-			 rowspan=""
-			 sortOrder=""*/
     }
 
     public Attributes getAttributes() {
