@@ -34,7 +34,7 @@ import org.slf4j.LoggerFactory;
 
 /**
  * Managed bean for a4j:queue.
- *
+ * 
  * @author <a href="mailto:ppitonak@redhat.com">Pavol Pitonak</a>
  * @version $Revision$
  */
@@ -47,6 +47,10 @@ public class A4JQueueBean implements Serializable {
     private Attributes attributes;
     private String text;
 
+    private A4JQueueBean globalQueue;
+    private A4JQueueBean formQueue1;
+    private A4JQueueBean formQueue2;
+
     /**
      * Initializes the managed bean.
      */
@@ -58,8 +62,13 @@ public class A4JQueueBean implements Serializable {
         // initialize attributes
         attributes = Attributes.getUIComponentAttributes(UIQueue.class, getClass());
         attributes.setAttribute("rendered", true);
-        attributes.setAttribute("requestDelay", 1500);
 
+        // hidden attributes
+        attributes.remove("status");
+
+        // TODO attributes not implemented yet
+        attributes.remove("timeout");
+        attributes.remove("ignoreDupResponses");
     }
 
     public Attributes getAttributes() {
@@ -68,6 +77,37 @@ public class A4JQueueBean implements Serializable {
 
     public void setAttributes(Attributes attributes) {
         this.attributes = attributes;
+    }
+
+    public A4JQueueBean getGlobalQueue() {
+        if (globalQueue == null) {
+            globalQueue = new A4JQueueBean();
+            globalQueue.init();
+            globalQueue.attributes.setAttribute("requestDelay", 10000);
+        }
+        return globalQueue;
+    }
+
+    public A4JQueueBean getFormQueue1() {
+        if (formQueue1 == null) {
+            formQueue1 = new A4JQueueBean();
+            formQueue1.init();
+            formQueue1.attributes.setAttribute("requestDelay", 500);
+        }
+        return formQueue1;
+    }
+
+    public A4JQueueBean getFormQueue2() {
+        if (formQueue2 == null) {
+            formQueue2 = new A4JQueueBean();
+            formQueue2.init();
+            formQueue2.attributes.setAttribute("requestDelay", 2000);
+        }
+        return formQueue2;
+    }
+    
+    public A4JQueueBean[] getFormQueues() {
+        return new A4JQueueBean[]{getFormQueue1(), getFormQueue2()};
     }
 
     public String getText() {
