@@ -28,7 +28,6 @@ import org.jboss.test.selenium.locator.ElementLocator;
 import org.jboss.test.selenium.locator.JQueryLocator;
 import org.jboss.test.selenium.waiting.retrievers.TextRetriever;
 import org.richfaces.tests.metamer.ftest.AbstractMetamerTest;
-import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 
 /**
@@ -66,8 +65,9 @@ public abstract class AbstracStatusTest extends AbstractMetamerTest {
         selenium.click(button);
         XHRHalter halt = getCurrentXHRHalter();
         assertEquals(retrieveStatus.retrieve(), startStatusText);
+        retrieveStatus.initializeValue();
         halt.complete();
-        waitAjax.waitForChange(startStatusText, retrieveStatus);
+        waitAjax.waitForChange(retrieveStatus);
         assertEquals(retrieveStatus.retrieve(), stopStatusText);
         XHRHalter.disable();
     }

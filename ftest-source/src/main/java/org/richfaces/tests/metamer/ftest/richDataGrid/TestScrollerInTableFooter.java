@@ -23,7 +23,6 @@ package org.richfaces.tests.metamer.ftest.richDataGrid;
 
 import javax.xml.bind.JAXBException;
 
-import org.richfaces.tests.metamer.ftest.annotations.Templates;
 import org.richfaces.tests.metamer.ftest.annotations.Use;
 import org.testng.annotations.Test;
 

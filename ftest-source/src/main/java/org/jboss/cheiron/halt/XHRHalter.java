@@ -33,15 +33,11 @@ import org.jboss.test.selenium.framework.AjaxSeleniumProxy;
  * @author <a href="mailto:lfryc@redhat.com">Lukas Fryc</a>
  * @version $Revision$
  */
-public class XHRHalter {
+public final class XHRHalter {
 
-    private static JavaScript isHandleAvailable = js("selenium.browserbot.getCurrentWindow().XHRHalter.isHandleAvailable()");
-    private static JavaScript isWaitingForSend = js("selenium.browserbot.getCurrentWindow().XHRHalter.isWaitingForSend({0})");
-    private static JavaScript getHandle = js("selenium.browserbot.getCurrentWindow().XHRHalter.getHandle()");
-    private static JavaScript continueTo = js("selenium.browserbot.getCurrentWindow().XHRHalter.continueTo({0}, selenium.browserbot.getCurrentWindow().XHRHalter.STATE_{1})");
-    private static JavaScript setEnabled = js("selenium.browserbot.getCurrentWindow().XHRHalter.setEnabled({0})");
+    private static AjaxSelenium selenium = AjaxSeleniumProxy.getInstance();
 
-    private static final AbstractPageExtensions halterExtensions = new AbstractPageExtensions() {
+    private static final AbstractPageExtensions HALTER_EXTENSIONS = new AbstractPageExtensions() {
         {
             loadFromResource("javascript/cheiron/XHRHalter.js");
         }
@@ -51,17 +47,21 @@ public class XHRHalter {
         }
     };
 
+    private static JavaScript isHandleAvailable = js("selenium.browserbot.getCurrentWindow().XHRHalter.isHandleAvailable()");
+    private static JavaScript isWaitingForSend = js("selenium.browserbot.getCurrentWindow().XHRHalter.isWaitingForSend({0})");
+    private static JavaScript getHandle = js("selenium.browserbot.getCurrentWindow().XHRHalter.getHandle()");
+    private static JavaScript continueTo = js("selenium.browserbot.getCurrentWindow().XHRHalter.continueTo({0}, selenium.browserbot.getCurrentWindow().XHRHalter.STATE_{1})");
+    private static JavaScript setEnabled = js("selenium.browserbot.getCurrentWindow().XHRHalter.setEnabled({0})");
+
     int handle;
 
     private XHRHalter(int handle) {
         this.handle = handle;
     }
 
-    static AjaxSelenium selenium = AjaxSeleniumProxy.getInstance();
-
     public static void enable() {
         selenium.getPageExtensions().install();
-        halterExtensions.install();
+        HALTER_EXTENSIONS.install();
         selenium.getEval(setEnabled.parametrize(true));
     }
 
