@@ -59,6 +59,9 @@ public class TestGlobalQueue extends AbstractMetamerTest {
         return buildUrl(contextPath, "faces/components/a4jQueue/globalQueue.xhtml");
     }
 
+    /**
+     * Tests delay between time last event occurs and time when event triggers request (begin).
+     */
     @Test
     @Use(field = "requestDelay", ints = { 0, 500, 1500, 5000 })
     public void testRequestDelay() {
@@ -72,6 +75,9 @@ public class TestGlobalQueue extends AbstractMetamerTest {
         checkAvgDeviation();
     }
 
+    /**
+     * Events from one source should be stacked as occurs, while last event isn't delayed by configured requestDelay.
+     */
     @Test
     public void testMultipleRequestsWithDelay() {
         attributes.setRequestDelay(3000);
@@ -97,6 +103,15 @@ public class TestGlobalQueue extends AbstractMetamerTest {
         XHRHalter.disable();
     }
 
+    /**
+     * <p>
+     * When no requestDelay (0) is set, events should fire request immediately.
+     * </p>
+     * 
+     * <p>
+     * However, when one event is waiting in queue for processing of previous request, events should be stacked.
+     * </p>
+     */
     @Test
     public void testMultipleRequestsWithNoDelay() {
         attributes.setRequestDelay(0);

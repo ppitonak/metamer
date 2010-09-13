@@ -63,6 +63,19 @@ public class TestFormQueue extends AbstractMetamerTest {
         return buildUrl(contextPath, "faces/components/a4jQueue/formQueue.xhtml");
     }
 
+    /**
+     * <p>
+     * Tests request delays for one form queue.
+     * </p>
+     * 
+     * <p>
+     * Uses one form queue, which controls events from two distinct event sources.
+     * </p>
+     * <p>
+     * When one source waits for delay and another source produces event, events from first source should be immediately
+     * processed.
+     * </p>
+     */
     @Test
     public void testTimingOneQueueTwoEvents() {
         formQueueA.attributes.setRequestDelay(DELAY_A);
@@ -83,6 +96,19 @@ public class TestFormQueue extends AbstractMetamerTest {
         checkTimes(formQueueA, Event.SECOND, DELAY_A);
     }
 
+    /**
+     * <p>
+     * Tests the event handlers producing count of events (count of events, requests and updates).
+     * 
+     * <p>
+     * Uses one form queue, which controls events from two distinct event sources.
+     * </p>
+     * 
+     * <p>
+     * When one source waits for delay and another source produces event, events from first source should be immediately
+     * processed.
+     * </p>
+     */
     @Test
     public void testCountsOneQueueTwoEvents() {
         formQueueA.attributes.setRequestDelay(DELAY_A);
@@ -107,6 +133,20 @@ public class TestFormQueue extends AbstractMetamerTest {
         checkCounts(formQueueA, 2, 3, 2, 2);
     }
 
+    /**
+     * <p>
+     * Tests request delays for two form queues.
+     * </p>
+     * 
+     * <p>
+     * Uses two form queues, controlling events from four distinct event sources (two for each queue).
+     * </p>
+     * 
+     * <p>
+     * When one source waits for delay and another source produces event, events from first source should be immediately
+     * processed.
+     * </p>
+     */
     @Test
     public void testTimingTwoQueuesFourEvents() {
         formQueueA.attributes.setRequestDelay(DELAY_A);
@@ -139,6 +179,19 @@ public class TestFormQueue extends AbstractMetamerTest {
         assertTrue(formQueueB.retrieveBeginTime.retrieve() - formQueueB.retrieveEvent1Time.retrieve() > 3000);
     }
 
+    /**
+     * <p>
+     * Tests the event handlers producing count of events (count of events, requests and updates).
+     * 
+     * <p>
+     * Uses two form queues, controlling events from four distinct event sources (two for each queue).
+     * </p>
+     * 
+     * <p>
+     * When one source waits for delay and another source produces event, events from first source should be immediately
+     * processed.
+     * </p>
+     */
     @Test
     public void testCountsTwoQueuesThreeEvents() {
         formQueueA.attributes.setRequestDelay(DELAY_A);
