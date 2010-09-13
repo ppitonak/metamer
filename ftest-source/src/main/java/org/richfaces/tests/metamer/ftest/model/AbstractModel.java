@@ -21,7 +21,7 @@
  *******************************************************************************/
 package org.richfaces.tests.metamer.ftest.model;
 
-import org.jboss.test.selenium.locator.IterableLocator;
+import org.jboss.test.selenium.locator.ExtendedLocator;
 import org.jboss.test.selenium.locator.reference.LocatorReference;
 
 /**
@@ -33,7 +33,7 @@ import org.jboss.test.selenium.locator.reference.LocatorReference;
  * @param <T>
  *            the iterable locator type of root
  */
-public abstract class AbstractModel<T extends IterableLocator<T>> {
+public abstract class AbstractModel<T extends ExtendedLocator<T>> {
 
     protected LocatorReference<T> root = new LocatorReference<T>(null);
     private String name = this.getClass().getSimpleName();

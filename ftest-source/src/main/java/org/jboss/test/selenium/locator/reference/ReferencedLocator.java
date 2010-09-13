@@ -22,9 +22,8 @@
 package org.jboss.test.selenium.locator.reference;
 
 import org.jboss.test.selenium.locator.AbstractElementLocator;
-import org.jboss.test.selenium.locator.CompoundableLocator;
 import org.jboss.test.selenium.locator.ElementLocationStrategy;
-import org.jboss.test.selenium.locator.IterableLocator;
+import org.jboss.test.selenium.locator.ExtendedLocator;
 import org.jboss.test.selenium.utils.text.SimplifiedFormat;
 
 /**
@@ -34,33 +33,47 @@ import org.jboss.test.selenium.utils.text.SimplifiedFormat;
  * @param <T>
  *            type of referenced locator
  */
-public class ReferencedLocator<T extends IterableLocator<T> & CompoundableLocator<T>> extends AbstractElementLocator<T>
-    implements IterableLocator<T>, CompoundableLocator<T> {
+public final class ReferencedLocator<T extends ExtendedLocator<T>> extends AbstractElementLocator<T> implements
+    ExtendedLocator<T> {
 
-    private LocatorReference<T> reference;
+    private LocatorReference<ExtendedLocator<T>> reference;
     private String addition;
 
-    public ReferencedLocator(LocatorReference<T> reference, String locator) {
+    private ReferencedLocator(LocatorReference<ExtendedLocator<T>> reference, String addition) {
         super("not-used");
         this.reference = reference;
-        this.addition = locator;
+        this.addition = addition;
     }
 
-    public static <N extends IterableLocator<N> & CompoundableLocator<N>> ReferencedLocator<N> ref(
-        LocatorReference<N> reference, String locator) {
-        return new ReferencedLocator<N>(reference, locator);
+    public static <N extends ExtendedLocator<N>> ReferencedLocator<N> ref(LocatorReference<N> reference, String locator) {
+        LocatorReference<ExtendedLocator<N>> castReference = (LocatorReference<ExtendedLocator<N>>) reference;
+        ReferencedLocator<N> result = new ReferencedLocator<N>(castReference, locator);
+        return result;
+    }
+
+    public static <N extends ExtendedLocator<N>> ReferencedLocator<N> referenceInferred(
+        LocatorReference<ExtendedLocator<N>> reference, String locator) {
+        ReferencedLocator<N> result = new ReferencedLocator<N>(reference, locator);
+        result.reference = reference;
+        return result;
     }
 
     public T getReferenced() {
-        T referencedLocator = reference.getLocator();
+        ExtendedLocator<T> referencedLocator = reference.getLocator();
 
         @SuppressWarnings("unchecked")
         Class<T> tClass = (Class<T>) referencedLocator.getClass();
 
         try {
-            T newInstance = tClass.getConstructor(String.class).newInstance(addition);
+            if (tClass.isAssignableFrom(ReferencedLocator.class)) {
+                ReferencedLocator<T> ancestor = (ReferencedLocator<T>) referencedLocator;
+                referencedLocator = ancestor.getReferenced();
+                tClass = (Class<T>) referencedLocator.getClass();
+            }
 
-            return referencedLocator.getDescendant(newInstance);
+            T newInstance = tClass.getConstructor(String.class).newInstance(addition);
+            T result = referencedLocator.getDescendant(newInstance);
+            return result;
         } catch (Exception e) {
             throw new IllegalStateException(e);
         }
@@ -103,12 +116,11 @@ public class ReferencedLocator<T extends IterableLocator<T> & CompoundableLocato
         return getReferenced().getDescendants(elementLocator);
     }
 
-    @SuppressWarnings("unchecked")
     public T format(Object... args) {
         String newAddition = SimplifiedFormat.format(addition, args);
         try {
-            return (T) this.getClass().getConstructor(LocatorReference.class, String.class)
-                .newInstance(reference, newAddition);
+            // TODO fix the <T> param cast
+            return (T) new ReferencedLocator<T>(this.reference, newAddition);
         } catch (Exception e) {
             throw new IllegalStateException(e);
         }

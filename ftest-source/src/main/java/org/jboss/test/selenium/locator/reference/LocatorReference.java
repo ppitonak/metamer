@@ -27,7 +27,8 @@ import org.jboss.test.selenium.locator.Locator;
  * @author <a href="mailto:lfryc@redhat.com">Lukas Fryc</a>
  * @version $Revision$
  * 
- * @param <T> type of referenced locator
+ * @param <T>
+ *            type of referenced locator
  */
 public class LocatorReference<T extends Locator<?>> {
 
@@ -42,12 +43,12 @@ public class LocatorReference<T extends Locator<?>> {
         return reference;
     }
 
-    public void setLocator(T locator) {
-        this.reference = locator;
+    public void setLocator(T root) {
+        this.reference = root;
     }
-    
+
     @Override
     public String toString() {
-        return "ref@" + reference; 
+        return "ref@" + reference;
     }
 }

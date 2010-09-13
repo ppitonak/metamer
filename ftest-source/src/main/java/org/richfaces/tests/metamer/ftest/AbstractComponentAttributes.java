@@ -24,12 +24,17 @@ package org.richfaces.tests.metamer.ftest;
 import org.jboss.test.selenium.dom.Event;
 import org.jboss.test.selenium.framework.AjaxSelenium;
 import org.jboss.test.selenium.framework.AjaxSeleniumProxy;
+import org.jboss.test.selenium.locator.Attribute;
 import org.jboss.test.selenium.locator.AttributeLocator;
 import org.jboss.test.selenium.locator.ElementLocator;
 import org.jboss.test.selenium.locator.JQueryLocator;
+import org.jboss.test.selenium.locator.ExtendedLocator;
+import org.jboss.test.selenium.locator.reference.LocatorReference;
+import org.jboss.test.selenium.locator.reference.ReferencedLocator;
 
 import static org.jboss.test.selenium.guard.request.RequestTypeGuardFactory.guardHttp;
 import static org.richfaces.tests.metamer.ftest.AbstractMetamerTest.pjq;
+import static org.jboss.test.selenium.locator.reference.ReferencedLocator.referenceInferred;
 
 /**
  * @author <a href="mailto:lfryc@redhat.com">Lukas Fryc</a>
@@ -39,7 +44,16 @@ public class AbstractComponentAttributes {
 
     protected AjaxSelenium selenium = AjaxSeleniumProxy.getInstance();
 
-    JQueryLocator propertyLocator = pjq("input[id$={0}Input]");
+    LocatorReference<ExtendedLocator<JQueryLocator>> root = new LocatorReference<ExtendedLocator<JQueryLocator>>(
+        pjq(""));
+    ReferencedLocator<JQueryLocator> propertyLocator = referenceInferred(root, "input[id$={0}Input]");
+
+    public AbstractComponentAttributes() {
+    }
+
+    public <T extends ExtendedLocator<JQueryLocator>> AbstractComponentAttributes(T root) {
+        this.root.setLocator(root);
+    }
 
     protected String getProperty(String propertyName) {
         final ElementLocator<?> locator = propertyLocator.format(propertyName);
@@ -48,8 +62,7 @@ public class AbstractComponentAttributes {
 
     protected void setProperty(String propertyName, Object value) {
         final ElementLocator<?> locator = propertyLocator.format(propertyName);
-        final AttributeLocator<?> typeLocator = locator.getAttribute(new org.jboss.test.selenium.locator.Attribute(
-            "type"));
+        final AttributeLocator<?> typeLocator = locator.getAttribute(Attribute.TYPE);
 
         String inputType = selenium.getAttribute(typeLocator);
 
