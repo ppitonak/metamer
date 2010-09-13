@@ -81,7 +81,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
             </h:inputText>
 
             <h:inputText id="input2" value="#{a4jAttachQueueBean.text2}" onkeyup="addEvent();">
-                <a4j:ajax event="keyup" render="output1" execute="@form" onbegin="addRequest();"
+                <a4j:ajax event="keyup" render="output2" execute="@form" onbegin="addRequest();"
                           oncomplete="printCounts()" onbeforedomupdate="addUpdate()">
                     <a4j:attachQueue id="a4jAttachQueue2"
                                      ignoreDupResponses="#{a4jAttachQueueBean.attributes2['ignoreDupResponses'].value}"
