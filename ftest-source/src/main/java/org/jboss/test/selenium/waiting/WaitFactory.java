@@ -32,6 +32,14 @@ import static org.jboss.test.selenium.SystemProperties.SeleniumTimeoutType.GUI;
 import static org.jboss.test.selenium.SystemProperties.SeleniumTimeoutType.MODEL;
 
 import org.jboss.test.selenium.waiting.ajax.AjaxWaiting;
+import org.jboss.test.selenium.waiting.conditions.AlertEquals;
+import org.jboss.test.selenium.waiting.conditions.AlertPresent;
+import org.jboss.test.selenium.waiting.conditions.AttributeEquals;
+import org.jboss.test.selenium.waiting.conditions.AttributePresent;
+import org.jboss.test.selenium.waiting.conditions.CountEquals;
+import org.jboss.test.selenium.waiting.conditions.ElementPresent;
+import org.jboss.test.selenium.waiting.conditions.StyleEquals;
+import org.jboss.test.selenium.waiting.conditions.TextEquals;
 import org.jboss.test.selenium.waiting.selenium.SeleniumWaiting;
 
 /**
@@ -52,4 +60,13 @@ public class WaitFactory {
      */
     public static SeleniumWaiting waitModel = waitSelenium().interval(WAIT_MODEL_INTERVAL).timeout(
         getSeleniumTimeout(MODEL));
+    
+    public static ElementPresent elementPresent = ElementPresent.getInstance();
+    public static TextEquals textEquals = TextEquals.getInstance();
+    public static StyleEquals styleEquals = StyleEquals.getInstance();
+    public static AttributePresent attributePresent = AttributePresent.getInstance();
+    public static AttributeEquals attributeEquals = AttributeEquals.getInstance();
+    public static AlertPresent alertPresent = AlertPresent.getInstance();
+    public static AlertEquals alertEquals = AlertEquals.getInstance();
+    public static CountEquals countEquals = CountEquals.getInstance();
 }

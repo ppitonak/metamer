@@ -13,6 +13,7 @@ import static org.richfaces.tests.metamer.ftest.AbstractMetamerTest.pjq;
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertTrue;
 import static org.jboss.test.selenium.waiting.WaitFactory.waitAjax;
+import static org.jboss.test.selenium.waiting.WaitFactory.textEquals;
 
 import org.jboss.test.selenium.framework.AjaxSelenium;
 import org.jboss.test.selenium.framework.AjaxSeleniumProxy;
@@ -139,17 +140,27 @@ public class QueueModel {
         long deviation = Math.abs(actualDelay - requestDelay);
         long maxDeviation = Math.max(100, requestDelay);
 
-        if (isSeleniumDebug()) {
-            System.out.println(format("deviation for requestDelay {0}: {1}", requestDelay, deviation));
-        }
-
-        assertTrue(
-            deviation <= maxDeviation,
-            format("Deviation ({0}) is greater than maxDeviation ({1}) for requestDelay {2}", deviation, maxDeviation,
-                requestDelay));
+        checkDeviation(deviation, maxDeviation);
 
         deviationTotal += deviation;
         deviationCount += 1;
+    }
+
+    public void checkNoDelayBetweenEvents() {
+        long event1Time = retrieveEvent1Time.retrieve();
+        long event2Time = retrieveEvent2Time.retrieve();
+        long actualDelay = Math.abs(event1Time - event2Time);
+
+        checkDeviation(actualDelay, 50);
+    }
+
+    public void checkDeviation(long deviation, long maxDeviation) {
+        if (isSeleniumDebug()) {
+            System.out.println(format("deviation: {0}", deviation));
+        }
+
+        assertTrue(deviation <= maxDeviation,
+            format("Deviation ({0}) is greater than maxDeviation ({1})", deviation, maxDeviation));
     }
 
     public void checkAvgDeviation(long requestDelay) {
