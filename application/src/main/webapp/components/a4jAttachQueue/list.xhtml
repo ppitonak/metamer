@@ -30,12 +30,25 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 
         <ui:define name="links">
 
-            <metamer:testPageLink id="simple" outcome="simple" value="Simple">
-                Page containing <b>a4j:attachQueue</b>, two inputs and input boxes for all its attributes.
+            <metamer:testPageLink id="nested" outcome="nested" value="Nested">
+                Twice <b>h:inputText</b> with nested <b>a4j:ajax</b> with attached <b>a4j:attachQueue</b>.
+                <br />
+                Contains also one named <b>a4j:queue</b> to try queue naming and attaching.
             </metamer:testPageLink>
 
-            <metamer:testPageLink id="wrapped" outcome="wrapped" value="Wrapped">
-                Page containing <b>a4j:attachQueue</b>, a4j:ajax wrapping two inputs and input boxes for all its attributes.
+            <metamer:testPageLink id="extending" outcome="extending" value="Extending">
+                <font color="red" style="font-weigth: bold">Doesn't work currently due to RF-9351.</font>
+                <br />
+                Two <b>h:inputText</b>s are wrapped in <b>a4j:ajax</b>, which is extended by <b>a4j:attachQueue</b>.
+                <br />
+                Contains also one named <b>a4j:queue</b> to try queue naming and attaching.
+            </metamer:testPageLink>
+            
+            <metamer:testPageLink id="nestedExtension" outcome="nestedExtension" value="Nested Extension">
+                <div><font color="red" style="font-weigth: bold">Doesn't work currently due to RF-9351.</font></div>
+                <div>Two nested a4j:ajaxs, each extended by own a4j:attachQueue.</div>
+                <div>First a4j:ajax controls clicks to h:inputText and a4j:commandButton.</div>
+                <div>Second a4j:ajax controls valueChanges of h:inputText.</div>  
             </metamer:testPageLink>
 
         </ui:define>

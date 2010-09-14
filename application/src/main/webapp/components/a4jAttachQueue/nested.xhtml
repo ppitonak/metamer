@@ -35,24 +35,17 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
             </f:metadata>
 
             <script type="text/javascript">
-                var events = 0;
-                var updates = 0;
-                var requests = 0;
-
-                function addEvent() {
-                    events++;
-                }
-                function addUpdate() {
-                    updates++;
-                }
-                function addRequest() {
-                    requests++;
+                function add(element) {
+                    element.innerHTML = 1 + parseInt(element.innerHTML);
                 }
 
-                function printCounts() {
-                #{rich:element('events')}.innerHTML=events;
-                #{rich:element('updates')}.innerHTML=updates;
-                #{rich:element('requests')}.innerHTML=requests;
+                function updateDifferenceTime() {
+                    var eventTime1 = parseInt(jQuery(#{rich:element('eventTime1:outputTime')}).attr('title'));
+                    var eventTime2 = parseInt(jQuery(#{rich:element('eventTime2:outputTime')}).attr('title'));
+                    var beginTime = parseInt(jQuery(#{rich:element('beginTime:outputTime')}).attr('title'));
+
+                    var eventTime = Math.max(eventTime1, eventTime2);
+                    jQuery(#{rich:element('differenceTime')}).text(beginTime - eventTime);
                 }
             </script>
         </ui:define>
@@ -61,12 +54,21 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
         </ui:define>
 
         <ui:define name="component">
-            <a4j:queue id="queue1"/>
-            <a4j:queue id="queue2"/>
+            <a4j:queue id="queue1" ignoreDupResponses="#{a4jQueueBean.attributes['ignoreDupResponses'].value}"
+                name="#{a4jQueueBean.attributes['name'].value}"
+                onbeforedomupdate="#{a4jQueueBean.attributes['onbeforedomupdate'].value}"
+                oncomplete="#{a4jQueueBean.attributes['oncomplete'].value}"
+                onerror="#{a4jQueueBean.attributes['onerror'].value}" onevent="#{a4jQueueBean.attributes['event'].value}"
+                onrequestdequeue="#{a4jQueueBean.attributes['onrequestdequeue'].value}"
+                onrequestqueue="#{a4jQueueBean.attributes['onrequestqueue'].value}"
+                onsubmit="#{a4jQueueBean.attributes['onsubmit'].value}"
+                rendered="#{a4jQueueBean.attributes['rendered'].value}"
+                requestDelay="#{a4jQueueBean.attributes['requestDelay'].value}" status="status1"
+                timeout="#{a4jQueueBean.attributes['timeout'].value}" />
 
-            <h:inputText id="input1" value="#{a4jAttachQueueBean.text1}" onkeyup="addEvent();">
-                <a4j:ajax event="keyup" render="output1" execute="@form" onbegin="addRequest();"
-                          oncomplete="printCounts()" onbeforedomupdate="addUpdate()">
+            <h:inputText id="input1" value="#{a4jAttachQueueBean.text1}" onkeypress="add(#{rich:element('events1')}); refresh(#{rich:element('eventTime1:outputTime')}); ">
+                <a4j:ajax event="keypress" render="output1" execute="@form" onbegin="add(#{rich:element('requests')}); refresh(#{rich:element('beginTime:outputTime')}); "
+                         onbeforedomupdate="add(#{rich:element('updates')});" oncomplete="refresh(#{rich:element('completeTime:outputTime')}); updateDifferenceTime(); ">
                     <a4j:attachQueue id="a4jAttachQueue1"
                                      ignoreDupResponses="#{a4jAttachQueueBean.attributes['ignoreDupResponses'].value}"
                                      name="#{a4jAttachQueueBean.attributes['name'].value}"
@@ -80,9 +82,9 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                 </a4j:ajax>
             </h:inputText>
 
-            <h:inputText id="input2" value="#{a4jAttachQueueBean.text2}" onkeyup="addEvent();">
-                <a4j:ajax event="keyup" render="output2" execute="@form" onbegin="addRequest();"
-                          oncomplete="printCounts()" onbeforedomupdate="addUpdate()">
+            <h:inputText id="input2" value="#{a4jAttachQueueBean.text2}" onkeypress="add(#{rich:element('events2')}); refresh(#{rich:element('eventTime2:outputTime')}); ">
+                <a4j:ajax event="keypress" render="output2" execute="@form" onbegin="add(#{rich:element('requests')}); refresh(#{rich:element('beginTime:outputTime')}); "
+                          onbeforedomupdate="add(#{rich:element('updates')});" oncomplete="refresh(#{rich:element('completeTime:outputTime')}); updateDifferenceTime();">
                     <a4j:attachQueue id="a4jAttachQueue2"
                                      ignoreDupResponses="#{a4jAttachQueueBean.attributes2['ignoreDupResponses'].value}"
                                      name="#{a4jAttachQueueBean.attributes2['name'].value}"
@@ -101,24 +103,39 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                 <h:outputText id="output1" value="#{a4jAttachQueueBean.text1}" style="font-weight:bold;"/>
                 Output 2:
                 <h:outputText id="output2" value="#{a4jAttachQueueBean.text2}" style="font-weight:bold;"/>
-                Events count:
-                <h:outputText value="0" id="events" />
+                Event 1 count:
+                <h:outputText value="0" id="events1" />
+                Event 2 count:
+                <h:outputText value="0" id="events2" />
                 Requests count:
                 <h:outputText value="0" id="requests" />
                 DOM updates count:
                 <h:outputText value="0" id="updates" />
+                Difference time:
+                <h:outputText value="" id="differenceTime" />
             </h:panelGrid>
-
+            
+            <h:panelGrid columns="1">
+                <metamer:clientTime id="eventTime1" label="Event 1 Time:"  />
+                <metamer:clientTime id="eventTime2" label="Event 2 Time:"  />
+                <metamer:clientTime id="beginTime" label="Begin Time:"  />
+                <metamer:clientTime id="completeTime" label="Complete Time:"  />
+            </h:panelGrid>
+                    
         </ui:define>
 
         <ui:define name="outOfTemplateAfter">
             Attributes for first attach queue (first input)
             <br/>
-            <metamer:attributes value="#{a4jAttachQueueBean.attributes}" id="attributes" />
+            <metamer:attributes value="#{a4jAttachQueueBean.attributes}" id="attributes1" />
             <br/>
             Attributes for second attach queue (second input)
             <br/>
             <metamer:attributes value="#{a4jAttachQueueBean.attributes2}" id="attributes2" />
+            <br />
+            Attributes for queue1
+            <br />
+            <metamer:attributes value="#{a4jQueueBean.attributes}" id="queueAttributes" />
         </ui:define>
 
     </ui:composition>

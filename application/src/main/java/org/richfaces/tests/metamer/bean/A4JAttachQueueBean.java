@@ -59,13 +59,26 @@ public class A4JAttachQueueBean implements Serializable {
 
         // initialize attributes
         attributes = Attributes.getUIComponentAttributes(UIAttachQueue.class, getClass());
-        attributes.setAttribute("rendered", true);
-        attributes.setAttribute("requestDelay", 1500);
+        initializeAttributes(attributes);
+        attributes.setAttribute("requestDelay", 500);
 
         attributes2 = Attributes.getUIComponentAttributes(UIAttachQueue.class, getClass());
-        attributes2.setAttribute("rendered", true);
+        initializeAttributes(attributes2);
         attributes2.setAttribute("requestDelay", 1500);
-
+    }
+    
+    private void initializeAttributes(Attributes attributes) {
+        attributes.setAttribute("rendered", true);
+        
+        // hidden attributes
+        attributes.remove("queueId");
+        
+        // not implemented yet
+        // TODO RFPL-734
+        attributes.remove("name");
+        attributes.remove("timeout");
+        attributes.remove("requestGroupingId");
+        attributes.remove("ignoreDupResponses");
     }
 
     public Attributes getAttributes() {
