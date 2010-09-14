@@ -21,19 +21,14 @@
  *******************************************************************************/
 package org.richfaces.tests.metamer.ftest.a4jQueue;
 
-import static org.jboss.test.selenium.dom.Event.KEYPRESS;
 import static org.jboss.test.selenium.utils.URLUtils.buildUrl;
-import static org.jboss.test.selenium.utils.text.SimplifiedFormat.format;
-import static org.richfaces.tests.metamer.ftest.AbstractMetamerTest.pjq;
-import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertTrue;
 
 import java.net.URL;
 
 import org.jboss.cheiron.halt.XHRHalter;
-import org.jboss.test.selenium.locator.ElementLocator;
-import org.jboss.test.selenium.waiting.retrievers.Retriever;
 import org.richfaces.tests.metamer.ftest.AbstractMetamerTest;
+import org.richfaces.tests.metamer.ftest.a4jQueue.QueueModel.Input;
 import org.testng.annotations.Test;
 
 /**
@@ -46,16 +41,20 @@ public class TestFormQueue extends AbstractMetamerTest {
     static final Long DELAY_A = 3000L;
     static final Long DELAY_B = 5000L;
 
-    int deviationTotal;
-    int deviationCount;
+    QueueModel queueA = prepareLocators("formQueue1");
+    QueueModel queueB = prepareLocators("formQueue2");
+    QueueModel globalQueue = prepareLocators("globalQueue");
 
-    QueueLocators formQueueA = prepareLocators("formQueue1");
-    QueueLocators formQueueB = prepareLocators("formQueue2");
-    QueueLocators globalQueue = prepareLocators("globalQueue");
+    QueueAttributes attributesQueueA = prepareAttributes("formQueue1");
+    QueueAttributes attributesQueueB = prepareAttributes("formQueue2");
+    QueueAttributes attributesGlobalQueue = prepareAttributes("globalQueue");
 
-    private static QueueLocators prepareLocators(String identifier) {
-        return new QueueLocators(identifier, pjq("div.rf-p[id$={0}Panel]").format(identifier), pjq(
-            "div.rf-p[id$={0}AttributesPanel]").format(identifier));
+    private static QueueModel prepareLocators(String identifier) {
+        return new QueueModel(pjq("div.rf-p[id$={0}Panel]").format(identifier));
+    }
+
+    private static QueueAttributes prepareAttributes(String identifier) {
+        return new QueueAttributes(pjq("div.rf-p[id$={0}AttributesPanel]").format(identifier));
     }
 
     @Override
@@ -78,22 +77,22 @@ public class TestFormQueue extends AbstractMetamerTest {
      */
     @Test
     public void testTimingOneQueueTwoEvents() {
-        formQueueA.attributes.setRequestDelay(DELAY_A);
-        globalQueue.attributes.setRequestDelay(GLOBAL_DELAY);
+        attributesQueueA.setRequestDelay(DELAY_A);
+        attributesGlobalQueue.setRequestDelay(GLOBAL_DELAY);
 
-        initializeTimes(formQueueA);
+        queueA.initializeTimes();
 
         XHRHalter.enable();
 
-        fireEvent(formQueueA, Event.FIRST, 2);
-        fireEvent(formQueueA, Event.SECOND, 3);
+        queueA.fireEvent(Input.FIRST, 2);
+        queueA.fireEvent(Input.SECOND, 3);
 
         XHRHalter halter = XHRHalter.getHandleBlocking();
         halter.complete();
         halter.waitForOpen();
         halter.complete();
 
-        checkTimes(formQueueA, Event.SECOND, DELAY_A);
+        queueA.checkTimes(Input.SECOND, DELAY_A);
     }
 
     /**
@@ -111,26 +110,26 @@ public class TestFormQueue extends AbstractMetamerTest {
      */
     @Test
     public void testCountsOneQueueTwoEvents() {
-        formQueueA.attributes.setRequestDelay(DELAY_A);
-        globalQueue.attributes.setRequestDelay(GLOBAL_DELAY);
+        attributesQueueA.setRequestDelay(DELAY_A);
+        attributesGlobalQueue.setRequestDelay(GLOBAL_DELAY);
 
-        initializeCounts(formQueueA);
+        queueA.initializeCounts();
 
         XHRHalter.enable();
 
-        fireEvent(formQueueA, Event.FIRST, 2);
-        checkCounts(formQueueA, 2, 0, 0, 0);
-        fireEvent(formQueueA, Event.SECOND, 3);
-        checkCounts(formQueueA, 2, 3, 1, 0);
+        queueA.fireEvent(Input.FIRST, 2);
+        queueA.checkCounts(2, 0, 0, 0);
+        queueA.fireEvent(Input.SECOND, 3);
+        queueA.checkCounts(2, 3, 1, 0);
 
         XHRHalter halter = XHRHalter.getHandleBlocking();
-        checkCounts(formQueueA, 2, 3, 1, 0);
+        queueA.checkCounts(2, 3, 1, 0);
         halter.complete();
-        checkCounts(formQueueA, 2, 3, 2, 1);
+        queueA.checkCounts(2, 3, 2, 1);
         halter.waitForOpen();
-        checkCounts(formQueueA, 2, 3, 2, 1);
+        queueA.checkCounts(2, 3, 2, 1);
         halter.complete();
-        checkCounts(formQueueA, 2, 3, 2, 2);
+        queueA.checkCounts(2, 3, 2, 2);
     }
 
     /**
@@ -149,19 +148,19 @@ public class TestFormQueue extends AbstractMetamerTest {
      */
     @Test
     public void testTimingTwoQueuesFourEvents() {
-        formQueueA.attributes.setRequestDelay(DELAY_A);
-        formQueueB.attributes.setRequestDelay(DELAY_B);
-        globalQueue.attributes.setRequestDelay(GLOBAL_DELAY);
+        attributesQueueA.setRequestDelay(DELAY_A);
+        attributesQueueB.setRequestDelay(DELAY_B);
+        attributesGlobalQueue.setRequestDelay(GLOBAL_DELAY);
 
-        initializeTimes(formQueueA);
-        initializeTimes(formQueueB);
+        queueA.initializeTimes();
+        queueB.initializeTimes();
 
         XHRHalter.enable();
 
-        fireEvent(formQueueA, Event.FIRST, 1);
-        fireEvent(formQueueA, Event.SECOND, 1);
-        fireEvent(formQueueB, Event.FIRST, 1);
-        fireEvent(formQueueB, Event.SECOND, 1);
+        queueA.fireEvent(Input.FIRST, 1);
+        queueA.fireEvent(Input.SECOND, 1);
+        queueB.fireEvent(Input.FIRST, 1);
+        queueB.fireEvent(Input.SECOND, 1);
 
         XHRHalter halter = XHRHalter.getHandleBlocking();
         halter.complete();
@@ -172,11 +171,11 @@ public class TestFormQueue extends AbstractMetamerTest {
         halter.waitForOpen();
         halter.complete();
 
-        checkTimes(formQueueB, Event.SECOND, DELAY_B);
+        queueB.checkTimes(Input.SECOND, DELAY_B);
 
-        assertTrue(formQueueA.retrieveBeginTime.retrieve() - formQueueA.retrieveEvent1Time.retrieve() < 1000);
-        assertTrue(formQueueA.retrieveBeginTime.retrieve() - formQueueA.retrieveEvent2Time.retrieve() < 1000);
-        assertTrue(formQueueB.retrieveBeginTime.retrieve() - formQueueB.retrieveEvent1Time.retrieve() > 3000);
+        assertTrue(queueA.retrieveBeginTime.retrieve() - queueA.retrieveEvent1Time.retrieve() < 1000);
+        assertTrue(queueA.retrieveBeginTime.retrieve() - queueA.retrieveEvent2Time.retrieve() < 1000);
+        assertTrue(queueB.retrieveBeginTime.retrieve() - queueB.retrieveEvent1Time.retrieve() > 3000);
     }
 
     /**
@@ -194,104 +193,41 @@ public class TestFormQueue extends AbstractMetamerTest {
      */
     @Test
     public void testCountsTwoQueuesThreeEvents() {
-        formQueueA.attributes.setRequestDelay(DELAY_A);
-        formQueueB.attributes.setRequestDelay(DELAY_B);
-        globalQueue.attributes.setRequestDelay(GLOBAL_DELAY);
+        attributesQueueA.setRequestDelay(DELAY_A);
+        attributesQueueB.setRequestDelay(DELAY_B);
+        attributesGlobalQueue.setRequestDelay(GLOBAL_DELAY);
 
-        initializeCounts(formQueueA);
-        initializeCounts(formQueueB);
+        queueA.initializeCounts();
+        queueB.initializeCounts();
 
         XHRHalter.enable();
 
-        fireEvent(formQueueA, Event.FIRST, 1);
-        checkCounts(formQueueA, 1, 0, 0, 0);
-        fireEvent(formQueueA, Event.SECOND, 1);
-        checkCounts(formQueueA, 1, 1, 1, 0);
-        fireEvent(formQueueB, Event.FIRST, 1);
-        checkCounts(formQueueB, 1, 0, 0, 0);
-        fireEvent(formQueueB, Event.SECOND, 1);
+        queueA.fireEvent(Input.FIRST, 1);
+        queueA.checkCounts(1, 0, 0, 0);
+        queueA.fireEvent(Input.SECOND, 1);
+        queueA.checkCounts(1, 1, 1, 0);
+        queueB.fireEvent(Input.FIRST, 1);
+        queueB.checkCounts(1, 0, 0, 0);
+        queueB.fireEvent(Input.SECOND, 1);
 
-        checkCounts(formQueueA, 1, 1, 1, 0);
-        checkCounts(formQueueB, 1, 1, 0, 0);
+        queueA.checkCounts(1, 1, 1, 0);
+        queueB.checkCounts(1, 1, 0, 0);
 
         XHRHalter halter = XHRHalter.getHandleBlocking();
         halter.complete();
-        checkCounts(formQueueA, 1, 1, 2, 1);
+        queueA.checkCounts(1, 1, 2, 1);
         halter.waitForOpen();
         halter.complete();
-        checkCounts(formQueueA, 1, 1, 2, 2);
-        checkCounts(formQueueB, 1, 1, 1, 0);
+        queueA.checkCounts(1, 1, 2, 2);
+        queueB.checkCounts(1, 1, 1, 0);
         halter.waitForOpen();
         halter.complete();
         halter.waitForOpen();
-        checkCounts(formQueueB, 1, 1, 2, 1);
+        queueB.checkCounts(1, 1, 2, 1);
         halter.complete();
 
-        checkCounts(formQueueA, 1, 1, 2, 2);
-        checkCounts(formQueueB, 1, 1, 2, 2);
+        queueA.checkCounts(1, 1, 2, 2);
+        queueB.checkCounts(1, 1, 2, 2);
     }
 
-    private void initializeTimes(QueueLocators formQueueLocators) {
-        deviationTotal = 0;
-        deviationCount = 0;
-        formQueueLocators.retrieveEvent1Time.initializeValue();
-        formQueueLocators.retrieveEvent2Time.initializeValue();
-        formQueueLocators.retrieveBeginTime.initializeValue();
-        formQueueLocators.retrieveCompleteTime.initializeValue();
-    }
-
-    private void fireEvent(QueueLocators formQueueLocators, Event event, int countOfEvents) {
-        ElementLocator<?> input = (event == Event.FIRST) ? formQueueLocators.input1 : formQueueLocators.input2;
-        for (int i = 0; i < countOfEvents; i++) {
-            selenium.fireEvent(input, KEYPRESS);
-        }
-    }
-
-    private void initializeCounts(QueueLocators formQueueLocators) {
-        formQueueLocators.retrieveEvent1Count.initializeValue();
-        formQueueLocators.retrieveEvent2Count.initializeValue();
-        formQueueLocators.retrieveRequestCount.initializeValue();
-        formQueueLocators.retrieveDOMUpdateCount.initializeValue();
-    }
-
-    private void checkCounts(QueueLocators formQueueLocators, int events1, int events2, int requests, int domUpdates) {
-        assertChangeIfNotEqualToOldValue(formQueueLocators.retrieveEvent1Count, events1, "event1Count");
-        assertChangeIfNotEqualToOldValue(formQueueLocators.retrieveEvent2Count, events2, "event2Count");
-        assertChangeIfNotEqualToOldValue(formQueueLocators.retrieveRequestCount, requests, "requestCount");
-        assertChangeIfNotEqualToOldValue(formQueueLocators.retrieveDOMUpdateCount, domUpdates, "domUpdates");
-    }
-
-    private void assertChangeIfNotEqualToOldValue(Retriever<Integer> retrieveCount, Integer eventCount, String eventType) {
-        if (!eventCount.equals(retrieveCount.getValue())) {
-            assertEquals(waitAjax.failWith(eventType).waitForChangeAndReturn(retrieveCount), eventCount);
-        } else {
-            assertEquals(retrieveCount.retrieve(), eventCount);
-        }
-    }
-
-    private void checkTimes(QueueLocators formQueueLocators, Event event, long requestDelay) {
-        Retriever<Long> retrieveEventTime = (event == Event.FIRST) ? formQueueLocators.retrieveEvent1Time
-            : formQueueLocators.retrieveEvent2Time;
-        long eventTime = waitAjax.waitForChangeAndReturn(retrieveEventTime);
-        long beginTime = waitAjax.waitForChangeAndReturn(formQueueLocators.retrieveBeginTime);
-        long actualDelay = beginTime - eventTime;
-        long deviation = Math.abs(actualDelay - requestDelay);
-        long maxDeviation = Math.max(100, requestDelay);
-
-        if (seleniumDebug) {
-            System.out.println(format("deviation for requestDelay {0}: {1}", requestDelay, deviation));
-        }
-
-        assertTrue(
-            deviation <= maxDeviation,
-            format("Deviation ({0}) is greater than maxDeviation ({1}) for requestDelay {2}", deviation, maxDeviation,
-                requestDelay));
-
-        deviationTotal += deviation;
-        deviationCount += 1;
-    }
-
-    private enum Event {
-        FIRST, SECOND;
-    }
 }

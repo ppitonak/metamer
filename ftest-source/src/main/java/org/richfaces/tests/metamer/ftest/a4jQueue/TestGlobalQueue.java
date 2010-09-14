@@ -21,17 +21,12 @@
  *******************************************************************************/
 package org.richfaces.tests.metamer.ftest.a4jQueue;
 
-import static org.jboss.test.selenium.dom.Event.KEYPRESS;
 import static org.jboss.test.selenium.utils.URLUtils.buildUrl;
-import static org.jboss.test.selenium.utils.text.SimplifiedFormat.format;
-import static org.testng.Assert.assertEquals;
-import static org.testng.Assert.assertTrue;
 
 import java.net.URL;
 
 import org.jboss.cheiron.halt.XHRHalter;
 import org.jboss.cheiron.halt.XHRState;
-import org.jboss.test.selenium.waiting.retrievers.Retriever;
 import org.richfaces.tests.metamer.ftest.AbstractMetamerTest;
 import org.richfaces.tests.metamer.ftest.annotations.Inject;
 import org.richfaces.tests.metamer.ftest.annotations.IssueTracking;
@@ -44,16 +39,12 @@ import org.testng.annotations.Test;
  */
 public class TestGlobalQueue extends AbstractMetamerTest {
 
-    QueueLocators queue = new QueueLocators("globalQueue", pjq(""), pjq("#attributeForm"));
-
+    QueueModel queue = new QueueModel();
     QueueAttributes attributes = new QueueAttributes();
 
     @Inject
     @Use(empty = false)
     Integer requestDelay;
-
-    int deviationTotal;
-    int deviationCount;
 
     @Override
     public URL getTestUrl() {
@@ -68,12 +59,14 @@ public class TestGlobalQueue extends AbstractMetamerTest {
     public void testRequestDelay() {
         attributes.setRequestDelay(requestDelay);
 
-        initializeTimes();
+        queue.initializeTimes();
+
         for (int i = 0; i < 5; i++) {
-            fireEvents(1);
-            checkTimes();
+            queue.fireEvent(1);
+            queue.checkTimes(requestDelay);
         }
-        checkAvgDeviation();
+
+        queue.checkAvgDeviation(requestDelay);
     }
 
     /**
@@ -83,23 +76,23 @@ public class TestGlobalQueue extends AbstractMetamerTest {
     public void testMultipleRequestsWithDelay() {
         attributes.setRequestDelay(3000);
 
-        initializeCounts();
+        queue.initializeCounts();
 
         XHRHalter.enable();
 
-        fireEvents(4);
+        queue.fireEvent(4);
         XHRHalter handle = XHRHalter.getHandleBlocking();
         handle.send();
         handle.complete();
 
-        checkCounts(4, 1, 1);
+        queue.checkCounts(4, 1, 1);
 
-        fireEvents(3);
+        queue.fireEvent(3);
         handle.waitForOpen();
         handle.send();
         handle.complete();
 
-        checkCounts(7, 2, 2);
+        queue.checkCounts(7, 2, 2);
 
         XHRHalter.disable();
     }
@@ -117,59 +110,59 @@ public class TestGlobalQueue extends AbstractMetamerTest {
     public void testMultipleRequestsWithNoDelay() {
         attributes.setRequestDelay(0);
 
-        initializeCounts();
+        queue.initializeCounts();
 
         XHRHalter.enable();
 
-        fireEvents(1);
-        checkCounts(1, 1, 0);
+        queue.fireEvent(1);
+        queue.checkCounts(1, 1, 0);
 
         XHRHalter handle = XHRHalter.getHandleBlocking();
         handle.send();
 
-        fireEvents(1);
-        checkCounts(2, 1, 0);
+        queue.fireEvent(1);
+        queue.checkCounts(2, 1, 0);
 
         handle.complete();
-        checkCounts(2, 2, 1);
+        queue.checkCounts(2, 2, 1);
 
         handle.waitForOpen();
         handle.send();
-        fireEvents(4);
-        checkCounts(6, 2, 1);
+        queue.fireEvent(4);
+        queue.checkCounts(6, 2, 1);
 
         handle.complete();
-        checkCounts(6, 3, 2);
+        queue.checkCounts(6, 3, 2);
 
         handle.waitForOpen();
         handle.send();
-        fireEvents(1);
-        checkCounts(7, 3, 2);
+        queue.fireEvent(1);
+        queue.checkCounts(7, 3, 2);
 
         handle.complete();
-        checkCounts(7, 4, 3);
+        queue.checkCounts(7, 4, 3);
 
         handle.waitForOpen();
         handle.send();
-        checkCounts(7, 4, 3);
+        queue.checkCounts(7, 4, 3);
 
         handle.complete();
-        checkCounts(7, 4, 4);
+        queue.checkCounts(7, 4, 4);
 
         XHRHalter.disable();
     }
-    
+
     @Test
     @IssueTracking("https://jira.jboss.org/browse/RF-9328")
     public void testRendered() {
         attributes.setRequestDelay(1500);
         attributes.setRendered(false);
-        
-        initializeTimes();
-        fireEvents(1);
-        
+
+        queue.initializeTimes();
+        queue.fireEvent(1);
+
         // check that no requestDelay is applied while renderer=false
-        checkTimes(0);
+        queue.checkTimes(0);
         // TODO should check that no attributes is applied with renderes=false
     }
 
@@ -180,10 +173,10 @@ public class TestGlobalQueue extends AbstractMetamerTest {
 
         XHRHalter.enable();
 
-        fireEvents(1);
+        queue.fireEvent(1);
         XHRHalter handle = XHRHalter.getHandleBlocking();
         handle.continueBefore(XHRState.COMPLETE);
-        fireEvents(10);
+        queue.fireEvent(10);
 
         XHRHalter.disable();
 
@@ -196,82 +189,11 @@ public class TestGlobalQueue extends AbstractMetamerTest {
         attributes.setIgnoreDupResponses(true);
 
         XHRHalter.enable();
-        fireEvents(1);
+        queue.fireEvent(1);
         XHRHalter handle = XHRHalter.getHandleBlocking();
         handle.send();
-        fireEvents(1);
+        queue.fireEvent(1);
         handle.complete();
         handle.waitForOpen();
-    }
-
-    private void initializeTimes() {
-        deviationTotal = 0;
-        deviationCount = 0;
-        queue.retrieveEvent1Time.initializeValue();
-        queue.retrieveBeginTime.initializeValue();
-        queue.retrieveCompleteTime.initializeValue();
-    }
-
-    private void fireEvents(int countOfEvents) {
-        for (int i = 0; i < countOfEvents; i++) {
-            selenium.fireEvent(queue.input1, KEYPRESS);
-        }
-    }
-
-    private void initializeCounts() {
-        queue.retrieveEvent1Count.initializeValue();
-        queue.retrieveRequestCount.initializeValue();
-        queue.retrieveDOMUpdateCount.initializeValue();
-    }
-
-    private void checkCounts(int events, int requests, int domUpdates) {
-        assertChangeIfNotEqualToOldValue(queue.retrieveEvent1Count, events, "eventCount");
-        assertChangeIfNotEqualToOldValue(queue.retrieveRequestCount, requests, "requestCount");
-        assertChangeIfNotEqualToOldValue(queue.retrieveDOMUpdateCount, domUpdates, "domUpdates");
-    }
-
-    private void assertChangeIfNotEqualToOldValue(Retriever<Integer> retrieveCount, Integer eventCount, String eventType) {
-        if (!eventCount.equals(retrieveCount.getValue())) {
-            assertEquals(waitAjax.failWith(eventType).waitForChangeAndReturn(retrieveCount), eventCount);
-        } else {
-            assertEquals(retrieveCount.retrieve(), eventCount);
-        }
-    }
-    
-    private void checkTimes() {
-        checkTimes(requestDelay);
-    }
-
-    private void checkTimes(long requestDelay) {
-        long eventTime = waitAjax.waitForChangeAndReturn(queue.retrieveEvent1Time);
-        long beginTime = waitAjax.waitForChangeAndReturn(queue.retrieveBeginTime);
-        long actualDelay = beginTime - eventTime;
-        long deviation = Math.abs(actualDelay - requestDelay);
-        long maxDeviation = Math.max(50, requestDelay);
-
-        if (seleniumDebug) {
-            System.out.println(format("deviation for requestDelay {0}: {1}", requestDelay, deviation));
-        }
-
-        assertTrue(
-            deviation <= maxDeviation,
-            format("Deviation ({0}) is greater than maxDeviation ({1}) for requestDelay {2}", deviation, maxDeviation,
-                requestDelay));
-
-        deviationTotal += deviation;
-        deviationCount += 1;
-    }
-
-    private void checkAvgDeviation() {
-        long maximumAvgDeviation = Math.max(25, Math.min(50, requestDelay / 4));
-        long averageDeviation = deviationTotal / deviationCount;
-        if (seleniumDebug) {
-            System.out.println("averageDeviation: " + averageDeviation);
-        }
-        assertTrue(
-            averageDeviation <= maximumAvgDeviation,
-            format(
-                "Average deviation for all tests of requestDelay ({0}) should not be greater than defined maximum {1}",
-                averageDeviation, maximumAvgDeviation));
     }
 }
