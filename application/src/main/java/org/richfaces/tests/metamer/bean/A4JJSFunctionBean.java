@@ -27,7 +27,7 @@ import java.util.Date;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
+import javax.faces.bean.SessionScoped;
 import javax.faces.event.ActionEvent;
 import org.richfaces.component.UIFunction;
 
@@ -42,7 +42,8 @@ import org.slf4j.LoggerFactory;
  * @version $Revision$
  */
 @ManagedBean(name = "a4jJSFunctionBean")
-@ViewScoped
+// cannot be view-scoped (see https://jira.jboss.org/browse/RF-9287)
+@SessionScoped
 public class A4JJSFunctionBean implements Serializable {
 
     private static final long serialVersionUID = 48333649809L;
