@@ -34,6 +34,7 @@ import org.jboss.cheiron.halt.XHRState;
 import org.jboss.test.selenium.waiting.retrievers.Retriever;
 import org.richfaces.tests.metamer.ftest.AbstractMetamerTest;
 import org.richfaces.tests.metamer.ftest.annotations.Inject;
+import org.richfaces.tests.metamer.ftest.annotations.IssueTracking;
 import org.richfaces.tests.metamer.ftest.annotations.Use;
 import org.testng.annotations.Test;
 
@@ -157,6 +158,20 @@ public class TestGlobalQueue extends AbstractMetamerTest {
 
         XHRHalter.disable();
     }
+    
+    @Test
+    @IssueTracking("https://jira.jboss.org/browse/RF-9328")
+    public void testRendered() {
+        attributes.setRequestDelay(1500);
+        attributes.setRendered(false);
+        
+        initializeTimes();
+        fireEvents(1);
+        
+        // check that no requestDelay is applied while renderer=false
+        checkTimes(0);
+        // TODO should check that no attributes is applied with renderes=false
+    }
 
     // TODO not implemented yet
     public void testTimeout() {
@@ -222,8 +237,12 @@ public class TestGlobalQueue extends AbstractMetamerTest {
             assertEquals(retrieveCount.retrieve(), eventCount);
         }
     }
-
+    
     private void checkTimes() {
+        checkTimes(requestDelay);
+    }
+
+    private void checkTimes(long requestDelay) {
         long eventTime = waitAjax.waitForChangeAndReturn(queue.retrieveEvent1Time);
         long beginTime = waitAjax.waitForChangeAndReturn(queue.retrieveBeginTime);
         long actualDelay = beginTime - eventTime;
