@@ -101,7 +101,6 @@ public class QueueModel {
 
     public void checkCounts(int events1, int events2, int requests, int domUpdates) {
         assertChangeIfNotEqualToOldValue(retrieveEvent1Count, events1, "event1Count");
-
         assertChangeIfNotEqualToOldValue(retrieveRequestCount, requests, "requestCount");
         assertChangeIfNotEqualToOldValue(retrieveDOMUpdateCount, domUpdates, "domUpdates");
         if (isEvent2Present()) {
