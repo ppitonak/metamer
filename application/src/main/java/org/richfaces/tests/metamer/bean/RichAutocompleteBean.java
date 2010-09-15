@@ -63,13 +63,17 @@ public class RichAutocompleteBean implements Serializable {
         logger.debug("initializing bean " + getClass().getName());
 
         attributes = Attributes.getUIComponentAttributes(UIAutocomplete.class, getClass());
+        attributes.setAttribute("converterMessage", "converter message");
         attributes.setAttribute("mode", "cachedAjax");
         attributes.setAttribute("rendered", true);
-
+        attributes.setAttribute("tokens", ", ");
+        attributes.setAttribute("validatorMessage", "validator message");
 
         attributes.remove("autocompleteMethod");
         attributes.remove("converter");
+        attributes.remove("fetchValue");
         attributes.remove("itemConverter");
+        attributes.remove("validator");
 
         // these are hidden attributes
         attributes.remove("autocompleteList");

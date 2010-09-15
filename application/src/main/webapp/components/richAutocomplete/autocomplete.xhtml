@@ -84,10 +84,9 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                                required="#{richAutocompleteBean.attributes['required'].value}"
                                requiredMessage="#{richAutocompleteBean.attributes['requiredMessage'].value}"
                                selectFirst="#{richAutocompleteBean.attributes['selectFirst'].value}"
-                               selectItemClass="#{richAutocompleteBean.attributes['selectItemClass'].value}"
+                               selectedItemClass="#{richAutocompleteBean.attributes['selectedItemClass'].value}"
                                showButton="#{richAutocompleteBean.attributes['showButton'].value}"
                                tokens="#{richAutocompleteBean.attributes['tokens'].value}"
-                               validator="#{richAutocompleteBean.attributes['validator'].value}"
                                validatorMessage="#{richAutocompleteBean.attributes['validatorMessage'].value}"
                                value="#{richAutocompleteBean.attributes['value'].value}"
                                valueChangeListener="#{richAutocompleteBean.attributes['valueChangeListener'].value}"
@@ -99,6 +98,8 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                     <a4j:ajax id="autocompleteAjax" event="select" render="output"/>
                 </ui:remove>
             </rich:autocomplete>
+
+            <h:commandButton id="sendButton" execute="@form" render="outputPanel,messages" value="Submit"/>
 
             <br/><br/>
             <a4j:outputPanel id="outputPanel" layout="block">
