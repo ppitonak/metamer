@@ -256,6 +256,61 @@
 				</plugins>
 			</build>
 		</profile>
+		<profile>
+			<id>container-jboss6x</id>
+			<activation>
+				<property>
+					<name>containerId</name>
+					<value>jboss6x-snapshot</value>
+				</property>
+			</activation>
+			<properties>
+				<container.short.version>6.0.0-SNAPSHOT</container.short.version>
+				<container.version>6.0.0-SNAPSHOT</container.version>
+				<container.dir.deflatted>jboss-6.0.x</container.dir.deflatted>
+				<container.dir.unflatted>jboss-${container.version}</container.dir.unflatted>
+				<container.installer.url>http://hudson.qa.jboss.com/hudson/view/JBoss%20AS/job/JBoss-AS-6.0.x/lastSuccessfulBuild/artifact/JBossAS_6_0/build/target/jboss-6.0.x.zip</container.installer.url>
+				<container.dir>jboss-${container.version}</container.dir>
+				<container.configuration>default</container.configuration>
+				<container.configuration.home>${container.home}/server/${container.configuration}</container.configuration.home>
+			</properties>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.codehaus.cargo</groupId>
+						<artifactId>cargo-maven2-plugin</artifactId>
+						<executions>
+							<execution>
+								<id>undeploy-container</id>
+								<phase>post-integration-test</phase>
+								<goals>
+									<goal>undeploy</goal>
+								</goals>
+							</execution>
+						</executions>
+						<configuration>
+							<container>
+								<containerId>jboss6x</containerId>
+								<append>false</append>
+								<timeout>${cargo.timeout.deploy}</timeout>
+								<zipUrlInstaller>
+									<url>${container.installer.url}</url>
+									<installDir>${project.build.directory}/installs</installDir>
+								</zipUrlInstaller>
+							</container>
+							<configuration>
+								<home>${container.home}/server/${container.configuration}</home>
+								<type>existing</type>
+								<properties>
+									<cargo.jboss.configuration>${container.configuration}</cargo.jboss.configuration>
+									<cargo.rmi.port>1099</cargo.rmi.port>
+								</properties>
+							</configuration>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
 	</profiles>
 
 	<build>
