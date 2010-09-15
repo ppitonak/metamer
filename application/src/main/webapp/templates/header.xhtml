@@ -97,7 +97,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                                      style="width: 150px;">
                         <f:selectItems value="#{templateBean.availableTemplates}" />
                         <f:converter converterId="templateNameConverter" />
-                        <a4j:ajax event="change" render="headerTable" />
+                        <a4j:ajax event="change" render="templatesForm" />
                     </h:selectOneMenu>
                     <br />
                 </ui:repeat>
