@@ -105,6 +105,10 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
             <fieldset>
                 <legend>JavaScript API</legend>
 
+                <script type="text/javascript">
+                    testedComponentId = "#{rich:clientId('accordion')}";
+                </script>
+
                 <h:commandButton id="switchButton1" value="switch to item1">
                     <rich:componentControl id="componentControl1" event="click" operation="switchToItem" target="accordion" >
                         <f:param value="item1" />
