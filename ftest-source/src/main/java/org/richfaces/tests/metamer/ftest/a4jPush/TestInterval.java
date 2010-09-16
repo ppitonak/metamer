@@ -51,7 +51,7 @@ public class TestInterval extends AbstractPushTest {
     @Inject
     int interval;
 
-    AttributeLocator<?> clientTime = pjq("span[id$=metamerOutputTime]").getAttribute(Attribute.TITLE);
+    AttributeLocator<?> clientTime = pjq("span[id$=clientDate\\:outputTime]").getAttribute(Attribute.TITLE);
 
     long startTime;
     int counter;
@@ -193,6 +193,7 @@ public class TestInterval extends AbstractPushTest {
      * @return the time of push event (the time when arrived the response from server)
      */
     private long getClientTime() {
+        waitGui.until(attributePresent.locator(clientTime));
         return asLong(selenium.getAttribute(clientTime));
     }
 }

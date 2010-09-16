@@ -56,8 +56,8 @@ public class TestInterval extends AbstractMetamerTest {
     @Inject
     int interval;
 
-    IdLocator attributeEnabled = id("form:attributes:enabledInput");
-    IdLocator attributeInterval = id("form:attributes:intervalInput");
+    IntervalAttributes attributes = new IntervalAttributes();
+
     JQueryLocator time = pjq("span[id$=time]");
     AttributeLocator<?> clientTime = pjq("span[id$=clientDate]").getAttribute(Attribute.TITLE);
 
@@ -109,10 +109,8 @@ public class TestInterval extends AbstractMetamerTest {
      * </p>
      */
     public void testClient() {
-        guardHttp(selenium).type(attributeInterval, String.valueOf(interval));
-
-        selenium.check(attributeEnabled);
-        guardHttp(selenium).fireEvent(attributeEnabled, Event.CHANGE);
+        attributes.setEnabled(true);
+        attributes.setInterval(interval);
 
         waitForPoll();
         for (int i = 0; i < ITERATION_COUNT; i++) {

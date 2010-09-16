@@ -35,6 +35,8 @@ import org.jboss.test.selenium.locator.reference.ReferencedLocator;
 import static org.jboss.test.selenium.guard.request.RequestTypeGuardFactory.guardHttp;
 import static org.richfaces.tests.metamer.ftest.AbstractMetamerTest.pjq;
 import static org.jboss.test.selenium.locator.reference.ReferencedLocator.referenceInferred;
+import static org.jboss.test.selenium.waiting.WaitFactory.waitGui;
+import static org.jboss.test.selenium.waiting.WaitFactory.elementPresent;
 
 /**
  * @author <a href="mailto:lfryc@redhat.com">Lukas Fryc</a>
@@ -64,6 +66,7 @@ public class AbstractComponentAttributes {
         final ElementLocator<?> locator = propertyLocator.format(propertyName);
         final AttributeLocator<?> typeLocator = locator.getAttribute(Attribute.TYPE);
 
+        waitGui.until(elementPresent.locator(locator));
         String inputType = selenium.getAttribute(typeLocator);
 
         if (value == null) {
