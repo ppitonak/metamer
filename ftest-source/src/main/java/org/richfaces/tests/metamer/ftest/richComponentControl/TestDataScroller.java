@@ -26,6 +26,7 @@ import static org.jboss.test.selenium.utils.URLUtils.buildUrl;
 import java.net.URL;
 
 import org.richfaces.tests.metamer.ftest.AbstractMetamerTest;
+import org.richfaces.tests.metamer.ftest.annotations.IssueTracking;
 import org.richfaces.tests.metamer.ftest.richDataScroller.PaginationTester;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -65,6 +66,7 @@ public class TestDataScroller extends AbstractMetamerTest {
     }
 
     @Test
+    @IssueTracking("https://jira.jboss.org/browse/RF-9306")
     public void testScrollerPagination() {
         paginationTester.testNumberedPages();
     }
