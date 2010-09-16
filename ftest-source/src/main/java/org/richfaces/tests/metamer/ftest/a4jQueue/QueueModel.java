@@ -151,7 +151,7 @@ public class QueueModel {
         long event2Time = retrieveEvent2Time.retrieve();
         long actualDelay = Math.abs(event1Time - event2Time);
 
-        checkDeviation(actualDelay, 50);
+        checkDeviation(actualDelay, 150);
     }
 
     public void checkDeviation(long deviation, long maxDeviation) {
