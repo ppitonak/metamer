@@ -33,6 +33,7 @@ import static org.testng.Assert.assertTrue;
 
 import java.net.URL;
 
+import org.jboss.test.selenium.css.CssProperty;
 import org.jboss.test.selenium.dom.Event;
 import org.jboss.test.selenium.encapsulated.JavaScript;
 import org.jboss.test.selenium.locator.Attribute;
@@ -199,6 +200,23 @@ public class TestRichAccordion extends AbstractMetamerTest {
     }
 
     @Test
+    public void testHeight() {
+        JQueryLocator input = pjq("input[type=text][id$=heightInput]");
+        AttributeLocator<?> attribute = accordion.getAttribute(new Attribute("style"));
+
+        // height = null
+        assertFalse(selenium.isAttributePresent(attribute), "Attribute style should not be present.");
+
+        // height = 300px
+        selenium.type(input, "300px");
+        selenium.waitForPageToLoad(TIMEOUT);
+
+        assertTrue(selenium.isAttributePresent(attribute), "Attribute style should be present.");
+        String value = selenium.getStyle(accordion, CssProperty.HEIGHT);
+        assertEquals(value, "300px", "Attribute width");
+    }
+
+    @Test
     public void testImmediate() {
         JQueryLocator input = pjq("input[type=checkbox][id$=immediateInput]");
         selenium.click(input);
@@ -344,4 +362,37 @@ public class TestRichAccordion extends AbstractMetamerTest {
         testStyleClass(accordion, "styleClass");
     }
 
+    @Test
+    public void testTitle() {
+        JQueryLocator input = pjq("input[type=text][id$=titleInput]");
+        AttributeLocator<?> attribute = accordion.getAttribute(new Attribute("title"));
+
+        // title = null
+        assertFalse(selenium.isAttributePresent(attribute), "Attribute title should not be present.");
+
+        // title = "RichFaces Accordion"
+        selenium.type(input, "RichFaces Accordion");
+        selenium.waitForPageToLoad(TIMEOUT);
+
+        assertTrue(selenium.isAttributePresent(attribute), "Attribute title should be present.");
+        String value = selenium.getAttribute(attribute);
+        assertEquals(value, "RichFaces Accordion", "Attribute title");
+    }
+
+    @Test
+    public void testWidth() {
+        JQueryLocator input = pjq("input[type=text][id$=widthInput]");
+        AttributeLocator<?> attribute = accordion.getAttribute(new Attribute("style"));
+
+        // width = null
+        assertFalse(selenium.isAttributePresent(attribute), "Attribute style should not be present.");
+
+        // width = 50%
+        selenium.type(input, "50%");
+        selenium.waitForPageToLoad(TIMEOUT);
+
+        assertTrue(selenium.isAttributePresent(attribute), "Attribute style should be present.");
+        String value = selenium.getStyle(accordion, CssProperty.WIDTH);
+        assertEquals(value, "50%", "Attribute width");
+    }
 }
