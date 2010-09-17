@@ -96,8 +96,11 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                 <rich:accordionItem id="item3" name="item3"  header="Item 3">
                     content of item 3
                 </rich:accordionItem>
-                <rich:accordionItem id="item4" name="item4"  header="Item 4">
+                <rich:accordionItem id="item4" name="item4"  header="Item 4" disabled="true">
                     content of item 4
+                </rich:accordionItem>
+                <rich:accordionItem id="item5" name="item5"  header="Item 5">
+                    content of item 5
                 </rich:accordionItem>
             </rich:accordion>
 
@@ -120,13 +123,18 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                     </rich:componentControl>
                 </h:commandButton>
                 <h:commandButton id="switchButton3" value="switch to item3">
-                    <rich:componentControl id="componentControl1" event="click" operation="switchToItem" target="accordion" >
+                    <rich:componentControl id="componentControl3" event="click" operation="switchToItem" target="accordion" >
                         <f:param value="item3" />
                     </rich:componentControl>
                 </h:commandButton>
                 <h:commandButton id="switchButton4" value="switch to item4">
-                    <rich:componentControl id="componentControl1" event="click" operation="switchToItem" target="accordion" >
+                    <rich:componentControl id="componentControl4" event="click" operation="switchToItem" target="accordion" >
                         <f:param value="item4" />
+                    </rich:componentControl>
+                </h:commandButton>
+                <h:commandButton id="switchButton5" value="switch to item5">
+                    <rich:componentControl id="componentControl5" event="click" operation="switchToItem" target="accordion" >
+                        <f:param value="item5" />
                     </rich:componentControl>
                 </h:commandButton>
 
