@@ -56,6 +56,8 @@ public final class VersionBean {
     private String scmRevision;
     private String scmTimestamp;
     private String fullVersion;
+    private String shortVersion;
+    private String richFacesVersion;
     private String jsfVersion;
 
     /**
@@ -104,12 +106,42 @@ public final class VersionBean {
         }
 
         if (implementationVersion == null) {
-            implementationVersion = "Metamer: RichFaces Testing Application, version unknown";
+            implementationVersion = "Metamer, version unknown";
             return implementationVersion;
         }
 
         fullVersion = implementationTitle + " by " + implementationVendor + ", version " + implementationVersion + " SVN r. " + scmRevision;
         return fullVersion;
+    }
+    
+    public String getShortVersion() {
+        if (shortVersion != null) {
+            return shortVersion;
+        }
+
+        if (implementationVersion == null) {
+            implementationVersion = "Metamer, version unknown";
+            return implementationVersion;
+        }
+
+        shortVersion = "Metamer " + implementationVersion + " SVN r. " + scmRevision;
+        return shortVersion;
+    }
+    
+    public String getRichFacesVersion() {
+        if (richFacesVersion != null) {
+            return richFacesVersion;
+        }
+        
+        org.richfaces.VersionBean rfVersionBean = new org.richfaces.VersionBean();
+        StringBuilder result = new StringBuilder();
+        result.append("RichFaces ");
+        result.append(rfVersionBean.getVersion().getImplementationVersion());
+        result.append(" SVN r.");
+        result.append(rfVersionBean.getVersion().getScmRevision());
+        richFacesVersion = result.toString();
+        
+        return richFacesVersion;
     }
 
     public String getJavaVersion() {
