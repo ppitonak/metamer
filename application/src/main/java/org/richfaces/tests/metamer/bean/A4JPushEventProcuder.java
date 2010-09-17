@@ -69,6 +69,6 @@ public class A4JPushEventProcuder implements Serializable {
         for (PushEventListener listener : listeners) {
             listener.onEvent(new EventObject(A4JPushBean.class));
         }
-        logger.info("push event (listeners: " + listeners.size() + ")");
+        logger.debug("push event (listeners: " + listeners.size() + ")");
     }
 }
