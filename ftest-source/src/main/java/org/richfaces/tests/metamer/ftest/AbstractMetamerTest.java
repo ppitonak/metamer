@@ -24,12 +24,15 @@ package org.richfaces.tests.metamer.ftest;
 
 import static org.jboss.test.selenium.utils.URLUtils.buildUrl;
 import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.assertTrue;
 
 import java.net.URL;
 
 import org.jboss.test.selenium.AbstractTestCase;
 import org.jboss.test.selenium.dom.Event;
 import org.jboss.test.selenium.encapsulated.JavaScript;
+import org.jboss.test.selenium.locator.Attribute;
+import org.jboss.test.selenium.locator.AttributeLocator;
 import org.jboss.test.selenium.locator.ElementLocator;
 import org.jboss.test.selenium.locator.JQueryLocator;
 import org.jboss.test.selenium.waiting.ajax.JavaScriptCondition;
@@ -44,7 +47,7 @@ import org.testng.annotations.BeforeMethod;
  * Abstract test case used as a basis for majority of test cases.
  * 
  * @author <a href="mailto:ppitonak@redhat.com">Pavol Pitonak</a>
- * @version $Revision$
+ * @version $Rev$
  */
 public abstract class AbstractMetamerTest extends AbstractTestCase {
 
@@ -54,8 +57,8 @@ public abstract class AbstractMetamerTest extends AbstractTestCase {
     public static final long TIMEOUT = 5000;
 
     @Inject
-    @Templates({ "plain", "richDataTable1,redDiv", "richDataTable2,redDiv", "a4jRepeat1", "a4jRepeat2", "hDataTable1",
-        "hDataTable2", "uiRepeat1", "uiRepeat2" })
+    @Templates({"plain", "richDataTable1,redDiv", "richDataTable2,redDiv", "a4jRepeat1", "a4jRepeat2", "hDataTable1",
+        "hDataTable2", "uiRepeat1", "uiRepeat2"})
     private TemplatesList template;
 
     /**
@@ -143,6 +146,43 @@ public abstract class AbstractMetamerTest extends AbstractTestCase {
 
         assertEquals(selenium.getAlert(), event.getEventName(), event.getEventName()
             + " attribute did not change correctly");
+    }
+
+    /**
+     * A helper method for testing attribute "style". It sets "background-color: yellow; font-size: 1.5em;" to the input
+     * field and checks that it was changed on the page.
+     * 
+     * @param element
+     *            locator of tested element
+     */
+    protected void testStyle(ElementLocator<?> element) {
+        ElementLocator<?> styleInput = pjq("input[id$=styleInput]");
+        final String value = "background-color: yellow; font-size: 1.5em;";
+
+        selenium.type(styleInput, value);
+        selenium.waitForPageToLoad();
+
+        AttributeLocator<?> styleAttr = element.getAttribute(Attribute.STYLE);
+        assertEquals(selenium.getAttribute(styleAttr), value, "Attribute style");
+    }
+
+    /**
+     * A helper method for testing attribute "class". It sets "metamer-ftest-class" to the input field and checks that
+     * it was changed on the page.
+     * 
+     * @param element
+     *            locator of tested element
+     * @param attribute
+     *            name of the attribute that will be set (e.g. styleClass, headerClass, itemContentClass
+     */
+    protected void testStyleClass(ElementLocator<?> element, String attribute) {
+        ElementLocator<?> classInput = pjq("input[id$=" + attribute + "Input]");
+        final String value = "metamer-ftest-class";
+
+        selenium.type(classInput, value);
+        selenium.waitForPageToLoad();
+
+        assertTrue(selenium.belongsClass(element, value), attribute + " does not work");
     }
 
     /**
