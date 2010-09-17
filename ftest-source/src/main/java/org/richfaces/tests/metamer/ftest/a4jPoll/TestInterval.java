@@ -34,6 +34,7 @@ import org.richfaces.tests.metamer.ftest.AbstractMetamerTest;
 import org.richfaces.tests.metamer.ftest.annotations.Inject;
 import org.richfaces.tests.metamer.ftest.annotations.Templates;
 import org.richfaces.tests.metamer.ftest.annotations.Use;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import static org.jboss.test.selenium.utils.URLUtils.buildUrl;
@@ -64,11 +65,17 @@ public class TestInterval extends AbstractMetamerTest {
     long startTime;
 
     long deviationTotal = 0;
-    long devicationCount = 0;
+    long deviationCount = 0;
 
     @Override
     public URL getTestUrl() {
         return buildUrl(contextPath, "faces/components/a4jPoll/simple.xhtml");
+    }
+
+    @BeforeMethod
+    public void resetDeviations() {
+        deviationTotal = 0;
+        deviationCount = 0;
     }
 
     @Test
@@ -144,12 +151,12 @@ public class TestInterval extends AbstractMetamerTest {
             format("Deviation ({0}) is greater than one interval {1}", deviation, interval));
 
         deviationTotal += deviation;
-        devicationCount += 1;
+        deviationCount += 1;
     }
 
     private void validateAverageDeviation() {
         long maximumAvgDeviation = Math.min(interval / 4, 1000);
-        long averageDeviation = deviationTotal / devicationCount;
+        long averageDeviation = deviationTotal / deviationCount;
 
         if (seleniumDebug) {
             System.out.println("averageDeviation: " + averageDeviation);
