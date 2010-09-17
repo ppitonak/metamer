@@ -47,7 +47,7 @@ import org.testng.annotations.BeforeMethod;
  * Abstract test case used as a basis for majority of test cases.
  * 
  * @author <a href="mailto:ppitonak@redhat.com">Pavol Pitonak</a>
- * @version $Rev$
+ * @version $Revision$
  */
 public abstract class AbstractMetamerTest extends AbstractTestCase {
 
