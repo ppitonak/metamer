@@ -66,7 +66,6 @@ public class AbstractComponentAttributes {
         final ElementLocator<?> locator = propertyLocator.format(propertyName);
         final AttributeLocator<?> typeLocator = locator.getAttribute(Attribute.TYPE);
 
-        waitGui.until(elementPresent.locator(locator));
         String inputType = selenium.getAttribute(typeLocator);
 
         if (value == null) {
