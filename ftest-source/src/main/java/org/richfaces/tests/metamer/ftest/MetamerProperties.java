@@ -40,7 +40,8 @@ public final class MetamerProperties {
     public static List<TemplatesList> getTemplates() {
         final String templatesString = System.getProperty("templates");
 
-        if (templatesString == null || "null".equals(templatesString) || "".equals(templatesString)) {
+        if (templatesString == null || "null".equals(templatesString) || "*".equals(templatesString)
+            || "".equals(templatesString)) {
             return null;
         }
 
