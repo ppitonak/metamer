@@ -30,7 +30,6 @@ import java.net.URL;
 
 import org.jboss.test.selenium.css.CssProperty;
 import org.jboss.test.selenium.locator.JQueryLocator;
-import org.richfaces.component.JQueryTiming;
 import org.richfaces.tests.metamer.ftest.AbstractMetamerTest;
 import org.testng.annotations.Test;
 
@@ -113,14 +112,14 @@ public class TestSimple extends AbstractMetamerTest {
         attributes.setEvent("click");
         attributes.setQuery(js("$(this).css('color', 'red')"));
         attributes.setSelector(button);
-        attributes.setTiming(JQueryTiming.immediate);
+        attributes.setTiming("immediate");
     }
 
     private void setupDomReadyTypeAttributes() {
         attributes.setEvent(null);
         attributes.setQuery(js("css('color', 'red')"));
         attributes.setSelector(button);
-        attributes.setTiming(JQueryTiming.domready);
+        attributes.setTiming("domready");
     }
 
 }

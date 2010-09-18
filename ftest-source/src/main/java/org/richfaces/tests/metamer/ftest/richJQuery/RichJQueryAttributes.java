@@ -23,7 +23,6 @@ package org.richfaces.tests.metamer.ftest.richJQuery;
 
 import org.jboss.test.selenium.encapsulated.JavaScript;
 import org.jboss.test.selenium.locator.JQueryLocator;
-import org.richfaces.component.JQueryTiming;
 import org.richfaces.tests.metamer.ftest.AbstractComponentAttributes;
 
 /**
@@ -52,8 +51,7 @@ public class RichJQueryAttributes extends AbstractComponentAttributes {
         setProperty("selector", rawLocator);
     }
 
-    public void setTiming(JQueryTiming timing) {
-        String timingString = timing == null ? null : timing.toString();
-        setProperty("timing", timingString);
+    public void setTiming(String timing) {
+        setProperty("timing", timing);
     }
 }
