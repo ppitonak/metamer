@@ -34,7 +34,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
     </h:head>
 
     <h:body>
-        <div class="header"><ui:include src="/templates/header.xhtml" /></div>
+        <div class="header"><ui:decorate template="/templates/header.xhtml" /></div>
 
         <div class="content">
             <div class="messages"><h:messages /></div>
@@ -43,14 +43,14 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                 <c:choose>
                     <c:when test="#{dontRenderForm}">
                         <div style="margin-bottom: 20px;"><ui:insert name="outOfTemplateBefore" /></div>
-                        <ui:include src="/templates/#{templateBean.firstTemplate}.xhtml" />
+                        <ui:decorate template="/templates/#{templateBean.firstTemplate}.xhtml" />
                         <div style="margin-top: 20px;"><ui:insert name="outOfTemplateAfter" /></div>
                     </c:when>
 
                     <c:otherwise>
                         <h:form id="form">
                             <div style="margin-bottom: 20px;"><ui:insert name="outOfTemplateBefore" /></div>
-                            <ui:include src="/templates/#{templateBean.firstTemplate}.xhtml" />
+                            <ui:decorate template="/templates/#{templateBean.firstTemplate}.xhtml" />
                             <div style="margin-top: 20px;"><ui:insert name="outOfTemplateAfter" /></div>
                         </h:form>
                     </c:otherwise>
@@ -67,7 +67,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 
         <div class="footer">
             <ui:insert name="footer">
-                <ui:include src="/templates/footer.xhtml" />
+                <ui:decorate template="/templates/footer.xhtml" />
             </ui:insert>
         </div>
 

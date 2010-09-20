@@ -29,7 +29,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
         <ul>
             <a4j:repeat value="#{templateBean.dataTableModel}" var="item" id="containerA4JRepeat1">
                 <li><h:panelGroup columns="1" rendered="#{item == 'row 1'}">
-                        <ui:include src="#{templateBean.nextTemplate}.xhtml" />
+                        <ui:decorate template="#{templateBean.nextTemplate}.xhtml" />
                     </h:panelGroup>
                     <h:outputText value="#{item}" rendered="#{item != 'row 1'}" /></li>
             </a4j:repeat>

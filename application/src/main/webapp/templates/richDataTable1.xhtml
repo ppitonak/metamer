@@ -32,7 +32,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                     <h:outputText value="Rich Data Table" />
                 </f:facet>
                 <h:panelGroup columns="1" rendered="#{item == 'row 1'}">
-                    <ui:include src="#{templateBean.nextTemplate}.xhtml" />
+                    <ui:decorate template="#{templateBean.nextTemplate}.xhtml" />
                 </h:panelGroup>
                 <h:outputText value="#{item}" rendered="#{item != 'row 1'}" />
             </rich:column>
