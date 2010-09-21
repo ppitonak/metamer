@@ -52,6 +52,22 @@ import org.testng.annotations.BeforeMethod;
 public abstract class AbstractMetamerTest extends AbstractTestCase {
 
     /**
+     * JavaScript condition that verifies that an event was fired, i.e. variable metamerEvents contains event name.
+     */
+    private class EventFiredCondition implements JavaScriptCondition {
+
+        Event event;
+
+        public EventFiredCondition(final Event event) {
+            this.event = event;
+        }
+
+        public JavaScript getJavaScriptCondition() {
+            return new JavaScript("window.metamerEvents.indexOf(\"" + event.getEventName() + "\") != -1");
+        }
+    }
+
+    /**
      * timeout in miliseconds
      */
     public static final long TIMEOUT = 5000;
@@ -131,21 +147,15 @@ public abstract class AbstractMetamerTest extends AbstractTestCase {
      */
     protected void testFireEvent(Event event, ElementLocator<?> element) {
         ElementLocator<?> eventInput = pjq("input[id$=on" + event.getEventName() + "Input]");
-        final String value = "alert('" + event.getEventName() + "')";
+        String value = "metamerEvents += \"" + event.getEventName() + " \"";
 
         selenium.type(eventInput, value);
         selenium.waitForPageToLoad(TIMEOUT);
 
         selenium.fireEvent(element, event);
 
-        waitGui.until(new JavaScriptCondition() {
-            public JavaScript getJavaScriptCondition() {
-                return new JavaScript("selenium.isAlertPresent()");
-            }
-        });
-
-        assertEquals(selenium.getAlert(), event.getEventName(), event.getEventName()
-            + " attribute did not change correctly");
+        waitGui.failWith(event.getEventName() + " attribute did not change correctly").until(
+            new EventFiredCondition(event));
     }
 
     /**
