@@ -32,7 +32,18 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
     </h:head>
 
     <h:body>
-        <h1>Metamer: RichFaces Testing Application</h1>
+        <h1 style="float: left">Metamer: RichFaces Testing Application</h1>
+        
+        <h:form id="invalidateSessionForm" style="float: right; ">
+            <h:panelGrid columns="1">
+                <h:commandButton id="invalidateSessionButton" action="#{richBean.invalidateSession}"
+                                 value="Invalidate Session" image="#{resource['images:cancel.png']}" title="Invalidate Session"
+                                 style="width: 36px;" />
+            </h:panelGrid>
+        </h:form>
+        
+        <hr style="width: 1050px; margin-left: 0px; clear: both; " />
+        
         <h:form id="linksForm">
             <h:panelGrid id="components" columns="3" columnClasses="valign-top,valign-top,valign-top">
                 <h:panelGroup id="a4jComponents" layout="block" style="width: 350px;">

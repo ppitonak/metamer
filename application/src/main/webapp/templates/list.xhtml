@@ -32,16 +32,25 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
     </h:head>
 
     <h:body>
-        <h:panelGrid columns="2">
-            <h:link id="goHomeLink" outcome="/index">
-                <h:graphicImage id="goHomeImage" library="images" name="home.png" title="Go Home" style="width: 36px;"/>
-            </h:link>
-            <h:panelGroup style="font-size: xx-large; font-weight: bold;">
-                <ui:insert name="pageTitle">Insert some page title here</ui:insert>
-            </h:panelGroup>
+    	<h:panelGrid columns="2" style="float: left; ">
+	        <h:link id="goHomeLink" outcome="/index">
+	            <h:graphicImage id="goHomeImage" library="images" name="home.png" title="Go Home" style="width: 36px;"/>
+	        </h:link>
+	        
+	        <h:panelGroup style="font-size: xx-large; font-weight: bold;">
+	            <ui:insert name="pageTitle">Insert some page title here</ui:insert>
+	        </h:panelGroup>
         </h:panelGrid>
-
-        <br/>
+                                 
+        <h:form id="invalidateSessionForm" style="float: right; ">
+            <h:panelGrid columns="1">
+                <h:commandButton id="invalidateSessionButton" action="#{richBean.invalidateSession}"
+                                 value="Invalidate Session" image="#{resource['images:cancel.png']}" title="Invalidate Session"
+                                 style="width: 36px;" />
+            </h:panelGrid>
+        </h:form>
+        
+        <hr style="width: 1050px; margin-left: 0px; margin-bottom: 20px; clear: both; " />
 
         <h:panelGroup layout="block" styleClass="links">
             <ui:insert name="links">Insert some links to pages here</ui:insert>
