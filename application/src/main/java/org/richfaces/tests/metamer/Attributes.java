@@ -366,7 +366,7 @@ public final class Attributes implements Map<String, Attribute>, Serializable {
             return null;
         }
 
-        RichBean.logToPage("action invoked");
+        RichBean.logToPage("* action invoked");
 
         // if no select options for "action" are defined in property file and it is an EL expression
         if (!hasSelectOptions("action") && isStringEL(outcome)) {
@@ -407,7 +407,7 @@ public final class Attributes implements Map<String, Attribute>, Serializable {
             return;
         }
 
-        RichBean.logToPage("action listener invoked");
+        RichBean.logToPage("* action listener invoked");
         
         // if no select options for "actionListener" are defined in property file and it is an EL expression
         if (!hasSelectOptions("actionListener") && isStringEL(listener)) {

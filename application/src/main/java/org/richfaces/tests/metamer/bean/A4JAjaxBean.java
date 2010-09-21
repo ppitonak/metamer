@@ -64,9 +64,10 @@ public class A4JAjaxBean implements Serializable {
         attributes = Attributes.getBehaviorAttributes(AjaxBehavior.class, getClass());
         // the 'event' attribute for behavior tag must be a literal
         attributes.remove("event");
-        attributes.get("render").setValue("output");
-        attributes.get("execute").setValue("@form");
         
+        attributes.setAttribute("render", "output1, output2");
+        attributes.setAttribute("execute", "@form");
+                
         cars = new ArrayList<String>();
         cars.add("Ferrari");
         cars.add("Lexus");
