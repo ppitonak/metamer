@@ -1,4 +1,11 @@
 /**
+ * Variable used in Selenium tests for testing JavaScript events. Each event adds its name to this
+ * variable. E.g. if onbegin, onbeforedomupdate and oncomplete is set, successful result will be
+ * "begin beforedomupdate complete ".
+ */
+metamerEvents = "";
+
+/**
  * Hides the attributes of a component, header and footer of the page.
  */
 function hideControls() {

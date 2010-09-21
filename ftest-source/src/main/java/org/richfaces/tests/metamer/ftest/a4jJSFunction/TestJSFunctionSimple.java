@@ -31,9 +31,9 @@ import static org.testng.Assert.assertNotSame;
 
 import java.net.URL;
 
+import org.jboss.test.selenium.dom.Event;
 import org.jboss.test.selenium.encapsulated.JavaScript;
 import org.jboss.test.selenium.locator.JQueryLocator;
-import org.jboss.test.selenium.waiting.ajax.JavaScriptCondition;
 import org.richfaces.tests.metamer.ftest.AbstractMetamerTest;
 import org.testng.annotations.Test;
 
@@ -197,29 +197,24 @@ public class TestJSFunctionSimple extends AbstractMetamerTest {
 
     @Test
     public void testEvents() {
-        selenium.type(pjq("input[type=text][id$=onbeginInput]"), "alert('begin')");
+        selenium.type(pjq("input[type=text][id$=onbeginInput]"), "metamerEvents += \"begin \"");
         selenium.waitForPageToLoad();
-        selenium.type(pjq("input[type=text][id$=onbeforedomupdateInput]"), "alert('beforedomupdate')");
+        selenium.type(pjq("input[type=text][id$=onbeforedomupdateInput]"), "metamerEvents += \"beforedomupdate \"");
         selenium.waitForPageToLoad();
-        selenium.type(pjq("input[type=text][id$=oncompleteInput]"), "alert('complete')");
+        selenium.type(pjq("input[type=text][id$=oncompleteInput]"), "metamerEvents += \"complete \"");
         selenium.waitForPageToLoad();
 
-        JavaScriptCondition condition = new JavaScriptCondition() {
-            public JavaScript getJavaScriptCondition() {
-                return new JavaScript("selenium.isAlertPresent()");
-            }
-        };
+        selenium.getEval(new JavaScript("window.metamerEvents = \"\";"));
+        String time1Value = selenium.getText(time1);
 
-        guardXhr(selenium).click(link);
+        selenium.fireEvent(link, Event.CLICK);
+        waitGui.failWith("Page was not updated").waitForChange(time1Value, retrieveText.locator(time1));
 
-        waitGui.failWith("First alert was not displayed").until(condition);
-        assertEquals(selenium.getAlert(), "begin", "Attribute onbegin does not work");
+        String[] events = selenium.getEval(new JavaScript("window.metamerEvents")).split(" ");
 
-        waitGui.failWith("Second alert was not displayed").until(condition);
-        assertEquals(selenium.getAlert(), "beforedomupdate", "Attribute onbeforedomupdate does not work");
-
-        waitGui.failWith("Third alert was not displayed").until(condition);
-        assertEquals(selenium.getAlert(), "complete", "Attribute oncomplete does not work");
+        assertEquals(events[0], "begin", "Attribute onbegin doesn't work");
+        assertEquals(events[1], "beforedomupdate", "Attribute onbeforedomupdate doesn't work");
+        assertEquals(events[2], "complete", "Attribute oncomplete doesn't work");
     }
 
     @Test
