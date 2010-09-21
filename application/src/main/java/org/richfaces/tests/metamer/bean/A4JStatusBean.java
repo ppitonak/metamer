@@ -24,12 +24,10 @@ package org.richfaces.tests.metamer.bean;
 import java.io.Serializable;
 
 import javax.annotation.PostConstruct;
-import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
-import javax.faces.validator.ValidatorException;
-import org.richfaces.component.UIStatus;
 
+import org.richfaces.component.UIStatus;
 import org.richfaces.tests.metamer.Attributes;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -47,7 +45,7 @@ public class A4JStatusBean implements Serializable {
     private static final long serialVersionUID = -1L;
     private static Logger logger;
     private Attributes attributes;
-    
+
     private String facetStartValue = "START";
     private String facetStopValue = "STOP";
     private String facetErrorValue = "ERROR";
@@ -76,7 +74,7 @@ public class A4JStatusBean implements Serializable {
     public void setAttributes(Attributes attributes) {
         this.attributes = attributes;
     }
-    
+
     public String getFacetStartValue() {
         return facetStartValue;
     }
@@ -99,17 +97,6 @@ public class A4JStatusBean implements Serializable {
 
     public void setFacetErrorValue(String facetErrorValue) {
         this.facetErrorValue = facetErrorValue;
-    }
-
-    /**
-     * Action that causes an error. Suitable for testing 'onerror' attribute.
-     * 
-     * @return method never returns any value
-     * @throws ValidationException
-     *             thrown always
-     */
-    public String causeError() {
-        throw new ValidatorException(new FacesMessage("Ajax request caused an error."));
     }
 
     /**

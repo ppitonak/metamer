@@ -32,10 +32,12 @@ import java.util.TreeMap;
 import javax.annotation.PostConstruct;
 import javax.el.ExpressionFactory;
 import javax.el.ValueExpression;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
+import javax.faces.validator.ValidatorException;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -64,17 +66,17 @@ public class RichBean implements Serializable {
     private String component;
     private Map<String, String> components; // [a4jCommandLink; A4J Command Link]
     private String container;
-    
+
     public enum Skinning {
         NONE, SKINNING, SKINNING_CLASSES
     }
-    
+
     @PostConstruct
     public void init() {
         logger = LoggerFactory.getLogger(RichBean.class);
         createSkinList();
         createComponentsMap();
-        
+
         component = "none";
         container = "plain";
         skin = "blueSky";
@@ -174,7 +176,7 @@ public class RichBean implements Serializable {
     public void setSkinning(String skinning) {
         this.skinning = Skinning.valueOf(skinning);
     }
-    
+
     public String getSkinningClasses() {
         if (skinning == Skinning.SKINNING_CLASSES) {
             return "enabled";
@@ -230,11 +232,11 @@ public class RichBean implements Serializable {
     public String getComponent() {
         return component;
     }
-    
+
     public Set<String> getComponentList() {
         return components.keySet();
     }
-    
+
     /**
      * @return the components
      */
@@ -243,7 +245,8 @@ public class RichBean implements Serializable {
     }
 
     /**
-     * @param components the components to set
+     * @param components
+     *            the components to set
      */
     public void setComponents(Map<String, String> components) {
         this.components = components;
@@ -305,7 +308,7 @@ public class RichBean implements Serializable {
 
     public String invalidateSession() {
         Object session = FacesContext.getCurrentInstance().getExternalContext().getSession(true);
-        
+
         if (session == null) {
             return "/index";
         }
@@ -324,5 +327,16 @@ public class RichBean implements Serializable {
         ValueExpression exp = factory.createValueExpression(ctx.getELContext(), "#{phasesBean.phases}", List.class);
         List<String> phases = (List<String>) exp.getValue(ctx.getELContext());
         phases.add(msg);
+    }
+
+    /**
+     * Action that causes an error. Suitable for testing 'onerror' attribute.
+     * 
+     * @return method never returns any value
+     * @throws ValidationException
+     *             thrown always
+     */
+    public String causeError() {
+        throw new ValidatorException(new FacesMessage("Ajax request caused an error. This is intentional behavior."));
     }
 }
