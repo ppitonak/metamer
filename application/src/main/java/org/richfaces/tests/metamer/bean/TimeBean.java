@@ -39,6 +39,7 @@ import javax.faces.bean.RequestScoped;
 @RequestScoped
 public class TimeBean implements Serializable {
 
+    private static final long serialVersionUID = 465994653172568369L;
     private Date date;
     private String formattedTime;
 
