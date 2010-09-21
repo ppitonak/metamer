@@ -28,9 +28,9 @@ import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
-import org.ajax4jsf.component.behavior.AjaxBehavior;
+import javax.faces.bean.ViewScoped;
 
+import org.ajax4jsf.component.behavior.AjaxBehavior;
 import org.richfaces.tests.metamer.Attributes;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -42,7 +42,7 @@ import org.slf4j.LoggerFactory;
  * @version $Revision$
  */
 @ManagedBean(name = "a4jAjaxBean")
-@SessionScoped
+@ViewScoped
 public class A4JAjaxBean implements Serializable {
 
     private static final long serialVersionUID = -546567867L;

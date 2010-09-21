@@ -61,7 +61,12 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 
             <br/><br/>
 
-            <a4j:outputPanel id="output">
+            <a4j:outputPanel id="output1" layout="block">
+                <h:outputText value="#{timeBean.date}">
+                    <f:convertDateTime pattern="HH:mm:ss.SSS" />
+                </h:outputText>
+            </a4j:outputPanel>
+            <a4j:outputPanel id="output2" layout="block">
                 <h:outputText value="#{timeBean.date}">
                     <f:convertDateTime pattern="HH:mm:ss.SSS" />
                 </h:outputText>
