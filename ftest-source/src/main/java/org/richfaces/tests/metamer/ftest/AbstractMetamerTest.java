@@ -22,11 +22,14 @@
 
 package org.richfaces.tests.metamer.ftest;
 
+import static org.jboss.test.selenium.locator.LocatorFactory.jq;
 import static org.jboss.test.selenium.utils.URLUtils.buildUrl;
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertTrue;
 
 import java.net.URL;
+
+import javax.faces.event.PhaseId;
 
 import org.jboss.test.selenium.AbstractTestCase;
 import org.jboss.test.selenium.dom.Event;
@@ -207,5 +210,26 @@ public abstract class AbstractMetamerTest extends AbstractTestCase {
      */
     protected void showControls() {
         selenium.getEval(new JavaScript("window.showControls()"));
+    }
+    
+    /**
+     * Verifies that only given phases were executed. It uses the list of phases in the header of the page.
+     * @param phases phases that are expected to have been executed
+     */
+    protected void assertPhases(PhaseId ... phases) {
+        JQueryLocator phasesItems = jq("div#phasesPanel li");
+        int count = selenium.getCount(phasesItems);
+        
+        String phase;
+        int phaseNumber = 1;
+        
+        for (int i = 0; i < count; i++) {
+            phase = selenium.getText(jq("div#phasesPanel li:eq(" + i + ")"));
+            // check that it is really name of a phase
+            if (!phase.startsWith("* ")) {
+                assertEquals(phase, phases[phaseNumber-1].toString(), "Phase nr. " + phaseNumber);
+                phaseNumber++;
+            }
+        }
     }
 }
