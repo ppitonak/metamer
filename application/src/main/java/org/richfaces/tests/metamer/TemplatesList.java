@@ -24,9 +24,6 @@ package org.richfaces.tests.metamer;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 /**
  * An implementation of list for storing templates. This list ensures that the last item
  * in list is always template "plain".
@@ -36,10 +33,7 @@ import org.slf4j.LoggerFactory;
  */
 public class TemplatesList extends ArrayList<Template> {
 
-    private Logger logger;
-
     public TemplatesList() {
-        logger = LoggerFactory.getLogger(TemplatesList.class);
         super.add(Template.PLAIN);
     }
 
