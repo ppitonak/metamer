@@ -19,7 +19,6 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  *******************************************************************************/
-
 package org.richfaces.tests.metamer.ftest.a4jAjax;
 
 import static org.jboss.test.selenium.guard.request.RequestTypeGuardFactory.guardXhr;
@@ -59,7 +58,7 @@ public class TestHCommandButton extends AbstractMetamerTest {
         selenium.type(input, "RichFaces 4");
         guardXhr(selenium).click(button);
         String outputValue = waitGui.failWith("Page was not updated").waitForChangeAndReturn("",
-            retrieveText.locator(output1));
+                retrieveText.locator(output1));
 
         assertEquals(outputValue, "RichFaces 4", "Wrong output1");
         assertEquals(selenium.getText(output2), "RichFaces 4", "Wrong output2");
@@ -70,7 +69,7 @@ public class TestHCommandButton extends AbstractMetamerTest {
         selenium.type(input, "ľščťžýáíéúôň фывацукйешгщь");
         guardXhr(selenium).click(button);
         String outputValue = waitGui.failWith("Page was not updated").waitForChangeAndReturn("",
-            retrieveText.locator(output1));
+                retrieveText.locator(output1));
 
         assertEquals(outputValue, "ľščťžýáíéúôň фывацукйешгщь", "Wrong output1");
         assertEquals(selenium.getText(output2), "ľščťžýáíéúôň фывацукйешгщь", "Wrong output2");
@@ -90,7 +89,7 @@ public class TestHCommandButton extends AbstractMetamerTest {
 
         assertEquals(selenium.getText(output1), "", "Output should not change");
         assertPhases(PhaseId.RESTORE_VIEW, PhaseId.APPLY_REQUEST_VALUES, PhaseId.PROCESS_VALIDATIONS,
-            PhaseId.RENDER_RESPONSE);
+                PhaseId.RENDER_RESPONSE);
     }
 
     @Test
@@ -110,6 +109,23 @@ public class TestHCommandButton extends AbstractMetamerTest {
 
         String data = selenium.getEval(new JavaScript("window.data"));
         assertEquals(data, "RichFaces 4", "Data sent with ajax request");
+    }
+
+    @Test
+    public void testImmediate() {
+        JQueryLocator time = jq("span[id$=requestTime]");
+        String timeValue = selenium.getText(time);
+
+        selenium.click(pjq("input[type=checkbox][id$=immediateInput]"));
+        selenium.waitForPageToLoad();
+
+        selenium.type(input, "RichFaces 4");
+        guardXhr(selenium).click(button);
+        waitGui.failWith("Page was not updated").waitForChange(timeValue, retrieveText.locator(time));
+
+        assertEquals(selenium.getText(output1), "RichFaces 4", "Output should change");
+        assertPhases(PhaseId.RESTORE_VIEW, PhaseId.APPLY_REQUEST_VALUES, PhaseId.PROCESS_VALIDATIONS,
+                PhaseId.UPDATE_MODEL_VALUES, PhaseId.INVOKE_APPLICATION, PhaseId.RENDER_RESPONSE);
     }
 
     @Test
@@ -175,7 +191,7 @@ public class TestHCommandButton extends AbstractMetamerTest {
         selenium.type(input, "RichFaces 4");
         guardXhr(selenium).click(button);
         String outputValue = waitGui.failWith("Page was not updated").waitForChangeAndReturn("",
-            retrieveText.locator(output1));
+                retrieveText.locator(output1));
 
         assertEquals(outputValue, "RichFaces 4", "Wrong output1");
         assertEquals(selenium.getText(output2), "", "Wrong output2");
