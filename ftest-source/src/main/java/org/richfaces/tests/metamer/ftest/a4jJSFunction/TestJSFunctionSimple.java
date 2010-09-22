@@ -19,7 +19,6 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  *******************************************************************************/
-
 package org.richfaces.tests.metamer.ftest.a4jJSFunction;
 
 import static org.jboss.test.selenium.guard.request.RequestTypeGuardFactory.guardNoRequest;
@@ -30,6 +29,7 @@ import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertNotSame;
 
 import java.net.URL;
+import javax.faces.event.PhaseId;
 
 import org.jboss.test.selenium.dom.Event;
 import org.jboss.test.selenium.encapsulated.JavaScript;
@@ -50,7 +50,6 @@ public class TestJSFunctionSimple extends AbstractMetamerTest {
     private JQueryLocator time2 = pjq("span[id$=time2]");
     private JQueryLocator year = pjq("span[id$=year]");
     private JQueryLocator ajaxRenderedTime = pjq("span[id$=autoTime]");
-
     private String[] phasesNames = {"RESTORE_VIEW 1", "APPLY_REQUEST_VALUES 2", "PROCESS_VALIDATIONS 3",
         "UPDATE_MODEL_VALUES 4", "INVOKE_APPLICATION 5", "RENDER_RESPONSE 6"};
 
@@ -69,7 +68,7 @@ public class TestJSFunctionSimple extends AbstractMetamerTest {
         guardXhr(selenium).click(link);
 
         String newTime1Value = waitGui.failWith("Page was not updated").waitForChangeAndReturn(time1Value,
-            retrieveText.locator(time1));
+                retrieveText.locator(time1));
         String newTime2Value = selenium.getText(time2);
         String newYearValue = selenium.getText(year);
         String newAjaxRenderedTimeValue = selenium.getText(ajaxRenderedTime);
@@ -91,13 +90,13 @@ public class TestJSFunctionSimple extends AbstractMetamerTest {
 
         guardXhr(selenium).click(link);
         String newTime1Value = waitGui.failWith("Page was not updated").waitForChangeAndReturn(time1Value,
-            retrieveText.locator(time1));
+                retrieveText.locator(time1));
         assertNotSame(time1Value, newTime1Value, "Time1 did not change");
         assertEquals(Integer.parseInt(selenium.getText(year)), yearValue + 1, "Action was not called");
 
         guardXhr(selenium).click(link);
         newTime1Value = waitGui.failWith("Page was not updated").waitForChangeAndReturn(time1Value,
-            retrieveText.locator(time1));
+                retrieveText.locator(time1));
         assertNotSame(time1Value, newTime1Value, "Time1 did not change");
         assertEquals(Integer.parseInt(selenium.getText(year)), yearValue + 2, "Action was not called");
     }
@@ -113,13 +112,13 @@ public class TestJSFunctionSimple extends AbstractMetamerTest {
 
         guardXhr(selenium).click(link);
         String newTime1Value = waitGui.failWith("Page was not updated").waitForChangeAndReturn(time1Value,
-            retrieveText.locator(time1));
+                retrieveText.locator(time1));
         assertNotSame(time1Value, newTime1Value, "Time1 did not change");
         assertEquals(Integer.parseInt(selenium.getText(year)), yearValue + 1, "Action was not called");
 
         guardXhr(selenium).click(link);
         newTime1Value = waitGui.failWith("Page was not updated").waitForChangeAndReturn(time1Value,
-            retrieveText.locator(time1));
+                retrieveText.locator(time1));
         assertNotSame(time1Value, newTime1Value, "Time1 did not change");
         assertEquals(Integer.parseInt(selenium.getText(year)), yearValue + 2, "Action was not called");
     }
@@ -138,12 +137,8 @@ public class TestJSFunctionSimple extends AbstractMetamerTest {
         JQueryLocator[] phases = {jq("div#phasesPanel li"), jq("div#phasesPanel li:eq(0)"),
             jq("div#phasesPanel li:eq(1)"), jq("div#phasesPanel li:eq(2)"), jq("div#phasesPanel li:eq(3)")};
 
-        final String msg = "Update model values and Invoke application phases should be skipped.";
-        assertEquals(selenium.getCount(phases[0]), 4, msg);
-        assertEquals(selenium.getText(phases[1]), phasesNames[0], msg);
-        assertEquals(selenium.getText(phases[2]), phasesNames[1], msg);
-        assertEquals(selenium.getText(phases[3]), phasesNames[2], msg);
-        assertEquals(selenium.getText(phases[4]), phasesNames[5], msg);
+        assertPhases(PhaseId.RESTORE_VIEW, PhaseId.APPLY_REQUEST_VALUES, PhaseId.PROCESS_VALIDATIONS,
+                PhaseId.RENDER_RESPONSE);
     }
 
     @Test
@@ -157,14 +152,7 @@ public class TestJSFunctionSimple extends AbstractMetamerTest {
         guardXhr(selenium).click(link);
         waitGui.failWith("Page was not updated").waitForChange(time1Value, retrieveText.locator(time1));
 
-        JQueryLocator[] phases = {jq("div#phasesPanel li"), jq("div#phasesPanel li:eq(0)"),
-            jq("div#phasesPanel li:eq(1)"), jq("div#phasesPanel li:eq(2)")};
-
-        final String msg = "Process validations, Update model values and Invoke application phases should be skipped.";
-        assertEquals(selenium.getCount(phases[0]), 3, msg);
-        assertEquals(selenium.getText(phases[1]), phasesNames[0], msg);
-        assertEquals(selenium.getText(phases[2]), phasesNames[1], msg);
-        assertEquals(selenium.getText(phases[3]), phasesNames[5], msg);
+        assertPhases(PhaseId.RESTORE_VIEW, PhaseId.APPLY_REQUEST_VALUES, PhaseId.RENDER_RESPONSE);
     }
 
     @Test
@@ -184,7 +172,7 @@ public class TestJSFunctionSimple extends AbstractMetamerTest {
         guardXhr(selenium).click(link);
 
         String newTime1Value = waitGui.failWith("Page was not updated").waitForChangeAndReturn(time1Value,
-            retrieveText.locator(time1));
+                retrieveText.locator(time1));
         String newTime2Value = selenium.getText(time2);
         String newYearValue = selenium.getText(year);
         String newAjaxRenderedTimeValue = selenium.getText(ajaxRenderedTime);
@@ -232,7 +220,7 @@ public class TestJSFunctionSimple extends AbstractMetamerTest {
         guardXhr(selenium).click(link);
 
         String newTime1Value = waitGui.failWith("Page was not updated").waitForChangeAndReturn(time1Value,
-            retrieveText.locator(time1));
+                retrieveText.locator(time1));
         String newTime2Value = selenium.getText(time2);
         String newYearValue = selenium.getText(year);
         String newAjaxRenderedTimeValue = selenium.getText(ajaxRenderedTime);
@@ -267,5 +255,4 @@ public class TestJSFunctionSimple extends AbstractMetamerTest {
         assertEquals(newYearValue, yearValue, "Year should not change");
         assertEquals(newAjaxRenderedTimeValue, ajaxRenderedTimeValue, "Ajax rendered time should not change");
     }
-
 }
