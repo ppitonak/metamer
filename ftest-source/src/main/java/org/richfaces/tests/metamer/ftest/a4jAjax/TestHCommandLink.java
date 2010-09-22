@@ -29,62 +29,62 @@ import org.jboss.test.selenium.locator.JQueryLocator;
 import org.testng.annotations.Test;
 
 /**
- * Test case for page /faces/components/a4jAjax/hCommandButton.xhtml
+ * Test case for page /faces/components/a4jAjax/hCommandLink.xhtml
  * 
  * @author <a href="mailto:ppitonak@redhat.com">Pavol Pitonak</a>
  * @version $Revision$
  */
-public class TestHCommandButton extends AbstractTestCommand {
+public class TestHCommandLink extends AbstractTestCommand {
 
-    private JQueryLocator button = pjq("input[type=submit][id$=commandButton]");
+    private JQueryLocator link = pjq("a[id$=commandLink]");
     
     @Override
     public URL getTestUrl() {
-        return buildUrl(contextPath, "faces/components/a4jAjax/hCommandButton.xhtml");
+        return buildUrl(contextPath, "faces/components/a4jAjax/hCommandLink.xhtml");
     }
 
     @Test
     public void testSimpleClick() {
-        super.testClick(button, "RichFaces 4");
+        super.testClick(link, "RichFaces 4");
     }
 
     @Test
     public void testSimpleClickUnicode() {
-        super.testClick(button, "ľščťžýáíéúôň фывацукйешгщь");
+        super.testClick(link, "ľščťžýáíéúôň фывацукйешгщь");
     }
 
     @Test
     public void testBypassUpdates() {
-        super.testBypassUpdates(button);
+        super.testBypassUpdates(link);
     }
 
     @Test
     public void testData() {
-        super.testData(button);
+        super.testData(link);
     }
 
     @Test
     public void testImmediate() {
-        super.testImmediate(button);
+        super.testImmediate(link);
     }
 
     @Test
     public void testImmediateBypassUpdates() {
-        super.testImmediateBypassUpdates(button);
+        super.testImmediateBypassUpdates(link);
     }
 
     @Test
     public void testLimitRender() {
-        super.testLimitRender(button);
+        super.testLimitRender(link);
     }
 
     @Test
     public void testEvents() {
-        super.testEvents(button);
+        super.testEvents(link);
     }
 
     @Test
     public void testRender() {
-        super.testEvents(button);
+        super.testEvents(link);
     }
 }
