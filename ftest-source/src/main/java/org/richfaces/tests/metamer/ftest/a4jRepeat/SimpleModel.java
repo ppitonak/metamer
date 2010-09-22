@@ -39,12 +39,12 @@ import org.jboss.test.selenium.locator.JQueryLocator;
  */
 public class SimpleModel {
 
-    private AjaxSelenium selenium = AjaxSeleniumProxy.getInstance();
+    Map<Integer, String> texts = new HashMap<Integer, String>();
 
     JQueryLocator row = jq("#list li");
     JQueryLocator statuses = jq("span.statuses");
 
-    Map<Integer, String> texts = new HashMap<Integer, String>();
+    private AjaxSelenium selenium = AjaxSeleniumProxy.getInstance();
 
     public boolean isRendered() {
         return selenium.isElementPresent(row);
