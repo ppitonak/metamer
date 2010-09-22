@@ -125,7 +125,7 @@ public final class VersionBean {
             return implementationVersion;
         }
 
-        shortVersion = "Metamer " + implementationVersion + " SVN r. " + scmRevision;
+        shortVersion = "Metamer " + implementationVersion + " r. " + scmRevision;
         return shortVersion;
     }
     
@@ -138,7 +138,7 @@ public final class VersionBean {
         StringBuilder result = new StringBuilder();
         result.append("RichFaces ");
         result.append(rfVersionBean.getVersion().getImplementationVersion());
-        result.append(" SVN r.");
+        result.append(" r.");
         result.append(rfVersionBean.getVersion().getScmRevision());
         richFacesVersion = result.toString();
         
@@ -150,7 +150,7 @@ public final class VersionBean {
     }
 
     public String getOsVersion() {
-        return System.getProperty("os.name") + " " + System.getProperty("os.version");
+        return System.getProperty("os.name");
     }
 
     public String getJsfVersion() {
