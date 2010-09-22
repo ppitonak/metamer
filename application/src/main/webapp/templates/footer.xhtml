@@ -25,13 +25,33 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
     xmlns:a4j="http://richfaces.org/a4j" xmlns:c="http://java.sun.com/jsp/jstl/core">
 
     <hr style="width: 1050px; margin-left: 0px;" />
+    
+    
+    
     <ul>
         <li><h:outputText id="richfacesVersion" value="#{metamer.richFacesVersion}" /></li>
         <li><h:outputText id="metamerVersion" value="#{metamer.shortVersion}" /></li>
+        <li><h:outputText id="jsfVersion" value="#{metamer.jsfVersion}" /></li>
         <li><h:outputText id="javaVersion" value="#{metamer.javaVersion}" /> @ <h:outputText id="osVersion"
             value="#{metamer.osVersion}" /></li>
-        <li><h:outputText id="jsfVersion" value="#{metamer.jsfVersion}" /></li>
         <li><h:outputText id="browserVersion" value="#{metamer.browserVersion}" /></li>
     </ul>
+    
+    
+    
+    <!-- human-readable browser detection -->
+    <c:if test="#{metamer.projectStage != 'Production'}">
+	    <h:outputScript library="script" name="jquery-v1.2.6.js" />
+	    <script>
+	    	var jQueryBrowser = jQuery.noConflict(true);
+	    </script>
+	    <h:outputScript library="script" name="jquery.browser-v2.3.js" />
+	    <script>
+	    	String.prototype.capitalize = function(){
+	    		   return this.replace( /(^|\s)([a-z])/g , function(m,p1,p2){ return p1+p2.toUpperCase(); } );
+	   		 };
+	    	jQueryBrowser("span[id$=browserVersion]").text(jQueryBrowser.browser.name.capitalize() + ' ' + jQueryBrowser.browser.version + ' @ ' + jQueryBrowser.os.name.capitalize());
+	    </script>
+    </c:if>
 
 </ui:composition>

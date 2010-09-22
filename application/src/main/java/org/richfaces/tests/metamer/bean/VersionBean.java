@@ -31,6 +31,7 @@ import java.util.Properties;
 import java.util.jar.JarInputStream;
 import java.util.jar.Manifest;
 import javax.annotation.PostConstruct;
+import javax.faces.application.ProjectStage;
 import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
@@ -197,6 +198,10 @@ public final class VersionBean {
     public String getBrowserVersion() {
         HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
         return request.getHeader("user-agent");
+    }
+    
+    public ProjectStage getProjectStage() {
+        return FacesContext.getCurrentInstance().getApplication().getProjectStage();
     }
 
     @Override
