@@ -147,10 +147,22 @@ public class A4JRepeatBean implements Serializable {
         attributes.setAttribute("rendered", true);
         // TODO has to be tested in other way
         attributes.remove("componentState");
+        attributes.remove("iterationState");
         attributes.remove("iterationStatusVar");
+        attributes.remove("keepSaved");
         attributes.remove("rowKeyVar");
+        attributes.remove("rowKeyConverter");
         attributes.remove("value");
+        attributes.remove("stateVar");
         attributes.remove("var");
+        
+        // should be hidden
+        attributes.remove("relativeRowIndex");
+        attributes.remove("rowAvailable");
+        attributes.remove("rowCount");
+        attributes.remove("rowData");
+        attributes.remove("rowIndex");
+        attributes.remove("rowKey");
     }
 
     public Attributes getAttributes() {
