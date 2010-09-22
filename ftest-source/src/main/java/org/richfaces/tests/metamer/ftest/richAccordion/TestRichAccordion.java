@@ -19,7 +19,6 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  *******************************************************************************/
-
 package org.richfaces.tests.metamer.ftest.richAccordion;
 
 import static org.jboss.test.selenium.guard.request.RequestTypeGuardFactory.guardHttp;
@@ -32,6 +31,7 @@ import static org.testng.Assert.assertFalse;
 import static org.testng.Assert.assertTrue;
 
 import java.net.URL;
+import javax.faces.event.PhaseId;
 
 import org.jboss.test.selenium.css.CssProperty;
 import org.jboss.test.selenium.dom.Event;
@@ -39,7 +39,6 @@ import org.jboss.test.selenium.encapsulated.JavaScript;
 import org.jboss.test.selenium.locator.Attribute;
 import org.jboss.test.selenium.locator.AttributeLocator;
 import org.jboss.test.selenium.locator.JQueryLocator;
-import org.jboss.test.selenium.waiting.ajax.JavaScriptCondition;
 import org.jboss.test.selenium.waiting.conditions.IsDisplayed;
 import org.richfaces.tests.metamer.ftest.AbstractMetamerTest;
 import org.testng.annotations.Test;
@@ -68,20 +67,20 @@ public class TestRichAccordion extends AbstractMetamerTest {
 
     @Test
     public void testInit() {
-        boolean isDisplayed = selenium.isDisplayed(accordion);
-        assertTrue(isDisplayed, "Accordion is not present on the page.");
+        boolean accordionDisplayed = selenium.isDisplayed(accordion);
+        assertTrue(accordionDisplayed, "Accordion is not present on the page.");
 
         for (int i = 0; i < 5; i++) {
-            isDisplayed = selenium.isDisplayed(itemHeaders[i]);
-            assertTrue(isDisplayed, "Item" + (i + 1) + "'s header should be visible.");
+            accordionDisplayed = selenium.isDisplayed(itemHeaders[i]);
+            assertTrue(accordionDisplayed, "Item" + (i + 1) + "'s header should be visible.");
         }
 
-        isDisplayed = selenium.isDisplayed(itemContents[0]);
-        assertTrue(isDisplayed, "Content of item1 should be visible.");
+        accordionDisplayed = selenium.isDisplayed(itemContents[0]);
+        assertTrue(accordionDisplayed, "Content of item1 should be visible.");
 
         for (int i = 1; i < 5; i++) {
-            isDisplayed = selenium.isDisplayed(itemContents[i]);
-            assertFalse(isDisplayed, "Item" + (i + 1) + "'s content should not be visible.");
+            accordionDisplayed = selenium.isDisplayed(itemContents[i]);
+            assertFalse(accordionDisplayed, "Item" + (i + 1) + "'s content should not be visible.");
         }
     }
 
@@ -138,15 +137,7 @@ public class TestRichAccordion extends AbstractMetamerTest {
         selenium.click(itemHeaders[2]);
         waitGui.failWith("Item 3 is not displayed.").until(isDisplayed.locator(itemContents[2]));
 
-        JQueryLocator[] phases = {jq("div#phasesPanel li"), jq("div#phasesPanel li:eq(0)"),
-            jq("div#phasesPanel li:eq(1)"), jq("div#phasesPanel li:eq(2)"), jq("div#phasesPanel li:eq(3)")};
-
-        final String msg = "Update model values and Invoke application phases should be skipped.";
-        assertEquals(selenium.getCount(phases[0]), 4, msg);
-        assertEquals(selenium.getText(phases[1]), phasesNames[0], msg);
-        assertEquals(selenium.getText(phases[2]), phasesNames[1], msg);
-        assertEquals(selenium.getText(phases[3]), phasesNames[2], msg);
-        assertEquals(selenium.getText(phases[4]), phasesNames[5], msg);
+        assertPhases(PhaseId.RESTORE_VIEW, PhaseId.APPLY_REQUEST_VALUES, PhaseId.PROCESS_VALIDATIONS, PhaseId.RENDER_RESPONSE);
     }
 
     @Test
@@ -225,14 +216,7 @@ public class TestRichAccordion extends AbstractMetamerTest {
         selenium.click(itemHeaders[2]);
         waitGui.failWith("Item 3 is not displayed.").until(isDisplayed.locator(itemContents[2]));
 
-        JQueryLocator[] phases = {jq("div#phasesPanel li"), jq("div#phasesPanel li:eq(0)"),
-            jq("div#phasesPanel li:eq(1)"), jq("div#phasesPanel li:eq(2)")};
-
-        final String msg = "Process validations, Update model values and Invoke application phases should be skipped.";
-        assertEquals(selenium.getCount(phases[0]), 3, msg);
-        assertEquals(selenium.getText(phases[1]), phasesNames[0], msg);
-        assertEquals(selenium.getText(phases[2]), phasesNames[1], msg);
-        assertEquals(selenium.getText(phases[3]), phasesNames[5], msg);
+        assertPhases(PhaseId.RESTORE_VIEW, PhaseId.APPLY_REQUEST_VALUES, PhaseId.RENDER_RESPONSE);
     }
 
     @Test
@@ -262,33 +246,23 @@ public class TestRichAccordion extends AbstractMetamerTest {
 
     @Test
     public void testItemchangeEvents() {
-        JQueryLocator obicInput = pjq("input[id$=onbeforeitemchangeInput]");
-        JQueryLocator oicInput = pjq("input[id$=onitemchangeInput]");
-        final String obicValue = "alert('onbeforeitemchange')";
-        final String oicValue = "alert('onitemchange')";
+        JQueryLocator time = jq("span[id$=requestTime]");
 
-        selenium.type(obicInput, obicValue);
-        selenium.waitForPageToLoad(TIMEOUT);
-        selenium.type(oicInput, oicValue);
-        selenium.waitForPageToLoad(TIMEOUT);
+        selenium.type(pjq("input[type=text][id$=onbeforeitemchangeInput]"), "metamerEvents += \"beforeitemchange \"");
+        selenium.waitForPageToLoad();
+        selenium.type(pjq("input[type=text][id$=onitemchangeInput]"), "metamerEvents += \"itemchange \"");
+        selenium.waitForPageToLoad();
 
-        selenium.click(itemHeaders[2]);
+        selenium.getEval(new JavaScript("window.metamerEvents = \"\";"));
+        String time1Value = selenium.getText(time);
 
-        waitGui.until(new JavaScriptCondition() {
-            public JavaScript getJavaScriptCondition() {
-                return new JavaScript("selenium.isAlertPresent()");
-            }
-        });
+        guardXhr(selenium).click(itemHeaders[2]);
+        waitGui.failWith("Page was not updated").waitForChange(time1Value, retrieveText.locator(time));
 
-        assertEquals(selenium.getAlert(), "onbeforeitemchange", "Event beforeitemchange was not fired");
+        String[] events = selenium.getEval(new JavaScript("window.metamerEvents")).split(" ");
 
-        waitGui.until(new JavaScriptCondition() {
-            public JavaScript getJavaScriptCondition() {
-                return new JavaScript("selenium.isAlertPresent()");
-            }
-        });
-
-        assertEquals(selenium.getAlert(), "onitemchange", "Event itemchange was not fired");
+        assertEquals(events[0], "beforeitemchange", "Attribute onbeforeitemchange doesn't work");
+        assertEquals(events[1], "itemchange", "Attribute onbeforeitemchange doesn't work");
     }
 
     @Test
