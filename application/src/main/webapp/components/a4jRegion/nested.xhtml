@@ -64,19 +64,22 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                     <a4j:ajax event="change" render="outerSelect, regionSelect, nestedRegionSelect" execute="@this"/>
                 </h:selectOneMenu>
 
-                <h:outputLabel id="outerSelectLabel" value="Out of region" for="outerSelect"/>
-                <h:selectOneMenu id="outerSelect" value="#{a4jRegionBean.outerExecute}" onchange="submit()">
+                <h:outputLabel id="outerSelectLabel" value="Outer" for="outerSelect"/>
+                <h:selectOneMenu id="outerSelect" value="#{a4jRegionBean.outerExecute}">
                     <f:selectItems value="#{a4jRegionBean.executeOptions}" />
+                    <a4j:ajax event="change" render="outerSelect" execute="@this"/>
                 </h:selectOneMenu>
 
                 <h:outputLabel id="regionSelectLabel" value="Region" for="regionSelect"/>
-                <h:selectOneMenu id="regionSelect" value="#{a4jRegionBean.execute}" onchange="submit()">
+                <h:selectOneMenu id="regionSelect" value="#{a4jRegionBean.execute}">
                     <f:selectItems value="#{a4jRegionBean.executeOptions}" />
+                    <a4j:ajax event="change" render="regionSelect" execute="@this"/>
                 </h:selectOneMenu>
 
                 <h:outputLabel id="nestedRegionSelectLabel" value="Nested region" for="nestedRegionSelect" />
-                <h:selectOneMenu id="nestedRegionSelect" value="#{a4jRegionBean.nestedExecute}" onchange="submit()">
+                <h:selectOneMenu id="nestedRegionSelect" value="#{a4jRegionBean.nestedExecute}">
                     <f:selectItems value="#{a4jRegionBean.executeOptions}" />
+                    <a4j:ajax event="change" render="nestedRegionSelect" execute="@this"/>
                 </h:selectOneMenu>
             </h:panelGrid>
 
@@ -103,7 +106,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 
             <h:inputText id="outerValueInput" value="#{a4jRegionBean.outerValue}" />
 
-            <h:commandLink id="outerValueLink" value="Out of region">
+            <h:commandLink id="outerValueLink" value="Outer">
                 <a4j:ajax id="outerValueAjax" listener="#{a4jRegionBean.handleBehavior}" execute="#{a4jRegionBean.outerExecute}" render="outputValues" />
             </h:commandLink>
 

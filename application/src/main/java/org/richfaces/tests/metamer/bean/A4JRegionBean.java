@@ -47,9 +47,10 @@ import org.slf4j.LoggerFactory;
 public class A4JRegionBean implements Serializable {
 
     private static final long serialVersionUID = -1L;
-    private static final SelectItem[] AVAILABLE_EXECUTE_OPTIONS = new SelectItem[]{
-        new SelectItem(null, "default"), new SelectItem("@region"), new SelectItem("@all"), new SelectItem("@this")
-    };
+    private static final SelectItem[] AVAILABLE_EXECUTE_OPTIONS = new SelectItem[] { new SelectItem(null, "default"),
+        new SelectItem("@all"), new SelectItem("@form"), new SelectItem("@region"), new SelectItem("@this"),
+        new SelectItem("outerValueInput", "Outer"), new SelectItem("regionValueInput", "Region"),
+        new SelectItem("nestedRegionValueInput", "Nested region") };
     private static Logger logger;
     // for page simple.xhtml
     private Attributes attributes;
@@ -151,12 +152,10 @@ public class A4JRegionBean implements Serializable {
     }
 
     public String getOuterExecute() {
-        logger.error("getOuterExecute " + outerExecute);
         return outerExecute;
     }
 
     public void setOuterExecute(String outerExecute) {
-        logger.error("setOuterExecute " + outerExecute);
         this.outerExecute = outerExecute;
     }
 
