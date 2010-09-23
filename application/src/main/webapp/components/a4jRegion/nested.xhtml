@@ -61,25 +61,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                 <h:outputLabel id="defaultSelectLabel" value="Defaults for all" for="defaultsSelect"/>
                 <h:selectOneMenu id="defaultsSelect" valueChangeListener="#{a4jRegionBean.handleDefaultsValueChange}">
                     <f:selectItems value="#{a4jRegionBean.executeOptions}" />
-                    <a4j:ajax event="change" render="outerSelect, regionSelect, nestedRegionSelect" execute="@this"/>
-                </h:selectOneMenu>
-
-                <h:outputLabel id="outerSelectLabel" value="Outer" for="outerSelect"/>
-                <h:selectOneMenu id="outerSelect" value="#{a4jRegionBean.outerExecute}">
-                    <f:selectItems value="#{a4jRegionBean.executeOptions}" />
-                    <a4j:ajax event="change" render="outerSelect" execute="@this"/>
-                </h:selectOneMenu>
-
-                <h:outputLabel id="regionSelectLabel" value="Region" for="regionSelect"/>
-                <h:selectOneMenu id="regionSelect" value="#{a4jRegionBean.execute}">
-                    <f:selectItems value="#{a4jRegionBean.executeOptions}" />
-                    <a4j:ajax event="change" render="regionSelect" execute="@this"/>
-                </h:selectOneMenu>
-
-                <h:outputLabel id="nestedRegionSelectLabel" value="Nested region" for="nestedRegionSelect" />
-                <h:selectOneMenu id="nestedRegionSelect" value="#{a4jRegionBean.nestedExecute}">
-                    <f:selectItems value="#{a4jRegionBean.executeOptions}" />
-                    <a4j:ajax event="change" render="nestedRegionSelect" execute="@this"/>
+                    <a4j:ajax event="change" render="outerSelect, regionSelect, decorationSelect, insertionSelect, nestedRegionSelect" execute="@this"/>
                 </h:selectOneMenu>
             </h:panelGrid>
 
@@ -93,8 +75,10 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                     <h:panelGrid columns="2" >
                         Outer: <h:outputText id="outerValueOutput" value="#{a4jRegionBean.outerValue}" />
                         Region: <h:outputText id="regionValueOutput" value="#{a4jRegionBean.regionValue}" />
+                        Decoration: <h:outputText id="decorationValueOutput" value="#{a4jRegionBean.decorationValue}" />
+                        Insertion: <h:outputText id="insertionValueOutput" value="#{a4jRegionBean.insertionValue}" />
                         Nested region: <h:outputText id="nestedRegionValueOutput" value="#{a4jRegionBean.nestedRegionValue}" />
-                        Last executed link value: <h:outputText id="lastLinkOutput" value="#{a4jRegionBean.lastExecutedLinkValue}" />
+                        Last executed button value: <h:outputText id="lastButtonOutput" value="#{a4jRegionBean.lastExecutedButtonValue}" />
                     </h:panelGrid>
                 </h:panelGroup>
             </fieldset>
@@ -104,21 +88,41 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
             <br/>
             <br/>
 
-            <h:inputText id="outerValueInput" value="#{a4jRegionBean.outerValue}" />
+			<!--  OUTER -->
+			<h:panelGrid columns="3">
+	            <h:inputText id="outerValueInput" value="#{a4jRegionBean.outerValue}" />
+	
+	            <h:commandButton id="outerValueButton" value="Outer">
+	                <a4j:ajax id="outerValueAjax" listener="#{a4jRegionBean.handleBehavior}" execute="#{a4jRegionBean.outerExecute}" render="outputValues" />
+	            </h:commandButton>
+	            
+	            <h:selectOneMenu id="outerSelect" value="#{a4jRegionBean.outerExecute}">
+		            <f:selectItems value="#{a4jRegionBean.executeOptions}" />
+		            <a4j:ajax event="change" render="outerSelect" execute="@this"/>
+	            </h:selectOneMenu>
+            </h:panelGrid>
 
-            <h:commandLink id="outerValueLink" value="Outer">
-                <a4j:ajax id="outerValueAjax" listener="#{a4jRegionBean.handleBehavior}" execute="#{a4jRegionBean.outerExecute}" render="outputValues" />
-            </h:commandLink>
-
+			<!-- REGION -->
             <fieldset>
                 <legend>Region</legend>
 
+				
                 <a4j:region id="outerRegion">
-                    <h:inputText id="regionValueInput" value="#{a4jRegionBean.regionValue}" />
-
-                    <h:commandLink id="regionValueLink" value="Region">
-                        <a4j:ajax id="regionValueAjax" listener="#{a4jRegionBean.handleBehavior}" execute="#{a4jRegionBean.execute}" render="outputValues" />
-                    </h:commandLink>
+                	<h:panelGrid columns="3">
+	                    <h:inputText id="regionValueInput" value="#{a4jRegionBean.regionValue}" />
+	
+	                    <h:commandButton id="regionValueButton" value="Region">
+	                        <a4j:ajax id="regionValueAjax" listener="#{a4jRegionBean.handleBehavior}" execute="#{a4jRegionBean.execute}" render="outputValues" />
+	                    </h:commandButton>
+	                    
+	                    <h:selectOneMenu id="regionSelect" value="#{a4jRegionBean.execute}">
+		                    <f:selectItems value="#{a4jRegionBean.executeOptions}" />
+		                    <a4j:ajax event="change" render="regionSelect" execute="@this"/>
+		                </h:selectOneMenu>
+	                </h:panelGrid>
+                    
+                    <ui:decorate template="nested-decoration.xhtml" />
+                    <ui:decorate template="nested-insertion.xhtml" />
 
                     <fieldset>
                         <legend>Nested region</legend>
@@ -126,10 +130,14 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                         <a4j:region id="nestedRegion">
                             <h:inputText id="nestedRegionValueInput" value="#{a4jRegionBean.nestedRegionValue}" />
 
-                            <h:commandLink id="nestedRegionValueLink" value="Nested region">
+                            <h:commandButton id="nestedRegionValueButton" value="Nested region">
                                 <a4j:ajax id="nestedRegionValueAjax" listener="#{a4jRegionBean.handleBehavior}" execute="#{a4jRegionBean.nestedExecute}" render="outputValues" />
-                            </h:commandLink>
-
+                            </h:commandButton>
+							
+							<h:selectOneMenu id="nestedRegionSelect" value="#{a4jRegionBean.nestedExecute}">
+			                    <f:selectItems value="#{a4jRegionBean.executeOptions}" />
+			                    <a4j:ajax event="change" render="nestedRegionSelect" execute="@this"/>
+			                </h:selectOneMenu>
                         </a4j:region>
                     </fieldset>
                 </a4j:region>

@@ -38,7 +38,7 @@ import org.slf4j.LoggerFactory;
 
 /**
  * Managed bean for a4j:region.
- *
+ * 
  * @author Exadel, Nick Belaevski, <a href="mailto:ppitonak@redhat.com">Pavol Pitonak</a>
  * @version $Revision$
  */
@@ -50,7 +50,8 @@ public class A4JRegionBean implements Serializable {
     private static final SelectItem[] AVAILABLE_EXECUTE_OPTIONS = new SelectItem[] { new SelectItem(null, "default"),
         new SelectItem("@all"), new SelectItem("@form"), new SelectItem("@region"), new SelectItem("@this"),
         new SelectItem("outerValueInput", "Outer"), new SelectItem("regionValueInput", "Region"),
-        new SelectItem("nestedRegionValueInput", "Nested region") };
+        new SelectItem("nestedRegionValueInput", "Nested region"),
+        new SelectItem("decorationValueInput", "Decoration"), new SelectItem("insertionValueInput", "Insertion") };
     private static Logger logger;
     // for page simple.xhtml
     private Attributes attributes;
@@ -60,10 +61,48 @@ public class A4JRegionBean implements Serializable {
     private String execute;
     private String nestedExecute;
     private String outerExecute;
+    private String decorationExecute;
+    private String decorationValue;
+    private String insertionExecute;
+
+    public String getInsertionExecute() {
+        return insertionExecute;
+    }
+
+    public void setInsertionExecute(String insertionExecute) {
+        this.insertionExecute = insertionExecute;
+    }
+
+    public String getInsertionValue() {
+        return insertionValue;
+    }
+
+    public void setInsertionValue(String insertionValue) {
+        this.insertionValue = insertionValue;
+    }
+
+    private String insertionValue;
+
+    public String getDecorationExecute() {
+        return decorationExecute;
+    }
+
+    public void setDecorationExecute(String decorationExecute) {
+        this.decorationExecute = decorationExecute;
+    }
+
+    public String getDecorationValue() {
+        return decorationValue;
+    }
+
+    public void setDecorationValue(String decorationValue) {
+        this.decorationValue = decorationValue;
+    }
+
     private String outerValue;
     private String regionValue;
     private String nestedRegionValue;
-    private String lastExecutedLinkValue;
+    private String lastExecutedButtonValue;
 
     /**
      * Initializes the managed bean.
@@ -160,11 +199,11 @@ public class A4JRegionBean implements Serializable {
     }
 
     public void handleBehavior(AjaxBehaviorEvent event) {
-        lastExecutedLinkValue = (String) event.getComponent().getAttributes().get("value");
+        lastExecutedButtonValue = (String) event.getComponent().getAttributes().get("value");
     }
 
-    public String getLastExecutedLinkValue() {
-        return lastExecutedLinkValue;
+    public String getLastExecutedButtonValue() {
+        return lastExecutedButtonValue;
     }
 
     public void handleDefaultsValueChange(ValueChangeEvent event) {
@@ -172,6 +211,9 @@ public class A4JRegionBean implements Serializable {
 
         setOuterExecute(newValue);
         setExecute(newValue);
+        setDecorationExecute(newValue);
+        setInsertionExecute(newValue);
         setNestedExecute(newValue);
+
     }
 }

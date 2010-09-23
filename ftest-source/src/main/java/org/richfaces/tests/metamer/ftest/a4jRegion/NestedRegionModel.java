@@ -74,7 +74,7 @@ public class NestedRegionModel {
     }
 
     public enum Component {
-        OUTER("Outer"), REGION("Region"), NESTED("Nested region");
+        OUTER("Outer"), REGION("Region"), NESTED("Nested region"), DECORATION("Decoration"), INSERTION("Insertion");
 
         public final JQueryLocator select;
         public final JQueryLocator output;
@@ -88,7 +88,7 @@ public class NestedRegionModel {
             this.select = pjq("select[id$={0}Select]").format(id);
             this.output = pjq("span[id$={0}ValueOutput]").format(id);
             this.input = pjq("input:text[id$={0}ValueInput]").format(id);
-            this.link = pjq("a[id$={0}ValueLink]").format(id);
+            this.link = pjq("input:submit[id$={0}ValueButton]").format(id);
             this.executeOption = optionLabel(name);
         }
 
@@ -105,7 +105,8 @@ public class NestedRegionModel {
 
     public enum Execute {
         DEFAULT("default"), ALL("@all"), REGION("@region"), FORM("@form"), THIS("@this"), COMPONENT_OUTER(
-            Component.OUTER), COMPONENT_REGION(Component.REGION), COMPONENT_NESTED(Component.NESTED);
+            Component.OUTER), COMPONENT_REGION(Component.REGION), COMPONENT_NESTED(Component.NESTED), COMPONENT_DECORATION(
+            Component.DECORATION), COMPONENT_INSERTION(Component.INSERTION);
 
         public final OptionLocator<?> option;
         public final Component componentBase;

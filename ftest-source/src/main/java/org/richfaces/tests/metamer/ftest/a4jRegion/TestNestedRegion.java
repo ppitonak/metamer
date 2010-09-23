@@ -1,6 +1,3 @@
-package org.richfaces.tests.metamer.ftest.a4jRegion;
-
-import static org.jboss.test.selenium.utils.URLUtils.buildUrl;
 /*******************************************************************************
  * JBoss, Home of Professional Open Source
  * Copyright 2010, Red Hat, Inc. and individual contributors
@@ -22,6 +19,9 @@ import static org.jboss.test.selenium.utils.URLUtils.buildUrl;
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  *******************************************************************************/
+package org.richfaces.tests.metamer.ftest.a4jRegion;
+
+import static org.jboss.test.selenium.utils.URLUtils.buildUrl;
 import static org.jboss.test.selenium.utils.text.SimplifiedFormat.format;
 import static org.testng.Assert.assertEquals;
 
@@ -88,9 +88,8 @@ public class TestNestedRegion extends AbstractMetamerTest {
         }
 
         if (execute == Execute.REGION) {
-            if (component == Component.REGION) {
-                expectedChanges.add(Component.REGION);
-                expectedChanges.add(Component.NESTED);
+            if (EnumSet.of(Component.REGION, Component.INSERTION, Component.DECORATION).contains(component)) {
+                expectedChanges = EnumSet.complementOf(EnumSet.of(Component.OUTER));
             } else if (component == Component.NESTED) {
                 expectedChanges.add(Component.NESTED);
             }
