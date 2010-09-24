@@ -64,45 +64,11 @@ public class A4JRegionBean implements Serializable {
     private String decorationExecute;
     private String decorationValue;
     private String insertionExecute;
-
-    public String getInsertionExecute() {
-        return insertionExecute;
-    }
-
-    public void setInsertionExecute(String insertionExecute) {
-        this.insertionExecute = insertionExecute;
-    }
-
-    public String getInsertionValue() {
-        return insertionValue;
-    }
-
-    public void setInsertionValue(String insertionValue) {
-        this.insertionValue = insertionValue;
-    }
-
-    private String insertionValue;
-
-    public String getDecorationExecute() {
-        return decorationExecute;
-    }
-
-    public void setDecorationExecute(String decorationExecute) {
-        this.decorationExecute = decorationExecute;
-    }
-
-    public String getDecorationValue() {
-        return decorationValue;
-    }
-
-    public void setDecorationValue(String decorationValue) {
-        this.decorationValue = decorationValue;
-    }
-
     private String outerValue;
     private String regionValue;
     private String nestedRegionValue;
     private String lastExecutedButtonValue;
+    private String insertionValue;
 
     /**
      * Initializes the managed bean.
@@ -197,6 +163,38 @@ public class A4JRegionBean implements Serializable {
     public void setOuterExecute(String outerExecute) {
         this.outerExecute = outerExecute;
     }
+    
+    public String getInsertionExecute() {
+        return insertionExecute;
+    }
+
+    public void setInsertionExecute(String insertionExecute) {
+        this.insertionExecute = insertionExecute;
+    }
+
+    public String getInsertionValue() {
+        return insertionValue;
+    }
+
+    public void setInsertionValue(String insertionValue) {
+        this.insertionValue = insertionValue;
+    }
+
+    public String getDecorationExecute() {
+        return decorationExecute;
+    }
+
+    public void setDecorationExecute(String decorationExecute) {
+        this.decorationExecute = decorationExecute;
+    }
+
+    public String getDecorationValue() {
+        return decorationValue;
+    }
+
+    public void setDecorationValue(String decorationValue) {
+        this.decorationValue = decorationValue;
+    }
 
     public void handleBehavior(AjaxBehaviorEvent event) {
         lastExecutedButtonValue = (String) event.getComponent().getAttributes().get("value");
@@ -214,6 +212,5 @@ public class A4JRegionBean implements Serializable {
         setDecorationExecute(newValue);
         setInsertionExecute(newValue);
         setNestedExecute(newValue);
-
     }
 }
