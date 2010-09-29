@@ -40,37 +40,36 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
         </ui:define>
 
         <ui:define name="component">
-            <h:graphicImage id="image" library="images" name="richfaces.jpg">
-                <a4j:ajax id="inputAjax" bypassUpdates="#{a4jAjaxBean.attributes['bypassUpdates'].value}"
-                          data="#{a4jAjaxBean.attributes['data'].value}"
-                          disabled="#{a4jAjaxBean.attributes['disabled'].value}"
-                          event="click"
-                          execute="#{a4jAjaxBean.attributes['execute'].value}"
-                          immediate="#{a4jAjaxBean.attributes['immediate'].value}"
-                          limitRender="#{a4jAjaxBean.attributes['limitRender'].value}"
-                          listener="#{a4jAjaxBean.attributes.listener}"
-                          onbeforedomupdate="#{a4jAjaxBean.attributes['onbeforedomupdate'].value}"
-                          onbegin="#{a4jAjaxBean.attributes['onbegin'].value}"
-                          oncomplete="#{a4jAjaxBean.attributes['oncomplete'].value}"
-                          onerror="#{a4jAjaxBean.attributes['onerror'].value}"
-                          onevent="#{a4jAjaxBean.attributes['onevent'].value}"
-                          queueId="#{a4jAjaxBean.attributes['queueId'].value}"
-                          render="#{a4jAjaxBean.attributes['render'].value}"
-                          status="#{a4jAjaxBean.attributes['status'].value}"
-                          />
-            </h:graphicImage>
+            <h:panelGrid columns="2">
+                <h:inputText id="input" value="#{a4jAjaxBean.input}"/>
+                <h:graphicImage id="image" library="images" name="right.png" style="width: 20px;" title="Submit">
+                    <a4j:ajax id="inputAjax" bypassUpdates="#{a4jAjaxBean.attributes['bypassUpdates'].value}"
+                              data="#{a4jAjaxBean.attributes['data'].value}"
+                              disabled="#{a4jAjaxBean.attributes['disabled'].value}"
+                              event="click"
+                              execute="#{a4jAjaxBean.attributes['execute'].value}"
+                              immediate="#{a4jAjaxBean.attributes['immediate'].value}"
+                              limitRender="#{a4jAjaxBean.attributes['limitRender'].value}"
+                              listener="#{a4jAjaxBean.attributes.listener}"
+                              onbeforedomupdate="#{a4jAjaxBean.attributes['onbeforedomupdate'].value}"
+                              onbegin="#{a4jAjaxBean.attributes['onbegin'].value}"
+                              oncomplete="#{a4jAjaxBean.attributes['oncomplete'].value}"
+                              onerror="#{a4jAjaxBean.attributes['onerror'].value}"
+                              onevent="#{a4jAjaxBean.attributes['onevent'].value}"
+                              queueId="#{a4jAjaxBean.attributes['queueId'].value}"
+                              render="#{a4jAjaxBean.attributes['render'].value}"
+                              status="#{a4jAjaxBean.attributes['status'].value}"
+                              />
+                </h:graphicImage>
+            </h:panelGrid>
 
             <br/><br/>
 
             <a4j:outputPanel id="output1" layout="block">
-                <h:outputText value="#{timeBean.date}">
-                    <f:convertDateTime pattern="HH:mm:ss.SSS" />
-                </h:outputText>
+                <h:outputText value="#{a4jAjaxBean.input}"/>
             </a4j:outputPanel>
             <a4j:outputPanel id="output2" layout="block">
-                <h:outputText value="#{timeBean.date}">
-                    <f:convertDateTime pattern="HH:mm:ss.SSS" />
-                </h:outputText>
+                <h:outputText value="#{a4jAjaxBean.input}"/>
             </a4j:outputPanel>
 
         </ui:define>
