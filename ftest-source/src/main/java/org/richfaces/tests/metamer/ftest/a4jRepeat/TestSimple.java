@@ -30,6 +30,7 @@ import java.net.URL;
 
 import org.richfaces.tests.metamer.ftest.AbstractMetamerTest;
 import org.richfaces.tests.metamer.ftest.annotations.Inject;
+import org.richfaces.tests.metamer.ftest.annotations.IssueTracking;
 import org.richfaces.tests.metamer.ftest.annotations.Templates;
 import org.richfaces.tests.metamer.ftest.annotations.Use;
 import org.testng.annotations.BeforeMethod;
@@ -39,8 +40,6 @@ import org.testng.annotations.Test;
  * @author <a href="mailto:lfryc@redhat.com">Lukas Fryc</a>
  * @version $Revision$
  */
-@Templates(exclude = { "a4jRepeat1", "a4jRepeat2", "hDataTable1", "hDataTable2", "richDataTable1,redDiv",
-    "richDataTable2,redDiv", "uiRepeat1", "uiRepeat2" })
 public class TestSimple extends AbstractMetamerTest {
 
     protected static final int ELEMENTS_TOTAL = 20;
@@ -85,6 +84,7 @@ public class TestSimple extends AbstractMetamerTest {
     @Test
     @Use(field = "first", ints = { -2, -1, 0, 1, ELEMENTS_TOTAL / 2, ELEMENTS_TOTAL - 1, ELEMENTS_TOTAL,
         ELEMENTS_TOTAL + 1 })
+    @IssueTracking({ "https://jira.jboss.org/browse/RF-9372" })
     public void testFirstAttribute() {
         verifyRepeat();
     }
@@ -92,6 +92,7 @@ public class TestSimple extends AbstractMetamerTest {
     @Test
     @Use(field = "rows", ints = { -2, -1, 0, 1, ELEMENTS_TOTAL / 2, ELEMENTS_TOTAL - 1, ELEMENTS_TOTAL,
         ELEMENTS_TOTAL + 1 })
+    @IssueTracking({ "https://jira.jboss.org/browse/RF-9373" })
     public void testRowsAttribute() {
         verifyRepeat();
     }
