@@ -25,6 +25,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
 import java.security.CodeSource;
 import java.util.Properties;
@@ -42,9 +43,11 @@ import org.richfaces.log.Logger;
 
 /**
  * Vendor and version information for project Metamer.
- *
- * @author asmirnov@exadel.com, <a href="mailto:ppitonak@redhat.com">Pavol Pitonak</a>
- * @version $Revision$ 
+ * 
+ * @author asmirnov@exadel.com
+ * @author <a href="mailto:ppitonak@redhat.com">Pavol Pitonak</a>
+ * @author <a href="mailto:lfryc@redhat.com">Lukas Fryc</a>
+ * @version $Revision$
  */
 @ManagedBean(name = "metamer")
 @ApplicationScoped
@@ -60,6 +63,7 @@ public final class VersionBean {
     private String shortVersion;
     private String richFacesVersion;
     private String jsfVersion;
+    private String serverVersion;
 
     /**
      * Initializes the managed bean.
@@ -71,7 +75,10 @@ public final class VersionBean {
             InputStream inStream = getClass().getClassLoader().getResourceAsStream("version.properties");
             properties.load(inStream);
         } catch (Exception e) {
-            LOGGER.warn("Unable to load version.properties using PomVersion.class.getClassLoader().getResourceAsStream(...)", e);
+            LOGGER
+                .warn(
+                    "Unable to load version.properties using PomVersion.class.getClassLoader().getResourceAsStream(...)",
+                    e);
         }
 
         implementationTitle = properties.getProperty("Implementation-Title");
@@ -79,6 +86,7 @@ public final class VersionBean {
         implementationVersion = properties.getProperty("Implementation-Version");
         scmRevision = properties.getProperty("SCM-Revision");
         scmTimestamp = properties.getProperty("SCM-Timestamp");
+        serverVersion = initializeServerVersion();
     }
 
     public String getVendor() {
@@ -111,10 +119,11 @@ public final class VersionBean {
             return implementationVersion;
         }
 
-        fullVersion = implementationTitle + " by " + implementationVendor + ", version " + implementationVersion + " SVN r. " + scmRevision;
+        fullVersion = implementationTitle + " by " + implementationVendor + ", version " + implementationVersion
+            + " SVN r. " + scmRevision;
         return fullVersion;
     }
-    
+
     public String getShortVersion() {
         if (shortVersion != null) {
             return shortVersion;
@@ -125,15 +134,15 @@ public final class VersionBean {
             return implementationVersion;
         }
 
-        shortVersion = "Metamer " + implementationVersion + " r. " + scmRevision;
+        shortVersion = "Metamer " + implementationVersion + " r." + scmRevision;
         return shortVersion;
     }
-    
+
     public String getRichFacesVersion() {
         if (richFacesVersion != null) {
             return richFacesVersion;
         }
-        
+
         org.richfaces.VersionBean rfVersionBean = new org.richfaces.VersionBean();
         StringBuilder result = new StringBuilder();
         result.append("RichFaces ");
@@ -141,7 +150,7 @@ public final class VersionBean {
         result.append(" r.");
         result.append(rfVersionBean.getVersion().getScmRevision());
         richFacesVersion = result.toString();
-        
+
         return richFacesVersion;
     }
 
@@ -196,12 +205,133 @@ public final class VersionBean {
     }
 
     public String getBrowserVersion() {
-        HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+        HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext()
+            .getRequest();
         return request.getHeader("user-agent");
     }
-    
+
     public ProjectStage getProjectStage() {
         return FacesContext.getCurrentInstance().getApplication().getProjectStage();
+    }
+
+    public String getServerVersion() {
+        return serverVersion;
+    }
+
+    private static String initializeServerVersion() {
+        String result = null;
+
+        try {
+            result = getJBossASVersionInfo();
+        } catch (FailToRetrieveInfo e) {
+            result = e.getMessage();
+        }
+
+        if (result == null) {
+            try {
+                result = getTomcatVersionInfo();
+            } catch (FailToRetrieveInfo e) {
+                result = e.getMessage();
+            }
+        }
+
+        if (result == null) {
+            result = "Server unknown";
+        }
+
+        return result;
+    }
+
+    private static String getTomcatVersionInfo() {
+        String result = (String) new InfoObtainer() {
+
+            @Override
+            protected Object obtainInfo() throws ClassNotFoundException, IllegalAccessException,
+                InstantiationException, SecurityException, NoSuchMethodException, IllegalArgumentException,
+                InvocationTargetException {
+
+                Class<?> clazz = Class.forName("org.apache.catalina.util.ServerInfo");
+                return clazz.getMethod("getServerInfo").invoke(null);
+            }
+        }.getInfo();
+
+        return result.replace("/", " ");
+    }
+
+    private static String getJBossASVersionInfo() {
+        String versionNumber = (String) new JBossASVersionInfoObtainer("getVersionNumber").getInfo();
+        String buildNumber = (String) new JBossASVersionInfoObtainer("getBuildID").getInfo();
+
+        if (versionNumber == null) {
+            return null;
+        }
+
+        StringBuffer buffer = new StringBuffer();
+        buffer.append("JBoss AS ");
+        buffer.append(versionNumber);
+
+        if (versionNumber.endsWith("SNAPSHOT")) {
+            buffer.append(" ");
+            buffer.append(buildNumber.replaceFirst("r", "r."));
+        }
+
+        return buffer.toString();
+    }
+
+    private static class JBossASVersionInfoObtainer extends InfoObtainer {
+        private String methodName;
+
+        public JBossASVersionInfoObtainer(String methodName) {
+            super();
+            this.methodName = methodName;
+        }
+
+        @Override
+        protected Object obtainInfo() throws ClassNotFoundException, IllegalAccessException, InstantiationException,
+            SecurityException, NoSuchMethodException, IllegalArgumentException, InvocationTargetException {
+
+            Class<?> clazz = Class.forName("org.jboss.bootstrap.impl.as.server.ASVersion");
+            Object classInstance = clazz.getMethod("getInstance").invoke(null);
+            return clazz.getMethod(methodName).invoke(classInstance);
+        }
+    }
+
+    private abstract static class InfoObtainer {
+        protected abstract Object obtainInfo() throws ClassNotFoundException, IllegalAccessException,
+            InstantiationException, SecurityException, NoSuchMethodException, IllegalArgumentException,
+            InvocationTargetException;
+
+        public final Object getInfo() {
+            try {
+                return obtainInfo();
+            } catch (ClassNotFoundException e) {
+                return null;
+            } catch (IllegalAccessException e) {
+                throw new FailToRetrieveInfo(fail("failed to retrieve info - ", e), e);
+            } catch (InstantiationException e) {
+                throw new FailToRetrieveInfo(fail("failed to retrieve info - ", e), e);
+            } catch (SecurityException e) {
+                throw new FailToRetrieveInfo(fail("failed to access version info - ", e), e);
+            } catch (NoSuchMethodException e) {
+                throw new FailToRetrieveInfo(fail("failed to access version info - ", e), e);
+            } catch (IllegalArgumentException e) {
+                throw new FailToRetrieveInfo(fail("failed to access version info - ", e), e);
+            } catch (InvocationTargetException e) {
+                throw new FailToRetrieveInfo(fail("failed to access version info - ", e), e);
+            }
+        }
+    }
+
+    private static class FailToRetrieveInfo extends RuntimeException {
+
+        public FailToRetrieveInfo(String message, Throwable cause) {
+            super(message, cause);
+        }
+
+    }
+
+    private static String fail(String message, Exception e) {
+        return message + e.getClass().getSimpleName() + e.getMessage();
     }
 
     @Override
