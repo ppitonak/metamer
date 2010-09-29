@@ -47,6 +47,7 @@ import javax.faces.component.UIComponent;
 import javax.faces.component.behavior.BehaviorBase;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
+import javax.faces.event.AjaxBehaviorEvent;
 import javax.faces.model.SelectItem;
 import org.richfaces.tests.metamer.bean.RichBean;
 
@@ -106,7 +107,7 @@ public final class Attributes implements Map<String, Attribute>, Serializable {
         }
 
         logger.debug(attributes.keySet().toString());
-        
+
         loadHelp();
         loadSelectOptions();
     }
@@ -145,7 +146,7 @@ public final class Attributes implements Map<String, Attribute>, Serializable {
         } catch (MissingResourceException mre) {
             return;
         }
-        
+
         Enumeration<String> keys = rb.getKeys();
         String key = null;
         Attribute attribute = null;
@@ -408,7 +409,7 @@ public final class Attributes implements Map<String, Attribute>, Serializable {
         }
 
         RichBean.logToPage("* action listener invoked");
-        
+
         // if no select options for "actionListener" are defined in property file and it is an EL expression
         if (!hasSelectOptions("actionListener") && isStringEL(listener)) {
             method =
@@ -422,6 +423,45 @@ public final class Attributes implements Map<String, Attribute>, Serializable {
             method =
                     getExpressionFactory().createMethodExpression(elContext, getMethodEL(listener), void.class,
                     new Class[]{ActionEvent.class});
+            method.invoke(elContext, new Object[]{event});
+        }
+    }
+
+    /**
+     * An action listener for tested JSF component. Can be modified dynamically.
+     *
+     * @param event
+     *            event representing the activation of a user interface component
+     */
+    public void listener(AjaxBehaviorEvent event) {
+        ELContext elContext = FacesContext.getCurrentInstance().getELContext();
+        MethodExpression method = null;
+
+        if (attributes.get("listener") == null) {
+            return;
+        }
+
+        String listener = (String) attributes.get("listener").getValue();
+
+        if (listener == null) {
+            return;
+        }
+
+        RichBean.logToPage("* listener invoked");
+
+        // if no select options for "listener" are defined in property file and it is an EL expression
+        if (!hasSelectOptions("listener") && isStringEL(listener)) {
+            method =
+                    getExpressionFactory().createMethodExpression(elContext, listener, void.class,
+                    new Class[]{AjaxBehaviorEvent.class});
+            method.invoke(elContext, new Object[]{event});
+        }
+
+        // if select options for "listener" are defined in property file
+        if (hasSelectOptions("listener")) {
+            method =
+                    getExpressionFactory().createMethodExpression(elContext, getMethodEL(listener), void.class,
+                    new Class[]{AjaxBehaviorEvent.class});
             method.invoke(elContext, new Object[]{event});
         }
     }

@@ -19,7 +19,6 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  *******************************************************************************/
-
 package org.richfaces.tests.metamer.bean;
 
 import java.io.Serializable;
@@ -27,10 +26,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
+import javax.faces.FacesException;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.event.AjaxBehaviorEvent;
+import javax.faces.model.SelectItem;
 
 import org.ajax4jsf.component.behavior.AjaxBehavior;
+import org.richfaces.tests.metamer.Attribute;
 import org.richfaces.tests.metamer.Attributes;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -46,6 +49,7 @@ import org.slf4j.LoggerFactory;
 public class A4JAjaxBean implements Serializable {
 
     private static final long serialVersionUID = -546567867L;
+    private static final int ACTION_STRING_LENGTH = 6;
     private static Logger logger;
     private Attributes attributes;
     private String input;
@@ -64,10 +68,21 @@ public class A4JAjaxBean implements Serializable {
         attributes = Attributes.getBehaviorAttributes(AjaxBehavior.class, getClass());
         // the 'event' attribute for behavior tag must be a literal
         attributes.remove("event");
-        
+
         attributes.setAttribute("render", "output1, output2");
         attributes.setAttribute("execute", "@form");
-                
+
+        // FIXME not found attribute
+        Attribute listenerAttr = new Attribute("listener");
+        List<SelectItem> selectOptions = new ArrayList<SelectItem>();
+        selectOptions.add(new SelectItem("doubleStringListener", "doubleStringListener"));
+        selectOptions.add(new SelectItem("first6CharsListener", "first6CharsListener"));
+        selectOptions.add(new SelectItem("toUpperCaseListener", "toUpperCaseListener"));
+        selectOptions.add(new SelectItem("causeErrorListener", "causeErrorListener"));
+        selectOptions.add(new SelectItem(null, "null"));
+        listenerAttr.setSelectOptions(selectOptions);
+        attributes.put(listenerAttr.getName(), listenerAttr);
+
         cars = new ArrayList<String>();
         cars.add("Ferrari");
         cars.add("Lexus");
@@ -132,5 +147,55 @@ public class A4JAjaxBean implements Serializable {
     public void setBoolVal(boolean boolVal) {
         this.boolVal = boolVal;
     }
-    
+
+    /**
+     * An action listener that takes the first six characters from input and stores it to input.
+     *
+     * @param event
+     *            an event representing the activation of a user interface component (not used)
+     */
+    public void first6CharsListener(AjaxBehaviorEvent event) {
+        if (input == null) {
+            input = "";
+        } else {
+            int endIndex = input.length() > ACTION_STRING_LENGTH ? ACTION_STRING_LENGTH : input.length();
+            input = (String) input.subSequence(0, endIndex);
+        }
+    }
+
+    /**
+     * An action listener that takes user's input, doubles it and stores it to input.
+     *
+     * @param event
+     *            an event representing the activation of a user interface component (not used)
+     */
+    public void doubleStringListener(AjaxBehaviorEvent event) {
+        if (input == null) {
+            input = "";
+        } else {
+            input = input.concat(input);
+        }
+    }
+
+    /**
+     * An action listener that takes user's input, converts it to upper case and stores it to input3.
+     *
+     * @param event
+     *            an event representing the activation of a user interface component (not used)
+     */
+    public void toUpperCaseListener(AjaxBehaviorEvent event) {
+        if (input == null) {
+            input = "";
+        } else {
+            input = input.toUpperCase();
+        }
+    }
+
+    /**
+     * An action listener causing error. Suitable for testing onerror attribute.
+     * @param event an event representing the activation of a user interface component (not used)
+     */
+    public void causeErrorListener(AjaxBehaviorEvent event) {
+        throw new FacesException("Ajax request caused an error. This is intentional behavior.");
+    }
 }

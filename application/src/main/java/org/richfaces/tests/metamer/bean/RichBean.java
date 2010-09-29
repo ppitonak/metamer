@@ -19,7 +19,6 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  *******************************************************************************/
-
 package org.richfaces.tests.metamer.bean;
 
 import java.io.Serializable;
@@ -32,12 +31,11 @@ import java.util.TreeMap;
 import javax.annotation.PostConstruct;
 import javax.el.ExpressionFactory;
 import javax.el.ValueExpression;
-import javax.faces.application.FacesMessage;
+import javax.faces.FacesException;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
-import javax.faces.validator.ValidatorException;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -68,6 +66,7 @@ public class RichBean implements Serializable {
     private String container;
 
     public enum Skinning {
+
         NONE, SKINNING, SKINNING_CLASSES
     }
 
@@ -334,10 +333,10 @@ public class RichBean implements Serializable {
      * Action that causes an error. Suitable for testing 'onerror' attribute.
      * 
      * @return method never returns any value
-     * @throws ValidationException
+     * @throws FacesException
      *             thrown always
      */
     public String causeError() {
-        throw new ValidatorException(new FacesMessage("Ajax request caused an error. This is intentional behavior."));
+        throw new FacesException("Ajax request caused an error. This is intentional behavior.");
     }
 }
