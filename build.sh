@@ -1,2 +1,2 @@
 #!/bin/bash
-mvn clean install -Pmyfaces -Dselenium.server.skip=true -Dselenium.test.skip=true $*
+mvn clean install -Pmyfaces,war-myfaces -Dselenium.server.skip=true -Dselenium.test.skip=true $*
