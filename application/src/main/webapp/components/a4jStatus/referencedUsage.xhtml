@@ -1,4 +1,9 @@
-<!--
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:a4j="http://richfaces.org/a4j">
+
+    <!--
 JBoss, Home of Professional Open Source
 Copyright 2010, Red Hat, Inc. and individual contributors
 by the @authors tag. See the copyright.txt in the distribution for a
@@ -18,13 +23,7 @@ You should have received a copy of the GNU Lesser General Public
 License along with this software; if not, write to the Free
 Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 02110-1301 USA, or see the FSF site: http://www.fsf.org.
--->
-
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:a4j="http://richfaces.org/a4j"
-      xmlns:metamer="http://java.sun.com/jsf/composite/metamer"
-      xmlns:c="http://java.sun.com/jsp/jstl/core">
+    -->
 
     <ui:composition template="/templates/template.xhtml">
 
@@ -47,29 +46,29 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 
                 <h:commandButton id="button1" value="Named status 1" onclick="statusFunction1(); return false;" />
                 <a4j:status id="status1" name="status1">
-                <f:facet name="start">
-                    <h:outputText id="status1TextStart" style="font-size: large; color: red;" value="START" />
-                </f:facet>
+                    <f:facet name="start">
+                        <h:outputText id="status1TextStart" style="font-size: large; color: red;" value="START" />
+                    </f:facet>
 
-                <f:facet name="stop">
-                    <h:outputText id="status1TextStop" style="font-size: large; color: red;" value="STOP" />
-                </f:facet>
+                    <f:facet name="stop">
+                        <h:outputText id="status1TextStop" style="font-size: large; color: red;" value="STOP" />
+                    </f:facet>
 
-                <f:facet name="error">
-                    <h:outputText id="status1TextError" style="font-size: large; color: red;" value="ERROR" />
-                </f:facet>
-            </a4j:status>
+                    <f:facet name="error">
+                        <h:outputText id="status1TextError" style="font-size: large; color: red;" value="ERROR" />
+                    </f:facet>
+                </a4j:status>
 
                 <h:commandButton id="button2" value="Named status 2" onclick="statusFunction2(); return false;" />
                 <a4j:status id="status2" name="status2">
                     <f:facet name="start">
                         <h:outputText id="status2TextStart" style="font-size: large; color: red;" value="START" />
                     </f:facet>
-    
+
                     <f:facet name="stop">
                         <h:outputText id="status2TextStop" style="font-size: large; color: red;" value="STOP" />
                     </f:facet>
-    
+
                     <f:facet name="error">
                         <h:outputText id="status2TextError" style="font-size: large; color: red;" value="ERROR" />
                     </f:facet>

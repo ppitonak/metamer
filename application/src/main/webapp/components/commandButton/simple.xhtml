@@ -1,4 +1,9 @@
-<!--
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:metamer="http://java.sun.com/jsf/composite/metamer">
+
+    <!--
 JBoss, Home of Professional Open Source
 Copyright 2010, Red Hat, Inc. and individual contributors
 by the @authors tag. See the copyright.txt in the distribution for a
@@ -18,11 +23,7 @@ You should have received a copy of the GNU Lesser General Public
 License along with this software; if not, write to the Free
 Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 02110-1301 USA, or see the FSF site: http://www.fsf.org.
--->
-
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:metamer="http://java.sun.com/jsf/composite/metamer">
+    -->
 
     <ui:composition template="/templates/template.xhtml">
 
@@ -45,26 +46,26 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                 <h:inputText id="input" value="#{buttonBean.input}" />
 
                 <h:commandButton id="commandButton"
-                                   action="#{buttonBean.attributes.action}"
-                                   actionListener="#{buttonBean.attributes.actionListener}"
-                                   disabled="#{buttonBean.attributes['disabled'].value}"
-                                   immediate="#{buttonBean.attributes['immediate'].value}"
-                                   onclick="#{buttonBean.attributes['onclick'].value}"
-                                   ondblclick="#{buttonBean.attributes['ondblclick'].value}"
-                                   onkeydown="#{buttonBean.attributes['onkeydown'].value}"
-                                   onkeypress="#{buttonBean.attributes['onkeypress'].value}"
-                                   onkeyup="#{buttonBean.attributes['onkeyup'].value}"
-                                   onmousedown="#{buttonBean.attributes['onmousedown'].value}"
-                                   onmousemove="#{buttonBean.attributes['onmousemove'].value}"
-                                   onmouseout="#{buttonBean.attributes['onmouseout'].value}"
-                                   onmouseover="#{buttonBean.attributes['onmouseover'].value}"
-                                   onmouseup="#{buttonBean.attributes['onmouseup'].value}"
-                                   render="#{buttonBean.attributes['render'].value}"
-                                   rendered="#{buttonBean.attributes['rendered'].value}"
-                                   style="#{buttonBean.attributes['style'].value}"
-                                   styleClass="#{buttonBean.attributes['styleClass'].value}"
-                                   value="#{buttonBean.attributes['value'].value}"
-                                   execute="@form" />
+                                 action="#{buttonBean.attributes.action}"
+                                 actionListener="#{buttonBean.attributes.actionListener}"
+                                 disabled="#{buttonBean.attributes['disabled'].value}"
+                                 immediate="#{buttonBean.attributes['immediate'].value}"
+                                 onclick="#{buttonBean.attributes['onclick'].value}"
+                                 ondblclick="#{buttonBean.attributes['ondblclick'].value}"
+                                 onkeydown="#{buttonBean.attributes['onkeydown'].value}"
+                                 onkeypress="#{buttonBean.attributes['onkeypress'].value}"
+                                 onkeyup="#{buttonBean.attributes['onkeyup'].value}"
+                                 onmousedown="#{buttonBean.attributes['onmousedown'].value}"
+                                 onmousemove="#{buttonBean.attributes['onmousemove'].value}"
+                                 onmouseout="#{buttonBean.attributes['onmouseout'].value}"
+                                 onmouseover="#{buttonBean.attributes['onmouseover'].value}"
+                                 onmouseup="#{buttonBean.attributes['onmouseup'].value}"
+                                 render="#{buttonBean.attributes['render'].value}"
+                                 rendered="#{buttonBean.attributes['rendered'].value}"
+                                 style="#{buttonBean.attributes['style'].value}"
+                                 styleClass="#{buttonBean.attributes['styleClass'].value}"
+                                 value="#{buttonBean.attributes['value'].value}"
+                                 execute="@form" />
             </h:panelGrid>
 
             <h:panelGrid id="outputs" columns="2">

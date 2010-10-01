@@ -1,4 +1,10 @@
-<!--
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:a4j="http://richfaces.org/a4j"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+
+    <!--
 JBoss, Home of Professional Open Source
 Copyright 2010, Red Hat, Inc. and individual contributors
 by the @authors tag. See the copyright.txt in the distribution for a
@@ -18,12 +24,7 @@ You should have received a copy of the GNU Lesser General Public
 License along with this software; if not, write to the Free
 Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 02110-1301 USA, or see the FSF site: http://www.fsf.org.
--->
-
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:c="http://java.sun.com/jsp/jstl/core"
-      xmlns:a4j="http://richfaces.org/a4j"
-      xmlns:ui="http://java.sun.com/jsf/facelets">
+    -->
 
     <h:head>
         <title>Metamer: RichFaces Testing Application</title>
@@ -33,7 +34,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 
     <h:body>
         <h1 style="float: left">Metamer: RichFaces Testing Application</h1>
-        
+
         <h:form id="invalidateSessionForm" style="float: right; ">
             <h:panelGrid columns="1">
                 <h:commandButton id="invalidateSessionButton" action="#{richBean.invalidateSession}"
@@ -41,9 +42,9 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                                  style="width: 36px;" />
             </h:panelGrid>
         </h:form>
-        
+
         <hr style="width: 1050px; margin-left: 0px; clear: both; " />
-        
+
         <h:form id="linksForm">
             <h:panelGrid id="components" columns="3" columnClasses="valign-top,valign-top,valign-top">
                 <h:panelGroup id="a4jComponents" layout="block" style="width: 350px;">

@@ -1,4 +1,9 @@
-<!--
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:metamer="http://java.sun.com/jsf/composite/metamer">
+
+    <!--
 JBoss, Home of Professional Open Source
 Copyright 2010, Red Hat, Inc. and individual contributors
 by the @authors tag. See the copyright.txt in the distribution for a
@@ -18,11 +23,7 @@ You should have received a copy of the GNU Lesser General Public
 License along with this software; if not, write to the Free
 Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 02110-1301 USA, or see the FSF site: http://www.fsf.org.
--->
-
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:metamer="http://java.sun.com/jsf/composite/metamer">
+    -->
 
     <ui:composition template="/templates/list.xhtml">
 
@@ -33,11 +34,11 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
             <metamer:testPageLink id="globalQueue" outcome="globalQueue" value="Global Queue">
                 Simple page that contains <b>a4j:queue</b> outside of any form (<b>global queue</b>) and input boxes for all its attributes.
             </metamer:testPageLink>
-            
+
             <metamer:testPageLink id="formQueue" outcome="formQueue" value="Form Queue">
                 <div>There are three <b>a4j:queue</b>s defined: two inside forms (<b>form based queues</b>) and also <b>global queue</b>.</div>
                 <div>The <b>form based queues</b> should not inherit any attributes from <b>global queue</b>.</div>
-                
+
             </metamer:testPageLink>
 
         </ui:define>

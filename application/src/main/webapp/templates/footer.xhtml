@@ -1,4 +1,9 @@
-<!--
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" 
+      xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+    <!--
 JBoss, Home of Professional Open Source
 Copyright 2010, Red Hat, Inc. and individual contributors
 by the @authors tag. See the copyright.txt in the distribution for a
@@ -18,41 +23,37 @@ You should have received a copy of the GNU Lesser General Public
 License along with this software; if not, write to the Free
 Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 02110-1301 USA, or see the FSF site: http://www.fsf.org.
--->
+    -->
 
-<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html"
-    xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets"
-    xmlns:a4j="http://richfaces.org/a4j" xmlns:c="http://java.sun.com/jsp/jstl/core">
+    <ui:composition>
+        <hr style="width: 1050px; margin-left: 0px;" />
 
-    <hr style="width: 1050px; margin-left: 0px;" />
-    
-    
-    
-    <ul>
-        <li><h:outputText id="richfacesVersion" value="#{metamer.richFacesVersion}" /></li>
-        <li><h:outputText id="metamerVersion" value="#{metamer.shortVersion}" /></li>
-        <li><h:outputText id="jsfVersion" value="#{metamer.jsfVersion}" /></li>
-        <li><h:outputText id="serverVersion" value="#{metamer.serverVersion}" /></li>
-        <li><h:outputText id="javaVersion" value="#{metamer.javaVersion}" /> @ <h:outputText id="osVersion"
-            value="#{metamer.osVersion}" /></li>
-        <li><h:outputText id="browserVersion" value="#{metamer.browserVersion}" /></li>
-    </ul>
-    
-    
-    
-    <!-- human-readable browser detection -->
-    <c:if test="#{metamer.projectStage != 'Production'}">
-	    <h:outputScript library="script" name="jquery-v1.2.6.js" />
-	    <script>
-	    	var jQueryBrowser = jQuery.noConflict(true);
-	    </script>
-	    <h:outputScript library="script" name="jquery.browser-v2.3.js" />
-	    <script>
-	    	String.prototype.capitalize = function(){
-	    		   return this.replace( /(^|\s)([a-z])/g , function(m,p1,p2){ return p1+p2.toUpperCase(); } );
-	   		 };
-	    	jQueryBrowser("span[id$=browserVersion]").text(jQueryBrowser.browser.name.capitalize() + ' ' + jQueryBrowser.browser.version + ' @ ' + jQueryBrowser.os.name.capitalize());
-	    </script>
-    </c:if>
+        <ul>
+            <li><h:outputText id="richfacesVersion" value="#{metamer.richFacesVersion}" /></li>
+            <li><h:outputText id="metamerVersion" value="#{metamer.shortVersion}" /></li>
+            <li><h:outputText id="jsfVersion" value="#{metamer.jsfVersion}" /></li>
+            <li><h:outputText id="serverVersion" value="#{metamer.serverVersion}" /></li>
+            <li><h:outputText id="javaVersion" value="#{metamer.javaVersion}" /> @ <h:outputText id="osVersion"
+                                                                                                 value="#{metamer.osVersion}" /></li>
+            <li><h:outputText id="browserVersion" value="#{metamer.browserVersion}" /></li>
+        </ul>
 
-</ui:composition>
+
+
+        <!-- human-readable browser detection -->
+        <c:if test="#{metamer.projectStage != 'Production'}">
+            <h:outputScript library="script" name="jquery-v1.2.6.js" />
+            <script type="text/text/javascript">
+                var jQueryBrowser = jQuery.noConflict(true);
+            </script>
+            <h:outputScript library="script" name="jquery.browser-v2.3.js" />
+            <script type="text/javascript">
+                String.prototype.capitalize = function(){
+                           return this.replace( /(^|\s)([a-z])/g , function(m,p1,p2){ return p1+p2.toUpperCase(); } );
+                         };
+                jQueryBrowser("span[id$=browserVersion]").text(jQueryBrowser.browser.name.capitalize() + ' ' + jQueryBrowser.browser.version + ' @ ' + jQueryBrowser.os.name.capitalize());
+            </script>
+        </c:if>
+
+    </ui:composition>
+</html>
