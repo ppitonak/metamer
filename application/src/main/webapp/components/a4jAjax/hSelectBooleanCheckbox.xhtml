@@ -41,7 +41,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 
         <ui:define name="component">
             <h:selectBooleanCheckbox id="selectBooleanCheckbox" value="#{a4jAjaxBean.boolVal}">
-                <a4j:ajax id="a4jAjax" bypassUpdates="#{a4jAjaxBean.attributes['bypassUpdates'].value}"
+                <a4j:ajax bypassUpdates="#{a4jAjaxBean.attributes['bypassUpdates'].value}"
                           data="#{a4jAjaxBean.attributes['data'].value}"
                           disabled="#{a4jAjaxBean.attributes['disabled'].value}"
                           event="change"

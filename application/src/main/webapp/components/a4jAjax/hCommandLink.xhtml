@@ -42,7 +42,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
         <ui:define name="component">
             <h:inputText id="input" value="#{a4jAjaxBean.input}"/>
             <h:commandLink id="commandLink" value="Submit">
-                <a4j:ajax id="inputAjax" bypassUpdates="#{a4jAjaxBean.attributes['bypassUpdates'].value}"
+                <a4j:ajax bypassUpdates="#{a4jAjaxBean.attributes['bypassUpdates'].value}"
                           data="#{a4jAjaxBean.attributes['data'].value}"
                           disabled="#{a4jAjaxBean.attributes['disabled'].value}"
                           event="click"
