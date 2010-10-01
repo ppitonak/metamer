@@ -33,6 +33,7 @@ import org.richfaces.tests.metamer.ftest.annotations.Inject;
 import org.richfaces.tests.metamer.ftest.annotations.IssueTracking;
 import org.richfaces.tests.metamer.ftest.annotations.Templates;
 import org.richfaces.tests.metamer.ftest.annotations.Use;
+import org.testng.SkipException;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
@@ -40,6 +41,7 @@ import org.testng.annotations.Test;
  * @author <a href="mailto:lfryc@redhat.com">Lukas Fryc</a>
  * @version $Revision$
  */
+@Templates(exclude = { "uiRepeat1", "uiRepeat2" })
 public class TestSimple extends AbstractMetamerTest {
 
     protected static final int ELEMENTS_TOTAL = 20;
@@ -63,7 +65,7 @@ public class TestSimple extends AbstractMetamerTest {
         return buildUrl(contextPath, "faces/components/a4jRepeat/simple.xhtml");
     }
 
-    @BeforeMethod
+    @BeforeMethod(alwaysRun = true)
     public void prepareAttributes() {
         model = new SimpleModel();
 
