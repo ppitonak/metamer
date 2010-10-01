@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:metamer="http://java.sun.com/jsf/composite/metamer"
+      xmlns:rich="http://richfaces.org/rich">
+
+    <!--
+JBoss, Home of Professional Open Source
+Copyright 2010, Red Hat, Inc. and individual contributors
+by the @authors tag. See the copyright.txt in the distribution for a
+full listing of individual contributors.
+
+This is free software; you can redistribute it and/or modify it
+under the terms of the GNU Lesser General Public License as
+published by the Free Software Foundation; either version 2.1 of
+the License, or (at your option) any later version.
+
+This software is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public
+License along with this software; if not, write to the Free
+Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
+02110-1301 USA, or see the FSF site: http://www.fsf.org.
+    -->
+
+    <ui:composition template="/templates/template.xhtml">
+        <ui:define name="component">
+
+            <script type="text/javascript">
+    //<![CDATA[
+            var counter = 1;
+            var intervalID;
+                function updateProgress(i) {
+                    RichFaces.$('#{rich:clientId('progressBar')}').setValue(counter*5);
+                    if ((counter++)>20){
+                        clearInterval(intervalID);
+                        document.getElementById('button').disabled=false;
+                    }
+                }
+
+                function startProgress(){
+                    counter=1;
+                    document.getElementById('button').disabled=true;
+                    RichFaces.$('#{rich:clientId('progressBar')}').enable();
+                    RichFaces.$('#{rich:clientId('progressBar')}').setValue(1);
+                    intervalID = setInterval(updateProgress,1000);
+                }
+    //]]>
+            </script>
+
+            <rich:progressBar id="progressBar"
+                              comleteClass="#{richProgressBarBean.attributes['completeClass'].value}"
+                              data="#{richProgressBarBean.attributes['data'].value}"
+                              enabled="#{richProgressBarBean.attributes['enabled'].value}"
+                              finishClass="#{richProgressBarBean.attributes['finishClass'].value}"
+                              focus="#{richProgressBarBean.attributes['focus'].value}"
+                              initialClass="#{richProgressBarBean.attributes['initialClass'].value}"
+                              interval="#{richProgressBarBean.attributes['interval'].value}"
+                              label="#{richProgressBarBean.attributes['label'].value}"
+                              maxValue="#{richProgressBarBean.attributes['maxValue'].value}"
+                              minValue="#{richProgressBarBean.attributes['minValue'].value}"
+                              mode="client"
+                              onbeforedomupdate="#{richProgressBarBean.attributes['onbeforedomupdate'].value}"
+                              onclick="#{richProgressBarBean.attributes['onclick'].value}"
+                              oncomplete="#{richProgressBarBean.attributes['oncomplete'].value}"
+                              ondblclick="#{richProgressBarBean.attributes['ondblclick'].value}"
+                              onmousedown="#{richProgressBarBean.attributes['onmousedown'].value}"
+                              onmousemove="#{richProgressBarBean.attributes['onmousemove'].value}"
+                              onmouseout="#{richProgressBarBean.attributes['onmouseout'].value}"
+                              onmouseover="#{richProgressBarBean.attributes['onmouseover'].value}"
+                              onmouseup="#{richProgressBarBean.attributes['onmouseup'].value}"
+                              onsubmit="#{richProgressBarBean.attributes['onsubmit'].value}"
+                              parameters="#{richProgressBarBean.attributes['parameters'].value}"
+                              reRenderAfterComplete="#{richProgressBarBean.attributes['reRenderAfterComplete'].value}"
+                              remainClass="#{richProgressBarBean.attributes['remainClass'].value}"
+                              rendered="#{richProgressBarBean.attributes['rendered'].value}"
+                              value="#{richProgressBarBean.currentValue}"
+                              >
+                <f:facet name="initial">
+                    <h:outputText id="initialOutput" value="Process hasn't started yet"/>
+                </f:facet>
+                <f:facet name="complete">
+                    <h:outputText id="completeOutput" value="Process Done"/>
+                </f:facet>
+            </rich:progressBar>
+            <button type="button" onclick="startProgress();" style="margin: 9px 0px 5px;" id="button">Start Progress</button>
+
+        </ui:define>
+
+        <ui:define name="outOfTemplateAfter">
+            <metamer:attributes value="#{richProgressBarBean.attributes}" id="attributes" render="log"/>
+        </ui:define>
+
+    </ui:composition>
+</html>
