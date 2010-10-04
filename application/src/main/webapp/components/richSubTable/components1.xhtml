@@ -133,7 +133,9 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                         <h:outputText value="#{item.favoriteColor}" />
                     </rich:column>
                     <rich:column>
-                        <h:outputText value="#{item.numberOfKids}" />
+                        <rich:inputNumberSpinner id="spinner" value="#{item.numberOfKids}" maxValue="5">
+                            <a4j:ajax/>
+                        </rich:inputNumberSpinner>
                     </rich:column>
                     <f:facet name="footer">
                         <h:outputText value="Total of #{list[0].sex == 'MALE' ? 'men' : 'women'}: #{list.size()}" />

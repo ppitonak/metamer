@@ -159,7 +159,10 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                         <h:outputText id="columnHeaderNumberOfKidsComponent" value="rich:inputNumberSpinner" />
                     </f:facet>
 
-                    <h:outputText value="#{record.numberOfKids}" />
+                    <rich:inputNumberSpinner id="spinner" value="#{record.numberOfKids}" maxValue="5">
+                        <a4j:ajax/>
+                    </rich:inputNumberSpinner>
+                    
                     <f:facet name="footer">
                         <h:outputText id="columnFooterNumberOfKids" value="Number of Kids" />
                     </f:facet>
