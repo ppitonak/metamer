@@ -38,15 +38,12 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
             </metamer:testPageLink>
 
             <metamer:testPageLink id="extending" outcome="extending" value="Extending">
-                <font color="red" style="font-weigth: bold">Doesn't work currently due to RF-9351.</font>
-                <br />
                 Two <b>h:inputText</b>s are wrapped in <b>a4j:ajax</b>, which is extended by <b>a4j:attachQueue</b>.
                 <br />
                 Contains also one named <b>a4j:queue</b> to try queue naming and attaching.
             </metamer:testPageLink>
 
             <metamer:testPageLink id="nestedExtension" outcome="nestedExtension" value="Nested Extension">
-                <div><font color="red" style="font-weigth: bold">Doesn't work currently due to RF-9351.</font></div>
                 <div>Two nested a4j:ajaxs, each extended by own a4j:attachQueue.</div>
                 <div>First a4j:ajax controls clicks to h:inputText and a4j:commandButton.</div>
                 <div>Second a4j:ajax controls valueChanges of h:inputText.</div>  

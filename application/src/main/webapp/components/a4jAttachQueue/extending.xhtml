@@ -41,11 +41,9 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
             }
 
             function updateDifferenceTime() {
-                var eventTime1 = parseInt(jQuery(#{rich:element('eventTime1:outputTime')}).attr('title'));
-                var eventTime2 = parseInt(jQuery(#{rich:element('eventTime2:outputTime')}).attr('title'));
+                var eventTime = parseInt(jQuery(#{rich:element('eventTime:outputTime')}).attr('title'));
                 var beginTime = parseInt(jQuery(#{rich:element('beginTime:outputTime')}).attr('title'));
 
-                var eventTime = Math.max(eventTime1, eventTime2);
                 jQuery(#{rich:element('differenceTime')}).text(beginTime - eventTime);
             }
             </script>
@@ -67,22 +65,30 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                        requestDelay="#{a4jQueueBean.attributes['requestDelay'].value}" status="status1"
                        timeout="#{a4jQueueBean.attributes['timeout'].value}" />
 
-            <a4j:ajax event="keyup" render="output1, output2" execute="@form" onbegin="add(#{rich:element('requests')}); "
-                      oncomplete="refresh(#{rich:element('completeTime:outputTime')}); updateDifferenceTime();" onbeforedomupdate="add(#{rich:element('updates')});">
-                <a4j:attachQueue id="a4jAttachQueue"
-                                 ignoreDupResponses="#{a4jAttachQueueBean.attributes['ignoreDupResponses'].value}"
-                                 name="#{a4jAttachQueueBean.attributes['name'].value}"
-                                 onrequestdequeue="#{a4jAttachQueueBean.attributes['onrequestdequeue'].value}"
-                                 onrequestqueue="#{a4jAttachQueueBean.attributes['onrequestqueue'].value}"
-                                 queueId="#{a4jAttachQueueBean.attributes['queueId'].value}"
-                                 rendered="#{a4jAttachQueueBean.attributes['rendered'].value}"
-                                 requestDelay="#{a4jAttachQueueBean.attributes['requestDelay'].value}"
-                                 requestGroupingId="#{a4jAttachQueueBean.attributes['requestGroupingId'].value}"
-                                 timeout="#{a4jAttachQueueBean.attributes['timeout'].value}"/>
-
-                <h:inputText id="input1" value="#{a4jAttachQueueBean.text1}" onkeyup="add(#{rich:element('events')});"/>
-                <h:inputText id="input2" value="#{a4jAttachQueueBean.text2}" onkeyup="add(#{rich:element('events')});"/>
-            </a4j:ajax>
+			<fieldset>
+				<legend>&lt;a4j:ajax event="keyup" &gt;</legend>
+				
+	            <a4j:ajax event="keyup" render="output1, output2" execute="@form" onbegin="add(#{rich:element('requests')}); refresh(#{rich:element('beginTime:outputTime')}); "
+	                      oncomplete="refresh(#{rich:element('completeTime:outputTime')}); updateDifferenceTime();" onbeforedomupdate="add(#{rich:element('updates')});">
+	                      
+	                <div>&lt;a4j:attachQueue /&gt;</div>
+	                
+	                <a4j:attachQueue id="a4jAttachQueue"
+	                                 ignoreDupResponses="#{a4jAttachQueueBean.attributes['ignoreDupResponses'].value}"
+	                                 name="#{a4jAttachQueueBean.attributes['name'].value}"
+	                                 onrequestdequeue="#{a4jAttachQueueBean.attributes['onrequestdequeue'].value}"
+	                                 onrequestqueue="#{a4jAttachQueueBean.attributes['onrequestqueue'].value}"
+	                                 queueId="#{a4jAttachQueueBean.attributes['queueId'].value}"
+	                                 rendered="#{a4jAttachQueueBean.attributes['rendered'].value}"
+	                                 requestDelay="#{a4jAttachQueueBean.attributes['requestDelay'].value}"
+	                                 requestGroupingId="#{a4jAttachQueueBean.attributes['requestGroupingId'].value}"
+	                                 timeout="#{a4jAttachQueueBean.attributes['timeout'].value}"/>
+	
+	                <h:inputText id="input1" value="#{a4jAttachQueueBean.text1}" onkeyup="add(#{rich:element('events')}); refresh(#{rich:element('eventTime:outputTime')});"/>
+	                <h:inputText id="input2" value="#{a4jAttachQueueBean.text2}" onkeyup="add(#{rich:element('events')}); refresh(#{rich:element('eventTime:outputTime')});"/>
+	            </a4j:ajax>
+            
+            </fieldset>
 
             <h:panelGrid columns="2">
                 Output 1:
@@ -98,8 +104,16 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                 Difference time:
                 <h:outputText value="" id="differenceTime" />
             </h:panelGrid>
-
+			
+			<h:panelGrid columns="1">
+                <metamer:clientTime id="eventTime" label="Event Time:" />
+                <metamer:clientTime id="beginTime" label="Begin Time:" />
+                <metamer:clientTime id="completeTime" label="Complete Time:" />
+            </h:panelGrid>
+            
         </ui:define>
+        
+        
 
         <ui:define name="outOfTemplateAfter">
             Attributes for wrapping attach queue

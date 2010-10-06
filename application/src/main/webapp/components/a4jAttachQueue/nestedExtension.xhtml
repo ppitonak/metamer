@@ -67,52 +67,69 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                        requestDelay="#{a4jQueueBean.attributes['requestDelay'].value}" status="status1"
                        timeout="#{a4jQueueBean.attributes['timeout'].value}" />
 
-            <a4j:ajax event="click" execute="@form"
-                      onbegin="add(#{rich:element('requests')}); refresh(#{rich:element('beginTime:outputTime')}); "
-                      onbeforedomupdate="add(#{rich:element('updates')});"
-                      oncomplete="refresh(#{rich:element('completeTime:outputTime')}); updateDifferenceTime(); ">
-
-                <a4j:attachQueue id="a4jAttachQueue1"
-                                 ignoreDupResponses="#{a4jAttachQueueBean.attributes['ignoreDupResponses'].value}"
-                                 name="#{a4jAttachQueueBean.attributes['name'].value}"
-                                 onrequestdequeue="#{a4jAttachQueueBean.attributes['onrequestdequeue'].value}"
-                                 onrequestqueue="#{a4jAttachQueueBean.attributes['onrequestqueue'].value}"
-                                 queueId="#{a4jAttachQueueBean.attributes['queueId'].value}"
-                                 rendered="#{a4jAttachQueueBean.attributes['rendered'].value}"
-                                 requestDelay="#{a4jAttachQueueBean.attributes['requestDelay'].value}"
-                                 requestGroupingId="#{a4jAttachQueueBean.attributes['requestGroupingId'].value}"
-                                 timeout="#{a4jAttachQueueBean.attributes['timeout'].value}" />
-
-                <h:inputText id="input1" value="#{a4jAttachQueueBean.text1}"
-                             onclick="add(#{rich:element('events1')}); refresh(#{rich:element('eventTime1:outputTime')}); " />
-                <a4j:commandButton
-                    onclick="add(#{rich:element('events1')}); refresh(#{rich:element('eventTime1:outputTime')}); "
-                    id="a4jCommandButton1" value="First button" />
-
-                <a4j:ajax event="valueChange" render="output2" execute="@form"
-                          onbegin="add(#{rich:element('requests')}); refresh(#{rich:element('beginTime:outputTime')}); "
-                          onbeforedomupdate="add(#{rich:element('updates')});"
-                          oncomplete="refresh(#{rich:element('completeTime:outputTime')}); updateDifferenceTime();">
-
-                    <h:inputText id="input2" value="#{a4jAttachQueueBean.text2}"
-                                 onkeyup="add(#{rich:element('events2')}); refresh(#{rich:element('eventTime2:outputTime')}); " />
-                    <a4j:commandButton id="a4jCommandButton2" value="First button" />
-
-                    <a4j:attachQueue id="a4jAttachQueue2"
-                                     ignoreDupResponses="#{a4jAttachQueueBean.attributes2['ignoreDupResponses'].value}"
-                                     name="#{a4jAttachQueueBean.attributes2['name'].value}"
-                                     onrequestdequeue="#{a4jAttachQueueBean.attributes2['onrequestdequeue'].value}"
-                                     onrequestqueue="#{a4jAttachQueueBean.attributes2['onrequestqueue'].value}"
-                                     queueId="#{a4jAttachQueueBean.attributes2['queueId'].value}"
-                                     rendered="#{a4jAttachQueueBean.attributes2['rendered'].value}"
-                                     requestDelay="#{a4jAttachQueueBean.attributes2['requestDelay'].value}"
-                                     requestGroupingId="#{a4jAttachQueueBean.attributes2['requestGroupingId'].value}"
-                                     timeout="#{a4jAttachQueueBean.attributes2['timeout'].value}" />
-
-
-                </a4j:ajax>
-
-            </a4j:ajax>
+			<fieldset>
+				<legend>&lt;a4j:ajax event='click' ... &gt;</legend>
+				
+	            <a4j:ajax event="click" execute="@form"
+	                      onbegin="add(#{rich:element('requests')}); refresh(#{rich:element('beginTime:outputTime')}); "
+	                      onbeforedomupdate="add(#{rich:element('updates')});"
+	                      oncomplete="refresh(#{rich:element('completeTime:outputTime')}); updateDifferenceTime(); ">
+					
+					<div>&lt;a4j:attachQueue id="..1" /&gt;</div>
+					
+	                <a4j:attachQueue id="a4jAttachQueue1"
+	                                 ignoreDupResponses="#{a4jAttachQueueBean.attributes['ignoreDupResponses'].value}"
+	                                 name="#{a4jAttachQueueBean.attributes['name'].value}"
+	                                 onrequestdequeue="#{a4jAttachQueueBean.attributes['onrequestdequeue'].value}"
+	                                 onrequestqueue="#{a4jAttachQueueBean.attributes['onrequestqueue'].value}"
+	                                 queueId="#{a4jAttachQueueBean.attributes['queueId'].value}"
+	                                 rendered="#{a4jAttachQueueBean.attributes['rendered'].value}"
+	                                 requestDelay="#{a4jAttachQueueBean.attributes['requestDelay'].value}"
+	                                 requestGroupingId="#{a4jAttachQueueBean.attributes['requestGroupingId'].value}"
+	                                 timeout="#{a4jAttachQueueBean.attributes['timeout'].value}" />
+	
+	                <h:inputText id="input1" value="#{a4jAttachQueueBean.text1}"
+	                             onclick="add(#{rich:element('events1')}); refresh(#{rich:element('eventTime1:outputTime')}); " />
+	                <a4j:commandButton
+	                    onclick="add(#{rich:element('events1')}); refresh(#{rich:element('eventTime1:outputTime')}); "
+	                    id="a4jCommandButton1" value="First button" />
+					
+					<fieldset>
+						<legend>&lt;a4j:ajax event='valueChange' ... &gt;</legend>
+						
+		                <a4j:ajax event="valueChange" render="output2" execute="@form"
+		                          onbegin="add(#{rich:element('requests')}); refresh(#{rich:element('beginTime:outputTime')}); "
+		                          onbeforedomupdate="add(#{rich:element('updates')});"
+		                          oncomplete="refresh(#{rich:element('completeTime:outputTime')}); updateDifferenceTime();">
+		
+		                    <h:inputText id="input2" value="#{a4jAttachQueueBean.text2}"
+		               			onclick="add(#{rich:element('events1')}); refresh(#{rich:element('eventTime1:outputTime')}); "
+		                       	onchange="add(#{rich:element('events2')}); refresh(#{rich:element('eventTime2:outputTime')}); " />
+		                    <a4j:commandButton
+		                    	id="a4jCommandButton2" value="First button"
+		                    	onclick="add(#{rich:element('events1')}); refresh(#{rich:element('eventTime1:outputTime')}); " />
+							
+							<div>&lt;a4j:attachQueue id="..2" /&gt;</div>
+							
+		                    <a4j:attachQueue id="a4jAttachQueue2"
+		                                     ignoreDupResponses="#{a4jAttachQueueBean.attributes2['ignoreDupResponses'].value}"
+		                                     name="#{a4jAttachQueueBean.attributes2['name'].value}"
+		                                     onrequestdequeue="#{a4jAttachQueueBean.attributes2['onrequestdequeue'].value}"
+		                                     onrequestqueue="#{a4jAttachQueueBean.attributes2['onrequestqueue'].value}"
+		                                     queueId="#{a4jAttachQueueBean.attributes2['queueId'].value}"
+		                                     rendered="#{a4jAttachQueueBean.attributes2['rendered'].value}"
+		                                     requestDelay="#{a4jAttachQueueBean.attributes2['requestDelay'].value}"
+		                                     requestGroupingId="#{a4jAttachQueueBean.attributes2['requestGroupingId'].value}"
+		                                     timeout="#{a4jAttachQueueBean.attributes2['timeout'].value}" />
+		
+		
+		                </a4j:ajax>
+	                
+	                </fieldset>
+	
+	            </a4j:ajax>
+            
+            </fieldset>
 
             <h:panelGrid columns="2">
                 Output 1:
