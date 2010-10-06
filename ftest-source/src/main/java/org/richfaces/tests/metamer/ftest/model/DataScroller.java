@@ -43,17 +43,17 @@ public class DataScroller extends AbstractModel<JQueryLocator> {
 
     protected AjaxSelenium selenium = AjaxSeleniumProxy.getInstance();
 
-    ReferencedLocator<JQueryLocator> numberedPages = ref(root, "> .rf-ds-dtl");
-    ReferencedLocator<JQueryLocator> specificNumberedPage = ref(root, "> .rf-ds-dtl:textEquals('{0}')");
+    ReferencedLocator<JQueryLocator> numberedPages = ref(root, "> .rf-ds-nmb-btn");
+    ReferencedLocator<JQueryLocator> specificNumberedPage = ref(root, "> .rf-ds-nmb-btn:textEquals('{0}')");
 
-    ReferencedLocator<JQueryLocator> firstPageButton = ref(root, "> .rf-ds-l[id$=ds_f]");
-    ReferencedLocator<JQueryLocator> fastRewindButton = ref(root, "> .rf-ds-l[id$=ds_fr]");
-    ReferencedLocator<JQueryLocator> fastForwardButton = ref(root, "> .rf-ds-r[id$=ds_ff]");
-    ReferencedLocator<JQueryLocator> lastPageButton = ref(root, "> .rf-ds-r[id$=ds_l]");
+    ReferencedLocator<JQueryLocator> firstPageButton = ref(root, "> .rf-ds-lft[id$=ds_f]");
+    ReferencedLocator<JQueryLocator> fastRewindButton = ref(root, "> .rf-ds-lft[id$=ds_fr]");
+    ReferencedLocator<JQueryLocator> fastForwardButton = ref(root, "> .rf-ds-rgh[id$=ds_ff]");
+    ReferencedLocator<JQueryLocator> lastPageButton = ref(root, "> .rf-ds-rgh[id$=ds_l]");
 
-    ReferencedLocator<JQueryLocator> firstVisiblePage = ref(root, "> .rf-ds-dtl:first");
-    ReferencedLocator<JQueryLocator> lastVisiblePage = ref(root, "> .rf-ds-dtl:last");
-    ReferencedLocator<JQueryLocator> currentPage = ref(root, "> .rf-ds-cur");
+    ReferencedLocator<JQueryLocator> firstVisiblePage = ref(root, "> .rf-ds-nmb-btn:first");
+    ReferencedLocator<JQueryLocator> lastVisiblePage = ref(root, "> .rf-ds-nmb-btn:last");
+    ReferencedLocator<JQueryLocator> currentPage = ref(root, "> .rf-ds-act");
 
     Integer fastStep = null;
     Integer lastPage = null;
