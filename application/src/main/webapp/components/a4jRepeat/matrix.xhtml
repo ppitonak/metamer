@@ -52,8 +52,8 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                                     <td><h:panelGroup layout="block"
                                                       styleClass="cell #{rowStatus.even ? 'row-even' : 'row-odd'} #{cellStatus.even ? 'cell-even' : 'cell-odd'}">
                                             <h:inputText id="valueInput" value="#{cell.value}" size="3">
-                                                <f:convertNumber id="valueConvertNumber" />
-                                                <a4j:ajax id="valueInputAjax" render="form:outputRows:#{rowStatus.index}:outputColumns:#{cellStatus.index}:output" />
+                                                <f:convertNumber />
+                                                <a4j:ajax render="form:outputRows:#{rowStatus.index}:outputColumns:#{cellStatus.index}:output" />
                                             </h:inputText>
                                             &nbsp;
                                             <h:commandLink id="clearLink" action="#{cell.clearValueAction}" value="C">

@@ -88,7 +88,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                                 <f:selectItem itemValue="ALL" itemLabel="all"/>
                                 <f:selectItem itemValue="FEMALE" itemLabel="female"/>
                                 <f:selectItem itemValue="MALE" itemLabel="male"/>
-                                <a4j:ajax id="columnHeaderSexAjax" render="commonGrid" execute="@this" event="change"/>
+                                <a4j:ajax render="commonGrid" execute="@this" event="change"/>
                             </h:selectOneMenu>
                         </h:panelGroup>
                     </f:facet>
@@ -108,7 +108,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                         <h:outputText id="columnHeaderNameType" value="(expression contains ignore case)" />
                         <br/>
                         <h:inputText id="columnHeaderNameInput" value="#{richDataTableBean.nameFilter}">
-                            <a4j:ajax id="columnHeaderNameAjax" render="commonGrid" execute="@this" event="change"/>
+                            <a4j:ajax render="commonGrid" execute="@this" event="change"/>
                         </h:inputText>
                     </f:facet>
 
@@ -125,7 +125,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                         <h:outputText id="columnHeaderTitleType" value="(expression equals)" />
                         <br/>
                         <h:inputText id="columnHeaderTitleInput" value="#{richDataTableBean.titleFilter}">
-                            <a4j:ajax id="columnHeaderTitleAjax" render="commonGrid" execute="@this" event="change"/>
+                            <a4j:ajax render="commonGrid" execute="@this" event="change"/>
                         </h:inputText>
                     </f:facet>
 
