@@ -30,7 +30,7 @@ import static java.lang.annotation.ElementType.*;
  * @author <a href="mailto:ppitonak@redhat.com">Lukas Fryc</a>
  * @version $Revision$
  */
-@Target({ METHOD })
+@Target({ METHOD, TYPE })
 @Retention(RetentionPolicy.RUNTIME)
 public @interface IssueTracking {
     String[] value() default "";
