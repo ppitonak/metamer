@@ -117,7 +117,7 @@ public class TestNestedAttachQueue extends AbstractMetamerTest {
         halter.waitForOpen();
         halter.complete();
 
-        queue.checkTimes(Input.SECOND, DELAY_A);
+        queue.checkTimes(Input.SECOND, DELAY_B);
         queue.checkNoDelayBetweenEvents();
     }
 
