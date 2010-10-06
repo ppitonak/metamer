@@ -95,7 +95,7 @@ public abstract class AbstractPushTest extends AbstractMetamerTest {
         }
 
         selenium.getRequestInterceptor().waitForRequestTypeChange();
-        RequestType requestDone = selenium.getRequestInterceptor().getRequestTypeDone();
+        RequestType requestDone = selenium.getRequestInterceptor().clearRequestTypeDone();
 
         assertEquals(requestDone, RequestType.XHR);
     }
