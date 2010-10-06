@@ -83,7 +83,6 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                                submittedValue="#{richInplaceInputBean.attributes['submittedValue'].value}"
                                tabIndex="#{richInplaceInputBean.attributes['tabIndex'].value}"
                                valid="#{richInplaceInputBean.attributes['valid'].value}"
-                               validator="#{richInplaceInputBean.attributes['validator'].value}"
                                validatorMessage="#{richInplaceInputBean.attributes['validatorMessage'].value}"
                                validators="#{richInplaceInputBean.attributes['validators'].value}"
                                value="#{richInplaceInputBean.attributes['value'].value}"
@@ -91,7 +90,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                                valueChangeListeners="#{richInplaceInputBean.attributes['valueChangeListeners'].value}"
                                >
 
-                <a4j:ajax id="inplaceInputAjax" event="change" render="output"/>
+                <a4j:ajax event="change" render="output"/>
 
             </rich:inplaceInput>
 
