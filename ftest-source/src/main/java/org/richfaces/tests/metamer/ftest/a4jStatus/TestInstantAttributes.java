@@ -75,7 +75,8 @@ public class TestInstantAttributes extends AbstracStatusTest {
         for (int i = 0; i < 2; i++) {
             attributes.setOnError(alert.parametrize("error" + i));
 
-            guardXhr(selenium).click(buttonError);
+            selenium.click(buttonError);
+            waitAjax.until(alertPresent);
             assertEquals(selenium.getAlert(), "error" + i);
         }
     }
@@ -85,7 +86,8 @@ public class TestInstantAttributes extends AbstracStatusTest {
         for (int i = 0; i < 2; i++) {
             attributes.setOnSuccess(alert.parametrize("success" + 1));
 
-            guardXhr(selenium).click(button1);
+            selenium.click(button1);
+            waitAjax.until(alertPresent);
             assertEquals(selenium.getAlert(), "success" + 1);
         }
     }
@@ -95,12 +97,13 @@ public class TestInstantAttributes extends AbstracStatusTest {
         for (int i = 0; i < 2; i++) {
             attributes.setOnStop(alert.parametrize("stop" + i));
 
-            guardXhr(selenium).click(button1);
+            selenium.click(button1);
+            waitAjax.until(alertPresent);
             assertEquals(selenium.getAlert(), "stop" + i);
 
-            guardXhr(selenium).click(buttonError);
+            selenium.click(buttonError);
+            waitAjax.until(alertPresent);
             assertEquals(selenium.getAlert(), "stop" + i);
         }
     }
-
 }
