@@ -15,6 +15,11 @@ import static org.testng.Assert.assertTrue;
 import static org.jboss.test.selenium.waiting.WaitFactory.waitAjax;
 import static org.jboss.test.selenium.waiting.WaitFactory.textEquals;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
+
 import org.jboss.test.selenium.framework.AjaxSelenium;
 import org.jboss.test.selenium.framework.AjaxSeleniumProxy;
 import org.jboss.test.selenium.locator.AttributeLocator;
@@ -30,8 +35,7 @@ public class QueueModel {
 
     private Boolean event2Present = null;
 
-    int deviationTotal;
-    int deviationCount;
+    List<Long> deviations = new ArrayList<Long>();
 
     LocatorReference<JQueryLocator> form = new LocatorReference<JQueryLocator>(null);
 
@@ -118,8 +122,7 @@ public class QueueModel {
     }
 
     public void initializeTimes() {
-        deviationTotal = 0;
-        deviationCount = 0;
+        deviations.clear();
         retrieveEvent1Time.initializeValue();
         retrieveBeginTime.initializeValue();
         retrieveCompleteTime.initializeValue();
@@ -142,8 +145,7 @@ public class QueueModel {
 
         checkDeviation(deviation, maxDeviation);
 
-        deviationTotal += deviation;
-        deviationCount += 1;
+        deviations.add(deviation);
     }
 
     public void checkNoDelayBetweenEvents() {
@@ -163,17 +165,22 @@ public class QueueModel {
             format("Deviation ({0}) is greater than maxDeviation ({1})", deviation, maxDeviation));
     }
 
-    public void checkAvgDeviation(long requestDelay) {
-        long maximumAvgDeviation = Math.max(25, Math.min(50, requestDelay / 4));
-        long averageDeviation = deviationTotal / deviationCount;
+    public void checkDeviationMedian(long requestDelay) {
+        long maximumDeviationMedian = Math.max(25, Math.min(50, requestDelay / 4));
+        long deviationMedian = getMedian(deviations);
         if (isSeleniumDebug()) {
-            System.out.println("averageDeviation: " + averageDeviation);
+            System.out.println("deviationMedian: " + deviationMedian);
         }
         assertTrue(
-            averageDeviation <= maximumAvgDeviation,
-            format(
-                "Average deviation for all tests of requestDelay ({0}) should not be greater than defined maximum {1}",
-                averageDeviation, maximumAvgDeviation));
+            deviationMedian <= maximumDeviationMedian,
+            format("Deviation median ({0}) should not be greater than defined maximum {1}", deviationMedian,
+                maximumDeviationMedian));
+    }
+
+    private <T extends Comparable<T>> T getMedian(List<T> list) {
+        List<T> listCopy = new ArrayList<T>(list);
+        Collections.sort(listCopy);
+        return listCopy.get(listCopy.size() / 2);
     }
 
     public static enum Input {

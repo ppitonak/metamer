@@ -66,7 +66,7 @@ public class TestGlobalQueue extends AbstractMetamerTest {
             queue.checkTimes(requestDelay);
         }
 
-        queue.checkAvgDeviation(requestDelay);
+        queue.checkDeviationMedian(requestDelay);
     }
 
     /**
