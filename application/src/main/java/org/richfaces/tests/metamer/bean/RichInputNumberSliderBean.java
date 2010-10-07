@@ -64,7 +64,12 @@ public class RichInputNumberSliderBean implements Serializable {
         attributes.setAttribute("showBoundaryValues", true);
         attributes.setAttribute("showInput", true);
         attributes.setAttribute("step", 1);
+        attributes.setAttribute("value", 0);
 
+        attributes.remove("converter");
+        attributes.remove("validator");
+        attributes.remove("valueChangeListener");
+        attributes.remove("valueChangeListeners");
     }
 
     public Attributes getAttributes() {
