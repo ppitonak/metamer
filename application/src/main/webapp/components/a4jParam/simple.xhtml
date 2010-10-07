@@ -43,7 +43,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 
         <ui:define name="component">
 
-            <a4j:commandButton value="Parametrized Button"  render="output" >
+            <a4j:commandButton id="button" value="Parametrized Button"  render="output" >
                 <a4j:param id="a4jParam"
                            actionListener="#{a4jParamBean.attributes.actionListener}"
                            assignTo="#{a4jParamBean.parameter}"

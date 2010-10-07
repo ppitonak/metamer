@@ -40,7 +40,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
         <ui:define name="outOfTemplateBefore">
             <br/>
             <h:outputText value="Show data in table: " />
-            <h:selectBooleanCheckbox value="#{richDataGridBean.state}">
+            <h:selectBooleanCheckbox id="noDataCheckbox" value="#{richDataGridBean.state}">
                 <a4j:ajax render="richDataGrid scroller1"/>
             </h:selectBooleanCheckbox>
             <br/><br/>
@@ -86,7 +86,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                 <h:outputText value="#{record.name}" />
                 <br/>
                 smoker:
-                <h:selectBooleanCheckbox value="#{record.smoker}">
+                <h:selectBooleanCheckbox id="smokerCheckbox" value="#{record.smoker}">
                     <a4j:ajax event="change" execute="@this"/>
                 </h:selectBooleanCheckbox>
 

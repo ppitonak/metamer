@@ -62,7 +62,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                        requestDelay="#{a4jQueueBean.attributes['requestDelay'].value}" status="status1"
                        timeout="#{a4jQueueBean.attributes['timeout'].value}" />
 
-            <h:form name="queueTestForm">
+            <h:form id="form" name="queueTestForm">
                 <h:panelGrid columns="2">
                     <h:outputText value="Type here:" />
                     <h:inputText id="input1" value="#{a4jQueueBean.text}" onkeypress="add(#{rich:element('events1')}); refresh(#{rich:element('eventTime1:outputTime')}); "

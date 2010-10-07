@@ -40,7 +40,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
         <ui:define name="outOfTemplateBefore">
             <br/>
             <h:outputText value="Show data in table: " />
-            <h:selectBooleanCheckbox value="#{hDataTableBean.state}">
+            <h:selectBooleanCheckbox id="noDataCheckbox" value="#{hDataTableBean.state}">
                 <a4j:ajax render="hDataTable scroller1"/>
             </h:selectBooleanCheckbox>
             <br/><br/>
@@ -144,7 +144,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                         <h:outputText id="columnHeaderSmokerComponent" value="h:selectBooleanCheckbox" />
                     </f:facet>
 
-                    <h:selectBooleanCheckbox value="#{record.smoker}">
+                    <h:selectBooleanCheckbox id="smokerCheckbox" value="#{record.smoker}">
                         <a4j:ajax id="ajaxSmoker" event="change"/>
                     </h:selectBooleanCheckbox>
 

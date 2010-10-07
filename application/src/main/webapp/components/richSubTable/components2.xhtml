@@ -37,51 +37,50 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
         </ui:define>
 
         <ui:define name="outOfTemplateBefore">
-            <br/>
         </ui:define>
 
         <ui:define name="component">
 
-            <rich:dataTable value="#{richSubTableBean.lists}" var="list">
+            <rich:dataTable id="dataTable" value="#{richSubTableBean.lists}" var="list">
                 <f:facet name="header">
                     <rich:columnGroup>
-                        <rich:column colspan="6">
-                            <h:outputText id="columnHeaderEmployees" value="Employees" />
+                        <rich:column id="columnHeaderEmployees" colspan="6">
+                            <h:outputText id="columnHeaderEmployeesText" value="Employees" />
                         </rich:column>
-                        <rich:column breakRowBefore="true">
-                            <h:outputText id="columnHeaderSex" value="Sex" />
+                        <rich:column id="columnHeaderSex" breakRowBefore="true">
+                            <h:outputText id="columnHeaderSexText" value="Sex" />
                             <br/>
                             <h:outputText id="columnHeaderSexComponent" value="rich:paint2D" />
                         </rich:column>
-                        <rich:column>
-                            <h:outputText id="columnHeaderName" value="Name" />
+                        <rich:column id="columnHeaderName">
+                            <h:outputText id="columnHeaderNameText" value="Name" />
                             <br/>
                             <h:outputText id="columnHeaderNameComponent" value="rich:inplaceInput" />
                         </rich:column>
-                        <rich:column>
-                            <h:outputText id="columnHeaderTitle" value="Title" />
+                        <rich:column id="columnHeaderTitle">
+                            <h:outputText id="columnHeaderTitleText" value="Title" />
                             <br/>
                             <h:outputText id="columnHeaderTitleComponent" value="rich:comboBox" />
                         </rich:column>
-                        <rich:column>
-                            <h:outputText id="columnHeaderBirthdate" value="Birthdate" />
+                        <rich:column id="columnHeaderBirthdate">
+                            <h:outputText id="columnHeaderBirthdateText" value="Birthdate" />
                             <br/>
                             <h:outputText id="columnHeaderBirthdateComponent" value="rich:calendar" />
                         </rich:column>
-                        <rich:column>
-                            <h:outputText id="columnHeaderCompanies" value="Companies" />
+                        <rich:column id="columnHeaderCompanies">
+                            <h:outputText id="columnHeaderCompaniesText" value="Companies" />
                             <br/>
                             <h:outputText id="columnHeaderCompaniesComponent" value="a4j:repeat" />
                         </rich:column>
-                        <rich:column>
-                            <h:outputText id="columnHeaderNumberOfKids" value="Number of Kids" />
+                        <rich:column id="columnHeaderNumberOfKids">
+                            <h:outputText id="columnHeaderNumberOfKidsText" value="Number of Kids" />
                             <br/>
                             <h:outputText id="columnHeaderNumberOfKidsComponent" value="rich:inputNumberSlider" />
                         </rich:column>
                     </rich:columnGroup>
                 </f:facet>
-                <rich:column colspan="6">
-                    <rich:subTableToggleControl for="richSubTable"/>
+                <rich:column id="columnTC" colspan="6">
+                    <rich:subTableToggleControl id="subTableTC" for="richSubTable"/>
                     <h:outputText value="#{list[0].sex == 'MALE' ? 'Men' : 'Women'}" />
                 </rich:column>
                 <rich:subTable id="richSubTable"
@@ -115,28 +114,28 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                                toggleListeners="#{richSubTableBean.attributes['toggleListeners'].value}"
                                value="#{list}"
                                var="item">
-                    <rich:column>
+                    <rich:column id="columnSex">
                         <h:outputText value="#{item.sex}" />
                     </rich:column>
-                    <rich:column>
+                    <rich:column id="columnName">
                         <rich:inplaceInput id="nameInput" value="#{item.name}" defaultLabel="Click here to edit">
                             <a4j:ajax event="change"/>
                         </rich:inplaceInput>
                     </rich:column>
-                    <rich:column>
+                    <rich:column id="columnTitle">
                         <h:outputText value="#{item.title}" />
                     </rich:column>
-                    <rich:column>
+                    <rich:column id="columnBirthdate">
                         <h:outputText value="#{item.birthdate}" />
                     </rich:column>
-                    <rich:column>
+                    <rich:column id="columnCompanies">
                         <ul>
                             <a4j:repeat value="#{item.companies}" var="company">
                                 <li>#{company.name}</li>
                             </a4j:repeat>
                         </ul>
                     </rich:column>
-                    <rich:column>
+                    <rich:column id="columnNumberOfKids">
                         <rich:inputNumberSlider id="numOfKidsSlider" value="#{item.numberOfKids}" maxValue="5"/>
                     </rich:column>
                     <f:facet name="footer">

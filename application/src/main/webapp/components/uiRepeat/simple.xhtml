@@ -58,12 +58,12 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                            >
                     <li>
                         <h:inputText value="#{item.text}" />
-                        <h:commandLink value="Link">
+                        <h:commandLink id="link" value="Link">
                             <f:ajax render="@form" execute="@form" />
                             <f:setPropertyActionListener target="#{uiRepeatBean.selectedDataItem}" value="#{item}" />
                         </h:commandLink>
                         &nbsp;&nbsp;
-                        <a4j:outputPanel styleClass="statuses">
+                        <a4j:outputPanel id="statusPanel" styleClass="statuses">
                             <h:outputText id="statusIndex" value="index=#{status.index}, "/>
                             <h:outputText id="statusCount" value="count=#{status.count}, "/>
                             <h:outputText id="statusFirst" value="first=#{status.first}, "/>

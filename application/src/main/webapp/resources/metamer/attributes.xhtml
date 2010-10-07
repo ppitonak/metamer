@@ -15,9 +15,9 @@
 
         <composite:implementation>
 
-            <h:outputStylesheet library="metamer/css" name="attributes.ecss" />
+            <h:outputStylesheet library="metamer/css" name="attributes.ecss" target="head" />
             
-            <a4j:jsFunction name="submitAjax" execute="#{cc.attrs.execute}" render="#{cc.attrs.render}" />
+            <a4j:jsFunction id="submitAjaxFunction" name="submitAjax" execute="#{cc.attrs.execute}" render="#{cc.attrs.render}" />
 
             <h:panelGrid id="#{cc.attrs.id}" columns="#{cc.attrs.columns * 2}" styleClass="attributes"
                          columnClasses="attributes-first-column, attributes-second-column, attributes-first-column, attributes-second-column">

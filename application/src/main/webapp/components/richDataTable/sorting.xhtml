@@ -40,7 +40,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
         <ui:define name="outOfTemplateBefore">
             <br/>
             <h:outputText value="Show data in table: " />
-            <h:selectBooleanCheckbox value="#{richDataTableBean.state}">
+            <h:selectBooleanCheckbox id="noDataCheckbox" value="#{richDataTableBean.state}">
                 <a4j:ajax render="richDataTable scroller1"/>
             </h:selectBooleanCheckbox>
             <br/><br/>
@@ -107,11 +107,11 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
         </ui:define>
 
         <ui:define name="outOfTemplateAfter">
-            <h:commandButton value="sort state">
+            <h:commandButton id="sortStatesButton" value="sort state">
                 <rich:componentControl event="click" target="richDataTable" operation="sort"/>
             </h:commandButton>
 
-            <h:commandButton value="sort capital">
+            <h:commandButton id="sortCapitalsButton" value="sort capital">
                 <rich:componentControl event="click" target="richDataTable" operation="sort">
                     <f:param value="columnCapital" />
                 </rich:componentControl>

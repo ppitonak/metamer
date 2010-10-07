@@ -42,46 +42,46 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 
         <ui:define name="component">
 
-            <rich:dataTable value="#{richSubTableBean.lists}" var="list">
+            <rich:dataTable id="dataTable" value="#{richSubTableBean.lists}" var="list">
                 <f:facet name="header">
                     <rich:columnGroup>
-                        <rich:column colspan="6">
-                            <h:outputText id="columnHeaderEmployees" value="Employees" />
+                        <rich:column id="columnHeaderEmployees" colspan="6">
+                            <h:outputText id="columnHeaderEmployeesText" value="Employees" />
                         </rich:column>
-                        <rich:column breakRowBefore="true">
-                            <h:outputText id="columnHeaderSex" value="Sex" />
+                        <rich:column id="columnHeaderSex" breakRowBefore="true">
+                            <h:outputText id="columnHeaderSexText" value="Sex" />
                             <br/>
                             <h:outputText id="columnHeaderSexComponent" value="h:graphicImage" />
                         </rich:column>
-                        <rich:column>
-                            <h:outputText id="columnHeaderName" value="Name" />
+                        <rich:column id="columnHeaderName">
+                            <h:outputText id="columnHeaderNameText" value="Name" />
                             <br/>
                             <h:outputText id="columnHeaderNameComponent" value="h:outputText" />
                         </rich:column>
-                        <rich:column>
-                            <h:outputText id="columnHeaderTitle" value="Title" />
+                        <rich:column id="columnHeaderTitle">
+                            <h:outputText id="columnHeaderTitleText" value="Title" />
                             <br/>
                             <h:outputText id="columnHeaderTitleComponent" value="rich:inplaceSelect" />
                         </rich:column>
-                        <rich:column>
-                            <h:outputText id="columnHeaderSmoker" value="Smoker" />
+                        <rich:column id="columnHeaderSmoker">
+                            <h:outputText id="columnHeaderSmokerText" value="Smoker" />
                             <br/>
                             <h:outputText id="columnHeaderSmokerComponent" value="h:selectBooleanCheckbox" />
                         </rich:column>
-                        <rich:column>
-                            <h:outputText id="columnHeaderFavoriteColor" value="Favorite Color" />
+                        <rich:column id="columnHeaderFavoriteColor">
+                            <h:outputText id="columnHeaderFavoriteColorText" value="Favorite Color" />
                             <br/>
                             <h:outputText id="columnHeaderFavoriteColorComponent" value="rich:colorPicker" />
                         </rich:column>
-                        <rich:column>
-                            <h:outputText id="columnHeaderNumberOfKids" value="Number of Kids" />
+                        <rich:column id="columnHeaderNumberOfKids">
+                            <h:outputText id="columnHeaderNumberOfKidsText" value="Number of Kids" />
                             <br/>
                             <h:outputText id="columnHeaderNumberOfKidsComponent" value="rich:inputNumberSpinner" />
                         </rich:column>
                     </rich:columnGroup>
                 </f:facet>
-                <rich:column colspan="6">
-                    <rich:subTableToggleControl for="richSubTable"/>
+                <rich:column id="columnTC" colspan="6">
+                    <rich:subTableToggleControl id="subTableTC" for="richSubTable"/>
                     <h:outputText value="#{list[0].sex == 'MALE' ? 'Men' : 'Women'}" />
                 </rich:column>
                 <rich:subTable id="richSubTable"
@@ -115,24 +115,24 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                                toggleListeners="#{richSubTableBean.attributes['toggleListeners'].value}"
                                value="#{list}"
                                var="item">
-                    <rich:column>
+                    <rich:column id="columnSex">
                         <h:graphicImage id="sex" library="images" name="#{item.sex == 'MALE' ? 'male.png' : 'female.png'}" />
                     </rich:column>
-                    <rich:column>
-                        <h:outputText value="#{item.name}" />
+                    <rich:column id="columnName">
+                        <h:outputText id="name" value="#{item.name}" />
                     </rich:column>
-                    <rich:column>
+                    <rich:column id="columnTitle">
                         <h:outputText value="#{item.title}" />
                     </rich:column>
-                    <rich:column>
+                    <rich:column id="columnSmoker">
                         <h:selectBooleanCheckbox id="smokerCheckbox" value="#{item.smoker}">
                             <a4j:ajax event="change"/>
                         </h:selectBooleanCheckbox>
                     </rich:column>
-                    <rich:column>
+                    <rich:column id="columnFavoriteColor">
                         <h:outputText value="#{item.favoriteColor}" />
                     </rich:column>
-                    <rich:column>
+                    <rich:column id="columnNumberOfKids">
                         <rich:inputNumberSpinner id="spinner" value="#{item.numberOfKids}" maxValue="5">
                             <a4j:ajax/>
                         </rich:inputNumberSpinner>
