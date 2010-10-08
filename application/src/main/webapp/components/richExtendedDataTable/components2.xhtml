@@ -34,7 +34,47 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                     <f:converter converterId="templatesListConverter" />
                 </f:viewParam>
             </f:metadata>
-            <h:outputStylesheet library="css" name="richDataTable.css"/>
+            <style type="text/css">
+                .rf-edt-c {
+                    height: 70px !important;
+                    vertical-align: middle;
+                }
+
+                .rf-edt {
+                    width: 970px !important;
+                    height: 400px !important;
+                }
+
+                .rf-edt-hdr-c  {
+                    height: 2.5em !important;
+                }
+
+                .rf-edt-c-columnSex {
+                    width: 100px !important;
+                    text-align: center;
+                }
+
+                .rf-edt-c-columnName {
+                    width: 150px !important;
+                }
+
+                .rf-edt-c-columnTitle {
+                    width: 150px !important;
+                }
+
+                .rf-edt-c-columnBirthdate {
+                    text-align: center;
+                    width: 150px !important;
+                }
+
+                .rf-edt-c-columnCompanies {
+                    width: 150px !important;
+                }
+
+                .rf-edt-c-columnNumberOfKids {
+                    width: 250px !important;
+                }
+            </style>
         </ui:define>
 
         <ui:define name="outOfTemplateBefore">
@@ -50,9 +90,13 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
         <ui:define name="component">
 
             <rich:extendedDataTable id="richEDT"
+                                    beforeselectionchange="#{richExtendedDataTableBean.attributes['beforeselectionchange'].value}"
+                                    clientFirst="#{richExtendedDataTableBean.attributes['clientFirst'].value}"
+                                    clientRows="#{richExtendedDataTableBean.attributes['clientRows'].value}"
                                     filterVar="#{richExtendedDataTableBean.attributes['filterVar'].value}"
                                     filteringListeners="#{richExtendedDataTableBean.attributes['filteringListeners'].value}"
                                     first="#{richExtendedDataTableBean.attributes['first'].value}"
+                                    frozenColumns="#{richExtendedDataTableBean.attributes['frozenColumns'].value}"
                                     iterationState="#{richExtendedDataTableBean.attributes['iterationState'].value}"
                                     iterationStatusVar="#{richExtendedDataTableBean.attributes['iterationStatusVar'].value}"
                                     keepSaved="#{richExtendedDataTableBean.attributes['keepSaved'].value}"
@@ -66,9 +110,13 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                                     rowKey="#{richExtendedDataTableBean.attributes['rowKey'].value}"
                                     rowKeyConverter="#{richExtendedDataTableBean.attributes['rowKeyConverter'].value}"
                                     rows="#{richExtendedDataTableBean.attributes['rows'].value}"
+                                    selection="#{richExtendedDataTableBean.attributes['selection'].value}"
+                                    selectionchange="#{richExtendedDataTableBean.attributes['selectionchange'].value}"
                                     sortMode="#{richExtendedDataTableBean.attributes['sortMode'].value}"
                                     sortPriority="#{richExtendedDataTableBean.attributes['sortPriority'].value}"
                                     sortingListeners="#{richExtendedDataTableBean.attributes['sortingListeners'].value}"
+                                    style="#{richExtendedDataTableBean.attributes['style'].value}"
+                                    styleClass="#{richExtendedDataTableBean.attributes['styleClass'].value}"
                                     value="#{richExtendedDataTableBean.state ? model.employees : null}"
                                     var="record"
                                     >
@@ -118,7 +166,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                     <f:facet name="header">
                         <h:outputText id="columnHeaderTitle" value="Title" />
                         <br/>
-                        <h:outputText id="columnHeaderTitleComponent" value="rich:comboBox" />
+                        <h:outputText id="columnHeaderTitleComponent" value="rich:inplaceSelect" />
                     </f:facet>
 
                     <h:outputText value="#{record.title}" />
@@ -166,7 +214,9 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                         <h:outputText id="columnHeaderNumberOfKidsComponent" value="rich:inputNumberSlider" />
                     </f:facet>
 
-                    <rich:inputNumberSlider id="numOfKidsSlider" value="#{record.numberOfKids}" maxValue="5"/>
+                    <rich:inputNumberSlider id="numOfKidsSlider" value="#{record.numberOfKids}" maxValue="5">
+                        <a4j:ajax/>
+                    </rich:inputNumberSlider>
 
                     <f:facet name="footer">
                         <h:outputText id="columnFooterNumberOfKids" value="Number of Kids" />

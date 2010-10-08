@@ -34,7 +34,43 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                     <f:converter converterId="templatesListConverter" />
                 </f:viewParam>
             </f:metadata>
-            <h:outputStylesheet library="css" name="richExtendedDataTable.css"/>
+            <style type="text/css">
+                .rf-edt-c {
+                    height: 30px !important;
+                    vertical-align: middle;
+                }
+
+                .rf-edt {
+                    width: 720px !important;
+                    height: 400px !important;
+                }
+
+                .rf-edt-hdr-c  {
+                    height: 2.5em !important;
+                }
+
+                .rf-edt-c-columnSex {
+                    width: 100px !important;
+                    text-align: center;
+                }
+
+                .rf-edt-c-columnName {
+                    width: 150px !important;
+                }
+
+                .rf-edt-c-columnSmoker {
+                    text-align: center;
+                    width: 150px !important;
+                }
+
+                .rf-edt-c-columnFavoriteColor {
+                    width: 150px !important;
+                }
+
+                .rf-edt-c-columnNumberOfKids {
+                    width: 150px !important;
+                }
+            </style>
         </ui:define>
 
         <ui:define name="outOfTemplateBefore">
@@ -50,9 +86,13 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
         <ui:define name="component">
 
             <rich:extendedDataTable id="richEDT"
+                                    beforeselectionchange="#{richExtendedDataTableBean.attributes['beforeselectionchange'].value}"
+                                    clientFirst="#{richExtendedDataTableBean.attributes['clientFirst'].value}"
+                                    clientRows="#{richExtendedDataTableBean.attributes['clientRows'].value}"
                                     filterVar="#{richExtendedDataTableBean.attributes['filterVar'].value}"
                                     filteringListeners="#{richExtendedDataTableBean.attributes['filteringListeners'].value}"
                                     first="#{richExtendedDataTableBean.attributes['first'].value}"
+                                    frozenColumns="#{richExtendedDataTableBean.attributes['frozenColumns'].value}"
                                     iterationState="#{richExtendedDataTableBean.attributes['iterationState'].value}"
                                     iterationStatusVar="#{richExtendedDataTableBean.attributes['iterationStatusVar'].value}"
                                     keepSaved="#{richExtendedDataTableBean.attributes['keepSaved'].value}"
@@ -66,9 +106,13 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                                     rowKey="#{richExtendedDataTableBean.attributes['rowKey'].value}"
                                     rowKeyConverter="#{richExtendedDataTableBean.attributes['rowKeyConverter'].value}"
                                     rows="#{richExtendedDataTableBean.attributes['rows'].value}"
+                                    selection="#{richExtendedDataTableBean.attributes['selection'].value}"
+                                    selectionchange="#{richExtendedDataTableBean.attributes['selectionchange'].value}"
                                     sortMode="#{richExtendedDataTableBean.attributes['sortMode'].value}"
                                     sortPriority="#{richExtendedDataTableBean.attributes['sortPriority'].value}"
                                     sortingListeners="#{richExtendedDataTableBean.attributes['sortingListeners'].value}"
+                                    style="#{richExtendedDataTableBean.attributes['style'].value}"
+                                    styleClass="#{richExtendedDataTableBean.attributes['styleClass'].value}"
                                     value="#{richExtendedDataTableBean.state ? model.employees : null}"
                                     var="record"
                                     >
@@ -112,19 +156,6 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                     </f:facet>
                 </rich:column>
 
-                <rich:column id="columnTitle" sortBy="#{record.title}">
-                    <f:facet name="header">
-                        <h:outputText id="columnHeaderTitle" value="Title" />
-                        <br/>
-                        <h:outputText id="columnHeaderTitleComponent" value="rich:inplaceSelect" />
-                    </f:facet>
-
-                    <h:outputText value="#{record.title}" />
-                    <f:facet name="footer">
-                        <h:outputText id="columnFooterTitle" value="Title" />
-                    </f:facet>
-                </rich:column>
-
                 <rich:column id="columnSmoker" sortBy="#{record.smoker}">
                     <f:facet name="header">
                         <h:outputText id="columnHeaderSmoker" value="Smoker" />
@@ -132,7 +163,9 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                         <h:outputText id="columnHeaderSmokerComponent" value="h:selectBooleanCheckbox" />
                     </f:facet>
 
-                    <h:selectBooleanCheckbox value="#{record.smoker}"/>
+                    <h:selectBooleanCheckbox value="#{record.smoker}">
+                        <a4j:ajax/>
+                    </h:selectBooleanCheckbox>
 
                     <f:facet name="footer">
                         <h:outputText id="columnFooterSmoker" value="Smoker" />
@@ -162,7 +195,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                     <rich:inputNumberSpinner id="spinner" value="#{record.numberOfKids}" maxValue="5">
                         <a4j:ajax/>
                     </rich:inputNumberSpinner>
-                    
+
                     <f:facet name="footer">
                         <h:outputText id="columnFooterNumberOfKids" value="Number of Kids" />
                     </f:facet>

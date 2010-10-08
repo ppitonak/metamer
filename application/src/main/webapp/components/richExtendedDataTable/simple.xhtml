@@ -34,7 +34,12 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                     <f:converter converterId="templatesListConverter" />
                 </f:viewParam>
             </f:metadata>
-            <h:outputStylesheet library="css" name="richExtendedDataTable.css"/>
+            <style type="text/css">
+                .rf-edt {
+                    width: 215px !important;
+                    height: 300px !important;
+                }
+            </style>
         </ui:define>
 
         <ui:define name="outOfTemplateBefore">
@@ -49,11 +54,13 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
         <ui:define name="component">
 
             <rich:extendedDataTable id="richEDT"
+                                    beforeselectionchange="#{richExtendedDataTableBean.attributes['beforeselectionchange'].value}"
                                     clientFirst="#{richExtendedDataTableBean.attributes['clientFirst'].value}"
                                     clientRows="#{richExtendedDataTableBean.attributes['clientRows'].value}"
                                     filterVar="#{richExtendedDataTableBean.attributes['filterVar'].value}"
                                     filteringListeners="#{richExtendedDataTableBean.attributes['filteringListeners'].value}"
                                     first="#{richExtendedDataTableBean.attributes['first'].value}"
+                                    frozenColumns="#{richExtendedDataTableBean.attributes['frozenColumns'].value}"
                                     iterationState="#{richExtendedDataTableBean.attributes['iterationState'].value}"
                                     iterationStatusVar="#{richExtendedDataTableBean.attributes['iterationStatusVar'].value}"
                                     keepSaved="#{richExtendedDataTableBean.attributes['keepSaved'].value}"
@@ -67,6 +74,8 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                                     rowKey="#{richExtendedDataTableBean.attributes['rowKey'].value}"
                                     rowKeyConverter="#{richExtendedDataTableBean.attributes['rowKeyConverter'].value}"
                                     rows="#{richExtendedDataTableBean.attributes['rows'].value}"
+                                    selection="#{richExtendedDataTableBean.attributes['selection'].value}"
+                                    selectionchange="#{richExtendedDataTableBean.attributes['selectionchange'].value}"
                                     sortMode="#{richExtendedDataTableBean.attributes['sortMode'].value}"
                                     sortPriority="#{richExtendedDataTableBean.attributes['sortPriority'].value}"
                                     sortingListeners="#{richExtendedDataTableBean.attributes['sortingListeners'].value}"
