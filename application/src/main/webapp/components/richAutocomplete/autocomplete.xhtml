@@ -46,7 +46,6 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                                clientFilter="#{richAutocompleteBean.attributes['clientFilter'].value}"
                                converterMessage="#{richAutocompleteBean.attributes['converterMessage'].value}"
                                disabled="#{richAutocompleteBean.attributes['disabled'].value}"
-                               fetchValue="#{richAutocompleteBean.attributes['fetchValue'].value}"
                                filterFunction="#{richAutocompleteBean.attributes['filterFunction'].value}"
                                immediate="#{richAutocompleteBean.attributes['immediate'].value}"
                                layout="#{richAutocompleteBean.attributes['layout'].value}"
@@ -64,10 +63,8 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                                onkeydown="#{richAutocompleteBean.attributes['onkeydown'].value}"
                                onkeypress="#{richAutocompleteBean.attributes['onkeypress'].value}"
                                onkeyup="#{richAutocompleteBean.attributes['onkeyup'].value}"
-                               onlistblur="#{richAutocompleteBean.attributes['onlistblur'].value}"
                                onlistclick="#{richAutocompleteBean.attributes['onlistclick'].value}"
                                onlistdblclick="#{richAutocompleteBean.attributes['onlistdblclick'].value}"
-                               onlistfocus="#{richAutocompleteBean.attributes['onlistfocus'].value}"
                                onlistkeydown="#{richAutocompleteBean.attributes['onlistkeydown'].value}"
                                onlistkeypress="#{richAutocompleteBean.attributes['onlistkeypress'].value}"
                                onlistkeyup="#{richAutocompleteBean.attributes['onlistkeyup'].value}"
@@ -81,6 +78,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                                onmouseout="#{richAutocompleteBean.attributes['onmouseout'].value}"
                                onmouseover="#{richAutocompleteBean.attributes['onmouseover'].value}"
                                onmouseup="#{richAutocompleteBean.attributes['onmouseup'].value}"
+                               onselectitem="#{richAutocompleteBean.attributes['onselectitem'].value}"
                                rendered="#{richAutocompleteBean.attributes['rendered'].value}"
                                required="#{richAutocompleteBean.attributes['required'].value}"
                                requiredMessage="#{richAutocompleteBean.attributes['requiredMessage'].value}"
@@ -90,22 +88,15 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                                tokens="#{richAutocompleteBean.attributes['tokens'].value}"
                                validatorMessage="#{richAutocompleteBean.attributes['validatorMessage'].value}"
                                value="#{richAutocompleteBean.attributes['value'].value}"
-                               valueChangeListener="#{richAutocompleteBean.attributes['valueChangeListener'].value}"
                                var="#{richAutocompleteBean.attributes['var'].value}"
                                >
 
-                <ui:remove>
-                    <!-- TODO enable as soon as event "select" is implemented and add it to component above -->
-                    <a4j:ajax id="autocompleteAjax" event="select" render="output"/>
-                </ui:remove>
+                <a4j:ajax event="change" render="output"/>
+
             </rich:autocomplete>
 
-            <h:commandButton id="sendButton" execute="@form" render="outputPanel,messages" value="Submit"/>
-
             <br/><br/>
-            <a4j:outputPanel id="outputPanel" layout="block">
-                Your selection: <h:outputText id="output" value="#{richAutocompleteBean.attributes['value'].value}"/>
-            </a4j:outputPanel>
+            Your selection: <h:outputText id="output" value="#{richAutocompleteBean.attributes['value'].value}"/>
 
         </ui:define>
 

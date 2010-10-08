@@ -29,7 +29,7 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
-import javax.faces.bean.ViewScoped;
+import javax.faces.bean.SessionScoped;
 import org.richfaces.component.UIAutocomplete;
 
 import org.richfaces.tests.metamer.Attributes;
@@ -45,7 +45,8 @@ import org.slf4j.LoggerFactory;
  * @version $Revision$
  */
 @ManagedBean(name = "richAutocompleteBean")
-@ViewScoped
+// cannot be view-scoped (see https://jira.jboss.org/browse/RF-9287)
+@SessionScoped
 public class RichAutocompleteBean implements Serializable {
 
     private static final long serialVersionUID = -1L;
@@ -60,11 +61,11 @@ public class RichAutocompleteBean implements Serializable {
     @PostConstruct
     public void init() {
         logger = LoggerFactory.getLogger(getClass());
-        logger.debug("initializing bean " + getClass().getName());
+        logger.error("initializing bean " + getClass().getName());
 
         attributes = Attributes.getUIComponentAttributes(UIAutocomplete.class, getClass());
         attributes.setAttribute("converterMessage", "converter message");
-        attributes.setAttribute("mode", "cachedAjax");
+        attributes.setAttribute("mode", "ajax");
         attributes.setAttribute("rendered", true);
         attributes.setAttribute("tokens", ", ");
         attributes.setAttribute("validatorMessage", "validator message");
@@ -74,6 +75,7 @@ public class RichAutocompleteBean implements Serializable {
         attributes.remove("fetchValue");
         attributes.remove("itemConverter");
         attributes.remove("validator");
+        attributes.remove("valueChangeListener");
 
         // these are hidden attributes
         attributes.remove("autocompleteList");
