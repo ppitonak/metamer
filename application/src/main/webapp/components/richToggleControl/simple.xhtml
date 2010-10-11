@@ -44,37 +44,36 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
             <h:panelGrid id="panel1Controls" columns="6">
                 panel1:
                 <h:commandLink id="tcLink11" value="Toggle Panel Item 1">
-                    <rich:toggleControl id="tc11" targetPanel="panel1" targetItem="item1" />
+                    <rich:toggleControl targetPanel="panel1" targetItem="item1" />
                 </h:commandLink>
                 <h:outputText value=" | " />
                 <h:commandLink id="tcLink12" value="Toggle Panel Item 2">
-                    <rich:toggleControl id="tc12" targetPanel="panel1" targetItem="item2" />
+                    <rich:toggleControl targetPanel="panel1" targetItem="item2" />
                 </h:commandLink>
                 <h:outputText value=" | " />
                 <h:commandLink id="tcLink13" value="Toggle Panel Item 3">
-                    <rich:toggleControl id="tc13" targetPanel="panel1" targetItem="item3" />
+                    <rich:toggleControl targetPanel="panel1" targetItem="item3" />
                 </h:commandLink>
             </h:panelGrid>
 
             <h:panelGrid id="panel2Controls" columns="6">
                 panel2:
                 <h:commandLink id="tcLink21" value="Toggle Panel Item 1">
-                    <rich:toggleControl id="tc21" targetPanel="panel2" targetItem="item1" />
+                    <rich:toggleControl targetPanel="panel2" targetItem="item1" />
                 </h:commandLink>
                 <h:outputText value=" | " />
                 <h:commandLink id="tcLink22" value="Toggle Panel Item 2">
-                    <rich:toggleControl id="tc22" targetPanel="panel2" targetItem="item2" />
+                    <rich:toggleControl targetPanel="panel2" targetItem="item2" />
                 </h:commandLink>
                 <h:outputText value=" | " />
                 <h:commandLink id="tcLink23" value="Toggle Panel Item 3">
-                    <rich:toggleControl id="tc23" targetPanel="panel2" targetItem="item3" />
+                    <rich:toggleControl targetPanel="panel2" targetItem="item3" />
                 </h:commandLink>
             </h:panelGrid>
 
             universal toggle control (settings below)
             <h:commandLink id="toggleControlLink" value="Toggle Panel Item">
-                <rich:toggleControl id="richToggleControl"
-                                    targetPanel="#{richToggleControlBean.attributes['targetPanel'].value}"
+                <rich:toggleControl targetPanel="#{richToggleControlBean.attributes['targetPanel'].value}"
                                     targetItem="#{richToggleControlBean.attributes['targetItem'].value}"
                                     />
             </h:commandLink>
