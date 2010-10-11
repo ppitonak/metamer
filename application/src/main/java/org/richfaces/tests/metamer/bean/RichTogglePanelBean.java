@@ -58,6 +58,10 @@ public class RichTogglePanelBean implements Serializable {
 
         attributes.setAttribute("activeItem", "item1");
         attributes.setAttribute("rendered", true);
+
+        // TODO has to be tested in another way
+        attributes.remove("itemChangeListener");
+        attributes.remove("itemChangeListeners");
     }
 
     public Attributes getAttributes() {

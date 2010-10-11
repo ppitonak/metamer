@@ -64,6 +64,7 @@ public class RichInputNumberSpinnerBean implements Serializable {
 
         // TODO has to be tested in another way
         attributes.remove("validator");
+        attributes.remove("valueChangeListener");
     }
 
     public Attributes getAttributes() {
