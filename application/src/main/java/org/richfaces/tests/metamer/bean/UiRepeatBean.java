@@ -70,7 +70,7 @@ public class UiRepeatBean implements Serializable {
         }
 
         // initialize attributes
-        attributes = Attributes.getUIComponentAttributes(com.sun.faces.facelets.component.UIRepeat.class, getClass());
+        attributes = Attributes.getFaceletsComponentAttributes("org.apache.myfaces.view.facelets.component.UIRepeat", getClass());
         attributes.setAttribute("rendered", true);
         attributes.setAttribute("step", 1);
         attributes.setAttribute("end", 20);

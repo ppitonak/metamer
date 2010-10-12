@@ -63,7 +63,7 @@ import org.slf4j.LoggerFactory;
 public final class Attributes implements Map<String, Attribute>, Serializable {
 
     private static final long serialVersionUID = -1L;
-    private Logger logger;
+    private static Logger logger = LoggerFactory.getLogger(Attributes.class);
     // K - name of a component attribute, V - value of the component attribute
     private Map<String, Attribute> attributes;
     // class object of managed bean
@@ -78,7 +78,6 @@ public final class Attributes implements Map<String, Attribute>, Serializable {
      *            class object of a managed bean
      */
     private Attributes(Class<?> componentClass, Class<?> beanClass) {
-        logger = LoggerFactory.getLogger(Attributes.class);
         logger.debug("creating attributes map for " + componentClass);
 
         this.beanClass = beanClass;
@@ -113,7 +112,7 @@ public final class Attributes implements Map<String, Attribute>, Serializable {
     }
 
     /**
-     * Constructor for class Attributes.
+     * Factory method for creating instances of class Attributes.
      * 
      * @param componentClass
      *            class object of a JSF component whose attributes will be stored
@@ -125,7 +124,7 @@ public final class Attributes implements Map<String, Attribute>, Serializable {
     }
 
     /**
-     * Constructor for class Attributes.
+     * Factory method for creating instances of class Attributes.
      * 
      * @param behaviorClass
      *            class object of a JSF behavior whose attributes will be stored
@@ -134,6 +133,34 @@ public final class Attributes implements Map<String, Attribute>, Serializable {
      */
     public static Attributes getBehaviorAttributes(Class<? extends BehaviorBase> behaviorClass, Class<?> beanClass) {
         return new Attributes(behaviorClass, beanClass);
+    }
+
+    /**
+     * Factory method for creating instances of class Attributes.
+     *
+     * @param behaviorClass
+     *            class object of a JSF behavior whose attributes will be stored
+     * @param beanClass
+     *            class object of a managed bean
+     */
+    public static Attributes getFaceletsComponentAttributes(String componentClass, Class<?> beanClass) {
+        Class<?> faceletsClass = null;
+
+        try {
+            faceletsClass = Class.forName(componentClass);
+        } catch (ClassNotFoundException cnfe1) {
+            try {
+                if (componentClass.startsWith("com.sun.faces.facelets")) {
+                    faceletsClass = Class.forName(componentClass.replace("com.sun.faces.facelets", "org.apache.myfaces.view.facelets"));
+                } else {
+                    faceletsClass = Class.forName(componentClass.replace("org.apache.myfaces.view.facelets", "com.sun.faces.facelets"));
+                }
+            } catch (ClassNotFoundException cnfe2) {
+                logger.error(cnfe2.getMessage());
+            }
+        }
+
+        return new Attributes(faceletsClass, beanClass);
     }
 
     /**
