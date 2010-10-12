@@ -58,15 +58,15 @@ public class RichDataTableBean implements Serializable {
     private int page = 1;
     // true = model, false = empty table
     private boolean state = true;
-    
     // sorting
     private SortOrder capitalsOrder = SortOrder.unsorted;
     private SortOrder statesOrder = SortOrder.unsorted;
-    
     // filtering
     private String sexFilter;
     private String nameFilter;
     private String titleFilter;
+    private int kidsFilter;
+    private int kidsFilter2;
 
     /**
      * Initializes the managed bean.
@@ -179,6 +179,22 @@ public class RichDataTableBean implements Serializable {
         this.titleFilter = titleFilter;
     }
 
+    public int getKidsFilter() {
+        return kidsFilter;
+    }
+
+    public void setKidsFilter(int kidsFilter) {
+        this.kidsFilter = kidsFilter;
+    }
+
+    public int getKidsFilter2() {
+        return kidsFilter2;
+    }
+
+    public void setKidsFilter2(int kidsFilter2) {
+        this.kidsFilter2 = kidsFilter2;
+    }
+
     public void sortByCapitals() {
         statesOrder = SortOrder.unsorted;
         if (capitalsOrder.equals(SortOrder.ascending)) {
@@ -196,13 +212,26 @@ public class RichDataTableBean implements Serializable {
             setStatesOrder(SortOrder.ascending);
         }
     }
-    
+
     public Filter<?> getFilterSexImpl() {
         return new Filter<Employee>() {
 
             public boolean accept(Employee e) {
                 String sex = getSexFilter();
                 if (sex == null || sex.length() == 0 || sex.equalsIgnoreCase("all") || sex.equalsIgnoreCase(e.getSex().toString())) {
+                    return true;
+                }
+                return false;
+            }
+        };
+    }
+
+    public Filter<?> getFilterKidsImpl() {
+        return new Filter<Employee>() {
+
+            public boolean accept(Employee e) {
+                int kids = getKidsFilter();
+                if (e.getNumberOfKids() >= kids) {
                     return true;
                 }
                 return false;

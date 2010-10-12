@@ -135,13 +135,15 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                     </f:facet>
                 </rich:column>
 
-                <rich:column id="columnNumberOfKids">
+                <rich:column id="columnNumberOfKids" filter="#{richDataTableBean.filterKidsImpl}">
                     <f:facet name="header">
                         <h:outputText id="columnHeaderNumberOfKids" value="Number of Kids" />
                         <br/>
                         <h:outputText id="columnHeaderNumberOfKidsType" value="(expression &gt;=)" />
                         <br/>
-                        <h:inputText id="columnHeaderNumberOfKidsInput" value="TODO inputNumberSpinner"/>
+                        <rich:inputNumberSpinner id="columnHeaderNumberOfKidsInput" value="#{richDataTableBean.kidsFilter}" minValue="0" maxValue="5" cycled="true">
+                            <a4j:ajax render="commonGrid" execute="@this"/>
+                        </rich:inputNumberSpinner>
                     </f:facet>
 
                     <h:outputText value="#{record.numberOfKids}" />
@@ -156,7 +158,9 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                         <br/>
                         <h:outputText id="columnHeaderNumberOfKids2Type" value="(expression &lt;)" />
                         <br/>
-                        <h:inputText id="columnHeaderNumberOfKids2Input" value="TODO inputNumberSlider"/>
+                        <rich:inputNumberSlider id="columnHeaderNumberOfKids2Input" value="#{richDataTableBean.kidsFilter2}" minValue="0" maxValue="5" showInput="false">
+                            <a4j:ajax render="commonGrid" execute="@this"/>
+                        </rich:inputNumberSlider>
                     </f:facet>
 
                     <h:outputText value="#{record.numberOfKids}" />
