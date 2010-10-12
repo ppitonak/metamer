@@ -32,14 +32,14 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
             <h:form id="controlsForm">
                 <h:panelGrid columns="3">
                     <h:link id="goHomeLink" outcome="/index">
-                        <h:graphicImage id="goHomeImage" library="images" name="home.png" title="Go Home" style="width: 36px;" />
+                        <h:graphicImage id="goHomeImage" library="images" name="home.png" title="Go Home" style="width: 36px;" alt="Go Home" />
                     </h:link>
                     <h:link id="goToListLink" outcome="list">
                         <h:graphicImage id="goToListImage" library="images" name="back.png" title="Go to List of Pages"
-                                        style="width: 36px;" />
+                                        style="width: 36px;" alt="Go to List of Pages"/>
                     </h:link>
                     <h:graphicImage id="reRenderAllImage" library="images" name="refresh.png" title="Rerender All"
-                                    style="width: 36px;">
+                                    style="width: 36px;" alt="Rerender All">
                         <a4j:ajax event="click" render="commonGrid" />
                     </h:graphicImage>
                 </h:panelGrid>
