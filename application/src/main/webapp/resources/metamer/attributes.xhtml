@@ -23,7 +23,7 @@
                          columnClasses="attributes-first-column, attributes-second-column, attributes-first-column, attributes-second-column">
                 <c:forEach items="#{cc.attrs.value}" var="entry">
                     <h:panelGroup layout="block">
-                        <h:outputLabel id="#{entry.key}Label" value="#{entry.key}" style="margin-right: 5px;" />
+                        <h:outputLabel id="#{entry.key}Label" value="#{entry.key}" style="margin-right: 5px;" for="#{entry.key}Input"/>
                         <h:graphicImage value="/resources/images/help.png" title="#{entry.value.help}"
                                         rendered="#{entry.value.help != null}" height="28px;"
                                         style="vertical-align: middle;" styleClass="attribute-help" >
