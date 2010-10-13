@@ -330,6 +330,12 @@
             </properties>
         </profile>
         <profile>
+            <id>tomcat6x-mojarra_2_1_0</id>
+            <properties>
+                <deployable.classifier>mojarra_2_1_0</deployable.classifier>
+            </properties>
+        </profile>
+        <profile>
             <id>tomcat6x-myfaces</id>
             <properties>
                 <deployable.classifier>myfaces</deployable.classifier>
@@ -343,6 +349,12 @@
             </properties>
         </profile>
         <profile>
+            <id>jboss6x-mojarra_2_1_0</id>
+            <properties>
+                <deployable.classifier>mojarra_2_1_0</deployable.classifier>
+            </properties>
+        </profile>
+        <profile>
             <id>jboss6x-myfaces</id>
             <properties>
                 <deployable.classifier>myfaces</deployable.classifier>
@@ -353,6 +365,12 @@
             <properties>
                 <deployable.classifier>jee6</deployable.classifier>
                 <jsf.config>Mojarra-2.0</jsf.config>
+            </properties>
+        </profile>
+        <profile>
+            <id>jboss6x-snapshot-mojarra_2_1_0</id>
+            <properties>
+                <deployable.classifier>mojarra_2_1_0</deployable.classifier>
             </properties>
         </profile>
         <profile>
