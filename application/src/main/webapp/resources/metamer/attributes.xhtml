@@ -32,7 +32,11 @@
 
                     <c:choose>
                         <c:when test="#{entry.value.boolean}">
-                            <h:selectBooleanCheckbox id="#{entry.key}Input" value="#{entry.value.value}" onchange="#{cc.attrs.type == 'server' ? 'submit()' : 'submitAjax()'}" />
+                            <h:selectOneRadio id="#{entry.key}Input" value="#{entry.value.value}" onchange="#{cc.attrs.type == 'server' ? 'submit()' : 'submitAjax()'}">
+                                <f:selectItem itemValue="null" itemLabel="null"/>
+                                <f:selectItem itemValue="true" itemLabel="true"/>
+                                <f:selectItem itemValue="false" itemLabel="false"/>
+                            </h:selectOneRadio>
                         </c:when>
 
                         <c:when test="#{entry.value.selectOptions != null}">
