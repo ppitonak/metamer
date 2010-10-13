@@ -405,6 +405,32 @@
                 </plugins>
             </build>
         </profile>
+        <profile>
+			<id>myfaces-development</id>
+			<dependencies>
+				<dependency>
+					<groupId>com.sun.faces</groupId>
+					<artifactId>jsf-api</artifactId>
+					<scope>provided</scope>
+				</dependency>
+				<dependency>
+					<groupId>com.sun.faces</groupId>
+					<artifactId>jsf-impl</artifactId>
+					<scope>provided</scope>
+				</dependency>
+		
+				<dependency>
+					<groupId>org.apache.myfaces.core</groupId>
+					<artifactId>myfaces-api</artifactId>
+					<scope>runtime</scope>
+				</dependency>
+				<dependency>
+					<groupId>org.apache.myfaces.core</groupId>
+					<artifactId>myfaces-impl</artifactId>
+					<scope>runtime</scope>
+				</dependency>
+			</dependencies>
+		</profile>
     </profiles>
 </project>
 
