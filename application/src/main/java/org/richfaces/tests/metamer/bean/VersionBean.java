@@ -21,16 +21,9 @@
  *******************************************************************************/
 package org.richfaces.tests.metamer.bean;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.InvocationTargetException;
-import java.net.URL;
-import java.security.CodeSource;
 import java.util.Properties;
-import java.util.jar.JarInputStream;
-import java.util.jar.Manifest;
 import javax.annotation.PostConstruct;
 import javax.faces.application.ProjectStage;
 import javax.faces.bean.ApplicationScoped;
@@ -54,6 +47,7 @@ import org.richfaces.log.Logger;
 public final class VersionBean {
 
     private static final Logger LOGGER = RichfacesLogger.APPLICATION.getLogger();
+    private static final String UNKNOWN_JSF = "Unknown version of JSF";
     private String implementationVendor;
     private String implementationVersion;
     private String implementationTitle;
@@ -163,41 +157,27 @@ public final class VersionBean {
     }
 
     public String getJsfVersion() {
+        
+        
         if (jsfVersion != null) {
             return jsfVersion;
         }
-
+        
         FacesContext facesContext = FacesContext.getCurrentInstance();
+        
         if (facesContext == null) {
-            return null;
+            return UNKNOWN_JSF;
         }
+        
+        jsfVersion = UNKNOWN_JSF;
 
         Class<?> applicationClass = facesContext.getApplication().getClass();
-        JarInputStream jarInputStream = null;
-
-        try {
-            CodeSource codeSource = applicationClass.getProtectionDomain().getCodeSource();
-            URL url = codeSource.getLocation();
-            File file = new File(url.getFile());
-            jarInputStream = new JarInputStream(new FileInputStream(file));
-            Manifest manifest = jarInputStream.getManifest();
-
-            if (manifest != null && manifest.getMainAttributes() != null) {
-                jsfVersion = manifest.getMainAttributes().getValue("Implementation-Title");
-                jsfVersion += " ";
-                jsfVersion += manifest.getMainAttributes().getValue("Implementation-Version");
-            } else {
-                jsfVersion = "Unknown version of JSF";
-            }
-        } catch (Exception e) {
-            LOGGER.error(e);
-        } finally {
-            if (jarInputStream != null) {
-                try {
-                    jarInputStream.close();
-                } catch (IOException e) {
-                    LOGGER.error(e);
-                }
+        Package pack = applicationClass.getPackage();
+        
+        if (pack.getImplementationTitle() != null) {
+            jsfVersion = pack.getImplementationTitle();
+            if (pack.getImplementationVersion() != null) {
+                jsfVersion += " " + pack.getImplementationVersion();
             }
         }
 
