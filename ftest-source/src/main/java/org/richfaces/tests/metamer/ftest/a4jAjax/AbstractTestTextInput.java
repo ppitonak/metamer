@@ -63,7 +63,7 @@ public abstract class AbstractTestTextInput extends AbstractMetamerTest {
         JQueryLocator time = jq("span[id$=requestTime]");
         String timeValue = selenium.getText(time);
 
-        selenium.click(pjq("input[type=checkbox][id$=bypassUpdatesInput]"));
+        selenium.click(pjq("input[type=radio][name$=bypassUpdatesInput][value=true]"));
         selenium.waitForPageToLoad();
 
         typeToInput(input, "RichFaces 4");
@@ -95,7 +95,7 @@ public abstract class AbstractTestTextInput extends AbstractMetamerTest {
         JQueryLocator time = jq("span[id$=requestTime]");
         String timeValue = selenium.getText(time);
 
-        selenium.click(pjq("input[type=checkbox][id$=immediateInput]"));
+        selenium.click(pjq("input[type=radio][name$=immediateInput][value=true]"));
         selenium.waitForPageToLoad();
 
         typeToInput(input, "RichFaces 4");
@@ -110,9 +110,9 @@ public abstract class AbstractTestTextInput extends AbstractMetamerTest {
         JQueryLocator time = jq("span[id$=requestTime]");
         String timeValue = selenium.getText(time);
 
-        selenium.click(pjq("input[type=checkbox][id$=bypassUpdatesInput]"));
+        selenium.click(pjq("input[type=radio][name$=bypassUpdatesInput][value=true]"));
         selenium.waitForPageToLoad();
-        selenium.click(pjq("input[type=checkbox][id$=immediateInput]"));
+        selenium.click(pjq("input[type=radio][name$=immediateInput][value=true]"));
         selenium.waitForPageToLoad();
 
         typeToInput(input, "RichFaces 4");
@@ -123,7 +123,7 @@ public abstract class AbstractTestTextInput extends AbstractMetamerTest {
     }
 
     public void testLimitRender(JQueryLocator input) {
-        selenium.click(pjq("input[type=checkbox][id$=limitRenderInput]"));
+        selenium.click(pjq("input[type=radio][name$=limitRenderInput][value=true]"));
         selenium.waitForPageToLoad();
 
         JQueryLocator time = jq("span[id$=requestTime]");

@@ -25,10 +25,8 @@ import java.io.IOException;
 import java.net.URL;
 
 import org.apache.commons.httpclient.HttpException;
-import org.jboss.test.selenium.dom.Event;
 import org.jboss.test.selenium.locator.Attribute;
 import org.jboss.test.selenium.locator.AttributeLocator;
-import org.jboss.test.selenium.locator.IdLocator;
 import org.jboss.test.selenium.locator.JQueryLocator;
 import org.richfaces.tests.metamer.ftest.AbstractMetamerTest;
 import org.richfaces.tests.metamer.ftest.annotations.Inject;
@@ -38,11 +36,9 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import static org.jboss.test.selenium.utils.URLUtils.buildUrl;
-import static org.jboss.test.selenium.locator.LocatorFactory.*;
 import static org.testng.Assert.*;
 import static org.jboss.test.selenium.utils.text.SimplifiedFormat.format;
 import static org.jboss.test.selenium.utils.PrimitiveUtils.*;
-import static org.jboss.test.selenium.guard.request.RequestTypeGuardFactory.*;
 
 /**
  * Tests the a4j:poll component.

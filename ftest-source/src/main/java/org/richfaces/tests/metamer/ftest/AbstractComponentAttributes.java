@@ -35,8 +35,6 @@ import org.jboss.test.selenium.locator.reference.ReferencedLocator;
 import static org.jboss.test.selenium.guard.request.RequestTypeGuardFactory.guardHttp;
 import static org.richfaces.tests.metamer.ftest.AbstractMetamerTest.pjq;
 import static org.jboss.test.selenium.locator.reference.ReferencedLocator.referenceInferred;
-import static org.jboss.test.selenium.waiting.WaitFactory.waitGui;
-import static org.jboss.test.selenium.waiting.WaitFactory.elementPresent;
 
 /**
  * @author <a href="mailto:lfryc@redhat.com">Lukas Fryc</a>
@@ -45,10 +43,9 @@ import static org.jboss.test.selenium.waiting.WaitFactory.elementPresent;
 public class AbstractComponentAttributes {
 
     protected AjaxSelenium selenium = AjaxSeleniumProxy.getInstance();
-
     LocatorReference<ExtendedLocator<JQueryLocator>> root = new LocatorReference<ExtendedLocator<JQueryLocator>>(
-        pjq(""));
-    ReferencedLocator<JQueryLocator> propertyLocator = referenceInferred(root, "input[id$={0}Input]");
+            pjq(""));
+    ReferencedLocator<JQueryLocator> propertyLocator = referenceInferred(root, "input[id*={0}Input]{1}");
 
     public AbstractComponentAttributes() {
     }
@@ -63,10 +60,15 @@ public class AbstractComponentAttributes {
     }
 
     protected void setProperty(String propertyName, Object value) {
-        final ElementLocator<?> locator = propertyLocator.format(propertyName);
+        ElementLocator<?> locator = propertyLocator.format(propertyName);
         final AttributeLocator<?> typeLocator = locator.getAttribute(Attribute.TYPE);
 
-        String inputType = selenium.getAttribute(typeLocator);
+        String inputType = null;
+        if (selenium.getCount(propertyLocator.format(propertyName)) > 1) {
+            inputType = "radio";
+        } else {
+            inputType = selenium.getAttribute(typeLocator);
+        }
 
         if (value == null) {
             value = "";
@@ -77,8 +79,10 @@ public class AbstractComponentAttributes {
             applyText(locator, valueAsString);
         } else if ("checkbox".equals(inputType)) {
             boolean checked = Boolean.valueOf(valueAsString);
-
             applyCheckbox(locator, checked);
+        } else if ("radio".equals(inputType)) {
+            locator = propertyLocator.format(propertyName, "[value=" + ("".equals(value) ? "null" : value) + "]");
+            guardHttp(selenium).click(locator);
         }
     }
 

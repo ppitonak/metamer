@@ -104,7 +104,7 @@ public class TestA4JLog extends AbstractMetamerTest {
 
     @Test
     public void testRendered() {
-        JQueryLocator renderedInput = pjq("input[id$=renderedInput]");
+        JQueryLocator renderedInput = pjq("input[type=radio][name$=renderedInput][value=false]");
 
         selenium.click(renderedInput);
         selenium.waitForPageToLoad(TIMEOUT);

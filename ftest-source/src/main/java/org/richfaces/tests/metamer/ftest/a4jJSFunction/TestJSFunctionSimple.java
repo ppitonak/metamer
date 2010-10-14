@@ -127,7 +127,7 @@ public class TestJSFunctionSimple extends AbstractMetamerTest {
     public void testBypassUpdates() {
         String time1Value = selenium.getText(time1);
 
-        JQueryLocator input = pjq("input[type=checkbox][id$=bypassUpdatesInput]");
+        JQueryLocator input = pjq("input[type=radio][name$=bypassUpdatesInput][value=true]");
         selenium.click(input);
         selenium.waitForPageToLoad();
 
@@ -145,7 +145,7 @@ public class TestJSFunctionSimple extends AbstractMetamerTest {
     public void testImmediate() {
         String time1Value = selenium.getText(time1);
 
-        JQueryLocator input = pjq("input[type=checkbox][id$=immediateInput]");
+        JQueryLocator input = pjq("input[type=radio][name$=immediateInput][value=true]");
         selenium.click(input);
         selenium.waitForPageToLoad();
 
@@ -158,7 +158,7 @@ public class TestJSFunctionSimple extends AbstractMetamerTest {
     @Test
     public void testLimitRender() {
         // set limitRender=true
-        JQueryLocator limitRenderInput = pjq("input[type=checkbox][id$=limitRenderInput]");
+        JQueryLocator limitRenderInput = pjq("input[type=radio][name$=limitRenderInput][value=true]");
         selenium.click(limitRenderInput);
         selenium.waitForPageToLoad();
 
@@ -233,7 +233,7 @@ public class TestJSFunctionSimple extends AbstractMetamerTest {
 
     @Test
     public void testRendered() {
-        selenium.click(pjq("input[type=checkbox][id$=renderedInput]"));
+        selenium.click(pjq("input[type=radio][name$=renderedInput][value=false]"));
         selenium.waitForPageToLoad();
 
         // get all values

@@ -157,10 +157,10 @@ public class TestA4JCommandLink extends AbstractMetamerTest {
 
     @Test
     public void testDisabled() {
-        JQueryLocator disabledChecbox = pjq("input[id$=disabledInput]");
+        JQueryLocator disabledCheckbox = pjq("input[type=radio][name$=disabledInput][value=true]");
         JQueryLocator newLink = pjq("span[id$=a4jCommandLink]");
 
-        selenium.click(disabledChecbox);
+        selenium.click(disabledCheckbox);
         selenium.waitForPageToLoad(TIMEOUT);
 
         assertFalse(selenium.isElementPresent(link), link.getAsString()

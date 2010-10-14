@@ -76,7 +76,7 @@ public class TestSimple extends AbstractMetamerTest {
 
     @Test
     public void testRenderedAttribute() {
-        attributes.setRendered(false);
+        attributes.setRendered("false");
         assertEquals(model.isRendered(), false);
     }
 

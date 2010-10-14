@@ -130,7 +130,7 @@ public class TestRichAccordion extends AbstractMetamerTest {
 
     @Test
     public void testBypassUpdates() {
-        JQueryLocator input = pjq("input[type=checkbox][id$=bypassUpdatesInput]");
+        JQueryLocator input = pjq("input[type=radio][name$=bypassUpdatesInput][value=true]");
         selenium.click(input);
         selenium.waitForPageToLoad();
 
@@ -153,7 +153,7 @@ public class TestRichAccordion extends AbstractMetamerTest {
         result = selenium.getEval(new JavaScript("window.RichFaces.$('" + accordionId + "').prevItem('item1')"));
         assertEquals(result, "null", "Result of function prevItem('item1')");
 
-        JQueryLocator input = pjq("input[type=checkbox][id$=cycledSwitchingInput]");
+        JQueryLocator input = pjq("input[type=radio][name$=cycledSwitchingInput][value=true]");
         selenium.click(input);
         selenium.waitForPageToLoad();
 
@@ -209,7 +209,7 @@ public class TestRichAccordion extends AbstractMetamerTest {
 
     @Test
     public void testImmediate() {
-        JQueryLocator input = pjq("input[type=checkbox][id$=immediateInput]");
+        JQueryLocator input = pjq("input[type=radio][name$=immediateInput][value=true]");
         selenium.click(input);
         selenium.waitForPageToLoad();
 
@@ -319,7 +319,7 @@ public class TestRichAccordion extends AbstractMetamerTest {
 
     @Test
     public void testRendered() {
-        JQueryLocator input = pjq("input[type=checkbox][id$=renderedInput]");
+        JQueryLocator input = pjq("input[type=radio][name$=renderedInput][value=false]");
         selenium.click(input);
         selenium.waitForPageToLoad();
 

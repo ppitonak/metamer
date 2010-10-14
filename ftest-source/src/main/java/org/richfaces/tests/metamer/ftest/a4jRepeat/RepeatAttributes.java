@@ -42,7 +42,7 @@ public class RepeatAttributes extends AbstractComponentAttributes {
         setProperty("first", first);
     }
 
-    public void setRendered(boolean rendered) {
+    public void setRendered(String rendered) {
         setProperty("rendered", rendered);
     }
 

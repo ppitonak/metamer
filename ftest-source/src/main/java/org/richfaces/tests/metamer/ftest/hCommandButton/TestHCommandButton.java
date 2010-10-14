@@ -156,7 +156,7 @@ public class TestHCommandButton extends AbstractMetamerTest {
 
     @Test
     public void testDisabled() {
-        JQueryLocator disabledChecbox = pjq("input[id$=disabledInput]");
+        JQueryLocator disabledChecbox = pjq("input[type=radio][name$=disabledInput][value=true]");
         AttributeLocator<?> disabledAttribute = button.getAttribute(new Attribute("disabled"));
 
         selenium.click(disabledChecbox);

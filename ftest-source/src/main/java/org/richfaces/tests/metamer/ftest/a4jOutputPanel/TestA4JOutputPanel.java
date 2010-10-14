@@ -109,10 +109,10 @@ public class TestA4JOutputPanel extends AbstractMetamerTest {
 
     @Test
     public void testAjaxRendered() {
-        JQueryLocator ajaxRenderedCheckbox = pjq("input[id$=ajaxRenderedInput]");
+        JQueryLocator ajaxRenderedInput = pjq("input[type=radio][name$=ajaxRenderedInput][value=false]");
         JQueryLocator reRenderAllImage = jq("div.header img[id$=reRenderAllImage]");
 
-        selenium.click(ajaxRenderedCheckbox);
+        selenium.click(ajaxRenderedInput);
         selenium.waitForPageToLoad(TIMEOUT);
 
         selenium.click(increaseCounterButton);
@@ -198,16 +198,17 @@ public class TestA4JOutputPanel extends AbstractMetamerTest {
 
     @Test
     public void testRendered() {
-        JQueryLocator renderedInput = pjq("input[id$=renderedInput]");
+        JQueryLocator renderedInputFalse = pjq("input[type=radio][name$=renderedInput][value=false]");
+        JQueryLocator renderedInputTrue = pjq("input[type=radio][name$=renderedInput][value=true]");
 
-        selenium.click(renderedInput);
+        selenium.click(renderedInputFalse);
         selenium.waitForPageToLoad(TIMEOUT);
         assertFalse(selenium.isElementPresent(outputDiv), "Panel should not be rendered.");
 
         selenium.click(increaseCounterButton);
         selenium.click(increaseCounterButton);
 
-        selenium.click(renderedInput);
+        selenium.click(renderedInputTrue);
         selenium.waitForPageToLoad(TIMEOUT);
         assertTrue(selenium.isElementPresent(outputDiv), "Panel should be rendered.");
 

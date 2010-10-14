@@ -21,24 +21,16 @@
  *******************************************************************************/
 package org.richfaces.tests.metamer.ftest.a4jAttachQueue;
 
-import static org.jboss.test.selenium.dom.Event.KEYPRESS;
 import static org.jboss.test.selenium.utils.URLUtils.buildUrl;
-import static org.jboss.test.selenium.utils.text.SimplifiedFormat.format;
-import static org.testng.Assert.assertEquals;
-import static org.testng.Assert.assertTrue;
 
 import java.net.URL;
 
 import org.jboss.cheiron.halt.XHRHalter;
-import org.jboss.cheiron.halt.XHRState;
-import org.jboss.test.selenium.waiting.retrievers.Retriever;
 import org.richfaces.tests.metamer.ftest.AbstractMetamerTest;
 import org.richfaces.tests.metamer.ftest.a4jQueue.QueueAttributes;
 import org.richfaces.tests.metamer.ftest.a4jQueue.QueueModel;
 import org.richfaces.tests.metamer.ftest.a4jQueue.QueueModel.Input;
-import org.richfaces.tests.metamer.ftest.annotations.Inject;
 import org.richfaces.tests.metamer.ftest.annotations.IssueTracking;
-import org.richfaces.tests.metamer.ftest.annotations.Use;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
