@@ -10,7 +10,7 @@ body {
 .header .external-table {
     border-width: 0px;
     border-collapse: collapse;
-    padding-bottom: 30px;
+    border-style: dotted;
 }
 
 .header-column {
