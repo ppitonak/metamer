@@ -61,7 +61,7 @@ public class RichAutocompleteBean implements Serializable {
     @PostConstruct
     public void init() {
         logger = LoggerFactory.getLogger(getClass());
-        logger.error("initializing bean " + getClass().getName());
+        logger.debug("initializing bean " + getClass().getName());
 
         attributes = Attributes.getUIComponentAttributes(UIAutocomplete.class, getClass());
         attributes.setAttribute("converterMessage", "converter message");

@@ -19,13 +19,15 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  *******************************************************************************/
-
 package org.richfaces.tests.metamer;
 
 import java.io.Serializable;
 import java.util.List;
 
 import javax.faces.model.SelectItem;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -36,15 +38,17 @@ import org.slf4j.LoggerFactory;
  * @author <a href="mailto:ppitonak@redhat.com">Pavol Pitonak</a>
  * @version $Revision$
  */
+@XmlRootElement(name = "property", namespace = "http://java.sun.com/xml/ns/javaee")
 public class Attribute implements Serializable {
+
     private static final long serialVersionUID = -6716974687380275186L;
-    
     private Logger logger;
     private String name;
     private Object value;
     private Class<?> type;
     private String help;
     private List<SelectItem> selectOptions;
+    private Extensions extensions;
 
     public Attribute() {
         logger = LoggerFactory.getLogger(getClass());
@@ -63,6 +67,7 @@ public class Attribute implements Serializable {
         this.value = value;
     }
 
+    @XmlElement(name = "description", namespace = "http://java.sun.com/xml/ns/javaee")
     public String getHelp() {
         return help;
     }
@@ -71,12 +76,22 @@ public class Attribute implements Serializable {
         this.help = help;
     }
 
+    @XmlElement(name = "property-name", namespace = "http://java.sun.com/xml/ns/javaee")
     public String getName() {
         return name;
     }
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    @XmlElement(name = "property-extension", namespace = "http://java.sun.com/xml/ns/javaee")
+    public Extensions getExtensions() {
+        return extensions;
+    }
+
+    public void setExtensions(Extensions extensions) {
+        this.extensions = extensions;
     }
 
     public List<SelectItem> getSelectOptions() {
@@ -87,6 +102,8 @@ public class Attribute implements Serializable {
         this.selectOptions = selectOptions;
     }
 
+    @XmlElement(name = "property-class", namespace = "http://java.sun.com/xml/ns/javaee")
+    @XmlJavaTypeAdapter(value = JavaTypeAdapter.class)
     public Class<?> getType() {
         return type;
     }
@@ -97,5 +114,29 @@ public class Attribute implements Serializable {
 
     public boolean isBoolean() {
         return type == Boolean.class || type == boolean.class;
+    }
+
+    public boolean isGenerate() {
+        return extensions.getGenerate();
+    }
+
+    public boolean isHidden() {
+        return extensions.getHidden();
+    }
+
+    public boolean isLiteral() {
+        return extensions.getLiteral();
+    }
+
+    public boolean isPassThrough() {
+        return extensions.getPassThrough();
+    }
+
+    public boolean isReadOnly() {
+        return extensions.getReadOnly();
+    }
+
+    public boolean isRequired() {
+        return extensions.getRequired();
     }
 }

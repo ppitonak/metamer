@@ -24,12 +24,16 @@ package org.richfaces.tests.metamer;
 import java.beans.IntrospectionException;
 import java.beans.Introspector;
 import java.beans.PropertyDescriptor;
+import java.io.IOException;
 import java.io.Serializable;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Enumeration;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.MissingResourceException;
@@ -38,7 +42,6 @@ import java.util.Set;
 import java.util.TreeMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
 import javax.el.ELContext;
 import javax.el.ExpressionFactory;
 import javax.el.MethodExpression;
@@ -49,8 +52,12 @@ import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import javax.faces.event.AjaxBehaviorEvent;
 import javax.faces.model.SelectItem;
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+import org.richfaces.component.UIStatus;
 import org.richfaces.tests.metamer.bean.RichBean;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -68,6 +75,7 @@ public final class Attributes implements Map<String, Attribute>, Serializable {
     private Map<String, Attribute> attributes;
     // class object of managed bean
     private Class<?> beanClass;
+    private Map<Class<?>, List<Attribute>> richfacesAttributes;
 
     /**
      * Constructor for class Attributes.
@@ -77,32 +85,26 @@ public final class Attributes implements Map<String, Attribute>, Serializable {
      * @param beanClass
      *            class object of a managed bean
      */
-    private Attributes(Class<?> componentClass, Class<?> beanClass) {
+    private Attributes(Class<?> componentClass, Class<?> beanClass, boolean loadFromClass) {
         logger.debug("creating attributes map for " + componentClass);
 
         this.beanClass = beanClass;
 
-        PropertyDescriptor[] descriptors = null;
-        try {
-            descriptors = Introspector.getBeanInfo(componentClass).getPropertyDescriptors();
-        } catch (IntrospectionException e) {
-            logger.error("Could not get a list with attributes of class" + componentClass);
-            attributes = Collections.emptyMap();
-            return;
+        if (!loadFromClass && richfacesAttributes == null) {
+            loadRichFacesComponents();
         }
 
-        attributes = new TreeMap<String, Attribute>();
-        // not all attributes of given class are needed
-        Set<String> excludeSet = getExcludeSet();
-        Attribute attribute = null;
-
-        // create list of all attributes and their types
-        for (PropertyDescriptor descriptor : descriptors) {
-            if (!excludeSet.contains(descriptor.getName())) {
-                attribute = new Attribute(descriptor.getName());
-                attribute.setType(descriptor.getPropertyType());
-                attributes.put(descriptor.getName(), attribute);
+        if (!loadFromClass && richfacesAttributes.containsKey(componentClass)) {
+            logger.debug("retrieving attributes of " + componentClass.getName() + " from faces-config.xml");
+            if (attributes == null) {
+                attributes = new TreeMap<String, Attribute>();
             }
+            for (Attribute a : richfacesAttributes.get(componentClass)) {
+                attributes.put(a.getName(), a);
+            }
+        } else {
+            logger.debug("retrieving attributes of " + componentClass.getName() + " from class descriptor");
+            loadAttributesFromClass(componentClass);
         }
 
         logger.debug(attributes.keySet().toString());
@@ -120,7 +122,19 @@ public final class Attributes implements Map<String, Attribute>, Serializable {
      *            class object of a managed bean
      */
     public static Attributes getUIComponentAttributes(Class<? extends UIComponent> componentClass, Class<?> beanClass) {
-        return new Attributes(componentClass, beanClass);
+        return new Attributes(componentClass, beanClass, true);
+    }
+
+    /**
+     * Factory method for creating instances of class Attributes.
+     *
+     * @param componentClass
+     *            class object of a RichFaces component whose attributes will be stored
+     * @param beanClass
+     *            class object of a managed bean
+     */
+    public static Attributes getUIComponentAttributes(Class<? extends UIComponent> componentClass, Class<?> beanClass, boolean loadFromClass) {
+        return new Attributes(componentClass, beanClass, loadFromClass);
     }
 
     /**
@@ -132,7 +146,7 @@ public final class Attributes implements Map<String, Attribute>, Serializable {
      *            class object of a managed bean
      */
     public static Attributes getBehaviorAttributes(Class<? extends BehaviorBase> behaviorClass, Class<?> beanClass) {
-        return new Attributes(behaviorClass, beanClass);
+        return new Attributes(behaviorClass, beanClass, true);
     }
 
     /**
@@ -160,7 +174,7 @@ public final class Attributes implements Map<String, Attribute>, Serializable {
             }
         }
 
-        return new Attributes(faceletsClass, beanClass);
+        return new Attributes(faceletsClass, beanClass, true);
     }
 
     /**
@@ -333,9 +347,9 @@ public final class Attributes implements Map<String, Attribute>, Serializable {
     private Set<String> getExcludeSet() {
         Set<String> set = new HashSet<String>();
 
-        set.add("attributes");
         set.add("actionExpression");
         set.add("actionListeners");
+        set.add("attributes");
         set.add("children");
         set.add("childCount");
         set.add("class");
@@ -486,8 +500,7 @@ public final class Attributes implements Map<String, Attribute>, Serializable {
 
         // if select options for "listener" are defined in property file
         if (hasSelectOptions("listener")) {
-            method =
-                    getExpressionFactory().createMethodExpression(elContext, getMethodEL(listener), void.class,
+            method = getExpressionFactory().createMethodExpression(elContext, getMethodEL(listener), void.class,
                     new Class[]{AjaxBehaviorEvent.class});
             method.invoke(elContext, new Object[]{event});
         }
@@ -558,5 +571,87 @@ public final class Attributes implements Map<String, Attribute>, Serializable {
      */
     private ExpressionFactory getExpressionFactory() {
         return FacesContext.getCurrentInstance().getApplication().getExpressionFactory();
+    }
+
+    private void loadAttributesFromClass(Class<?> componentClass) {
+        PropertyDescriptor[] descriptors = null;
+        try {
+            descriptors = Introspector.getBeanInfo(componentClass).getPropertyDescriptors();
+        } catch (IntrospectionException e) {
+            logger.error("Could not get a list with attributes of class" + componentClass);
+            attributes = Collections.emptyMap();
+        }
+
+        attributes = new TreeMap<String, Attribute>();
+
+        // not all attributes of given class are needed
+        Set<String> excludeSet = getExcludeSet();
+        Attribute attribute = null;
+        // create list of all attributes and their types
+        for (PropertyDescriptor descriptor : descriptors) {
+            if (!excludeSet.contains(descriptor.getName())) {
+                attribute = new Attribute(descriptor.getName());
+                attribute.setType(descriptor.getPropertyType());
+                attributes.put(descriptor.getName(), attribute);
+            }
+        }
+    }
+
+    private void loadRichFacesComponents() {
+        richfacesAttributes = new HashMap<Class<?>, List<Attribute>>();
+
+        try {
+            ClassLoader cl = UIStatus.class.getClassLoader();
+            Enumeration<URL> fileUrls = cl.getResources("META-INF/faces-config.xml");
+            URL configFile = null;
+
+            while (fileUrls.hasMoreElements()) {
+                URL url = fileUrls.nextElement();
+                if (url.getPath().contains("richfaces-components-ui")) {
+                    configFile = url;
+                }
+            }
+
+            JAXBContext context = JAXBContext.newInstance(FacesConfigHolder.class);
+            FacesConfigHolder facesConfigHolder = (FacesConfigHolder) context.createUnmarshaller().unmarshal(configFile);
+            List<Component> components = facesConfigHolder.getComponents();
+
+            for (Component c : components) {
+                if (c.getAttributes() == null) {
+                    continue;
+                }
+
+                // remove hidden attributes
+                Iterator<Attribute> i = c.getAttributes().iterator();
+                while (i.hasNext()) {
+                    Attribute a = i.next();
+                    if (a.isHidden() || "id".equals(a.getName()) || "binding".equals(a.getName())) {
+                        i.remove();
+                    }
+                }
+
+                richfacesAttributes.put(c.getComponentClass(), c.getAttributes());
+            }
+
+        } catch (IOException ex) {
+            logger.error("Input/output error.", ex);
+        } catch (JAXBException ex) {
+            logger.error("XML reading error.", ex);
+        }
+    }
+
+    @XmlRootElement(name = "faces-config", namespace = "http://java.sun.com/xml/ns/javaee")
+    private static final class FacesConfigHolder {
+
+        private List<Component> components;
+
+        @XmlElement(name = "component", namespace = "http://java.sun.com/xml/ns/javaee")
+        public List<Component> getComponents() {
+            return components;
+        }
+
+        public void setComponents(List<Component> components) {
+            this.components = components;
+        }
     }
 }
