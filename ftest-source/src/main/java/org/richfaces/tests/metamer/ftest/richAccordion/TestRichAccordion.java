@@ -31,6 +31,7 @@ import static org.testng.Assert.assertFalse;
 import static org.testng.Assert.assertTrue;
 
 import java.net.URL;
+
 import javax.faces.event.PhaseId;
 
 import org.jboss.test.selenium.css.CssProperty;
@@ -38,7 +39,6 @@ import org.jboss.test.selenium.dom.Event;
 import org.jboss.test.selenium.encapsulated.JavaScript;
 import org.jboss.test.selenium.locator.Attribute;
 import org.jboss.test.selenium.locator.AttributeLocator;
-import org.jboss.test.selenium.locator.ElementLocator;
 import org.jboss.test.selenium.locator.JQueryLocator;
 import org.jboss.test.selenium.waiting.conditions.IsDisplayed;
 import org.richfaces.tests.metamer.ftest.AbstractMetamerTest;
@@ -58,9 +58,13 @@ public class TestRichAccordion extends AbstractMetamerTest {
     private JQueryLocator[] itemContents = {pjq("div[id$=item1:content]"), pjq("div[id$=item2:content]"),
         pjq("div[id$=item3:content]"), pjq("div[id$=item4:content]"), pjq("div[id$=item5:content]")};
     private IsDisplayed isDisplayed = IsDisplayed.getInstance();
-    private JQueryLocator activeHeaders = pjq("div.rf-ac-itm-hdr-act");
-    private JQueryLocator inactiveHeaders = pjq("div.rf-ac-itm-hdr-inact");
-    private JQueryLocator disabledHeaders = pjq("div.rf-ac-itm-hdr-dis");
+    private JQueryLocator[] activeHeaders = {pjq("div.rf-ac-itm-hdr-act:eq(0)"), pjq("div.rf-ac-itm-hdr-act:eq(1)"),
+        pjq("div.rf-ac-itm-hdr-act:eq(2)"), pjq("div.rf-ac-itm-hdr-act:eq(3)"), pjq("div.rf-ac-itm-hdr-act:eq(4)")};
+    private JQueryLocator[] inactiveHeaders = {pjq("div.rf-ac-itm-hdr-inact:eq(0)"),
+        pjq("div.rf-ac-itm-hdr-inact:eq(1)"), pjq("div.rf-ac-itm-hdr-inact:eq(2)"),
+        pjq("div.rf-ac-itm-hdr-inact:eq(3)"), pjq("div.rf-ac-itm-hdr-inact:eq(4)")};
+    private JQueryLocator[] disabledHeaders = {pjq("div.rf-ac-itm-hdr-dis:eq(0)"), pjq("div.rf-ac-itm-hdr-dis:eq(1)"),
+        pjq("div.rf-ac-itm-hdr-dis:eq(2)"), pjq("div.rf-ac-itm-hdr-dis:eq(3)"), pjq("div.rf-ac-itm-hdr-dis:eq(4)")};
 
     @Override
     public URL getTestUrl() {
@@ -237,15 +241,15 @@ public class TestRichAccordion extends AbstractMetamerTest {
         selenium.type(pjq("input[id$=itemHeaderClassActiveInput]"), "metamer-ftest-class");
         selenium.waitForPageToLoad();
 
-        for (JQueryLocator loc : activeHeaders.getAllChildren()) {
+        for (JQueryLocator loc : activeHeaders) {
             assertTrue(selenium.belongsClass(loc, "metamer-ftest-class"), "itemHeaderClassActive does not work");
         }
 
-        for (JQueryLocator loc : inactiveHeaders.getAllChildren()) {
+        for (JQueryLocator loc : inactiveHeaders) {
             assertFalse(selenium.belongsClass(loc, "metamer-ftest-class"), "itemHeaderClassActive does not work");
         }
 
-        for (JQueryLocator loc : disabledHeaders.getAllChildren()) {
+        for (JQueryLocator loc : disabledHeaders) {
             assertFalse(selenium.belongsClass(loc, "metamer-ftest-class"), "itemHeaderClassActive does not work");
         }
     }
@@ -255,15 +259,15 @@ public class TestRichAccordion extends AbstractMetamerTest {
         selenium.type(pjq("input[id$=itemHeaderClassDisabledInput]"), "metamer-ftest-class");
         selenium.waitForPageToLoad();
 
-        for (JQueryLocator loc : activeHeaders.getAllChildren()) {
+        for (JQueryLocator loc : activeHeaders) {
             assertFalse(selenium.belongsClass(loc, "metamer-ftest-class"), "itemHeaderClassDisabled does not work");
         }
 
-        for (JQueryLocator loc : inactiveHeaders.getAllChildren()) {
+        for (JQueryLocator loc : inactiveHeaders) {
             assertFalse(selenium.belongsClass(loc, "metamer-ftest-class"), "itemHeaderClassDisabled does not work");
         }
 
-        for (JQueryLocator loc : disabledHeaders.getAllChildren()) {
+        for (JQueryLocator loc : disabledHeaders) {
             assertTrue(selenium.belongsClass(loc, "metamer-ftest-class"), "itemHeaderClassDisabled does not work");
         }
     }
@@ -273,15 +277,15 @@ public class TestRichAccordion extends AbstractMetamerTest {
         selenium.type(pjq("input[id$=itemHeaderClassInactiveInput]"), "metamer-ftest-class");
         selenium.waitForPageToLoad();
 
-        for (JQueryLocator loc : activeHeaders.getAllChildren()) {
+        for (JQueryLocator loc : activeHeaders) {
             assertFalse(selenium.belongsClass(loc, "metamer-ftest-class"), "itemHeaderClassInactive does not work");
         }
 
-        for (JQueryLocator loc : inactiveHeaders.getAllChildren()) {
+        for (JQueryLocator loc : inactiveHeaders) {
             assertTrue(selenium.belongsClass(loc, "metamer-ftest-class"), "itemHeaderClassInactive does not work");
         }
 
-        for (JQueryLocator loc : disabledHeaders.getAllChildren()) {
+        for (JQueryLocator loc : disabledHeaders) {
             assertFalse(selenium.belongsClass(loc, "metamer-ftest-class"), "itemHeaderClassInactive does not work");
         }
     }
