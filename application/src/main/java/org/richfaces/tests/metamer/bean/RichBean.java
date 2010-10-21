@@ -319,7 +319,7 @@ public class RichBean implements Serializable {
 
         if (session instanceof HttpSession) {
             ((HttpSession) session).invalidate();
-            return FacesContext.getCurrentInstance().getViewRoot().getViewId() + "?faces-redirect=tru";
+            return FacesContext.getCurrentInstance().getViewRoot().getViewId() + "?faces-redirect=true";
         }
 
         throw new IllegalStateException();
