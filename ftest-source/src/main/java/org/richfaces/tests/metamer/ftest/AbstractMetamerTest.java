@@ -131,7 +131,22 @@ public abstract class AbstractMetamerTest extends AbstractTestCase {
      *            locator of tested element
      */
     protected void testFireEvent(Event event, ElementLocator<?> element) {
-        ElementLocator<?> eventInput = pjq("input[id$=on" + event.getEventName() + "Input]");
+        testFireEvent(event, element, event.getEventName());
+    }
+
+    /**
+     * A helper method for testing javascripts events. It sets alert('testedevent') to the input field for given event
+     * and fires the event. Then it checks the message in the alert dialog.
+     *
+     * @param event
+     *            JavaScript event to be tested
+     * @param element
+     *            locator of tested element
+     * @param attributeName
+     *            name of the attribute that should be set
+     */
+    protected void testFireEvent(Event event, ElementLocator<?> element, String attributeName) {
+        ElementLocator<?> eventInput = pjq("input[id$=on" + attributeName + "Input]");
         String value = "metamerEvents += \"" + event.getEventName() + " \"";
 
         selenium.type(eventInput, value);
