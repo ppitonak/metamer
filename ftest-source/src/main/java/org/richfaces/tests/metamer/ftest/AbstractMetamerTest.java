@@ -19,7 +19,6 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  *******************************************************************************/
-
 package org.richfaces.tests.metamer.ftest;
 
 import static org.jboss.test.selenium.locator.LocatorFactory.jq;
@@ -38,7 +37,7 @@ import org.jboss.test.selenium.locator.Attribute;
 import org.jboss.test.selenium.locator.AttributeLocator;
 import org.jboss.test.selenium.locator.ElementLocator;
 import org.jboss.test.selenium.locator.JQueryLocator;
-import org.jboss.test.selenium.waiting.ajax.JavaScriptCondition;
+import org.jboss.test.selenium.waiting.EventFiredCondition;
 import org.richfaces.tests.metamer.TemplatesList;
 import org.richfaces.tests.metamer.ftest.annotations.Inject;
 import org.richfaces.tests.metamer.ftest.annotations.Templates;
@@ -55,26 +54,9 @@ import org.testng.annotations.BeforeMethod;
 public abstract class AbstractMetamerTest extends AbstractTestCase {
 
     /**
-     * JavaScript condition that verifies that an event was fired, i.e. variable metamerEvents contains event name.
-     */
-    private class EventFiredCondition implements JavaScriptCondition {
-
-        Event event;
-
-        public EventFiredCondition(final Event event) {
-            this.event = event;
-        }
-
-        public JavaScript getJavaScriptCondition() {
-            return new JavaScript("window.metamerEvents.indexOf(\"" + event.getEventName() + "\") != -1");
-        }
-    }
-
-    /**
      * timeout in miliseconds
      */
     public static final long TIMEOUT = 5000;
-
     @Inject
     @Templates({"plain", "richDataTable1,redDiv", "richDataTable2,redDiv", "a4jRepeat1", "a4jRepeat2", "hDataTable1",
         "hDataTable2", "uiRepeat1", "uiRepeat2"})
@@ -158,7 +140,7 @@ public abstract class AbstractMetamerTest extends AbstractTestCase {
         selenium.fireEvent(element, event);
 
         waitGui.failWith(event.getEventName() + " attribute did not change correctly").until(
-            new EventFiredCondition(event));
+                new EventFiredCondition(event));
     }
 
     /**
@@ -176,7 +158,7 @@ public abstract class AbstractMetamerTest extends AbstractTestCase {
         selenium.waitForPageToLoad();
 
         AttributeLocator<?> styleAttr = element.getAttribute(Attribute.STYLE);
-        assertEquals(selenium.getAttribute(styleAttr), value, "Attribute style");
+        assertTrue(selenium.getAttribute(styleAttr).contains(value), "Attribute style should contain \"" + value + "\"");
     }
 
     /**
@@ -211,23 +193,23 @@ public abstract class AbstractMetamerTest extends AbstractTestCase {
     protected void showControls() {
         selenium.getEval(new JavaScript("window.showControls()"));
     }
-    
+
     /**
      * Verifies that only given phases were executed. It uses the list of phases in the header of the page.
      * @param phases phases that are expected to have been executed
      */
-    protected void assertPhases(PhaseId ... phases) {
+    protected void assertPhases(PhaseId... phases) {
         JQueryLocator phasesItems = jq("div#phasesPanel li");
         int count = selenium.getCount(phasesItems);
-        
+
         String phase;
         int phaseNumber = 1;
-        
+
         for (int i = 0; i < count; i++) {
             phase = selenium.getText(jq("div#phasesPanel li:eq(" + i + ")"));
             // check that it is really name of a phase
             if (!phase.startsWith("* ")) {
-                assertEquals(phase, phases[phaseNumber-1].toString(), "Phase nr. " + phaseNumber);
+                assertEquals(phase, phases[phaseNumber - 1].toString(), "Phase nr. " + phaseNumber);
                 phaseNumber++;
             }
         }
