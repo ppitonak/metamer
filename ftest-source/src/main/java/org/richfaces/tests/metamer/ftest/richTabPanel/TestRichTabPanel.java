@@ -72,7 +72,7 @@ public class TestRichTabPanel extends AbstractMetamerTest {
     @Test
     public void testInit() {
         boolean displayed = selenium.isDisplayed(panel);
-        assertTrue(displayed, "Accordion is not present on the page.");
+        assertTrue(displayed, "Tab panel is not present on the page.");
 
         displayed = selenium.isDisplayed(activeHeaders[0]);
         assertTrue(displayed, "Header of tab1 should be active.");
