@@ -26,7 +26,21 @@
     <artifactId>metamer</artifactId>
     <packaging>war</packaging>
     <name>Metamer: RichFaces Testing Application</name>
-
+	
+	<distributionManagement>
+        <snapshotRepository>
+            <id>jboss-qa-snapshots</id>
+            <name>JBoss QA snapshot repository</name>
+            <url>http://nexus.qa.jboss.com:8081/nexus/content/repositories/snapshots</url>
+            <uniqueVersion>false</uniqueVersion>
+        </snapshotRepository>
+        <repository>
+            <id>jboss-qa-releases</id>
+            <name>JBoss QA selease repository</name>
+            <url>http://nexus.qa.jboss.com:8081/nexus/content/repositories/releases</url>
+        </repository>
+    </distributionManagement>
+    
     <repositories>
         <repository>
             <id>maven-repository2.dev.java.net</id>
@@ -130,6 +144,8 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-war-plugin</artifactId>
                 <configuration>
+           			<attachClasses>true</attachClasses>
+               		<attachSources>true</attachSources>
                     <archive>
                         <manifest>
                             <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
@@ -228,6 +244,16 @@
                     <timestampFormat>{0,date,MMM dd, yyyy H:mm:ss zzz}</timestampFormat>
                 </configuration>
             </plugin>
+            <plugin>
+	           	<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-source-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>attach-sources</id>
+						<phase>package</phase>
+					</execution>
+				</executions>
+			</plugin>
         </plugins>
     </build>
 
@@ -257,16 +283,6 @@
     		<build>
     			<plugins>
     				<plugin>
-		            	<groupId>org.apache.maven.plugins</groupId>
-						<artifactId>maven-source-plugin</artifactId>
-						<executions>
-							<execution>
-								<id>attach-sources</id>
-								<phase>package</phase>
-							</execution>
-						</executions>
-					</plugin>
-    				<plugin>
 		                <groupId>org.apache.maven.plugins</groupId>
 		                <artifactId>maven-war-plugin</artifactId>
 		                <configuration>
@@ -280,10 +296,6 @@
 		                		<goals>
 		                			<goal>war</goal>
 		                		</goals>
-		                		<configuration>
-		                			<attachClasses>true</attachClasses>
-		                    		<attachSources>true</attachSources>
-		                		</configuration>
 		                	</execution>
 		                </executions>
 		            </plugin>
