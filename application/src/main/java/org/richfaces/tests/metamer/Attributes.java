@@ -600,43 +600,48 @@ public final class Attributes implements Map<String, Attribute>, Serializable {
     private void loadRichFacesComponents() {
         richfacesAttributes = new HashMap<Class<?>, List<Attribute>>();
 
-        try {
-            ClassLoader cl = UIStatus.class.getClassLoader();
-            Enumeration<URL> fileUrls = cl.getResources("META-INF/faces-config.xml");
-            URL configFile = null;
+        final String[] files = {"META-INF/faces-config.xml", "META-INF/pn.faces-config.xml"};
 
-            while (fileUrls.hasMoreElements()) {
-                URL url = fileUrls.nextElement();
-                if (url.getPath().contains("richfaces-components-ui")) {
-                    configFile = url;
-                }
-            }
+        for (String file : files) {
+            try {
+                ClassLoader cl = UIStatus.class.getClassLoader();
+                Enumeration<URL> fileUrls = cl.getResources(file);
+                URL configFile = null;
 
-            JAXBContext context = JAXBContext.newInstance(FacesConfigHolder.class);
-            FacesConfigHolder facesConfigHolder = (FacesConfigHolder) context.createUnmarshaller().unmarshal(configFile);
-            List<Component> components = facesConfigHolder.getComponents();
-
-            for (Component c : components) {
-                if (c.getAttributes() == null) {
-                    continue;
-                }
-
-                // remove hidden attributes
-                Iterator<Attribute> i = c.getAttributes().iterator();
-                while (i.hasNext()) {
-                    Attribute a = i.next();
-                    if (a.isHidden() || "id".equals(a.getName()) || "binding".equals(a.getName())) {
-                        i.remove();
+                while (fileUrls.hasMoreElements()) {
+                    URL url = fileUrls.nextElement();
+                    if (url.getPath().contains("richfaces-components-ui")) {
+                        configFile = url;
                     }
                 }
 
-                richfacesAttributes.put(c.getComponentClass(), c.getAttributes());
-            }
+                JAXBContext context = JAXBContext.newInstance(FacesConfigHolder.class);
+                FacesConfigHolder facesConfigHolder = (FacesConfigHolder) context.createUnmarshaller().unmarshal(configFile);
+                List<Component> components = facesConfigHolder.getComponents();
 
-        } catch (IOException ex) {
-            logger.error("Input/output error.", ex);
-        } catch (JAXBException ex) {
-            logger.error("XML reading error.", ex);
+                for (Component c : components) {
+                    if (c.getAttributes() == null) {
+                        continue;
+                    }
+
+                    // remove hidden attributes
+                    Iterator<Attribute> i = c.getAttributes().iterator();
+                    while (i.hasNext()) {
+                        Attribute a = i.next();
+                        if (a.isHidden() || "id".equals(a.getName()) || "binding".equals(a.getName())) {
+                            i.remove();
+                        }
+                    }
+
+                    richfacesAttributes.put(c.getComponentClass(), c.getAttributes());
+                    logger.info("attributes for component " + c.getComponentClass().getName() + " loaded");
+                }
+
+            } catch (IOException ex) {
+                logger.error("Input/output error.", ex);
+            } catch (JAXBException ex) {
+                logger.error("XML reading error.", ex);
+            }
         }
     }
 

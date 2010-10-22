@@ -121,6 +121,9 @@ public class Attribute implements Serializable {
     }
 
     public boolean isHidden() {
+        if (extensions == null) {
+            return false;
+        }
         return extensions.getHidden();
     }
 
