@@ -139,6 +139,19 @@ public class TestRichCollapsiblePanel extends AbstractMetamerTest {
     }
 
     @Test
+    public void testHeader() {
+        selenium.type(pjq("input[type=text][id$=headerInput]"), "new header");
+        selenium.waitForPageToLoad();
+
+        assertEquals(selenium.getText(header), "new header", "Header of the panel did not change.");
+
+        selenium.type(pjq("input[type=text][id$=headerInput]"), "ľščťťžžôúňď ацущьмщфзщйцу");
+        selenium.waitForPageToLoad();
+
+        assertEquals(selenium.getText(header), "ľščťťžžôúňď ацущьмщфзщйцу", "Header of the panel did not change.");
+    }
+
+    @Test
     public void testImmediate() {
         JQueryLocator input = pjq("input[type=radio][name$=immediateInput][value=true]");
         selenium.click(input);
