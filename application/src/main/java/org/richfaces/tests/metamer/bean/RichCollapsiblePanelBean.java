@@ -62,6 +62,7 @@ public class RichCollapsiblePanelBean implements Serializable {
         // TODO has to be tested in another way
         attributes.remove("changeExpandListener");
         attributes.remove("converter");
+        attributes.remove("itemChangeListener");
 
         // hidden attributes
         attributes.remove("changeExpandListeners");
