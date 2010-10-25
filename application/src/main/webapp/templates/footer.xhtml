@@ -38,19 +38,15 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
             <li><h:outputText id="browserVersion" value="#{metamer.browserVersion}" /></li>
         </ul>
 
-
-
         <!-- human-readable browser detection -->
         <c:if test="#{metamer.projectStage != 'Production'}">
-            <h:outputScript library="script" name="jquery-v1.2.6.js"/>
-            <h:outputScript library="script" name="jquery.browser-v2.3.js"/>
+            <h:outputScript name="jquery.js" target="head"/>
+            <h:outputScript library="script" name="detect-browser.js" target="head"/>
             <script type="text/javascript">
-                String.prototype.capitalize = function(){
-                           return this.replace( /(^|\s)([a-z])/g , function(m,p1,p2){ return p1+p2.toUpperCase(); } );
-                         };
-                jQueryBrowser("span[id$=browserVersion]").text(jQueryBrowser.browser.name.capitalize() + ' ' + jQueryBrowser.browser.version + ' @ ' + jQueryBrowser.os.name.capitalize());
+                jQuery("span[id$=browserVersion]").text(jQuery.browser.name + ' ' + jQuery.browser.version + ' @ ' + jQuery.browser.os);
             </script>
+
         </c:if>
-        
+
     </ui:composition>
 </html>
