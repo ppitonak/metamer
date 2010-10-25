@@ -54,10 +54,10 @@ public class RichColumnBean implements Serializable {
         logger = LoggerFactory.getLogger(getClass());
         logger.debug("initializing bean " + getClass().getName());
 
-        attributes = Attributes.getUIComponentAttributes(UIColumn.class, getClass());
-        attributes.setAttribute("rendered", true);
+        attributes = Attributes.getUIComponentAttributes(UIColumn.class, getClass(), false);
         attributes.setAttribute("colspan", 1);
-        
+        attributes.setAttribute("rendered", true);
+        attributes.setAttribute("rowspan", 1);
     }
 
     public Attributes getAttributes() {
