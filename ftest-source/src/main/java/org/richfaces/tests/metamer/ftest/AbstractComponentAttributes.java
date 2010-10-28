@@ -21,6 +21,8 @@
  *******************************************************************************/
 package org.richfaces.tests.metamer.ftest;
 
+import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang.WordUtils;
 import org.jboss.test.selenium.dom.Event;
 import org.jboss.test.selenium.framework.AjaxSelenium;
 import org.jboss.test.selenium.framework.AjaxSeleniumProxy;
@@ -44,7 +46,7 @@ public class AbstractComponentAttributes {
 
     protected AjaxSelenium selenium = AjaxSeleniumProxy.getInstance();
     LocatorReference<ExtendedLocator<JQueryLocator>> root = new LocatorReference<ExtendedLocator<JQueryLocator>>(
-            pjq(""));
+        pjq(""));
     ReferencedLocator<JQueryLocator> propertyLocator = referenceInferred(root, "input[id*={0}Input]{1}");
 
     public AbstractComponentAttributes() {
@@ -73,7 +75,15 @@ public class AbstractComponentAttributes {
         if (value == null) {
             value = "";
         }
+
         String valueAsString = value.toString();
+
+        if (value.getClass().isEnum()) {
+            valueAsString = valueAsString.toLowerCase();
+            valueAsString = WordUtils.capitalizeFully(valueAsString, new char[] { '_' });
+            valueAsString = valueAsString.replace("_", "");
+            valueAsString = StringUtils.uncapitalize(valueAsString);
+        }
 
         if ("text".equals(inputType)) {
             applyText(locator, valueAsString);
@@ -81,7 +91,8 @@ public class AbstractComponentAttributes {
             boolean checked = Boolean.valueOf(valueAsString);
             applyCheckbox(locator, checked);
         } else if ("radio".equals(inputType)) {
-            locator = propertyLocator.format(propertyName, "[value=" + ("".equals(value) ? "null" : value) + "]");
+            locator = propertyLocator.format(propertyName, "[value="
+                + ("".equals(valueAsString) ? "null" : valueAsString) + "]");
             guardHttp(selenium).click(locator);
         }
     }
