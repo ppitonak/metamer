@@ -38,6 +38,7 @@ import org.jboss.test.selenium.locator.AttributeLocator;
 import org.jboss.test.selenium.locator.ElementLocator;
 import org.jboss.test.selenium.locator.JQueryLocator;
 import org.jboss.test.selenium.waiting.EventFiredCondition;
+import org.richfaces.tests.metamer.Phase;
 import org.richfaces.tests.metamer.TemplatesList;
 import org.richfaces.tests.metamer.ftest.annotations.Inject;
 import org.richfaces.tests.metamer.ftest.annotations.Templates;
@@ -224,7 +225,7 @@ public abstract class AbstractMetamerTest extends AbstractTestCase {
             phase = selenium.getText(jq("div#phasesPanel li:eq(" + i + ")"));
             // check that it is really name of a phase
             if (!phase.startsWith("* ")) {
-                assertEquals(phase, phases[phaseNumber - 1].toString(), "Phase nr. " + phaseNumber);
+                assertEquals(phase, new Phase(phases[phaseNumber - 1]).toString(), "Phase nr. " + phaseNumber);
                 phaseNumber++;
             }
         }
