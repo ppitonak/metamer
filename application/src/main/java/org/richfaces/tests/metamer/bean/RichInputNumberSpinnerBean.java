@@ -57,10 +57,11 @@ public class RichInputNumberSpinnerBean implements Serializable {
         attributes = Attributes.getUIComponentAttributes(HtmlInputNumberSpinner.class, getClass());
 
         attributes.setAttribute("enableManualInput", true);
-        attributes.setAttribute("maxValue", 100);
-        attributes.setAttribute("minValue", 0);
+        attributes.setAttribute("maxValue", 10);
+        attributes.setAttribute("minValue", -10);
         attributes.setAttribute("rendered", true);
         attributes.setAttribute("step", 1);
+        attributes.setAttribute("value", 2);
 
         // TODO has to be tested in another way
         attributes.remove("validator");

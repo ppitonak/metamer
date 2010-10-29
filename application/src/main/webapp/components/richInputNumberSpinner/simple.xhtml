@@ -34,6 +34,9 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                     <f:converter converterId="templatesListConverter" />
                 </f:viewParam>
             </f:metadata>
+            <script type="text/javascript">
+                    testedComponentId = "#{rich:clientId('spinner')}";
+            </script>
         </ui:define>
 
         <ui:define name="outOfTemplateBefore">
@@ -91,7 +94,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                                      value="#{richInputNumberSpinnerBean.attributes['value'].value}"
                                      valueChangeListeners="#{richInputNumberSpinnerBean.attributes['valueChangeListeners'].value}">
 
-                <a4j:ajax render="output"/>
+                <a4j:ajax render="output" action="#{richBean.dummyAction}" actionListener="#{richBean.dummyActionListener}" />
 
             </rich:inputNumberSpinner>
 
