@@ -47,14 +47,14 @@ public class RichPhaseListener implements javax.faces.event.PhaseListener {
      * {@inheritDoc}
      */
     public void afterPhase(PhaseEvent event) {
-        logger.debug("AFTER - " + event.getPhaseId());
+        logger.debug("AFTER - " + new Phase(event.getPhaseId()).toString());
     }
 
     /**
      * {@inheritDoc}
      */
     public void beforePhase(PhaseEvent event) {
-        logger.debug("BEFORE - " + event.getPhaseId());
+        logger.debug("BEFORE - " + new Phase(event.getPhaseId()).toString());
 
         FacesContext ctx = event.getFacesContext();
         ExpressionFactory factory = ctx.getApplication().getExpressionFactory();
