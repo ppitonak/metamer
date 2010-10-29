@@ -35,6 +35,7 @@ import javax.faces.FacesException;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
+import javax.faces.event.ActionEvent;
 import javax.faces.model.SelectItem;
 import javax.servlet.http.HttpSession;
 
@@ -342,5 +343,24 @@ public class RichBean implements Serializable {
      */
     public String causeError() {
         throw new FacesException("Ajax request caused an error. This is intentional behavior.");
+    }
+
+    /**
+     * An action that does nothing.
+     * @return null
+     */
+    public String dummyAction() {
+        logToPage("* action invoked");
+        return null;
+    }
+
+    /**
+     * An action listener that does nothing.
+     *
+     * @param event
+     *            an event representing the activation of a user interface component (not used)
+     */
+    public void dummyActionListener(ActionEvent event) {
+        logToPage("* action listener invoked");
     }
 }
