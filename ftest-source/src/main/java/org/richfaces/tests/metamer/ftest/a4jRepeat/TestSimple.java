@@ -30,7 +30,6 @@ import java.net.URL;
 
 import org.richfaces.tests.metamer.ftest.AbstractMetamerTest;
 import org.richfaces.tests.metamer.ftest.annotations.Inject;
-import org.richfaces.tests.metamer.ftest.annotations.IssueTracking;
 import org.richfaces.tests.metamer.ftest.annotations.Use;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -54,8 +53,9 @@ public class TestSimple extends AbstractMetamerTest {
     @Use(empty = false)
     Integer rows;
 
-    int expectedFirst;
-    int expectedRows;
+    int expectedBegin;
+    int displayedRows;
+    int expectedEnd;
 
     @Override
     public URL getTestUrl() {
@@ -81,8 +81,7 @@ public class TestSimple extends AbstractMetamerTest {
     }
 
     @Test
-    @Use(field = "first", ints = { -1, 0, 1, ELEMENTS_TOTAL / 2, ELEMENTS_TOTAL - 1, ELEMENTS_TOTAL,
-        ELEMENTS_TOTAL + 1 })
+    @Use(field = "first", ints = { -1, 0, 1, ELEMENTS_TOTAL / 2, ELEMENTS_TOTAL - 1, ELEMENTS_TOTAL, ELEMENTS_TOTAL + 1 })
     public void testFirstAttribute() {
         verifyRepeat();
     }
@@ -90,7 +89,6 @@ public class TestSimple extends AbstractMetamerTest {
     @Test
     @Use(field = "rows", ints = { -2, -1, 0, 1, ELEMENTS_TOTAL / 2, ELEMENTS_TOTAL - 1, ELEMENTS_TOTAL,
         ELEMENTS_TOTAL + 1 })
-    @IssueTracking({ "https://jira.jboss.org/browse/RF-9373" })
     public void testRowsAttribute() {
         verifyRepeat();
     }
@@ -102,42 +100,59 @@ public class TestSimple extends AbstractMetamerTest {
     }
 
     private void verifyCounts() {
-        assertEquals(model.getTotalRowCount(), expectedRows);
-        if (expectedRows > 0) {
-            assertEquals(model.getIndex(1), expectedFirst);
+        assertEquals(model.getTotalRowCount(), displayedRows);
+        if (displayedRows > 0) {
+            assertEquals(model.getIndex(1), expectedBegin);
         }
     }
 
     private void verifyRows() {
         int rowCount = model.getTotalRowCount();
         for (int position = 1; position <= rowCount; position++) {
-            assertEquals(model.getBegin(position), expectedFirst, "begin");
-            assertEquals(model.getEnd(position), expectedFirst + expectedRows - 1, "end");
-            assertEquals(model.getIndex(position), expectedFirst + position - 1, "index");
+            assertEquals(model.getBegin(position), expectedBegin, "begin");
+            assertEquals(model.getEnd(position), expectedEnd, "end");
+            assertEquals(model.getIndex(position), expectedBegin + position - 1, "index");
             assertEquals(model.getCount(position), position, "count");
             assertEquals(model.isFirst(position), position == 1, "first");
             assertEquals(model.isLast(position), position == rowCount, "last");
             assertEquals(model.isEven(position), (position % 2) == 0, "even");
-            // TODO fails because of rowCount on page doesn't eqaul to rowCount, but ELEMENTS_TOTAL
-            // assertEquals(model.getRowCount(position), rowCount, "rowCount");
+            assertEquals(model.getRowCount(position), ELEMENTS_TOTAL, "rowCount");
         }
     }
 
     private void countExpectedValues() {
+
+        // expected begin
+
         if (first == null || first < 0) {
-            expectedFirst = 0;
+            expectedBegin = 0;
         } else {
-            expectedFirst = first;
+            expectedBegin = first;
         }
+
+        expectedBegin = minMax(0, expectedBegin, ELEMENTS_TOTAL);
+
+        // expected displayed rows
 
         if (rows == null || rows < 1 || rows > ELEMENTS_TOTAL) {
-            expectedRows = ELEMENTS_TOTAL;
+            displayedRows = ELEMENTS_TOTAL;
         } else {
-            expectedRows = rows;
+            displayedRows = rows;
         }
 
-        expectedFirst = minMax(0, expectedFirst, ELEMENTS_TOTAL);
-        expectedRows = min(expectedRows, ELEMENTS_TOTAL - expectedFirst);
+        if (first != null && first < 0) {
+            displayedRows = 0;
+        }
+
+        displayedRows = min(displayedRows, ELEMENTS_TOTAL - expectedBegin);
+
+        // expected end
+
+        if (rows == null || rows < 1) {
+            expectedEnd = ELEMENTS_TOTAL - 1;
+        } else {
+            expectedEnd = rows - 1;
+        }
     }
 
     private int minMax(int min, int value, int max) {
