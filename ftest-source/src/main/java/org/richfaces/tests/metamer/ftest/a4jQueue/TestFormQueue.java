@@ -29,6 +29,7 @@ import java.net.URL;
 import org.jboss.cheiron.halt.XHRHalter;
 import org.richfaces.tests.metamer.ftest.AbstractMetamerTest;
 import org.richfaces.tests.metamer.ftest.a4jQueue.QueueModel.Input;
+import org.richfaces.tests.metamer.ftest.annotations.IssueTracking;
 import org.testng.annotations.Test;
 
 /**
@@ -76,6 +77,7 @@ public class TestFormQueue extends AbstractMetamerTest {
      * </p>
      */
     @Test
+    @IssueTracking("https://jira.jboss.org/browse/RF-9606")
     public void testTimingOneQueueTwoEvents() {
         attributesQueueA.setRequestDelay(DELAY_A);
         attributesGlobalQueue.setRequestDelay(GLOBAL_DELAY);
@@ -147,6 +149,7 @@ public class TestFormQueue extends AbstractMetamerTest {
      * </p>
      */
     @Test
+    @IssueTracking("https://jira.jboss.org/browse/RF-9606")
     public void testTimingTwoQueuesFourEvents() {
         attributesQueueA.setRequestDelay(DELAY_A);
         attributesQueueB.setRequestDelay(DELAY_B);
