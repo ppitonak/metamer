@@ -54,7 +54,7 @@ public class TestAutocomplete extends AbstractMetamerTest {
 
     @Override
     public URL getTestUrl() {
-        return buildUrl(contextPath, "faces/components/richAutocomplete/autocompleteValidation.xhtml");
+        return buildUrl(contextPath, "faces/components/richAutocomplete/autocomplete.xhtml");
     }
 
     @Inject
