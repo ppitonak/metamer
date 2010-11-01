@@ -40,11 +40,8 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
         </ui:define>
 
         <ui:define name="outOfTemplateBefore">
-        </ui:define>
-
-        <ui:define name="component">
-
-            <a4j:queue id="globalQueue" ignoreDupResponses="#{a4jQueueBean.globalQueue.attributes['ignoreDupResponses'].value}"
+        
+        	<a4j:queue id="globalQueue" ignoreDupResponses="#{a4jQueueBean.globalQueue.attributes['ignoreDupResponses'].value}"
                        name="#{a4jQueueBean.globalQueue.attributes['name'].value}"
                        onbeforedomupdate="#{a4jQueueBean.globalQueue.attributes['onbeforedomupdate'].value}"
                        oncomplete="#{a4jQueueBean.globalQueue.attributes['oncomplete'].value}"
@@ -55,6 +52,10 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                        rendered="#{a4jQueueBean.globalQueue.attributes['rendered'].value}"
                        requestDelay="#{a4jQueueBean.globalQueue.attributes['requestDelay'].value}"
                        timeout="#{a4jQueueBean.globalQueue.attributes['timeout'].value}" />
+                       
+        </ui:define>
+
+        <ui:define name="component">
 
             <c:forEach var="i" begin="1" end="2"  step="1">
                 <rich:panel id="formQueue${i}Panel" header="Form Based Queue ${i}">
