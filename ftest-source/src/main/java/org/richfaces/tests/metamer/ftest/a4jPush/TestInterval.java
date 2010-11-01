@@ -160,8 +160,8 @@ public class TestInterval extends AbstractPushTest {
             System.out.println(format("deviation for interval {0}: {1}", interval, deviation));
         }
 
-        assertTrue(deviation <= interval,
-            format("Deviation ({0}) is greater than one interval {1}", deviation, interval));
+        assertTrue(deviation <= (2 * interval),
+            format("Deviation ({0}) is greater than two intervals (2 * {1})", deviation, interval));
 
         deviationTotal += deviation;
         deviationCount += 1;
