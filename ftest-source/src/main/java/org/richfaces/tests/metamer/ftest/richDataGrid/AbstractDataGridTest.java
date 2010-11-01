@@ -158,7 +158,11 @@ public abstract class AbstractDataGridTest extends AbstractMetamerTest {
         }
 
         expectedRows = ceil((float) expectedElements / columns);
-        expectedColumns = Math.min(columns, expectedElements);
+        expectedColumns = columns;
+        
+        if (first >= ELEMENTS_TOTAL) {
+            expectedColumns = 0;
+        }
     }
 
     private Iterator<Capital> getExpectedCapitalsIterator() {
