@@ -81,9 +81,8 @@ public class TestSimple extends AbstractMetamerTest {
     }
 
     @Test
-    @Use(field = "first", ints = { -2, -1, 0, 1, ELEMENTS_TOTAL / 2, ELEMENTS_TOTAL - 1, ELEMENTS_TOTAL,
+    @Use(field = "first", ints = { -1, 0, 1, ELEMENTS_TOTAL / 2, ELEMENTS_TOTAL - 1, ELEMENTS_TOTAL,
         ELEMENTS_TOTAL + 1 })
-    @IssueTracking({ "https://jira.jboss.org/browse/RF-9372" })
     public void testFirstAttribute() {
         verifyRepeat();
     }
