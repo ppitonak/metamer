@@ -114,6 +114,7 @@ public class RichBean implements Serializable {
         components.put("richAccordion", "Rich Accordion");
         components.put("richAccordionItem", "Rich Accordion Item");
         components.put("richAutocomplete", "Rich Autocomplete");
+        components.put("richCalendar", "Rich Calendar");
         components.put("richCollapsiblePanel", "Rich Collapsible Panel");
         components.put("richColumn", "Rich Column");
         components.put("richColumnGroup", "Rich Column Group");
