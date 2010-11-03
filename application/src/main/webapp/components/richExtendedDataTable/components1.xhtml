@@ -58,6 +58,11 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                     width: 150px !important;
                 }
 
+                .rf-edt-c-columnTitle {
+                    width: 210px !important;
+                    text-align: center;
+                }
+
                 .rf-edt-c-columnSmoker {
                     text-align: center;
                     width: 150px !important;
@@ -69,6 +74,12 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 
                 .rf-edt-c-columnNumberOfKids {
                     width: 150px !important;
+                    text-align: center;
+                    vertical-align: middle;
+                }
+
+                .rf-sel-fld {
+                    width: 180px !important;
                 }
             </style>
         </ui:define>
@@ -150,9 +161,26 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                         <h:outputText id="columnHeaderNameComponent" value="h:outputText" />
                     </f:facet>
 
-                    <h:outputText value="#{record.name}" />
+                    <h:outputText id="name" value="#{record.name}" />
                     <f:facet name="footer">
                         <h:outputText id="columnFooterState" value="Name" />
+                    </f:facet>
+                </rich:column>
+
+                <rich:column id="columnTitle" sortBy="#{record.title}">
+                    <f:facet name="header">
+                        <h:outputText id="columnHeaderTitle" value="Title" />
+                        <br/>
+                        <h:outputText id="columnHeaderTitleComponent" value="rich:select" />
+                    </f:facet>
+
+                    <rich:select id="title" value="#{record.title}">
+                        <f:selectItems value="#{model.jobTitlesSelectItems}"/>
+                        <a4j:ajax event="change" render="@this"/>
+                    </rich:select>
+
+                    <f:facet name="footer">
+                        <h:outputText id="columnFooterTitle" value="Title" />
                     </f:facet>
                 </rich:column>
 

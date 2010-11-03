@@ -133,6 +133,7 @@ public class RichBean implements Serializable {
         components.put("richPanel", "Rich Panel");
         components.put("richPopupPanel", "Rich Popup Panel");
         components.put("richProgressBar", "Rich Progress Bar");
+        components.put("richSelect", "Rich Select");
         components.put("richSubTable", "Rich Subtable");
         components.put("richSubTableToggleControl", "Rich Subtable Toggle Control");
         components.put("richTab", "Rich Tab");

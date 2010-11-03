@@ -128,10 +128,14 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                     <f:facet name="header">
                         <h:outputText id="columnHeaderTitle" value="Title" />
                         <br/>
-                        <h:outputText id="columnHeaderTitleComponent" value="rich:inplaceSelect" />
+                        <h:outputText id="columnHeaderTitleComponent" value="rich:select" />
                     </f:facet>
 
-                    <h:outputText value="#{record.title}" />
+                    <rich:select id="title" value="#{record.title}">
+                        <f:selectItems value="#{model.jobTitlesSelectItems}"/>
+                        <a4j:ajax event="change" render="@this"/>
+                    </rich:select>
+
                     <f:facet name="footer">
                         <h:outputText id="columnFooterTitle" value="Title" />
                     </f:facet>
