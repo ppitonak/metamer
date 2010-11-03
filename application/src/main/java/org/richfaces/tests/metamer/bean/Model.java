@@ -22,14 +22,11 @@
 
 package org.richfaces.tests.metamer.bean;
 
-import org.richfaces.tests.metamer.model.*;
-
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import javax.annotation.PostConstruct;
 
 import javax.faces.FacesException;
 import javax.faces.bean.ApplicationScoped;
@@ -39,13 +36,17 @@ import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+
+import org.richfaces.tests.metamer.model.Capital;
+import org.richfaces.tests.metamer.model.Employee;
+import org.richfaces.tests.metamer.model.tree.CompactDiscXmlDescriptor;
 
 /**
  * Application scoped managed bean holding models usable e.g. in iteration components.
- *
- * @author Exadel, <a href="mailto:ppitonak@redhat.com">Pavol Pitonak</a>
+ * 
+ * @author Exadel
+ * @author <a href="mailto:ppitonak@redhat.com">Pavol Pitonak</a>
+ * @author <a href="mailto:lfryc@redhat.com">Lukas Fryc</a>
  * @version $Revision$
  */
 @ManagedBean
@@ -56,42 +57,7 @@ public class Model {
     private List<Employee> employeesList;
     private Set<String> jobTitles;
     private List<SelectItem> jobTitlesSelectItems;
-    private Logger logger;
-
-    @PostConstruct
-    public void init() {
-        logger = LoggerFactory.getLogger(getClass());
-    }
-
-    @XmlRootElement(name = "capitals")
-    private static final class CapitalsHolder {
-
-        private List<Capital> capitals;
-
-        @XmlElement(name = "capital")
-        public List<Capital> getCapitals() {
-            return capitals;
-        }
-
-        public void setCapitals(List<Capital> capitals) {
-            this.capitals = capitals;
-        }
-    }
-
-    @XmlRootElement(name = "employees")
-    private static final class EmployeesHolder {
-
-        private List<Employee> employees;
-
-        @XmlElement(name = "employee")
-        public List<Employee> getEmployees() {
-            return employees;
-        }
-
-        public void setEmployees(List<Employee> employees) {
-            this.employees = employees;
-        }
-    }
+    private List<CompactDiscXmlDescriptor> compactDiscList;
 
     /**
      * Model containing US states, their capitals and timezones.
@@ -111,36 +77,14 @@ public class Model {
     }
 
     /**
-     * Unmarshalls the list of capitals
-     * 
-     * @return the list of capitals
-     * @throws JAXBException
-     *             if any unexpected errors occurs during unmarshalling
-     */
-    @SuppressWarnings("restriction")
-    public static final List<Capital> unmarshallCapitals() throws JAXBException {
-        ClassLoader ccl = Thread.currentThread().getContextClassLoader();
-        URL resource = ccl.getResource("org/richfaces/tests/metamer/model/capitals.xml");
-        JAXBContext context = JAXBContext.newInstance(CapitalsHolder.class);
-        CapitalsHolder capitalsHolder = (CapitalsHolder) context.createUnmarshaller().unmarshal(resource);
-        return capitalsHolder.getCapitals();
-    }
-
-    /**
      * Model containing employees. Can be used to test various components inside iteration components.
      * 
      * @return list of employees
      */
     public synchronized List<Employee> getEmployees() {
         if (employeesList == null) {
-            ClassLoader ccl = Thread.currentThread().getContextClassLoader();
-            URL resource = ccl.getResource("org/richfaces/tests/metamer/model/employees.xml");
-
-            JAXBContext context;
             try {
-                context = JAXBContext.newInstance(EmployeesHolder.class);
-                EmployeesHolder employeesHolder = (EmployeesHolder) context.createUnmarshaller().unmarshal(resource);
-                employeesList = employeesHolder.getEmployees();
+                employeesList = unmarshallEmployees();
             } catch (JAXBException e) {
                 throw new FacesException(e.getMessage(), e);
             }
@@ -150,8 +94,106 @@ public class Model {
     }
 
     /**
+     * Model containing compact discs. Suitable to be used in Tree-structured components.
+     * 
+     * @return list of compact discs
+     */
+    public synchronized List<CompactDiscXmlDescriptor> getCompactDiscs() {
+        if (compactDiscList == null) {
+            try {
+                compactDiscList = unmarshallCompactDiscs();
+            } catch (JAXBException e) {
+                throw new FacesException(e.getMessage(), e);
+            }
+        }
+
+        return compactDiscList;
+    }
+
+    /**
+     * Unmarshalls the list of capitals
+     * 
+     * @return the list of capitals
+     * @throws JAXBException
+     *             if any unexpected errors occurs during unmarshalling
+     */
+    public static final List<Capital> unmarshallCapitals() throws JAXBException {
+        return unmarshall(CapitalsHolder.class, "org/richfaces/tests/metamer/model/capitals.xml");
+    }
+
+    public static final List<Employee> unmarshallEmployees() throws JAXBException {
+        return unmarshall(EmployeesHolder.class, "org/richfaces/tests/metamer/model/employees.xml");
+    }
+
+    public static final List<CompactDiscXmlDescriptor> unmarshallCompactDiscs() throws JAXBException {
+        return unmarshall(CompactDiscsHolder.class, "org/richfaces/tests/metamer/model/compact-discs.xml");
+    }
+
+    @SuppressWarnings("unchecked")
+    static final <R, T extends ListHolder<R>> List<R> unmarshall(Class<T> rootElementType, String resourceURL)
+        throws JAXBException {
+        ClassLoader ccl = Thread.currentThread().getContextClassLoader();
+        URL resource = ccl.getResource(resourceURL);
+        JAXBContext context = JAXBContext.newInstance(rootElementType);
+        T holder = (T) context.createUnmarshaller().unmarshal(resource);
+        return holder.getList();
+    }
+
+    private static interface ListHolder<T> {
+
+        public List<T> getList();
+
+        public void setList(List<T> list);
+    }
+
+    @XmlRootElement(name = "capitals")
+    private static final class CapitalsHolder implements ListHolder<Capital> {
+
+        private List<Capital> list;
+
+        @XmlElement(name = "capital")
+        public List<Capital> getList() {
+            return list;
+        }
+
+        public void setList(List<Capital> list) {
+            this.list = list;
+        }
+    }
+
+    @XmlRootElement(name = "employees")
+    private static final class EmployeesHolder implements ListHolder<Employee> {
+
+        private List<Employee> list;
+
+        @XmlElement(name = "employee")
+        public List<Employee> getList() {
+            return list;
+        }
+
+        public void setList(List<Employee> list) {
+            this.list = list;
+        }
+    }
+
+    @XmlRootElement(name = "CATALOG")
+    private static final class CompactDiscsHolder implements ListHolder<CompactDiscXmlDescriptor> {
+
+        private List<CompactDiscXmlDescriptor> list;
+
+        @XmlElement(name = "CD")
+        public List<CompactDiscXmlDescriptor> getList() {
+            return list;
+        }
+
+        public void setList(List<CompactDiscXmlDescriptor> list) {
+            this.list = list;
+        }
+    }
+
+    /**
      * Model containing various job titles, e.g. CEO, President, Director.
-     *
+     * 
      * @return set of job titles
      */
     public synchronized Set<String> getJobTitles() {
@@ -167,7 +209,7 @@ public class Model {
 
     /**
      * Model containing select items with various job titles.
-     *
+     * 
      * @return set of job titles
      */
     public synchronized List<SelectItem> getJobTitlesSelectItems() {
