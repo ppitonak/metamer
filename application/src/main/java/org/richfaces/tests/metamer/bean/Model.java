@@ -25,12 +25,16 @@ package org.richfaces.tests.metamer.bean;
 import org.richfaces.tests.metamer.model.*;
 
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import javax.annotation.PostConstruct;
 
 import javax.faces.FacesException;
 import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
+import javax.faces.model.SelectItem;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.annotation.XmlElement;
@@ -50,6 +54,8 @@ public class Model {
 
     private List<Capital> capitalsList;
     private List<Employee> employeesList;
+    private Set<String> jobTitles;
+    private List<SelectItem> jobTitlesSelectItems;
     private Logger logger;
 
     @PostConstruct
@@ -141,5 +147,38 @@ public class Model {
         }
 
         return employeesList;
+    }
+
+    /**
+     * Model containing various job titles, e.g. CEO, President, Director.
+     *
+     * @return set of job titles
+     */
+    public synchronized Set<String> getJobTitles() {
+        if (jobTitles == null) {
+            jobTitles = new HashSet<String>();
+            for (Employee e : getEmployees()) {
+                jobTitles.add(e.getTitle());
+            }
+        }
+
+        return jobTitles;
+    }
+
+    /**
+     * Model containing select items with various job titles.
+     *
+     * @return set of job titles
+     */
+    public synchronized List<SelectItem> getJobTitlesSelectItems() {
+        if (jobTitlesSelectItems == null) {
+            jobTitlesSelectItems = new ArrayList<SelectItem>();
+
+            for (String title : getJobTitles()) {
+                jobTitlesSelectItems.add(new SelectItem(title, title));
+            }
+        }
+
+        return jobTitlesSelectItems;
     }
 }

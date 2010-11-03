@@ -131,7 +131,10 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                         <h:outputText id="columnHeaderTitleComponent" value="rich:comboBox" />
                     </f:facet>
 
-                    <h:outputText value="#{record.title}" />
+                    <rich:inplaceSelect id="titleInput" value="#{record.title}">
+                        <f:selectItems value="#{model.jobTitlesSelectItems}"/>
+                    </rich:inplaceSelect>
+
                     <f:facet name="footer">
                         <h:outputText id="columnFooterTitle" value="Title" />
                     </f:facet>

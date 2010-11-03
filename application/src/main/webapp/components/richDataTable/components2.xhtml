@@ -106,7 +106,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                     </f:facet>
 
                     <rich:inplaceInput id="nameInput" value="#{record.name}" defaultLabel="Click here to edit">
-                        <a4j:ajax event="change"/>
+                        <a4j:ajax event="inputchange" render="@this"/>
                     </rich:inplaceInput>
 
                     <f:facet name="footer">
@@ -118,10 +118,13 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                     <f:facet name="header">
                         <h:outputText id="columnHeaderTitle" value="Title" />
                         <br/>
-                        <h:outputText id="columnHeaderTitleComponent" value="rich:comboBox" />
+                        <h:outputText id="columnHeaderTitleComponent" value="rich:inplaceSelect" />
                     </f:facet>
 
-                    <h:outputText value="#{record.title}" />
+                    <rich:inplaceSelect id="titleInput" value="#{record.title}">
+                        <f:selectItems value="#{model.jobTitlesSelectItems}"/>
+                    </rich:inplaceSelect>
+                    
                     <f:facet name="footer">
                         <h:outputText id="columnFooterTitle" value="Title" />
                     </f:facet>

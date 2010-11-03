@@ -125,6 +125,7 @@ public class RichBean implements Serializable {
         components.put("richExtendedDataTable", "Rich Extended Data Table");
         components.put("richFunctions", "Rich Functions");
         components.put("richInplaceInput", "Rich Inplace Input");
+        components.put("richInplaceSelect", "Rich Inplace Select");
         components.put("richInputNumberSlider", "Rich Input Number Slider");
         components.put("richInputNumberSpinner", "Rich Input Number Spinner");
         components.put("richJQuery", "Rich jQuery");
