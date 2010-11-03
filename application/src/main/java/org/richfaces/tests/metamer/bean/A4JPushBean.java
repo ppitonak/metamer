@@ -24,14 +24,14 @@ package org.richfaces.tests.metamer.bean;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.EventListener;
+//import java.util.EventListener;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.event.ActionEvent;
-import org.ajax4jsf.event.PushEventListener;
+//import org.ajax4jsf.event.PushEventListener;
 import org.richfaces.component.UIPush;
 
 import org.richfaces.tests.metamer.Attributes;
@@ -52,7 +52,7 @@ public class A4JPushBean implements Serializable {
     private static Logger logger;
     private Attributes attributes;
     private int counter = 0;
-    private transient volatile PushEventListener listener;
+//    private transient volatile PushEventListener listener;
 
     @ManagedProperty(value = "#{a4jPushEventProcuder}")
     private transient A4JPushEventProcuder pushEventProducer;
@@ -103,10 +103,10 @@ public class A4JPushBean implements Serializable {
         this.attributes = attributes;
     }
     
-    public void setListener(EventListener listener) {
-        this.listener = (PushEventListener) listener;
-        pushEventProducer.registerListener(this.listener);
-    }
+//    public void setListener(EventListener listener) {
+//        this.listener = (PushEventListener) listener;
+//        pushEventProducer.registerListener(this.listener);
+//    }
 
     public int getCounter() {
         return counter;

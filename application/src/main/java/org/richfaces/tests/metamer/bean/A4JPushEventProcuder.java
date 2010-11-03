@@ -19,20 +19,19 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  *******************************************************************************/
-
 package org.richfaces.tests.metamer.bean;
 
 import java.io.Serializable;
-import java.util.Collection;
-import java.util.EventObject;
-import java.util.HashSet;
-import java.util.LinkedList;
+//import java.util.Collection;
+//import java.util.EventObject;
+//import java.util.HashSet;
+//import java.util.LinkedList;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
 
-import org.ajax4jsf.event.PushEventListener;
+//import org.ajax4jsf.event.PushEventListener;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -48,27 +47,27 @@ public class A4JPushEventProcuder implements Serializable {
 
     private static final long serialVersionUID = 4532283098337277878L;
     private Logger logger;
-    private Collection<PushEventListener> registeredListeners = new HashSet<PushEventListener>();
+//    FIXME example has to be reimplemented because of new implementation of a4j:push
+//    private Collection<PushEventListener> registeredListeners = new HashSet<PushEventListener>();
 
     @PostConstruct
     public void init() {
         logger = LoggerFactory.getLogger(getClass());
     }
-
-    public void registerListener(PushEventListener listener) {
-        synchronized (registeredListeners) {
-            registeredListeners.add(listener);
-        }
-    }
-
-    public void produceEvent() {
-        Collection<PushEventListener> listeners;
-        synchronized (registeredListeners) {
-            listeners = new LinkedList<PushEventListener>(registeredListeners);
-        }
-        for (PushEventListener listener : listeners) {
-            listener.onEvent(new EventObject(A4JPushBean.class));
-        }
-        logger.debug("push event (listeners: " + listeners.size() + ")");
-    }
+//    public void registerListener(PushEventListener listener) {
+//        synchronized (registeredListeners) {
+//            registeredListeners.add(listener);
+//        }
+//    }
+//
+//    public void produceEvent() {
+//        Collection<PushEventListener> listeners;
+//        synchronized (registeredListeners) {
+//            listeners = new LinkedList<PushEventListener>(registeredListeners);
+//        }
+//        for (PushEventListener listener : listeners) {
+//            listener.onEvent(new EventObject(A4JPushBean.class));
+//        }
+//        logger.debug("push event (listeners: " + listeners.size() + ")");
+//    }
 }
