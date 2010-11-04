@@ -58,10 +58,15 @@ public class RichCalendarBean implements Serializable {
 
         attributes = Attributes.getUIComponentAttributes(UICalendar.class, getClass(), false);
 
+        attributes.setAttribute("datePattern", "MMM d, yyyy HH:mm");
         attributes.setAttribute("popup", true);
         attributes.setAttribute("rendered", true);
+        attributes.setAttribute("showApplyButton", true);
+        attributes.setAttribute("showHeader", true);
         attributes.setAttribute("showFooter", true);
         attributes.setAttribute("showInput", true);
+        attributes.setAttribute("showWeeksBar", true);
+        attributes.setAttribute("showWeekDaysBar", true);
 
         // TODO has to be tested in another way
         attributes.remove("converter");
