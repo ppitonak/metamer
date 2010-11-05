@@ -516,8 +516,7 @@ public class TestRichSpinner extends AbstractMetamerTest {
      * @return spinner input value
      */
     private String getInputValue() {
-        String id = selenium.getEval(new JavaScript("window.testedComponentId"));
-        return selenium.getEval(new JavaScript("window.RichFaces.$('" + id + "').value"));
+        return selenium.getValue(input);
     }
 
     /**

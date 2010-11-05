@@ -37,14 +37,10 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
         </ui:define>
 
         <ui:define name="outOfTemplateBefore">
-            <script type="text/javascript">
-                    testedComponentId = "#{rich:clientId('collapsiblePanel')}";
-            </script>
         </ui:define>
 
         <ui:define name="component">
-            #{nonexistingbean.aaa}
-
+            
             <rich:collapsiblePanel id="collapsiblePanel"
                                    bodyClass="#{richCollapsiblePanelBean.attributes['bodyClass'].value}"
                                    bypassUpdates="#{richCollapsiblePanelBean.attributes['bypassUpdates'].value}"
