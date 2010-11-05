@@ -23,12 +23,17 @@ package org.richfaces.tests.metamer.ftest;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.List;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.StringUtils;
 import org.jboss.test.selenium.listener.FailureLoggingTestListener;
 import org.richfaces.tests.metamer.ftest.annotations.IssueTracking;
 import org.testng.ITestResult;
+
+import static java.util.Arrays.asList;
 
 /**
  * @author <a href="mailto:lfryc@redhat.com">Lukas Fryc</a>
@@ -49,9 +54,19 @@ public class MetamerFailureLoggingTestListener extends FailureLoggingTestListene
     @Override
     protected void onFailure(ITestResult result) {
         super.onFailure(result);
+        
+        List<String> issueList = new LinkedList<String>();
         IssueTracking issueTracking = result.getMethod().getMethod().getAnnotation(IssueTracking.class);
-        if (issueTracking != null && issueTracking.value().length > 0) {
-            String issues = StringUtils.join(issueTracking.value(), "\n");
+        if (issueTracking != null) {
+            issueList.addAll(asList(issueTracking.value()));
+        }
+        issueTracking = (IssueTracking) result.getMethod().getRealClass().getAnnotation(IssueTracking.class);
+        if (issueTracking != null) {
+            issueList.addAll(asList(issueTracking.value()));
+        }
+        
+        if (!issueList.isEmpty()) {
+            String issues = StringUtils.join(issueList, "\n");
             String filenameIdentification = getFilenameIdentification(result);
             File issueTrackingOutputFile = new File(failuresOutputDir, filenameIdentification + "/issues.txt");
             try {
