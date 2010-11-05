@@ -42,6 +42,7 @@ import org.testng.annotations.Test;
  * @author <a href="mailto:lfryc@redhat.com">Lukas Fryc</a>
  * @version $Revision$
  */
+@Test(enabled = false)
 public class TestInterval extends AbstractPushTest {
 
     private static final int DEFAULT_COUNTER_STEP = 2;

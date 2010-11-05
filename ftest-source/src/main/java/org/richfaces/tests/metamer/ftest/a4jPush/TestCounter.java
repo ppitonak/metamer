@@ -35,6 +35,7 @@ import org.testng.annotations.Test;
  * @author <a href="mailto:lfryc@redhat.com">Lukas Fryc</a>
  * @version $Revision$
  */
+@Test(enabled = false)
 public class TestCounter extends AbstractPushTest {
     private static final long SIMPLE_INTERVAL = 2500;
 
@@ -59,7 +60,7 @@ public class TestCounter extends AbstractPushTest {
         pushAndWait(1);
         int endCounter = getCounter();
 
-        assertNotSame(beginCounter < endCounter, format(
-            "The counter before push is greater {0} or equal the end counter {1}", beginCounter, endCounter));
+        assertNotSame(beginCounter < endCounter,
+            format("The counter before push is greater {0} or equal the end counter {1}", beginCounter, endCounter));
     }
 }
