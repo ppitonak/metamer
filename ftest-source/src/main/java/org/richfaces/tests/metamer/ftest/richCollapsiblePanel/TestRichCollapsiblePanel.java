@@ -29,7 +29,7 @@ import static org.jboss.test.selenium.utils.URLUtils.buildUrl;
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertFalse;
 import static org.testng.Assert.assertTrue;
-import static org.testng.Assert.assertNotSame;
+import static org.testng.Assert.assertSame;
 
 import java.net.URL;
 
@@ -183,7 +183,7 @@ public class TestRichCollapsiblePanel extends AbstractMetamerTest {
         waitGui.failWith("Panel should be collapsed.").until(isDisplayed.locator(headerColps));
 
         String newTime = selenium.getText(timeLoc);
-        assertNotSame(newTime, timeValue, "Panel with ajaxRendered=true should not be rerendered.");
+        assertSame(newTime, timeValue, "Panel with ajaxRendered=true should not be rerendered.");
     }
 
     @Test
