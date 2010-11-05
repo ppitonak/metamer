@@ -128,7 +128,9 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                         </rich:inplaceSelect>
                     </rich:column>
                     <rich:column id="columnBirthdate">
-                        <h:outputText value="#{item.birthdate}" />
+                        <rich:calendar id="birthdate" value="#{item.birthdate}">
+                            <a4j:ajax event="inputchange" render="@this"/>
+                        </rich:calendar>
                     </rich:column>
                     <rich:column id="columnCompanies">
                         <ul>

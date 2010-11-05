@@ -41,7 +41,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                 }
 
                 .rf-edt {
-                    width: 970px !important;
+                    width: 990px !important;
                     height: 400px !important;
                 }
 
@@ -64,7 +64,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 
                 .rf-edt-c-columnBirthdate {
                     text-align: center;
-                    width: 150px !important;
+                    width: 170px !important;
                 }
 
                 .rf-edt-c-columnCompanies {
@@ -185,7 +185,10 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                         <h:outputText id="columnHeaderBirthdateComponent" value="rich:calendar" />
                     </f:facet>
 
-                    <h:outputText value="#{record.birthdate}" />
+                    <rich:calendar id="birthdate" value="#{record.birthdate}">
+                        <a4j:ajax event="inputchange" render="@this"/>
+                    </rich:calendar>
+                    
                     <f:facet name="footer">
                         <h:outputText id="columnFooterBirthdate" value="Birthdate" />
                     </f:facet>

@@ -137,7 +137,10 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                         <h:outputText id="columnHeaderBirthdateComponent" value="rich:calendar" />
                     </f:facet>
 
-                    <h:outputText value="#{record.birthdate}" />
+                    <rich:calendar id="birthdate" value="#{record.birthdate}">
+                        <a4j:ajax event="inputchange" render="@this"/>
+                    </rich:calendar>
+                    
                     <f:facet name="footer">
                         <h:outputText id="columnFooterBirthdate" value="Birthdate" />
                     </f:facet>
