@@ -26,6 +26,7 @@ import static org.jboss.test.selenium.utils.URLUtils.buildUrl;
 import java.net.URL;
 
 import org.jboss.test.selenium.locator.JQueryLocator;
+import org.richfaces.tests.metamer.ftest.annotations.IssueTracking;
 import org.testng.annotations.Test;
 
 /**
@@ -49,6 +50,7 @@ public class TestHCommandLink extends AbstractTestCommand {
     }
 
     @Test
+    @IssueTracking("https://jira.jboss.org/browse/RF-9665")
     public void testSimpleClickUnicode() {
         super.testClick(link, "ľščťžýáíéúôň фывацукйешгщь");
     }

@@ -74,6 +74,7 @@ public class TestA4JCommandLink extends AbstractMetamerTest {
     }
 
     @Test
+    @IssueTracking("https://jira.jboss.org/browse/RF-9665")
     public void testSimpleClickUnicode() {
         selenium.typeKeys(input, "ľščťžýáíéňô");
         selenium.click(link);
