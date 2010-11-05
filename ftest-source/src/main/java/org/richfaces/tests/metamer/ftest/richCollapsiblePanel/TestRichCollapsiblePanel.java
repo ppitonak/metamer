@@ -125,6 +125,7 @@ public class TestRichCollapsiblePanel extends AbstractMetamerTest {
     }
 
     @Test
+    @IssueTracking("https://jira.jboss.org/browse/RF-9421")
     public void testBypassUpdates() {
         JQueryLocator input = pjq("input[type=radio][name$=bypassUpdatesInput][value=true]");
         selenium.click(input);
@@ -152,6 +153,7 @@ public class TestRichCollapsiblePanel extends AbstractMetamerTest {
     }
 
     @Test
+    @IssueTracking("https://jira.jboss.org/browse/RF-9421")
     public void testImmediate() {
         JQueryLocator input = pjq("input[type=radio][name$=immediateInput][value=true]");
         selenium.click(input);
