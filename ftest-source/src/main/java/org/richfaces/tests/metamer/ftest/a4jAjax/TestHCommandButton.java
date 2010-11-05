@@ -87,6 +87,6 @@ public class TestHCommandButton extends AbstractTestCommand {
 
     @Test
     public void testRender() {
-        super.testEvents(button);
+        super.testRender(button);
     }
 }

@@ -87,6 +87,6 @@ public class TestHCommandLink extends AbstractTestCommand {
 
     @Test
     public void testRender() {
-        super.testEvents(link);
+        super.testRender(link);
     }
 }
