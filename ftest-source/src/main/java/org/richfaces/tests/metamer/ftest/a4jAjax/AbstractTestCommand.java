@@ -150,6 +150,7 @@ public abstract class AbstractTestCommand extends AbstractMetamerTest {
 
         String[] events = selenium.getEval(new JavaScript("window.metamerEvents")).split(" ");
 
+        assertEquals(events.length, 3, "3 events should be fired.");
         assertEquals(events[0], "begin", "Attribute onbegin doesn't work");
         assertEquals(events[1], "beforedomupdate", "Attribute onbeforedomupdate doesn't work");
         assertEquals(events[2], "complete", "Attribute oncomplete doesn't work");
