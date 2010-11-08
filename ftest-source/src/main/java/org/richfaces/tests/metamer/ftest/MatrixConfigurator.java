@@ -167,9 +167,11 @@ public class MatrixConfigurator extends TestMethodSelector implements IInvokedMe
     }
 
     public void transform(ITestAnnotation annotation, Class testClass, Constructor testConstructor, Method testMethod) {
-        super.transform(annotation, testClass, testConstructor, testMethod);
-        int invocationCount = createConfiguration(testMethod.getDeclaringClass(), testMethod);
-        annotation.setInvocationCount(invocationCount);
+        if (testMethod != null) {
+            super.transform(annotation, testClass, testConstructor, testMethod);
+            int invocationCount = createConfiguration(testMethod.getDeclaringClass(), testMethod);
+            annotation.setInvocationCount(invocationCount);
+        }
     }
 
     public int createConfiguration(Class<?> realClass, Method realMethod) {
