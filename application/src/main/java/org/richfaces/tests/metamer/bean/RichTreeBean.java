@@ -30,7 +30,7 @@ import java.util.Map;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
-import javax.faces.bean.ViewScoped;
+import javax.faces.bean.SessionScoped;
 import javax.swing.tree.TreeNode;
 
 import org.richfaces.component.UITree;
@@ -49,7 +49,8 @@ import org.slf4j.LoggerFactory;
  * @version $Revision$
  */
 @ManagedBean(name = "richTreeBean")
-@ViewScoped
+// cannot be view-scoped (see https://jira.jboss.org/browse/RF-9287)
+@SessionScoped
 public class RichTreeBean implements Serializable {
 
     private static final long serialVersionUID = 4008175400649809L;
