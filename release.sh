@@ -12,7 +12,6 @@ read -p 'Enter path to the settings.xml: ' MVN_SETTINGS
 CONF="--batch-mode -Dtag=metamer-${RELEASE} -DreleaseVersion=${RELEASE} -DdevelopmentVersion=${DEVELOPMENT}"
 
 if [ -n "$MVN_SETTINGS" ]; then
-   echo "**** NIE JE PRAZDNE $MVN_SETTINGS"
    CONF="$CONF -s $MVN_SETTINGS"; 
 fi
 
