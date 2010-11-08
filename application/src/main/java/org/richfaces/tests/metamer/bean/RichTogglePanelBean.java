@@ -54,14 +54,13 @@ public class RichTogglePanelBean implements Serializable {
         logger = LoggerFactory.getLogger(getClass());
         logger.debug("initializing bean " + getClass().getName());
 
-        attributes = Attributes.getUIComponentAttributes(HtmlTogglePanel.class, getClass());
+        attributes = Attributes.getUIComponentAttributes(HtmlTogglePanel.class, getClass(), false);
 
         attributes.setAttribute("activeItem", "item1");
         attributes.setAttribute("rendered", true);
 
         // TODO has to be tested in another way
         attributes.remove("itemChangeListener");
-        attributes.remove("itemChangeListeners");
     }
 
     public Attributes getAttributes() {
