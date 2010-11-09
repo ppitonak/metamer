@@ -71,7 +71,9 @@ public class RichSelectBean implements Serializable {
         attributes = Attributes.getUIComponentAttributes(UISelect.class, getClass(), false);
 
         attributes.setAttribute("defaultLabel", "Click here to edit");
+        attributes.setAttribute("enableManualInput", true);
         attributes.setAttribute("rendered", true);
+        attributes.setAttribute("showButton", true);
 
         // TODO has to be tested in another way
         attributes.remove("converter");
