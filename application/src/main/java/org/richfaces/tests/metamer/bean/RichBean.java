@@ -154,6 +154,7 @@ public class RichBean implements Serializable {
         skins.add("japanCherry");
         skins.add("ruby");
         skins.add("wine");
+        skins.add("plain");
     }
 
     /**
