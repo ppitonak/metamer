@@ -136,7 +136,9 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                         <h:outputText id="columnHeaderSmokerComponent" value="h:selectBooleanCheckbox" />
                     </f:facet>
 
-                    <h:selectBooleanCheckbox value="#{record.smoker}"/>
+                    <h:selectBooleanCheckbox id="smoker" value="#{record.smoker}">
+                        <a4j:ajax event="change" render="@this"/>
+                    </h:selectBooleanCheckbox>
 
                     <f:facet name="footer">
                         <h:outputText id="columnFooterSmoker" value="Smoker" />
