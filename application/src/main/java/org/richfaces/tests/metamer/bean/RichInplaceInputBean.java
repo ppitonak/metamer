@@ -54,7 +54,7 @@ public class RichInplaceInputBean implements Serializable {
         logger = LoggerFactory.getLogger(getClass());
         logger.debug("initializing bean " + getClass().getName());
 
-        attributes = Attributes.getUIComponentAttributes(UIInplaceInput.class, getClass());
+        attributes = Attributes.getUIComponentAttributes(UIInplaceInput.class, getClass(), false);
 
         attributes.setAttribute("defaultLabel", "Click here to edit");
         attributes.setAttribute("editEvent", "click");
