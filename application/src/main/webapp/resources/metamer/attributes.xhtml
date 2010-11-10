@@ -31,7 +31,7 @@
                     </h:panelGroup>
 
                     <c:choose>
-                        <c:when test="#{entry.value.boolean}">
+                        <c:when test="#{entry.value.bool}">
                             <h:selectOneRadio id="#{entry.key}Input" value="#{entry.value.value}" onchange="#{cc.attrs.type == 'server' ? 'submit()' : 'submitAjax()'}">
                                 <f:selectItem itemValue="null" itemLabel="null"/>
                                 <f:selectItem itemValue="true" itemLabel="true"/>

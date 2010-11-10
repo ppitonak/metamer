@@ -112,7 +112,7 @@ public class Attribute implements Serializable {
         this.type = type;
     }
 
-    public boolean isBoolean() {
+    public boolean isBool() {
         return type == Boolean.class || type == boolean.class;
     }
 
