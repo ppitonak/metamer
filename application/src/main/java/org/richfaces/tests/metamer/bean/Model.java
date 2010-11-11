@@ -22,6 +22,7 @@
 
 package org.richfaces.tests.metamer.bean;
 
+import java.io.Serializable;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -51,7 +52,9 @@ import org.richfaces.tests.metamer.model.tree.CompactDiscXmlDescriptor;
  */
 @ManagedBean
 @ApplicationScoped
-public class Model {
+public class Model implements Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     private List<Capital> capitalsList;
     private List<Employee> employeesList;

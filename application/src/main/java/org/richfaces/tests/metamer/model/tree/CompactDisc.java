@@ -1,10 +1,14 @@
 package org.richfaces.tests.metamer.model.tree;
 
+import java.io.Serializable;
 import java.util.Enumeration;
 
 import javax.swing.tree.TreeNode;
 
-public class CompactDisc extends NamedNode implements TreeNode {
+public class CompactDisc extends NamedNode implements TreeNode, Serializable {
+
+    private static final long serialVersionUID = 1L;
+
     private Company company;
     private String artist;
     private String title;
@@ -14,7 +18,7 @@ public class CompactDisc extends NamedNode implements TreeNode {
     public CompactDisc() {
         this.setType("cd");
     }
-    
+
     public CompactDisc(String title, String artist, Company company, float price, int year) {
         super();
         this.setType("cd");

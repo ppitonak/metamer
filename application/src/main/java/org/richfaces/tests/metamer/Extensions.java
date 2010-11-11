@@ -21,17 +21,21 @@
  *******************************************************************************/
 package org.richfaces.tests.metamer;
 
+import java.io.Serializable;
+
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  * Representation of CDK extension of a RichFaces component in faces-config.xml.
- *
+ * 
  * @author <a href="mailto:ppitonak@redhat.com">Pavol Pitonak</a>
  * @version $Revision$
  */
 @XmlRootElement(name = "property-extension", namespace = "http://java.sun.com/xml/ns/javaee")
-public class Extensions {
+public class Extensions implements Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     private boolean generate;
     private boolean hidden;
