@@ -30,14 +30,14 @@
 
     <groupId>org.richfaces.tests</groupId>
     <artifactId>metamer-ftest</artifactId>
-    <version>4.0.0-SNAPSHOT</version>
+    <version>4.0.0.20101110-M4</version>
     <name>Metamer: RichFaces Testing Application - Functional Test</name>
     <packaging>pom</packaging>
 
     <scm>
-        <connection>scm:svn:http://anonsvn.jboss.org/repos/richfaces/modules/tests/metamer/trunk/ftest</connection>
-        <developerConnection>scm:svn:https://svn.jboss.org/repos/richfaces/modules/tests/metamer/trunk/ftest</developerConnection>
-        <url>http://fisheye.jboss.org/browse/RichFaces/modules/tests/metamer/trunk/ftest</url>
+        <connection>scm:svn:http://anonsvn.jboss.org/repos/richfaces/modules/tests/metamer/tags/metamer-4.0.0.20101110-M4/ftest</connection>
+        <developerConnection>scm:svn:https://svn.jboss.org/repos/richfaces/modules/tests/metamer/tags/metamer-4.0.0.20101110-M4/ftest</developerConnection>
+        <url>http://fisheye.jboss.org/browse/RichFaces/modules/tests/metamer/tags/metamer-4.0.0.20101110-M4/ftest</url>
     </scm>
 
     <licenses>
@@ -80,8 +80,8 @@
     <properties>
         <context.path>/metamer/</context.path>
         <deployable.classifier>mojarra</deployable.classifier>
-        <deployable.version>4.0.0-SNAPSHOT</deployable.version>
-        <ftest.source.version>4.0.0-SNAPSHOT</ftest.source.version>
+        <deployable.version>4.0.0.20101110-M4</deployable.version>
+        <ftest.source.version>4.0.0.20101110-M4</ftest.source.version>
         <testng.suite.xml>src/test/resources/testng.xml</testng.suite.xml>
         <container.home>target/installs/${container.dir.deflatted}/${container.dir.unflatted}</container.home>
     </properties>
