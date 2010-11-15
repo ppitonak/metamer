@@ -198,13 +198,10 @@ public abstract class AbstractMetamerTest extends AbstractTestCase {
     }
 
     /**
-     * A helper method for testing attribute "class". It sets "metamer-ftest-class" to the input field and checks that
-     * it was changed on the page.
+     * A helper method for testing attribute "dir". It tries null, ltr and rtl.
      *
      * @param element
      *            locator of tested element
-     * @param attribute
-     *            name of the attribute that will be set (e.g. styleClass, headerClass, itemContentClass
      */
     protected void testDir(ElementLocator<?> element) {
         JQueryLocator ltrInput = pjq("input[type=radio][name$=dirInput][value=ltr]");
