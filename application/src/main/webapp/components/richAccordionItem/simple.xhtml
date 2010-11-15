@@ -42,9 +42,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
         <ui:define name="component">
             <rich:accordion id="accordion" activeItem="item3">
                 <rich:accordionItem id="item1"
-                                    active="#{richAccordionItemBean.attributes['active'].value}"
                                     contentClass="#{richAccordionItemBean.attributes['contentClass'].value}"
-                                    converter="#{richAccordionItemBean.attributes['converter'].value}"
                                     dir="#{richAccordionItemBean.attributes['dir'].value}"
                                     disabled="#{richAccordionItemBean.attributes['disabled'].value}"
                                     header="#{richAccordionItemBean.attributes['header'].value}"
@@ -54,7 +52,6 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                                     headerClassInactive="#{richAccordionItemBean.attributes['headerClassInactive'].value}"
                                     headerStyle="#{richAccordionItemBean.attributes['headerStyle'].value}"
                                     lang="#{richAccordionItemBean.attributes['lang'].value}"
-                                    localValue="#{richAccordionItemBean.attributes['localValue'].value}"
                                     name="#{richAccordionItemBean.attributes['name'].value}"
                                     onclick="#{richAccordionItemBean.attributes['onclick'].value}"
                                     ondblclick="#{richAccordionItemBean.attributes['ondblclick'].value}"
@@ -75,7 +72,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                                     styleClass="#{richAccordionItemBean.attributes['styleClass'].value}"
                                     switchType="#{richAccordionItemBean.attributes['switchType'].value}"
                                     title="#{richAccordionItemBean.attributes['title'].value}"
-                                    value="#{richAccordionItemBean.attributes['value'].value}">
+                                    >
                     content of item 1
                 </rich:accordionItem>
                 <rich:accordionItem id="item2" name="item2"  header="Item 2">
