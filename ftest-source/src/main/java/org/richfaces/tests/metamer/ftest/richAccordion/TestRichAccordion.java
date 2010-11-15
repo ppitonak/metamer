@@ -342,7 +342,7 @@ public class TestRichAccordion extends AbstractMetamerTest {
 
     @Test
     public void testStyle() {
-        testStyle(accordion);
+        testStyle(accordion, "style");
     }
 
     @Test

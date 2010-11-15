@@ -474,7 +474,7 @@ public class TestRichSpinner extends AbstractMetamerTest {
 
     @Test
     public void testStyle() {
-        testStyle(spinner);
+        testStyle(spinner, "style");
     }
 
     @Test

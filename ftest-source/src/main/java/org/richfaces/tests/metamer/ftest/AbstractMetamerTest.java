@@ -163,12 +163,14 @@ public abstract class AbstractMetamerTest extends AbstractTestCase {
     /**
      * A helper method for testing attribute "style". It sets "background-color: yellow; font-size: 1.5em;" to the input
      * field and checks that it was changed on the page.
-     * 
+     *
      * @param element
      *            locator of tested element
+     * @param attribute
+     *            name of the attribute that will be set (e.g. style, headerStyle, itemContentStyle)
      */
-    protected void testStyle(ElementLocator<?> element) {
-        ElementLocator<?> styleInput = pjq("input[id$=styleInput]");
+    protected void testStyle(ElementLocator<?> element, String attribute) {
+        ElementLocator<?> styleInput = pjq("input[id$=" + attribute + "Input]");
         final String value = "background-color: yellow; font-size: 1.5em;";
 
         selenium.type(styleInput, value);

@@ -316,7 +316,7 @@ public class TestRichTabPanel extends AbstractMetamerTest {
 
     @Test
     public void testStyle() {
-        testStyle(panel);
+        testStyle(panel, "style");
     }
 
     @Test

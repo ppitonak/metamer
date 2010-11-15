@@ -336,7 +336,7 @@ public class TestRichTab extends AbstractMetamerTest {
 
     @Test
     public void testStyle() {
-        testStyle(tab);
+        testStyle(tab, "style");
     }
 
     @Test
