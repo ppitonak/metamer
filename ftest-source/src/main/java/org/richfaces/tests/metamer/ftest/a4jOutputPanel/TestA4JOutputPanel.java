@@ -227,22 +227,6 @@ public class TestA4JOutputPanel extends AbstractMetamerTest {
 
     @Test
     public void testTitle() {
-        String title = "a4j:outputPanel title";
-        JQueryLocator titleInput = pjq("input[id$=titleInput]");
-        AttributeLocator<?> attributeTitle = outputDiv.getAttribute(new Attribute("title"));
-
-        selenium.typeKeys(titleInput, title);
-        selenium.waitForPageToLoad(TIMEOUT);
-
-        String attributeValue = selenium.getAttribute(attributeTitle);
-        assertEquals(attributeValue, title, "Value of attribute title.");
-
-        selenium.typeKeys(titleInput, "");
-        selenium.waitForPageToLoad(TIMEOUT);
-
-        if (selenium.isAttributePresent(attributeTitle)) {
-            attributeValue = selenium.getAttribute(attributeTitle);
-            assertEquals(attributeValue, "", "Value of attribute style.");
-        }
+        testTitle(outputDiv);
     }
 }

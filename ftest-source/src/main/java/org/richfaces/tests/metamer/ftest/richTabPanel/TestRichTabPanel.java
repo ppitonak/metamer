@@ -411,18 +411,6 @@ public class TestRichTabPanel extends AbstractMetamerTest {
 
     @Test
     public void testTitle() {
-        JQueryLocator input = pjq("input[type=text][id$=titleInput]");
-        AttributeLocator<?> attribute = panel.getAttribute(new Attribute("title"));
-
-        // title = null
-        assertFalse(selenium.isAttributePresent(attribute), "Attribute title should not be present.");
-
-        // title = "RichFaces Tab Panel"
-        selenium.type(input, "RichFaces Tab Panel");
-        selenium.waitForPageToLoad(TIMEOUT);
-
-        assertTrue(selenium.isAttributePresent(attribute), "Attribute title should be present.");
-        String value = selenium.getAttribute(attribute);
-        assertEquals(value, "RichFaces Tab Panel", "Attribute title");
+        testTitle(panel);
     }
 }

@@ -283,7 +283,7 @@ public class TestRichTab extends AbstractMetamerTest {
     public void testOnleave() {
         JQueryLocator time = jq("span[id$=requestTime]");
 
-        selenium.type(pjq("input[type=text][id$=onleaveInput]"), "metamerEvents += \"enter \"");
+        selenium.type(pjq("input[type=text][id$=onleaveInput]"), "metamerEvents += \"leave \"");
         selenium.waitForPageToLoad();
 
         selenium.getEval(new JavaScript("window.metamerEvents = \"\";"));
@@ -390,18 +390,6 @@ public class TestRichTab extends AbstractMetamerTest {
 
     @Test
     public void testTitle() {
-        JQueryLocator input = pjq("input[type=text][id$=titleInput]");
-        AttributeLocator<?> attribute = tab.getAttribute(new Attribute("title"));
-
-        // title = null
-        assertFalse(selenium.isAttributePresent(attribute), "Attribute title should not be present.");
-
-        // title = "RichFaces Tab Panel"
-        selenium.type(input, "RichFaces Tab Panel");
-        selenium.waitForPageToLoad(TIMEOUT);
-
-        assertTrue(selenium.isAttributePresent(attribute), "Attribute title should be present.");
-        String value = selenium.getAttribute(attribute);
-        assertEquals(value, "RichFaces Tab Panel", "Attribute title");
+        testTitle(tab);
     }
 }

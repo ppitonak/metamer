@@ -156,7 +156,7 @@ public abstract class AbstractMetamerTest extends AbstractTestCase {
 
         selenium.fireEvent(element, event);
 
-        waitGui.failWith(event.getEventName() + " attribute did not change correctly").until(
+        waitGui.failWith("Attribute on" + attributeName + " does not work correctly").until(
                 new EventFiredCondition(event));
     }
 
@@ -248,6 +248,28 @@ public abstract class AbstractMetamerTest extends AbstractTestCase {
         langAttr = element.getAttribute(new Attribute("lang"));
         assertTrue(selenium.isAttributePresent(langAttr), "Attribute xml:lang should be present.");
         assertEquals(selenium.getAttribute(langAttr), "sk", "Attribute xml:lang should be present.");
+    }
+
+    /**
+     * A helper method for testing attribute "title".
+     *
+     * @param element
+     *            locator of tested element
+     */
+    protected void testTitle(ElementLocator<?> element) {
+        JQueryLocator input = pjq("input[type=text][id$=titleInput]");
+        AttributeLocator<?> attribute = element.getAttribute(new Attribute("title"));
+
+        // title = null
+        assertFalse(selenium.isAttributePresent(attribute), "Attribute title should not be present.");
+
+        // title = "RichFaces 4"
+        selenium.type(input, "RichFaces 4");
+        selenium.waitForPageToLoad(TIMEOUT);
+
+        assertTrue(selenium.isAttributePresent(attribute), "Attribute title should be present.");
+        String value = selenium.getAttribute(attribute);
+        assertEquals(value, "RichFaces 4", "Attribute title");
     }
 
     /**

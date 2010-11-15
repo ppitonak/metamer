@@ -352,19 +352,7 @@ public class TestRichAccordion extends AbstractMetamerTest {
 
     @Test
     public void testTitle() {
-        JQueryLocator input = pjq("input[type=text][id$=titleInput]");
-        AttributeLocator<?> attribute = accordion.getAttribute(new Attribute("title"));
-
-        // title = null
-        assertFalse(selenium.isAttributePresent(attribute), "Attribute title should not be present.");
-
-        // title = "RichFaces Accordion"
-        selenium.type(input, "RichFaces Accordion");
-        selenium.waitForPageToLoad(TIMEOUT);
-
-        assertTrue(selenium.isAttributePresent(attribute), "Attribute title should be present.");
-        String value = selenium.getAttribute(attribute);
-        assertEquals(value, "RichFaces Accordion", "Attribute title");
+        testTitle(accordion);
     }
 
     @Test
