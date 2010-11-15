@@ -57,7 +57,6 @@ public class TestRichAccordion extends AbstractMetamerTest {
         pjq("div[id$=item3:header]"), pjq("div[id$=item4:header]"), pjq("div[id$=item5:header]")};
     private JQueryLocator[] itemContents = {pjq("div[id$=item1:content]"), pjq("div[id$=item2:content]"),
         pjq("div[id$=item3:content]"), pjq("div[id$=item4:content]"), pjq("div[id$=item5:content]")};
-    private IsDisplayed isDisplayed = IsDisplayed.getInstance();
     private JQueryLocator[] activeHeaders = {pjq("div.rf-ac-itm-hdr-act:eq(0)"), pjq("div.rf-ac-itm-hdr-act:eq(1)"),
         pjq("div.rf-ac-itm-hdr-act:eq(2)"), pjq("div.rf-ac-itm-hdr-act:eq(3)"), pjq("div.rf-ac-itm-hdr-act:eq(4)")};
     private JQueryLocator[] inactiveHeaders = {pjq("div.rf-ac-itm-hdr-inact:eq(0)"),
@@ -144,7 +143,7 @@ public class TestRichAccordion extends AbstractMetamerTest {
         waitGui.failWith("Item 3 is not displayed.").until(isDisplayed.locator(itemContents[2]));
 
         assertPhases(PhaseId.RESTORE_VIEW, PhaseId.APPLY_REQUEST_VALUES, PhaseId.PROCESS_VALIDATIONS,
-            PhaseId.RENDER_RESPONSE);
+                PhaseId.RENDER_RESPONSE);
     }
 
     @Test
@@ -175,26 +174,7 @@ public class TestRichAccordion extends AbstractMetamerTest {
 
     @Test
     public void testDir() {
-        JQueryLocator ltrInput = pjq("input[type=radio][id$=dirInput:0]");
-        JQueryLocator rtlInput = pjq("input[type=radio][id$=dirInput:2]");
-        AttributeLocator<?> dirAttribute = accordion.getAttribute(new Attribute("dir"));
-
-        // dir = null
-        assertFalse(selenium.isAttributePresent(dirAttribute), "Attribute dir should not be present.");
-
-        // dir = ltr
-        selenium.click(ltrInput);
-        selenium.waitForPageToLoad();
-        assertTrue(selenium.isAttributePresent(dirAttribute), "Attribute dir should be present.");
-        String value = selenium.getAttribute(dirAttribute);
-        assertEquals(value, "ltr", "Attribute dir");
-
-        // dir = rtl
-        selenium.click(rtlInput);
-        selenium.waitForPageToLoad();
-        assertTrue(selenium.isAttributePresent(dirAttribute), "Attribute dir should be present.");
-        value = selenium.getAttribute(dirAttribute);
-        assertEquals(value, "rtl", "Attribute dir");
+        testDir(accordion);
     }
 
     @Test

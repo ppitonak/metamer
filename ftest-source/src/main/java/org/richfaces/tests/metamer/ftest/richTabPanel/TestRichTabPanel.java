@@ -187,26 +187,7 @@ public class TestRichTabPanel extends AbstractMetamerTest {
 
     @Test
     public void testDir() {
-        JQueryLocator ltrInput = pjq("input[type=radio][name$=dirInput][value=LTR]");
-        JQueryLocator rtlInput = pjq("input[type=radio][name$=dirInput][value=RTL]");
-        AttributeLocator<?> dirAttribute = panel.getAttribute(new Attribute("dir"));
-
-        // dir = null
-        assertFalse(selenium.isAttributePresent(dirAttribute), "Attribute dir should not be present.");
-
-        // dir = ltr
-        selenium.click(ltrInput);
-        selenium.waitForPageToLoad();
-        assertTrue(selenium.isAttributePresent(dirAttribute), "Attribute dir should be present.");
-        String value = selenium.getAttribute(dirAttribute);
-        assertEquals(value, "LTR", "Attribute dir");
-
-        // dir = rtl
-        selenium.click(rtlInput);
-        selenium.waitForPageToLoad();
-        assertTrue(selenium.isAttributePresent(dirAttribute), "Attribute dir should be present.");
-        value = selenium.getAttribute(dirAttribute);
-        assertEquals(value, "RTL", "Attribute dir");
+        super.testDir(panel);
     }
 
     @Test

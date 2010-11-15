@@ -24,6 +24,7 @@ package org.richfaces.tests.metamer.ftest;
 import static org.jboss.test.selenium.locator.LocatorFactory.jq;
 import static org.jboss.test.selenium.utils.URLUtils.buildUrl;
 import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.assertFalse;
 import static org.testng.Assert.assertTrue;
 
 import java.net.URL;
@@ -194,6 +195,38 @@ public abstract class AbstractMetamerTest extends AbstractTestCase {
         selenium.waitForPageToLoad();
 
         assertTrue(selenium.belongsClass(element, value), attribute + " does not work");
+    }
+
+    /**
+     * A helper method for testing attribute "class". It sets "metamer-ftest-class" to the input field and checks that
+     * it was changed on the page.
+     *
+     * @param element
+     *            locator of tested element
+     * @param attribute
+     *            name of the attribute that will be set (e.g. styleClass, headerClass, itemContentClass
+     */
+    protected void testDir(ElementLocator<?> element) {
+        JQueryLocator ltrInput = pjq("input[type=radio][name$=dirInput][value=ltr]");
+        JQueryLocator rtlInput = pjq("input[type=radio][name$=dirInput][value=rtl]");
+        AttributeLocator<?> dirAttribute = element.getAttribute(new Attribute("dir"));
+
+        // dir = null
+        assertFalse(selenium.isAttributePresent(dirAttribute), "Attribute dir should not be present.");
+
+        // dir = ltr
+        selenium.click(ltrInput);
+        selenium.waitForPageToLoad();
+        assertTrue(selenium.isAttributePresent(dirAttribute), "Attribute dir should be present.");
+        String value = selenium.getAttribute(dirAttribute);
+        assertEquals(value, "ltr", "Attribute dir");
+
+        // dir = rtl
+        selenium.click(rtlInput);
+        selenium.waitForPageToLoad();
+        assertTrue(selenium.isAttributePresent(dirAttribute), "Attribute dir should be present.");
+        value = selenium.getAttribute(dirAttribute);
+        assertEquals(value, "rtl", "Attribute dir");
     }
 
     /**

@@ -19,7 +19,6 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  *******************************************************************************/
-
 package org.richfaces.tests.metamer.ftest.a4jOutputPanel;
 
 import static org.jboss.test.selenium.locator.LocatorFactory.jq;
@@ -49,19 +48,15 @@ import org.testng.annotations.Test;
  */
 public class TestA4JOutputPanel extends AbstractMetamerTest {
 
-    Event[] events = new Event[] { CLICK, DBLCLICK, KEYDOWN, KEYPRESS, KEYUP, MOUSEDOWN, MOUSEMOVE, MOUSEOUT,
-        MOUSEOVER, MOUSEUP };
-
-    String[] layouts = new String[] { "block", "inline" };
-
+    Event[] events = new Event[]{CLICK, DBLCLICK, KEYDOWN, KEYPRESS, KEYUP, MOUSEDOWN, MOUSEMOVE, MOUSEOUT,
+        MOUSEOVER, MOUSEUP};
+    String[] layouts = new String[]{"block", "inline"};
     @Inject
     @Use(empty = true)
     Event event;
-
     @Inject
     @Use(empty = true)
     String layout;
-
     private JQueryLocator increaseCounterButton = pjq("input[id$=button]");
     private JQueryLocator outputDiv = pjq("div[id$=outputPanel]");
     private JQueryLocator outputSpan = pjq("span[id$=outputPanel]");
@@ -72,9 +67,11 @@ public class TestA4JOutputPanel extends AbstractMetamerTest {
     public URL getTestUrl() {
         return buildUrl(contextPath, "faces/components/a4jOutputPanel/simple.xhtml");
     }
-    
+
     @Test
-    @Uses({ @Use(field = "event", value = "events"), @Use(field = "layout", value = "layouts") })
+    @Uses({
+        @Use(field = "event", value = "events"),
+        @Use(field = "layout", value = "layouts")})
     public void testEvent() {
         JQueryLocator element = null;
 
@@ -127,30 +124,7 @@ public class TestA4JOutputPanel extends AbstractMetamerTest {
 
     @Test
     public void testDir() {
-        JQueryLocator optionLtr = pjq("input[name$=dirInput][value=ltr]");
-        JQueryLocator optionRtl = pjq("input[name$=dirInput][value=rtl]");
-        JQueryLocator optionNone = pjq("input[name$=dirInput][value=]");
-        AttributeLocator<?> attributeDir = outputDiv.getAttribute(new Attribute("dir"));
-
-        // right-to-left
-        selenium.click(optionRtl);
-        selenium.waitForPageToLoad(TIMEOUT);
-        String attributeValue = selenium.getAttribute(attributeDir);
-        assertEquals(attributeValue, "rtl", "Attribute dir after rtl was set.");
-
-        // left-to-right
-        selenium.click(optionLtr);
-        selenium.waitForPageToLoad(TIMEOUT);
-        attributeValue = selenium.getAttribute(attributeDir);
-        assertEquals(attributeValue, "ltr", "Attribute dir after ltr was set.");
-
-        // not specified
-        selenium.click(optionNone);
-        selenium.waitForPageToLoad(TIMEOUT);
-        if (selenium.isAttributePresent(attributeDir)) {
-            attributeValue = selenium.getAttribute(attributeDir);
-            assertEquals(attributeValue, "", "Attribute dir after none was set.");
-        }
+        testDir(outputDiv);
     }
 
     @Test
@@ -246,21 +220,21 @@ public class TestA4JOutputPanel extends AbstractMetamerTest {
         selenium.waitForPageToLoad(TIMEOUT);
         assertTrue(selenium.belongsClass(outputDiv, "blue-background"), "Panel should have class blue-background set.");
         assertFalse(selenium.belongsClass(outputDiv, "gray-background"),
-            "Panel should not have class gray-background set.");
+                "Panel should not have class gray-background set.");
 
         selenium.click(optionGray);
         selenium.waitForPageToLoad(TIMEOUT);
         assertTrue(selenium.belongsClass(outputDiv, "gray-background"), "Panel should have class gray-background set.");
         assertFalse(selenium.belongsClass(outputDiv, "blue-background"),
-            "Panel should not have class blue-background set.");
+                "Panel should not have class blue-background set.");
 
         selenium.click(optionNone);
         selenium.waitForPageToLoad(TIMEOUT);
         if (selenium.isAttributePresent(attributeClass)) {
             assertFalse(selenium.belongsClass(outputDiv, "blue-background"),
-                "Panel should not have class blue-background set.");
+                    "Panel should not have class blue-background set.");
             assertFalse(selenium.belongsClass(outputDiv, "gray-background"),
-                "Panel should not have class gray-background set.");
+                    "Panel should not have class gray-background set.");
         }
     }
 
