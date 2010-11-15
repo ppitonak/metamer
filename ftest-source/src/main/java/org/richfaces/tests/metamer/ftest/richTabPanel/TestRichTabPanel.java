@@ -204,19 +204,7 @@ public class TestRichTabPanel extends AbstractMetamerTest {
 
     @Test
     public void testLang() {
-        JQueryLocator langInput = pjq("input[type=text][id$=langInput]");
-
-        // lang = null
-        AttributeLocator<?> langAttr = panel.getAttribute(new Attribute("xml|lang"));
-        assertFalse(selenium.isAttributePresent(langAttr), "Attribute xml:lang should not be present.");
-
-        selenium.type(langInput, "sk");
-        selenium.waitForPageToLoad();
-
-        // lang = sk
-        langAttr = panel.getAttribute(new Attribute("lang"));
-        assertTrue(selenium.isAttributePresent(langAttr), "Attribute xml:lang should be present.");
-        assertEquals(selenium.getAttribute(langAttr), "sk", "Attribute xml:lang should be present.");
+        testLang(panel);
     }
 
     @Test

@@ -129,20 +129,7 @@ public class TestA4JOutputPanel extends AbstractMetamerTest {
 
     @Test
     public void testLang() {
-        JQueryLocator langInput = pjq("input[id$=langInput]");
-        AttributeLocator<?> attributeLang = outputDiv.getAttribute(new Attribute("lang"));
-
-        selenium.typeKeys(langInput, "en");
-        selenium.waitForPageToLoad(TIMEOUT);
-
-        String attributeValue = selenium.getAttribute(attributeLang);
-        assertEquals(attributeValue, "en", "Lang attribute");
-
-        selenium.typeKeys(langInput, "sk");
-        selenium.waitForPageToLoad(TIMEOUT);
-
-        attributeValue = selenium.getAttribute(attributeLang);
-        assertEquals(attributeValue, "sk", "Lang attribute");
+        testLang(outputDiv);
     }
 
     @Test

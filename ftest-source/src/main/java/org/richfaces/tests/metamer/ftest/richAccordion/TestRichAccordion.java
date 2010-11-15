@@ -293,19 +293,7 @@ public class TestRichAccordion extends AbstractMetamerTest {
 
     @Test
     public void testLang() {
-        JQueryLocator langInput = pjq("input[type=text][id$=langInput]");
-
-        // lang = null
-        AttributeLocator<?> langAttr = accordion.getAttribute(new Attribute("xml|lang"));
-        assertFalse(selenium.isAttributePresent(langAttr), "Attribute xml:lang should not be present.");
-
-        selenium.type(langInput, "sk");
-        selenium.waitForPageToLoad();
-
-        // lang = sk
-        langAttr = accordion.getAttribute(new Attribute("lang"));
-        assertTrue(selenium.isAttributePresent(langAttr), "Attribute xml:lang should be present.");
-        assertEquals(selenium.getAttribute(langAttr), "sk", "Attribute xml:lang should be present.");
+        testLang(accordion);
     }
 
     @Test

@@ -185,7 +185,7 @@ public abstract class AbstractMetamerTest extends AbstractTestCase {
      * @param element
      *            locator of tested element
      * @param attribute
-     *            name of the attribute that will be set (e.g. styleClass, headerClass, itemContentClass
+     *            name of the attribute that will be set (e.g. styleClass, headerClass, itemContentClass)
      */
     protected void testStyleClass(ElementLocator<?> element, String attribute) {
         ElementLocator<?> classInput = pjq("input[id$=" + attribute + "Input]");
@@ -224,6 +224,28 @@ public abstract class AbstractMetamerTest extends AbstractTestCase {
         assertTrue(selenium.isAttributePresent(dirAttribute), "Attribute dir should be present.");
         value = selenium.getAttribute(dirAttribute);
         assertEquals(value, "rtl", "Attribute dir");
+    }
+
+    /**
+     * A helper method for testing attribute "lang".
+     *
+     * @param element
+     *            locator of tested element
+     */
+    protected void testLang(ElementLocator<?> element) {
+        JQueryLocator langInput = pjq("input[type=text][id$=langInput]");
+
+        // lang = null
+        AttributeLocator<?> langAttr = element.getAttribute(new Attribute("lang"));
+        assertFalse(selenium.isAttributePresent(langAttr), "Attribute xml:lang should not be present.");
+
+        selenium.type(langInput, "sk");
+        selenium.waitForPageToLoad();
+
+        // lang = sk
+        langAttr = element.getAttribute(new Attribute("lang"));
+        assertTrue(selenium.isAttributePresent(langAttr), "Attribute xml:lang should be present.");
+        assertEquals(selenium.getAttribute(langAttr), "sk", "Attribute xml:lang should be present.");
     }
 
     /**
