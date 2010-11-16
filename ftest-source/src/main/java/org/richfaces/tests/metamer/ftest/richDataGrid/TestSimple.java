@@ -22,6 +22,9 @@
 package org.richfaces.tests.metamer.ftest.richDataGrid;
 
 import static org.jboss.test.selenium.utils.URLUtils.buildUrl;
+import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.assertTrue;
+import static org.jboss.test.selenium.guard.request.RequestTypeGuardFactory.guardXhr;
 
 import java.net.URL;
 
@@ -62,5 +65,14 @@ public class TestSimple extends AbstractDataGridTest {
     @Use(field = "first", ints = { 0, 1, ELEMENTS_TOTAL / 2, ELEMENTS_TOTAL - 1, ELEMENTS_TOTAL, ELEMENTS_TOTAL + 1 })
     public void testFirstAttribute() {
         verifyGrid();
+    }
+
+    @Test
+    public void testNoDataFacet() {
+        guardXhr(selenium).click(attributeShowData);
+
+        assertEquals(dataGrid.getColumnCount(), 0);
+        assertEquals(dataGrid.getElementCount(), 0);
+        assertTrue(dataGrid.isNoData());
     }
 }

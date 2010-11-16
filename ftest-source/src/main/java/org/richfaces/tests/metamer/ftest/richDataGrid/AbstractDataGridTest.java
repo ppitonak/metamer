@@ -57,6 +57,7 @@ public abstract class AbstractDataGridTest extends AbstractMetamerTest {
     JQueryLocator attributeColumns = pjq("input[id$=columnsInput]");
     JQueryLocator attributeElements = pjq("input[id$=elementsInput]");
     JQueryLocator attributeFirst = pjq("input[id$=firstInput]");
+    JQueryLocator attributeShowData = pjq("input:checkbox[id$=noDataCheckbox]");
 
     DataGrid dataGrid = new DataGrid(jq("table.rf-dg[id$=richDataGrid]"));
 
@@ -159,7 +160,7 @@ public abstract class AbstractDataGridTest extends AbstractMetamerTest {
 
         expectedRows = ceil((float) expectedElements / columns);
         expectedColumns = columns;
-        
+
         if (first >= ELEMENTS_TOTAL) {
             expectedColumns = 0;
         }

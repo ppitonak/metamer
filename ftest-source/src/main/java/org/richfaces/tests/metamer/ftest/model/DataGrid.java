@@ -22,6 +22,7 @@
 package org.richfaces.tests.metamer.ftest.model;
 
 import static org.jboss.test.selenium.locator.reference.ReferencedLocator.ref;
+import static org.jboss.test.selenium.locator.reference.ReferencedLocator.referenceInferred;
 import static org.jboss.test.selenium.locator.LocatorFactory.*;
 
 import java.util.Iterator;
@@ -42,6 +43,7 @@ public class DataGrid extends AbstractModel<JQueryLocator> {
     ReferencedLocator<JQueryLocator> rows = ref(root, "> tbody.rf-dg-body > tr.rf-dg-r");
     JQueryLocator rowToNonEmptyElement = jq("td.rf-dg-c:not(:empty)");
     JQueryLocator rowToElement = jq("td.rf-dg-c");
+    ReferencedLocator<JQueryLocator> noDataElement = ref(root, "td.rf-dg-nd-c");
 
     public DataGrid(JQueryLocator root) {
         super(root);
@@ -73,5 +75,9 @@ public class DataGrid extends AbstractModel<JQueryLocator> {
 
     public Iterator<JQueryLocator> iterateElements() {
         return rows.getDescendants(rowToNonEmptyElement).iterator();
+    }
+
+    public boolean isNoData() {
+        return selenium.isElementPresent(noDataElement);
     }
 }
