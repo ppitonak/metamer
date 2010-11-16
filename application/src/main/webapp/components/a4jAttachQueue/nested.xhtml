@@ -39,15 +39,6 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                 function add(element) {
                     element.innerHTML = 1 + parseInt(element.innerHTML);
                 }
-
-                function updateDifferenceTime() {
-                    var eventTime1 = parseInt(jQuery(#{rich:element('eventTime1:outputTime')}).attr('title'));
-                    var eventTime2 = parseInt(jQuery(#{rich:element('eventTime2:outputTime')}).attr('title'));
-                    var beginTime = parseInt(jQuery(#{rich:element('beginTime:outputTime')}).attr('title'));
-
-                    var eventTime = Math.max(eventTime1, eventTime2);
-                    jQuery(#{rich:element('differenceTime')}).text(beginTime - eventTime);
-                }
             </script>
         </ui:define>
 
@@ -67,9 +58,9 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                        requestDelay="#{a4jQueueBean.attributes['requestDelay'].value}" status="status1"
                        timeout="#{a4jQueueBean.attributes['timeout'].value}" />
 
-            <h:inputText id="input1" value="#{a4jAttachQueueBean.text1}" onkeypress="add(#{rich:element('events1')}); refresh(#{rich:element('eventTime1:outputTime')}); ">
-                <a4j:ajax event="keypress" render="output1" execute="@form" onbegin="add(#{rich:element('requests')}); refresh(#{rich:element('beginTime:outputTime')}); "
-                          onbeforedomupdate="add(#{rich:element('updates')});" oncomplete="refresh(#{rich:element('completeTime:outputTime')}); updateDifferenceTime(); ">
+            <h:inputText id="input1" value="#{a4jAttachQueueBean.text1}" onkeypress="add(#{rich:element('events1')}); #{rich:element('timeWatcher:grid')}.event(1); ">
+                <a4j:ajax event="keypress" render="output1" execute="@form" onbegin="add(#{rich:element('requests')}); #{rich:element('timeWatcher:grid')}.begin(); "
+                          onbeforedomupdate="add(#{rich:element('updates')});" oncomplete="#{rich:element('timeWatcher:grid')}.complete(); #{rich:element('timeWatcher:grid')}.difference(); ">
                     <a4j:attachQueue id="a4jAttachQueue1"
                                      ignoreDupResponses="#{a4jAttachQueueBean.attributes['ignoreDupResponses'].value}"
                                      name="#{a4jAttachQueueBean.attributes['name'].value}"
@@ -83,9 +74,9 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                 </a4j:ajax>
             </h:inputText>
 
-            <h:inputText id="input2" value="#{a4jAttachQueueBean.text2}" onkeypress="add(#{rich:element('events2')}); refresh(#{rich:element('eventTime2:outputTime')}); ">
-                <a4j:ajax event="keypress" render="output2" execute="@form" onbegin="add(#{rich:element('requests')}); refresh(#{rich:element('beginTime:outputTime')}); "
-                          onbeforedomupdate="add(#{rich:element('updates')});" oncomplete="refresh(#{rich:element('completeTime:outputTime')}); updateDifferenceTime();">
+            <h:inputText id="input2" value="#{a4jAttachQueueBean.text2}" onkeypress="add(#{rich:element('events2')}); #{rich:element('timeWatcher:grid')}.event(2); ">
+                <a4j:ajax event="keypress" render="output2" execute="@form" onbegin="add(#{rich:element('requests')}); #{rich:element('timeWatcher:grid')}.begin(); "
+                          onbeforedomupdate="add(#{rich:element('updates')});" oncomplete="#{rich:element('timeWatcher:grid')}.complete(); #{rich:element('timeWatcher:grid')}.difference(); ">
                     <a4j:attachQueue id="a4jAttachQueue2"
                                      ignoreDupResponses="#{a4jAttachQueueBean.attributes2['ignoreDupResponses'].value}"
                                      name="#{a4jAttachQueueBean.attributes2['name'].value}"
@@ -112,16 +103,11 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                 <h:outputText value="0" id="requests" />
                 DOM updates count:
                 <h:outputText value="0" id="updates" />
-                Difference time:
-                <h:outputText value="" id="differenceTime" />
             </h:panelGrid>
+            
+            
 
-            <h:panelGrid columns="1">
-                <metamer:clientTime id="eventTime1" label="Event 1 Time:"  />
-                <metamer:clientTime id="eventTime2" label="Event 2 Time:"  />
-                <metamer:clientTime id="beginTime" label="Begin Time:"  />
-                <metamer:clientTime id="completeTime" label="Complete Time:"  />
-            </h:panelGrid>
+            <metamer:clientTimeWatcher id="timeWatcher" events="2" />
 
         </ui:define>
 

@@ -9,20 +9,20 @@
         </composite:interface>
 
         <composite:implementation>
-            <h:outputLabel value="#{cc.attrs.label}" />
-            <h:outputText id="outputTime" value="" title="" />
-            <h:outputScript library="script" name="date-format.js" />
-           	<script type="text/javascript">
-           	//<![CDATA[
-                function refresh(element) {
-                   	var now = new Date();
-                   	jQuery(element)
-              			.text(now.format("dd.mm.yyyy HH:MM:ss.l", false))
-              			.attr("title", now.getTime());
-                }
-                refresh(#{rich:element('outputTime')});
-           	//]]>
-           	</script>
+        	<h:outputScript target="head" library="script" name="date-format.js" />
+            <h:outputScript target="head"  library="script" name="clientTime-refresh.js" />
+            
+            <style>
+            	td.metamerClientTimeLabel {
+            		width: 8em;
+           		}
+            </style>
+            
+            <h:panelGrid columns="2" columnClasses="metamerClientTimeLabel, metamerClientTimeText">
+	            <h:outputLabel value="#{cc.attrs.label}" />
+	            <h:outputText id="outputTime" value="" title="" />
+            </h:panelGrid>
+            <script>Metamer.ClientTime.refresh(#{rich:element('outputTime')});</script>
         </composite:implementation>
     </h:body>
 </html>

@@ -47,10 +47,10 @@ public class QueueModel {
     ElementLocator<?> requests = ref(form, "span[id$=requests]");
     ElementLocator<?> updates = ref(form, "span[id$=updates]");
 
-    AttributeLocator<?> event1Time = ref(form, "span[id$=eventTime1\\:outputTime]").getAttribute(TITLE);
-    AttributeLocator<?> event2Time = ref(form, "span[id$=eventTime2\\:outputTime]").getAttribute(TITLE);
-    AttributeLocator<?> beginTime = ref(form, "span[id$=beginTime\\:outputTime]").getAttribute(TITLE);
-    AttributeLocator<?> completeTime = ref(form, "span[id$=completeTime\\:outputTime]").getAttribute(TITLE);
+    AttributeLocator<?> event1Time = ref(form, "span[id$=event1\\:outputTime]").getAttribute(TITLE);
+    AttributeLocator<?> event2Time = ref(form, "span[id$=event2\\:outputTime]").getAttribute(TITLE);
+    AttributeLocator<?> beginTime = ref(form, "span[id$=begin\\:outputTime]").getAttribute(TITLE);
+    AttributeLocator<?> completeTime = ref(form, "span[id$=complete\\:outputTime]").getAttribute(TITLE);
 
     Retriever<Integer> retrieveEvent1Count = integerAdapter(RETRIEVE_TEXT.locator(events1));
     Retriever<Integer> retrieveEvent2Count = integerAdapter(RETRIEVE_TEXT.locator(events2));
