@@ -65,9 +65,9 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
             <h:form id="form" name="queueTestForm">
                 <h:panelGrid columns="2">
                     <h:outputText value="Type here:" />
-                    <h:inputText id="input1" value="#{a4jQueueBean.text}" onkeypress="add(#{rich:element('events1')}); refresh(#{rich:element('eventTime1:outputTime')}); "
+                    <h:inputText id="input1" value="#{a4jQueueBean.text}" onkeypress="add(#{rich:element('events1')}); #{rich:element('timeWatcher:grid')}.event(); "
                                  disabled="#{not (facesContext.maximumSeverity==null)}">
-                        <a4j:ajax event="keypress" onbegin="add(#{rich:element('requests')}); refresh(#{rich:element('beginTime:outputTime')}); " render="outtext" oncomplete="refresh(#{rich:element('completeTime:outputTime')}); "
+                        <a4j:ajax event="keypress" onbegin="add(#{rich:element('requests')}); #{rich:element('timeWatcher:grid')}.begin(); " render="outtext" oncomplete="#{rich:element('timeWatcher:grid')}.complete(); #{rich:element('timeWatcher:grid')}.difference(); "
                                   onbeforedomupdate="add(#{rich:element('updates')});"/>
                     </h:inputText>
 
@@ -82,11 +82,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 
                 </h:panelGrid>
 
-                <h:panelGrid columns="1">
-                    <metamer:clientTime id="eventTime1" label="Event Time:" />
-                    <metamer:clientTime id="beginTime" label="Begin Time:" />
-                    <metamer:clientTime id="completeTime" label="Complete Time:" />
-                </h:panelGrid>
+                <metamer:clientTimeWatcher id="timeWatcher" />
 
             </h:form>
 

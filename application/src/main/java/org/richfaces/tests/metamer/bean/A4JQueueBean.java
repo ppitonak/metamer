@@ -62,6 +62,7 @@ public class A4JQueueBean implements Serializable {
         // initialize attributes
         attributes = Attributes.getUIComponentAttributes(UIQueue.class, getClass());
         attributes.setAttribute("rendered", true);
+        attributes.setAttribute("requestDelay", 750);
 
         // hidden attributes
         attributes.remove("status");

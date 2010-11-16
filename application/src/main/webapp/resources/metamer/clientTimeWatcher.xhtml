@@ -51,7 +51,7 @@
 				grid.difference = function() {
 					var differenceElement = #{rich:element('difference')};
 					var beginTimeElement = this.getBeginElement();
-					var eventTimeId = "#{rich:clientId('event1')}".replace("1", "");
+					var eventTimeId = "#{rich:clientId('event1')}".replace(/1$/, "");
 					Metamer.ClientTime.updateDifference(differenceElement, beginTimeElement, eventTimeId);
 				}
 	
