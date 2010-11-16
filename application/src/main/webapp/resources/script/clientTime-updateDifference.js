@@ -6,7 +6,7 @@ if (Metamer.ClientTime == undefined) {
 	Metamer.ClientTime = {};
 }
 
-Metamer.ClientTime.updateDifference = function (differenceTimeElement, beginTimeElement, eventTimeId) {
+Metamer.ClientTime.updateDifference = function (differenceTimeElement, beginTimeElement, eventTimeId, reverseOrder) {
 	var maxEventTime = 0;
 	
 	for (var i = 1; i < 100; i++) {
@@ -24,5 +24,11 @@ Metamer.ClientTime.updateDifference = function (differenceTimeElement, beginTime
 	
 	var beginTime = parseInt(beginTimeElement.title);
 	
-	jQuery(differenceTimeElement).text(beginTime - maxEventTime);
+	var difference = beginTime - maxEventTime;
+	
+	if (reverseOrder) {
+		difference = 0 - difference;
+	}
+	
+	jQuery(differenceTimeElement).text(difference);
 }

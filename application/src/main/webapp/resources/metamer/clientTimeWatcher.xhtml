@@ -11,6 +11,7 @@
 <h:body>
 	<composite:interface>
 		<composite:attribute name="events" type="java.lang.Integer" default="1" />
+		<composite:attribute name="reverseOrder" type="java.lang.Boolean" default="false" shortDescription="use when you are getting negative values since event time is always lower than begin times" />
 	</composite:interface>
 
 	<composite:implementation>
@@ -52,7 +53,7 @@
 					var differenceElement = #{rich:element('difference')};
 					var beginTimeElement = this.getBeginElement();
 					var eventTimeId = "#{rich:clientId('event1')}".replace(/1$/, "");
-					Metamer.ClientTime.updateDifference(differenceElement, beginTimeElement, eventTimeId);
+					Metamer.ClientTime.updateDifference(differenceElement, beginTimeElement, eventTimeId, #{cc.attrs.reverseOrder});
 				}
 	
 				grid.getBeginElement = function() {

@@ -56,7 +56,7 @@ public class TestInterval extends AbstractMetamerTest {
     IntervalAttributes attributes = new IntervalAttributes();
 
     JQueryLocator time = pjq("span[id$=time]");
-    AttributeLocator<?> clientTime = pjq("span[id$=clientDate]").getAttribute(Attribute.TITLE);
+    AttributeLocator<?> clientTime = pjq("span[id$=event1:outputTime]").getAttribute(Attribute.TITLE);
 
     long startTime;
 
@@ -65,7 +65,7 @@ public class TestInterval extends AbstractMetamerTest {
 
     @Override
     public URL getTestUrl() {
-        return buildUrl(contextPath, "faces/components/a4jPoll/simple.xhtml");
+        return buildUrl(contextPath, "faces/components/a4jPoll/simple.xhtml?enabled=false");
     }
 
     @BeforeMethod
