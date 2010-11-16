@@ -58,8 +58,9 @@ public class A4JPollBean implements Serializable {
         logger.debug("initializing bean " + getClass().getName());
 
         attributes = Attributes.getUIComponentAttributes(UIPoll.class, getClass());
+        attributes.setAttribute("enabled", true);
         attributes.setAttribute("rendered", true);
-        attributes.setAttribute("interval", 5000);
+        attributes.setAttribute("interval", 2500);
         attributes.setAttribute("action", "increaseCounterAction");
         attributes.setAttribute("actionListener", "increaseCounterActionListener");
     }
