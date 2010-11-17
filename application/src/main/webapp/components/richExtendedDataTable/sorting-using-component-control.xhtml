@@ -46,15 +46,15 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
             <br/>
             <h:outputText value="Show data in table: " />
             <h:selectBooleanCheckbox id="noDataCheckbox" value="#{richExtendedDataTableBean.state}">
-                <a4j:ajax render="richEDT scroller1"/>
+                <a4j:ajax render="richDataTable scroller1"/>
             </h:selectBooleanCheckbox>
             <br/><br/>
-            <rich:dataScroller id="scroller1" for="richEDT" page="#{richExtendedDataTableBean.page}" maxPages="7" render="richEDT"/>
+            <rich:dataScroller id="scroller1" for="table" page="#{richExtendedDataTableBean.page}" maxPages="7" render="table"/>
         </ui:define>
 
         <ui:define name="component">
 
-            <rich:extendedDataTable id="richEDT"
+            <rich:extendedDataTable id="table"
                                     beforeselectionchange="#{richExtendedDataTableBean.attributes['beforeselectionchange'].value}"
                                     clientFirst="#{richExtendedDataTableBean.attributes['clientFirst'].value}"
                                     clientRows="#{richExtendedDataTableBean.attributes['clientRows'].value}"
@@ -90,17 +90,9 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                     <h:outputText value="There is no data." style="color: red;"/>
                 </f:facet>
 
-                <f:facet name="caption">
-                    <h:outputText id="captionFacet" value="Caption Facet" />
-                </f:facet>
-
-                <f:facet name="header">
-                    <h:outputText value="Header Facet" />
-                </f:facet>
-
                 <rich:column id="columnState" sortBy="#{record.state}">
                     <f:facet name="header">
-                        <h:outputText id="columnHeaderState" value="State" />
+                        State
                     </f:facet>
 
                     <h:outputText value="#{record.state}" />
@@ -111,7 +103,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 
                 <rich:column id="columnCapital" sortBy="#{record.name}">
                     <f:facet name="header">
-                        <h:outputText id="columnHeaderCapital" value="Capital" />
+                        Capital
                     </f:facet>
 
                     <h:outputText value="#{record.name}" />
@@ -121,7 +113,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                 </rich:column>
 
                 <f:facet name="footer">
-                    <rich:dataScroller id="scroller2" for="richEDT" page="#{richExtendedDataTableBean.page}" maxPages="7" render="richEDT" />
+                    <rich:dataScroller id="scroller2" for="table" page="#{richExtendedDataTableBean.page}" maxPages="7" render="table" />
                 </f:facet>
 
             </rich:extendedDataTable>
@@ -129,67 +121,21 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 
         <ui:define name="outOfTemplateAfter">
             <h:commandButton id="sortStatesButton" value="sort state">
-                <rich:componentControl event="click" target="richEDT" operation="sort">
+                <rich:componentControl event="click" target="table" operation="sort">
                 	<f:param value="columnState" />
                	</rich:componentControl>
             </h:commandButton>
 
             <h:commandButton id="sortCapitalsButton" value="sort capital">
-                <rich:componentControl event="click" target="richEDT" operation="sort">
+                <rich:componentControl event="click" target="table" operation="sort">
                     <f:param value="columnCapital" />
                 </rich:componentControl>
             </h:commandButton>
-            
+
             <br/><br/>
             
             <h:commandButton id="sortTableButton" value="sort table">
-                <rich:componentControl event="click" target="richEDT" operation="sort" />
-            </h:commandButton>
-
-            <br/><br/>
-
-            scroller1:
-            <h:commandButton id="buttonFirst1" value="&lt;&lt; first">
-                <rich:componentControl event="click" target="#{rich:clientId('scroller1')}" operation="switchToPage">
-                    <f:param value="first" />
-                </rich:componentControl>
-            </h:commandButton>
-
-            <h:commandButton id="buttonPrev1" value="&lt; previous">
-                <rich:componentControl event="click" target="#{rich:clientId('scroller1')}" operation="previous" />
-            </h:commandButton>
-
-            <h:commandButton id="buttonNext1" value="next &gt;">
-                <rich:componentControl event="click" target="#{rich:clientId('scroller1')}" operation="next" />
-            </h:commandButton>
-
-            <h:commandButton id="buttonLast1" value="last &gt;&gt;">
-                <rich:componentControl event="click" target="#{rich:clientId('scroller1')}" operation="switchToPage">
-                    <f:param value="last" />
-                </rich:componentControl>
-            </h:commandButton>
-
-            <br/>
-
-            scroller2:
-            <h:commandButton id="buttonFirst2" value="&lt;&lt; first">
-                <rich:componentControl event="click" target="#{rich:clientId('scroller2')}" operation="switchToPage">
-                    <f:param value="first" />
-                </rich:componentControl>
-            </h:commandButton>
-
-            <h:commandButton id="buttonPrev2" value="&lt; previous">
-                <rich:componentControl event="click" target="#{rich:clientId('scroller2')}" operation="previous" />
-            </h:commandButton>
-
-            <h:commandButton id="buttonNext2" value="next &gt;">
-                <rich:componentControl event="click" target="#{rich:clientId('scroller2')}" operation="next" />
-            </h:commandButton>
-
-            <h:commandButton id="buttonLast2" value="last &gt;&gt;">
-                <rich:componentControl event="click" target="#{rich:clientId('scroller2')}" operation="switchToPage">
-                    <f:param value="last" />
-                </rich:componentControl>
+                <rich:componentControl event="click" target="table" operation="sort" />
             </h:commandButton>
 
             <br/><br/>

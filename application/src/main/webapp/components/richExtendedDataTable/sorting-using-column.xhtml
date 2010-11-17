@@ -101,7 +101,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                     </f:facet>
                 </rich:column>
 
-                <rich:column id="columnCapital" sortBy="#{record.name}" sortOrder="#{richExtendedDataTableBean.capitalsOrder}" sortingListeners="#{richExtendedDataTableBean.sortingListener}">
+                <rich:column id="columnCapital" sortBy="#{record.name}" sortOrder="#{richExtendedDataTableBean.capitalsOrder}">
                     <f:facet name="header">
                         <a4j:commandLink id="columnHeaderCapital" value="Capital" render="table" action="#{richExtendedDataTableBean.sortByCapitals}"/>
                     </f:facet>
@@ -120,18 +120,6 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
         </ui:define>
 
         <ui:define name="outOfTemplateAfter">
-            <h:commandButton id="sortStatesButton" value="sort state">
-                <rich:componentControl event="click" target="table" operation="sort"/>
-            </h:commandButton>
-
-            <h:commandButton id="sortCapitalsButton" value="sort capital">
-                <rich:componentControl event="click" target="table" operation="sort">
-                    <f:param value="columnCapital" />
-                </rich:componentControl>
-            </h:commandButton>
-
-            <br/><br/>
-
             <metamer:attributes value="#{richExtendedDataTableBean.attributes}" id="attributes" />
         </ui:define>
 

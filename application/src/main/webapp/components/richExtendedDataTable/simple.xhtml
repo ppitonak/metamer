@@ -124,7 +124,9 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 
         <ui:define name="outOfTemplateAfter">
             <h:commandButton id="sortStatesButton" value="sort states">
-                <rich:componentControl event="click" target="richEDT" operation="sort"/>
+                <rich:componentControl event="click" target="richEDT" operation="sort">
+                	<f:param value="columnState" />
+                </rich:componentControl>
             </h:commandButton>
 
             <h:commandButton id="sortCapitalsButton" value="sort capitals">
@@ -134,7 +136,12 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
             </h:commandButton>
 
             <br/><br/>
+            
+			<h:commandButton id="sortTableButton" value="sort table">
+                <rich:componentControl event="click" target="richEDT" operation="sort" />
+            </h:commandButton>
 
+            <br/><br/>
             <metamer:attributes value="#{richExtendedDataTableBean.attributes}" id="attributes" />
         </ui:define>
 
