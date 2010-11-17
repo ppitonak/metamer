@@ -49,8 +49,12 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                 <span style="color: red">TODO will be used with various types of input and command components as soon as available</span>
             </metamer:testPageLink>
 
-            <metamer:testPageLink id="sorting" outcome="sorting" value="Table Sorting">
-                Page that contains sortable <b>rich:dataTable</b> (with model containing capitals) and input boxes for all its attributes.
+            <metamer:testPageLink id="sorting-using-component-control" outcome="sorting-using-component-control" value="Table Sorting - Component Control">
+                <b>rich:dataTable</b> (with model containing states and capitals) sortable by <b>rich:componentControl</b>. 
+            </metamer:testPageLink>
+            
+            <metamer:testPageLink id="sorting-using-column" outcome="sorting-using-column" value="Table Sorting - Column based">
+                <b>rich:dataTable</b> (with model containing states and capitals) custom sorting by <b>rich:column</b>'s attribute @sortBy, @sortOrder. 
             </metamer:testPageLink>
 
             <metamer:testPageLink id="filtering" outcome="filtering" value="Table filtering">
