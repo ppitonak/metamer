@@ -310,6 +310,12 @@ public class MatrixConfigurator extends TestMethodSelector implements IInvokedMe
                 return Arrays.asList(ArrayUtils.toObject(useAnnotation.ints()));
             }
         }
+        
+        if (useAnnotation.decimals().length > 0) {
+        	if (parameterType == double.class || parameterType == Double.class) {
+        		return Arrays.asList(ArrayUtils.toObject(useAnnotation.decimals()));
+        	}
+        }
 
         // tries satisfy parameter from fields
         List<Object> result = new LinkedList<Object>();

@@ -39,5 +39,7 @@ public @interface Use {
 
     int[] ints() default {};
     
+    double[] decimals() default {};
+    
     boolean empty() default false; 
 }
