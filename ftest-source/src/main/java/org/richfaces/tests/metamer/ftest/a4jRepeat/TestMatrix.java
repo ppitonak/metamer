@@ -123,11 +123,22 @@ public class TestMatrix extends AbstractMetamerTest {
     }
 
     @Test
+    public void testMatrixAfterRerender() {
+        testChanging();
+
+        rerenderAll();
+
+        checkMatrix();
+    }
+
+    @Test
     public void testMatrixAfterRefresh() {
         testChanging();
 
-        refreshAll();
+        selenium.refresh();
+        selenium.waitForPageToLoad();
 
+        initializeMatrix();
         checkMatrix();
     }
 
@@ -160,7 +171,7 @@ public class TestMatrix extends AbstractMetamerTest {
         }
     }
 
-    private void refreshAll() {
+    private void rerenderAll() {
         waitXhr(selenium).click(jq("img#controlsForm\\:reRenderAllImage"));
     }
 
