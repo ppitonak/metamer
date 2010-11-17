@@ -322,6 +322,12 @@ public class MatrixConfigurator extends TestMethodSelector implements IInvokedMe
         		return Arrays.asList(useAnnotation.strings());
         	}
         }
+        
+        if (useAnnotation.booleans().length > 0) {
+        	if (parameterType == boolean.class || parameterType == Boolean.class) {
+        		return Arrays.asList(ArrayUtils.toObject(useAnnotation.booleans()));
+        	}
+        }
 
         // tries satisfy parameter from fields
         List<Object> result = new LinkedList<Object>();

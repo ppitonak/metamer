@@ -38,6 +38,8 @@ public @interface Use {
     String[] value() default {};
     
     String[] strings() default {};
+    
+    boolean[] booleans() default {};
 
     int[] ints() default {};
     
