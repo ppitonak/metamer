@@ -36,6 +36,8 @@ public @interface Use {
     String field() default "";
 
     String[] value() default {};
+    
+    String[] strings() default {};
 
     int[] ints() default {};
     
