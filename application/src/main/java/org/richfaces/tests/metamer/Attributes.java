@@ -75,7 +75,7 @@ public final class Attributes implements Map<String, Attribute>, Serializable {
     private Map<String, Attribute> attributes;
     // class object of managed bean
     private Class<?> beanClass;
-    private Map<Class<?>, List<Attribute>> richfacesAttributes;
+    private static Map<Class<?>, List<Attribute>> richfacesAttributes;
 
     /**
      * Constructor for class Attributes.
