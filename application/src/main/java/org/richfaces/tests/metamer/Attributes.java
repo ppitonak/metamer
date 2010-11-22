@@ -71,12 +71,12 @@ public final class Attributes implements Map<String, Attribute>, Serializable {
 
     private static final long serialVersionUID = -1L;
     private static Logger logger = LoggerFactory.getLogger(Attributes.class);
-    private static Map<Class<?>, List<Attribute>> richfacesAttributes;
+    private Map<Class<?>, List<Attribute>> richfacesAttributes;
     // K - name of a component attribute, V - value of the component attribute
     private Map<String, Attribute> attributes;
     // class object of managed bean
     private Class<?> beanClass;
-    
+
     /**
      * Constructor for class Attributes.
      * 
