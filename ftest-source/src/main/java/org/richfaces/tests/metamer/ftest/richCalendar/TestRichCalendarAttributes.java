@@ -212,7 +212,7 @@ public class TestRichCalendarAttributes extends AbstractCalendarTest {
         selenium.waitForPageToLoad();
 
         src = selenium.getAttribute(attr);
-        assertTrue(src.contains("calendarIcon.png"), "Calendar's icon was not updated.");
+        assertTrue(src.contains("disabledCalendarIcon.png"), "Calendar's icon was not updated.");
     }
 
     @Test
