@@ -394,7 +394,7 @@ public class TestRichInplaceSelect extends AbstractMetamerTest {
         selenium.click(pjq("input[type=radio][name$=renderedInput][value=false]"));
         selenium.waitForPageToLoad();
 
-        assertFalse(selenium.isElementPresent(select), "Panel should not be rendered when rendered=false.");
+        assertFalse(selenium.isElementPresent(select), "Component should not be rendered when rendered=false.");
     }
 
     @Test
@@ -460,6 +460,21 @@ public class TestRichInplaceSelect extends AbstractMetamerTest {
         selenium.fireEvent(input, Event.BLUR);
         assertFalse(selenium.isDisplayed(popup), "Popup should not be displayed.");
         assertEquals(selenium.getText(label), "Click here to edit", "Label should contain default value.");
+    }
+
+    @Test
+    @IssueTracking("https://jira.jboss.org/browse/RF-9854")
+    public void testSelectItemClass() {
+        selenium.type(pjq("input[type=text][id$=selectItemClassInput]"), "metamer-ftest-class");
+        selenium.waitForPageToLoad();
+
+        selenium.click(select);
+        selenium.mouseOver(options.format(0));
+        
+        assertTrue(selenium.belongsClass(options.format(0), "metamer-ftest-class"), "Selected item does not contains defined class.");
+        for (int i = 1; i < 50; i++) {
+            assertFalse(selenium.belongsClass(options.format(i), "metamer-ftest-class"), "Not selected item " + i + " should not contain defined class.");
+        }
     }
 
     @Test
