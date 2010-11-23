@@ -26,7 +26,7 @@ import java.util.Date;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ViewScoped;
 import org.richfaces.component.UICalendar;
 
 import org.richfaces.tests.metamer.Attributes;
@@ -40,7 +40,7 @@ import org.slf4j.LoggerFactory;
  * @version $Revision$
  */
 @ManagedBean(name = "richCalendarBean")
-@SessionScoped
+@ViewScoped
 public class RichCalendarBean implements Serializable {
 
     private static final long serialVersionUID = -1L;
