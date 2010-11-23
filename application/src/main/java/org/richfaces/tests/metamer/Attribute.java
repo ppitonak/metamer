@@ -59,6 +59,15 @@ public class Attribute implements Serializable {
         this.name = name;
     }
 
+    public Attribute(Attribute attr) {
+        this.name = attr.name;
+        this.value = null;
+        this.type = attr.type;
+        this.help = attr.help;
+        this.selectOptions = attr.selectOptions;
+        this.extensions = attr.extensions;
+    }
+
     public Object getValue() {
         return value;
     }

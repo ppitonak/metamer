@@ -71,7 +71,7 @@ public final class Attributes implements Map<String, Attribute>, Serializable {
 
     private static final long serialVersionUID = -1L;
     private static Logger logger = LoggerFactory.getLogger(Attributes.class);
-    private Map<Class<?>, List<Attribute>> richfacesAttributes;
+    private static Map<Class<?>, List<Attribute>> richfacesAttributes;
     // K - name of a component attribute, V - value of the component attribute
     private Map<String, Attribute> attributes;
     // class object of managed bean
@@ -100,7 +100,8 @@ public final class Attributes implements Map<String, Attribute>, Serializable {
                 attributes = new TreeMap<String, Attribute>();
             }
             for (Attribute a : richfacesAttributes.get(componentClass)) {
-                attributes.put(a.getName(), a);
+                Attribute newAttr = new Attribute(a);
+                attributes.put(newAttr.getName(), newAttr);
             }
         } else {
             logger.debug("retrieving attributes of " + componentClass.getName() + " from class descriptor");
