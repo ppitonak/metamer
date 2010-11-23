@@ -109,7 +109,6 @@ public class TestRichInplaceSelect extends AbstractMetamerTest {
     }
 
     @Test
-    @IssueTracking("https://jira.jboss.org/browse/RF-9844")
     public void testEditEvent() {
         selenium.type(pjq("input[type=text][id$=editEventInput]"), "mouseup");
         selenium.waitForPageToLoad();
@@ -117,12 +116,6 @@ public class TestRichInplaceSelect extends AbstractMetamerTest {
         selenium.mouseDown(select);
         assertFalse(selenium.isDisplayed(popup), "Popup should not be displayed.");
         selenium.mouseUp(select);
-        assertTrue(selenium.isDisplayed(popup), "Popup should be displayed.");
-
-        selenium.type(pjq("input[type=text][id$=editEventInput]"), "nonexistingevent");
-        selenium.waitForPageToLoad();
-
-        selenium.click(select);
         assertTrue(selenium.isDisplayed(popup), "Popup should be displayed.");
     }
 
