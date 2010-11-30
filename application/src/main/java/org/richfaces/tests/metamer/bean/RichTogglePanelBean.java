@@ -28,6 +28,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
 import org.richfaces.component.html.HtmlTogglePanel;
+import org.richfaces.event.ItemChangeEvent;
 import org.richfaces.tests.metamer.Attributes;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -69,5 +70,9 @@ public class RichTogglePanelBean implements Serializable {
 
     public void setAttributes(Attributes attributes) {
         this.attributes = attributes;
+    }
+
+    public void itemChangeListener(ItemChangeEvent event) {
+        RichBean.logToPage("* item changed " + event.getOldItem() + " -> " + event.getNewItem());
     }
 }

@@ -2,7 +2,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
       xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:metamer="http://java.sun.com/jsf/composite/metamer"
-      xmlns:rich="http://richfaces.org/rich">
+      xmlns:rich="http://richfaces.org/rich" xmlns:a4j="http://richfaces.org/a4j">
 
     <!--
 JBoss, Home of Professional Open Source
@@ -41,16 +41,33 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 
         <ui:define name="component">
 
-            <h:commandLink id="tcLink1" value="Toggle Panel Item 1">
+            <h:commandLink id="tcLink1" value="Item 1">
                 <rich:toggleControl targetPanel="richTogglePanel" targetItem="item1" />
             </h:commandLink>
             <h:outputText value=" | " />
-            <h:commandLink id="tcLink2" value="Toggle Panel Item 2">
+            <h:commandLink id="tcLink2" value="Item 2">
                 <rich:toggleControl targetPanel="richTogglePanel" targetItem="item2" />
             </h:commandLink>
             <h:outputText value=" | " />
-            <h:commandLink id="tcLink3" value="Toggle Panel Item 3">
+            <h:commandLink id="tcLink3" value="Item 3">
                 <rich:toggleControl targetPanel="richTogglePanel" targetItem="item3" />
+            </h:commandLink>
+
+            <br/>
+            <h:commandLink id="tcFirst" value="First Item">
+                <rich:toggleControl targetPanel="richTogglePanel" targetItem="@first" />
+            </h:commandLink>
+            <h:outputText value=" | " />
+            <h:commandLink id="tcPrev" value="Prev Item">
+                <rich:toggleControl targetPanel="richTogglePanel" targetItem="@prev" />
+            </h:commandLink>
+            <h:outputText value=" | " />
+            <h:commandLink id="tcNext" value="Next Item">
+                <rich:toggleControl targetPanel="richTogglePanel" targetItem="@next" />
+            </h:commandLink>
+            <h:outputText value=" | " />
+            <h:commandLink id="tcLast" value="Last Item">
+                <rich:toggleControl targetPanel="richTogglePanel" targetItem="@last" />
             </h:commandLink>
 
             <br/><br/>
@@ -63,6 +80,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                               dir="#{richTogglePanelBean.attributes['dir'].value}"
                               execute="#{richTogglePanelBean.attributes['execute'].value}"
                               immediate="#{richTogglePanelBean.attributes['immediate'].value}"
+                              itemChangeListener="#{richTogglePanelBean.itemChangeListener}"
                               lang="#{richTogglePanelBean.attributes['lang'].value}"
                               limitToList="#{richTogglePanelBean.attributes['limitToList'].value}"
                               onbeforeitemchange="#{richTogglePanelBean.attributes['onbeforeitemchange'].value}"
