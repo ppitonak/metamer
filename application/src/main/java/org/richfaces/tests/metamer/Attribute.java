@@ -22,6 +22,8 @@
 package org.richfaces.tests.metamer;
 
 import java.io.Serializable;
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
 
 import javax.faces.model.SelectItem;
@@ -29,6 +31,7 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -73,6 +76,12 @@ public class Attribute implements Serializable {
     }
 
     public void setValue(Object value) {
+        if (value instanceof String) {
+            if (type == Collection.class) {
+                String[] splitted = StringUtils.split((String) value, ",[]");
+                value = Arrays.asList(splitted);
+            }
+        }
         this.value = value;
     }
 

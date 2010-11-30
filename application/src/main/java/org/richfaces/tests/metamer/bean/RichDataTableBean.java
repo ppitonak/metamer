@@ -22,9 +22,12 @@
 package org.richfaces.tests.metamer.bean;
 
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Map.Entry;
+
 import javax.annotation.PostConstruct;
 
 import javax.faces.bean.ManagedBean;
@@ -67,6 +70,8 @@ public class RichDataTableBean implements Serializable {
     private String titleFilter;
     private int kidsFilter;
     private int kidsFilter2;
+    // facets
+    private Map<String, String> facets = new HashMap<String, String>();
 
     /**
      * Initializes the managed bean.
@@ -80,19 +85,45 @@ public class RichDataTableBean implements Serializable {
 
         attributes.setAttribute("rendered", true);
         attributes.setAttribute("rows", 10);
-
+        attributes.get("sortPriority").setType(Collection.class);
+        
+        // hidden attributes
+        attributes.remove("filteringListeners");
+        attributes.remove("sortingListeners");
+        attributes.remove("filterVar");
+        attributes.remove("iterationState");
+        attributes.remove("iterationStatusVar");
+        attributes.remove("rowAvailable");
+        attributes.remove("rowCount");
+        attributes.remove("rowData");
+        attributes.remove("rowIndex");
+        attributes.remove("rowKey");
+        attributes.remove("rowKeyConverter");
+        attributes.remove("relativeRowIndex");
+        
         // TODO these must be tested in other way
         attributes.remove("componentState");
         attributes.remove("rowKeyVar");
         attributes.remove("stateVar");
+        attributes.remove("selection");
         attributes.remove("var");
         attributes.remove("value");
+        attributes.remove("keepSaved");
 
         // TODO can be these set as attributes or only as facets?
         attributes.remove("caption");
         attributes.remove("header");
         attributes.remove("footer");
         attributes.remove("noData");
+        
+        // facets initial values
+        facets.put("noData", "There is no data.");
+        facets.put("caption", "Caption");
+        facets.put("header", "Header");
+        facets.put("columnStateHeader", "State Header");
+        facets.put("columnStateFooter", "State Footer");
+        facets.put("columnCapitalHeader", "Capital Header");
+        facets.put("columnCapitalFooter", "Capital Footer");
     }
 
     public Attributes getAttributes() {
@@ -212,6 +243,11 @@ public class RichDataTableBean implements Serializable {
             setStatesOrder(SortOrder.ascending);
         }
     }
+    
+    public void sortReset() {
+        setStatesOrder(SortOrder.ascending);
+        setCapitalsOrder(SortOrder.unsorted);
+    }
 
     public Filter<?> getFilterSexImpl() {
         return new Filter<Employee>() {
@@ -238,8 +274,8 @@ public class RichDataTableBean implements Serializable {
             }
         };
     }
-
-    public void sortingListener(SortingEvent event) {
-        System.out.println(event.getSortOrder());
+    
+    public Map<String, String> getFacets() {
+        return facets;
     }
 }

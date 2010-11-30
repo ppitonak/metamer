@@ -79,7 +79,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 
                 <rich:column id="columnState" sortBy="#{record.state}" sortOrder="#{richDataTableBean.statesOrder}">
                     <f:facet name="header">
-                        <a4j:commandLink id="columnHeaderState" value="State" render="richDataTable" action="#{richDataTableBean.sortByStates}"/>
+                        <a4j:commandLink id="sortStates" value="State" render="richDataTable" action="#{richDataTableBean.sortByStates}"/>
                     </f:facet>
 
                     <h:outputText value="#{record.state}" />
@@ -90,7 +90,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 
                 <rich:column id="columnCapital" sortBy="#{record.name}" sortOrder="#{richDataTableBean.capitalsOrder}" sortingListeners="#{richDataTableBean.sortingListener}">
                     <f:facet name="header">
-                        <a4j:commandLink id="columnHeaderCapital" value="Capital" render="richDataTable" action="#{richDataTableBean.sortByCapitals}"/>
+                        <a4j:commandLink id="sortCapitals" value="Capital" render="richDataTable" action="#{richDataTableBean.sortByCapitals}"/>
                     </f:facet>
 
                     <h:outputText value="#{record.name}" />
@@ -104,6 +104,9 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                 </f:facet>
 
             </rich:dataTable>
+            
+            <a4j:commandButton id="sortReset" value="Reset Sorting" render="richDataTable" action="#{richDataTableBean.sortReset}"/>
+            
         </ui:define>
 
         <ui:define name="outOfTemplateAfter">

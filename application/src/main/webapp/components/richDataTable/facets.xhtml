@@ -44,81 +44,95 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                 <a4j:ajax render="richDataTable scroller1"/>
             </h:selectBooleanCheckbox>
             <br/><br/>
-            <rich:dataScroller id="scroller1" for="richDataTable" page="#{richDataTableBean.page}" maxPages="7" render="richDataTable"/>
         </ui:define>
 
         <ui:define name="component">
-
+			
             <rich:dataTable id="richDataTable"
-                            filterVar="#{richDataTableBean.attributes['filterVar'].value}"
-                            filteringListeners="#{richDataTableBean.attributes['filteringListeners'].value}"
                             first="#{richDataTableBean.attributes['first'].value}"
-                            iterationState="#{richDataTableBean.attributes['iterationState'].value}"
-                            iterationStatusVar="#{richDataTableBean.attributes['iterationStatusVar'].value}"
                             keepSaved="#{richDataTableBean.attributes['keepSaved'].value}"
                             noDataLabel="#{richDataTableBean.attributes['noDataLabel'].value}"
-                            relativeRowIndex="#{richDataTableBean.attributes['relativeRowIndex'].value}"
                             rendered="#{richDataTableBean.attributes['rendered'].value}"
-                            rowAvailable="#{richDataTableBean.attributes['rowAvailable'].value}"
-                            rowCount="#{richDataTableBean.attributes['rowCount'].value}"
-                            rowData="#{richDataTableBean.attributes['rowData'].value}"
-                            rowIndex="#{richDataTableBean.attributes['rowIndex'].value}"
-                            rowKey="#{richDataTableBean.attributes['rowKey'].value}"
-                            rowKeyConverter="#{richDataTableBean.attributes['rowKeyConverter'].value}"
                             rows="#{richDataTableBean.attributes['rows'].value}"
                             sortMode="#{richDataTableBean.attributes['sortMode'].value}"
                             sortPriority="#{richDataTableBean.attributes['sortPriority'].value}"
-                            sortingListeners="#{richDataTableBean.attributes['sortingListeners'].value}"
                             value="#{richDataTableBean.state ? model.capitals : null}"
                             var="record"
                             >
 
                 <f:facet name="noData">
-                    <h:outputText value="There is no data." style="color: red;"/>
+                    <h:outputText id="noData" value="#{richDataTableBean.facets['noData']}" style="color: red;"
+                    				rendered="#{not empty richDataTableBean.facets['noData']}"/>
                 </f:facet>
 
-                <rich:column id="columnState" sortBy="#{record.state}" sortOrder="#{richDataTableBean.statesOrder}">
+                <f:facet name="caption">
+                    <h:outputText 	id="caption" value="#{richDataTableBean.facets['caption']}"
+                    				rendered="#{not empty richDataTableBean.facets['caption']}"/>
+                </f:facet>
+
+                <f:facet name="header">
+                    <h:outputText 	id="header" value="#{richDataTableBean.facets['header']}"
+                    				rendered="#{not empty richDataTableBean.facets['header']}" />
+                </f:facet>
+
+                <rich:column id="columnState" sortBy="#{record.state}">
                     <f:facet name="header">
-                        <h:commandLink id="sortStates" value="State">
-			                <rich:componentControl event="click" target="richDataTable" operation="sort">
-			                	<f:param value="columnState" />
-			                </rich:componentControl>
-			            </h:commandLink>
+                        <h:outputText id="columnHeaderState" value="#{richDataTableBean.facets['columnStateHeader']}"
+                        				rendered="#{not empty richDataTableBean.facets['columnStateHeader']}"/>
                     </f:facet>
 
                     <h:outputText value="#{record.state}" />
                     <f:facet name="footer">
-                        <h:outputText id="columnFooterState" value="State" />
+                        <h:outputText id="columnFooterState" value="#{richDataTableBean.facets['columnStateFooter']}"
+                        				rendered="#{not empty richDataTableBean.facets['columnStateFooter']}"/>
                     </f:facet>
                 </rich:column>
 
-                <rich:column id="columnCapital" sortBy="#{record.name}" sortOrder="#{richDataTableBean.capitalsOrder}">
+                <rich:column id="columnCapital" sortBy="#{record.name}">
                     <f:facet name="header">
-                        <h:commandLink id="sortCapitals" value="Capital">
-			                <rich:componentControl event="click" target="richDataTable" operation="sort">
-			                    <f:param value="columnCapital" />
-			                </rich:componentControl>
-			            </h:commandLink>
+                        <h:outputText id="columnHeaderCapital" value="#{richDataTableBean.facets['columnCapitalHeader']}"
+                        				rendered="#{not empty richDataTableBean.facets['columnCapitalHeader']}"/>
                     </f:facet>
 
                     <h:outputText value="#{record.name}" />
                     <f:facet name="footer">
-                        <h:outputText id="columnFooterCapital" value="Capital" />
+                        <h:outputText id="columnFooterCapital" value="#{richDataTableBean.facets['columnCapitalFooter']}"
+                        				rendered="#{not empty richDataTableBean.facets['columnCapitalFooter']}"/>
                     </f:facet>
                 </rich:column>
 
-                <f:facet name="footer">
-                    <rich:dataScroller id="scroller2" for="richDataTable" page="#{richDataTableBean.page}" maxPages="7" render="richDataTable" />
-                </f:facet>
-
             </rich:dataTable>
-            
-            <h:commandButton id="sortReset" value="Reset Sorting">
-                <rich:componentControl event="click" target="richDataTable" operation="sort" />
-            </h:commandButton>
         </ui:define>
 
         <ui:define name="outOfTemplateAfter">
+        	
+        	<a4j:ajax render="richDataTable">
+	        	<h:panelGrid columns="2">
+		        	<h:outputLabel value="No Data Facet: " />
+	        		<h:inputText id="noDataInput" value="#{richDataTableBean.facets['noData']}" />
+	        		
+	        		<h:outputLabel value="Caption Facet: " />
+	        		<h:inputText id="captionInput" value="#{richDataTableBean.facets['caption']}" />
+	        		
+	        		<h:outputLabel value="Header Facet:" />
+	        		<h:inputText id="headerInput" value="#{richDataTableBean.facets['header']}" />
+	        		
+	        		<h:outputLabel value="State Column Header:" />
+	        		<h:inputText id="columnStateHeaderInput" value="#{richDataTableBean.facets['columnStateHeader']}" />
+	        		
+	        		<h:outputLabel value="State Column Footer:" />
+	        		<h:inputText id="columnStateFooterInput" value="#{richDataTableBean.facets['columnStateFooter']}" />
+	        		
+	        		<h:outputLabel value="Capital Column Header:" />
+	        		<h:inputText id="columnCapitalHeaderInput" value="#{richDataTableBean.facets['columnCapitalHeader']}" />
+	        		
+	        		<h:outputLabel value="Capital Column Footer:" />
+	        		<h:inputText id="columnCapitalFooterInput" value="#{richDataTableBean.facets['columnCapitalFooter']}" />
+	        	</h:panelGrid>
+        	</a4j:ajax>
+        	            
+            <br/><br/>
+
             <metamer:attributes value="#{richDataTableBean.attributes}" id="attributes" />
         </ui:define>
 
