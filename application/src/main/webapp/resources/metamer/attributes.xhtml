@@ -19,40 +19,42 @@
             
             <a4j:jsFunction id="submitAjaxFunction" name="submitAjax" execute="#{cc.attrs.execute}" render="#{cc.attrs.render}" />
 
-            <h:panelGrid id="#{cc.attrs.id}" columns="#{cc.attrs.columns * 2}" styleClass="attributes"
-                         columnClasses="attributes-first-column, attributes-second-column, attributes-first-column, attributes-second-column">
-                <c:forEach items="#{cc.attrs.value}" var="entry">
-                    <h:panelGroup layout="block">
-                        <h:outputLabel id="#{entry.key}Label" value="#{entry.key}" style="margin-right: 5px;" for="#{entry.key}Input"/>
-                        <h:graphicImage value="/resources/images/help.png" title="#{entry.value.help}"
-                                        rendered="#{entry.value.help != null}" height="18px;"
-                                        style="vertical-align: middle;" styleClass="attribute-help" >
-                        </h:graphicImage>
-                    </h:panelGroup>
-
-                    <c:choose>
-                        <c:when test="#{entry.value.bool}">
-                            <h:selectOneRadio id="#{entry.key}Input" value="#{entry.value.value}" onchange="#{cc.attrs.type == 'server' ? 'submit()' : 'submitAjax()'}">
-                                <f:selectItem itemValue="null" itemLabel="null"/>
-                                <f:selectItem itemValue="true" itemLabel="true"/>
-                                <f:selectItem itemValue="false" itemLabel="false"/>
-                            </h:selectOneRadio>
-                        </c:when>
-
-                        <c:when test="#{entry.value.selectOptions != null}">
-                            <h:selectOneRadio id="#{entry.key}Input" value="#{entry.value.value}" onchange="#{cc.attrs.type == 'server' ? 'submit()' : 'submitAjax()'}"
-                                              layout="pageDirection">
-                                <f:selectItems value="#{entry.value.selectOptions}" />
-                            </h:selectOneRadio>
-                        </c:when>
-
-                        <c:otherwise>
-                            <h:inputText id="#{entry.key}Input" value="#{entry.value.value}" style="width: 200px;" onchange="#{cc.attrs.type == 'server' ? 'submit()' : 'submitAjax()'}" />
-                        </c:otherwise>
-                    </c:choose>
-
-                </c:forEach>
-            </h:panelGrid>
+			<a4j:outputPanel ajaxRendered="true">
+	            <h:panelGrid id="#{cc.attrs.id}" columns="#{cc.attrs.columns * 2}" styleClass="attributes"
+	                         columnClasses="attributes-first-column, attributes-second-column, attributes-first-column, attributes-second-column">
+	                <c:forEach items="#{cc.attrs.value}" var="entry">
+	                    <h:panelGroup layout="block">
+	                        <h:outputLabel id="#{entry.key}Label" value="#{entry.key}" style="margin-right: 5px;" for="#{entry.key}Input"/>
+	                        <h:graphicImage value="/resources/images/help.png" title="#{entry.value.help}"
+	                                        rendered="#{entry.value.help != null}" height="18px;"
+	                                        style="vertical-align: middle;" styleClass="attribute-help" >
+	                        </h:graphicImage>
+	                    </h:panelGroup>
+	
+	                    <c:choose>
+	                        <c:when test="#{entry.value.bool}">
+	                            <h:selectOneRadio id="#{entry.key}Input" value="#{entry.value.value}" onchange="#{cc.attrs.type == 'server' ? 'submit()' : 'submitAjax()'}">
+	                                <f:selectItem itemValue="null" itemLabel="null"/>
+	                                <f:selectItem itemValue="true" itemLabel="true"/>
+	                                <f:selectItem itemValue="false" itemLabel="false"/>
+	                            </h:selectOneRadio>
+	                        </c:when>
+	
+	                        <c:when test="#{entry.value.selectOptions != null}">
+	                            <h:selectOneRadio id="#{entry.key}Input" value="#{entry.value.value}" onchange="#{cc.attrs.type == 'server' ? 'submit()' : 'submitAjax()'}"
+	                                              layout="pageDirection">
+	                                <f:selectItems value="#{entry.value.selectOptions}" />
+	                            </h:selectOneRadio>
+	                        </c:when>
+	
+	                        <c:otherwise>
+	                            <h:inputText id="#{entry.key}Input" value="#{entry.value.value}" style="width: 200px;" onchange="#{cc.attrs.type == 'server' ? 'submit()' : 'submitAjax()'}" />
+	                        </c:otherwise>
+	                    </c:choose>
+	
+	                </c:forEach>
+	            </h:panelGrid>
+            </a4j:outputPanel>
         </composite:implementation>
     </h:body>
 </html>
