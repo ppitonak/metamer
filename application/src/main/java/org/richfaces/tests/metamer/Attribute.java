@@ -22,6 +22,7 @@
 package org.richfaces.tests.metamer;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
@@ -79,7 +80,7 @@ public class Attribute implements Serializable {
         if (value instanceof String) {
             if (type == Collection.class) {
                 String[] splitted = StringUtils.split((String) value, ",[]");
-                value = Arrays.asList(splitted);
+                value = new ArrayList<String>(Arrays.asList(splitted));
             }
         }
         this.value = value;
