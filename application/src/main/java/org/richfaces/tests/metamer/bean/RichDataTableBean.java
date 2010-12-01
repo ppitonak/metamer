@@ -26,7 +26,6 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Map.Entry;
 
 import javax.annotation.PostConstruct;
 
@@ -36,7 +35,6 @@ import org.richfaces.component.SortOrder;
 
 import org.ajax4jsf.model.DataComponentState;
 import org.richfaces.component.UIDataTable;
-import org.richfaces.event.SortingEvent;
 import org.richfaces.model.Filter;
 import org.richfaces.tests.metamer.Attributes;
 import org.richfaces.tests.metamer.model.Employee;
