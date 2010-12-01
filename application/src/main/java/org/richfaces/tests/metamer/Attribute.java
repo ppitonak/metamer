@@ -22,9 +22,9 @@
 package org.richfaces.tests.metamer;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.LinkedList;
 import java.util.List;
 
 import javax.faces.model.SelectItem;
@@ -79,8 +79,8 @@ public class Attribute implements Serializable {
     public void setValue(Object value) {
         if (value instanceof String) {
             if (type == Collection.class) {
-                String[] splitted = StringUtils.split((String) value, ",[]");
-                value = new ArrayList<String>(Arrays.asList(splitted));
+                String[] splitted = StringUtils.split((String) value, ",[] ");
+                value = new LinkedList<String>(Arrays.asList(splitted));
             }
         }
         this.value = value;
