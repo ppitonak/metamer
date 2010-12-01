@@ -2,8 +2,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
       xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:a4j="http://richfaces.org/a4j"
-      xmlns:metamer="http://java.sun.com/jsf/composite/metamer" xmlns:rich="http://richfaces.org/rich"
-      xmlns:fn="http://java.sun.com/jsp/jstl/functions">
+      xmlns:metamer="http://java.sun.com/jsf/composite/metamer" xmlns:rich="http://richfaces.org/rich">
 
     <!--
 JBoss, Home of Professional Open Source
@@ -36,41 +35,9 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                 </f:viewParam>
             </f:metadata>
             <style type="text/css">
-                .rf-edt-c {
-                    height: 30px !important;
-                    vertical-align: middle;
-                }
-
                 .rf-edt {
-                    width: 820px !important;
-                    height: 400px !important;
-                }
-
-                .rf-edt-hdr-c  {
-                    height: 4.2em !important;
-                }
-
-                .rf-edt-c-columnSex {
-                    width: 100px !important;
-                    text-align: center;
-                }
-
-                .rf-edt-c-columnName {
-                    width: 150px !important;
-                }
-
-                .rf-edt-c-columnTitle {
-                    width: 150px !important;
-                }
-
-                .rf-edt-c-columnNumberOfKids {
-                    text-align: center;
-                    width: 150px !important;
-                }
-
-                .rf-edt-c-columnNumberOfKids2 {
-                    text-align: center;
-                    width: 250px !important;
+                    width: 215px !important;
+                    height: 300px !important;
                 }
             </style>
         </ui:define>
@@ -79,16 +46,14 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
             <br/>
             <h:outputText value="Show data in table: " />
             <h:selectBooleanCheckbox id="noDataCheckbox" value="#{richExtendedDataTableBean.state}">
-                <a4j:ajax render="richDataTable scroller1"/>
+                <a4j:ajax render="richEDT scroller1"/>
             </h:selectBooleanCheckbox>
             <br/><br/>
-            <rich:dataScroller id="scroller1" for="richEDT" page="#{richExtendedDataTableBean.page}" maxPages="7" render="table"/>
         </ui:define>
 
         <ui:define name="component">
 
             <rich:extendedDataTable id="richEDT"
-            						binding="#{richExtendedDataTableBean.binding}"
                                     beforeselectionchange="#{richExtendedDataTableBean.attributes['beforeselectionchange'].value}"
                                     first="#{richExtendedDataTableBean.attributes['first'].value}"
                                     frozenColumns="#{richExtendedDataTableBean.attributes['frozenColumns'].value}"
@@ -101,74 +66,80 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                                     sortPriority="#{richExtendedDataTableBean.attributes['sortPriority'].value}"
                                     style="#{richExtendedDataTableBean.attributes['style'].value}"
                                     styleClass="#{richExtendedDataTableBean.attributes['styleClass'].value}"
-                                    value="#{richExtendedDataTableBean.state ? model.employees : null}"
+                                    value="#{richExtendedDataTableBean.state ? model.capitals : null}"
                                     var="record"
                                     >
 
                 <f:facet name="noData">
-                    <h:outputText value="There is no data." style="color: red;"/>
+                    <h:outputText value="#{richExtendedDataTableBean.facets['noData']}" style="color: red;"/>
                 </f:facet>
-                
-                <rich:column id="columnSex" sortBy="#{record.sex}">
+
+                <f:facet name="caption">
+                    <h:outputText id="captionFacet" value="#{richExtendedDataTableBean.facets['caption']}"
+                    			rendered="#{not empty richExtendedDataTableBean.facets['caption']}"/>
+                </f:facet>
+
+                <f:facet name="header">
+                    <h:outputText id="header" value="#{richExtendedDataTableBean.facets['header']}"
+                    			rendered="#{not empty richExtendedDataTableBean.facets['header']}"/>
+                </f:facet>
+
+                <rich:column id="columnState" sortBy="#{record.state}">
                     <f:facet name="header">
-                        <h:commandLink id="sortSexes" value="Sex">
-			                <rich:componentControl event="click" target="richEDT" operation="sort">
-			                	<f:param value="columnSex" />
-			                </rich:componentControl>
-			            </h:commandLink>
+                        <h:outputText id="columnHeaderState" value="#{richExtendedDataTableBean.facets['columnStateHeader']}"
+                    			rendered="#{not empty richExtendedDataTableBean.facets['columnStateHeader']}"/>
+           			</f:facet>
+                    <h:outputText value="#{record.state}" />
+                    <f:facet name="footer">
+                        <h:outputText id="columnFooterState" value="#{richExtendedDataTableBean.facets['columnStateFooter']}" 
+                    			rendered="#{not empty richExtendedDataTableBean.facets['columnStateFooter']}"/>
                     </f:facet>
-                    <h:graphicImage library="images" name="#{record.sex == 'MALE' ? 'male.png' : 'female.png'}" />
                 </rich:column>
 
-
-                <rich:column id="columnName" sortBy="#{record.name}">
+                <rich:column id="columnCapital" sortBy="#{record.name}">
                     <f:facet name="header">
-                        <h:commandLink id="sortByName" value="Name">
-			                <rich:componentControl event="click" target="richEDT" operation="sort">
-			                	<f:param value="columnName" />
-			                </rich:componentControl>
-			            </h:commandLink>
+                        <h:outputText id="columnHeaderCapital" value="#{richExtendedDataTableBean.facets['columnCapitalHeader']}" 
+                    			rendered="#{not empty richExtendedDataTableBean.facets['columnCapitalHeader']}"/>
                     </f:facet>
+
                     <h:outputText value="#{record.name}" />
-                </rich:column>
-
-                <rich:column id="columnTitle" sortBy="#{record.title}">
-                    <f:facet name="header">
-                        <h:commandLink id="sortByTitle" value="Title">
-			                <rich:componentControl event="click" target="richEDT" operation="sort">
-			                	<f:param value="columnTitle" />
-			                </rich:componentControl>
-			            </h:commandLink>
+                    <f:facet name="footer">
+                        <h:outputText id="columnFooterCapital" value="#{richExtendedDataTableBean.facets['columnCapitalFooter']}"
+                    			rendered="#{not empty richExtendedDataTableBean.facets['columnCapitalFooter']}"/>
                     </f:facet>
-                    <h:outputText value="#{record.title}" />
                 </rich:column>
-
-                <rich:column id="columnNumberOfKids" sortBy="#{record.numberOfKids}">
-                    <f:facet name="header">
-                        <h:commandLink id="sortByNumberOfKids" value="Number of Kids">
-			                <rich:componentControl event="click" target="richEDT" operation="sort">
-			                	<f:param value="columnNumberOfKids" />
-			                </rich:componentControl>
-			            </h:commandLink>
-                    </f:facet>
-                    <h:outputText value="#{record.numberOfKids}" />
-                </rich:column>
-
-                <f:facet name="footer">
-                    <rich:dataScroller id="scroller2" for="richEDT" page="#{richExtendedDataTableBean.page}" maxPages="7" render="table" />
-                </f:facet>
 
             </rich:extendedDataTable>
         </ui:define>
 
         <ui:define name="outOfTemplateAfter">
-            
-            <h:commandButton id="sortReset" value="Reset Sorting">
-                <rich:componentControl event="click" target="richEDT" operation="sort" />
-            </h:commandButton>
-
+            <a4j:ajax render="richEDT">
+	        	<h:panelGrid columns="2">
+		        	<h:outputLabel value="No Data Facet: " />
+	        		<h:inputText id="noDataInput" value="#{richExtendedDataTableBean.facets['noData']}" />
+	        		
+	        		<h:outputLabel value="Caption Facet: " />
+	        		<h:inputText id="captionInput" value="#{richExtendedDataTableBean.facets['caption']}" />
+	        		
+	        		<h:outputLabel value="Header Facet:" />
+	        		<h:inputText id="headerInput" value="#{richExtendedDataTableBean.facets['header']}" />
+	        		
+	        		<h:outputLabel value="State Column Header:" />
+	        		<h:inputText id="columnStateHeaderInput" value="#{richExtendedDataTableBean.facets['columnStateHeader']}" />
+	        		
+	        		<h:outputLabel value="State Column Footer:" />
+	        		<h:inputText id="columnStateFooterInput" value="#{richExtendedDataTableBean.facets['columnStateFooter']}" />
+	        		
+	        		<h:outputLabel value="Capital Column Header:" />
+	        		<h:inputText id="columnCapitalHeaderInput" value="#{richExtendedDataTableBean.facets['columnCapitalHeader']}" />
+	        		
+	        		<h:outputLabel value="Capital Column Footer:" />
+	        		<h:inputText id="columnCapitalFooterInput" value="#{richExtendedDataTableBean.facets['columnCapitalFooter']}" />
+	        	</h:panelGrid>
+        	</a4j:ajax>
+        	            
             <br/><br/>
-
+            
             <metamer:attributes value="#{richExtendedDataTableBean.attributes}" id="attributes" />
         </ui:define>
 

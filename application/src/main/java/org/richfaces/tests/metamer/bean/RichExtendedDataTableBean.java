@@ -23,18 +23,20 @@
 package org.richfaces.tests.metamer.bean;
 
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
-import javax.annotation.PostConstruct;
+import java.util.TreeMap;
 
+import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
-import org.richfaces.component.SortOrder;
+import javax.faces.bean.ViewScoped;
 
 import org.ajax4jsf.model.DataComponentState;
+import org.richfaces.component.SortOrder;
 import org.richfaces.component.UIExtendedDataTable;
-import org.richfaces.event.SortingEvent;
 import org.richfaces.model.Filter;
+import org.richfaces.model.SortMode;
 import org.richfaces.tests.metamer.Attributes;
 import org.richfaces.tests.metamer.model.Employee;
 import org.slf4j.Logger;
@@ -42,12 +44,12 @@ import org.slf4j.LoggerFactory;
 
 /**
  * Managed bean for rich:extendedDataTable.
- *
+ * 
  * @author <a href="mailto:ppitonak@redhat.com">Pavol Pitonak</a>
  * @version $Revision$
  */
 @ManagedBean(name = "richExtendedDataTableBean")
-@SessionScoped
+@ViewScoped
 public class RichExtendedDataTableBean implements Serializable {
 
     private static final long serialVersionUID = 481478880649809L;
@@ -60,14 +62,16 @@ public class RichExtendedDataTableBean implements Serializable {
     private boolean state = true;
 
     // sorting
-    private SortOrder capitalsOrder = SortOrder.unsorted;
-    private SortOrder statesOrder = SortOrder.unsorted;
+    private Map<String, ColumnSorting> sorting = new ColumnSortingMap();
 
     // filtering
-    private String sexFilter;
-    private String nameFilter;
-    private String titleFilter;
-    
+    private Map<String, Object> filtering = new HashMap<String, Object>();
+
+    // facets
+    private Map<String, String> facets = new HashMap<String, String>();
+
+    private UIExtendedDataTable binding;
+
     /**
      * Initializes the managed bean.
      */
@@ -82,19 +86,46 @@ public class RichExtendedDataTableBean implements Serializable {
         attributes.setAttribute("rows", 30);
         attributes.setAttribute("styleClass", "extended-data-table");
         attributes.setAttribute("style", null);
-        
+
+        // hidden attributes
+        attributes.remove("filterVar");
+        attributes.remove("filteringListeners");
+        attributes.remove("iterationState");
+        attributes.remove("iterationStatusVar");
+        attributes.remove("relativeRowIndex");
+        attributes.remove("rowAvailable");
+        attributes.remove("rowCount");
+        attributes.remove("rowData");
+        attributes.remove("rowIndex");
+        attributes.remove("rowIndex");
+        attributes.remove("rowKey");
+        attributes.remove("rowKeyConverter");
+        attributes.remove("sortingListeners");
+        attributes.remove("clientFirst");
+        attributes.remove("clientRows");
+
         // TODO these must be tested in other way
         attributes.remove("componentState");
         attributes.remove("rowKeyVar");
         attributes.remove("stateVar");
         attributes.remove("value");
         attributes.remove("var");
-        
+        attributes.remove("keepSaved");
+
         // TODO can be these set as attributes or only as facets?
         attributes.remove("caption");
         attributes.remove("header");
         attributes.remove("footer");
         attributes.remove("noData");
+
+        // facets initial values
+        facets.put("noData", "There is no data.");
+        facets.put("caption", "Caption");
+        facets.put("header", "Header");
+        facets.put("columnStateHeader", "State Header");
+        facets.put("columnStateFooter", "State Footer");
+        facets.put("columnCapitalHeader", "Capital Header");
+        facets.put("columnCapitalFooter", "Capital Footer");
     }
 
     public Attributes getAttributes() {
@@ -105,9 +136,17 @@ public class RichExtendedDataTableBean implements Serializable {
         this.attributes = attributes;
     }
 
+    public UIExtendedDataTable getBinding() {
+        return binding;
+    }
+
+    public void setBinding(UIExtendedDataTable binding) {
+        this.binding = binding;
+    }
+
     /**
      * Getter for page.
-     *
+     * 
      * @return page number that will be used by data scroller
      */
     public int getPage() {
@@ -116,7 +155,9 @@ public class RichExtendedDataTableBean implements Serializable {
 
     /**
      * Setter for page.
-     * @param page page number that will be used by data scroller 
+     * 
+     * @param page
+     *            page number that will be used by data scroller
      */
     public void setPage(int page) {
         this.page = page;
@@ -140,6 +181,7 @@ public class RichExtendedDataTableBean implements Serializable {
 
     /**
      * Getter for state.
+     * 
      * @return true if data should be displayed in table
      */
     public boolean isState() {
@@ -148,76 +190,21 @@ public class RichExtendedDataTableBean implements Serializable {
 
     /**
      * Setter for state.
-     * @param state true if data should be displayed in table
+     * 
+     * @param state
+     *            true if data should be displayed in table
      */
     public void setState(boolean state) {
         this.state = state;
-    }
-
-    public SortOrder getCapitalsOrder() {
-        return capitalsOrder;
-    }
-
-    public void setCapitalsOrder(SortOrder capitalsOrder) {
-        this.capitalsOrder = capitalsOrder;
-    }
-
-    public SortOrder getStatesOrder() {
-        return statesOrder;
-    }
-
-    public void setStatesOrder(SortOrder statesOrder) {
-        this.statesOrder = statesOrder;
-    }
-
-    public String getSexFilter() {
-        return sexFilter;
-    }
-
-    public void setSexFilter(String sexFilter) {
-        this.sexFilter = sexFilter;
-    }
-
-    public String getNameFilter() {
-        return nameFilter;
-    }
-
-    public void setNameFilter(String nameFilter) {
-        this.nameFilter = nameFilter;
-    }
-
-    public String getTitleFilter() {
-        return titleFilter;
-    }
-
-    public void setTitleFilter(String titleFilter) {
-        this.titleFilter = titleFilter;
-    }
-
-    public void sortByCapitals() {
-        statesOrder = SortOrder.unsorted;
-        if (capitalsOrder.equals(SortOrder.ascending)) {
-            setCapitalsOrder(SortOrder.descending);
-        } else {
-            setCapitalsOrder(SortOrder.ascending);
-        }
-    }
-
-    public void sortByStates() {
-        capitalsOrder = SortOrder.unsorted;
-        if (statesOrder.equals(SortOrder.ascending)) {
-            setStatesOrder(SortOrder.descending);
-        } else {
-            setStatesOrder(SortOrder.ascending);
-        }
     }
 
     public Filter<?> getFilterSexImpl() {
         return new Filter<Employee>() {
 
             public boolean accept(Employee e) {
-                String sex = getSexFilter();
-                if (sex == null || sex.length() == 0 || sex.equalsIgnoreCase("all") || sex.equalsIgnoreCase(e.getSex().toString())) {
+                String sex = (String) getFiltering().get("sex");
+                if (sex == null || sex.length() == 0 || sex.equalsIgnoreCase("all")
+                    || sex.equalsIgnoreCase(e.getSex().toString())) {
                     return true;
                 }
                 return false;
@@ -225,8 +212,74 @@ public class RichExtendedDataTableBean implements Serializable {
         };
     }
 
-    public void sortingListener(SortingEvent event) {
-        System.out.println(event.getSortOrder());
+    public Map<String, String> getFacets() {
+        return facets;
     }
 
+    public Map<String, ColumnSorting> getSorting() {
+        return sorting;
+    }
+
+    public Map<String, Object> getFiltering() {
+        return filtering;
+    }
+
+    public class ColumnSortingMap extends TreeMap<String, ColumnSorting> {
+        private static final long serialVersionUID = 1L;
+
+        public ColumnSorting get(Object key) {
+            if (key instanceof String && !containsKey(key)) {
+                String columnName = (String) key;
+                put(columnName, new ColumnSorting(columnName));
+            }
+            return super.get(key);
+        }
+    }
+
+    public class ColumnSorting {
+        private String columnName;
+        private SortOrder order = SortOrder.unsorted;
+
+        public ColumnSorting(String key) {
+            this.columnName = key;
+        }
+
+        public SortOrder getOrder() {
+            return order;
+        }
+
+        public void setOrder(SortOrder order) {
+            this.order = order;
+        }
+
+        @SuppressWarnings("unchecked")
+        public void reverseOrder() {
+            SortMode mode = binding.getSortMode();
+
+            Object sortOrderObject = getAttributes().get("sortPriority").getValue();
+            Collection<String> sortPriority;
+            if (sortOrderObject instanceof Collection) {
+                sortPriority = (Collection<String>) sortOrderObject;
+            } else {
+                throw new IllegalStateException("sortOrder attribute have to be Collection");
+            }
+
+            if (SortMode.single.equals(mode)) {
+                sorting.clear();
+                sorting.put(columnName, this);
+
+                sortPriority.clear();
+            } else {
+                sortPriority.remove(columnName);
+            }
+
+            sortPriority.add(columnName);
+
+            if (SortOrder.ascending.equals(order)) {
+                order = SortOrder.descending;
+            } else {
+                order = SortOrder.ascending;
+            }
+        }
+    }
 }

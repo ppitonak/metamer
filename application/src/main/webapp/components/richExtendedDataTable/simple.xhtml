@@ -55,93 +55,35 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 
             <rich:extendedDataTable id="richEDT"
                                     beforeselectionchange="#{richExtendedDataTableBean.attributes['beforeselectionchange'].value}"
-                                    clientFirst="#{richExtendedDataTableBean.attributes['clientFirst'].value}"
-                                    clientRows="#{richExtendedDataTableBean.attributes['clientRows'].value}"
-                                    filterVar="#{richExtendedDataTableBean.attributes['filterVar'].value}"
-                                    filteringListeners="#{richExtendedDataTableBean.attributes['filteringListeners'].value}"
                                     first="#{richExtendedDataTableBean.attributes['first'].value}"
                                     frozenColumns="#{richExtendedDataTableBean.attributes['frozenColumns'].value}"
-                                    iterationState="#{richExtendedDataTableBean.attributes['iterationState'].value}"
-                                    iterationStatusVar="#{richExtendedDataTableBean.attributes['iterationStatusVar'].value}"
-                                    keepSaved="#{richExtendedDataTableBean.attributes['keepSaved'].value}"
                                     noDataLabel="#{richExtendedDataTableBean.attributes['noDataLabel'].value}"
-                                    relativeRowIndex="#{richExtendedDataTableBean.attributes['relativeRowIndex'].value}"
                                     rendered="#{richExtendedDataTableBean.attributes['rendered'].value}"
-                                    rowAvailable="#{richExtendedDataTableBean.attributes['rowAvailable'].value}"
-                                    rowCount="#{richExtendedDataTableBean.attributes['rowCount'].value}"
-                                    rowData="#{richExtendedDataTableBean.attributes['rowData'].value}"
-                                    rowIndex="#{richExtendedDataTableBean.attributes['rowIndex'].value}"
-                                    rowKey="#{richExtendedDataTableBean.attributes['rowKey'].value}"
-                                    rowKeyConverter="#{richExtendedDataTableBean.attributes['rowKeyConverter'].value}"
                                     rows="#{richExtendedDataTableBean.attributes['rows'].value}"
                                     selection="#{richExtendedDataTableBean.attributes['selection'].value}"
                                     selectionchange="#{richExtendedDataTableBean.attributes['selectionchange'].value}"
                                     sortMode="#{richExtendedDataTableBean.attributes['sortMode'].value}"
                                     sortPriority="#{richExtendedDataTableBean.attributes['sortPriority'].value}"
-                                    sortingListeners="#{richExtendedDataTableBean.attributes['sortingListeners'].value}"
                                     style="#{richExtendedDataTableBean.attributes['style'].value}"
                                     styleClass="#{richExtendedDataTableBean.attributes['styleClass'].value}"
                                     value="#{richExtendedDataTableBean.state ? model.capitals : null}"
                                     var="record"
                                     >
 
-                <f:facet name="noData">
-                    <h:outputText value="There is no data." style="color: red;"/>
-                </f:facet>
-
-                <f:facet name="caption">
-                    <h:outputText id="captionFacet" value="Caption Facet" />
-                </f:facet>
-
-                <f:facet name="header">
-                    <h:outputText value="Header Facet" />
-                </f:facet>
+                
 
                 <rich:column id="columnState" sortBy="#{record.state}">
-                    <f:facet name="header">
-                        <h:outputText id="columnHeaderState" value="State Header" />
-                    </f:facet>
-
                     <h:outputText value="#{record.state}" />
-                    <f:facet name="footer">
-                        <h:outputText id="columnFooterState" value="State Footer" />
-                    </f:facet>
                 </rich:column>
 
                 <rich:column id="columnCapital" sortBy="#{record.name}">
-                    <f:facet name="header">
-                        <h:outputText id="columnHeaderCapital" value="Capital Header" />
-                    </f:facet>
-
                     <h:outputText value="#{record.name}" />
-                    <f:facet name="footer">
-                        <h:outputText id="columnFooterCapital" value="Capital Footer" />
-                    </f:facet>
                 </rich:column>
 
             </rich:extendedDataTable>
         </ui:define>
 
         <ui:define name="outOfTemplateAfter">
-            <h:commandButton id="sortStatesButton" value="sort states">
-                <rich:componentControl event="click" target="richEDT" operation="sort">
-                	<f:param value="columnState" />
-                </rich:componentControl>
-            </h:commandButton>
-
-            <h:commandButton id="sortCapitalsButton" value="sort capitals">
-                <rich:componentControl event="click" target="richEDT" operation="sort">
-                    <f:param value="columnCapital" />
-                </rich:componentControl>
-            </h:commandButton>
-
-            <br/><br/>
-            
-			<h:commandButton id="sortTableButton" value="sort table">
-                <rich:componentControl event="click" target="richEDT" operation="sort" />
-            </h:commandButton>
-
-            <br/><br/>
             <metamer:attributes value="#{richExtendedDataTableBean.attributes}" id="attributes" />
         </ui:define>
 

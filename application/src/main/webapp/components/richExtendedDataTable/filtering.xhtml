@@ -129,11 +129,11 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                             <br/>
                             <h:outputText id="columnHeaderSexType" value="(filter)"  />
                             <br/>
-                            <h:selectOneMenu id="columnHeaderSexInput" value="#{richExtendedDataTableBean.sexFilter}" >
+                            <h:selectOneMenu id="columnHeaderSexInput" value="#{richExtendedDataTableBean.filtering['sex']}" >
                                 <f:selectItem itemValue="ALL" itemLabel="all"/>
                                 <f:selectItem itemValue="FEMALE" itemLabel="female"/>
                                 <f:selectItem itemValue="MALE" itemLabel="male"/>
-                                <a4j:ajax render="commonGrid" execute="@this" event="change"/>
+                                <a4j:ajax render="commonGrid" event="change"/>
                             </h:selectOneMenu>
                         </h:panelGroup>
                     </f:facet>
@@ -146,15 +146,15 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                 </rich:column>
 
 
-                <rich:column id="columnName" filterValue="#{richExtendedDataTableBean.nameFilter}" filterExpression="#{fn:containsIgnoreCase(record.name, richDataTableBean.nameFilter)}">
+                <rich:column id="columnName" filterExpression="#{fn:containsIgnoreCase(record.name, richExtendedDataTableBean.filtering['name'])}">
                     <f:facet name="header">
                         <h:outputText id="columnHeaderName" value="Name" />
                         <br/>
                         <h:outputText id="columnHeaderNameType" value="(expression contains ignore case)" />
                         <br/>
-                        <h:inputText id="columnHeaderNameInput" value="#{richExtendedDataTableBean.nameFilter}">
-                            <a4j:ajax render="commonGrid" execute="@this" event="change"/>
-                        </h:inputText>
+                        <h:inputText id="columnHeaderNameInput" value="#{richExtendedDataTableBean.filtering['name']}">
+                            <a4j:ajax render="commonGrid" event="change"/>
+                        </h:inputText> 	
                     </f:facet>
 
                     <h:outputText value="#{record.name}" />
@@ -163,14 +163,14 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                     </f:facet>
                 </rich:column>
 
-                <rich:column id="columnTitle" filterValue="#{richExtendedDataTableBean.titleFilter}" filterExpression="#{richExtendedDataTableBean.titleFilter == null || richDataTableBean.titleFilter == '' || record.title == richDataTableBean.titleFilter}">
+                <rich:column id="columnTitle" filterExpression="#{richExtendedDataTableBean.filtering['title'] == null || richExtendedDataTableBean.filtering['title'] == '' || record.title == richExtendedDataTableBean.filtering['title']}">
                     <f:facet name="header">
                         <h:outputText id="columnHeaderTitle" value="Title" />
                         <br/>
                         <h:outputText id="columnHeaderTitleType" value="(expression equals)" />
                         <br/>
-                        <h:inputText id="columnHeaderTitleInput" value="#{richExtendedDataTableBean.titleFilter}">
-                            <a4j:ajax render="commonGrid" execute="@this" event="change"/>
+                        <h:inputText id="columnHeaderTitleInput" value="#{richExtendedDataTableBean.filtering['title']}">
+                            <a4j:ajax render="commonGrid" event="change"/>
                         </h:inputText>
                     </f:facet>
 
@@ -180,13 +180,15 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                     </f:facet>
                 </rich:column>
 
-                <rich:column id="columnNumberOfKids">
+                <rich:column id="columnNumberOfKids1" filterExpression="#{empty richExtendedDataTableBean.filtering['numberOfKids1'] || record.numberOfKids >= richExtendedDataTableBean.filtering['numberOfKids1']}">
                     <f:facet name="header">
                         <h:outputText id="columnHeaderNumberOfKids" value="Number of Kids" />
                         <br/>
                         <h:outputText id="columnHeaderNumberOfKidsType" value="(expression &gt;=)" />
                         <br/>
-                        <rich:inputNumberSpinner id="spinnerFilter" minValue="0" maxValue="6" value="0" cycled="true"/>
+                        <rich:inputNumberSpinner id="spinnerFilter" minValue="0" maxValue="6" cycled="false" value="#{richExtendedDataTableBean.filtering['numberOfKids1']}">
+                        	<a4j:ajax render="commonGrid" />
+                        </rich:inputNumberSpinner>
                     </f:facet>
 
                     <h:outputText value="#{record.numberOfKids}" />
@@ -201,7 +203,11 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                         <br/>
                         <h:outputText id="columnHeaderNumberOfKids2Type" value="(expression &lt;)" />
                         <br/>
-                        <rich:inputNumberSlider id="sliderFilter" minValue="0" maxValue="6" value="6"/>
+                        <rich:inputNumberSlider id="sliderFilter" minValue="0" maxValue="6" value="#{richExtendedDataTableBean.filtering['numberOfKids2']}">
+                        	<!-- <a4j:ajax render="commonGrid" /> -->
+                        </rich:inputNumberSlider>
+                        <br />
+                        (DOESN'T WORK, NOT REPORTED YET (causes continuous refreshing of page))
                     </f:facet>
 
                     <h:outputText value="#{record.numberOfKids}" />
