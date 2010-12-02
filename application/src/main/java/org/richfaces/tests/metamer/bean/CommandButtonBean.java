@@ -19,17 +19,14 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  *******************************************************************************/
-
 package org.richfaces.tests.metamer.bean;
 
 import java.io.Serializable;
-
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ViewScoped;
 import javax.faces.component.html.HtmlCommandButton;
 import javax.faces.event.ActionEvent;
-
 import org.richfaces.tests.metamer.Attributes;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -41,7 +38,7 @@ import org.slf4j.LoggerFactory;
  * @version $Revision$
  */
 @ManagedBean(name = "buttonBean")
-@SessionScoped
+@ViewScoped
 public class CommandButtonBean implements Serializable {
 
     private static final long serialVersionUID = -2576526843426776944L;
@@ -211,5 +208,4 @@ public class CommandButtonBean implements Serializable {
             input3 = input.toUpperCase();
         }
     }
-
 }
