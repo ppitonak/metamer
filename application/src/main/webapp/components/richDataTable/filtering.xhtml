@@ -50,25 +50,13 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 
         <ui:define name="component">
             <rich:dataTable id="richDataTable"
-                            filterVar="#{richDataTableBean.attributes['filterVar'].value}"
-                            filteringListeners="#{richDataTableBean.attributes['filteringListeners'].value}"
                             first="#{richDataTableBean.attributes['first'].value}"
-                            iterationState="#{richDataTableBean.attributes['iterationState'].value}"
-                            iterationStatusVar="#{richDataTableBean.attributes['iterationStatusVar'].value}"
                             keepSaved="#{richDataTableBean.attributes['keepSaved'].value}"
                             noDataLabel="#{richDataTableBean.attributes['noDataLabel'].value}"
-                            relativeRowIndex="#{richDataTableBean.attributes['relativeRowIndex'].value}"
                             rendered="#{richDataTableBean.attributes['rendered'].value}"
-                            rowAvailable="#{richDataTableBean.attributes['rowAvailable'].value}"
-                            rowCount="#{richDataTableBean.attributes['rowCount'].value}"
-                            rowData="#{richDataTableBean.attributes['rowData'].value}"
-                            rowIndex="#{richDataTableBean.attributes['rowIndex'].value}"
-                            rowKey="#{richDataTableBean.attributes['rowKey'].value}"
-                            rowKeyConverter="#{richDataTableBean.attributes['rowKeyConverter'].value}"
                             rows="#{richDataTableBean.attributes['rows'].value}"
                             sortMode="#{richDataTableBean.attributes['sortMode'].value}"
                             sortPriority="#{richDataTableBean.attributes['sortPriority'].value}"
-                            sortingListeners="#{richDataTableBean.attributes['sortingListeners'].value}"
                             value="#{richDataTableBean.state ? model.employees : null}"
                             var="record"
                             >
@@ -84,11 +72,11 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                             <br/>
                             <h:outputText id="columnHeaderSexType" value="(filter)"  />
                             <br/>
-                            <h:selectOneMenu id="columnHeaderSexInput" value="#{richDataTableBean.sexFilter}" >
+                            <h:selectOneMenu id="columnHeaderSexInput" value="#{richDataTableBean.filtering['sex']}" >
                                 <f:selectItem itemValue="ALL" itemLabel="all"/>
                                 <f:selectItem itemValue="FEMALE" itemLabel="female"/>
                                 <f:selectItem itemValue="MALE" itemLabel="male"/>
-                                <a4j:ajax render="commonGrid" execute="@this" event="change"/>
+                                <a4j:ajax render="commonGrid" event="change"/>
                             </h:selectOneMenu>
                         </h:panelGroup>
                     </f:facet>
@@ -101,15 +89,15 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                 </rich:column>
 
 
-                <rich:column id="columnName" filterValue="#{richDataTableBean.nameFilter}" filterExpression="#{fn:containsIgnoreCase(record.name, richDataTableBean.nameFilter)}">
+                <rich:column id="columnName" filterExpression="#{fn:containsIgnoreCase(record.name, richDataTableBean.filtering['name'])}">
                     <f:facet name="header">
                         <h:outputText id="columnHeaderName" value="Name" />
                         <br/>
                         <h:outputText id="columnHeaderNameType" value="(expression contains ignore case)" />
                         <br/>
-                        <h:inputText id="columnHeaderNameInput" value="#{richDataTableBean.nameFilter}">
-                            <a4j:ajax render="commonGrid" execute="@this" event="change"/>
-                        </h:inputText>
+                        <h:inputText id="columnHeaderNameInput" value="#{richDataTableBean.filtering['name']}">
+                            <a4j:ajax render="commonGrid" event="change"/>
+                        </h:inputText> 	
                     </f:facet>
 
                     <h:outputText value="#{record.name}" />
@@ -118,14 +106,14 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                     </f:facet>
                 </rich:column>
 
-                <rich:column id="columnTitle" filterValue="#{richDataTableBean.titleFilter}" filterExpression="#{richDataTableBean.titleFilter == null || richDataTableBean.titleFilter == '' || record.title == richDataTableBean.titleFilter}">
+                <rich:column id="columnTitle" filterExpression="#{richDataTableBean.filtering['title'] == null || richDataTableBean.filtering['title'] == '' || record.title == richDataTableBean.filtering['title']}">
                     <f:facet name="header">
                         <h:outputText id="columnHeaderTitle" value="Title" />
                         <br/>
                         <h:outputText id="columnHeaderTitleType" value="(expression equals)" />
                         <br/>
-                        <h:inputText id="columnHeaderTitleInput" value="#{richDataTableBean.titleFilter}">
-                            <a4j:ajax render="commonGrid" execute="@this" event="change"/>
+                        <h:inputText id="columnHeaderTitleInput" value="#{richDataTableBean.filtering['title']}">
+                            <a4j:ajax render="commonGrid" event="change"/>
                         </h:inputText>
                     </f:facet>
 
@@ -135,14 +123,14 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                     </f:facet>
                 </rich:column>
 
-                <rich:column id="columnNumberOfKids" filter="#{richDataTableBean.filterKidsImpl}">
+                <rich:column id="columnNumberOfKids1" filterExpression="#{empty richDataTableBean.filtering['numberOfKids1'] || record.numberOfKids >= richDataTableBean.filtering['numberOfKids1']}">
                     <f:facet name="header">
                         <h:outputText id="columnHeaderNumberOfKids" value="Number of Kids" />
                         <br/>
                         <h:outputText id="columnHeaderNumberOfKidsType" value="(expression &gt;=)" />
                         <br/>
-                        <rich:inputNumberSpinner id="columnHeaderNumberOfKidsInput" value="#{richDataTableBean.kidsFilter}" minValue="0" maxValue="5" cycled="true">
-                            <a4j:ajax render="commonGrid" execute="@this"/>
+                        <rich:inputNumberSpinner id="spinnerFilter" minValue="0" maxValue="6" cycled="false" value="#{richDataTableBean.filtering['numberOfKids1']}">
+                        	<a4j:ajax render="commonGrid" />
                         </rich:inputNumberSpinner>
                     </f:facet>
 
@@ -158,9 +146,11 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                         <br/>
                         <h:outputText id="columnHeaderNumberOfKids2Type" value="(expression &lt;)" />
                         <br/>
-                        <rich:inputNumberSlider id="columnHeaderNumberOfKids2Input" value="#{richDataTableBean.kidsFilter2}" minValue="0" maxValue="5" showInput="false">
-                            <a4j:ajax render="commonGrid" execute="@this"/>
+                        <rich:inputNumberSlider id="sliderFilter" minValue="0" maxValue="6" value="#{richDataTableBean.filtering['numberOfKids2']}">
+                        	<!-- <a4j:ajax render="commonGrid" /> -->
                         </rich:inputNumberSlider>
+                        <br />
+                        (DOESN'T WORK, NOT REPORTED YET (causes continuous refreshing of page))
                     </f:facet>
 
                     <h:outputText value="#{record.numberOfKids}" />

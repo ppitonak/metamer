@@ -50,26 +50,15 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
         <ui:define name="component">
 
             <rich:dataTable id="richDataTable"
-                            filterVar="#{richDataTableBean.attributes['filterVar'].value}"
-                            filteringListeners="#{richDataTableBean.attributes['filteringListeners'].value}"
+            				binding="#{richDataTableBean.binding}"
                             first="#{richDataTableBean.attributes['first'].value}"
-                            iterationState="#{richDataTableBean.attributes['iterationState'].value}"
-                            iterationStatusVar="#{richDataTableBean.attributes['iterationStatusVar'].value}"
                             keepSaved="#{richDataTableBean.attributes['keepSaved'].value}"
                             noDataLabel="#{richDataTableBean.attributes['noDataLabel'].value}"
-                            relativeRowIndex="#{richDataTableBean.attributes['relativeRowIndex'].value}"
                             rendered="#{richDataTableBean.attributes['rendered'].value}"
-                            rowAvailable="#{richDataTableBean.attributes['rowAvailable'].value}"
-                            rowCount="#{richDataTableBean.attributes['rowCount'].value}"
-                            rowData="#{richDataTableBean.attributes['rowData'].value}"
-                            rowIndex="#{richDataTableBean.attributes['rowIndex'].value}"
-                            rowKey="#{richDataTableBean.attributes['rowKey'].value}"
-                            rowKeyConverter="#{richDataTableBean.attributes['rowKeyConverter'].value}"
                             rows="#{richDataTableBean.attributes['rows'].value}"
                             sortMode="#{richDataTableBean.attributes['sortMode'].value}"
                             sortPriority="#{richDataTableBean.attributes['sortPriority'].value}"
-                            sortingListeners="#{richDataTableBean.attributes['sortingListeners'].value}"
-                            value="#{richDataTableBean.state ? model.capitals : null}"
+                            value="#{richDataTableBean.state ? model.employees : null}"
                             var="record"
                             >
 
@@ -77,26 +66,33 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                     <h:outputText value="There is no data." style="color: red;"/>
                 </f:facet>
 
-                <rich:column id="columnState" sortBy="#{record.state}" sortOrder="#{richDataTableBean.statesOrder}">
+                <rich:column id="columnSex" sortBy="#{record.sex}" sortOrder="#{richDataTableBean.sorting['columnSex'].order}">
                     <f:facet name="header">
-                        <a4j:commandLink id="sortStates" value="State" render="richDataTable" action="#{richDataTableBean.sortByStates}"/>
+                        <a4j:commandLink id="sortBySex" value="Sex" render="richDataTable" action="#{richDataTableBean.sorting['columnSex'].reverseOrder}" />
                     </f:facet>
-
-                    <h:outputText value="#{record.state}" />
-                    <f:facet name="footer">
-                        <h:outputText id="columnFooterState" value="State" />
-                    </f:facet>
+                    <h:graphicImage library="images" name="#{record.sex == 'MALE' ? 'male.png' : 'female.png'}" />
                 </rich:column>
 
-                <rich:column id="columnCapital" sortBy="#{record.name}" sortOrder="#{richDataTableBean.capitalsOrder}" sortingListeners="#{richDataTableBean.sortingListener}">
-                    <f:facet name="header">
-                        <a4j:commandLink id="sortCapitals" value="Capital" render="richDataTable" action="#{richDataTableBean.sortByCapitals}"/>
-                    </f:facet>
 
-                    <h:outputText value="#{record.name}" />
-                    <f:facet name="footer">
-                        <h:outputText id="columnFooterCapital" value="Capital" />
+                <rich:column id="columnName" sortBy="#{record.name}" sortOrder="#{richDataTableBean.sorting['columnName'].order}">
+                    <f:facet name="header">
+			            <a4j:commandLink id="sortByName" value="Name" render="richDataTable" action="#{richDataTableBean.sorting['columnName'].reverseOrder}" />
                     </f:facet>
+                    <h:outputText value="#{record.name}" />
+                </rich:column>
+
+                <rich:column id="columnTitle" sortBy="#{record.title}" sortOrder="#{richDataTableBean.sorting['columnTitle'].order}">
+                    <f:facet name="header">
+			            <a4j:commandLink id="sortByTitle" value="Title" render="richDataTable" action="#{richDataTableBean.sorting['columnTitle'].reverseOrder}" />
+                    </f:facet>
+                    <h:outputText value="#{record.title}" />
+                </rich:column>
+
+                <rich:column id="columnNumberOfKids" sortBy="#{record.numberOfKids}" sortOrder="#{richDataTableBean.sorting['columnNumberOfKids'].order}">
+                    <f:facet name="header">
+			            <a4j:commandLink id="sortByNumberOfKids" value="# of Kids" render="richDataTable" action="#{richDataTableBean.sorting['columnNumberOfKids'].reverseOrder}" />
+                    </f:facet>
+                    <h:outputText value="#{record.numberOfKids}" />
                 </rich:column>
 
                 <f:facet name="footer">
@@ -105,7 +101,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 
             </rich:dataTable>
             
-            <a4j:commandButton id="sortReset" value="Reset Sorting" render="richDataTable" action="#{richDataTableBean.sortReset}"/>
+            <a4j:commandButton id="sortReset" value="Reset Sorting" action="#{richDataTableBean.sorting.clear}" render="richDataTable" />
             
         </ui:define>
 

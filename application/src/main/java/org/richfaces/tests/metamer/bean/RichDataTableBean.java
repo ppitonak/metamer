@@ -28,46 +28,55 @@ import java.util.HashMap;
 import java.util.Map;
 
 import javax.annotation.PostConstruct;
-
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
-import org.richfaces.component.SortOrder;
+import javax.faces.bean.ViewScoped;
 
 import org.ajax4jsf.model.DataComponentState;
 import org.richfaces.component.UIDataTable;
+import org.richfaces.component.UIDataTableBase;
 import org.richfaces.model.Filter;
 import org.richfaces.tests.metamer.Attributes;
+import org.richfaces.tests.metamer.ColumnSortingMap;
 import org.richfaces.tests.metamer.model.Employee;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
  * Managed bean for rich:dataTable.
- *
+ * 
  * @author <a href="mailto:ppitonak@redhat.com">Pavol Pitonak</a>
  * @version $Revision$
  */
 @ManagedBean(name = "richDataTableBean")
-@SessionScoped
+@ViewScoped
 public class RichDataTableBean implements Serializable {
 
     private static final long serialVersionUID = 4814439475400649809L;
     private static Logger logger;
     private Attributes attributes;
+    private UIDataTable binding;
     private DataComponentState dataTableState;
     private Map<Object, Integer> stateMap = new HashMap<Object, Integer>();
     private int page = 1;
     // true = model, false = empty table
     private boolean state = true;
+
     // sorting
-    private SortOrder capitalsOrder = SortOrder.unsorted;
-    private SortOrder statesOrder = SortOrder.unsorted;
+    private ColumnSortingMap sorting = new ColumnSortingMap() {
+        private static final long serialVersionUID = 1L;
+
+        protected UIDataTableBase getBinding() {
+            return binding;
+        }
+
+        protected Attributes getAttributes() {
+            return attributes;
+        }
+    };
+
     // filtering
-    private String sexFilter;
-    private String nameFilter;
-    private String titleFilter;
-    private int kidsFilter;
-    private int kidsFilter2;
+    private Map<String, Object> filtering = new HashMap<String, Object>();
+
     // facets
     private Map<String, String> facets = new HashMap<String, String>();
 
@@ -84,7 +93,7 @@ public class RichDataTableBean implements Serializable {
         attributes.setAttribute("rendered", true);
         attributes.setAttribute("rows", 10);
         attributes.get("sortPriority").setType(Collection.class);
-        
+
         // hidden attributes
         attributes.remove("filteringListeners");
         attributes.remove("sortingListeners");
@@ -98,7 +107,7 @@ public class RichDataTableBean implements Serializable {
         attributes.remove("rowKey");
         attributes.remove("rowKeyConverter");
         attributes.remove("relativeRowIndex");
-        
+
         // TODO these must be tested in other way
         attributes.remove("componentState");
         attributes.remove("rowKeyVar");
@@ -113,7 +122,7 @@ public class RichDataTableBean implements Serializable {
         attributes.remove("header");
         attributes.remove("footer");
         attributes.remove("noData");
-        
+
         // facets initial values
         facets.put("noData", "There is no data.");
         facets.put("caption", "Caption");
@@ -122,6 +131,14 @@ public class RichDataTableBean implements Serializable {
         facets.put("columnStateFooter", "State Footer");
         facets.put("columnCapitalHeader", "Capital Header");
         facets.put("columnCapitalFooter", "Capital Footer");
+    }
+    
+    public void setBinding(UIDataTable binding) {
+        this.binding = binding;
+    }
+    
+    public UIDataTable getBinding() {
+        return binding;
     }
 
     public Attributes getAttributes() {
@@ -168,91 +185,25 @@ public class RichDataTableBean implements Serializable {
         return new Date();
     }
 
-    public SortOrder getCapitalsOrder() {
-        return capitalsOrder;
+    public Map<String, String> getFacets() {
+        return facets;
     }
 
-    public void setCapitalsOrder(SortOrder capitalsOrder) {
-        this.capitalsOrder = capitalsOrder;
+    public ColumnSortingMap getSorting() {
+        return sorting;
     }
 
-    public SortOrder getStatesOrder() {
-        return statesOrder;
-    }
-
-    public void setStatesOrder(SortOrder statesOrder) {
-        this.statesOrder = statesOrder;
-    }
-
-    public String getSexFilter() {
-        return sexFilter;
-    }
-
-    public void setSexFilter(String sexFilter) {
-        this.sexFilter = sexFilter;
-    }
-
-    public String getNameFilter() {
-        return nameFilter;
-    }
-
-    public void setNameFilter(String nameFilter) {
-        this.nameFilter = nameFilter;
-    }
-
-    public String getTitleFilter() {
-        return titleFilter;
-    }
-
-    public void setTitleFilter(String titleFilter) {
-        this.titleFilter = titleFilter;
-    }
-
-    public int getKidsFilter() {
-        return kidsFilter;
-    }
-
-    public void setKidsFilter(int kidsFilter) {
-        this.kidsFilter = kidsFilter;
-    }
-
-    public int getKidsFilter2() {
-        return kidsFilter2;
-    }
-
-    public void setKidsFilter2(int kidsFilter2) {
-        this.kidsFilter2 = kidsFilter2;
-    }
-
-    public void sortByCapitals() {
-        statesOrder = SortOrder.unsorted;
-        if (capitalsOrder.equals(SortOrder.ascending)) {
-            setCapitalsOrder(SortOrder.descending);
-        } else {
-            setCapitalsOrder(SortOrder.ascending);
-        }
-    }
-
-    public void sortByStates() {
-        capitalsOrder = SortOrder.unsorted;
-        if (statesOrder.equals(SortOrder.ascending)) {
-            setStatesOrder(SortOrder.descending);
-        } else {
-            setStatesOrder(SortOrder.ascending);
-        }
-    }
-    
-    public void sortReset() {
-        setStatesOrder(SortOrder.ascending);
-        setCapitalsOrder(SortOrder.unsorted);
+    public Map<String, Object> getFiltering() {
+        return filtering;
     }
 
     public Filter<?> getFilterSexImpl() {
         return new Filter<Employee>() {
 
             public boolean accept(Employee e) {
-                String sex = getSexFilter();
-                if (sex == null || sex.length() == 0 || sex.equalsIgnoreCase("all") || sex.equalsIgnoreCase(e.getSex().toString())) {
+                String sex = (String) getFiltering().get("sex");
+                if (sex == null || sex.length() == 0 || sex.equalsIgnoreCase("all")
+                    || sex.equalsIgnoreCase(e.getSex().toString())) {
                     return true;
                 }
                 return false;
@@ -260,20 +211,4 @@ public class RichDataTableBean implements Serializable {
         };
     }
 
-    public Filter<?> getFilterKidsImpl() {
-        return new Filter<Employee>() {
-
-            public boolean accept(Employee e) {
-                int kids = getKidsFilter();
-                if (e.getNumberOfKids() >= kids) {
-                    return true;
-                }
-                return false;
-            }
-        };
-    }
-    
-    public Map<String, String> getFacets() {
-        return facets;
-    }
 }
