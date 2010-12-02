@@ -223,6 +223,18 @@ public class TestRichTab extends AbstractMetamerTest {
     }
 
     @Test
+    public void testName() {
+        selenium.type(pjq("input[type=text][id$=nameInput]"), "metamer");
+        selenium.waitForPageToLoad();
+
+        selenium.click(pjq("input[id$=lastTabButton]"));
+        waitGui.failWith("Item 3 was not displayed.").until(isDisplayed.locator(itemContents[4]));
+
+        selenium.click(pjq("input[id$=customTabButton]"));
+        waitGui.failWith("Item 1 was not displayed.").until(isDisplayed.locator(itemContents[0]));
+    }
+
+    @Test
     public void testOnclick() {
         testFireEvent(Event.CLICK, tab);
     }
