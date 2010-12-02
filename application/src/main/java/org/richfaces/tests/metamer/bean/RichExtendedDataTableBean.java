@@ -23,21 +23,19 @@
 package org.richfaces.tests.metamer.bean;
 
 import java.io.Serializable;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.TreeMap;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
 import org.ajax4jsf.model.DataComponentState;
-import org.richfaces.component.SortOrder;
+import org.richfaces.component.UIDataTableBase;
 import org.richfaces.component.UIExtendedDataTable;
 import org.richfaces.model.Filter;
-import org.richfaces.model.SortMode;
 import org.richfaces.tests.metamer.Attributes;
+import org.richfaces.tests.metamer.ColumnSortingMap;
 import org.richfaces.tests.metamer.model.Employee;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -62,7 +60,15 @@ public class RichExtendedDataTableBean implements Serializable {
     private boolean state = true;
 
     // sorting
-    private Map<String, ColumnSorting> sorting = new ColumnSortingMap();
+    private ColumnSortingMap sorting = new ColumnSortingMap() {
+        private static final long serialVersionUID = 1L;
+        protected UIDataTableBase getBinding() {
+            return binding;
+        }
+        protected Attributes getAttributes() {
+            return attributes;
+        }
+    };
 
     // filtering
     private Map<String, Object> filtering = new HashMap<String, Object>();
@@ -216,7 +222,7 @@ public class RichExtendedDataTableBean implements Serializable {
         return facets;
     }
 
-    public Map<String, ColumnSorting> getSorting() {
+    public ColumnSortingMap getSorting() {
         return sorting;
     }
 
@@ -224,62 +230,7 @@ public class RichExtendedDataTableBean implements Serializable {
         return filtering;
     }
 
-    public class ColumnSortingMap extends TreeMap<String, ColumnSorting> {
-        private static final long serialVersionUID = 1L;
+    
 
-        public ColumnSorting get(Object key) {
-            if (key instanceof String && !containsKey(key)) {
-                String columnName = (String) key;
-                put(columnName, new ColumnSorting(columnName));
-            }
-            return super.get(key);
-        }
-    }
-
-    public class ColumnSorting {
-        private String columnName;
-        private SortOrder order = SortOrder.unsorted;
-
-        public ColumnSorting(String key) {
-            this.columnName = key;
-        }
-
-        public SortOrder getOrder() {
-            return order;
-        }
-
-        public void setOrder(SortOrder order) {
-            this.order = order;
-        }
-
-        @SuppressWarnings("unchecked")
-        public void reverseOrder() {
-            SortMode mode = binding.getSortMode();
-
-            Object sortOrderObject = getAttributes().get("sortPriority").getValue();
-            Collection<String> sortPriority;
-            if (sortOrderObject instanceof Collection) {
-                sortPriority = (Collection<String>) sortOrderObject;
-            } else {
-                throw new IllegalStateException("sortOrder attribute have to be Collection");
-            }
-
-            if (SortMode.single.equals(mode)) {
-                sorting.clear();
-                sorting.put(columnName, this);
-
-                sortPriority.clear();
-            } else {
-                sortPriority.remove(columnName);
-            }
-
-            sortPriority.add(columnName);
-
-            if (SortOrder.ascending.equals(order)) {
-                order = SortOrder.descending;
-            } else {
-                order = SortOrder.ascending;
-            }
-        }
-    }
+    
 }
