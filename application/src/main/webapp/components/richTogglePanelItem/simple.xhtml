@@ -52,16 +52,17 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
             <h:commandLink id="tcLink3" value="Toggle Panel Item 3">
                 <rich:toggleControl targetPanel="richTogglePanel" targetItem="item3" />
             </h:commandLink>
+            <h:outputText value=" | " />
+            <h:commandLink id="tcLinkCustom" value="Toggle Panel Custom (#{richTogglePanelItemBean.attributes['name'].value})">
+                <rich:toggleControl targetPanel="richTogglePanel" targetItem="#{richTogglePanelItemBean.attributes['name'].value}" />
+            </h:commandLink>
 
             <br/><br/>
 
-            <rich:togglePanel id="richTogglePanel" activeItem="item1" switchType="client">
+            <rich:togglePanel id="richTogglePanel" activeItem="item1" switchType="ajax">
                 <rich:togglePanelItem id="item1"
-                                      active="#{richTogglePanelItemBean.attributes['active'].value}"
-                                      converter="#{richTogglePanelItemBean.attributes['converter'].value}"
                                       dir="#{richTogglePanelItemBean.attributes['dir'].value}"
                                       lang="#{richTogglePanelItemBean.attributes['lang'].value}"
-                                      localValue="#{richTogglePanelItemBean.attributes['localValue'].value}"
                                       name="#{richTogglePanelItemBean.attributes['name'].value}"
                                       onclick="#{richTogglePanelItemBean.attributes['onclick'].value}"
                                       ondblclick="#{richTogglePanelItemBean.attributes['ondblclick'].value}"
@@ -77,7 +78,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                                       styleClass="#{richTogglePanelItemBean.attributes['styleClass'].value}"
                                       switchType="#{richTogglePanelItemBean.attributes['switchType'].value}"
                                       title="#{richTogglePanelItemBean.attributes['title'].value}"
-                                      value="#{richTogglePanelItemBean.attributes['value'].value}">
+                                      >
                     <p>content of panel 1</p>
                 </rich:togglePanelItem>
                 <rich:togglePanelItem id="item2" name="item2">
