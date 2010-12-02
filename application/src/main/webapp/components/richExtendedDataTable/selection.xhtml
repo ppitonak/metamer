@@ -70,7 +70,10 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                                     value="#{richExtendedDataTableBean.state ? model.capitals : null}"
                                     var="record"
                                     >
-				<a4j:ajax execute="@this" event="selectionchange" render="selectionOutput" />
+                           
+                                    
+				<a4j:ajax execute="@this" event="beforeselectionchange" render="previousSelection" />
+				<a4j:ajax execute="@this" event="selectionchange" render="currentSelection" />
 					
                 <f:facet name="noData">
                     <h:outputText value="There is no data." style="color: red;"/>
@@ -113,8 +116,11 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
             </rich:extendedDataTable>
             
             <h:panelGrid columns="2">
-            	<h:outputLabel value="Selection:" />
-            	<h:outputText id="selectionOutput" value="#{richExtendedDataTableBean.attributes['selection'].value}" />
+            	<h:outputLabel value="Previous Selection:" />
+            	<h:outputText id="previousSelection" value="#{richExtendedDataTableBean.attributes['selection'].value}" />
+            	
+            	<h:outputLabel value="CurrentSelection:" />
+            	<h:outputText id="currentSelection" value="#{richExtendedDataTableBean.attributes['selection'].value}" />
             </h:panelGrid>
         </ui:define>
 
