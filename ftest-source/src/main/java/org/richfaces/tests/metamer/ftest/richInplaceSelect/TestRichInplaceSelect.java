@@ -456,7 +456,7 @@ public class TestRichInplaceSelect extends AbstractMetamerTest {
     }
 
     @Test
-    @IssueTracking("https://jira.jboss.org/browse/RF-9854")
+    @IssueTracking("https://jira.jboss.org/browse/RF-9896")
     public void testSelectItemClass() {
         selenium.type(pjq("input[type=text][id$=selectItemClassInput]"), "metamer-ftest-class");
         selenium.waitForPageToLoad();
@@ -464,7 +464,7 @@ public class TestRichInplaceSelect extends AbstractMetamerTest {
         selenium.click(select);
         selenium.mouseOver(options.format(0));
         
-        assertTrue(selenium.belongsClass(options.format(0), "metamer-ftest-class"), "Selected item does not contains defined class.");
+        assertTrue(selenium.belongsClass(options.format(0), "metamer-ftest-class"), "Selected item does not contain defined class.");
         for (int i = 1; i < 50; i++) {
             assertFalse(selenium.belongsClass(options.format(i), "metamer-ftest-class"), "Not selected item " + i + " should not contain defined class.");
         }
