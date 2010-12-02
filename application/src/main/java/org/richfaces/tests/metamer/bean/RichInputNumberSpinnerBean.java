@@ -54,17 +54,17 @@ public class RichInputNumberSpinnerBean implements Serializable {
         logger = LoggerFactory.getLogger(getClass());
         logger.debug("initializing bean " + getClass().getName());
 
-        attributes = Attributes.getUIComponentAttributes(HtmlInputNumberSpinner.class, getClass());
+        attributes = Attributes.getUIComponentAttributes(HtmlInputNumberSpinner.class, getClass(), false);
 
         attributes.setAttribute("enableManualInput", true);
         attributes.setAttribute("maxValue", 10);
         attributes.setAttribute("minValue", -10);
         attributes.setAttribute("rendered", true);
+        attributes.get("rendered").setType(boolean.class);
         attributes.setAttribute("step", 1);
         attributes.setAttribute("value", 2);
 
         // TODO has to be tested in another way
-        attributes.remove("validator");
         attributes.remove("valueChangeListener");
     }
 
