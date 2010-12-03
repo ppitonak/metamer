@@ -39,6 +39,7 @@ import javax.faces.event.ActionEvent;
 import javax.faces.event.ValueChangeEvent;
 import javax.faces.model.SelectItem;
 import javax.servlet.http.HttpSession;
+import org.richfaces.event.ItemChangeEvent;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -373,10 +374,20 @@ public class RichBean implements Serializable {
     }
 
     /**
+     * An item change listener that logs to the page old and new value.
+     *
+     * @param event
+     *            an event representing the activation of a user interface component
+     */
+    public void itemChangeListener(ItemChangeEvent event) {
+        RichBean.logToPage("* item changed: " + event.getOldItem() + " -> " + event.getNewItem());
+    }
+
+    /**
      * A value change listener that logs to the page old and new value.
      *
      * @param event
-     *            an event representing the activation of a user interface component (not used)
+     *            an event representing the activation of a user interface component
      */
     public void valueChangeListener(ValueChangeEvent event) {
         RichBean.logToPage("* value changed: " + event.getOldValue() + " -> " + event.getNewValue());
