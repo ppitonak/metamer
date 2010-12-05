@@ -34,7 +34,7 @@ import org.richfaces.tests.metamer.ftest.AbstractMetamerTest;
 import org.richfaces.tests.metamer.ftest.annotations.Inject;
 import org.richfaces.tests.metamer.ftest.annotations.Use;
 import org.richfaces.tests.metamer.ftest.model.DataScroller;
-import org.richfaces.tests.metamer.ftest.model.DataTable;
+import org.richfaces.tests.metamer.ftest.model.ExtendedDataTable;
 import org.testng.annotations.BeforeMethod;
 
 /**
@@ -75,7 +75,7 @@ public abstract class AbstractScrollerTest extends AbstractMetamerTest {
     IdLocator attributeFastStep = id("form:attributes:fastStepInput");
     IdLocator attributeMaxPages = id("form:attributes:maxPagesInput");
 
-    DataTable dataTable = new DataTable(pjq("table.rf-dt[id$=richDataTable]"));
+    ExtendedDataTable dataTable = new ExtendedDataTable(pjq("table.rf-dt[id$=richDataTable]"));
 
     String tableText;
 

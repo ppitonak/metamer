@@ -32,7 +32,7 @@ import org.richfaces.tests.metamer.ftest.AbstractMetamerTest;
 import org.richfaces.tests.metamer.ftest.annotations.Templates;
 import org.richfaces.tests.metamer.ftest.model.AssertingDataScroller;
 import org.richfaces.tests.metamer.ftest.model.DataScroller;
-import org.richfaces.tests.metamer.ftest.model.DataTable;
+import org.richfaces.tests.metamer.ftest.model.ExtendedDataTable;
 import org.testng.annotations.Test;
 
 /**
@@ -48,7 +48,7 @@ public class TestScroller extends AbstractMetamerTest {
         TOTAL_ROW_COUNT + 1, 2 * TOTAL_ROW_COUNT };
     DataScroller dataScroller1 = new AssertingDataScroller("outside-table", pjq("span.rf-ds[id$=scroller1]"));
     DataScroller dataScroller2 = new AssertingDataScroller("inside-table-footer", pjq("span.rf-ds[id$=scroller2]"));
-    DataTable table = new DataTable(pjq("div.rf-edt[id$=richEDT]"));
+    ExtendedDataTable table = new ExtendedDataTable(pjq("div.rf-edt[id$=richEDT]"));
     IdLocator attributeRowsInput = id("form:attributes:rowsInput");
 
     @Override

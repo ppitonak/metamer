@@ -34,17 +34,17 @@ import static org.jboss.test.selenium.locator.reference.ReferencedLocator.*;
  * @author <a href="mailto:lfryc@redhat.com">Lukas Fryc</a>
  * @version $Revision$
  */
-public class DataTable extends AbstractModel<JQueryLocator> {
+public class ExtendedDataTable extends AbstractModel<JQueryLocator> {
 
     AjaxSelenium selenium = AjaxSeleniumProxy.getInstance();
 
     ReferencedLocator<JQueryLocator> tableRows = ref(root, "> div.rf-edt-b table table tr");
 
-    public DataTable(JQueryLocator root) {
+    public ExtendedDataTable(JQueryLocator root) {
         super(root);
     }
     
-    public DataTable(String name, JQueryLocator root) {
+    public ExtendedDataTable(String name, JQueryLocator root) {
         super(name, root);
     }
 
