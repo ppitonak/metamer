@@ -29,8 +29,8 @@ import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
-import org.richfaces.component.UISubTable;
 
+import org.richfaces.component.UICollapsibleSubTable;
 import org.richfaces.tests.metamer.Attributes;
 import org.richfaces.tests.metamer.model.Employee;
 import org.richfaces.tests.metamer.model.Employee.Sex;
@@ -39,7 +39,7 @@ import org.slf4j.LoggerFactory;
 
 /**
  * Managed bean for rich:subTable.
- *
+ * 
  * @author <a href="mailto:ppitonak@redhat.com">Pavol Pitonak</a>
  * @version $Revision$
  */
@@ -63,8 +63,8 @@ public class RichSubTableBean implements Serializable {
     public void init() {
         logger = LoggerFactory.getLogger(getClass());
         logger.debug("initializing bean " + getClass().getName());
-
-        attributes = Attributes.getUIComponentAttributes(UISubTable.class, getClass());
+        
+        attributes = Attributes.getUIComponentAttributes(UICollapsibleSubTable.class, getClass());
 
         attributes.setAttribute("expandMode", "client");
         attributes.setAttribute("expanded", true);
