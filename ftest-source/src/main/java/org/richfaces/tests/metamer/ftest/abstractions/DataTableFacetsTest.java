@@ -24,8 +24,6 @@ package org.richfaces.tests.metamer.ftest.abstractions;
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertFalse;
 
-import org.testng.annotations.Test;
-
 /**
  * @author <a href="mailto:lfryc@redhat.com">Lukas Fryc</a>
  * @version $Revision$
