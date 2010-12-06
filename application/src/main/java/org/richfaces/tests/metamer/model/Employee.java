@@ -186,4 +186,8 @@ public class Employee implements Serializable {
         return hash;
     }
 
+    @Override
+    public String toString() {
+        return "Employee [name=" + name + ", sex=" + sex + ", title=" + title + ", numberOfKids=" + numberOfKids + "]";
+    }
 }
