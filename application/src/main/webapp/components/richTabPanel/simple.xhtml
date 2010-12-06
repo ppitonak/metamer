@@ -40,7 +40,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 
         <ui:define name="component">
 
-            <rich:tabPanel id="tabPanel"
+            <rich:tabPanel id="tabPanel" 
                            activeItem="#{richTabPanelBean.attributes['activeItem'].value}"
                            bypassUpdates="#{richTabPanelBean.attributes['bypassUpdates'].value}"
                            cycledSwitching="#{richTabPanelBean.attributes['cycledSwitching'].value}"
@@ -52,13 +52,10 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                            headerPosition="#{richTabPanelBean.attributes['headerPosition'].value}"
                            immediate="#{richTabPanelBean.attributes['immediate'].value}"
                            itemByIndex="#{richTabPanelBean.attributes['itemByIndex'].value}"
-                           itemChangeListener="#{richTabPanelBean.attributes['itemChangeListener'].value}"
-                           itemChangeListeners="#{richTabPanelBean.attributes['itemChangeListeners'].value}"
+                           itemChangeListener="#{richBean.itemChangeListener}"
                            lang="#{richTabPanelBean.attributes['lang'].value}"
                            lastItem="#{richTabPanelBean.attributes['lastItem'].value}"
                            limitToList="#{richTabPanelBean.attributes['limitToList'].value}"
-                           localValue="#{richTabPanelBean.attributes['localValue'].value}"
-                           localValueSet="#{richTabPanelBean.attributes['localValueSet'].value}"
                            nextItem="#{richTabPanelBean.attributes['nextItem'].value}"
                            onbeforeitemchange="#{richTabPanelBean.attributes['onbeforeitemchange'].value}"
                            onclick="#{richTabPanelBean.attributes['onclick'].value}"
