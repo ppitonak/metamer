@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:metamer="http://java.sun.com/jsf/composite/metamer"
+      xmlns:rich="http://richfaces.org/rich" xmlns:a4j="http://richfaces.org/a4j">
+
+    <!--
+JBoss, Home of Professional Open Source
+Copyright 2010, Red Hat, Inc. and individual contributors
+by the @authors tag. See the copyright.txt in the distribution for a
+full listing of individual contributors.
+
+This is free software; you can redistribute it and/or modify it
+under the terms of the GNU Lesser General Public License as
+published by the Free Software Foundation; either version 2.1 of
+the License, or (at your option) any later version.
+
+This software is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public
+License along with this software; if not, write to the Free
+Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
+02110-1301 USA, or see the FSF site: http://www.fsf.org.
+    -->
+
+    <ui:composition template="/templates/template.xhtml">
+        <ui:define name="head">
+            <f:metadata>
+                <f:viewParam name="templates" value="#{templateBean.templates}">
+                    <f:converter converterId="templatesListConverter" />
+                </f:viewParam>
+            </f:metadata>
+        </ui:define>
+
+        <ui:define name="outOfTemplateBefore">
+        </ui:define>
+
+        <ui:define name="component">
+
+            <rich:panelMenu id="panelMenu"
+                            action="#{richBean.dummyAction}"
+                            actionListener="#{richBean.dummyActionListener}"
+                            activeItem="#{richPanelMenuBean.attributes['activeItem'].value}"
+                            bubbleSelection="#{richPanelMenuBean.attributes['bubbleSelection'].value}"
+                            bypassUpdates="#{richPanelMenuBean.attributes['bypassUpdates'].value}"
+                            collapseEvent="#{richPanelMenuBean.attributes['collapseEvent'].value}"
+                            data="#{richPanelMenuBean.attributes['data'].value}"
+                            disabled="#{richPanelMenuBean.attributes['disabled'].value}"
+                            execute="#{richPanelMenuBean.attributes['execute'].value}"
+                            expandEvent="#{richPanelMenuBean.attributes['expandEvent'].value}"
+                            expandSingle="#{richPanelMenuBean.attributes['expandSingle'].value}"
+                            groupClass="#{richPanelMenuBean.attributes['groupClass'].value}"
+                            groupCollapseIconLeft="#{richPanelMenuBean.attributes['groupCollapseIconLeft'].value}"
+                            groupCollapseIconRight="#{richPanelMenuBean.attributes['groupCollapseIconRight'].value}"
+                            groupDisableClass="#{richPanelMenuBean.attributes['groupDisableClass'].value}"
+                            groupDisableIconLeft="#{richPanelMenuBean.attributes['groupDisableIconLeft'].value}"
+                            groupDisableIconRight="#{richPanelMenuBean.attributes['groupDisableIconRight'].value}"
+                            groupExpandIconLeft="#{richPanelMenuBean.attributes['groupExpandIconLeft'].value}"
+                            groupExpandIconRight="#{richPanelMenuBean.attributes['groupExpandIconRight'].value}"
+                            groupMode="#{richPanelMenuBean.attributes['groupMode'].value}"
+                            immediate="#{richPanelMenuBean.attributes['immediate'].value}"
+                            itemChangeListener="#{richBean.itemChangeListener}"
+                            itemClass="#{richPanelMenuBean.attributes['topItemClass'].value}"
+                            itemDisableClass="#{richPanelMenuBean.attributes['topItemDisableClass'].value}"
+                            itemDisableIconLeft="#{richPanelMenuBean.attributes['topItemDisableIconLeft'].value}"
+                            itemDisableIconRight="#{richPanelMenuBean.attributes['topItemDisableIconRight'].value}"
+                            itemIconLeft="#{richPanelMenuBean.attributes['topItemDisableIconLeft'].value}"
+                            itemIconRight="#{richPanelMenuBean.attributes['topItemDisableIconRight'].value}"
+                            itemMode="#{richPanelMenuBean.attributes['itemMode'].value}"
+                            limitToList="#{richPanelMenuBean.attributes['limitToList'].value}"
+                            onclick="#{richPanelMenuBean.attributes['onclick'].value}"
+                            ondblclick="#{richPanelMenuBean.attributes['ondblclick'].value}"
+                            onmousedown="#{richPanelMenuBean.attributes['onmousedown'].value}"
+                            onmousemove="#{richPanelMenuBean.attributes['onmousemove'].value}"
+                            onmouseout="#{richPanelMenuBean.attributes['onmouseout'].value}"
+                            onmouseover="#{richPanelMenuBean.attributes['onmouseover'].value}"
+                            onmouseup="#{richPanelMenuBean.attributes['onmouseup'].value}"
+                            render="#{richPanelMenuBean.attributes['render'].value}"
+                            rendered="#{richPanelMenuBean.attributes['rendered'].value}"
+                            status="#{richPanelMenuBean.attributes['status'].value}"
+                            style="#{richPanelMenuBean.attributes['style'].value}"
+                            styleClass="#{richPanelMenuBean.attributes['styleClass'].value}"
+                            topGroupClass="#{richPanelMenuBean.attributes['topGroupClass'].value}"
+                            topGroupCollapseIconLeft="#{richPanelMenuBean.attributes['topGroupCollapseIconLeft'].value}"
+                            topGroupCollapseIconRight="#{richPanelMenuBean.attributes['topGroupCollapseIconRight'].value}"
+                            topGroupDisableClass="#{richPanelMenuBean.attributes['topGroupDisableClass'].value}"
+                            topGroupDisableIconLeft="#{richPanelMenuBean.attributes['topGroupDisableIconLeft'].value}"
+                            topGroupDisableIconRight="#{richPanelMenuBean.attributes['topGroupDisableIconRight'].value}"
+                            topGroupExpandIconLeft="#{richPanelMenuBean.attributes['topGroupExpandIconLeft'].value}"
+                            topGroupExpandIconRight="#{richPanelMenuBean.attributes['topGroupExpandIconRight'].value}"
+                            topItemClass="#{richPanelMenuBean.attributes['topItemClass'].value}"
+                            topItemDisableClass="#{richPanelMenuBean.attributes['topItemDisableClass'].value}"
+                            topItemDisableIconLeft="#{richPanelMenuBean.attributes['topItemDisableIconLeft'].value}"
+                            topItemDisableIconRight="#{richPanelMenuBean.attributes['topItemDisableIconRight'].value}"
+                            topItemIconLeft="#{richPanelMenuBean.attributes['topItemDisableIconLeft'].value}"
+                            topItemIconRight="#{richPanelMenuBean.attributes['topItemDisableIconRight'].value}"
+                            width="#{richPanelMenuBean.attributes['width'].value}"
+                            >
+                <rich:panelMenuGroup id="group1" label="Group 1">
+                    <rich:panelMenuItem id="item11" label="Item 1.1">
+                        <f:param name="current" value="Item 1.1" />
+                    </rich:panelMenuItem>
+                    <rich:panelMenuItem id="item12" label="Item 1.2">
+                        <f:param name="current" value="Item 1.2" />
+                    </rich:panelMenuItem>
+                    <rich:panelMenuItem id="item13" label="Item 1.3">
+                        <f:param name="current" value="Item 1.3" />
+                    </rich:panelMenuItem>
+                </rich:panelMenuGroup>
+                <rich:panelMenuGroup id="group2" label="Group 2">
+                    <rich:panelMenuItem id="item21" label="Item 2.1">
+                        <f:param name="current" value="Item 2.1" />
+                    </rich:panelMenuItem>
+                    <rich:panelMenuItem id="item22" label="Item 2.2">
+                        <f:param name="current" value="Item 2.2" />
+                    </rich:panelMenuItem>
+                    <rich:panelMenuItem id="item23" label="Item 2.3">
+                        <f:param name="current" value="Item 2.3" />
+                    </rich:panelMenuItem>
+                    <rich:panelMenuGroup id="group24" label="Group 2.4">
+                        <rich:panelMenuItem id="item241" label="Item 2.4.1">
+                            <f:param name="current" value="Item 2.4.1" />
+                        </rich:panelMenuItem>
+                        <rich:panelMenuItem id="item242" label="Item 2.4.2">
+                            <f:param name="current" value="Item 2.4.2" />
+                        </rich:panelMenuItem>
+                        <rich:panelMenuItem id="item243" label="Item 2.4.3">
+                            <f:param name="current" value="Item 2.4.3" />
+                        </rich:panelMenuItem>
+                    </rich:panelMenuGroup>
+                    <rich:panelMenuItem id="item25" label="Item 2.5" disabled="true">
+                        <f:param name="current" value="Item 2.5" />
+                    </rich:panelMenuItem>
+                    <rich:panelMenuGroup id="group26" label="Group 2.6" disabled="true">
+                        <rich:panelMenuItem id="item261" label="Item 2.6.1">
+                            <f:param name="current" value="Item 2.6.1" />
+                        </rich:panelMenuItem>
+                        <rich:panelMenuItem id="item262" label="Item 2.6.2">
+                            <f:param name="current" value="Item 2.6.2" />
+                        </rich:panelMenuItem>
+                    </rich:panelMenuGroup>
+                </rich:panelMenuGroup>
+                <rich:panelMenuGroup id="group3" label="Group 3">
+                    <rich:panelMenuItem id="item31" label="Item 3.1">
+                        <f:param name="current" value="Item 3.1" />
+                    </rich:panelMenuItem>
+                    <rich:panelMenuItem id="item32" label="Item 3.2">
+                        <f:param name="current" value="Item 3.2" />
+                    </rich:panelMenuItem>
+                    <rich:panelMenuItem id="item33" label="Item 3.3">
+                        <f:param name="current" value="Item 3.3" />
+                    </rich:panelMenuItem>
+                </rich:panelMenuGroup>
+                <rich:panelMenuGroup id="group4" label="Group 4" disabled="true">
+                    <rich:panelMenuItem id="item41" label="Item 4.1">
+                        <f:param name="current" value="Item 4.1" />
+                    </rich:panelMenuItem>
+                    <rich:panelMenuItem id="item42" label="Item 4.2">
+                        <f:param name="current" value="Item 4.2" />
+                    </rich:panelMenuItem>
+                </rich:panelMenuGroup>
+            </rich:panelMenu>
+
+            <br/><br/>
+
+            <fieldset>
+                <legend>selected item</legend>
+
+                <a4j:outputPanel id="selectedPanel" ajaxRendered="true">
+                    <h:outputText id="current" value="#{richPanelMenuBean.attributes['activeItem'].value}" />
+                </a4j:outputPanel>
+            </fieldset>
+
+        </ui:define>
+
+        <ui:define name="outOfTemplateAfter">
+            <metamer:attributes value="#{richPanelMenuBean.attributes}" id="attributes" render="log"/>
+        </ui:define>
+
+    </ui:composition>
+</html>
