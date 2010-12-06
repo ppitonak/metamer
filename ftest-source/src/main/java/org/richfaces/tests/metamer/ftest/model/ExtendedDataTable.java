@@ -25,7 +25,9 @@ import org.jboss.test.selenium.framework.AjaxSelenium;
 import org.jboss.test.selenium.framework.AjaxSeleniumProxy;
 import org.jboss.test.selenium.locator.JQueryLocator;
 import org.jboss.test.selenium.locator.reference.ReferencedLocator;
+import org.richfaces.tests.metamer.ftest.abstractions.DataTable;
 
+import static org.jboss.test.selenium.locator.LocatorFactory.jq;
 import static org.jboss.test.selenium.locator.reference.ReferencedLocator.*;
 
 /**
@@ -34,25 +36,78 @@ import static org.jboss.test.selenium.locator.reference.ReferencedLocator.*;
  * @author <a href="mailto:lfryc@redhat.com">Lukas Fryc</a>
  * @version $Revision$
  */
-public class ExtendedDataTable extends AbstractModel<JQueryLocator> {
+public class ExtendedDataTable extends AbstractModel<JQueryLocator> implements DataTable {
 
     AjaxSelenium selenium = AjaxSeleniumProxy.getInstance();
 
-    ReferencedLocator<JQueryLocator> tableRows = ref(root, "> div.rf-edt-b table table tr");
+    ReferencedLocator<JQueryLocator> tbody = ref(root, "> div.rf-edt-b > div > table > tbody > tr > td > div.rf-edt-cnt > table > tbody");
+    ReferencedLocator<JQueryLocator> firstColumnRows = ref(tbody, "> tr > td:nth-child(1) > div.rf-edt-c > div.rf-edt-c-cnt");
+    ReferencedLocator<JQueryLocator> firstRowColumns = ref(tbody, "> tr:eq(0) > td > div.rf-edt-c > div.rf-edt-c-cnt");
+    ReferencedLocator<JQueryLocator> body = ref(root, "> div.rf-edt-b");
+    ReferencedLocator<JQueryLocator> columns = ref(tbody, "> tr");
+    JQueryLocator columnToElement = jq("td");
+    JQueryLocator elementToContent = jq("div.rf-edt-c > div.rf-edt-c-cnt");
+
+    ReferencedLocator<JQueryLocator> tableHeader = ref(root, "> div.rf-edt-tbl-hdr");
+    ReferencedLocator<JQueryLocator> columnHeader = ref(root, "> div.rf-edt-hdr > table > tbody > tr > td > div.rf-edt-cnt > table > tbody > tr > td");
+    JQueryLocator columnHeaderToContent = jq("div.rf-edt-hdr-c > div.rf-edt-hdr-c-cnt");
+    ReferencedLocator<JQueryLocator> columnFooter = ref(root, "> div.rf-edt-ftr > table > tbody > tr > td > div.rf-edt-cnt > table > tbody > tr > td");
+    JQueryLocator columnFooterToContent = jq("div.rf-edt-ftr-c > div.rf-edt-ftr-c-cnt");
 
     public ExtendedDataTable(JQueryLocator root) {
         super(root);
     }
-    
+
     public ExtendedDataTable(String name, JQueryLocator root) {
         super(name, root);
     }
 
-    public int getCountOfTableRows() {
-        return selenium.getCount(tableRows);
-    }
-
     public String getTableText() {
         return selenium.getText(root.getLocator());
+    }
+
+    @Override
+    public int getRows() {
+        return selenium.getCount(firstColumnRows);
+    }
+
+    @Override
+    public int getColumns() {
+        return selenium.getCount(firstRowColumns);
+    }
+
+    @Override
+    public boolean isVisible() {
+        return selenium.isElementPresent(root.getLocator()) && selenium.isVisible(root.getLocator());
+    }
+
+    @Override
+    public boolean isNoData() {
+        return selenium.isElementPresent(body) && getRows() == 0;
+    }
+
+    @Override
+    public JQueryLocator getNoData() {
+        return body.getReferenced();
+    }
+
+    @Override
+    public JQueryLocator getElement(int column, int row) {
+        return columns.getNthOccurence(row).getChild(columnToElement).getNthChildElement(column).getChild(elementToContent);
+    }
+
+    @Override
+    public JQueryLocator getColumnHeader(int column) {
+        return columnHeader.getNthOccurence(column).getChild(columnHeaderToContent);
+    }
+
+    @Override
+    public JQueryLocator getColumnFooter(int column) {
+        return columnFooter.getNthOccurence(column).getChild(columnFooterToContent);
+    }
+
+    @Override
+    public JQueryLocator getHeader() {
+        return tableHeader.getReferenced();
     }
 }

@@ -79,14 +79,14 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
             <br/>
             <h:outputText value="Show data in table: " />
             <h:selectBooleanCheckbox id="noDataCheckbox" value="#{richExtendedDataTableBean.state}">
-                <a4j:ajax render="richDataTable scroller1"/>
+                <a4j:ajax render="richEDT scroller1"/>
             </h:selectBooleanCheckbox>
             <br/><br/>
-            <rich:dataScroller id="scroller1" for="richDataTable" page="#{richExtendedDataTableBean.page}" maxPages="7" render="richDataTable"/>
+            <rich:dataScroller id="scroller1" for="richEDT" page="#{richExtendedDataTableBean.page}" maxPages="7" render="richEDT"/>
         </ui:define>
 
         <ui:define name="component">
-            <rich:extendedDataTable id="richDataTable"
+            <rich:extendedDataTable id="richEDT"
                                     beforeselectionchange="#{richExtendedDataTableBean.attributes['beforeselectionchange'].value}"
                                     clientFirst="#{richExtendedDataTableBean.attributes['clientFirst'].value}"
                                     clientRows="#{richExtendedDataTableBean.attributes['clientRows'].value}"
@@ -138,7 +138,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                         </h:panelGroup>
                     </f:facet>
 
-                    <h:graphicImage library="images" name="#{record.sex == 'MALE' ? 'male.png' : 'female.png'}" />
+                    <h:graphicImage library="images" name="#{record.sex == 'MALE' ? 'male.png' : 'female.png'}" alt="#{record.sex}" />
 
                     <f:facet name="footer">
                         <h:outputText id="columnFooterSex" value="Sex" />
@@ -217,7 +217,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                 </rich:column>
 
                 <f:facet name="footer">
-                    <rich:dataScroller id="scroller2" for="richDataTable" page="#{richExtendedDataTableBean.page}" maxPages="7" render="richDataTable" />
+                    <rich:dataScroller id="scroller2" for="richEDT" page="#{richExtendedDataTableBean.page}" maxPages="7" render="richEDT" />
                 </f:facet>
             </rich:extendedDataTable>
         </ui:define>

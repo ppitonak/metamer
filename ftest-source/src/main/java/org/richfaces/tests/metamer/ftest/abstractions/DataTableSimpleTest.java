@@ -82,6 +82,8 @@ public abstract class DataTableSimpleTest extends AbstractDataTableTest {
     }
 
     public void testRendered() {
+        assertTrue(model.isVisible());
+        
         attributes.setRendered(false);
         
         assertFalse(model.isVisible());
@@ -91,6 +93,9 @@ public abstract class DataTableSimpleTest extends AbstractDataTableTest {
     }
 
     public void testNoDataLabel() {
+        assertTrue(model.isVisible());
+        assertFalse(model.isNoData());
+        
         attributes.setNoDataLabel(NO_DATA);
         attributes.setShowData(false);
         
