@@ -27,6 +27,7 @@ import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import org.richfaces.component.UIPanelMenu;
+import org.richfaces.event.ItemChangeEvent;
 
 import org.richfaces.tests.metamer.Attributes;
 import org.slf4j.Logger;
@@ -77,5 +78,16 @@ public class RichPanelMenuBean implements Serializable {
 
     public void setAttributes(Attributes attributes) {
         this.attributes = attributes;
+    }
+
+    /**
+     * An item change listener that logs to the page old and new value.
+     *
+     * @param event
+     *            an event representing the activation of a user interface component
+     */
+    public void itemChangeListener(ItemChangeEvent event) {
+        attributes.get("activeItem").setValue(event.getNewItem());
+        RichBean.logToPage("* item changed: " + event.getOldItem() + " -> " + event.getNewItem());
     }
 }
