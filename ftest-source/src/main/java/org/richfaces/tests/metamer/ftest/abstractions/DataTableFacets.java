@@ -21,6 +21,9 @@
  *******************************************************************************/
 package org.richfaces.tests.metamer.ftest.abstractions;
 
+import static org.jboss.test.selenium.guard.request.RequestTypeGuardFactory.guardXhr;
+
+import org.jboss.test.selenium.locator.ElementLocator;
 import org.richfaces.tests.metamer.ftest.AbstractComponentAttributes;
 
 /**
@@ -30,7 +33,7 @@ import org.richfaces.tests.metamer.ftest.AbstractComponentAttributes;
 public class DataTableFacets extends AbstractComponentAttributes {
 
     public void setNoData(String noData) {
-        throw new UnsupportedOperationException("not implemeneted yet");
+        setProperty("noData", noData);
     }
 
     public void setHeader(String header) {
@@ -51,5 +54,10 @@ public class DataTableFacets extends AbstractComponentAttributes {
 
     public void setCapitalFooter(String capitalFooter) {
         setProperty("capitalFooter", capitalFooter);
+    }
+
+    @Override
+    protected void applyText(ElementLocator<?> locator, String value) {
+        guardXhr(selenium).type(locator, value);
     }
 }

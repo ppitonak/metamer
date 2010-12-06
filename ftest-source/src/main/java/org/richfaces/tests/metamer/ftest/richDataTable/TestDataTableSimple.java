@@ -19,30 +19,53 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  *******************************************************************************/
-package org.richfaces.tests.metamer.ftest.abstractions;
+package org.richfaces.tests.metamer.ftest.richDataTable;
 
-import org.jboss.test.selenium.locator.JQueryLocator;
+import static org.jboss.test.selenium.utils.URLUtils.buildUrl;
+
+import java.net.URL;
+
+import org.richfaces.tests.metamer.ftest.abstractions.DataTableSimpleTest;
+import org.richfaces.tests.metamer.ftest.annotations.Use;
+import org.richfaces.tests.metamer.ftest.model.DataTable;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Test;
 
 /**
  * @author <a href="mailto:lfryc@redhat.com">Lukas Fryc</a>
  * @version $Revision$
  */
-public interface DataTable {
-    int getRows();
+public class TestDataTableSimple extends DataTableSimpleTest {
 
-    int getColumns();
+    @Override
+    public URL getTestUrl() {
+        return buildUrl(contextPath, "faces/components/richDataTable/simple.xhtml");
+    }
 
-    boolean isVisible();
+    @BeforeClass
+    public void setupModel() {
+        model = new DataTable(pjq("table.rf-dt[id$=richDataTable]"));
+    }
 
-    boolean isNoData();
+    @Test
+    public void testRendered() {
+        super.testRendered();
+    }
 
-    JQueryLocator getNoData();
+    @Test
+    public void testNoDataLabel() {
+        super.testNoDataLabel();
+    }
 
-    JQueryLocator getElement(int column, int row);
+    @Test
+    @Use(field = "first", value = "COUNTS")
+    public void testFirst() {
+        super.testFirst();
+    }
 
-    JQueryLocator getColumnHeader(int column);
-
-    JQueryLocator getColumnFooter(int column);
-
-    JQueryLocator getHeader();
+    @Test
+    @Use(field = "rows", value = "COUNTS")
+    public void testRows() {
+        super.testRows();
+    }
 }

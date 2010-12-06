@@ -57,9 +57,9 @@ public abstract class AbstractDataTableTest extends AbstractMetamerTest {
         ELEMENTS_TOTAL, ELEMENTS_TOTAL + 1 };
 
     protected DataTable model;
-    protected EmployeeTableModel employees;
-    protected DataTableAttributes attributes;
-    protected DataTableFacets facets;
+    protected EmployeeTableModel employees = new EmployeeTableModel();
+    protected DataTableAttributes attributes = new DataTableAttributes();
+    protected DataTableFacets facets = new DataTableFacets();
 
     protected DataScroller dataScroller1 = new AssertingDataScroller("outside-table", pjq("span.rf-ds[id$=scroller1]"));
     protected DataScroller dataScroller2 = new AssertingDataScroller("inside-table-footer",

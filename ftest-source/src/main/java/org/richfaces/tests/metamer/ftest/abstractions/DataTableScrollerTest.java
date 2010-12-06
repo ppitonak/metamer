@@ -23,9 +23,10 @@ package org.richfaces.tests.metamer.ftest.abstractions;
 
 import static org.testng.Assert.assertEquals;
 
+import org.richfaces.tests.metamer.ftest.annotations.Inject;
 import org.richfaces.tests.metamer.ftest.annotations.Templates;
+import org.richfaces.tests.metamer.ftest.annotations.Use;
 import org.richfaces.tests.metamer.ftest.model.DataScroller;
-import org.testng.annotations.Test;
 
 /**
  * @author <a href="mailto:lfryc@redhat.com">Lukas Fryc</a>
@@ -33,12 +34,14 @@ import org.testng.annotations.Test;
  */
 public abstract class DataTableScrollerTest extends AbstractDataTableTest {
 
-    @Test
+    @Inject
+    @Use("COUNTS")
+    Integer rows;
+
     public void testRowCountFooterScroller() {
         testRowCount(dataScroller2);
     }
 
-    @Test
     @Templates(exclude = { "a4jRepeat1", "a4jRepeat2", "hDataTable1", "hDataTable2", "richDataTable1,redDiv",
         "richDataTable2,redDiv", "uiRepeat1", "uiRepeat2" })
     public void testRowCountOutsideTable() {
@@ -46,35 +49,32 @@ public abstract class DataTableScrollerTest extends AbstractDataTableTest {
     }
 
     private void testRowCount(DataScroller dataScroller) {
-        for (Integer rowsPerPage : COUNTS) {
-            if (rowsPerPage != null) {
-                attributes.setRows(rowsPerPage);
-                selenium.waitForPageToLoad();
+        if (rows != null) {
+            attributes.setRows(rows);
+        }
+
+        dataScroller.gotoFirstPage();
+        int rowCountPreset = attributes.getRows();
+        int rowCountActual = model.getRows();
+        assertEquals(rowCountActual, Math.min(ELEMENTS_TOTAL, rowCountPreset));
+
+        assertEquals(dataScroller.hasPages(), rowCountActual < ELEMENTS_TOTAL);
+        if (dataScroller.hasPages()) {
+            dataScroller.gotoLastPage();
+
+            int pagesExpected = pageCountActualExpected(rowCountActual);
+            int countOfVisiblePages = dataScroller.getCountOfVisiblePages();
+
+            if (countOfVisiblePages < pagesExpected) {
+                int lastVisiblePage = dataScroller.getLastVisiblePage();
+                assertEquals(lastVisiblePage, pageCountActualExpected(rowCountActual));
+            } else {
+                assertEquals(countOfVisiblePages, pagesExpected);
             }
 
-            dataScroller.gotoFirstPage();
-            int rowCountPreset = attributes.getRows();
-            int rowCountActual = model.getRows();
-            assertEquals(rowCountActual, Math.min(ELEMENTS_TOTAL, rowCountPreset));
-
-            assertEquals(dataScroller.hasPages(), rowCountActual < ELEMENTS_TOTAL);
-            if (dataScroller.hasPages()) {
-                dataScroller.gotoLastPage();
-
-                int pagesExpected = pageCountActualExpected(rowCountActual);
-                int countOfVisiblePages = dataScroller.getCountOfVisiblePages();
-
-                if (countOfVisiblePages < pagesExpected) {
-                    int lastVisiblePage = dataScroller.getLastVisiblePage();
-                    assertEquals(lastVisiblePage, pageCountActualExpected(rowCountActual));
-                } else {
-                    assertEquals(countOfVisiblePages, pagesExpected);
-                }
-
-                int rowCountExpected = rowCountLastPageExpected(rowCountPreset);
-                rowCountActual = model.getRows();
-                assertEquals(rowCountActual, rowCountExpected);
-            }
+            int rowCountExpected = rowCountLastPageExpected(rowCountPreset);
+            rowCountActual = model.getRows();
+            assertEquals(rowCountActual, rowCountExpected);
         }
     }
 

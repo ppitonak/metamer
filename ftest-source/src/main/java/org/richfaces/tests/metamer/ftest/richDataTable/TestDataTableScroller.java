@@ -19,30 +19,42 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  *******************************************************************************/
-package org.richfaces.tests.metamer.ftest.abstractions;
+package org.richfaces.tests.metamer.ftest.richDataTable;
 
-import org.jboss.test.selenium.locator.JQueryLocator;
+import static org.jboss.test.selenium.utils.URLUtils.buildUrl;
+
+import java.net.URL;
+
+import org.richfaces.tests.metamer.ftest.abstractions.DataTableScrollerTest;
+import org.richfaces.tests.metamer.ftest.model.DataTable;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Test;
 
 /**
  * @author <a href="mailto:lfryc@redhat.com">Lukas Fryc</a>
  * @version $Revision$
  */
-public interface DataTable {
-    int getRows();
+public class TestDataTableScroller extends DataTableScrollerTest {
 
-    int getColumns();
+    @Override
+    public URL getTestUrl() {
+        return buildUrl(contextPath, "faces/components/richDataTable/scroller.xhtml");
+    }
 
-    boolean isVisible();
+    @BeforeClass
+    public void setupModel() {
+        model = new DataTable(pjq("table.rf-dt[id$=richDataTable]"));
+    }
 
-    boolean isNoData();
+    @Test
+    @Override
+    public void testRowCountFooterScroller() {
+        super.testRowCountFooterScroller();
+    }
 
-    JQueryLocator getNoData();
-
-    JQueryLocator getElement(int column, int row);
-
-    JQueryLocator getColumnHeader(int column);
-
-    JQueryLocator getColumnFooter(int column);
-
-    JQueryLocator getHeader();
+    @Test
+    @Override
+    public void testRowCountOutsideTable() {
+        super.testRowCountOutsideTable();
+    }
 }

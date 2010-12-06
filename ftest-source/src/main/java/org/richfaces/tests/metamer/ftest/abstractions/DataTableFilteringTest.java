@@ -30,7 +30,6 @@ import static org.testng.Assert.assertTrue;
 import java.util.Collection;
 import java.util.List;
 
-import org.jboss.test.selenium.dom.Event;
 import org.jboss.test.selenium.locator.Attribute;
 import org.jboss.test.selenium.locator.AttributeLocator;
 import org.jboss.test.selenium.locator.JQueryLocator;
@@ -39,7 +38,6 @@ import org.richfaces.model.Filter;
 import org.richfaces.tests.metamer.model.Employee;
 import org.richfaces.tests.metamer.model.Employee.Sex;
 import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.Test;
 
 /**
  * @author <a href="mailto:lfryc@redhat.com">Lukas Fryc</a>
@@ -49,7 +47,7 @@ public abstract class DataTableFilteringTest extends AbstractDataTableTest {
 
     private static final String[] FILTER_NAMES = new String[] { "ivan", "Гог", null, "Š" };
     private static final String[] FILTER_TITLES = new String[] { "Director", null, "CEO" };
-    private static final Integer[] FILTER_NUMBER_OF_KIDS = new Integer[] { 2, 100, null, 5 };
+    private static final Integer[] FILTER_NUMBER_OF_KIDS = new Integer[] { 2, 100, 0, 5 };
 
     JQueryLocator selectSex = jq("select");
     JQueryLocator inputName = jq("input");
@@ -68,7 +66,6 @@ public abstract class DataTableFilteringTest extends AbstractDataTableTest {
         filterEmployee = new ExpectedEmployee();
     }
 
-    @Test
     public void testFilterSex() {
         filtering.selectSex(Sex.MALE);
         filterEmployee.sex = Sex.MALE;
@@ -83,7 +80,6 @@ public abstract class DataTableFilteringTest extends AbstractDataTableTest {
         verifyFiltering();
     }
 
-    @Test
     public void testFilterName() {
         for (String filterName : FILTER_NAMES) {
             filtering.selectName(filterName);
@@ -92,7 +88,6 @@ public abstract class DataTableFilteringTest extends AbstractDataTableTest {
         }
     }
 
-    @Test
     public void testFilterTitle() {
         for (String filterTitle : FILTER_TITLES) {
             filtering.selectTitle(filterTitle);
@@ -101,7 +96,6 @@ public abstract class DataTableFilteringTest extends AbstractDataTableTest {
         }
     }
 
-    @Test
     public void testFilterNumberOfKids1() {
         for (Integer filterNumberOfKids : FILTER_NUMBER_OF_KIDS) {
             filtering.selectNumberOfKids1(filterNumberOfKids);
@@ -110,7 +104,6 @@ public abstract class DataTableFilteringTest extends AbstractDataTableTest {
         }
     }
 
-    @Test
     public void testFilterCombinations() {
         filtering.selectTitle("Technology");
         filterEmployee.title = "Technology";
@@ -128,8 +121,8 @@ public abstract class DataTableFilteringTest extends AbstractDataTableTest {
         filterEmployee.name = "9";
         verifyFiltering();
 
-        filtering.selectNumberOfKids1(1);
-        filterEmployee.numberOfKids1 = 1;
+        filtering.selectNumberOfKids1(0);
+        filterEmployee.numberOfKids1 = 0;
         verifyFiltering();
 
         filtering.selectSex(Sex.FEMALE);
@@ -137,50 +130,89 @@ public abstract class DataTableFilteringTest extends AbstractDataTableTest {
         verifyFiltering();
     }
 
-    @Test
-    public void testRefresh() {
-        dataScroller1.gotoFirstPage();
+    public void testRerenderAll() {
+        dataScroller2.setLastPage(dataScroller2.obtainLastPage());
+        dataScroller2.gotoFirstPage();
         rows = model.getRows();
 
         filtering.selectName("an");
         filterEmployee.name = "an";
+        
+        expectedEmployees = filter(EMPLOYEES, getFilter());
 
-        dataScroller1.gotoLastPage();
-        int lastPage = dataScroller1.getCurrentPage();
+        dataScroller2.gotoLastPage();
+        int lastPage = dataScroller2.getCurrentPage();
         assertTrue(lastPage > 1);
 
         rerenderAll();
-        assertEquals(dataScroller1.getCurrentPage(), lastPage);
+        assertEquals(dataScroller2.getCurrentPage(), lastPage);
+        assertTrue(dataScroller2.isLastPage());
         verifyPageContent(lastPage);
+        
+        dataScroller2.gotoFirstPage();
+        verifyPageContent(1);
+    }
+    
+    public void testFullPageRefresh() {
+        dataScroller2.setLastPage(dataScroller2.obtainLastPage());
+        dataScroller2.gotoFirstPage();
+        rows = model.getRows();
+
+        filtering.selectName("an");
+        filterEmployee.name = "an";
+        
+        expectedEmployees = filter(EMPLOYEES, getFilter());
+
+        dataScroller2.gotoLastPage();
+        int lastPage = dataScroller2.getCurrentPage();
+        assertTrue(lastPage > 1);
 
         fullPageRefresh();
-        assertEquals(dataScroller1.getCurrentPage(), lastPage);
+        assertEquals(dataScroller2.getCurrentPage(), lastPage);
+        assertTrue(dataScroller2.isLastPage());
         verifyPageContent(lastPage);
+        
+        dataScroller2.gotoFirstPage();
+        verifyPageContent(1);
     }
 
     public void verifyFiltering() {
         expectedEmployees = filter(EMPLOYEES, getFilter());
 
-        dataScroller1.gotoFirstPage();
+        dataScroller2.setLastPage(dataScroller2.obtainLastPage());
+
+        dataScroller2.gotoFirstPage();
         rows = model.getRows();
         verifyPageContent(1);
 
-        dataScroller1.gotoPage(2);
-        verifyPageContent(2);
+        if (dataScroller2.getLastPage() > 1) {
+            dataScroller2.gotoLastPage();
+            int lastPage = dataScroller2.getCurrentPage();
+            verifyPageContent(lastPage);
 
-        dataScroller1.gotoLastPage();
-        int lastPage = dataScroller1.getCurrentPage();
-        verifyPageContent(lastPage);
+            if (dataScroller2.getLastPage() > 2) {
+                dataScroller2.gotoPage(2);
+                verifyPageContent(2);
+            }
 
-        dataScroller1.gotoPage(lastPage - 1);
-        verifyPageContent(lastPage - 1);
+            if (dataScroller2.getLastPage() > 3) {
+                dataScroller2.gotoPage(lastPage - 1);
+                verifyPageContent(lastPage - 1);
+            }
+        }
+
     }
 
     public void verifyPageContent(int page) {
-        for (int row = 0; row < model.getRows(); row++) {
-            int index = (page - 1) * rows + row;
-            Employee expectedEmployee = expectedEmployees.get(index);
-            filtering.verifyRow(expectedEmployee, row);
+        if (expectedEmployees.size() == 0) {
+            assertEquals(model.getRows(), 0);
+            assertTrue(model.isNoData());
+        } else {
+            for (int row = 0; row < model.getRows(); row++) {
+                int index = (page - 1) * rows + row;
+                Employee expectedEmployee = expectedEmployees.get(index);
+                filtering.verifyRow(expectedEmployee, row + 1);
+            }
         }
     }
 
@@ -256,24 +288,21 @@ public abstract class DataTableFilteringTest extends AbstractDataTableTest {
 
         public void selectName(String name) {
             JQueryLocator input = model.getColumnHeader(COLUMN_NAME).getDescendant(inputName);
-            selenium.type(inputName, name);
-            guardXhr(selenium).fireEvent(input, Event.BLUR);
+            guardXhr(selenium).type(input, name == null ? "" : name);
         }
 
         public void selectTitle(String title) {
             JQueryLocator input = model.getColumnHeader(COLUMN_TITLE).getDescendant(inputTitle);
-            selenium.type(inputName, title);
-            guardXhr(selenium).fireEvent(input, Event.BLUR);
+            guardXhr(selenium).type(input, title == null ? "" : title);
         }
 
         public void selectNumberOfKids1(int numberOfKids) {
             JQueryLocator input = model.getColumnHeader(COLUMN_NUMBER_OF_KIDS1).getDescendant(inputNumberOfKids1);
-            selenium.type(inputName, Integer.toString(numberOfKids));
-            guardXhr(selenium).fireEvent(input, Event.BLUR);
+            guardXhr(selenium).type(input, Integer.toString(numberOfKids));
         }
 
         public void verifyElement(int column, int row, Object expectedValue) {
-            JQueryLocator locator = model.getColumnHeader(COLUMN_NAME);
+            JQueryLocator locator = model.getElement(column, row);
             String text = selenium.getText(locator);
             assertEquals(text, expectedValue.toString());
         }

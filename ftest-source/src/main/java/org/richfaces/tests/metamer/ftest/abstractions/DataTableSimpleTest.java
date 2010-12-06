@@ -41,15 +41,19 @@ import org.testng.annotations.Test;
 public abstract class DataTableSimpleTest extends AbstractDataTableTest {
 
     protected static final int COLUMNS_TOTAL = 2;
+    private static final String NO_DATA = "There is no data.";
 
     @Inject
+    @Use(empty = true)
     protected Integer first = null;
 
     @Inject
+    @Use(empty = true)
     protected Integer rows = 30;
 
     private int expectedFirst;
     private int expectedRows;
+    private int expectedColumns;
     private List<Capital> expectedElements;
 
     @BeforeMethod
@@ -64,39 +68,44 @@ public abstract class DataTableSimpleTest extends AbstractDataTableTest {
         }
 
         if (rows == null) {
-            expectedRows = ELEMENTS_TOTAL - first;
+            expectedRows = ELEMENTS_TOTAL - expectedFirst;
         } else {
-            expectedRows = rows - first;
+            expectedRows = Math.min(rows, ELEMENTS_TOTAL) - expectedFirst;
+        }
+        
+        if (expectedRows > 0) {
+            expectedColumns = COLUMNS_TOTAL;
+        } else {
+            expectedColumns = 0;
         }
 
         expectedElements = getExpectedElements();
     }
 
-    @Test
     public void testRendered() {
+        attributes.setRendered(false);
+        
         assertFalse(model.isVisible());
         assertFalse(model.isNoData());
         assertEquals(model.getColumns(), 0);
         assertEquals(model.getRows(), 0);
     }
 
-    @Test
     public void testNoDataLabel() {
+        attributes.setNoDataLabel(NO_DATA);
+        attributes.setShowData(false);
+        
         assertTrue(model.isVisible());
         assertTrue(model.isNoData());
         assertEquals(model.getColumns(), 0);
         assertEquals(model.getRows(), 0);
-        assertEquals(selenium.getText(model.getNoData()), "There is no data.");
+        assertEquals(selenium.getText(model.getNoData()), NO_DATA);
     }
 
-    @Test
-    @Use(field = "first", value = "COUNTS")
     public void testFirst() {
         verifyTable();
     }
 
-    @Test
-    @Use(field = "rows", value = "COUNTS")
     public void testRows() {
         verifyTable();
     }
@@ -104,7 +113,7 @@ public abstract class DataTableSimpleTest extends AbstractDataTableTest {
     public void verifyTable() {
         assertTrue(model.isVisible());
         assertFalse(model.isNoData());
-        assertEquals(model.getColumns(), COLUMNS_TOTAL);
+        assertEquals(model.getColumns(), expectedColumns);
         assertEquals(model.getRows(), expectedRows);
     }
 

@@ -35,21 +35,18 @@ public abstract class DataTableFacetsTest extends AbstractDataTableTest {
     private static final String SAMPLE_STRING = "Abc123!@#ĚščСам";
     private static final String EMPTY_STRING = "";
 
-    @Test
     public void testNoDataInstantChange() {
         attributes.setShowData(false);
         facets.setNoData(SAMPLE_STRING);
         assertEquals(selenium.getText(model.getNoData()), SAMPLE_STRING);
     }
 
-    @Test
     public void testNoDataEmpty() {
         attributes.setShowData(false);
         facets.setNoData(EMPTY_STRING);
         assertEquals(selenium.getText(model.getNoData()), EMPTY_STRING);
     }
 
-    @Test
     public void testNoDataLabelWithEmptyNoDataFacet() {
         attributes.setShowData(false);
         facets.setNoData(EMPTY_STRING);
@@ -57,61 +54,51 @@ public abstract class DataTableFacetsTest extends AbstractDataTableTest {
         assertEquals(selenium.getText(model.getNoData()), SAMPLE_STRING);
     }
 
-    @Test
     public void testHeaderInstantChange() {
         facets.setHeader(SAMPLE_STRING);
         assertEquals(selenium.getText(model.getHeader()), SAMPLE_STRING);
     }
 
-    @Test
     public void testHeaderEmpty() {
         facets.setHeader(EMPTY_STRING);
         assertFalse(selenium.isElementPresent(model.getHeader()));
     }
 
-    @Test
     public void testStateHeaderInstantChange() {
         facets.setStateHeader(SAMPLE_STRING);
         assertEquals(selenium.getText(model.getColumnHeader(COLUMN_STATE)), SAMPLE_STRING);
     }
 
-    @Test
     public void testStateHeaderEmpty() {
-        facets.setStateHeader(EMPTY_STRING);
+        facets.setStateFooter(EMPTY_STRING);
         assertFalse(selenium.isElementPresent(model.getColumnHeader(COLUMN_STATE)));
     }
 
-    @Test
     public void testStateFooterInstantChange() {
-        facets.setStateHeader(SAMPLE_STRING);
+        facets.setStateFooter(SAMPLE_STRING);
         assertEquals(selenium.getText(model.getColumnFooter(COLUMN_STATE)), SAMPLE_STRING);
     }
 
-    @Test
     public void testStateFooterEmpty() {
         facets.setStateFooter(EMPTY_STRING);
         assertFalse(selenium.isElementPresent(model.getColumnFooter(COLUMN_STATE)));
     }
 
-    @Test
     public void testCapitalHeaderInstantChange() {
         facets.setCapitalHeader(SAMPLE_STRING);
         assertEquals(selenium.getText(model.getColumnHeader(COLUMN_CAPITAL)), SAMPLE_STRING);
     }
 
-    @Test
     public void testCapitalHeaderEmpty() {
         facets.setCapitalHeader(EMPTY_STRING);
         assertFalse(selenium.isElementPresent(model.getColumnHeader(COLUMN_CAPITAL)));
     }
 
-    @Test
     public void testCapitalFooterInstantChange() {
-        facets.setCapitalHeader(SAMPLE_STRING);
+        facets.setCapitalFooter(SAMPLE_STRING);
         assertEquals(selenium.getText(model.getColumnFooter(COLUMN_CAPITAL)), SAMPLE_STRING);
     }
 
-    @Test
     public void testCapitalFooterEmpty() {
         facets.setCapitalFooter(EMPTY_STRING);
         assertFalse(selenium.isElementPresent(model.getColumnFooter(COLUMN_CAPITAL)));

@@ -192,6 +192,9 @@ public class DataScroller extends AbstractModel<JQueryLocator> {
         if (!hasPages()) {
             return 1;
         }
+        if (isLastPage()) {
+            return getCurrentPage();
+        }
         int startPage = getCurrentPage();
         clickLastPageButton();
         int lastPage = getCurrentPage();
