@@ -61,7 +61,7 @@ public class A4JCommandLinkBean implements Serializable {
 
         attributes.setAttribute("value", "command link");
         attributes.setAttribute("rendered", "true");
-        attributes.setAttribute("disabled", "false");
+        attributes.setAttribute("disabled", false);
         attributes.get("disabled").setType(Boolean.class);
         attributes.setAttribute("action", "first6CharsAction");
         attributes.setAttribute("actionListener", "toUpperCaseActionListener");
