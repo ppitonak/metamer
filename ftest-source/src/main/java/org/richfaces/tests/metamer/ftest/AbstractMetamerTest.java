@@ -21,6 +21,9 @@
  *******************************************************************************/
 package org.richfaces.tests.metamer.ftest;
 
+import static org.jboss.test.selenium.guard.request.RequestTypeGuardFactory.guardHttp;
+import static org.jboss.test.selenium.guard.request.RequestTypeGuardFactory.guardXhr;
+import static org.jboss.test.selenium.locator.LocatorFactory.id;
 import static org.jboss.test.selenium.locator.LocatorFactory.jq;
 import static org.jboss.test.selenium.utils.URLUtils.buildUrl;
 import static org.testng.Assert.assertEquals;
@@ -107,6 +110,20 @@ public abstract class AbstractMetamerTest extends AbstractTestCase {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+    }
+    
+    /**
+     * Do a full page refresh (regular HTTP request) by triggering a command with no action bound.
+     */
+    public void fullPageRefresh() {
+        guardHttp(selenium).click(id("controlsForm:fullPageRefreshImage"));
+    }
+    
+    /**
+     * Rerender all content of the page (AJAX request) by trigerring a command with no action but render bound.
+     */
+    public void rerenderAll() {
+        guardXhr(selenium).click(id("controlsForm:reRenderAllImage"));
     }
 
     /**

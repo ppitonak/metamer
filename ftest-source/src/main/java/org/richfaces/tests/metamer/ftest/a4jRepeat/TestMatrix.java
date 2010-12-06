@@ -171,10 +171,6 @@ public class TestMatrix extends AbstractMetamerTest {
         }
     }
 
-    private void rerenderAll() {
-        waitXhr(selenium).click(jq("img#controlsForm\\:reRenderAllImage"));
-    }
-
     private void checkMatrix() {
         new MatrixCommand() {
             public void processCell(int x, int y) {
