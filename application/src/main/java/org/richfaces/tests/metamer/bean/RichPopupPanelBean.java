@@ -54,7 +54,7 @@ public class RichPopupPanelBean implements Serializable {
         logger = LoggerFactory.getLogger(getClass());
         logger.debug("initializing bean " + getClass().getName());
 
-        attributes = Attributes.getUIComponentAttributes(UIPopupPanel.class, getClass());
+        attributes = Attributes.getUIComponentAttributes(UIPopupPanel.class, getClass(), false);
 
         attributes.setAttribute("header", "popup panel header");
         attributes.setAttribute("height", 300);
@@ -69,7 +69,6 @@ public class RichPopupPanelBean implements Serializable {
         attributes.setAttribute("top", "auto");
         attributes.setAttribute("trimOverlayedElements", true);
         attributes.setAttribute("width", 500);
-
     }
 
     public Attributes getAttributes() {

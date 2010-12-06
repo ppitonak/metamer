@@ -365,6 +365,9 @@ public final class Attributes implements Map<String, Attribute>, Serializable {
         set.add("hints");
         set.add("id");
         set.add("inView");
+        set.add("itemChangeListeners");
+        set.add("localValue");
+        set.add("localValueSet");
         set.add("namingContainer");
         set.add("parent");
         set.add("rendererType");
@@ -372,6 +375,8 @@ public final class Attributes implements Map<String, Attribute>, Serializable {
         set.add("resourceBundleMap");
         set.add("stateHelper");
         set.add("transient");
+        set.add("transientStateHelper");
+        set.add("valueChangeListeners");
         return set;
     }
 
