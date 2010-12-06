@@ -29,7 +29,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import javax.faces.FacesException;
 import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
 import javax.faces.model.SelectItem;
@@ -69,11 +68,7 @@ public class Model implements Serializable {
      */
     public synchronized List<Capital> getCapitals() {
         if (capitalsList == null) {
-            try {
-                capitalsList = unmarshallCapitals();
-            } catch (JAXBException e) {
-                throw new FacesException(e.getMessage(), e);
-            }
+            capitalsList = unmarshallCapitals();
         }
 
         return capitalsList;
@@ -86,11 +81,7 @@ public class Model implements Serializable {
      */
     public synchronized List<Employee> getEmployees() {
         if (employeesList == null) {
-            try {
-                employeesList = unmarshallEmployees();
-            } catch (JAXBException e) {
-                throw new FacesException(e.getMessage(), e);
-            }
+            employeesList = unmarshallEmployees();
         }
 
         return employeesList;
@@ -103,11 +94,7 @@ public class Model implements Serializable {
      */
     public synchronized List<CompactDiscXmlDescriptor> getCompactDiscs() {
         if (compactDiscList == null) {
-            try {
-                compactDiscList = unmarshallCompactDiscs();
-            } catch (JAXBException e) {
-                throw new FacesException(e.getMessage(), e);
-            }
+            compactDiscList = unmarshallCompactDiscs();
         }
 
         return compactDiscList;
@@ -120,16 +107,28 @@ public class Model implements Serializable {
      * @throws JAXBException
      *             if any unexpected errors occurs during unmarshalling
      */
-    public static final List<Capital> unmarshallCapitals() throws JAXBException {
-        return unmarshall(CapitalsHolder.class, "org/richfaces/tests/metamer/model/capitals.xml");
+    public static final List<Capital> unmarshallCapitals() {
+        try {
+            return unmarshall(CapitalsHolder.class, "org/richfaces/tests/metamer/model/capitals.xml");
+        } catch (JAXBException e) {
+            throw new IllegalStateException(e);
+        }
     }
 
-    public static final List<Employee> unmarshallEmployees() throws JAXBException {
-        return unmarshall(EmployeesHolder.class, "org/richfaces/tests/metamer/model/employees.xml");
+    public static final List<Employee> unmarshallEmployees() {
+        try {
+            return unmarshall(EmployeesHolder.class, "org/richfaces/tests/metamer/model/employees.xml");
+        } catch (JAXBException e) {
+            throw new IllegalStateException(e);
+        }
     }
 
-    public static final List<CompactDiscXmlDescriptor> unmarshallCompactDiscs() throws JAXBException {
-        return unmarshall(CompactDiscsHolder.class, "org/richfaces/tests/metamer/model/compact-discs.xml");
+    public static final List<CompactDiscXmlDescriptor> unmarshallCompactDiscs() {
+        try {
+            return unmarshall(CompactDiscsHolder.class, "org/richfaces/tests/metamer/model/compact-discs.xml");
+        } catch (JAXBException e) {
+            throw new IllegalStateException(e);
+        }
     }
 
     @SuppressWarnings("unchecked")

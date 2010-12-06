@@ -29,8 +29,6 @@ import java.net.URL;
 import java.util.LinkedList;
 import java.util.List;
 
-import javax.xml.bind.JAXBException;
-
 import org.richfaces.tests.metamer.bean.Model;
 import org.richfaces.tests.metamer.ftest.AbstractMetamerTest;
 import org.richfaces.tests.metamer.ftest.annotations.Inject;
@@ -63,17 +61,9 @@ public class TestAutocompleteByKeys extends AbstractMetamerTest {
 	@Use(booleans = { true, false })
 	Boolean selectFirst;
 
-	List<Capital> capitals;
+	List<Capital> capitals = Model.unmarshallCapitals();
 
 	StringBuilder partialInput;
-
-	{
-		try {
-			capitals = Model.unmarshallCapitals();
-		} catch (JAXBException e) {
-			throw new IllegalStateException(e);
-		}
-	}
 
 	@BeforeMethod
 	public void prepareProperties() {
