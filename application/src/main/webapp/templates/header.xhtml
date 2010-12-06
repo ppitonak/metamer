@@ -62,7 +62,10 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                         </f:facet>
                     </a4j:status>
                 </a4j:outputPanel>
-
+				
+				<h:outputLabel value="Locale" />
+        		<h:outputText id="locale" value="#{facesContext.viewRoot.locale}" />
+        
                 <h:outputText id="showUiDebugLabel" value="Show ui:debug" />
                 <h:outputText id="showUiDebug" value="Ctrl+Shift+L" />
                 <ui:debug hotkey="L" />
@@ -136,6 +139,8 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 
 
         </h:panelGrid>
+        
+        
 
     </ui:composition>
 

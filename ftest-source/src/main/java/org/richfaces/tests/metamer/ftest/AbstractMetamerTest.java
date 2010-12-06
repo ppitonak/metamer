@@ -31,9 +31,11 @@ import static org.testng.Assert.assertFalse;
 import static org.testng.Assert.assertTrue;
 
 import java.net.URL;
+import java.util.Locale;
 
 import javax.faces.event.PhaseId;
 
+import org.apache.commons.lang.LocaleUtils;
 import org.jboss.test.selenium.AbstractTestCase;
 import org.jboss.test.selenium.dom.Event;
 import org.jboss.test.selenium.encapsulated.JavaScript;
@@ -175,6 +177,15 @@ public abstract class AbstractMetamerTest extends AbstractTestCase {
 
         waitGui.failWith("Attribute on" + attributeName + " does not work correctly").until(
                 new EventFiredCondition(event));
+    }
+    
+    /**
+     * Returns the locale of the tested page
+     * @return the locale of the tested page
+     */
+    public Locale getLocale() {
+        String localeString = selenium.getText(id("locale"));
+        return LocaleUtils.toLocale(localeString);
     }
 
     /**
