@@ -57,6 +57,11 @@ public final class ReferencedLocator<T extends ExtendedLocator<T>> extends Abstr
         result.reference = reference;
         return result;
     }
+    
+    public static <N extends ExtendedLocator<N>> ReferencedLocator<N> ref(ReferencedLocator<N> referencedLocator, String locator) {
+        LocatorReference<ExtendedLocator<N>> reference = new LocatorReference<ExtendedLocator<N>>(referencedLocator);
+        return referenceInferred(reference, locator);
+    }
 
     public T getReferenced() {
         ExtendedLocator<T> referencedLocator = reference.getLocator();
