@@ -27,6 +27,7 @@ import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import org.richfaces.component.UICollapsiblePanel;
+import org.richfaces.event.ToggleEvent;
 
 import org.richfaces.tests.metamer.Attributes;
 import org.slf4j.Logger;
@@ -74,5 +75,9 @@ public class RichCollapsiblePanelBean implements Serializable {
 
     public void setAttributes(Attributes attributes) {
         this.attributes = attributes;
+    }
+
+    public void panelToggleListener(ToggleEvent event) {
+        RichBean.logToPage("* panel " + (event.isExpanded() ? "expanded" : "collapsed"));
     }
 }
