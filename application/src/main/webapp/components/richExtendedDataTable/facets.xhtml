@@ -27,6 +27,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
     -->
 
     <ui:composition template="/templates/template.xhtml">
+    	<ui:param name="componentId" value="richEDT" />
 
         <ui:define name="head">
             <f:metadata>
@@ -46,7 +47,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
             <br/>
             <h:outputText value="Show data in table: " />
             <h:selectBooleanCheckbox id="noDataCheckbox" value="#{richExtendedDataTableBean.state}">
-                <a4j:ajax render="richEDT scroller1"/>
+                <a4j:ajax render="#{nestedComponentId} scroller1"/>
             </h:selectBooleanCheckbox>
             <br/><br/>
         </ui:define>
@@ -113,7 +114,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
         </ui:define>
 
         <ui:define name="outOfTemplateAfter">
-            <a4j:ajax render="richEDT">
+            <a4j:ajax render="#{nestedComponentId}">
 	        	<h:panelGrid columns="2">
 		        	<h:outputLabel value="No Data Facet: " />
 	        		<h:inputText id="noDataInput" value="#{richExtendedDataTableBean.facets['noData']}" />

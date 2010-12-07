@@ -28,6 +28,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
     -->
 
     <ui:composition template="/templates/template.xhtml">
+    	<ui:param name="componentId" value="richEDT" />
 
         <ui:define name="head">
             <f:metadata>
@@ -79,10 +80,10 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
             <br/>
             <h:outputText value="Show data in table: " />
             <h:selectBooleanCheckbox id="noDataCheckbox" value="#{richExtendedDataTableBean.state}">
-                <a4j:ajax render="richEDT scroller1"/>
+                <a4j:ajax render="#{nestedComponentId} scroller1"/>
             </h:selectBooleanCheckbox>
             <br/><br/>
-            <rich:dataScroller id="scroller1" for="richEDT" page="#{richExtendedDataTableBean.page}" maxPages="7" render="richEDT"/>
+            <rich:dataScroller id="scroller1" for="richEDT" page="#{richExtendedDataTableBean.page}" maxPages="7" render="#{nestedComponentId}"/>
         </ui:define>
 
         <ui:define name="component">
@@ -217,7 +218,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                 </rich:column>
 
                 <f:facet name="footer">
-                    <rich:dataScroller id="scroller2" for="richEDT" page="#{richExtendedDataTableBean.page}" maxPages="7" render="richEDT" />
+                    <rich:dataScroller id="scroller2" for="richEDT" page="#{richExtendedDataTableBean.page}" maxPages="7" render="richEDT scroller1" />
                 </f:facet>
             </rich:extendedDataTable>
         </ui:define>

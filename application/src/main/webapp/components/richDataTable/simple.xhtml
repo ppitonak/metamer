@@ -27,7 +27,8 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
     -->
 
     <ui:composition template="/templates/template.xhtml">
-
+		<ui:param name="componentId" value="richDataTable" />
+		
         <ui:define name="head">
             <f:metadata>
                 <f:viewParam name="templates" value="#{templateBean.templates}">
@@ -41,7 +42,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
             <br/>
             <h:outputText value="Show data in table: " />
             <h:selectBooleanCheckbox id="noDataCheckbox" value="#{richDataTableBean.state}">
-                <a4j:ajax render="richDataTable scroller1"/>
+                <a4j:ajax render="#{nestedComponentId}" />
             </h:selectBooleanCheckbox>
             <br/><br/>
         </ui:define>
@@ -72,7 +73,6 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
         </ui:define>
 
         <ui:define name="outOfTemplateAfter">
-
             <metamer:attributes value="#{richDataTableBean.attributes}" id="attributes" />
         </ui:define>
 
