@@ -25,6 +25,7 @@ package org.richfaces.tests.metamer.bean;
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.TreeSet;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
@@ -92,6 +93,10 @@ public class RichExtendedDataTableBean implements Serializable {
         attributes.setAttribute("rows", 30);
         attributes.setAttribute("styleClass", "extended-data-table");
         attributes.setAttribute("style", null);
+        
+        // setup types
+        attributes.get("selection").setType(TreeSet.class);
+        attributes.get("selection").setMemberType(Integer.class);
 
         // hidden attributes
         attributes.remove("filterVar");

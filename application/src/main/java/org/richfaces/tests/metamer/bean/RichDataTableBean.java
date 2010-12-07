@@ -22,7 +22,6 @@
 package org.richfaces.tests.metamer.bean;
 
 import java.io.Serializable;
-import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -92,7 +91,6 @@ public class RichDataTableBean implements Serializable {
 
         attributes.setAttribute("rendered", true);
         attributes.setAttribute("rows", 10);
-        attributes.get("sortPriority").setType(Collection.class);
 
         // hidden attributes
         attributes.remove("filteringListeners");

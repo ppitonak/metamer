@@ -22,9 +22,7 @@
 package org.richfaces.tests.metamer;
 
 import java.io.Serializable;
-import java.util.Arrays;
 import java.util.Collection;
-import java.util.LinkedList;
 import java.util.List;
 
 import javax.faces.model.SelectItem;
@@ -32,7 +30,6 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
-import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -50,6 +47,7 @@ public class Attribute implements Serializable {
     private String name;
     private Object value;
     private Class<?> type;
+    private Class<?> memberType = Object.class;
     private String help;
     private List<SelectItem> selectOptions;
     private Extensions extensions;
@@ -73,14 +71,23 @@ public class Attribute implements Serializable {
     }
 
     public Object getValue() {
+        if (value == null && type != null) {
+            if (Collection.class.isAssignableFrom(type)) {
+                CollectionConverter collectionConverter = new CollectionConverter(type, memberType);
+                value = collectionConverter.convert(null);
+            }
+        }
         return value;
     }
 
     public void setValue(Object value) {
-        if (value instanceof String) {
-            if (type == Collection.class) {
-                String[] splitted = StringUtils.split((String) value, ",[] ");
-                value = new LinkedList<String>(Arrays.asList(splitted));
+        if (type != null) {
+            if (value instanceof String || value instanceof Collection) {
+                if (Collection.class.isAssignableFrom(type)) {
+                    CollectionConverter collectionConverter = new CollectionConverter(type, memberType);
+                    this.value = collectionConverter.convert(value);
+                    return;
+                }
             }
         }
         this.value = value;
@@ -129,6 +136,14 @@ public class Attribute implements Serializable {
 
     public void setType(Class<?> type) {
         this.type = type;
+    }
+    
+    public Class<?> getMemberType() {
+        return memberType;
+    }
+    
+    public void setMemberType(Class<?> memberType) {
+        this.memberType = memberType;
     }
 
     public boolean isBool() {
