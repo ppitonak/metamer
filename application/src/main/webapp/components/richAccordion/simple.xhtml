@@ -43,28 +43,20 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
             <rich:accordion id="accordion"
                             activeItem="#{richAccordionBean.attributes['activeItem'].value}"
                             bypassUpdates="#{richAccordionBean.attributes['bypassUpdates'].value}"
-                            converter="#{richAccordionBean.attributes['converter'].value}"
                             cycledSwitching="#{richAccordionBean.attributes['cycledSwitching'].value}"
                             data="#{richAccordionBean.attributes['data'].value}"
                             dir="#{richAccordionBean.attributes['dir'].value}"
                             execute="#{richAccordionBean.attributes['execute'].value}"
-                            firstItem="#{richAccordionBean.attributes['firstItem'].value}"
                             height="#{richAccordionBean.attributes['height'].value}"
                             immediate="#{richAccordionBean.attributes['immediate'].value}"
-                            itemByIndex="#{richAccordionBean.attributes['itemByIndex'].value}"
-                            itemChangeListener="#{richAccordionBean.attributes['itemChangeListener'].value}"
-                            itemChangeListeners="#{richAccordionBean.attributes['itemChangeListeners'].value}"
+                            itemChangeListener="#{richBean.itemChangeListener}"
                             itemContentClass="#{richAccordionBean.attributes['itemContentClass'].value}"
                             itemHeaderClass="#{richAccordionBean.attributes['itemHeaderClass'].value}"
                             itemHeaderClassActive="#{richAccordionBean.attributes['itemHeaderClassActive'].value}"
                             itemHeaderClassDisabled="#{richAccordionBean.attributes['itemHeaderClassDisabled'].value}"
                             itemHeaderClassInactive="#{richAccordionBean.attributes['itemHeaderClassInactive'].value}"
                             lang="#{richAccordionBean.attributes['lang'].value}"
-                            lastItem="#{richAccordionBean.attributes['lastItem'].value}"
                             limitToList="#{richAccordionBean.attributes['limitToList'].value}"
-                            localValue="#{richAccordionBean.attributes['localValue'].value}"
-                            localValueSet="#{richAccordionBean.attributes['localValueSet'].value}"
-                            nextItem="#{richAccordionBean.attributes['nextItem'].value}"
                             onbeforeitemchange="#{richAccordionBean.attributes['onbeforeitemchange'].value}"
                             onclick="#{richAccordionBean.attributes['onclick'].value}"
                             ondblclick="#{richAccordionBean.attributes['ondblclick'].value}"
@@ -74,20 +66,13 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                             onmouseout="#{richAccordionBean.attributes['onmouseout'].value}"
                             onmouseover="#{richAccordionBean.attributes['onmouseover'].value}"
                             onmouseup="#{richAccordionBean.attributes['onmouseup'].value}"
-                            prevItem="#{richAccordionBean.attributes['prevItem'].value}"
                             render="#{richAccordionBean.attributes['render'].value}"
                             rendered="#{richAccordionBean.attributes['rendered'].value}"
-                            renderedItems="#{richAccordionBean.attributes['renderedItems'].value}"
-                            required="#{richAccordionBean.attributes['required'].value}"
                             status="#{richAccordionBean.attributes['status'].value}"
                             style="#{richAccordionBean.attributes['style'].value}"
                             styleClass="#{richAccordionBean.attributes['styleClass'].value}"
-                            submittedActiveItem="#{richAccordionBean.attributes['submittedActiveItem'].value}"
-                            submittedValue="#{richAccordionBean.attributes['submittedValue'].value}"
                             switchType="#{richAccordionBean.attributes['switchType'].value}"
                             title="#{richAccordionBean.attributes['title'].value}"
-                            valid="#{richAccordionBean.attributes['valid'].value}"
-                            value="#{richAccordionBean.attributes['value'].value}"
                             width="#{richAccordionBean.attributes['width'].value}"
                             >
 
@@ -116,30 +101,45 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                     testedComponentId = "#{rich:clientId('accordion')}";
                 </script>
 
-                <h:commandButton id="switchButton1" value="switch to item1">
+                <h:commandButton id="switchButton1" value="item1">
                     <rich:componentControl event="click" operation="switchToItem" target="accordion" >
                         <f:param value="item1" />
                     </rich:componentControl>
                 </h:commandButton>
-                <h:commandButton id="switchButton2" value="switch to item2">
+                <h:commandButton id="switchButton2" value="item2">
                     <rich:componentControl event="click" operation="switchToItem" target="accordion" >
                         <f:param value="item2" />
                     </rich:componentControl>
                 </h:commandButton>
-                <h:commandButton id="switchButton3" value="switch to item3">
+                <h:commandButton id="switchButton3" value="item3">
                     <rich:componentControl event="click" operation="switchToItem" target="accordion" >
                         <f:param value="item3" />
                     </rich:componentControl>
                 </h:commandButton>
-                <h:commandButton id="switchButton4" value="switch to item4">
+                <h:commandButton id="switchButton4" value="item4">
                     <rich:componentControl event="click" operation="switchToItem" target="accordion" >
                         <f:param value="item4" />
                     </rich:componentControl>
                 </h:commandButton>
-                <h:commandButton id="switchButton5" value="switch to item5">
+                <h:commandButton id="switchButton5" value="item5">
                     <rich:componentControl event="click" operation="switchToItem" target="accordion" >
                         <f:param value="item5" />
                     </rich:componentControl>
+                </h:commandButton>
+
+                <br/>
+
+                <h:commandButton id="switcFirsthButton" value="first">
+                    <rich:toggleControl targetPanel="accordion" targetItem="@first" />
+                </h:commandButton>
+                <h:commandButton id="switchPrevButton" value="previous">
+                    <rich:toggleControl targetPanel="accordion" targetItem="@prev" />
+                </h:commandButton>
+                <h:commandButton id="switchNextButton" value="next">
+                    <rich:toggleControl targetPanel="accordion" targetItem="@next"/>
+                </h:commandButton>
+                <h:commandButton id="switchLastButton" value="last">
+                    <rich:toggleControl targetPanel="accordion" targetItem="@last"/>
                 </h:commandButton>
 
             </fieldset>
