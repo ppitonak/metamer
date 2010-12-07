@@ -48,6 +48,9 @@ public class RichProgressBarBean implements Serializable {
     private Attributes attributes;
     private boolean buttonRendered = true;
     private Long startTime;
+    private boolean initialFacetRendered = true;
+    private boolean finishFacetRendered = true;
+    private boolean childrenRendered = false;
 
     /**
      * Initializes the managed bean.
@@ -60,9 +63,10 @@ public class RichProgressBarBean implements Serializable {
         attributes = Attributes.getUIComponentAttributes(UIProgressBar.class, getClass());
 
         attributes.setAttribute("maxValue", 100);
-        attributes.setAttribute("minValue", -1);
+        attributes.setAttribute("minValue", 0);
         attributes.setAttribute("interval", 1000);
         attributes.setAttribute("rendered", true);
+        attributes.setAttribute("value", -1);
 
         // attributes tested in another way
         attributes.remove("mode");
@@ -77,8 +81,8 @@ public class RichProgressBarBean implements Serializable {
     }
 
     public String startProcess() {
-        attributes.get("enabled").setValue(true);
-        setButtonRendered(false);
+        attributes.setAttribute("enabled", true);
+        buttonRendered = false;
         setStartTime(new Date().getTime());
         return null;
     }
@@ -87,16 +91,16 @@ public class RichProgressBarBean implements Serializable {
         if (Boolean.TRUE.equals(attributes.get("enabled").getValue())) {
             Long current = (new Date().getTime() - startTime) / 1000;
             if (current > 100) {
-                setButtonRendered(true);
+                buttonRendered = true;
             } else if (current.equals(0L)) {
-                return new Long(1);
+                return 1L;
             }
             return (new Date().getTime() - startTime) / 1000;
         }
         if (startTime == null) {
-            return Long.valueOf(-1);
+            return -1L;
         } else {
-            return Long.valueOf(101);
+            return 101L;
         }
     }
 
@@ -114,5 +118,29 @@ public class RichProgressBarBean implements Serializable {
 
     public void setButtonRendered(boolean buttonRendered) {
         this.buttonRendered = buttonRendered;
+    }
+
+    public boolean isFinishFacetRendered() {
+        return finishFacetRendered;
+    }
+
+    public void setFinishFacetRendered(boolean finishFacetRendered) {
+        this.finishFacetRendered = finishFacetRendered;
+    }
+
+    public boolean isInitialFacetRendered() {
+        return initialFacetRendered;
+    }
+
+    public void setInitialFacetRendered(boolean initialFacetRendered) {
+        this.initialFacetRendered = initialFacetRendered;
+    }
+
+    public boolean isChildrenRendered() {
+        return childrenRendered;
+    }
+
+    public void setChildrenRendered(boolean childrenRendered) {
+        this.childrenRendered = childrenRendered;
     }
 }

@@ -40,6 +40,12 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
         </ui:define>
 
         <ui:define name="component">
+            <h:panelGrid id="settingsPanel" columns="2">
+                Children rendered: <h:selectBooleanCheckbox value="#{richProgressBarBean.childrenRendered}" onclick="submit()" />
+                'initial' facet rendered: <h:selectBooleanCheckbox value="#{richProgressBarBean.initialFacetRendered}" onclick="submit()" />
+                'finish' facet rendered: <h:selectBooleanCheckbox value="#{richProgressBarBean.finishFacetRendered}" onclick="submit()" />
+            </h:panelGrid>
+
             <rich:progressBar id="progressBar"
                               data="#{richProgressBarBean.attributes['data'].value}"
                               enabled="#{richProgressBarBean.attributes['enabled'].value}"
@@ -50,7 +56,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                               label="#{richProgressBarBean.attributes['label'].value}"
                               maxValue="#{richProgressBarBean.attributes['maxValue'].value}"
                               minValue="#{richProgressBarBean.attributes['minValue'].value}"
-                              mode="ajax"
+                              mode="client"
                               onbeforedomupdate="#{richProgressBarBean.attributes['onbeforedomupdate'].value}"
                               onclick="#{richProgressBarBean.attributes['onclick'].value}"
                               oncomplete="#{richProgressBarBean.attributes['oncomplete'].value}"
@@ -68,28 +74,21 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                               rendered="#{richProgressBarBean.attributes['rendered'].value}"
                               style="#{richProgressBarBean.attributes['style'].value}"
                               styleClass="#{richProgressBarBean.attributes['styleClass'].value}"
-                              value="#{richProgressBarBean.currentValue}"
+                              value="#{richProgressBarBean.attributes['value'].value}"
                               >
 
+                <h:outputText value="child + " rendered="#{richProgressBarBean.childrenRendered}" />
+
                 <f:facet name="initial">
-                    <h:outputText id="initialOutput" value="Process hasn't started yet" />
-                    <br/>
-                    <a4j:commandButton id="startButton"
-                                       action="#{richProgressBarBean.startProcess}"
-                                       value="Start Process" execute="@form"
-                                       rendered="#{richProgressBarBean.buttonRendered}"
-                                       style="margin: 9px 0px 5px;" />
+                    <h:panelGroup rendered="#{richProgressBarBean.initialFacetRendered}">
+                        <h:outputText id="initialOutput" value="Initial" />
+                    </h:panelGroup>
                 </f:facet>
-                <f:facet name="complete">
-                    <h:outputText id="completeOutput" value="Process Done" />
-                    <br/>
-                    <a4j:commandButton id="restartButton"
-                                       action="#{richProgressBarBean.startProcess}"
-                                       value="Restart Process" execute="@form"
-                                       rendered="#{richProgressBarBean.buttonRendered}"
-                                       style="margin: 9px 0px 5px;" />
+                <f:facet name="finish">
+                    <h:panelGroup rendered="#{richProgressBarBean.finishFacetRendered}">
+                        <h:outputText id="completeOutput" value="Complete"/>
+                    </h:panelGroup>
                 </f:facet>
-                <h:outputText value="#{richProgressBarBean.currentValue} %"/>
             </rich:progressBar>
 
         </ui:define>

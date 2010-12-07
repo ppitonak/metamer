@@ -63,7 +63,6 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
             </script>
 
             <rich:progressBar id="progressBar"
-                              comleteClass="#{richProgressBarBean.attributes['completeClass'].value}"
                               data="#{richProgressBarBean.attributes['data'].value}"
                               enabled="#{richProgressBarBean.attributes['enabled'].value}"
                               finishClass="#{richProgressBarBean.attributes['finishClass'].value}"
@@ -76,6 +75,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                               mode="client"
                               onbeforedomupdate="#{richProgressBarBean.attributes['onbeforedomupdate'].value}"
                               onclick="#{richProgressBarBean.attributes['onclick'].value}"
+                              onfinish="#{richProgressBarBean.attributes['onfinish'].value}"
                               oncomplete="#{richProgressBarBean.attributes['oncomplete'].value}"
                               ondblclick="#{richProgressBarBean.attributes['ondblclick'].value}"
                               onmousedown="#{richProgressBarBean.attributes['onmousedown'].value}"
@@ -85,9 +85,11 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                               onmouseup="#{richProgressBarBean.attributes['onmouseup'].value}"
                               onsubmit="#{richProgressBarBean.attributes['onsubmit'].value}"
                               parameters="#{richProgressBarBean.attributes['parameters'].value}"
-                              reRenderAfterComplete="#{richProgressBarBean.attributes['reRenderAfterComplete'].value}"
-                              remainClass="#{richProgressBarBean.attributes['remainClass'].value}"
+                              progressClass="#{richProgressBarBean.attributes['progressClass'].value}"
+                              remainingClass="#{richProgressBarBean.attributes['remainingClass'].value}"
                               rendered="#{richProgressBarBean.attributes['rendered'].value}"
+                              style="#{richProgressBarBean.attributes['style'].value}"
+                              styleClass="#{richProgressBarBean.attributes['styleClass'].value}"
                               value="#{richProgressBarBean.currentValue}"
                               >
                 <f:facet name="initial">
