@@ -57,7 +57,7 @@ public class AbstractComponentAttributes {
     }
 
     protected String getProperty(String propertyName) {
-        final ElementLocator<?> locator = propertyLocator.format(propertyName);
+        final ElementLocator<?> locator = propertyLocator.format(propertyName, "");
         return selenium.getValue(locator);
     }
 
