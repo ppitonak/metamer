@@ -119,6 +119,8 @@ public class RichBean implements Serializable {
         components.put("richAutocomplete", "Rich Autocomplete");
         components.put("richCalendar", "Rich Calendar");
         components.put("richCollapsiblePanel", "Rich Collapsible Panel");
+        components.put("richCollapsibleSubTable", "Rich Collapsible Subtable");
+        components.put("richCollapsibleSubTableToggler", "Rich Collapsible Subtable Toggler");
         components.put("richColumn", "Rich Column");
         components.put("richColumnGroup", "Rich Column Group");
         components.put("richComponentControl", "Rich Component Control");
@@ -139,8 +141,6 @@ public class RichBean implements Serializable {
         components.put("richPopupPanel", "Rich Popup Panel");
         components.put("richProgressBar", "Rich Progress Bar");
         components.put("richSelect", "Rich Select");
-        components.put("richSubTable", "Rich Subtable");
-        components.put("richSubTableToggleControl", "Rich Subtable Toggle Control");
         components.put("richTab", "Rich Tab");
         components.put("richTabPanel", "Rich Tab Panel");
         components.put("richToggleControl", "Rich Toggle Control");

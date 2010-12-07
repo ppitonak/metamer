@@ -80,40 +80,40 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                     </rich:columnGroup>
                 </f:facet>
                 <rich:column id="columnTC" colspan="6">
-                    <rich:subTableToggleControl id="subTableTC" for="richSubTable"/>
+                    <rich:collapsibleSubTableToggler id="subTableTC" for="richSubTable"/>
                     <h:outputText value="#{list[0].sex == 'MALE' ? 'Men' : 'Women'}" />
                 </rich:column>
-                <rich:subTable id="richSubTable"
-                               breakBefore="#{richSubTableBean.attributes['breakBefore'].value}"
-                               expandMode="#{richSubTableBean.attributes['expandMode'].value}"
-                               expanded="#{richSubTableBean.attributes['expanded'].value}"
-                               filterVar="#{richSubTableBean.attributes['filterVar'].value}"
-                               filteringListeners="#{richSubTableBean.attributes['filteringListeners'].value}"
-                               first="#{richSubTableBean.attributes['first'].value}"
-                               footer="#{richSubTableBean.attributes['footer'].value}"
-                               header="#{richSubTableBean.attributes['header'].value}"
-                               iterationState="#{richSubTableBean.attributes['iterationState'].value}"
-                               iterationStatusVar="#{richSubTableBean.attributes['iterationStatusVar'].value}"
-                               keepSaved="#{richSubTableBean.attributes['keepSaved'].value}"
-                               noData="#{richSubTableBean.attributes['noData'].value}"
-                               noDataLabel="#{richSubTableBean.attributes['noDataLabel'].value}"
-                               relativeRowIndex="#{richSubTableBean.attributes['relativeRowIndex'].value}"
-                               rendered="#{richSubTableBean.attributes['rendered'].value}"
-                               rowAvailable="#{richSubTableBean.attributes['rowAvailable'].value}"
-                               rowCount="#{richSubTableBean.attributes['rowCount'].value}"
-                               rowData="#{richSubTableBean.attributes['rowData'].value}"
-                               rowIndex="#{richSubTableBean.attributes['rowIndex'].value}"
-                               rowKey="#{richSubTableBean.attributes['rowKey'].value}"
-                               rowKeyConverter="#{richSubTableBean.attributes['rowKeyConverter'].value}"
-                               rows="#{richSubTableBean.attributes['rows'].value}"
-                               selection="#{richSubTableBean.attributes['selection'].value}"
-                               sortExpression="#{richSubTableBean.attributes['sortExpression'].value}"
-                               sortMode="#{richSubTableBean.attributes['sortMode'].value}"
-                               sortPriority="#{richSubTableBean.attributes['sortPriority'].value}"
-                               sortingListeners="#{richSubTableBean.attributes['sortingListeners'].value}"
-                               toggleListeners="#{richSubTableBean.attributes['toggleListeners'].value}"
-                               value="#{list}"
-                               var="item">
+                <rich:collapsibleSubTable id="richSubTable"
+                                          breakBefore="#{richSubTableBean.attributes['breakBefore'].value}"
+                                          expandMode="#{richSubTableBean.attributes['expandMode'].value}"
+                                          expanded="#{richSubTableBean.attributes['expanded'].value}"
+                                          filterVar="#{richSubTableBean.attributes['filterVar'].value}"
+                                          filteringListeners="#{richSubTableBean.attributes['filteringListeners'].value}"
+                                          first="#{richSubTableBean.attributes['first'].value}"
+                                          footer="#{richSubTableBean.attributes['footer'].value}"
+                                          header="#{richSubTableBean.attributes['header'].value}"
+                                          iterationState="#{richSubTableBean.attributes['iterationState'].value}"
+                                          iterationStatusVar="#{richSubTableBean.attributes['iterationStatusVar'].value}"
+                                          keepSaved="#{richSubTableBean.attributes['keepSaved'].value}"
+                                          noData="#{richSubTableBean.attributes['noData'].value}"
+                                          noDataLabel="#{richSubTableBean.attributes['noDataLabel'].value}"
+                                          relativeRowIndex="#{richSubTableBean.attributes['relativeRowIndex'].value}"
+                                          rendered="#{richSubTableBean.attributes['rendered'].value}"
+                                          rowAvailable="#{richSubTableBean.attributes['rowAvailable'].value}"
+                                          rowCount="#{richSubTableBean.attributes['rowCount'].value}"
+                                          rowData="#{richSubTableBean.attributes['rowData'].value}"
+                                          rowIndex="#{richSubTableBean.attributes['rowIndex'].value}"
+                                          rowKey="#{richSubTableBean.attributes['rowKey'].value}"
+                                          rowKeyConverter="#{richSubTableBean.attributes['rowKeyConverter'].value}"
+                                          rows="#{richSubTableBean.attributes['rows'].value}"
+                                          selection="#{richSubTableBean.attributes['selection'].value}"
+                                          sortExpression="#{richSubTableBean.attributes['sortExpression'].value}"
+                                          sortMode="#{richSubTableBean.attributes['sortMode'].value}"
+                                          sortPriority="#{richSubTableBean.attributes['sortPriority'].value}"
+                                          sortingListeners="#{richSubTableBean.attributes['sortingListeners'].value}"
+                                          toggleListeners="#{richSubTableBean.attributes['toggleListeners'].value}"
+                                          value="#{list}"
+                                          var="item">
                     <rich:column id="columnSex">
                         <h:outputText value="#{item.sex}" />
                     </rich:column>
@@ -147,7 +147,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                     <f:facet name="footer">
                         <h:outputText value="Total of #{list[0].sex == 'MALE' ? 'men' : 'women'}: #{fn:length(list)}" />
                     </f:facet>
-                </rich:subTable>
+                </rich:collapsibleSubTable>
             </rich:dataTable>
 
         </ui:define>
