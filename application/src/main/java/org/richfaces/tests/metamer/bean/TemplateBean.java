@@ -77,6 +77,14 @@ public class TemplateBean implements Serializable {
             this.templates.add(t);
         }
     }
+    
+    public String getComponentPrefix() {
+        StringBuffer prefix = new StringBuffer("form:");
+        for (Template template : templates) {
+            prefix.append(template.getNestedComponentPrefix());
+        }
+        return prefix.toString();
+    }
 
     public List<SelectItem> getAvailableTemplates() {
         List<SelectItem> retVal = new ArrayList<SelectItem>();
