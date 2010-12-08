@@ -147,6 +147,7 @@ public class RichBean implements Serializable {
         components.put("richTogglePanel", "Rich Toggle Panel");
         components.put("richTogglePanelItem", "Rich Toggle Panel Item");
         components.put("richToolbar", "Rich Toolbar");
+        components.put("richToolbarGroup", "Rich Toolbar Group");
         components.put("richTooltip", "Rich Tooltip");
         components.put("richTree", "Rich Tree");
     }
