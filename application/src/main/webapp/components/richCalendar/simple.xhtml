@@ -60,6 +60,20 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                     return false;
                 }
 
+                function disableTuesdays(day) {
+                    if (day.date.getDay() == 2) {
+                        return false;
+                    }
+                    return true;
+                }
+
+                function disableWeekends(day) {
+                    if (day.isWeekend) {
+                        return false;
+                    }
+                    return true;
+                }
+
                 testedComponentId = "#{rich:clientId('calendar')}";
             </script>
         </ui:define>
@@ -79,8 +93,8 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                                converterMessage="#{richCalendarBean.attributes['converterMessage'].value}"
                                currentDate="#{richCalendarBean.attributes['currentDate'].value}"
                                datePattern="#{richCalendarBean.attributes['datePattern'].value}"
-                               dayEnabled="#{richCalendarBean.attributes['dayEnabled'].value}"
-                               dayStyleClass="#{richCalendarBean.attributes['dayStyleClass'].value}"
+                               dayClassFunction="#{richCalendarBean.attributes['dayClassFunction'].value}"
+                               dayDisableFunction="#{richCalendarBean.attributes['dayDisableFunction'].value}"
                                defaultTime="#{richCalendarBean.attributes['defaultTime'].value}"
                                direction="#{richCalendarBean.attributes['direction'].value}"
                                disabled="#{richCalendarBean.attributes['disabled'].value}"
@@ -95,6 +109,18 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                                jointPoint="#{richCalendarBean.attributes['jointPoint'].value}"
                                locale="#{richCalendarBean.attributes['locale'].value}"
                                minDaysInFirstWeek="#{richCalendarBean.attributes['minDaysInFirstWeek'].value}"
+                               mode="#{richCalendarBean.attributes['mode'].value}"
+                               onbeforecurrentdateselect="#{richCalendarBean.attributes['onbeforecurrentdateselect'].value}"
+                               onbeforedateselect="#{richCalendarBean.attributes['onbeforedateselect'].value}"
+                               onbeforetimeselect="#{richCalendarBean.attributes['onbeforetimeselect'].value}"
+                               onchange="#{richCalendarBean.attributes['onchange'].value}"
+                               onclean="#{richCalendarBean.attributes['onclean'].value}"
+                               oncollapse="#{richCalendarBean.attributes['oncollapse'].value}"
+                               oncomplete="#{richCalendarBean.attributes['oncomplete'].value}"
+                               oncurrentdateselect="#{richCalendarBean.attributes['oncurrentdateselect'].value}"
+                               ondatemouseout="#{richCalendarBean.attributes['ondatemouseout'].value}"
+                               ondatemouseover="#{richCalendarBean.attributes['ondatemouseover'].value}"
+                               ondateselect="#{richCalendarBean.attributes['ondateselect'].value}"
                                oninputblur="#{richCalendarBean.attributes['oninputblur'].value}"
                                oninputchange="#{richCalendarBean.attributes['oninputchange'].value}"
                                oninputclick="#{richCalendarBean.attributes['oninputclick'].value}"
@@ -109,7 +135,11 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                                oninputmouseover="#{richCalendarBean.attributes['oninputmouseover'].value}"
                                oninputmouseup="#{richCalendarBean.attributes['oninputmouseup'].value}"
                                oninputselect="#{richCalendarBean.attributes['oninputselect'].value}"
+                               onshow="#{richCalendarBean.attributes['onshow'].value}"
+                               ontimeselect="#{richCalendarBean.attributes['ontimeselect'].value}"
                                popup="#{richCalendarBean.attributes['popup'].value}"
+                               preloadDateRangeBegin="#{richCalendarBean.attributes['preloadDateRangeBegin'].value}"
+                               preloadDateRangeEnd="#{richCalendarBean.attributes['preloadDateRangeEnd'].value}"
                                rendered="#{richCalendarBean.attributes['rendered'].value}"
                                required="#{richCalendarBean.attributes['required'].value}"
                                requiredMessage="#{richCalendarBean.attributes['requiredMessage'].value}"
@@ -126,10 +156,11 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                                todayControlMode="#{richCalendarBean.attributes['todayControlMode'].value}"
                                validatorMessage="#{richCalendarBean.attributes['validatorMessage'].value}"
                                value="#{richCalendarBean.attributes['value'].value}"
+                               valueChangeListener="#{richBean.valueChangeListener}"
                                verticalOffset="#{richCalendarBean.attributes['verticalOffset'].value}"
                                zindex="#{richCalendarBean.attributes['zindex'].value}"
                                >
-                    <a4j:ajax event="inputchange" render="output"/>
+                    <a4j:ajax event="change" render="output, requestTime" limitRender="#{true}"/>
                 </rich:calendar>
             </div>
 

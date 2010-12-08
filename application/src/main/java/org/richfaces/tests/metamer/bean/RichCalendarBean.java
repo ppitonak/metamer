@@ -72,6 +72,7 @@ public class RichCalendarBean implements Serializable {
 
         // TODO has to be tested in another way
         attributes.remove("converter");
+        attributes.remove("dataModel");
         attributes.remove("validator");
         attributes.remove("valueChangeListener");
     }
