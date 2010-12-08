@@ -41,25 +41,35 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
         <ui:define name="component">
 
             <script type="text/javascript">
-    //<![CDATA[
-            var counter = 1;
-            var intervalID;
+                //<![CDATA[
+                var counter = 1;
+                var intervalID;
+
                 function updateProgress(i) {
-                    RichFaces.$('#{rich:clientId('progressBar')}').setValue(counter*5);
+                    #{rich:component('progressBar')}.setValue(counter*5);
                     if ((counter++)>20){
                         clearInterval(intervalID);
-                        document.getElementById('button').disabled=false;
+                        #{rich:element('startButton')}.disabled=false;
+                        #{rich:element('pauseButton')}.disabled=true;
+                        counter=1;
                     }
                 }
 
                 function startProgress(){
-                    counter=1;
-                    document.getElementById('button').disabled=true;
-                    RichFaces.$('#{rich:clientId('progressBar')}').enable();
-                    RichFaces.$('#{rich:clientId('progressBar')}').setValue(1);
+                    #{rich:element('startButton')}.disabled=true;
+                    #{rich:element('pauseButton')}.disabled=false;
+                    #{rich:component('progressBar')}.enable();
+                    #{rich:component('progressBar')}.setValue(counter*5);
                     intervalID = setInterval(updateProgress,1000);
                 }
-    //]]>
+
+                function pauseProgress(){
+                    #{rich:element('startButton')}.disabled=false;
+                    #{rich:element('pauseButton')}.disabled=true;
+                    #{rich:component('progressBar')}.disable();
+                    clearInterval(intervalID);
+                }
+                //]]>
             </script>
 
             <rich:progressBar id="progressBar"
@@ -95,11 +105,13 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                 <f:facet name="initial">
                     <h:outputText id="initialOutput" value="Process hasn't started yet"/>
                 </f:facet>
-                <f:facet name="complete">
+                <f:facet name="finish">
                     <h:outputText id="completeOutput" value="Process Done"/>
                 </f:facet>
             </rich:progressBar>
-            <button type="button" onclick="startProgress();" style="margin: 9px 0px 5px;" id="button">Start Progress</button>
+
+            <h:commandButton id="startButton" onclick="startProgress(); return false;" style="margin: 9px 0px 5px;" value="Start Progress"/>
+            <h:commandButton id="pauseButton" onclick="pauseProgress(); return false;" style="margin: 9px 0px 5px;" disabled="true" value="Pause Progress"/>
 
         </ui:define>
 
