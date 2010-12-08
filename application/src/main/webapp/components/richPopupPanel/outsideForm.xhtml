@@ -47,7 +47,6 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
             </h:commandButton>
 
             <rich:popupPanel id="popupPanel"
-                             ZIndex="#{richPopupPanelBean.attributes['ZIndex'].value}"
                              autosized="#{richPopupPanelBean.attributes['autosized'].value}"
                              controlsClass="#{richPopupPanelBean.attributes['controlsClass'].value}"
                              domElementAttachment="#{richPopupPanelBean.attributes['domElementAttachment'].value}"
@@ -87,6 +86,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                              trimOverlayedElements="#{richPopupPanelBean.attributes['trimOverlayedElements'].value}"
                              visualOptions="#{richPopupPanelBean.attributes['visualOptions'].value}"
                              width="#{richPopupPanelBean.attributes['width'].value}"
+                             zindex="#{richPopupPanelBean.attributes['zindex'].value}"
                              >
                 <f:facet name="controls">
                     <h:outputLink value="#" onclick="#{rich:component('popupPanel')}.hide(); return false;">X</h:outputLink>
