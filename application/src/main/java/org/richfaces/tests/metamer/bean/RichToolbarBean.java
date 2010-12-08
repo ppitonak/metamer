@@ -22,12 +22,10 @@
 package org.richfaces.tests.metamer.bean;
 
 import java.io.Serializable;
-
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ViewScoped;
 import org.richfaces.component.UIToolbar;
-
 import org.richfaces.tests.metamer.Attributes;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -39,7 +37,7 @@ import org.slf4j.LoggerFactory;
  * @version $Revision$
  */
 @ManagedBean(name = "richToolbarBean")
-@SessionScoped
+@ViewScoped
 public class RichToolbarBean implements Serializable {
 
     private static final long serialVersionUID = -1L;
@@ -54,7 +52,7 @@ public class RichToolbarBean implements Serializable {
         logger = LoggerFactory.getLogger(getClass());
         logger.debug("initializing bean " + getClass().getName());
 
-        attributes = Attributes.getUIComponentAttributes(UIToolbar.class, getClass());
+        attributes = Attributes.getUIComponentAttributes(UIToolbar.class, getClass(), false);
 
         attributes.setAttribute("height", 28);
         attributes.setAttribute("rendered", true);
