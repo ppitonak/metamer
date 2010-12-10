@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:metamer="http://java.sun.com/jsf/composite/metamer"
+      xmlns:rich="http://richfaces.org/rich" xmlns:a4j="http://richfaces.org/a4j">
+
+    <!--
+JBoss, Home of Professional Open Source
+Copyright 2010, Red Hat, Inc. and individual contributors
+by the @authors tag. See the copyright.txt in the distribution for a
+full listing of individual contributors.
+
+This is free software; you can redistribute it and/or modify it
+under the terms of the GNU Lesser General Public License as
+published by the Free Software Foundation; either version 2.1 of
+the License, or (at your option) any later version.
+
+This software is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public
+License along with this software; if not, write to the Free
+Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
+02110-1301 USA, or see the FSF site: http://www.fsf.org.
+    -->
+
+    <ui:composition template="/templates/template.xhtml">
+
+        <ui:define name="head">
+            <f:metadata>
+                <f:viewParam name="templates" value="#{templateBean.templates}">
+                    <f:converter converterId="templatesListConverter" />
+                </f:viewParam>
+            </f:metadata>
+
+        </ui:define>
+
+        <ui:define name="outOfTemplateBefore">
+        </ui:define>
+        
+        <ui:define name="component">
+        	
+            <rich:tree id="richTree" var="node"
+            	dir="#{richTreeBean.attributes['dir'].value}"
+            	lang="#{richTreeBean.attributes['lang'].value}"
+            	onbeforedomupdate="#{richTreeBean.attributes['onbeforedomupdate'].value}"
+            	onbeforenodetoggle="#{richTreeBean.attributes['onbeforenodetoggle'].value}"
+            	onbeforeselectionchange="#{richTreeBean.attributes['onbeforeselectionchange'].value}"
+            	onbegin="#{richTreeBean.attributes['onbegin'].value}"
+            	onclick="#{richTreeBean.attributes['onclick'].value}"
+            	oncomplete="#{richTreeBean.attributes['oncomplete'].value}"
+            	ondblclick="#{richTreeBean.attributes['ondblclick'].value}"
+            	onkeydown="#{richTreeBean.attributes['onkeydown'].value}"
+            	onkeypress="#{richTreeBean.attributes['onkeypress'].value}"
+            	onkeyup="#{richTreeBean.attributes['onkeyup'].value}"
+            	onmousedown="#{richTreeBean.attributes['onmousedown'].value}"
+            	onmousemove="#{richTreeBean.attributes['onmousemove'].value}"
+            	onmouseup="#{richTreeBean.attributes['onmouseup'].value}"
+            	onmouseout="#{richTreeBean.attributes['onmouseout'].value}"
+            	onmouseover="#{richTreeBean.attributes['onmouseover'].value}"
+            	onnodetoggle="#{richTreeBean.attributes['onnodetoggle'].value}"
+            	onselectionchange="#{richTreeBean.attributes['onselectionchange'].value}"
+            	rendered="#{richTreeBean.attributes['rendered'].value}"
+            	selection="#{richTreeBean.selection}"
+            	selectionType="#{richTreeBean.attributes['selectionType'].value}"
+            	style="#{richTreeBean.attributes['style'].value}"
+            	styleClass="#{richTreeBean.attributes['styleClass'].value}"
+            	title="#{richTreeBean.attributes['title'].value}"
+            	toggleType="#{richTreeBean.attributes['toggleType'].value}"
+            	>
+            	
+            		<a4j:ajax event="selectionchange" render="selectionOutput" /> 
+            		
+            	<rich:treeModelRecursiveAdaptor
+            		roots="#{richTreeModelRecursiveAdaptorBean.rootNodes}"
+            		nodes="#{node.recursive}"
+            		recursionOrder="#{richTreeModelRecursiveAdaptorBean.attributes['recursionOrder'].value}"
+            		rendered="#{richTreeModelRecursiveAdaptorBean.attributes['rendered'].value}"
+            		>
+            		
+            		<rich:treeNode>
+	           			<a4j:outputPanel id="panel">
+	           				#{node.label}
+	           			</a4j:outputPanel>
+	           		</rich:treeNode>
+       				
+       				<!-- <rich:treeModelAdaptor nodes="{node.model.value}" rendered="{not empty node.model}">
+	           			<rich:treeNode>
+	           				{node}
+	           			</rich:treeNode>
+	           		</rich:treeModelAdaptor>-->
+	           		
+	           		<rich:treeModelAdaptor nodes="#{node.model.list}">
+	           			<rich:treeNode>
+	           				#{node.label}
+           				</rich:treeNode>
+           			</rich:treeModelAdaptor>
+           			
+           			<rich:treeModelRecursiveAdaptor roots="#{node.model.recursive}" nodes="#{node.recursive}">
+	           			<rich:treeNode rendered="#{richTreeNodeBean.attributes['rendered'].value || node.number != 1}">
+	           				#{node.label}
+           				</rich:treeNode>
+           			</rich:treeModelRecursiveAdaptor>
+            		
+            	</rich:treeModelRecursiveAdaptor>
+			</rich:tree>
+        </ui:define>
+
+        <ui:define name="outOfTemplateAfter">
+        
+        	<a4j:outputPanel id="selectionOutput">
+        		<h:outputLabel value="Selection: " />
+        		<h:outputText value="#{richTreeBean.selection}" />
+        	</a4j:outputPanel>
+        	
+        	<fieldset>
+        		<legend>rich:tree</legend>
+        		<metamer:attributes value="#{richTreeBean.attributes}" id="treeAttributes" />
+        	</fieldset>
+			
+			<fieldset>
+        		<legend>rich:treeModelRecursiveAdaptor</legend>
+        		<metamer:attributes value="#{richTreeModelRecursiveAdaptorBean.attributes}" id="nodeAttributes" />
+        	</fieldset>
+        	
+			<fieldset>
+        		<legend>rich:treeNode</legend>
+        		<metamer:attributes value="#{richTreeNodeBean.attributes}" id="recursiveAttributes" />
+        	</fieldset>
+		</ui:define>
+
+    </ui:composition>
+</html>

@@ -23,6 +23,7 @@ package org.richfaces.tests.metamer.bean;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -30,7 +31,7 @@ import java.util.Map;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
-import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ViewScoped;
 import javax.swing.tree.TreeNode;
 
 import org.richfaces.component.UITree;
@@ -43,20 +44,18 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * Managed bean for rich:list.
- * 
  * @author <a href="mailto:lfryc@redhat.com">Lukas Fryc</a>
  * @version $Revision$
  */
 @ManagedBean(name = "richTreeBean")
-// cannot be view-scoped (see https://jira.jboss.org/browse/RF-9287)
-@SessionScoped
+@ViewScoped
 public class RichTreeBean implements Serializable {
 
     private static final long serialVersionUID = 4008175400649809L;
     private static Logger logger;
     private Attributes attributes;
     private List<TreeNode> root = new ArrayList<TreeNode>();
+    private Collection<Object> selection;
 
     @ManagedProperty(value = "#{model}")
     private Model model;
@@ -76,6 +75,10 @@ public class RichTreeBean implements Serializable {
         attributes.get("rendered").setValue(true);
         attributes.get("toggleType").setValue("ajax");
         attributes.get("selectionType").setValue("ajax");
+
+        // hidden attributes
+        attributes.remove("selectionChangeListener");
+        attributes.remove("toggleListener");
 
         for (CompactDiscXmlDescriptor descriptor : model.getCompactDiscs()) {
             createCompactDisc(descriptor);
@@ -125,12 +128,20 @@ public class RichTreeBean implements Serializable {
         }
         return country;
     }
-    
+
     public void setModel(Model model) {
         this.model = model;
     }
-    
+
     public List<TreeNode> getRoot() {
         return root;
+    }
+
+    public Collection<Object> getSelection() {
+        return selection;
+    }
+
+    public void setSelection(Collection<Object> selection) {
+        this.selection = selection;
     }
 }
