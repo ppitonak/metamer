@@ -80,7 +80,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
             		rendered="#{richTreeModelRecursiveAdaptorBean.attributes['rendered'].value}"
             		>
             		
-            		<rich:treeNode>
+            		<rich:treeNode rendered="#{node.class.simpleName != 'RecursiveNode' || node.number != 1 || richTreeNodeBean.attributes['rendered'].value}">
 	           			<a4j:outputPanel id="panel">
 	           				#{node.label}
 	           			</a4j:outputPanel>
