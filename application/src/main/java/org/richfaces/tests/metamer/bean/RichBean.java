@@ -137,6 +137,7 @@ public class RichBean implements Serializable {
         components.put("richInputNumberSpinner", "Rich Input Number Spinner");
         components.put("richJQuery", "Rich jQuery");
         components.put("richList", "Rich List");
+        components.put("richMenuGroup", "Rich Menu Group");
         components.put("richPanel", "Rich Panel");
         components.put("richPanelMenu", "Rich Panel Menu");
         components.put("richPopupPanel", "Rich Popup Panel");
