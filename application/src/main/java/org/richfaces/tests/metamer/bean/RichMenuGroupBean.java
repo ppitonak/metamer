@@ -54,7 +54,6 @@ public class RichMenuGroupBean implements Serializable {
 
         attributes = Attributes.getUIComponentAttributes(UIMenuGroup.class, getClass(), false);
 
-        attributes.setAttribute("mode", "ajax");
         attributes.setAttribute("rendered", true);
 
         attributes.remove("converter");
