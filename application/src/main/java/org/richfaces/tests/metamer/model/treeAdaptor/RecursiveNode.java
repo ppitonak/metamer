@@ -37,9 +37,17 @@ public class RecursiveNode extends Node {
     List<RecursiveNode> children = null;
     ModelNode model;
 
-    public RecursiveNode(Node parent, boolean nullable, int number) {
-        super(parent, nullable);
+    public RecursiveNode() {
+        super(null, true, null);
+    }
+    
+    protected RecursiveNode(Node parent, boolean nullable, int number, Reference<LazyLoadingListener<Node>> lazyLoadingListenerReference) {
+        super(parent, nullable, lazyLoadingListenerReference);
         this.number = number;
+    }
+
+    public static RecursiveNode getInstance(Node parent, boolean nullable, int number, Reference<LazyLoadingListener<Node>> lazyLoadingListenerReference) {
+        return lazyLoadingChecker(new RecursiveNode(parent, nullable, number, lazyLoadingListenerReference));
     }
 
     public int getNumber() {
@@ -55,7 +63,7 @@ public class RecursiveNode extends Node {
             return getEmpty();
         }
         if (children == null) {
-            children = createChildren(this, nullable);
+            children = createChildren(this, nullable, null);
         }
         return children;
     }
@@ -73,7 +81,7 @@ public class RecursiveNode extends Node {
     public ModelNode getModel() {
         if (isLeaf() && !isPreceededByModel()) {
             if (model == null) {
-                model = new ModelNode(this, nullable);
+                model = ModelNode.getInstance(this, nullable, null);
             }
             return model;
         }
@@ -92,10 +100,11 @@ public class RecursiveNode extends Node {
         }
     }
 
-    public static List<RecursiveNode> createChildren(Node parent, boolean nullable) {
+    public static List<RecursiveNode> createChildren(Node parent, boolean nullable, Reference<LazyLoadingListener<Node>> lazyLoadingListenerReference) {
         List<RecursiveNode> children = new LinkedList<RecursiveNode>();
         for (int i = 0; i < CHILDREN; i++) {
-            children.add(new RecursiveNode(parent, nullable, i));
+            RecursiveNode node = RecursiveNode.getInstance(parent, nullable, i, lazyLoadingListenerReference);
+            children.add(node);
         }
         return children;
     }
@@ -116,5 +125,10 @@ public class RecursiveNode extends Node {
             }
         }
         return this.number % 2 == 1;
+    }
+
+    @Override
+    public String toString() {
+        return getLabel();
     }
 }

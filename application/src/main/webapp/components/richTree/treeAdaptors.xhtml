@@ -72,6 +72,8 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
             	>
             	
             		<a4j:ajax event="selectionchange" render="selectionOutput" /> 
+            		<a4j:ajax event="nodetoggle" render="selectionOutput" />
+            		
             		
             	<rich:treeModelRecursiveAdaptor
             		roots="#{richTreeModelRecursiveAdaptorBean.rootNodes}"
@@ -84,12 +86,6 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 	           				#{node.label}
 	           			</a4j:outputPanel>
 	           		</rich:treeNode>
-       				
-       				<!-- <rich:treeModelAdaptor nodes="{node.model.value}" rendered="{not empty node.model}">
-	           			<rich:treeNode>
-	           				{node}
-	           			</rich:treeNode>
-	           		</rich:treeModelAdaptor>-->
 	           		
 	           		<rich:treeModelAdaptor nodes="#{node.model.list}" rendered="#{richTreeModelAdaptorBean.attributes['rendered'].value}">
 	           			<rich:treeNode>
@@ -98,7 +94,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
            			</rich:treeModelAdaptor>
            			
            			<rich:treeModelRecursiveAdaptor roots="#{node.model.recursive}" nodes="#{node.recursive}" rendered="#{richTreeModelRecursiveAdaptorBean.attributes['rendered'].value}">
-	           			<rich:treeNode rendered="#{richTreeNodeBean.attributes['rendered'].value || node.number != 1}">
+	           			<rich:treeNode  rendered="#{richTreeNodeBean.attributes['rendered'].value || node.number != 1}">
 	           				#{node.label}
            				</rich:treeNode>
            			</rich:treeModelRecursiveAdaptor>
@@ -109,9 +105,16 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 
         <ui:define name="outOfTemplateAfter">
         
-        	<a4j:outputPanel id="selectionOutput">
+        	<h:panelGrid id="selectionOutput" columns="2">
         		<h:outputLabel value="Selection: " />
         		<h:outputText value="#{richTreeBean.selection}" />
+        		
+        		<h:outputLabel value="Lazy Initialized:" />
+        		<h:outputText value="#{richTreeModelRecursiveAdaptorBean.lazyInitializedNodes}" />
+        	</h:panelGrid>
+        	
+        	<a4j:outputPanel>
+        		
         	</a4j:outputPanel>
        	
         	<fieldset>

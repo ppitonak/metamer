@@ -22,7 +22,9 @@
 package org.richfaces.tests.metamer.bean;
 
 import java.io.Serializable;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
@@ -30,7 +32,10 @@ import javax.faces.bean.ViewScoped;
 
 import org.richfaces.component.UITreeModelRecursiveAdaptor;
 import org.richfaces.tests.metamer.Attributes;
+import org.richfaces.tests.metamer.model.treeAdaptor.LazyLoadingListener;
+import org.richfaces.tests.metamer.model.treeAdaptor.Node;
 import org.richfaces.tests.metamer.model.treeAdaptor.RecursiveNode;
+import org.richfaces.tests.metamer.model.treeAdaptor.Reference;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -47,6 +52,21 @@ public class RichTreeModelRecursiveAdaptorBean implements Serializable {
     private Attributes attributes;
     private boolean leafChildrenNullable = true;
     private transient List<RecursiveNode> rootNodes;
+
+    /*
+     * Nodes which was loaded lazily in the current request
+     */
+    private Set<Node> lazyInitializedNodes = new LinkedHashSet<Node>();
+
+    private LazyLoadingListener<Node> nodeLazyLoadingListener = new LazyLoadingListener<Node>() {
+        public void notify(Node node) {
+            lazyInitializedNodes.add(node);
+        };
+    };
+
+    public Set<Node> getLazyInitializedNodes() {
+        return lazyInitializedNodes;
+    }
 
     /**
      * Initializes the managed bean.
@@ -71,7 +91,13 @@ public class RichTreeModelRecursiveAdaptorBean implements Serializable {
 
     public List<RecursiveNode> getRootNodes() {
         if (rootNodes == null) {
-            rootNodes = RecursiveNode.createChildren(null, leafChildrenNullable);
+            rootNodes = RecursiveNode.createChildren(null, leafChildrenNullable,
+                new Reference<LazyLoadingListener<Node>>() {
+                    @Override
+                    public LazyLoadingListener<Node> get() {
+                        return nodeLazyLoadingListener;
+                    }
+                });
         }
         return rootNodes;
     }

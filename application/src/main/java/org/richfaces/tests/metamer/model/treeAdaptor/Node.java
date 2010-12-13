@@ -32,10 +32,18 @@ public abstract class Node {
     Node parent;
     boolean nullable;
 
-    public Node(Node parent, boolean nullable) {
-        super();
+    Reference<LazyLoadingListener<Node>> lazyLoadingListenerReference = new NodeReference();
+
+    protected Node(Node parent, boolean nullable, Reference<LazyLoadingListener<Node>> lazyLoadingListenerReference) {
         this.parent = parent;
         this.nullable = nullable;
+        if (lazyLoadingListenerReference != null) {
+            this.lazyLoadingListenerReference = lazyLoadingListenerReference;
+        }
+    }
+
+    public static <T extends Node> T lazyLoadingChecker(T node) {
+        return (T) LazyLoadingChecker.wrapInstance(node, node.getLazyLoadingListenerReference());
     }
 
     public Node getParent() {
@@ -66,4 +74,23 @@ public abstract class Node {
     }
 
     public abstract String getLabel();
+    
+    public Reference<LazyLoadingListener<Node>> getLazyLoadingListenerReference() {
+        return lazyLoadingListenerReference;
+    }
+    
+    public void setLazyLoadingListener(Reference<LazyLoadingListener<Node>> lazyLoadingListener) {
+        this.lazyLoadingListenerReference = lazyLoadingListener;
+    }
+
+    public class NodeReference implements Reference<LazyLoadingListener<Node>> {
+        @Override
+        public LazyLoadingListener<Node> get() {
+            Node root = getRoot();
+            if (root == Node.this) {
+                return null;
+            }
+            return getRoot().getLazyLoadingListenerReference().get();
+        }
+    }
 }

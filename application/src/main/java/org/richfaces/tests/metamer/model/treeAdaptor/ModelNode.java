@@ -34,8 +34,16 @@ public class ModelNode extends Node {
     List<B> bs;
     List<RecursiveNode> rs;
 
-    public ModelNode(Node parent, boolean nullable) {
-        super(parent, nullable);
+    public ModelNode() {
+        super(null, true, null);
+    }
+    
+    protected ModelNode(Node parent, boolean nullable, Reference<LazyLoadingListener<Node>> lazyLoadingListenerReference) {
+        super(parent, nullable, lazyLoadingListenerReference);
+    }
+
+    public static ModelNode getInstance(Node parent, boolean nullable, Reference<LazyLoadingListener<Node>> lazyLoadingListenerReference) {
+        return lazyLoadingChecker(new ModelNode(parent, nullable, lazyLoadingListenerReference));
     }
 
     public String getLabel() {
@@ -58,7 +66,7 @@ public class ModelNode extends Node {
 
     public List<RecursiveNode> getRecursive() {
         if (rs == null) {
-            rs = RecursiveNode.createChildren(this, nullable);
+            rs = RecursiveNode.createChildren(this, nullable, null);
         }
         return rs;
     }
@@ -80,6 +88,11 @@ public class ModelNode extends Node {
             return ModelNode.this.getLabel() + "-B-" + number;
         }
     }
+    
+    @Override
+    public String toString() {
+        return getLabel();
+    }
 
     private RecursiveNode getParentRecursive() {
         for (Node predecessor : getPredecessorsFromRoot()) {
@@ -89,4 +102,5 @@ public class ModelNode extends Node {
         }
         return null;
     }
+
 }
