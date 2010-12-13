@@ -71,8 +71,4 @@ public class RichTogglePanelBean implements Serializable {
     public void setAttributes(Attributes attributes) {
         this.attributes = attributes;
     }
-
-    public void itemChangeListener(ItemChangeEvent event) {
-        RichBean.logToPage("* item changed " + event.getOldItem() + " -> " + event.getNewItem());
-    }
 }
