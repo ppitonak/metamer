@@ -54,13 +54,11 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                                noneClass="#{richInplaceInputBean.attributes['noneClass'].value}"
                                onblur="#{richInplaceInputBean.attributes['onblur'].value}"
                                onclick="#{richInplaceInputBean.attributes['onclick'].value}"
+                               onchange="#{richInplaceInputBean.attributes['onclick'].value}"
                                ondblclick="#{richInplaceInputBean.attributes['ondblclick'].value}"
                                onfocus="#{richInplaceInputBean.attributes['onfocus'].value}"
-                               oninputblur="#{richInplaceInputBean.attributes['oninputblur'].value}"
-                               oninputchange="#{richInplaceInputBean.attributes['oninputchange'].value}"
                                oninputclick="#{richInplaceInputBean.attributes['oninputclick'].value}"
                                oninputdblclick="#{richInplaceInputBean.attributes['oninputdblclick'].value}"
-                               oninputfocus="#{richInplaceInputBean.attributes['oninputfocus'].value}"
                                oninputkeydown="#{richInplaceInputBean.attributes['oninputkeydown'].value}"
                                oninputkeypress="#{richInplaceInputBean.attributes['oninputkeypress'].value}"
                                oninputkeyup="#{richInplaceInputBean.attributes['oninputkeyup'].value}"
@@ -85,13 +83,13 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                                saveOnBlur="#{richInplaceInputBean.attributes['saveOnBlur'].value}"
                                showControls="#{richInplaceInputBean.attributes['showControls'].value}"
                                state="#{richInplaceInputBean.attributes['state'].value}"
-                               tabIndex="#{richInplaceInputBean.attributes['tabIndex'].value}"
+                               tabindex="#{richInplaceInputBean.attributes['tabindex'].value}"
                                validatorMessage="#{richInplaceInputBean.attributes['validatorMessage'].value}"
                                value="#{richInplaceInputBean.attributes['value'].value}"
                                valueChangeListener="#{richBean.valueChangeListener}"
                                >
 
-                <a4j:ajax event="inputchange" render="output"/>
+                <a4j:ajax event="change" render="output"/>
 
             </rich:inplaceInput>
 
