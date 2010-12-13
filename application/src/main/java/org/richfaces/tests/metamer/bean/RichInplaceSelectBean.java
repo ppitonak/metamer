@@ -28,7 +28,7 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
-import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ViewScoped;
 import javax.faces.event.ValueChangeEvent;
 import javax.faces.model.SelectItem;
 import org.richfaces.component.UIInplaceSelect;
@@ -45,7 +45,7 @@ import org.slf4j.LoggerFactory;
  * @version $Revision$
  */
 @ManagedBean(name = "richInplaceSelectBean")
-@SessionScoped
+@ViewScoped
 public class RichInplaceSelectBean implements Serializable {
 
     private static final long serialVersionUID = -1L;

@@ -41,10 +41,13 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 
         <ui:define name="component">
             <rich:inplaceSelect id="inplaceSelect"
+                                changedStateClass="#{richInplaceSelectBean.attributes['changedStateClass'].value}"
                                 converterMessage="#{richInplaceSelectBean.attributes['converterMessage'].value}"
                                 defaultLabel="#{richInplaceSelectBean.attributes['defaultLabel'].value}"
+                                disabled="#{richInplaceSelectBean.attributes['disabled'].value}"
+                                disabledStateClass="#{richInplaceSelectBean.attributes['disabledStateClass'].value}"
                                 editEvent="#{richInplaceSelectBean.attributes['editEvent'].value}"
-                                enableManualInput="#{richInplaceSelectBean.attributes['enableManualInput'].value}"
+                                editStateClass="#{richInplaceSelectBean.attributes['editStateClass'].value}"
                                 immediate="#{richInplaceSelectBean.attributes['immediate'].value}"
                                 itemClass="#{richInplaceSelectBean.attributes['itemClass'].value}"
                                 listClass="#{richInplaceSelectBean.attributes['listClass'].value}"
@@ -55,10 +58,8 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                                 onclick="#{richInplaceSelectBean.attributes['onclick'].value}"
                                 ondblclick="#{richInplaceSelectBean.attributes['ondblclick'].value}"
                                 onfocus="#{richInplaceSelectBean.attributes['onfocus'].value}"
-                                oninputblur="#{richInplaceSelectBean.attributes['oninputblur'].value}"
                                 oninputclick="#{richInplaceSelectBean.attributes['oninputclick'].value}"
                                 oninputdblclick="#{richInplaceSelectBean.attributes['oninputdblclick'].value}"
-                                oninputfocus="#{richInplaceSelectBean.attributes['oninputfocus'].value}"
                                 oninputkeydown="#{richInplaceSelectBean.attributes['oninputkeydown'].value}"
                                 oninputkeypress="#{richInplaceSelectBean.attributes['oninputkeypress'].value}"
                                 oninputkeyup="#{richInplaceSelectBean.attributes['oninputkeyup'].value}"
@@ -86,26 +87,26 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                                 onmouseout="#{richInplaceSelectBean.attributes['onmouseout'].value}"
                                 onmouseover="#{richInplaceSelectBean.attributes['onmouseover'].value}"
                                 onmouseup="#{richInplaceSelectBean.attributes['onmouseup'].value}"
-                                onselect="#{richInplaceSelectBean.attributes['onselect'].value}"
+                                onselectitem="#{richInplaceSelectBean.attributes['onselectitem'].value}"
                                 openOnEdit="#{richInplaceSelectBean.attributes['openOnEdit'].value}"
+                                readyStateClass="#{richInplaceSelectBean.attributes['readyStateClass'].value}"
                                 rendered="#{richInplaceSelectBean.attributes['rendered'].value}"
                                 required="#{richInplaceSelectBean.attributes['required'].value}"
                                 requiredMessage="#{richInplaceSelectBean.attributes['requiredMessage'].value}"
                                 saveOnBlur="#{richInplaceSelectBean.attributes['saveOnBlur'].value}"
                                 saveOnSelect="#{richInplaceSelectBean.attributes['saveOnSelect'].value}"
-                                selectFirst="#{richInplaceSelectBean.attributes['selectFirst'].value}"
                                 selectItemClass="#{richInplaceSelectBean.attributes['selectItemClass'].value}"
-                                showButton="#{richInplaceSelectBean.attributes['showButton'].value}"
                                 showControls="#{richInplaceSelectBean.attributes['showControls'].value}"
                                 state="#{richInplaceSelectBean.attributes['state'].value}"
+                                tabindex="#{richInplaceSelectBean.attributes['tabindex'].value}"
                                 validatorMessage="#{richInplaceSelectBean.attributes['validatorMessage'].value}"
                                 value="#{richInplaceSelectBean.attributes['value'].value}"
                                 valueChangeListener="#{richInplaceSelectBean.listener}"
                                 >
 
                 <f:selectItems value="#{richInplaceSelectBean.capitalsOptions}" />
-                <!-- TODO change event to "change" as soon as implemented -->
-                <a4j:ajax event="select" render="output"/>
+
+                <a4j:ajax event="change" render="output"/>
 
             </rich:inplaceSelect>
 
