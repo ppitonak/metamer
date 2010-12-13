@@ -28,12 +28,13 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+
 import org.richfaces.component.UIFileUpload;
-import org.richfaces.event.UploadEvent;
 import org.richfaces.model.UploadedFile;
 import org.richfaces.tests.metamer.Attributes;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.richfaces.event.FileUploadEvent;
 
 /**
  * Managed bean for rich:fileUpload.
@@ -82,7 +83,7 @@ public class RichFileUploadBean implements Serializable {
         return files;
     }
 
-    public void listener(UploadEvent event) {
+    public void listener(FileUploadEvent event) {
         UploadedFile file = event.getUploadedFile();
 
         if (file != null) {
