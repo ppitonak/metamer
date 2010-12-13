@@ -30,8 +30,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import org.richfaces.component.UIFileUpload;
 import org.richfaces.event.UploadEvent;
-import org.richfaces.model.UploadItem;
-
+import org.richfaces.model.UploadedFile;
 import org.richfaces.tests.metamer.Attributes;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -49,7 +48,7 @@ public class RichFileUploadBean implements Serializable {
     private static final long serialVersionUID = -1L;
     private static Logger logger;
     private Attributes attributes;
-    private List<UploadItem> items;
+    private List<UploadedFile> files;
 
     /**
      * Initializes the managed bean.
@@ -58,7 +57,7 @@ public class RichFileUploadBean implements Serializable {
     public void init() {
         logger = LoggerFactory.getLogger(getClass());
         logger.debug("initializing bean " + getClass().getName());
-        items = new ArrayList<UploadItem>();
+        files = new ArrayList<UploadedFile>();
 
         attributes = Attributes.getUIComponentAttributes(UIFileUpload.class, getClass(), false);
 
@@ -79,21 +78,20 @@ public class RichFileUploadBean implements Serializable {
         this.attributes = attributes;
     }
 
-    public List<UploadItem> getItems() {
-        return items;
+    public List<UploadedFile> getItems() {
+        return files;
     }
 
     public void listener(UploadEvent event) {
-        UploadItem item = event.getUploadItem();
+        UploadedFile file = event.getUploadedFile();
 
-        if (item != null) {
-            items.add(item);
-            item.getFile().delete();
+        if (file != null) {
+            files.add(file);
         }
     }
 
     public String clearUploadedData() {
-        items.clear();
+        files.clear();
         return null;
     }
 }
