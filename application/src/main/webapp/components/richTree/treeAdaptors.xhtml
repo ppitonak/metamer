@@ -77,7 +77,6 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
             		roots="#{richTreeModelRecursiveAdaptorBean.rootNodes}"
             		nodes="#{node.recursive}"
             		recursionOrder="#{richTreeModelRecursiveAdaptorBean.attributes['recursionOrder'].value}"
-            		rendered="#{richTreeModelRecursiveAdaptorBean.attributes['rendered'].value}"
             		>
             		
             		<rich:treeNode rendered="#{node.class.simpleName != 'RecursiveNode' || node.number != 1 || richTreeNodeBean.attributes['rendered'].value}">
@@ -92,13 +91,13 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 	           			</rich:treeNode>
 	           		</rich:treeModelAdaptor>-->
 	           		
-	           		<rich:treeModelAdaptor nodes="#{node.model.list}">
+	           		<rich:treeModelAdaptor nodes="#{node.model.list}" rendered="#{richTreeModelAdaptorBean.attributes['rendered'].value}">
 	           			<rich:treeNode>
 	           				#{node.label}
            				</rich:treeNode>
            			</rich:treeModelAdaptor>
            			
-           			<rich:treeModelRecursiveAdaptor roots="#{node.model.recursive}" nodes="#{node.recursive}">
+           			<rich:treeModelRecursiveAdaptor roots="#{node.model.recursive}" nodes="#{node.recursive}" rendered="#{richTreeModelRecursiveAdaptorBean.attributes['rendered'].value}">
 	           			<rich:treeNode rendered="#{richTreeNodeBean.attributes['rendered'].value || node.number != 1}">
 	           				#{node.label}
            				</rich:treeNode>
@@ -114,21 +113,32 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
         		<h:outputLabel value="Selection: " />
         		<h:outputText value="#{richTreeBean.selection}" />
         	</a4j:outputPanel>
-        	
+       	
         	<fieldset>
         		<legend>rich:tree</legend>
-        		<metamer:attributes value="#{richTreeBean.attributes}" id="treeAttributes" />
+        		
+        		<fieldset>
+	        		<legend>rich:treeModelRecursiveAdaptor [1]</legend>
+	        		
+	        		<fieldset>
+		        		<legend>rich:treeNode</legend>
+		        		<metamer:attributes value="#{richTreeNodeBean.attributes}" id="nodeAttributes" />
+	        		</fieldset>
+	        		
+	        		<fieldset>
+		        		<legend>rich:treeModelAdaptor</legend>
+		        		<metamer:attributes value="#{richTreeModelAdaptorBean.attributes}" id="listAttributes" />
+		        	</fieldset>
+		        		
+					<fieldset>
+		        		<legend>rich:treeModelRecursiveAdaptor [2]</legend>
+		        		<metamer:attributes value="#{richTreeModelRecursiveAdaptorBean.attributes}" id="recursiveAttributes" />
+		        	</fieldset>
+	        	</fieldset>
+	        	
+	        	<metamer:attributes value="#{richTreeBean.attributes}" id="treeAttributes" />
         	</fieldset>
 			
-			<fieldset>
-        		<legend>rich:treeModelRecursiveAdaptor</legend>
-        		<metamer:attributes value="#{richTreeModelRecursiveAdaptorBean.attributes}" id="nodeAttributes" />
-        	</fieldset>
-        	
-			<fieldset>
-        		<legend>rich:treeNode</legend>
-        		<metamer:attributes value="#{richTreeNodeBean.attributes}" id="recursiveAttributes" />
-        	</fieldset>
 		</ui:define>
 
     </ui:composition>

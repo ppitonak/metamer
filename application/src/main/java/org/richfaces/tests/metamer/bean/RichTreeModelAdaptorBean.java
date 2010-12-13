@@ -53,6 +53,7 @@ public class RichTreeModelAdaptorBean implements Serializable {
         logger.debug("initializing bean " + getClass().getName());
 
         attributes = Attributes.getUIComponentAttributes(UITreeModelAdaptor.class, getClass(), false);
+        attributes.setAttribute("rendered", true);
     }
 
     public Attributes getAttributes() {
