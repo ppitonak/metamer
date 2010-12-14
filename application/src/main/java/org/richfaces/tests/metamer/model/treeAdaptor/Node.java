@@ -23,6 +23,7 @@ package org.richfaces.tests.metamer.model.treeAdaptor;
 
 import java.util.Deque;
 import java.util.LinkedList;
+import java.util.concurrent.atomic.AtomicReference;
 
 /**
  * @author <a href="mailto:lfryc@redhat.com">Lukas Fryc</a>
@@ -30,11 +31,12 @@ import java.util.LinkedList;
  */
 public abstract class Node {
     Node parent;
-    boolean nullable;
+    AtomicReference<Boolean> nullable;
 
     Reference<LazyLoadingListener<Node>> lazyLoadingListenerReference = new NodeReference();
 
-    protected Node(Node parent, boolean nullable, Reference<LazyLoadingListener<Node>> lazyLoadingListenerReference) {
+    protected Node(Node parent, AtomicReference<Boolean> nullable,
+        Reference<LazyLoadingListener<Node>> lazyLoadingListenerReference) {
         this.parent = parent;
         this.nullable = nullable;
         if (lazyLoadingListenerReference != null) {
@@ -74,11 +76,11 @@ public abstract class Node {
     }
 
     public abstract String getLabel();
-    
+
     public Reference<LazyLoadingListener<Node>> getLazyLoadingListenerReference() {
         return lazyLoadingListenerReference;
     }
-    
+
     public void setLazyLoadingListener(Reference<LazyLoadingListener<Node>> lazyLoadingListener) {
         this.lazyLoadingListenerReference = lazyLoadingListener;
     }

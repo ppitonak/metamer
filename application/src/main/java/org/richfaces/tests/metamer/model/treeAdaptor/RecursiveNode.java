@@ -21,8 +21,14 @@
  *******************************************************************************/
 package org.richfaces.tests.metamer.model.treeAdaptor;
 
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.concurrent.atomic.AtomicReference;
 
 /**
  * @author <a href="mailto:lfryc@redhat.com">Lukas Fryc</a>
@@ -32,21 +38,25 @@ public class RecursiveNode extends Node {
     private static final int CHILDREN = 4;
     private static final int LEVELS = 2;
     private static final List<RecursiveNode> EMPTY_LIST = new LinkedList<RecursiveNode>();
+    private static final Map<Integer, RecursiveNode> EMPTY_MAP = new HashMap<Integer, RecursiveNode>();
 
     int number;
     List<RecursiveNode> children = null;
+    NodeMap nodeMap = new NodeMap();
     ModelNode model;
 
     public RecursiveNode() {
-        super(null, true, null);
+        super(null, null, null);
     }
-    
-    protected RecursiveNode(Node parent, boolean nullable, int number, Reference<LazyLoadingListener<Node>> lazyLoadingListenerReference) {
+
+    protected RecursiveNode(Node parent, AtomicReference<Boolean> nullable, int number,
+        Reference<LazyLoadingListener<Node>> lazyLoadingListenerReference) {
         super(parent, nullable, lazyLoadingListenerReference);
         this.number = number;
     }
 
-    public static RecursiveNode getInstance(Node parent, boolean nullable, int number, Reference<LazyLoadingListener<Node>> lazyLoadingListenerReference) {
+    public static RecursiveNode getInstance(Node parent, AtomicReference<Boolean> nullable, int number,
+        Reference<LazyLoadingListener<Node>> lazyLoadingListenerReference) {
         return lazyLoadingChecker(new RecursiveNode(parent, nullable, number, lazyLoadingListenerReference));
     }
 
@@ -58,9 +68,9 @@ public class RecursiveNode extends Node {
         return getRecursionLevel() >= LEVELS + (isOddBranch() ? 0 : 1);
     }
 
-    public List<RecursiveNode> getRecursive() {
+    public List<RecursiveNode> getRecursiveList() {
         if (isLeaf()) {
-            return getEmpty();
+            return getEmptyList();
         }
         if (children == null) {
             children = createChildren(this, nullable, null);
@@ -68,8 +78,19 @@ public class RecursiveNode extends Node {
         return children;
     }
 
-    private List<RecursiveNode> getEmpty() {
-        return nullable ? null : EMPTY_LIST;
+    public Map<Integer, RecursiveNode> getRecursiveMap() {
+        if (isLeaf()) {
+            return getEmptyMap();
+        }
+        return nodeMap;
+    }
+
+    private List<RecursiveNode> getEmptyList() {
+        return nullable.get() ? null : EMPTY_LIST;
+    }
+
+    private Map<Integer, RecursiveNode> getEmptyMap() {
+        return nullable.get() ? null : EMPTY_MAP;
     }
 
     public String getLabel() {
@@ -100,7 +121,8 @@ public class RecursiveNode extends Node {
         }
     }
 
-    public static List<RecursiveNode> createChildren(Node parent, boolean nullable, Reference<LazyLoadingListener<Node>> lazyLoadingListenerReference) {
+    public static List<RecursiveNode> createChildren(Node parent, AtomicReference<Boolean> nullable,
+        Reference<LazyLoadingListener<Node>> lazyLoadingListenerReference) {
         List<RecursiveNode> children = new LinkedList<RecursiveNode>();
         for (int i = 0; i < CHILDREN; i++) {
             RecursiveNode node = RecursiveNode.getInstance(parent, nullable, i, lazyLoadingListenerReference);
@@ -130,5 +152,108 @@ public class RecursiveNode extends Node {
     @Override
     public String toString() {
         return getLabel();
+    }
+
+    public class NodeMap implements Map<Integer, RecursiveNode> {
+
+        @Override
+        public int size() {
+            return getRecursiveList().size();
+        }
+
+        @Override
+        public boolean isEmpty() {
+            return getRecursiveList().isEmpty();
+        }
+
+        @Override
+        public boolean containsKey(Object key) {
+            throw new UnsupportedOperationException("not implemented");
+        }
+
+        @Override
+        public boolean containsValue(Object value) {
+            throw new UnsupportedOperationException("not implemented");
+        }
+
+        @Override
+        public RecursiveNode get(Object key) {
+            if (key instanceof Integer) {
+                return getRecursiveList().get((Integer) key);
+            }
+            throw new IllegalStateException("there is no value for the key '" + key + "' (type "
+                + key.getClass().getName() + ")");
+        }
+
+        @Override
+        public RecursiveNode put(Integer key, RecursiveNode value) {
+            throw new UnsupportedOperationException("not supported");
+        }
+
+        @Override
+        public RecursiveNode remove(Object key) {
+            throw new UnsupportedOperationException("not supported");
+        }
+
+        @Override
+        public void putAll(Map<? extends Integer, ? extends RecursiveNode> m) {
+            throw new UnsupportedOperationException("not supported");
+        }
+
+        @Override
+        public void clear() {
+            throw new UnsupportedOperationException("not supported");
+        }
+
+        @Override
+        public Set<Integer> keySet() {
+            HashSet<Integer> set = new HashSet<Integer>();
+            for (int i = 0; i < getRecursiveList().size(); i++) {
+                set.add(i);
+            }
+            return set;
+        }
+
+        @Override
+        public Collection<RecursiveNode> values() {
+            return getRecursiveList();
+        }
+
+        @Override
+        public Set<java.util.Map.Entry<Integer, RecursiveNode>> entrySet() {
+            HashSet<Map.Entry<Integer, RecursiveNode>> set = new HashSet<Map.Entry<Integer, RecursiveNode>>();
+            int i = 0;
+            for (RecursiveNode node : getRecursiveList()) {
+                set.add(new MapEntry(i++, node));
+            }
+            return set;
+        }
+
+    }
+
+    public class MapEntry implements Map.Entry<Integer, RecursiveNode> {
+
+        int key;
+        RecursiveNode node;
+
+        public MapEntry(int key, RecursiveNode node) {
+            this.key = key;
+            this.node = node;
+        }
+
+        @Override
+        public Integer getKey() {
+            return key;
+        }
+
+        @Override
+        public RecursiveNode getValue() {
+            return node;
+        }
+
+        @Override
+        public RecursiveNode setValue(RecursiveNode value) {
+            throw new UnsupportedOperationException("not supported");
+        }
     }
 }

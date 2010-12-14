@@ -21,8 +21,11 @@
  *******************************************************************************/
 package org.richfaces.tests.metamer.model.treeAdaptor;
 
+import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
+import java.util.concurrent.atomic.AtomicReference;
 
 /**
  * @author <a href="mailto:lfryc@redhat.com">Lukas Fryc</a>
@@ -31,18 +34,22 @@ import java.util.List;
 public class ModelNode extends Node {
 
     private static final int BS = 3;
+    private static final int KS = 4;
     List<B> bs;
+    Map<K, V> map;
     List<RecursiveNode> rs;
 
     public ModelNode() {
-        super(null, true, null);
+        super(null, null, null);
     }
-    
-    protected ModelNode(Node parent, boolean nullable, Reference<LazyLoadingListener<Node>> lazyLoadingListenerReference) {
+
+    protected ModelNode(Node parent, AtomicReference<Boolean> nullable,
+        Reference<LazyLoadingListener<Node>> lazyLoadingListenerReference) {
         super(parent, nullable, lazyLoadingListenerReference);
     }
 
-    public static ModelNode getInstance(Node parent, boolean nullable, Reference<LazyLoadingListener<Node>> lazyLoadingListenerReference) {
+    public static ModelNode getInstance(Node parent, AtomicReference<Boolean> nullable,
+        Reference<LazyLoadingListener<Node>> lazyLoadingListenerReference) {
         return lazyLoadingChecker(new ModelNode(parent, nullable, lazyLoadingListenerReference));
     }
 
@@ -62,6 +69,16 @@ public class ModelNode extends Node {
             }
         }
         return bs;
+    }
+
+    public Map<K, V> getMap() {
+        if (map == null) {
+            map = new LinkedHashMap<K, V>();
+            for (int i = 0; i < KS; i++) {
+                map.put(new K(i), new V(i));
+            }
+        }
+        return map;
     }
 
     public List<RecursiveNode> getRecursive() {
@@ -88,19 +105,33 @@ public class ModelNode extends Node {
             return ModelNode.this.getLabel() + "-B-" + number;
         }
     }
-    
+
+    public class K {
+        int number;
+
+        public K(int number) {
+            this.number = number;
+        }
+
+        public String getLabel() {
+            return ModelNode.this.getLabel() + "-K-" + number;
+        }
+    }
+
+    public class V {
+        int number;
+
+        public V(int number) {
+            this.number = number;
+        }
+
+        public String getLabel() {
+            return ModelNode.this.getLabel() + "-V-" + number;
+        }
+    }
+
     @Override
     public String toString() {
         return getLabel();
     }
-
-    private RecursiveNode getParentRecursive() {
-        for (Node predecessor : getPredecessorsFromRoot()) {
-            if (predecessor instanceof RecursiveNode) {
-                return (RecursiveNode) predecessor;
-            }
-        }
-        return null;
-    }
-
 }

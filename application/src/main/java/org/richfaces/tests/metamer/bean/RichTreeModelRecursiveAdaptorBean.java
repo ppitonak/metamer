@@ -25,6 +25,7 @@ import java.io.Serializable;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.concurrent.atomic.AtomicReference;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
@@ -50,7 +51,8 @@ public class RichTreeModelRecursiveAdaptorBean implements Serializable {
     private static final long serialVersionUID = 4008175400649809L;
     private static Logger logger;
     private Attributes attributes;
-    private boolean leafChildrenNullable = true;
+    private AtomicReference<Boolean> leafChildrenNullable = new AtomicReference<Boolean>(true);
+    private boolean useMapModel;
     private transient List<RecursiveNode> rootNodes;
 
     /*
@@ -103,10 +105,18 @@ public class RichTreeModelRecursiveAdaptorBean implements Serializable {
     }
 
     public boolean isLeafChildrenNullable() {
-        return leafChildrenNullable;
+        return leafChildrenNullable.get();
     }
 
     public void setLeafChildrenNullable(boolean leafChildrenNullable) {
-        this.leafChildrenNullable = leafChildrenNullable;
+        this.leafChildrenNullable.set(leafChildrenNullable);
+    }
+    
+    public boolean isUseMapModel() {
+        return useMapModel;
+    }
+    
+    public void setUseMapModel(boolean useMapModel) {
+        this.useMapModel = useMapModel;
     }
 }
