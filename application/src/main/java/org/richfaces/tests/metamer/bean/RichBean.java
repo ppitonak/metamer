@@ -36,6 +36,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
+import javax.faces.event.AjaxBehaviorEvent;
 import javax.faces.event.ValueChangeEvent;
 import javax.faces.model.SelectItem;
 import javax.servlet.http.HttpSession;
@@ -138,6 +139,7 @@ public class RichBean implements Serializable {
         components.put("richJQuery", "Rich jQuery");
         components.put("richList", "Rich List");
         components.put("richMenuGroup", "Rich Menu Group");
+        components.put("richMenuItem", "Rich Menu Item");
         components.put("richPanel", "Rich Panel");
         components.put("richPanelMenu", "Rich Panel Menu");
         components.put("richPopupPanel", "Rich Popup Panel");
@@ -380,6 +382,16 @@ public class RichBean implements Serializable {
     }
 
     /**
+     * An action listener that does nothing.
+     *
+     * @param event
+     *            an event representing the activation of a user interface component (not used)
+     */
+    public void actionListener(AjaxBehaviorEvent event) {
+        logToPage("* action listener invoked");
+    }
+
+    /**
      * An item change listener that logs to the page old and new value.
      *
      * @param event
@@ -396,6 +408,6 @@ public class RichBean implements Serializable {
      *            an event representing the activation of a user interface component
      */
     public void valueChangeListener(ValueChangeEvent event) {
-        RichBean.logToPage("* value changed: " + event.getOldValue() + " -> " + event.getNewValue());
+        logToPage("* value changed: " + event.getOldValue() + " -> " + event.getNewValue());
     }
 }
