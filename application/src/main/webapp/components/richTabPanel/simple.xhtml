@@ -2,7 +2,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
       xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:metamer="http://java.sun.com/jsf/composite/metamer"
-      xmlns:rich="http://richfaces.org/rich" xmlns:a4j="http://richfaces.org/a4j">
+      xmlns:rich="http://richfaces.org/rich" >
 
     <!--
 JBoss, Home of Professional Open Source
@@ -48,15 +48,11 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                            dir="#{richTabPanelBean.attributes['dir'].value}"
                            disableImplicitRender="#{richTabPanelBean.attributes['disableImplicitRender'].value}"
                            execute="#{richTabPanelBean.attributes['execute'].value}"
-                           firstItem="#{richTabPanelBean.attributes['firstItem'].value}"
                            headerAlignment="#{richTabPanelBean.attributes['headerAlignment'].value}"
                            headerPosition="#{richTabPanelBean.attributes['headerPosition'].value}"
                            immediate="#{richTabPanelBean.attributes['immediate'].value}"
-                           itemByIndex="#{richTabPanelBean.attributes['itemByIndex'].value}"
                            itemChangeListener="#{richBean.itemChangeListener}"
                            lang="#{richTabPanelBean.attributes['lang'].value}"
-                           lastItem="#{richTabPanelBean.attributes['lastItem'].value}"
-                           nextItem="#{richTabPanelBean.attributes['nextItem'].value}"
                            onbeforeitemchange="#{richTabPanelBean.attributes['onbeforeitemchange'].value}"
                            onclick="#{richTabPanelBean.attributes['onclick'].value}"
                            ondblclick="#{richTabPanelBean.attributes['ondblclick'].value}"
@@ -66,25 +62,13 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                            onmouseout="#{richTabPanelBean.attributes['onmouseout'].value}"
                            onmouseover="#{richTabPanelBean.attributes['onmouseover'].value}"
                            onmouseup="#{richTabPanelBean.attributes['onmouseup'].value}"
-                           prevItem="#{richTabPanelBean.attributes['prevItem'].value}"
                            render="#{richTabPanelBean.attributes['render'].value}"
                            rendered="#{richTabPanelBean.attributes['rendered'].value}"
-                           renderedItems="#{richTabPanelBean.attributes['renderedItems'].value}"
-                           required="#{richTabPanelBean.attributes['required'].value}"
                            status="#{richTabPanelBean.attributes['status'].value}"
                            style="#{richTabPanelBean.attributes['style'].value}"
                            styleClass="#{richTabPanelBean.attributes['styleClass'].value}"
-                           submittedActiveItem="#{richTabPanelBean.attributes['submittedActiveItem'].value}"
-                           submittedValue="#{richTabPanelBean.attributes['submittedValue'].value}"
                            switchType="#{richTabPanelBean.attributes['switchType'].value}"
                            tabContentClass="#{richTabPanelBean.attributes['tabContentClass'].value}"
-                           tabHeaderClass="#{richTabPanelBean.attributes['tabHeaderClass'].value}"
-                           tabHeaderClassActive="#{richTabPanelBean.attributes['tabHeaderClassActive'].value}"
-                           tabHeaderClassDisabled="#{richTabPanelBean.attributes['tabHeaderClassDisabled'].value}"
-                           tabHeaderClassInactive="#{richTabPanelBean.attributes['tabHeaderClassInactive'].value}"
-                           title="#{richTabPanelBean.attributes['title'].value}"
-                           valid="#{richTabPanelBean.attributes['valid'].value}"
-                           value="#{richTabPanelBean.attributes['value'].value}"
                            >
                 
                 <rich:tab id="tab1" name="tab1" header="tab1 header">
