@@ -41,14 +41,39 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
         </ui:define>
 
         <ui:define name="component">
-            <rich:tree id="tree"
+        
+            <rich:tree id="richTree"
             	nodeType="#{node.type}"
             	var="node"
 				value="#{richTreeBean.root}"
 				
-				toggleType="#{richTreeBean.attributes['toggleType'].value}"
-				selectionType="#{richTreeBean.attributes['selectionType'].value}"
-				rendered="#{richTreeBean.attributes['rendered'].value}">
+				dir="#{richTreeBean.attributes['dir'].value}"
+            	lang="#{richTreeBean.attributes['lang'].value}"
+            	onbeforedomupdate="#{richTreeBean.attributes['onbeforedomupdate'].value}"
+            	onbeforenodetoggle="#{richTreeBean.attributes['onbeforenodetoggle'].value}"
+            	onbeforeselectionchange="#{richTreeBean.attributes['onbeforeselectionchange'].value}"
+            	onbegin="#{richTreeBean.attributes['onbegin'].value}"
+            	onclick="#{richTreeBean.attributes['onclick'].value}"
+            	oncomplete="#{richTreeBean.attributes['oncomplete'].value}"
+            	ondblclick="#{richTreeBean.attributes['ondblclick'].value}"
+            	onkeydown="#{richTreeBean.attributes['onkeydown'].value}"
+            	onkeypress="#{richTreeBean.attributes['onkeypress'].value}"
+            	onkeyup="#{richTreeBean.attributes['onkeyup'].value}"
+            	onmousedown="#{richTreeBean.attributes['onmousedown'].value}"
+            	onmousemove="#{richTreeBean.attributes['onmousemove'].value}"
+            	onmouseup="#{richTreeBean.attributes['onmouseup'].value}"
+            	onmouseout="#{richTreeBean.attributes['onmouseout'].value}"
+            	onmouseover="#{richTreeBean.attributes['onmouseover'].value}"
+            	onnodetoggle="#{richTreeBean.attributes['onnodetoggle'].value}"
+            	onselectionchange="#{richTreeBean.attributes['onselectionchange'].value}"
+            	rendered="#{richTreeBean.attributes['rendered'].value}"
+            	selection="#{richTreeBean.selection}"
+            	selectionType="#{richTreeBean.attributes['selectionType'].value}"
+            	style="#{richTreeBean.attributes['style'].value}"
+            	styleClass="#{richTreeBean.attributes['styleClass'].value}"
+            	title="#{richTreeBean.attributes['title'].value}"
+            	toggleType="#{richTreeBean.attributes['toggleType'].value}"
+            	>
 				
 				<rich:treeNode type="country">
 					#{node.name}
