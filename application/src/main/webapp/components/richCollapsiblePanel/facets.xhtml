@@ -53,16 +53,13 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                                    headerClass="#{richCollapsiblePanelBean.attributes['headerClass'].value}"
                                    headerControlClass="#{richCollapsiblePanelBean.attributes['headerControlClass'].value}"
                                    immediate="#{richCollapsiblePanelBean.attributes['immediate'].value}"
-                                   itemChangeListener="#{richCollapsiblePanelBean.attributes['itemChangeListener'].value}"
                                    lang="#{richCollapsiblePanelBean.attributes['lang'].value}"
-                                   limitToList="#{richCollapsiblePanelBean.attributes['limitToList'].value}"
+                                   limitRender="#{richCollapsiblePanelBean.attributes['limitRender'].value}"
                                    onbeforedomupdate="#{richCollapsiblePanelBean.attributes['onbeforedomupdate'].value}"
-                                   onbeforeitemchange="#{richCollapsiblePanelBean.attributes['onbeforeitemchange'].value}"
                                    onbeforeswitch="#{richCollapsiblePanelBean.attributes['onbeforeswitch'].value}"
                                    onclick="#{richCollapsiblePanelBean.attributes['onclick'].value}"
                                    oncomplete="#{richCollapsiblePanelBean.attributes['oncomplete'].value}"
                                    ondblclick="#{richCollapsiblePanelBean.attributes['ondblclick'].value}"
-                                   onitemchange="#{richCollapsiblePanelBean.attributes['onitemchange'].value}"
                                    onmousedown="#{richCollapsiblePanelBean.attributes['onmousedown'].value}"
                                    onmousemove="#{richCollapsiblePanelBean.attributes['onmousemove'].value}"
                                    onmouseout="#{richCollapsiblePanelBean.attributes['onmouseout'].value}"
@@ -76,6 +73,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                                    styleClass="#{richCollapsiblePanelBean.attributes['styleClass'].value}"
                                    switchType="#{richCollapsiblePanelBean.attributes['switchType'].value}"
                                    title="#{richCollapsiblePanelBean.attributes['title'].value}"
+                                   toggleListener="#{richCollapsiblePanelBean.toggleListener}"
                                    >
 
                 <f:facet name="headerExpanded" >
