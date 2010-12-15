@@ -27,7 +27,6 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.event.ActionEvent;
 import org.richfaces.component.UICommandButton;
-import org.richfaces.tests.metamer.Attribute;
 import org.richfaces.tests.metamer.Attributes;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -58,21 +57,15 @@ public class A4JCommandButtonBean implements Serializable {
         logger = LoggerFactory.getLogger(getClass());
         logger.debug("initializing bean " + getClass().getName());
 
-        attributes = Attributes.getUIComponentAttributes(UICommandButton.class, getClass());
+        attributes = Attributes.getUIComponentAttributes(UICommandButton.class, getClass(), false);
 
-        attributes.setAttribute("value", "command button");
-        attributes.setAttribute("rendered", true);
         attributes.setAttribute("action", "first6CharsAction");
         attributes.setAttribute("actionListener", "toUpperCaseActionListener");
+        attributes.setAttribute("disabled", false);
+        attributes.get("disabled").setType(Boolean.class);
         attributes.setAttribute("render", "output1 output2 output3");
-
-        Attribute attr = attributes.get("disabled");
-        if (attr == null) {
-            attr = new Attribute("disabled");
-        }
-        attr.setType(Boolean.class);
-        attributes.put("disabled", attr);
-
+        attributes.setAttribute("rendered", true);
+        attributes.setAttribute("value", "command button");
     }
 
     /**

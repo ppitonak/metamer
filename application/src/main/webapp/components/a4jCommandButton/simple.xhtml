@@ -50,10 +50,15 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                                    action="#{a4jButtonBean.attributes.action}"
                                    actionListener="#{a4jButtonBean.attributes.actionListener}"
                                    bypassUpdates="#{a4jButtonBean.attributes['bypassUpdates'].value}"
+                                   data="#{a4jButtonBean.attributes['data'].value}"
                                    disabled="#{a4jButtonBean.attributes['disabled'].value}"
+                                   execute="#{a4jButtonBean.attributes['execute'].value}"
                                    immediate="#{a4jButtonBean.attributes['immediate'].value}"
                                    limitRender="#{a4jButtonBean.attributes['limitRender'].value}"
+                                   onbeforedomupdate="#{a4jButtonBean.attributes['onbeforedomupdate'].value}"
+                                   onbegin="#{a4jButtonBean.attributes['onbegin'].value}"
                                    onclick="#{a4jButtonBean.attributes['onclick'].value}"
+                                   oncomplete="#{a4jButtonBean.attributes['oncomplete'].value}"
                                    ondblclick="#{a4jButtonBean.attributes['ondblclick'].value}"
                                    onkeydown="#{a4jButtonBean.attributes['onkeydown'].value}"
                                    onkeypress="#{a4jButtonBean.attributes['onkeypress'].value}"
@@ -65,10 +70,13 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                                    onmouseup="#{a4jButtonBean.attributes['onmouseup'].value}"
                                    render="#{a4jButtonBean.attributes['render'].value}"
                                    rendered="#{a4jButtonBean.attributes['rendered'].value}"
+                                   status="#{a4jButtonBean.attributes['status'].value}"
                                    style="#{a4jButtonBean.attributes['style'].value}"
                                    styleClass="#{a4jButtonBean.attributes['styleClass'].value}"
+                                   title="#{a4jButtonBean.attributes['title'].value}"
+                                   type="#{a4jButtonBean.attributes['type'].value}"
                                    value="#{a4jButtonBean.attributes['value'].value}"
-                                   execute="@form" />
+                                   />
             </h:panelGrid>
 
             <h:panelGrid id="outputs" columns="2">
