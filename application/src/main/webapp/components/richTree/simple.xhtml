@@ -27,12 +27,14 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
     -->
 
     <ui:composition template="/templates/template.xhtml">
+    	<ui:param name="componentId" value="richTree" />
 
         <ui:define name="head">
             <f:metadata>
                 <f:viewParam name="templates" value="#{templateBean.templates}">
                     <f:converter converterId="templatesListConverter" />
                 </f:viewParam>
+                <f:event type="preRenderView" listener="#{richTreeBean.preRenderView}" />
             </f:metadata>
 
         </ui:define>
@@ -85,6 +87,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 	            	nodeClass="#{richTreeBean.attributes['nodeClass'].value}"
 	            	selectionChangeListener="#{richTreeListenerBean.processSelectionChange}"
 					toggleListener="#{richTreeListenerBean.processToggle}"
+					render="@this treeInfo"
 	            	>
 					
 					<rich:treeNode type="country"
@@ -97,6 +100,9 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 		            	labelClass="#{richTreeNodeBean.attributes[0]['labelClass'].value}"
 		            	styleClass="#{richTreeNodeBean.attributes[0]['styleClass'].value}"
 						>
+						<f:facet name="loading">
+							<h:graphicImage value="/resources/images/loading.gif" rendered="#{richTreeBean.testLoadingFacet}" />
+						</f:facet>
 						#{node.name}
 					</rich:treeNode>
 					
@@ -111,6 +117,10 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 		            	labelClass="#{richTreeNodeBean.attributes[1]['labelClass'].value}"
 		            	styleClass="#{richTreeNodeBean.attributes[1]['styleClass'].value}"
 						>
+						<f:facet name="loading">
+							<h:graphicImage value="/resources/images/loading.gif" rendered="#{richTreeBean.testLoadingFacet}" />
+						</f:facet>
+						
 						#{node.name}
 					</rich:treeNode>
 					
@@ -181,8 +191,20 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
         </ui:define>
 
         <ui:define name="outOfTemplateAfter">
-        	<a4j:outputPanel ajaxRendered="true">
-	        	<h:panelGrid id="selectionOutput" columns="2">
+        	
+        	
+        	<a4j:outputPanel id="treeInfo">
+	        	<h:panelGrid columns="2">
+	        		<h:outputLabel value="Test Loading Facet:" />
+	        		<h:selectBooleanCheckbox value="#{richTreeBean.testLoadingFacet}">
+		        		<a4j:ajax render="#{nestedComponentId}" />
+		        	</h:selectBooleanCheckbox>
+		        	
+		        	<h:outputLabel value="Delayed Render (1sec):" />
+	        		<h:selectBooleanCheckbox value="#{richTreeBean.delayedRender}">
+		        		<a4j:ajax />
+		        	</h:selectBooleanCheckbox>
+        	
 	        		<h:outputLabel value="Selection:" />
 	        		<h:outputText value="#{richTreeBean.selection}" />
 	        		

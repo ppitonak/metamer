@@ -33,6 +33,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                 <f:viewParam name="templates" value="#{templateBean.templates}">
                     <f:converter converterId="templatesListConverter" />
                 </f:viewParam>
+                <f:event type="preRenderView" listener="#{richTreeBean.preRenderView}" />
             </f:metadata>
 
         </ui:define>
@@ -97,7 +98,9 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 		            	iconClass="#{richTreeNodeBean.attributes[0]['iconClass'].value}"
 		            	labelClass="#{richTreeNodeBean.attributes[0]['labelClass'].value}"
 		            	styleClass="#{richTreeNodeBean.attributes[0]['styleClass'].value}">
-		            	
+		            	<f:facet name="loading">
+							<h:graphicImage value="/resources/images/loading.gif" rendered="#{richTreeBean.testLoadingFacet}" />
+						</f:facet>
 	           			<a4j:outputPanel id="panel">
 	           				#{node.label}
 	           			</a4j:outputPanel>
@@ -134,6 +137,9 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 			            	labelClass="#{richTreeNodeBean.attributes[1]['labelClass'].value}"
 			            	styleClass="#{richTreeNodeBean.attributes[1]['styleClass'].value}"
 	           				>
+	           				<f:facet name="loading">
+								<h:graphicImage value="/resources/images/loading.gif" rendered="#{richTreeBean.testLoadingFacet}" />
+							</f:facet>
 	           				#{node.label}
            				</rich:treeNode>
            			</rich:treeModelRecursiveAdaptor>
@@ -146,6 +152,15 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
         
         	<a4j:outputPanel ajaxRendered="true">
 	        	<h:panelGrid id="selectionOutput" columns="2">
+	        		<h:outputLabel value="Test Loading Facet:" />
+	        		<h:selectBooleanCheckbox value="#{richTreeBean.testLoadingFacet}">
+		        		<a4j:ajax render="#{nestedComponentId}" />
+		        	</h:selectBooleanCheckbox>
+		        	
+		        	<h:outputLabel value="Delayed Render (1sec):" />
+	        		<h:selectBooleanCheckbox value="#{richTreeBean.delayedRender}">
+		        		<a4j:ajax />
+		        	</h:selectBooleanCheckbox>
 	        	
 	        		<h:outputLabel value="Recursive Leaf Children Nullable:" />
 	        		<h:selectBooleanCheckbox value="#{richTreeModelRecursiveAdaptorBean.leafChildrenNullable}">

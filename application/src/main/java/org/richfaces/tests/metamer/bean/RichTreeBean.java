@@ -32,6 +32,7 @@ import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
+import javax.faces.event.ComponentSystemEvent;
 import javax.swing.tree.TreeNode;
 
 import org.richfaces.component.UITree;
@@ -63,6 +64,9 @@ public class RichTreeBean implements Serializable {
     private Map<String, Country> countriesCache = new HashMap<String, Country>();
     private Map<String, Company> companiesCache = new HashMap<String, Company>();
 
+    private boolean testLoadingFacet = false;
+    private boolean delayedRender = false;
+
     /**
      * Initializes the managed bean.
      */
@@ -75,7 +79,7 @@ public class RichTreeBean implements Serializable {
         attributes.get("rendered").setValue(true);
         attributes.get("toggleType").setValue("ajax");
         attributes.get("selectionType").setValue("ajax");
-        
+
         // FIXME attributes not in taglib
         attributes.setAttribute("iconLeaf", null);
         attributes.setAttribute("iconExpanded", null);
@@ -143,6 +147,7 @@ public class RichTreeBean implements Serializable {
     }
 
     public List<TreeNode> getRoot() {
+        
         return root;
     }
 
@@ -152,5 +157,31 @@ public class RichTreeBean implements Serializable {
 
     public void setSelection(Collection<Object> selection) {
         this.selection = selection;
+    }
+
+    public boolean isTestLoadingFacet() {
+        return testLoadingFacet;
+    }
+
+    public void setTestLoadingFacet(boolean testLoadingFacet) {
+        this.testLoadingFacet = testLoadingFacet;
+    }
+    
+    public boolean isDelayedRender() {
+        return delayedRender;
+    }
+    
+    public void setDelayedRender(boolean delayedRender) {
+        this.delayedRender = delayedRender;
+    }
+    
+    public void preRenderView(ComponentSystemEvent event) {
+        if (delayedRender) {
+            try {
+                Thread.sleep(1000);
+            } catch (Exception e) {
+                throw new IllegalStateException();
+            }
+        }
     }
 }
