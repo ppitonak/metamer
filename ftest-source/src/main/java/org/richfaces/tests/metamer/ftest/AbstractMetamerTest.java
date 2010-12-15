@@ -32,11 +32,15 @@ import static org.testng.Assert.assertTrue;
 
 import java.net.URL;
 import java.util.Locale;
+import java.util.Random;
+import java.util.Set;
 
 import javax.faces.event.PhaseId;
 
 import org.apache.commons.lang.LocaleUtils;
 import org.jboss.test.selenium.AbstractTestCase;
+import org.jboss.test.selenium.cookie.Cookie;
+import org.jboss.test.selenium.cookie.DeleteCookieOptions;
 import org.jboss.test.selenium.dom.Event;
 import org.jboss.test.selenium.encapsulated.JavaScript;
 import org.jboss.test.selenium.locator.Attribute;
@@ -85,7 +89,7 @@ public abstract class AbstractMetamerTest extends AbstractTestCase {
     @BeforeMethod(alwaysRun = true)
     public void loadPage(Object[] templates) {
         if (selenium == null) {
-            new SkipException("selenium isn't initialized");
+            throw new SkipException("selenium isn't initialized");
         }
         selenium.open(buildUrl(getTestUrl() + "?templates=" + template.toString()));
         selenium.waitForPageToLoad(TIMEOUT);
@@ -97,6 +101,16 @@ public abstract class AbstractMetamerTest extends AbstractTestCase {
     @AfterMethod(alwaysRun = true)
     public void invalidateSession() {
         selenium.deleteAllVisibleCookies();
+
+        // TODO slow and unreliable solution
+        selenium.open(contextPath);
+        selenium.waitForPageToLoad(TIMEOUT);
+        JQueryLocator button = jq("input[id$=invalidateSessionButton]");
+
+        if (selenium.isElementPresent(button)) {
+            selenium.click(button);
+            selenium.waitForPageToLoad(TIMEOUT);
+        }
     }
 
     /**
@@ -113,14 +127,14 @@ public abstract class AbstractMetamerTest extends AbstractTestCase {
             e.printStackTrace();
         }
     }
-    
+
     /**
      * Do a full page refresh (regular HTTP request) by triggering a command with no action bound.
      */
     public void fullPageRefresh() {
         guardHttp(selenium).click(id("controlsForm:fullPageRefreshImage"));
     }
-    
+
     /**
      * Rerender all content of the page (AJAX request) by trigerring a command with no action but render bound.
      */
@@ -178,7 +192,7 @@ public abstract class AbstractMetamerTest extends AbstractTestCase {
         waitGui.failWith("Attribute on" + attributeName + " does not work correctly").until(
                 new EventFiredCondition(event));
     }
-    
+
     /**
      * Returns the locale of the tested page
      * @return the locale of the tested page

@@ -59,10 +59,11 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                             action="#{a4jJSFunctionBean.attributes.action}"
                             actionListener="#{a4jJSFunctionBean.attributes.actionListener}"
                             bypassUpdates="#{a4jJSFunctionBean.attributes['bypassUpdates'].value}"
+                            data="#{a4jJSFunctionBean.attributes['data'].value}"
                             execute="#{a4jJSFunctionBean.attributes['execute'].value}"
                             immediate="#{a4jJSFunctionBean.attributes['immediate'].value}"
                             limitRender="#{a4jJSFunctionBean.attributes['limitRender'].value}"
-                            name="metamerFunction"
+                            name="#{a4jJSFunctionBean.attributes['name'].value}"
                             onbeforedomupdate="#{a4jJSFunctionBean.attributes['onbeforedomupdate'].value}"
                             onbegin="#{a4jJSFunctionBean.attributes['onbegin'].value}"
                             oncomplete="#{a4jJSFunctionBean.attributes['oncomplete'].value}"
@@ -74,7 +75,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
             </a4j:jsFunction>
 
             <br/>
-            <a id="callFunctionLink" href="#" onclick="javascript:metamerFunction()">Call JavaScript function</a>
+            <a id="callFunctionLink" href="#" onclick="javascript:#{a4jJSFunctionBean.attributes['name'].value}()">Call JavaScript function (#{a4jJSFunctionBean.attributes['name'].value})</a>
         </ui:define>
 
         <ui:define name="outOfTemplateAfter">

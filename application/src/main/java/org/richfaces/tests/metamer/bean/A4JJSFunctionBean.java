@@ -60,15 +60,11 @@ public class A4JJSFunctionBean implements Serializable {
         logger.debug("initializing bean " + getClass().getName());
         year = Integer.parseInt(new SimpleDateFormat("yyyy").format(new Date()));
 
-        // initialize attributes
-        attributes = Attributes.getUIComponentAttributes(UIFunction.class, getClass());
+        attributes = Attributes.getUIComponentAttributes(UIFunction.class, getClass(), false);
 
-        attributes.setAttribute("execute", "@form");
+        attributes.setAttribute("name", "metamerFunction");
         attributes.setAttribute("render", "time1, time2, year");
         attributes.setAttribute("rendered", true);
-
-        // TODO has to be tested in other way
-        attributes.remove("name");
     }
 
     public Attributes getAttributes() {
@@ -78,7 +74,7 @@ public class A4JJSFunctionBean implements Serializable {
     public void setAttributes(Attributes attributes) {
         this.attributes = attributes;
     }
-    
+
     public int getYear() {
         return year;
     }
