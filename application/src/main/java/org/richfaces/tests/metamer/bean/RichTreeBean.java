@@ -90,6 +90,7 @@ public class RichTreeBean implements Serializable {
         attributes.setAttribute("nodeClass", null);
         attributes.setAttribute("execute", null);
         attributes.setAttribute("render", null);
+        attributes.setAttribute("toggleNodeEvent", null);
 
         // hidden attributes
         attributes.remove("selectionChangeListener");
