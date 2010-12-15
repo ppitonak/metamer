@@ -60,4 +60,8 @@ public class Country extends NamedNode implements TreeNode, Serializable {
         return companies;
     }
 
+    @Override
+    public String toString() {
+        return "Country [name=" + name + "]";
+    }
 }

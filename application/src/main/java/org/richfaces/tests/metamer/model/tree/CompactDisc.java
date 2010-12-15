@@ -97,4 +97,9 @@ public class CompactDisc extends NamedNode implements TreeNode, Serializable {
     public void setYear(int year) {
         this.year = year;
     }
+
+    @Override
+    public String toString() {
+        return "CompactDisc [artist=" + artist + ", title=" + title + "]";
+    }
 }

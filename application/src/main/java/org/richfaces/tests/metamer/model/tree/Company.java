@@ -74,4 +74,8 @@ public class Company extends NamedNode implements TreeNode, Serializable {
         return compactDiscs;
     }
 
+    @Override
+    public String toString() {
+        return "Company [name=" + name + "]";
+    }
 }
