@@ -22,13 +22,11 @@
 package org.richfaces.tests.metamer.bean;
 
 import java.io.Serializable;
-
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import org.richfaces.component.UICollapsiblePanel;
-import org.richfaces.event.ToggleEvent;
-
+import org.richfaces.event.PanelToggleEvent;
 import org.richfaces.tests.metamer.Attributes;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -77,11 +75,7 @@ public class RichCollapsiblePanelBean implements Serializable {
         this.attributes = attributes;
     }
 
-    public void panelToggleListener(ToggleEvent event) {
-        RichBean.logToPage("* panel " + (event.isExpanded() ? "expanded" : "collapsed"));
-    }
-
-    public void toggleListener() {
-        RichBean.logToPage("* toggle listener");
+    public void toggleListener(PanelToggleEvent event) {
+        RichBean.logToPage("* panel " + (event.getExpanded() ? "expanded" : "collapsed"));
     }
 }
