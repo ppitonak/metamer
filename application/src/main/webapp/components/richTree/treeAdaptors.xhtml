@@ -27,6 +27,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
     -->
 
     <ui:composition template="/templates/template.xhtml">
+    	<ui:param name="componentId" value="richTree" />
 
         <ui:define name="head">
             <f:metadata>
@@ -80,8 +81,10 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
             	labelClass="#{richTreeBean.attributes['labelClass'].value}"
             	nodeClass="#{richTreeBean.attributes['nodeClass'].value}"
             	selectionChangeListener="#{richTreeListenerBean.processSelectionChange}"
-				toggleListener="#{richTreeListenerBean.processToggle}">
-            	>	
+				toggleListener="#{richTreeListenerBean.processToggle}"
+				render="#{richTreeBean.attributes['render'].value}"
+				execute="#{richTreeBean.attributes['execute'].value}"
+				>
             		
             	<rich:treeModelRecursiveAdaptor
             		roots="#{richTreeModelRecursiveAdaptorBean.rootNodes}"

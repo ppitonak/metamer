@@ -87,7 +87,8 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 	            	nodeClass="#{richTreeBean.attributes['nodeClass'].value}"
 	            	selectionChangeListener="#{richTreeListenerBean.processSelectionChange}"
 					toggleListener="#{richTreeListenerBean.processToggle}"
-					render="@this treeInfo"
+					render="#{richTreeBean.attributes['render'].value}"
+					execute="#{richTreeBean.attributes['execute'].value}"
 	            	>
 					
 					<rich:treeNode type="country"
@@ -185,6 +186,8 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 	            	nodeClass="#{richTreeBean.attributes['nodeClass'].value}"
 	            	selectionChangeListener="#{richTreeListenerBean.processSelectionChange}"
 					toggleListener="#{richTreeListenerBean.processToggle}"
+					render="#{richTreeBean.attributes['render'].value}"
+					execute="#{richTreeBean.attributes['execute'].value}"
 	            	>
 				</rich:tree>
 			</p>
@@ -193,7 +196,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
         <ui:define name="outOfTemplateAfter">
         	
         	
-        	<a4j:outputPanel id="treeInfo">
+        	<a4j:outputPanel ajaxRendered="true">
 	        	<h:panelGrid columns="2">
 	        		<h:outputLabel value="Test Loading Facet:" />
 	        		<h:selectBooleanCheckbox value="#{richTreeBean.testLoadingFacet}">
