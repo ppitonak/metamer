@@ -410,4 +410,12 @@ public class RichBean implements Serializable {
     public void valueChangeListener(ValueChangeEvent event) {
         logToPage("* value changed: " + event.getOldValue() + " -> " + event.getNewValue());
     }
+    
+    public boolean getExecuteChecker() {
+        return true;
+    }
+    
+    public void setExecuteChecker(boolean executeChecker) {
+        logToPage("* executeChecker");
+    }
 }
