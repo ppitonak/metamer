@@ -75,6 +75,15 @@ public class RichTreeBean implements Serializable {
         attributes.get("rendered").setValue(true);
         attributes.get("toggleType").setValue("ajax");
         attributes.get("selectionType").setValue("ajax");
+        
+        // FIXME attributes not in taglib
+        attributes.setAttribute("iconLeaf", null);
+        attributes.setAttribute("iconExpanded", null);
+        attributes.setAttribute("iconCollapsed", null);
+        attributes.setAttribute("handleClass", null);
+        attributes.setAttribute("iconClass", null);
+        attributes.setAttribute("labelClass", null);
+        attributes.setAttribute("nodeClass", null);
 
         // hidden attributes
         attributes.remove("selectionChangeListener");

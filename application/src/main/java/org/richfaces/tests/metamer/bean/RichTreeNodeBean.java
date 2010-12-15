@@ -42,7 +42,7 @@ public class RichTreeNodeBean implements Serializable {
 
     private static final long serialVersionUID = 4008175400649809L;
     private static Logger logger;
-    private Attributes attributes;
+    private Attributes[] attributes = new Attributes[3];
 
     /**
      * Initializes the managed bean.
@@ -52,16 +52,28 @@ public class RichTreeNodeBean implements Serializable {
         logger = LoggerFactory.getLogger(getClass());
         logger.debug("initializing bean " + getClass().getName());
 
-        attributes = Attributes.getUIComponentAttributes(UITreeModelAdaptor.class, getClass(), false);
+        for (int i = 0; i < attributes.length; i++) {
+            attributes[i] = Attributes.getUIComponentAttributes(UITreeModelAdaptor.class, getClass(), false);
 
-        attributes.get("rendered").setValue(true);
+        
+            attributes[i].get("rendered").setValue(true);
+    
+            // FIXME attributes not in taglib
+            attributes[i].setAttribute("iconLeaf", null);
+            attributes[i].setAttribute("iconExpanded", null);
+            attributes[i].setAttribute("iconCollapsed", null);
+            attributes[i].setAttribute("handleClass", null);
+            attributes[i].setAttribute("iconClass", null);
+            attributes[i].setAttribute("labelClass", null);
+            attributes[i].setAttribute("styleClass", null);
+        }
     }
 
-    public Attributes getAttributes() {
+    public Attributes[] getAttributes() {
         return attributes;
     }
 
-    public void setAttributes(Attributes attributes) {
+    public void setAttributes(Attributes[] attributes) {
         this.attributes = attributes;
     }
 }

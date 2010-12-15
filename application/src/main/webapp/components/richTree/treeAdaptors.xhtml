@@ -71,6 +71,13 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
             	styleClass="#{richTreeBean.attributes['styleClass'].value}"
             	title="#{richTreeBean.attributes['title'].value}"
             	toggleType="#{richTreeBean.attributes['toggleType'].value}"
+            	iconLeaf="#{richTreeBean.attributes['iconLeaf'].value}"
+            	iconExpanded="#{richTreeBean.attributes['iconExpanded'].value}"
+            	iconCollapsed="#{richTreeBean.attributes['iconCollapsed'].value}"
+            	handleClass="#{richTreeBean.attributes['handleClass'].value}"
+            	iconClass="#{richTreeBean.attributes['iconClass'].value}"
+            	labelClass="#{richTreeBean.attributes['labelClass'].value}"
+            	nodeClass="#{richTreeBean.attributes['nodeClass'].value}"
             	>
             	
             		<a4j:ajax event="selectionchange" render="selectionOutput" /> 
@@ -83,19 +90,32 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
             		recursionOrder="#{richTreeModelRecursiveAdaptorBean.attributes['recursionOrder'].value}"
             		>
             		
-            		<rich:treeNode rendered="#{node.class.simpleName != 'RecursiveNode' || node.number != 1 || richTreeNodeBean.attributes['rendered'].value}">
+            		<rich:treeNode
+            			rendered="#{richTreeNodeBean.attributes[0]['rendered'].value || node.number != 1}"
+            			iconLeaf="#{richTreeNodeBean.attributes[0]['iconLeaf'].value}"
+		            	iconExpanded="#{richTreeNodeBean.attributes[0]['iconExpanded'].value}"
+		            	iconCollapsed="#{richTreeNodeBean.attributes[0]['iconCollapsed'].value}"
+		            	handleClass="#{richTreeNodeBean.attributes[0]['handleClass'].value}"
+		            	iconClass="#{richTreeNodeBean.attributes[0]['iconClass'].value}"
+		            	labelClass="#{richTreeNodeBean.attributes[0]['labelClass'].value}"
+		            	styleClass="#{richTreeNodeBean.attributes[0]['styleClass'].value}">
+		            	
 	           			<a4j:outputPanel id="panel">
 	           				#{node.label}
 	           			</a4j:outputPanel>
 	           		</rich:treeNode>
 	           		
-	           		<rich:treeModelAdaptor nodes="#{node.model.list}" rendered="#{richTreeModelAdaptorBean.attributes['rendered'].value}">
+	           		<rich:treeModelAdaptor
+	           			nodes="#{node.model.list}"
+	           			rendered="#{richTreeModelAdaptorBean.attributes['rendered'].value}">
 	           			<rich:treeNode>
 	           				#{node.label}
            				</rich:treeNode>
            			</rich:treeModelAdaptor>
            			
-           			<rich:treeModelAdaptor nodes="#{node.model.map}" rendered="#{richTreeModelAdaptorBean.attributes['rendered'].value}">
+           			<rich:treeModelAdaptor
+           				nodes="#{node.model.map}"
+           				rendered="#{richTreeModelAdaptorBean.attributes['rendered'].value}">
 	           			<rich:treeNode>
 	           				#{node.label}
            				</rich:treeNode>
@@ -106,7 +126,16 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
            						nodes="#{richTreeModelRecursiveAdaptorBean.useMapModel ? node.recursiveMap : node.recursiveList}"
            						rendered="#{richTreeModelRecursiveAdaptorBean.attributes['rendered'].value}">
            						
-	           			<rich:treeNode  rendered="#{richTreeNodeBean.attributes['rendered'].value || node.number != 1}">
+	           			<rich:treeNode
+	           				rendered="#{richTreeNodeBean.attributes[1]['rendered'].value || node.number != 1}"
+	           				iconLeaf="#{richTreeNodeBean.attributes[1]['iconLeaf'].value}"
+			            	iconExpanded="#{richTreeNodeBean.attributes[1]['iconExpanded'].value}"
+			            	iconCollapsed="#{richTreeNodeBean.attributes[1]['iconCollapsed'].value}"
+			            	handleClass="#{richTreeNodeBean.attributes[1]['handleClass'].value}"
+			            	iconClass="#{richTreeNodeBean.attributes[1]['iconClass'].value}"
+			            	labelClass="#{richTreeNodeBean.attributes[1]['labelClass'].value}"
+			            	styleClass="#{richTreeNodeBean.attributes[1]['styleClass'].value}"
+	           				>
 	           				#{node.label}
            				</rich:treeNode>
            			</rich:treeModelRecursiveAdaptor>
@@ -144,13 +173,14 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
        	
         	<fieldset>
         		<legend>rich:tree</legend>
+        		<metamer:attributes value="#{richTreeBean.attributes}" id="treeAttributes" />
         		
         		<fieldset>
-	        		<legend>rich:treeModelRecursiveAdaptor [1]</legend>
+	        		<legend>rich:treeModelRecursiveAdaptor [0]</legend>
 	        		
 	        		<fieldset>
-		        		<legend>rich:treeNode</legend>
-		        		<metamer:attributes value="#{richTreeNodeBean.attributes}" id="nodeAttributes" />
+		        		<legend>rich:treeNode [0]</legend>
+		        		<metamer:attributes value="#{richTreeNodeBean.attributes[0]}" id="node0Attributes" />
 	        		</fieldset>
 	        		
 	        		<fieldset>
@@ -159,12 +189,15 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 		        	</fieldset>
 		        		
 					<fieldset>
-		        		<legend>rich:treeModelRecursiveAdaptor [2]</legend>
+		        		<legend>rich:treeModelRecursiveAdaptor [1]</legend>
 		        		<metamer:attributes value="#{richTreeModelRecursiveAdaptorBean.attributes}" id="recursiveAttributes" />
+		        			
+		        		<fieldset>
+			        		<legend>rich:treeNode [1]</legend>
+			        		<metamer:attributes value="#{richTreeNodeBean.attributes[1]}" id="node1Attributes" />
+		        		</fieldset>	
 		        	</fieldset>
 	        	</fieldset>
-	        	
-	        	<metamer:attributes value="#{richTreeBean.attributes}" id="treeAttributes" />
         	</fieldset>
 			
 		</ui:define>

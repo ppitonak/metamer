@@ -73,24 +73,75 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
             	styleClass="#{richTreeBean.attributes['styleClass'].value}"
             	title="#{richTreeBean.attributes['title'].value}"
             	toggleType="#{richTreeBean.attributes['toggleType'].value}"
+            	iconLeaf="#{richTreeBean.attributes['iconLeaf'].value}"
+            	iconExpanded="#{richTreeBean.attributes['iconExpanded'].value}"
+            	iconCollapsed="#{richTreeBean.attributes['iconCollapsed'].value}"
+            	handleClass="#{richTreeBean.attributes['handleClass'].value}"
+            	iconClass="#{richTreeBean.attributes['iconClass'].value}"
+            	labelClass="#{richTreeBean.attributes['labelClass'].value}"
+            	nodeClass="#{richTreeBean.attributes['nodeClass'].value}"
             	>
 				
-				<rich:treeNode type="country">
+				<rich:treeNode type="country"
+					rendered="#{richTreeNodeBean.attributes[0]['rendered'].value}"
+					iconLeaf="#{richTreeNodeBean.attributes[0]['iconLeaf'].value}"
+	            	iconExpanded="#{richTreeNodeBean.attributes[0]['iconExpanded'].value}"
+	            	iconCollapsed="#{richTreeNodeBean.attributes[0]['iconCollapsed'].value}"
+	            	handleClass="#{richTreeNodeBean.attributes[0]['handleClass'].value}"
+	            	iconClass="#{richTreeNodeBean.attributes[0]['iconClass'].value}"
+	            	labelClass="#{richTreeNodeBean.attributes[0]['labelClass'].value}"
+	            	styleClass="#{richTreeNodeBean.attributes[0]['styleClass'].value}"
+					>
 					#{node.name}
 				</rich:treeNode>
 				
-				<rich:treeNode type="company" icon="/images/tree/disc.gif">
+				<rich:treeNode type="company"
+					icon="/images/tree/disc.gif"
+					rendered="#{richTreeNodeBean.attributes[1]['rendered'].value}"
+	            	iconLeaf="#{richTreeNodeBean.attributes[1]['iconLeaf'].value}"
+	            	iconExpanded="#{richTreeNodeBean.attributes[1]['iconExpanded'].value}"
+	            	iconCollapsed="#{richTreeNodeBean.attributes[1]['iconCollapsed'].value}"
+	            	handleClass="#{richTreeNodeBean.attributes[1]['handleClass'].value}"
+	            	iconClass="#{richTreeNodeBean.attributes[1]['iconClass'].value}"
+	            	labelClass="#{richTreeNodeBean.attributes[1]['labelClass'].value}"
+	            	styleClass="#{richTreeNodeBean.attributes[1]['styleClass'].value}"
+					>
 					#{node.name}
 				</rich:treeNode>
 				
-				<rich:treeNode type="cd" icon="/images/tree/song.gif">
+				<rich:treeNode type="cd"
+					icon="/images/tree/song.gif"
+					rendered="#{richTreeNodeBean.attributes[2]['rendered'].value}"
+					iconLeaf="#{richTreeNodeBean.attributes[2]['iconLeaf'].value}"
+	            	iconExpanded="#{richTreeNodeBean.attributes[2]['iconExpanded'].value}"
+	            	iconCollapsed="#{richTreeNodeBean.attributes[2]['iconCollapsed'].value}"
+	            	handleClass="#{richTreeNodeBean.attributes[2]['handleClass'].value}"
+	            	iconClass="#{richTreeNodeBean.attributes[2]['iconClass'].value}"
+	            	labelClass="#{richTreeNodeBean.attributes[2]['labelClass'].value}"
+	            	styleClass="#{richTreeNodeBean.attributes[2]['styleClass'].value}"
+					>
 					#{node.artist} - #{node.title}
 				</rich:treeNode>
 			</rich:tree>
         </ui:define>
 
         <ui:define name="outOfTemplateAfter">
-            <metamer:attributes value="#{richTreeBean.attributes}" id="attributes" />
+        	<fieldset>
+        		<legend>rich:tree</legend>
+            	<metamer:attributes value="#{richTreeBean.attributes}" id="attributes" />
+            </fieldset>
+            <fieldset>
+        		<legend>rich:treeNode type="company"</legend>
+            	<metamer:attributes value="#{richTreeNodeBean.attributes[0]}" id="treeNode1Attributes" />
+            </fieldset>
+            <fieldset>
+        		<legend>rich:treeNode type="company"</legend>
+            	<metamer:attributes value="#{richTreeNodeBean.attributes[1]}" id="treeNode2Attributes" />
+            </fieldset>
+            <fieldset>
+        		<legend>rich:treeNode type="cd"</legend>
+            	<metamer:attributes value="#{richTreeNodeBean.attributes[2]}" id="treeNode3Attributes" />
+            </fieldset>
         </ui:define>
 
     </ui:composition>
