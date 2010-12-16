@@ -19,16 +19,15 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  *******************************************************************************/
-
 package org.richfaces.tests.metamer.bean;
 
 import java.io.Serializable;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
-import org.ajax4jsf.component.UIActionParameter;
+import javax.faces.bean.ViewScoped;
 
+import org.ajax4jsf.component.UIActionParameter;
 import org.richfaces.tests.metamer.Attributes;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -40,14 +39,12 @@ import org.slf4j.LoggerFactory;
  * @version $Revision$
  */
 @ManagedBean(name = "a4jParamBean")
-@SessionScoped
+@ViewScoped
 public class A4JParamBean implements Serializable {
 
     private static final long serialVersionUID = -23993426776944L;
     private static Logger logger;
     private Attributes attributes;
-    private int width;
-    private int height;
     private String parameter;
 
     /**
@@ -59,7 +56,7 @@ public class A4JParamBean implements Serializable {
         logger.debug("initializing bean " + getClass().getName());
 
         attributes = Attributes.getComponentAttributesFromClass(UIActionParameter.class, getClass());
-        
+
         attributes.setAttribute("name", "param");
         attributes.setAttribute("noEscape", true);
         attributes.setAttribute("value", "screen.width");
@@ -96,5 +93,4 @@ public class A4JParamBean implements Serializable {
         parameter = null;
         return null;
     }
-    
 }

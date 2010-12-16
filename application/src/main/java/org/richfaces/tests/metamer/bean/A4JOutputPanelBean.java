@@ -25,9 +25,9 @@ import java.io.Serializable;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
-import org.richfaces.component.UIOutputPanel;
+import javax.faces.bean.ViewScoped;
 
+import org.richfaces.component.UIOutputPanel;
 import org.richfaces.tests.metamer.Attributes;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -39,7 +39,7 @@ import org.slf4j.LoggerFactory;
  * @version $Revision$
  */
 @ManagedBean(name = "a4jOutputPanelBean")
-@SessionScoped
+@ViewScoped
 public class A4JOutputPanelBean implements Serializable {
 
     private static final long serialVersionUID = 4814439475400649809L;

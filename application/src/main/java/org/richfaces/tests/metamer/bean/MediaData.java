@@ -19,21 +19,17 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  *******************************************************************************/
-
 package org.richfaces.tests.metamer.bean;
-
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
 
 import java.io.Serializable;
 
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ViewScoped;
+
 @ManagedBean(name = "mediaData")
-@SessionScoped
+@ViewScoped
 public class MediaData implements Serializable {
 
-    /**
-     *
-     */
     private static final long serialVersionUID = 1L;
     int height = 120;
     int width = 300;
@@ -42,10 +38,9 @@ public class MediaData implements Serializable {
     String text;
 
     public MediaData() {
-        setText("RichFaces 4.0");
-        setColor(1000);
-        setScale(2);
-        System.out.println("MediaData instantiated");
+        text = "RichFaces 4.0";
+        color = 1000;
+        scale = 2;
     }
 
     public Integer getColor() {

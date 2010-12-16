@@ -19,7 +19,6 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  *******************************************************************************/
-
 package org.richfaces.tests.metamer.bean;
 
 import java.awt.Color;
@@ -34,10 +33,10 @@ import java.io.Serializable;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ViewScoped;
 import javax.imageio.ImageIO;
-import org.richfaces.component.UIMediaOutput;
 
+import org.richfaces.component.UIMediaOutput;
 import org.richfaces.tests.metamer.Attributes;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -49,7 +48,7 @@ import org.slf4j.LoggerFactory;
  * @version $Revision$
  */
 @ManagedBean(name = "a4jMediaOutputBean")
-@SessionScoped
+@ViewScoped
 public class A4JMediaOutputBean implements Serializable {
 
     private static final long serialVersionUID = -1L;
@@ -65,7 +64,7 @@ public class A4JMediaOutputBean implements Serializable {
         logger.debug("initializing bean " + getClass().getName());
 
         attributes = Attributes.getComponentAttributesFromClass(UIMediaOutput.class, getClass());
-        
+
         attributes.setAttribute("session", true);
         attributes.setAttribute("rendered", true);
         attributes.remove("createContent");
