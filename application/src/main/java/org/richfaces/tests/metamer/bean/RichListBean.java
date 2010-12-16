@@ -54,7 +54,7 @@ public class RichListBean implements Serializable {
         logger = LoggerFactory.getLogger(getClass());
         logger.debug("initializing bean " + getClass().getName());
 
-        attributes = Attributes.getUIComponentAttributes(UIList.class, getClass());
+        attributes = Attributes.getComponentAttributesFromClass(UIList.class, getClass());
 
         attributes.setAttribute("type", "ordered");
         attributes.setAttribute("rendered", true);

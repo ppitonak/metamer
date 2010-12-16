@@ -58,7 +58,8 @@ public class A4JParamBean implements Serializable {
         logger = LoggerFactory.getLogger(getClass());
         logger.debug("initializing bean " + getClass().getName());
 
-        attributes = Attributes.getUIComponentAttributes(UIActionParameter.class, getClass());
+        attributes = Attributes.getComponentAttributesFromClass(UIActionParameter.class, getClass());
+        
         attributes.setAttribute("name", "param");
         attributes.setAttribute("noEscape", true);
         attributes.setAttribute("value", "screen.width");

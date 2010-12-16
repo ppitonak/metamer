@@ -52,7 +52,7 @@ public class RichMenuGroupBean implements Serializable {
         logger = LoggerFactory.getLogger(getClass());
         logger.debug("initializing bean " + getClass().getName());
 
-        attributes = Attributes.getUIComponentAttributes(UIMenuGroup.class, getClass(), false);
+        attributes = Attributes.getComponentAttributesFromFacesConfig(UIMenuGroup.class, getClass());
 
         attributes.setAttribute("rendered", true);
 

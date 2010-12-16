@@ -54,7 +54,7 @@ public class RichTabPanelBean implements Serializable {
         logger = LoggerFactory.getLogger(getClass());
         logger.debug("initializing bean " + getClass().getName());
 
-        attributes = Attributes.getUIComponentAttributes(HtmlTabPanel.class, getClass());
+        attributes = Attributes.getComponentAttributesFromClass(HtmlTabPanel.class, getClass());
 
         attributes.setAttribute("activeItem", "tab1");
         attributes.setAttribute("rendered", true);

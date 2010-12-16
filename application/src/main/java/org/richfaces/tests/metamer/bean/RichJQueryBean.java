@@ -61,7 +61,7 @@ public class RichJQueryBean implements Serializable {
         componentsDataList = new ArrayList<String>();
         addComponent();
 
-        attributes = Attributes.getUIComponentAttributes(UIJQuery.class, getClass());
+        attributes = Attributes.getComponentAttributesFromClass(UIJQuery.class, getClass());
 
         attributes.setAttribute("event", "click");
         attributes.setAttribute("name", "bubu");

@@ -54,7 +54,7 @@ public class RichToggleControlBean implements Serializable {
         logger = LoggerFactory.getLogger(getClass());
         logger.debug("initializing bean " + getClass().getName());
 
-        attributes = Attributes.getBehaviorAttributes(ToggleControl.class, getClass());
+        attributes = Attributes.getBehaviorAttributesFromFacesConfig(ToggleControl.class, getClass());
 
         attributes.setAttribute("targetPanel", "panel1");
         attributes.setAttribute("targetItem", "item1");

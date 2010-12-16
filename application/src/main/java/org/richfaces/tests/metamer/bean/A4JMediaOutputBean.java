@@ -64,7 +64,8 @@ public class A4JMediaOutputBean implements Serializable {
         logger = LoggerFactory.getLogger(getClass());
         logger.debug("initializing bean " + getClass().getName());
 
-        attributes = Attributes.getUIComponentAttributes(UIMediaOutput.class, getClass());
+        attributes = Attributes.getComponentAttributesFromClass(UIMediaOutput.class, getClass());
+        
         attributes.setAttribute("session", true);
         attributes.setAttribute("rendered", true);
         attributes.remove("createContent");

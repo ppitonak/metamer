@@ -81,9 +81,8 @@ public class A4JRegionBean implements Serializable {
         user1 = new Employee();
         user2 = new Employee();
 
-        attributes = Attributes.getUIComponentAttributes(UIRegion.class, getClass());
+        attributes = Attributes.getComponentAttributesFromClass(UIRegion.class, getClass());
         attributes.setAttribute("rendered", true);
-
     }
 
     // getters and setters for page simple.xhtml

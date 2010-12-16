@@ -54,7 +54,7 @@ public class RichAccordionBean implements Serializable {
         logger = LoggerFactory.getLogger(getClass());
         logger.debug("initializing bean " + getClass().getName());
 
-        attributes = Attributes.getUIComponentAttributes(HtmlAccordion.class, getClass(), false);
+        attributes = Attributes.getComponentAttributesFromFacesConfig(HtmlAccordion.class, getClass());
 
         attributes.setAttribute("rendered", true);
         

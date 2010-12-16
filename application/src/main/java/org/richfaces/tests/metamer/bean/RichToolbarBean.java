@@ -52,7 +52,7 @@ public class RichToolbarBean implements Serializable {
         logger = LoggerFactory.getLogger(getClass());
         logger.debug("initializing bean " + getClass().getName());
 
-        attributes = Attributes.getUIComponentAttributes(UIToolbar.class, getClass(), false);
+        attributes = Attributes.getComponentAttributesFromFacesConfig(UIToolbar.class, getClass());
 
         attributes.setAttribute("height", 28);
         attributes.setAttribute("rendered", true);

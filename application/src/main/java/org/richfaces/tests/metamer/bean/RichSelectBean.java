@@ -68,7 +68,7 @@ public class RichSelectBean implements Serializable {
             capitalsOptions.add(new SelectItem(capital.getState(), capital.getState()));
         }
 
-        attributes = Attributes.getUIComponentAttributes(UISelect.class, getClass(), false);
+        attributes = Attributes.getComponentAttributesFromFacesConfig(UISelect.class, getClass());
 
         attributes.setAttribute("defaultLabel", "Click here to edit");
         attributes.setAttribute("enableManualInput", true);

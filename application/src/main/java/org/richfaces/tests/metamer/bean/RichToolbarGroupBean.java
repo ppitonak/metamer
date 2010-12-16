@@ -52,7 +52,7 @@ public class RichToolbarGroupBean implements Serializable {
         logger = LoggerFactory.getLogger(getClass());
         logger.debug("initializing bean " + getClass().getName());
 
-        attributes = Attributes.getUIComponentAttributes(UIToolbarGroup.class, getClass(), false);
+        attributes = Attributes.getComponentAttributesFromFacesConfig(UIToolbarGroup.class, getClass());
 
         attributes.setAttribute("rendered", true);
     }

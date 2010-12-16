@@ -60,7 +60,7 @@ public class RichFileUploadBean implements Serializable {
         logger.debug("initializing bean " + getClass().getName());
         files = new ArrayList<UploadedFile>();
 
-        attributes = Attributes.getUIComponentAttributes(UIFileUpload.class, getClass(), false);
+        attributes = Attributes.getComponentAttributesFromFacesConfig(UIFileUpload.class, getClass());
 
         attributes.setAttribute("enabled", true);
         attributes.setAttribute("noDuplicate", false);

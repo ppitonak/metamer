@@ -58,7 +58,7 @@ public class RichTooltipBean implements Serializable {
         logger = LoggerFactory.getLogger(getClass());
         logger.debug("initializing bean " + getClass().getName());
 
-        attributes = Attributes.getUIComponentAttributes(UITooltip.class, getClass(), false);
+        attributes = Attributes.getComponentAttributesFromFacesConfig(UITooltip.class, getClass());
         
         
         // set defaults

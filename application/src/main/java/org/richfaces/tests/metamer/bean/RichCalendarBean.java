@@ -56,7 +56,7 @@ public class RichCalendarBean implements Serializable {
         logger = LoggerFactory.getLogger(getClass());
         logger.debug("initializing bean " + getClass().getName());
 
-        attributes = Attributes.getUIComponentAttributes(UICalendar.class, getClass(), false);
+        attributes = Attributes.getComponentAttributesFromFacesConfig(UICalendar.class, getClass());
 
         attributes.setAttribute("datePattern", "MMM d, yyyy HH:mm");
         attributes.setAttribute("direction", "bottom-right");

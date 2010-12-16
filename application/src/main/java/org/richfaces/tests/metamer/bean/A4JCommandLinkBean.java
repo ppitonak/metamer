@@ -57,7 +57,7 @@ public class A4JCommandLinkBean implements Serializable {
         logger = LoggerFactory.getLogger(getClass());
         logger.debug("initializing bean " + getClass().getName());
 
-        attributes = Attributes.getUIComponentAttributes(UICommandLink.class, getClass(), false);
+        attributes = Attributes.getComponentAttributesFromFacesConfig(UICommandLink.class, getClass());
 
         attributes.setAttribute("value", "command link");
         attributes.setAttribute("rendered", true);

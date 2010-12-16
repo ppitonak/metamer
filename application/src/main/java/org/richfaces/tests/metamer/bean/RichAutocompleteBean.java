@@ -63,7 +63,7 @@ public class RichAutocompleteBean implements Serializable {
         logger = LoggerFactory.getLogger(getClass());
         logger.debug("initializing bean " + getClass().getName());
 
-        attributes = Attributes.getUIComponentAttributes(UIAutocomplete.class, getClass());
+        attributes = Attributes.getComponentAttributesFromClass(UIAutocomplete.class, getClass());
         attributes.setAttribute("converterMessage", "converter message");
         attributes.setAttribute("mode", "ajax");
         attributes.setAttribute("rendered", true);

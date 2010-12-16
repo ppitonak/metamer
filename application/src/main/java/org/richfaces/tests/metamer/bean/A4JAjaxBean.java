@@ -65,7 +65,8 @@ public class A4JAjaxBean implements Serializable {
         logger = LoggerFactory.getLogger(getClass());
         logger.debug("initializing bean " + getClass().getName());
 
-        attributes = Attributes.getBehaviorAttributes(AjaxBehavior.class, getClass());
+        attributes = Attributes.getBehaviorAttributesFromFacesConfig(AjaxBehavior.class, getClass());
+
         // the 'event' attribute for behavior tag must be a literal
         attributes.remove("event");
 

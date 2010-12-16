@@ -73,7 +73,7 @@ public class A4JPushBean implements Serializable {
         logger = LoggerFactory.getLogger(getClass());
         logger.debug("initializing bean " + getClass().getName());
 
-        attributes = Attributes.getUIComponentAttributes(UIPush.class, getClass());
+        attributes = Attributes.getComponentAttributesFromClass(UIPush.class, getClass());
         attributes.setAttribute("interval", 1000);
         attributes.setAttribute("action", "increaseCounterAction");
         attributes.setAttribute("actionListener", "increaseCounterActionListener");

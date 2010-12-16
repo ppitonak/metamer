@@ -60,7 +60,7 @@ public class RichProgressBarBean implements Serializable {
         logger = LoggerFactory.getLogger(getClass());
         logger.debug("initializing bean " + getClass().getName());
 
-        attributes = Attributes.getUIComponentAttributes(UIProgressBar.class, getClass());
+        attributes = Attributes.getComponentAttributesFromClass(UIProgressBar.class, getClass());
 
         attributes.setAttribute("maxValue", 100);
         attributes.setAttribute("minValue", 0);

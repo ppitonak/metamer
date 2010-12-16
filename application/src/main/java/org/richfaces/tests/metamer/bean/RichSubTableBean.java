@@ -64,7 +64,7 @@ public class RichSubTableBean implements Serializable {
         logger = LoggerFactory.getLogger(getClass());
         logger.debug("initializing bean " + getClass().getName());
         
-        attributes = Attributes.getUIComponentAttributes(UICollapsibleSubTable.class, getClass());
+        attributes = Attributes.getComponentAttributesFromClass(UICollapsibleSubTable.class, getClass());
 
         attributes.setAttribute("expandMode", "client");
         attributes.setAttribute("expanded", true);

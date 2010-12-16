@@ -53,7 +53,7 @@ public class RichDropDownMenuBean implements Serializable {
         logger = LoggerFactory.getLogger(getClass());
         logger.debug("initializing bean " + getClass().getName());
 
-        attributes = Attributes.getUIComponentAttributes(UIDropDownMenu.class, getClass(), false);
+        attributes = Attributes.getComponentAttributesFromFacesConfig(UIDropDownMenu.class, getClass());
 
         attributes.setAttribute("mode", "ajax");
         attributes.setAttribute("rendered", true);

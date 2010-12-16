@@ -55,7 +55,7 @@ public class RichPanelMenuBean implements Serializable {
         logger = LoggerFactory.getLogger(getClass());
         logger.debug("initializing bean " + getClass().getName());
 
-        attributes = Attributes.getUIComponentAttributes(UIPanelMenu.class, getClass(), false);
+        attributes = Attributes.getComponentAttributesFromFacesConfig(UIPanelMenu.class, getClass());
 
         attributes.setAttribute("groupCollapseIconLeft", "disc");
         attributes.setAttribute("groupCollapseIconRight", "chevronDown");

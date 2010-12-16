@@ -55,7 +55,7 @@ public class RichComponentControlBean implements Serializable {
         logger = LoggerFactory.getLogger(getClass());
         logger.debug("initializing bean " + getClass().getName());
 
-        attributes = Attributes.getBehaviorAttributes(ComponentControlBehavior.class, getClass());
+        attributes = Attributes.getBehaviorAttributesFromFacesConfig(ComponentControlBehavior.class, getClass());
         
         attributes.setAttribute("operation", "previous");
         attributes.setAttribute("target", "scroller");

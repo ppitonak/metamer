@@ -57,7 +57,8 @@ public class A4JLogBean implements Serializable {
         logger.debug("initializing bean " + getClass().getName());
 
         name = "John";
-        attributes = Attributes.getUIComponentAttributes(UIAjaxLog.class, getClass());
+        
+        attributes = Attributes.getComponentAttributesFromClass(UIAjaxLog.class, getClass());
         
         attributes.setAttribute("rendered", true);
         attributes.setAttribute("level", "debug");

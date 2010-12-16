@@ -54,7 +54,7 @@ public class RichTabBean implements Serializable {
         logger = LoggerFactory.getLogger(getClass());
         logger.debug("initializing bean " + getClass().getName());
 
-        attributes = Attributes.getUIComponentAttributes(HtmlTab.class, getClass());
+        attributes = Attributes.getComponentAttributesFromClass(HtmlTab.class, getClass());
 
         attributes.setAttribute("header", "tab1 header");
         attributes.setAttribute("name", "tab1");

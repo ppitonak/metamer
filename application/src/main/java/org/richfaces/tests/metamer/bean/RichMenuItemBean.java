@@ -52,7 +52,7 @@ public class RichMenuItemBean implements Serializable {
         logger = LoggerFactory.getLogger(getClass());
         logger.debug("initializing bean " + getClass().getName());
 
-        attributes = Attributes.getUIComponentAttributes(UIMenuItem.class, getClass(), false);
+        attributes = Attributes.getComponentAttributesFromFacesConfig(UIMenuItem.class, getClass());
 
         attributes.setAttribute("icon", "/resources/images/icons/create_doc.gif");
         attributes.setAttribute("label", "New");

@@ -53,7 +53,7 @@ public class RichTreeNodeBean implements Serializable {
         logger.debug("initializing bean " + getClass().getName());
 
         for (int i = 0; i < attributes.length; i++) {
-            attributes[i] = Attributes.getUIComponentAttributes(UITreeModelAdaptor.class, getClass(), false);
+            attributes[i] = Attributes.getComponentAttributesFromFacesConfig(UITreeModelAdaptor.class, getClass());
 
         
             attributes[i].get("rendered").setValue(true);

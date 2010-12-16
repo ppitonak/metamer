@@ -60,7 +60,7 @@ public class A4JJSFunctionBean implements Serializable {
         logger.debug("initializing bean " + getClass().getName());
         year = Integer.parseInt(new SimpleDateFormat("yyyy").format(new Date()));
 
-        attributes = Attributes.getUIComponentAttributes(UIFunction.class, getClass(), false);
+        attributes = Attributes.getComponentAttributesFromFacesConfig(UIFunction.class, getClass());
 
         attributes.setAttribute("name", "metamerFunction");
         attributes.setAttribute("render", "time1, time2, year");

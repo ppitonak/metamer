@@ -58,7 +58,7 @@ public class RichDataGridBean implements Serializable {
         logger = LoggerFactory.getLogger(getClass());
         logger.debug("initializing bean " + getClass().getName());
 
-        attributes = Attributes.getUIComponentAttributes(UIDataGrid.class, getClass());
+        attributes = Attributes.getComponentAttributesFromClass(UIDataGrid.class, getClass());
 
         attributes.setAttribute("columns", 3);
         attributes.setAttribute("rendered", true);

@@ -55,7 +55,8 @@ public class A4JOutputPanelBean implements Serializable {
         logger = LoggerFactory.getLogger(getClass());
         logger.debug("initializing bean " + getClass().getName());
 
-        attributes = Attributes.getUIComponentAttributes(UIOutputPanel.class, getClass());
+        attributes = Attributes.getComponentAttributesFromClass(UIOutputPanel.class, getClass());
+        
         attributes.setAttribute("ajaxRendered", true);
         attributes.setAttribute("layout", "block");
         attributes.setAttribute("rendered", true);

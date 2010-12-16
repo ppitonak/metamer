@@ -55,7 +55,7 @@ public class RichColumnGroupBean implements Serializable {
         logger = LoggerFactory.getLogger(getClass());
         logger.debug("initializing bean " + getClass().getName());
 
-        attributes = Attributes.getUIComponentAttributes(UIColumnGroup.class, getClass());
+        attributes = Attributes.getComponentAttributesFromClass(UIColumnGroup.class, getClass());
 
         attributes.setAttribute("rendered", true);
     }

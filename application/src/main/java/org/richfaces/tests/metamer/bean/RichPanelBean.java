@@ -54,7 +54,7 @@ public class RichPanelBean implements Serializable {
         logger = LoggerFactory.getLogger(getClass());
         logger.debug("initializing bean " + getClass().getName());
 
-        attributes = Attributes.getUIComponentAttributes(UIPanel.class, getClass());
+        attributes = Attributes.getComponentAttributesFromClass(UIPanel.class, getClass());
 
         attributes.setAttribute("rendered", true);
 

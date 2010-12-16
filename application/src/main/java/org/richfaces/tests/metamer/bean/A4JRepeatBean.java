@@ -143,7 +143,7 @@ public class A4JRepeatBean implements Serializable {
         }
 
         // initialize attributes
-        attributes = Attributes.getUIComponentAttributes(UIRepeat.class, getClass());
+        attributes = Attributes.getComponentAttributesFromClass(UIRepeat.class, getClass());
         attributes.setAttribute("rendered", true);
         // TODO has to be tested in other way
         attributes.remove("componentState");

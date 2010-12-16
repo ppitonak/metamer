@@ -62,7 +62,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * Representation of all attributes of a JSF component.
+ * Representation of all attributes of a JSF component or behavior.
  * 
  * @author <a href="mailto:ppitonak@redhat.com">Pavol Pitonak</a>
  * @version $Revision$
@@ -95,7 +95,7 @@ public final class Attributes implements Map<String, Attribute>, Serializable {
         }
 
         if (!loadFromClass && richfacesAttributes.containsKey(componentClass)) {
-            logger.debug("retrieving attributes of " + componentClass.getName() + " from faces-config.xml");
+            logger.info("retrieving attributes of " + componentClass.getName() + " from faces-config.xml");
             if (attributes == null) {
                 attributes = new TreeMap<String, Attribute>();
             }
@@ -104,7 +104,7 @@ public final class Attributes implements Map<String, Attribute>, Serializable {
                 attributes.put(newAttr.getName(), newAttr);
             }
         } else {
-            logger.debug("retrieving attributes of " + componentClass.getName() + " from class descriptor");
+            logger.info("retrieving attributes of " + componentClass.getName() + " from class descriptor");
             loadAttributesFromClass(componentClass);
         }
 
@@ -115,39 +115,65 @@ public final class Attributes implements Map<String, Attribute>, Serializable {
     }
 
     /**
-     * Factory method for creating instances of class Attributes.
+     * Constructor for empty class Attributes.
      * 
      * @param componentClass
      *            class object of a JSF component whose attributes will be stored
      * @param beanClass
-     *            class object of a managed bean
+     *            class object of a managed bean 
      */
-    public static Attributes getUIComponentAttributes(Class<? extends UIComponent> componentClass, Class<?> beanClass) {
-        return new Attributes(componentClass, beanClass, true);
+    private Attributes(Class<?> componentClass, Class<?> beanClass) {
+        logger.debug("creating attributes map for " + componentClass);
+        this.beanClass = beanClass;
+        attributes = new TreeMap<String, Attribute>();
     }
 
     /**
-     * Factory method for creating instances of class Attributes.
+     * Factory method for creating instances of class Attributes. Attributes are loaded from faces-config.xml.
      *
-     * @param componentClass
-     *            class object of a RichFaces component whose attributes will be stored
+     * @param clazz
+     *            class object of a JSF component whose attributes will be stored
      * @param beanClass
      *            class object of a managed bean
      */
-    public static Attributes getUIComponentAttributes(Class<? extends UIComponent> componentClass, Class<?> beanClass, boolean loadFromClass) {
-        return new Attributes(componentClass, beanClass, loadFromClass);
+    public static Attributes getComponentAttributesFromFacesConfig(Class<? extends UIComponent> clazz, Class<?> beanClass) {
+        return new Attributes(clazz, beanClass, false);
     }
 
     /**
-     * Factory method for creating instances of class Attributes.
-     * 
-     * @param behaviorClass
+     * Factory method for creating instances of class Attributes. Attributes are loaded from class.
+     *
+     * @param clazz
+     *            class object of a JSF component whose attributes will be stored
+     * @param beanClass
+     *            class object of a managed bean
+     */
+    public static Attributes getComponentAttributesFromClass(Class<? extends UIComponent> clazz, Class<?> beanClass) {
+        return new Attributes(clazz, beanClass, true);
+    }
+
+    /**
+     * Factory method for creating instances of class Attributes. Attributes are loaded from faces-config.xml.
+     *
+     * @param clazz
      *            class object of a JSF behavior whose attributes will be stored
      * @param beanClass
      *            class object of a managed bean
      */
-    public static Attributes getBehaviorAttributes(Class<? extends BehaviorBase> behaviorClass, Class<?> beanClass) {
-        return new Attributes(behaviorClass, beanClass, true);
+    public static Attributes getBehaviorAttributesFromFacesConfig(Class<? extends BehaviorBase> clazz, Class<?> beanClass) {
+        return new Attributes(clazz, beanClass, false);
+    }
+
+    /**
+     * Factory method for creating instances of class Attributes. Attributes are loaded from class.
+     *
+     * @param clazz
+     *            class object of a JSF behavior whose attributes will be stored
+     * @param beanClass
+     *            class object of a managed bean
+     */
+    public static Attributes getBehaviorAttributesFromClass(Class<? extends BehaviorBase> clazz, Class<?> beanClass) {
+        return new Attributes(clazz, beanClass, true);
     }
 
     /**
@@ -260,7 +286,6 @@ public final class Attributes implements Map<String, Attribute>, Serializable {
      */
     public void clear() {
         attributes.clear();
-
     }
 
     /**
@@ -546,7 +571,7 @@ public final class Attributes implements Map<String, Attribute>, Serializable {
      */
     public boolean hasSelectOptions(String attributeName) {
         List<SelectItem> options = attributes.get(attributeName).getSelectOptions();
-        return options != null && options.size() != 0;
+        return options != null && !options.isEmpty();
     }
 
     public boolean containsKey(Object key) {
@@ -624,6 +649,7 @@ public final class Attributes implements Map<String, Attribute>, Serializable {
                 JAXBContext context = JAXBContext.newInstance(FacesConfigHolder.class);
                 FacesConfigHolder facesConfigHolder = (FacesConfigHolder) context.createUnmarshaller().unmarshal(configFile);
                 List<Component> components = facesConfigHolder.getComponents();
+                List<Behavior> behaviors = facesConfigHolder.getBehaviors();
 
                 for (Component c : components) {
                     if (c.getAttributes() == null) {
@@ -643,6 +669,24 @@ public final class Attributes implements Map<String, Attribute>, Serializable {
                     logger.info("attributes for component " + c.getComponentClass().getName() + " loaded");
                 }
 
+                for (Behavior b : behaviors) {
+                    if (b.getAttributes() == null) {
+                        continue;
+                    }
+
+                    // remove hidden attributes
+                    Iterator<Attribute> i = b.getAttributes().iterator();
+                    while (i.hasNext()) {
+                        Attribute a = i.next();
+                        if (a.isHidden() || "id".equals(a.getName()) || "binding".equals(a.getName())) {
+                            i.remove();
+                        }
+                    }
+
+                    richfacesAttributes.put(b.getBehaviorClass(), b.getAttributes());
+                    logger.info("attributes for behavior " + b.getBehaviorClass().getName() + " loaded");
+                }
+
             } catch (IOException ex) {
                 logger.error("Input/output error.", ex);
             } catch (JAXBException ex) {
@@ -655,6 +699,7 @@ public final class Attributes implements Map<String, Attribute>, Serializable {
     private static final class FacesConfigHolder {
 
         private List<Component> components;
+        private List<Behavior> behaviors;
 
         @XmlElement(name = "component", namespace = "http://java.sun.com/xml/ns/javaee")
         public List<Component> getComponents() {
@@ -663,6 +708,15 @@ public final class Attributes implements Map<String, Attribute>, Serializable {
 
         public void setComponents(List<Component> components) {
             this.components = components;
+        }
+
+        @XmlElement(name = "behavior", namespace = "http://java.sun.com/xml/ns/javaee")
+        public List<Behavior> getBehaviors() {
+            return behaviors;
+        }
+
+        public void setBehaviors(List<Behavior> behaviors) {
+            this.behaviors = behaviors;
         }
     }
 }

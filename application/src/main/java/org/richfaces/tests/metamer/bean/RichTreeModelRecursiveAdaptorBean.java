@@ -78,7 +78,7 @@ public class RichTreeModelRecursiveAdaptorBean implements Serializable {
         logger = LoggerFactory.getLogger(getClass());
         logger.debug("initializing bean " + getClass().getName());
 
-        attributes = Attributes.getUIComponentAttributes(UITreeModelRecursiveAdaptor.class, getClass(), false);
+        attributes = Attributes.getComponentAttributesFromFacesConfig(UITreeModelRecursiveAdaptor.class, getClass());
 
         attributes.get("rendered").setValue(true);
     }

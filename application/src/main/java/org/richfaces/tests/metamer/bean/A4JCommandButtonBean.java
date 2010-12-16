@@ -57,7 +57,7 @@ public class A4JCommandButtonBean implements Serializable {
         logger = LoggerFactory.getLogger(getClass());
         logger.debug("initializing bean " + getClass().getName());
 
-        attributes = Attributes.getUIComponentAttributes(UICommandButton.class, getClass(), false);
+        attributes = Attributes.getComponentAttributesFromFacesConfig(UICommandButton.class, getClass());
 
         attributes.setAttribute("action", "first6CharsAction");
         attributes.setAttribute("actionListener", "toUpperCaseActionListener");

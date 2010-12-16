@@ -75,7 +75,7 @@ public class RichTreeBean implements Serializable {
         logger = LoggerFactory.getLogger(getClass());
         logger.debug("initializing bean " + getClass().getName());
 
-        attributes = Attributes.getUIComponentAttributes(UITree.class, getClass(), false);
+        attributes = Attributes.getComponentAttributesFromFacesConfig(UITree.class, getClass());
         attributes.get("rendered").setValue(true);
         attributes.get("toggleType").setValue("ajax");
         attributes.get("selectionType").setValue("ajax");

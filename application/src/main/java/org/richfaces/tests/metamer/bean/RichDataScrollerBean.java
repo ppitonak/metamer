@@ -57,7 +57,7 @@ public class RichDataScrollerBean implements Serializable {
         logger = LoggerFactory.getLogger(getClass());
         logger.debug("initializing bean " + getClass().getName());
 
-        attributes = Attributes.getUIComponentAttributes(UIDataScroller.class, getClass());
+        attributes = Attributes.getComponentAttributesFromClass(UIDataScroller.class, getClass());
         
         attributes.setAttribute("boundaryControls", "show");
         attributes.setAttribute("fastControls", "show");

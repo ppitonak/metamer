@@ -61,7 +61,7 @@ public class HDataTableBean implements Serializable {
         logger = LoggerFactory.getLogger(getClass());
         logger.debug("initializing bean " + getClass().getName());
 
-        attributes = Attributes.getUIComponentAttributes(HtmlDataTable.class, getClass());
+        attributes = Attributes.getComponentAttributesFromClass(HtmlDataTable.class, getClass());
 
         attributes.setAttribute("rendered", true);
         attributes.setAttribute("rows", 10);

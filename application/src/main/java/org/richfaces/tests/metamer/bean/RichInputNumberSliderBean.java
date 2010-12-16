@@ -54,7 +54,7 @@ public class RichInputNumberSliderBean implements Serializable {
         logger = LoggerFactory.getLogger(getClass());
         logger.debug("initializing bean " + getClass().getName());
 
-        attributes = Attributes.getUIComponentAttributes(HtmlInputNumberSlider.class, getClass());
+        attributes = Attributes.getComponentAttributesFromClass(HtmlInputNumberSlider.class, getClass());
 
         attributes.setAttribute("enableManualInput", true);
         attributes.setAttribute("inputSize", 3);

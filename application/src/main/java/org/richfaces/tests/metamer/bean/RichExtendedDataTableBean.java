@@ -87,7 +87,7 @@ public class RichExtendedDataTableBean implements Serializable {
         logger = LoggerFactory.getLogger(getClass());
         logger.debug("initializing bean " + getClass().getName());
 
-        attributes = Attributes.getUIComponentAttributes(UIExtendedDataTable.class, getClass());
+        attributes = Attributes.getComponentAttributesFromClass(UIExtendedDataTable.class, getClass());
 
         attributes.setAttribute("rendered", true);
         attributes.setAttribute("rows", 30);

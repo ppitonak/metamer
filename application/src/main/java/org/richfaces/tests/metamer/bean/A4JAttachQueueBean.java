@@ -58,11 +58,11 @@ public class A4JAttachQueueBean implements Serializable {
         logger.debug("initializing bean " + getClass().getName());
 
         // initialize attributes
-        attributes = Attributes.getUIComponentAttributes(UIAttachQueue.class, getClass());
+        attributes = Attributes.getComponentAttributesFromClass(UIAttachQueue.class, getClass());
         initializeAttributes(attributes);
         attributes.setAttribute("requestDelay", 500);
 
-        attributes2 = Attributes.getUIComponentAttributes(UIAttachQueue.class, getClass());
+        attributes2 = Attributes.getComponentAttributesFromClass(UIAttachQueue.class, getClass());
         initializeAttributes(attributes2);
         attributes2.setAttribute("requestDelay", 1500);
     }

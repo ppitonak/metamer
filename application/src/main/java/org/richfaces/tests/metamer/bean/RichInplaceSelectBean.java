@@ -68,7 +68,7 @@ public class RichInplaceSelectBean implements Serializable {
             capitalsOptions.add(new SelectItem(capital.getState(), capital.getState()));
         }
 
-        attributes = Attributes.getUIComponentAttributes(UIInplaceSelect.class, getClass(), false);
+        attributes = Attributes.getComponentAttributesFromFacesConfig(UIInplaceSelect.class, getClass());
 
         attributes.setAttribute("defaultLabel", "Click here to edit");
         attributes.setAttribute("editEvent", "click");
