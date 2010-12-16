@@ -39,7 +39,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
         <ui:define name="outOfTemplateBefore">
             <br/>
             <h:outputText value="Show data in table: " />
-            <h:selectBooleanCheckbox id="noDataCheckbox" value="#{richSubTableToggleControlBean.state}">
+            <h:selectBooleanCheckbox id="noDataCheckbox" value="#{richSubTableTogglerBean.state}">
                 <a4j:ajax render="richDataTable"/>
             </h:selectBooleanCheckbox>
             <br/><br/>
@@ -47,7 +47,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 
         <ui:define name="component">
 
-            <rich:dataTable id="richDataTable" value="#{richSubTableToggleControlBean.lists}" var="list">
+            <rich:dataTable id="richDataTable" value="#{richSubTableTogglerBean.lists}" var="list">
                 <f:facet name="header">
                     <rich:columnGroup>
                         <rich:column id="columnHeaderEmployees" colspan="3">
@@ -67,12 +67,12 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 
                 <rich:column id="columnTC" colspan="3">
                     <rich:collapsibleSubTableToggler id="richSTTControl"
-                                                     collapseIcon="#{richSubTableToggleControlBean.attributes['collapseIcon'].value}"
-                                                     collapseLabel="#{richSubTableToggleControlBean.attributes['collapseLabel'].value}"
-                                                     event="#{richSubTableToggleControlBean.attributes['event'].value}"
-                                                     expandIcon="#{richSubTableToggleControlBean.attributes['expandIcon'].value}"
-                                                     expandLabel="#{richSubTableToggleControlBean.attributes['expandLabel'].value}"
-                                                     rendered="#{richSubTableToggleControlBean.attributes['rendered'].value}"
+                                                     collapseIcon="#{richSubTableTogglerBean.attributes['collapseIcon'].value}"
+                                                     collapseLabel="#{richSubTableTogglerBean.attributes['collapseLabel'].value}"
+                                                     event="#{richSubTableTogglerBean.attributes['event'].value}"
+                                                     expandIcon="#{richSubTableTogglerBean.attributes['expandIcon'].value}"
+                                                     expandLabel="#{richSubTableTogglerBean.attributes['expandLabel'].value}"
+                                                     rendered="#{richSubTableTogglerBean.attributes['rendered'].value}"
                                                      for="richSubTable"/>
                     <h:outputText value="#{list[0].sex == 'MALE' ? 'Men' : 'Women'}" />
                 </rich:column>
@@ -81,7 +81,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                                           expandMode="client"
                                           expanded="true"
                                           rows="5"
-                                          value="#{richSubTableToggleControlBean.state ? list : null}"
+                                          value="#{richSubTableTogglerBean.state ? list : null}"
                                           var="item">
 
                     <f:facet name="header">
@@ -114,7 +114,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
         </ui:define>
 
         <ui:define name="outOfTemplateAfter">
-            <metamer:attributes value="#{richSubTableToggleControlBean.attributes}" id="attributes" />
+            <metamer:attributes value="#{richSubTableTogglerBean.attributes}" id="attributes" />
         </ui:define>
 
     </ui:composition>

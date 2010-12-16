@@ -38,14 +38,14 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * Managed bean for rich:subTableToggleControl.
+ * Managed bean for rich:collapsibleSubTableToggler.
  * 
  * @author <a href="mailto:ppitonak@redhat.com">Pavol Pitonak</a>
  * @version $Revision$
  */
-@ManagedBean(name = "richSubTableToggleControlBean")
+@ManagedBean(name="richSubTableTogglerBean")
 @SessionScoped
-public class RichSubTableToggleControlBean implements Serializable {
+public class RichCollapsibleSubTableTogglerlBean implements Serializable {
 
     private static final long serialVersionUID = -1L;
     private static Logger logger;

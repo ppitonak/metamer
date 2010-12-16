@@ -38,14 +38,14 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * Managed bean for rich:subTable.
+ * Managed bean for rich:collapsibleSubTable.
  * 
  * @author <a href="mailto:ppitonak@redhat.com">Pavol Pitonak</a>
  * @version $Revision$
  */
-@ManagedBean(name = "richSubTableBean")
+@ManagedBean(name="richSubTableBean")
 @SessionScoped
-public class RichSubTableBean implements Serializable {
+public class RichCollapsibleSubTableBean implements Serializable {
 
     private static final long serialVersionUID = -1L;
     private static Logger logger;
