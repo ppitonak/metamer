@@ -95,7 +95,7 @@ public final class Attributes implements Map<String, Attribute>, Serializable {
         }
 
         if (!loadFromClass && richfacesAttributes.containsKey(componentClass)) {
-            logger.info("retrieving attributes of " + componentClass.getName() + " from faces-config.xml");
+            logger.debug("retrieving attributes of " + componentClass.getName() + " from faces-config.xml");
             if (attributes == null) {
                 attributes = new TreeMap<String, Attribute>();
             }
@@ -104,7 +104,7 @@ public final class Attributes implements Map<String, Attribute>, Serializable {
                 attributes.put(newAttr.getName(), newAttr);
             }
         } else {
-            logger.info("retrieving attributes of " + componentClass.getName() + " from class descriptor");
+            logger.debug("retrieving attributes of " + componentClass.getName() + " from class descriptor");
             loadAttributesFromClass(componentClass);
         }
 
