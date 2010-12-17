@@ -23,6 +23,7 @@ package org.richfaces.tests.metamer.ftest.richCalendar;
 
 import java.text.ParseException;
 import static org.jboss.test.selenium.guard.request.RequestTypeGuardFactory.guardNoRequest;
+import static org.jboss.test.selenium.guard.request.RequestTypeGuardFactory.guardXhr;
 import static org.jboss.test.selenium.utils.URLUtils.buildUrl;
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertFalse;
@@ -69,15 +70,13 @@ public class TestRichCalendarBasic extends AbstractCalendarTest {
     @Test
     public void testOpenPopupClickOnInput() {
         guardNoRequest(selenium).click(input);
-        boolean displayed = selenium.isDisplayed(popup);
-        assertTrue(displayed, "Popup should be visible.");
+        assertTrue(selenium.isDisplayed(popup), "Popup should be visible.");
     }
 
     @Test
     public void testOpenPopupClickOnImage() {
         guardNoRequest(selenium).click(image);
-        boolean displayed = selenium.isDisplayed(popup);
-        assertTrue(displayed, "Popup should be visible.");
+        assertTrue(selenium.isDisplayed(popup), "Popup should be visible.");
     }
 
     @Test
@@ -112,8 +111,7 @@ public class TestRichCalendarBasic extends AbstractCalendarTest {
 
     @Test
     public void testHeaderMonth() {
-        SimpleDateFormat formatter = new SimpleDateFormat("MMMM, yyyy");
-        String month = formatter.format(new Date());
+        String month = new SimpleDateFormat("MMMM, yyyy").format(new Date());
 
         selenium.click(input);
         String month2 = selenium.getText(monthLabel);
@@ -327,7 +325,7 @@ public class TestRichCalendarBasic extends AbstractCalendarTest {
             fail(ex.getMessage());
         }
 
-        guardNoRequest(selenium).click(applyButton);
+        guardXhr(selenium).click(applyButton);
         assertFalse(selenium.isDisplayed(popup), "Popup should not be displayed.");
 
         String inputDate = selenium.getValue(input);

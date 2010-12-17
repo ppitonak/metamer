@@ -29,7 +29,6 @@ import static org.jboss.test.selenium.utils.URLUtils.buildUrl;
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertFalse;
 import static org.testng.Assert.assertTrue;
-import static org.testng.Assert.assertSame;
 
 import java.net.URL;
 
@@ -87,8 +86,7 @@ public class TestRichCollapsiblePanel extends AbstractMetamerTest {
 
     @Test
     public void testSwitchTypeAjax() {
-        JQueryLocator selectOption = pjq("input[name$=switchTypeInput][value=ajax]");
-        selenium.click(selectOption);
+        selenium.click(pjq("input[name$=switchTypeInput][value=ajax]"));
         selenium.waitForPageToLoad();
 
         testSwitchTypeNull();
@@ -96,8 +94,7 @@ public class TestRichCollapsiblePanel extends AbstractMetamerTest {
 
     @Test
     public void testSwitchTypeClient() {
-        JQueryLocator selectOption = pjq("input[name$=switchTypeInput][value=client]");
-        selenium.click(selectOption);
+        selenium.click(pjq("input[name$=switchTypeInput][value=client]"));
         selenium.waitForPageToLoad();
 
         // click to collapse
@@ -111,8 +108,7 @@ public class TestRichCollapsiblePanel extends AbstractMetamerTest {
 
     @Test
     public void testSwitchTypeServer() {
-        JQueryLocator selectOption = pjq("input[name$=switchTypeInput][value=server]");
-        selenium.click(selectOption);
+        selenium.click(pjq("input[name$=switchTypeInput][value=server]"));
         selenium.waitForPageToLoad();
 
         // click to collapse
@@ -127,8 +123,7 @@ public class TestRichCollapsiblePanel extends AbstractMetamerTest {
     @Test
     @IssueTracking("https://jira.jboss.org/browse/RF-9421")
     public void testBypassUpdates() {
-        JQueryLocator input = pjq("input[type=radio][name$=bypassUpdatesInput][value=true]");
-        selenium.click(input);
+        selenium.click(pjq("input[type=radio][name$=bypassUpdatesInput][value=true]"));
         selenium.waitForPageToLoad();
 
         String timeValue = selenium.getText(time);
@@ -155,8 +150,7 @@ public class TestRichCollapsiblePanel extends AbstractMetamerTest {
     @Test
     @IssueTracking("https://jira.jboss.org/browse/RF-9421")
     public void testImmediate() {
-        JQueryLocator input = pjq("input[type=radio][name$=immediateInput][value=true]");
-        selenium.click(input);
+        selenium.click(pjq("input[type=radio][name$=immediateInput][value=true]"));
         selenium.waitForPageToLoad();
 
         String timeValue = selenium.getText(time);
@@ -168,13 +162,13 @@ public class TestRichCollapsiblePanel extends AbstractMetamerTest {
 
     @Test
     @IssueTracking("https://jira.jboss.org/browse/RF-9535")
-    public void testLimitToList() {
+    public void testLimitRender() {
         JQueryLocator timeLoc = jq("span[id$=requestTime]");
 
         selenium.type(pjq("input[type=text][id$=renderInput]"), "@this");
         selenium.waitForPageToLoad();
 
-        selenium.click(pjq("input[type=radio][name$=limitToListInput][value=true]"));
+        selenium.click(pjq("input[type=radio][name$=limitRenderInput][value=true]"));
         selenium.waitForPageToLoad();
 
         String timeValue = selenium.getText(timeLoc);
@@ -183,13 +177,12 @@ public class TestRichCollapsiblePanel extends AbstractMetamerTest {
         waitGui.failWith("Panel should be collapsed.").until(isDisplayed.locator(headerColps));
 
         String newTime = selenium.getText(timeLoc);
-        assertSame(newTime, timeValue, "Panel with ajaxRendered=true should not be rerendered.");
+        assertTrue(newTime.equals(timeValue), "Panel with ajaxRendered=true should not be rerendered (old and new time should be same).");
     }
 
     @Test
     public void testRendered() {
-        JQueryLocator input = pjq("input[type=radio][name$=renderedInput][value=false]");
-        selenium.click(input);
+        selenium.click(pjq("input[type=radio][name$=renderedInput][value=false]"));
         selenium.waitForPageToLoad();
 
         assertFalse(selenium.isElementPresent(panel), "Panel should not be rendered when rendered=false.");
