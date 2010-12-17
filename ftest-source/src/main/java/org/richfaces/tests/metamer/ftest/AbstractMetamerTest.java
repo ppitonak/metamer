@@ -101,16 +101,6 @@ public abstract class AbstractMetamerTest extends AbstractTestCase {
     @AfterMethod(alwaysRun = true)
     public void invalidateSession() {
         selenium.deleteAllVisibleCookies();
-
-        // TODO slow and unreliable solution
-        selenium.open(contextPath);
-        selenium.waitForPageToLoad(TIMEOUT);
-        JQueryLocator button = jq("input[id$=invalidateSessionButton]");
-
-        if (selenium.isElementPresent(button)) {
-            selenium.click(button);
-            selenium.waitForPageToLoad(TIMEOUT);
-        }
     }
 
     /**
