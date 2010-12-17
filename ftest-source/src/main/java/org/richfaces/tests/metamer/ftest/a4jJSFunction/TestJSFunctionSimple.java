@@ -35,6 +35,7 @@ import org.jboss.test.selenium.dom.Event;
 import org.jboss.test.selenium.encapsulated.JavaScript;
 import org.jboss.test.selenium.locator.JQueryLocator;
 import org.richfaces.tests.metamer.ftest.AbstractMetamerTest;
+import org.richfaces.tests.metamer.ftest.annotations.IssueTracking;
 import org.testng.annotations.Test;
 
 /**
@@ -156,6 +157,7 @@ public class TestJSFunctionSimple extends AbstractMetamerTest {
     }
 
     @Test
+    @IssueTracking("https://issues.jboss.org/browse/RF-10011")
     public void testLimitRender() {
         // set limitRender=true
         JQueryLocator limitRenderInput = pjq("input[type=radio][name$=limitRenderInput][value=true]");
