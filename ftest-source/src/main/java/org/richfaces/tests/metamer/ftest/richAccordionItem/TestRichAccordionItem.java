@@ -94,8 +94,7 @@ public class TestRichAccordionItem extends AbstractMetamerTest {
 
     @Test
     public void testDisabled() {
-        JQueryLocator selectOption = pjq("input[type=radio][name$=disabledInput][value=true]");
-        selenium.click(selectOption);
+        selenium.click(pjq("input[type=radio][name$=disabledInput][value=true]"));
         selenium.waitForPageToLoad();
 
         guardNoRequest(selenium).click(itemHeaders[0]);
@@ -176,7 +175,7 @@ public class TestRichAccordionItem extends AbstractMetamerTest {
     @Test
     @IssueTracking("https://jira.jboss.org/browse/RF-9821")
     public void testOnenter() {
-        testFireEvent(Event.CLICK, item1, "enter");
+        testFireEvent(Event.CLICK, itemHeaders[0], "enter");
     }
 
     @Test
@@ -253,8 +252,7 @@ public class TestRichAccordionItem extends AbstractMetamerTest {
 
     @Test
     public void testRendered() {
-        JQueryLocator input = pjq("input[type=radio][name$=renderedInput][value=false]");
-        selenium.click(input);
+        selenium.click(pjq("input[type=radio][name$=renderedInput][value=false]"));
         selenium.waitForPageToLoad();
 
         assertFalse(selenium.isElementPresent(item1), "Item1 should not be rendered when rendered=false.");
@@ -278,8 +276,7 @@ public class TestRichAccordionItem extends AbstractMetamerTest {
 
     @Test
     public void testSwitchTypeAjax() {
-        JQueryLocator selectOption = pjq("input[type=radio][name$=switchTypeInput][value=ajax]");
-        selenium.click(selectOption);
+        selenium.click(pjq("input[type=radio][name$=switchTypeInput][value=ajax]"));
         selenium.waitForPageToLoad();
 
         testSwitchTypeNull();
@@ -287,8 +284,7 @@ public class TestRichAccordionItem extends AbstractMetamerTest {
 
     @Test
     public void testSwitchTypeClient() {
-        JQueryLocator selectOption = pjq("input[type=radio][name$=switchTypeInput][value=client]");
-        selenium.click(selectOption);
+        selenium.click(pjq("input[type=radio][name$=switchTypeInput][value=client]"));
         selenium.waitForPageToLoad();
 
         guardNoRequest(selenium).click(itemHeaders[0]);
@@ -297,8 +293,7 @@ public class TestRichAccordionItem extends AbstractMetamerTest {
 
     @Test
     public void testSwitchTypeServer() {
-        JQueryLocator selectOption = pjq("input[type=radio][name$=switchTypeInput][value=server]");
-        selenium.click(selectOption);
+        selenium.click(pjq("input[type=radio][name$=switchTypeInput][value=server]"));
         selenium.waitForPageToLoad();
 
         guardHttp(selenium).click(itemHeaders[0]);
