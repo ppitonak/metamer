@@ -35,7 +35,6 @@ import org.jboss.test.selenium.css.CssProperty;
 
 import org.jboss.test.selenium.dom.Event;
 import org.jboss.test.selenium.locator.Attribute;
-import org.jboss.test.selenium.locator.AttributeLocator;
 import org.jboss.test.selenium.locator.JQueryLocator;
 import org.jboss.test.selenium.waiting.EventFiredCondition;
 import org.richfaces.tests.metamer.ftest.AbstractMetamerTest;
@@ -88,6 +87,9 @@ public class TestRichInplaceInput extends AbstractMetamerTest {
 
         assertEquals(selenium.getText(label), "new value", "Label should contain selected value.");
         assertEquals(selenium.getText(output), "new value", "Output did not change.");
+
+        String listenerText = selenium.getText(jq("div#phasesPanel li:eq(3)"));
+        assertEquals(listenerText, "* value changed: RichFaces 4 -> new value", "Value change listener was not invoked.");
     }
 
     @Test
@@ -139,7 +141,7 @@ public class TestRichInplaceInput extends AbstractMetamerTest {
     }
 
     @Test
-    @IssueTracking("https://javaserverfaces.dev.java.net/issues/show_bug.cgi?id=1805")
+    @IssueTracking("http://java.net/jira/browse/JAVASERVERFACES-1805")
     public void testInputWidth() {
         selenium.type(pjq("input[type=text][id$=inputWidthInput]"), "300px");
         selenium.waitForPageToLoad();
@@ -168,7 +170,29 @@ public class TestRichInplaceInput extends AbstractMetamerTest {
     @Test
     @IssueTracking("https://jira.jboss.org/browse/RF-9868")
     public void testOnblur() {
-        testFireEvent(Event.BLUR, inplaceInput);
+        selenium.type(pjq("input[id$=onblurInput]"), "metamerEvents += \"blur \"");
+        selenium.waitForPageToLoad(TIMEOUT);
+
+        selenium.click(inplaceInput);
+        selenium.fireEvent(input, Event.BLUR);
+
+        waitGui.failWith("Attribute onblur does not work correctly").until(new EventFiredCondition(Event.BLUR));
+    }
+
+    @Test
+    public void testOnchange() {
+        selenium.type(pjq("input[type=text][id$=onchangeInput]"), "metamerEvents += \"change \"");
+        selenium.waitForPageToLoad();
+
+        String timeValue = selenium.getText(time);
+        selenium.click(inplaceInput);
+        selenium.type(input, "new value");
+        selenium.fireEvent(input, Event.BLUR);
+        waitFor(5000);
+        waitGui.failWith("Page was not updated").waitForChange(timeValue, retrieveText.locator(time));
+
+        waitGui.failWith("Attribute onchange does not work correctly").until(
+                new EventFiredCondition(new Event("change")));
     }
 
     @Test
@@ -184,28 +208,12 @@ public class TestRichInplaceInput extends AbstractMetamerTest {
     @Test
     @IssueTracking("https://jira.jboss.org/browse/RF-9868")
     public void testOnfocus() {
-        testFireEvent(Event.FOCUS, inplaceInput);
-    }
+        selenium.type(pjq("input[id$=onfocusInput]"), "metamerEvents += \"focus \"");
+        selenium.waitForPageToLoad(TIMEOUT);
 
-    @Test
-    public void testOninputblur() {
-        testFireEvent(Event.BLUR, input, "inputblur");
-    }
-
-    @Test
-    @IssueTracking("https://jira.jboss.org/browse/RF-9571")
-    public void testOninputchange() {
-        selenium.type(pjq("input[type=text][id$=oninputchangeInput]"), "metamerEvents += \"inputchange \"");
-        selenium.waitForPageToLoad();
-
-        String timeValue = selenium.getText(time);
         selenium.click(inplaceInput);
-        selenium.type(input, "new value");
-        selenium.fireEvent(input, Event.BLUR);
-        waitGui.failWith("Page was not updated").waitForChange(timeValue, retrieveText.locator(time));
 
-        waitGui.failWith("Attribute oninputchange does not work correctly").until(
-                new EventFiredCondition(new Event("inputchange")));
+        waitGui.failWith("Attribute onfocus does not work correctly").until(new EventFiredCondition(Event.FOCUS));
     }
 
     @Test
@@ -216,11 +224,6 @@ public class TestRichInplaceInput extends AbstractMetamerTest {
     @Test
     public void testOninputdblclick() {
         testFireEvent(Event.DBLCLICK, input, "inputdblclick");
-    }
-
-    @Test
-    public void testOninputfocus() {
-        testFireEvent(Event.FOCUS, input, "inputfocus");
     }
 
     @Test
@@ -330,7 +333,7 @@ public class TestRichInplaceInput extends AbstractMetamerTest {
     public void testClickOkButton() {
         selenium.click(pjq("input[type=radio][name$=showControlsInput][value=true]"));
         selenium.waitForPageToLoad();
-        
+
         String timeValue = selenium.getText(time);
         selenium.click(inplaceInput);
         guardNoRequest(selenium).keyPress(input, "x");
@@ -347,11 +350,11 @@ public class TestRichInplaceInput extends AbstractMetamerTest {
     public void testClickCancelButton() {
         selenium.click(pjq("input[type=radio][name$=showControlsInput][value=true]"));
         selenium.waitForPageToLoad();
-        
+
         selenium.click(inplaceInput);
         guardNoRequest(selenium).keyPress(input, "x");
         guardNoRequest(selenium).mouseDown(cancelButton);
-        
+
         assertEquals(selenium.getText(label), "RichFaces 4", "Label");
         assertEquals(selenium.getValue(input), "RichFaces 4", "Value of inplace input.");
         assertEquals(selenium.getText(output), "RichFaces 4", "Output did not change.");
