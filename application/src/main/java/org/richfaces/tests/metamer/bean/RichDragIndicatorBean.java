@@ -52,7 +52,7 @@ public class RichDragIndicatorBean implements Serializable {
         logger = LoggerFactory.getLogger(getClass());
         logger.debug("initializing bean " + getClass().getName());
 
-        attributes = Attributes.getUIComponentAttributes(UIDragIndicator.class, getClass(), true);
+        attributes = Attributes.getComponentAttributesFromFacesConfig(UIDragIndicator.class, getClass());
         attributes.setAttribute("rendered", true);
     }
 

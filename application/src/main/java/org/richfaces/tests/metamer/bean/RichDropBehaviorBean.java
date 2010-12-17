@@ -64,7 +64,7 @@ public class RichDropBehaviorBean implements Serializable {
         logger = LoggerFactory.getLogger(getClass());
         logger.debug("initializing bean " + getClass().getName());
 
-        attributes = Attributes.getBehaviorAttributes(DropBehavior.class, getClass());
+        attributes = Attributes.getBehaviorAttributesFromClass(DropBehavior.class, getClass());
 
         attributes.setAttribute("event", "mouseover");
         attributes.setAttribute("acceptedTypes", "drg1, drg2");

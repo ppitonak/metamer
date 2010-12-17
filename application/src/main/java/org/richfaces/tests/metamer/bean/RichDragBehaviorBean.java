@@ -58,7 +58,7 @@ public class RichDragBehaviorBean implements Serializable {
         logger = LoggerFactory.getLogger(getClass());
         logger.debug("initializing bean " + getClass().getName());
 
-        attributes = Attributes.getBehaviorAttributes(DragBehavior.class, getClass());
+        attributes = Attributes.getBehaviorAttributesFromClass(DragBehavior.class, getClass());
 
         attributes.setAttribute("event", "mouseover");
         attributes.setAttribute("type", "drg1");
