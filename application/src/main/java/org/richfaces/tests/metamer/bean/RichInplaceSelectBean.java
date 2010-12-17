@@ -76,6 +76,7 @@ public class RichInplaceSelectBean implements Serializable {
         attributes.setAttribute("listWidth", "200px");
         attributes.setAttribute("openOnEdit", true);
         attributes.setAttribute("rendered", true);
+        attributes.setAttribute("saveOnBlur", true);
         attributes.setAttribute("saveOnSelect", true);
 
         // TODO has to be tested in another way

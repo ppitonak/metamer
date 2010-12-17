@@ -23,14 +23,15 @@ package org.richfaces.tests.metamer.ftest.richInplaceSelect;
 
 import static org.jboss.test.selenium.locator.LocatorFactory.jq;
 import static org.jboss.test.selenium.guard.request.RequestTypeGuardFactory.guardNoRequest;
+import static org.jboss.test.selenium.guard.request.RequestTypeGuardFactory.guardXhr;
 import static org.jboss.test.selenium.utils.URLUtils.buildUrl;
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertFalse;
 import static org.testng.Assert.assertTrue;
 
 import java.net.URL;
-import org.jboss.test.selenium.css.CssProperty;
 
+import org.jboss.test.selenium.css.CssProperty;
 import org.jboss.test.selenium.dom.Event;
 import org.jboss.test.selenium.locator.JQueryLocator;
 import org.jboss.test.selenium.waiting.EventFiredCondition;
@@ -54,6 +55,7 @@ public class TestRichInplaceSelect extends AbstractMetamerTest {
     private JQueryLocator options = jq("span.rf-is-opt:eq({0})"); // 00..49
     private JQueryLocator okButton = jq("input.rf-is-btn[id$=Okbtn]");
     private JQueryLocator cancelButton = jq("input.rf-is-btn[id$=Cancelbtn]");
+    private JQueryLocator output = pjq("span[id$=output]");
 
     @Override
     public URL getTestUrl() {
@@ -85,11 +87,17 @@ public class TestRichInplaceSelect extends AbstractMetamerTest {
             assertEquals(selenium.getText(options.format(i)), selectOptions[i / 10], "Select option nr. " + i);
         }
 
-        guardNoRequest(selenium).click(options.format(10));
+        selenium.click(options.format(10));
+        guardXhr(selenium).fireEvent(input, Event.BLUR);
+        waitGui.failWith("Output did not change.").until(textEquals.locator(output).text("Hawaii"));
+
         assertTrue(selenium.belongsClass(select, "rf-is-c-s"), "New class should be added to inplace select.");
         assertTrue(selenium.belongsClass(edit, "rf-is-none"), "Edit should contain class rf-is-none when popup is closed.");
 
         assertEquals(selenium.getText(label), "Hawaii", "Label should contain selected value.");
+
+        String listenerText = selenium.getText(jq("div#phasesPanel li:eq(3)"));
+        assertEquals(listenerText, "* value changed: null -> Hawaii", "Value change listener was not invoked.");
     }
 
     @Test
@@ -176,7 +184,13 @@ public class TestRichInplaceSelect extends AbstractMetamerTest {
     @Test
     @IssueTracking("https://jira.jboss.org/browse/RF-9849")
     public void testOnblur() {
-        testFireEvent(Event.BLUR, select);
+        selenium.type(pjq("input[id$=onblurInput]"), "metamerEvents += \"blur \"");
+        selenium.waitForPageToLoad(TIMEOUT);
+
+        selenium.click(options.format(10));
+        guardXhr(selenium).fireEvent(input, Event.BLUR);
+
+        waitGui.failWith("Attribute onblur does not work correctly").until(new EventFiredCondition(Event.BLUR));
     }
 
     @Test
@@ -187,6 +201,7 @@ public class TestRichInplaceSelect extends AbstractMetamerTest {
 
         selenium.click(select);
         selenium.click(options.format(10));
+        guardXhr(selenium).fireEvent(input, Event.BLUR);
 
         waitGui.failWith("Attribute onchange does not work correctly").until(
                 new EventFiredCondition(Event.CHANGE));
@@ -205,12 +220,13 @@ public class TestRichInplaceSelect extends AbstractMetamerTest {
     @Test
     @IssueTracking("https://jira.jboss.org/browse/RF-9849")
     public void testOnfocus() {
-        testFireEvent(Event.FOCUS, select);
-    }
+        selenium.type(pjq("input[type=text][id$=onfocusInput]"), "metamerEvents += \"focus \"");
+        selenium.waitForPageToLoad();
 
-    @Test
-    public void testOninputblur() {
-        testFireEvent(Event.BLUR, input, "inputblur");
+        selenium.click(select);
+
+        waitGui.failWith("Attribute onfocus does not work correctly").until(
+                new EventFiredCondition(Event.FOCUS));
     }
 
     @Test
@@ -221,11 +237,6 @@ public class TestRichInplaceSelect extends AbstractMetamerTest {
     @Test
     public void testOninputdblclick() {
         testFireEvent(Event.DBLCLICK, input, "inputdblclick");
-    }
-
-    @Test
-    public void testOninputfocus() {
-        testFireEvent(Event.FOCUS, input, "inputfocus");
     }
 
     @Test
@@ -364,9 +375,15 @@ public class TestRichInplaceSelect extends AbstractMetamerTest {
     }
 
     @Test
-    @IssueTracking("https://jira.jboss.org/browse/RF-9849")
-    public void testOnselect() {
-        testFireEvent(Event.SELECT, input);
+    public void testOnselectitem() {
+        selenium.type(pjq("input[type=text][id$=onselectitemInput]"), "metamerEvents += \"selectitem \"");
+        selenium.waitForPageToLoad();
+
+        selenium.click(select);
+        selenium.click(options.format(10));
+
+        waitGui.failWith("Attribute onselectitem does not work correctly").until(
+                new EventFiredCondition(new Event("selectitem")));
     }
 
     @Test
@@ -463,7 +480,7 @@ public class TestRichInplaceSelect extends AbstractMetamerTest {
 
         selenium.click(select);
         selenium.mouseOver(options.format(0));
-        
+
         assertTrue(selenium.belongsClass(options.format(0), "metamer-ftest-class"), "Selected item does not contain defined class.");
         for (int i = 1; i < 50; i++) {
             assertFalse(selenium.belongsClass(options.format(i), "metamer-ftest-class"), "Not selected item " + i + " should not contain defined class.");
