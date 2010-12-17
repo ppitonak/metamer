@@ -144,10 +144,10 @@ public class TestRichSlider extends AbstractMetamerTest {
         guardXhr(selenium).type(input, number);
         waitGui.failWith("Page was not updated").waitForChange(reqTime, retrieveText.locator(time));
 
-        int roundedNumber = (int) Math.round(Double.parseDouble(number));
+        Double newNumber = new Double(number);
 
-        assertEquals(selenium.getText(output), Integer.toString(roundedNumber), "Output was not updated.");
-        assertEquals(selenium.getValue(input), Integer.toString(roundedNumber), "Input was not updated.");
+        assertEquals(selenium.getText(output), newNumber == 0 ? "0" : newNumber.toString(), "Output was not updated.");
+        assertEquals(selenium.getValue(input), newNumber == 0 ? "0" : newNumber.toString(), "Input was not updated.");
     }
 
     @Test
