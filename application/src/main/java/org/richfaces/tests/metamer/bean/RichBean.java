@@ -128,6 +128,9 @@ public class RichBean implements Serializable {
         components.put("richDataGrid", "Rich Data Grid");
         components.put("richDataScroller", "Rich Data Scroller");
         components.put("richDataTable", "Rich Data Table");
+        components.put("richDragBehavior", "Rich Drag Behavior");
+        components.put("richDragIndicator", "Rich Drag Indicator");
+        components.put("richDropBehavior", "Rich Drop Behavior");
         components.put("richDropDownMenu", "Rich Drop Down Menu");
         components.put("richExtendedDataTable", "Rich Extended Data Table");
         components.put("richFileUpload", "Rich File Upload");

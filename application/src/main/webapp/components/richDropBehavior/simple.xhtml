@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:metamer="http://java.sun.com/jsf/composite/metamer"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:a4j="http://richfaces.org/a4j">
+
+<!--
+JBoss, Home of Professional Open Source
+Copyright 2010, Red Hat, Inc. and individual contributors
+by the @authors tag. See the copyright.txt in the distribution for a
+full listing of individual contributors.
+
+This is free software; you can redistribute it and/or modify it
+under the terms of the GNU Lesser General Public License as
+published by the Free Software Foundation; either version 2.1 of
+the License, or (at your option) any later version.
+
+This software is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public
+License along with this software; if not, write to the Free
+Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
+02110-1301 USA, or see the FSF site: http://www.fsf.org.
+    -->
+
+<ui:composition template="/templates/template.xhtml">
+	<ui:param name="componentId" value="richTree" />
+
+	<ui:define name="head">
+		<f:metadata>
+			<f:viewParam name="templates" value="#{templateBean.templates}">
+				<f:converter converterId="templatesListConverter" />
+			</f:viewParam>
+			<f:event type="preRenderView"
+				listener="#{richTreeBean.preRenderView}" />
+		</f:metadata>
+		<h:outputStylesheet library="css" name="richDragBehavior.css" />
+	</ui:define>
+
+	<ui:define name="outOfTemplateBefore">
+	</ui:define>
+
+	<ui:define name="component">
+
+		<rich:dragIndicator id="indicator" />
+
+		<table>
+			<tr>
+				<td>
+					<a4j:outputPanel id="draggable1" layout="block" styleClass="draggable">
+						<h:outputText value="#{richDragBehaviorBean.dragValues[0]}" />
+						<rich:dragBehavior event="mouseover"
+							dragValue="#{richDragBehaviorBean.dragValues[0]}"
+							type="drg1"  />
+					</a4j:outputPanel>
+				</td>
+				<td>
+					<a4j:outputPanel id="draggable2" layout="block" styleClass="draggable">
+						<h:outputText value="#{richDragBehaviorBean.dragValues[1]}" />
+						<rich:dragBehavior event="mouseover" type="drg2" dragIndicator="indicator" dragValue="#{richDragBehaviorBean.dragValues[1]}" />
+					</a4j:outputPanel>
+				</td>
+				<td>
+					<a4j:outputPanel id="draggable3" layout="block" styleClass="draggable">
+						<h:outputText value="#{richDragBehaviorBean.dragValues[2]}" />
+						<rich:dragBehavior event="mouseover" type="drg3" dragIndicator="indicator" dragValue="#{richDragBehaviorBean.dragValues[2]}" />
+					</a4j:outputPanel>
+				</td>
+			</tr>
+		</table>
+
+		<a4j:outputPanel id="droppable" layout="block" styleClass="droppable">
+			<rich:dropBehavior event="mouseover"
+				dropValue="#{richDropBehaviorBean.dropValue}"
+				listener="#{richDropListenerBean.processDragging}"
+				
+				acceptedTypes="#{richDragBehaviorBean.attributes['acceptedTypes'].value}"
+				bypassUpdates="#{richDragBehaviorBean.attributes['bypassUpdates'].value}"
+				data="#{richDragBehaviorBean.attributes['data'].value}"
+				disabled="#{richDragBehaviorBean.attributes['disabled'].value}"
+				execute="#{richDragBehaviorBean.attributes['execute'].value}"
+				immediate="#{richDragBehaviorBean.attributes['immediate'].value}"
+				limitRender="#{richDragBehaviorBean.attributes['limitRender'].value}"
+				onbeforedomupdate="#{richDragBehaviorBean.attributes['onbeforedomupdate'].value}"
+				onbegin="#{richDragBehaviorBean.attributes['onbegin'].value}"
+				oncomplete="#{richDragBehaviorBean.attributes['oncomplete'].value}"
+				onerror="#{richDragBehaviorBean.attributes['onerror'].value}"
+				queueId="#{richDragBehaviorBean.attributes['queueId'].value}"
+				render="#{richDragBehaviorBean.attributes['render'].value}"
+				status="#{richDragBehaviorBean.attributes['status'].value}"
+				 />
+			
+			<h:dataTable id="droppedValues" var="droppedValue" value="#{richDropBehaviorBean.droppedEntries}">
+				<h:column>
+					<h:outputText value="#{droppedValue}" />
+				</h:column>
+			</h:dataTable>
+		</a4j:outputPanel>
+
+	</ui:define>
+
+	<ui:define name="outOfTemplateAfter">
+		<a4j:outputPanel ajaxRendered="true">
+			<h:panelGrid columns="2">
+				<h:outputLabel value="Drop Event:" rendered="#{not empty richDropListenerBean.dropEvent}" />
+				<h:panelGroup rendered="#{not empty richDropListenerBean.dropEvent}">
+					<h:panelGrid columns="2">
+						<h:outputLabel value="Value:" />
+						<h:outputText value="#{richDropListenerBean.dropEvent.dragBehavior.dragValue}" />
+					</h:panelGrid>
+				</h:panelGroup>
+			</h:panelGrid>
+		</a4j:outputPanel>
+	
+		<metamer:attributes value="#{richDropBehaviorBean.attributes}" id="dropBehaviorAttributes" />
+	</ui:define>
+
+</ui:composition>
+</html>
