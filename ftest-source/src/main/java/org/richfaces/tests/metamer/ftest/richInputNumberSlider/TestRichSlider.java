@@ -233,7 +233,7 @@ public class TestRichSlider extends AbstractMetamerTest {
     }
 
     @Test
-    @Use(field = "delay", ints = {200, 500, 3700})
+    @Use(field = "delay", ints = {300, 500, 3700})
     public void testDelay() {
         selenium.type(pjq("input[type=text][id$=delayInput]"), delay.toString());
         selenium.waitForPageToLoad();
@@ -293,17 +293,17 @@ public class TestRichSlider extends AbstractMetamerTest {
 
     @Test
     public void testImmediate() {
-        JQueryLocator immediateInput = pjq("input[type=radio][name$=immediateInput][value=true]");
-        selenium.click(immediateInput);
+        selenium.click(pjq("input[type=radio][name$=immediateInput][value=true]"));
         selenium.waitForPageToLoad();
 
         String reqTime = selenium.getText(time);
-        guardXhr(selenium).type(input, "4");
+        guardXhr(selenium).mouseDownAt(track, new Point(0, 0));
         waitGui.failWith("Page was not updated").waitForChange(reqTime, retrieveText.locator(time));
-        assertEquals(selenium.getText(output), "4", "Output was not updated.");
 
-        assertPhases(PhaseId.RESTORE_VIEW, PhaseId.APPLY_REQUEST_VALUES, PhaseId.PROCESS_VALIDATIONS, PhaseId.UPDATE_MODEL_VALUES,
-                PhaseId.INVOKE_APPLICATION, PhaseId.RENDER_RESPONSE);
+        assertPhases(PhaseId.RESTORE_VIEW, PhaseId.APPLY_REQUEST_VALUES, PhaseId.PROCESS_VALIDATIONS,
+                PhaseId.UPDATE_MODEL_VALUES, PhaseId.INVOKE_APPLICATION, PhaseId.RENDER_RESPONSE);
+        String listenerText = selenium.getText(jq("div#phasesPanel li:eq(2)"));
+        assertEquals(listenerText, "* value changed: 2 -> -10", "Value change listener was not invoked.");
     }
 
     @Test
@@ -564,8 +564,8 @@ public class TestRichSlider extends AbstractMetamerTest {
     }
 
     @Test
-    public void testShowToolTip() {
-        selenium.click(pjq("input[type=radio][name$=showToolTipInput][value=true]"));
+    public void testShowTooltip() {
+        selenium.click(pjq("input[type=radio][name$=showTooltipInput][value=true]"));
         selenium.waitForPageToLoad();
 
         assertTrue(selenium.isElementPresent(tooltip), "Tooltip should be present on the page.");
@@ -604,11 +604,11 @@ public class TestRichSlider extends AbstractMetamerTest {
     }
 
     @Test
-    public void testToolTipClass() {
-        selenium.click(pjq("input[type=radio][name$=showToolTipInput][value=true]"));
+    public void testTooltipClass() {
+        selenium.click(pjq("input[type=radio][name$=showTooltipInput][value=true]"));
         selenium.waitForPageToLoad();
 
-        testStyleClass(tooltip, "toolTipClass");
+        testStyleClass(tooltip, "tooltipClass");
     }
 
     @Test
@@ -688,7 +688,7 @@ public class TestRichSlider extends AbstractMetamerTest {
             timesArray[i] = sdf.parse(timesList.get(i));
         }
 
-        delta = (long) (delay * 0.2);
+        delta = (long) (delay * 0.5);
         for (int i = 1; i < timesArray.length - 1; i++) {
             long diff = timesArray[i + 1].getTime() - timesArray[i].getTime();
             assertTrue(Math.abs(diff - delay) < delta, "Delay " + diff + " is too far from set value (" + delay + ")");

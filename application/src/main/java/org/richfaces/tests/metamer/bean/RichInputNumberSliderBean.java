@@ -58,6 +58,7 @@ public class RichInputNumberSliderBean implements Serializable {
 
         attributes.setAttribute("enableManualInput", true);
         attributes.setAttribute("inputSize", 3);
+        attributes.setAttribute("maxlength", 10);
         attributes.setAttribute("maxValue", 10);
         attributes.setAttribute("minValue", -10);
         attributes.setAttribute("rendered", true);
