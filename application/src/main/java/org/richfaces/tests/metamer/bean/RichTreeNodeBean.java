@@ -27,7 +27,7 @@ import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
-import org.richfaces.component.UITreeModelAdaptor;
+import org.richfaces.component.UITreeNode;
 import org.richfaces.tests.metamer.Attributes;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -53,7 +53,7 @@ public class RichTreeNodeBean implements Serializable {
         logger.debug("initializing bean " + getClass().getName());
 
         for (int i = 0; i < attributes.length; i++) {
-            attributes[i] = Attributes.getComponentAttributesFromFacesConfig(UITreeModelAdaptor.class, getClass());
+            attributes[i] = Attributes.getComponentAttributesFromFacesConfig(UITreeNode.class, getClass());
 
         
             attributes[i].get("rendered").setValue(true);
@@ -65,7 +65,6 @@ public class RichTreeNodeBean implements Serializable {
             attributes[i].setAttribute("handleClass", null);
             attributes[i].setAttribute("iconClass", null);
             attributes[i].setAttribute("labelClass", null);
-            attributes[i].setAttribute("styleClass", null);
         }
     }
 
