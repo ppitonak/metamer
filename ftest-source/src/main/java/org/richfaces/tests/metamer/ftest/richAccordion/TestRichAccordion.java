@@ -40,8 +40,8 @@ import org.jboss.test.selenium.encapsulated.JavaScript;
 import org.jboss.test.selenium.locator.Attribute;
 import org.jboss.test.selenium.locator.AttributeLocator;
 import org.jboss.test.selenium.locator.JQueryLocator;
-import org.jboss.test.selenium.waiting.conditions.IsDisplayed;
 import org.richfaces.tests.metamer.ftest.AbstractMetamerTest;
+import org.richfaces.tests.metamer.ftest.annotations.IssueTracking;
 import org.testng.annotations.Test;
 
 /**
@@ -121,6 +121,7 @@ public class TestRichAccordion extends AbstractMetamerTest {
     }
 
     @Test
+    @IssueTracking("https://issues.jboss.org/browse/RF-10040")
     public void testSwitchTypeServer() {
         JQueryLocator selectOption = pjq("input[type=radio][id$=switchTypeInput:3]");
         selenium.click(selectOption);
