@@ -26,9 +26,9 @@ import java.util.Date;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
-import org.richfaces.component.UIProgressBar;
+import javax.faces.bean.ViewScoped;
 
+import org.richfaces.component.UIProgressBar;
 import org.richfaces.tests.metamer.Attributes;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -40,7 +40,7 @@ import org.slf4j.LoggerFactory;
  * @version $Revision$
  */
 @ManagedBean(name = "richProgressBarBean")
-@SessionScoped
+@ViewScoped
 public class RichProgressBarBean implements Serializable {
 
     private static final long serialVersionUID = -1L;

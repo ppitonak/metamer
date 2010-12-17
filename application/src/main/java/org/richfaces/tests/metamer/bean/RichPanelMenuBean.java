@@ -25,10 +25,10 @@ import java.io.Serializable;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ViewScoped;
+
 import org.richfaces.component.UIPanelMenu;
 import org.richfaces.event.ItemChangeEvent;
-
 import org.richfaces.tests.metamer.Attributes;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -40,7 +40,7 @@ import org.slf4j.LoggerFactory;
  * @version $Revision$
  */
 @ManagedBean(name = "richPanelMenuBean")
-@SessionScoped
+@ViewScoped
 public class RichPanelMenuBean implements Serializable {
 
     private static final long serialVersionUID = -1L;

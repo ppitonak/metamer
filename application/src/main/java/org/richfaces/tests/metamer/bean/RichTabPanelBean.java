@@ -25,9 +25,9 @@ import java.io.Serializable;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
-import org.richfaces.component.html.HtmlTabPanel;
+import javax.faces.bean.ViewScoped;
 
+import org.richfaces.component.html.HtmlTabPanel;
 import org.richfaces.tests.metamer.Attributes;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -39,7 +39,7 @@ import org.slf4j.LoggerFactory;
  * @version $Revision$
  */
 @ManagedBean(name = "richTabPanelBean")
-@SessionScoped
+@ViewScoped
 public class RichTabPanelBean implements Serializable {
 
     private static final long serialVersionUID = -1L;
