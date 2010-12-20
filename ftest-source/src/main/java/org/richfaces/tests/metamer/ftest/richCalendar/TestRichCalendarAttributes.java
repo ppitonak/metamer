@@ -23,6 +23,7 @@ package org.richfaces.tests.metamer.ftest.richCalendar;
 
 import static org.jboss.test.selenium.guard.request.RequestTypeGuardFactory.guardNoRequest;
 import static org.jboss.test.selenium.guard.request.RequestTypeGuardFactory.guardXhr;
+import static org.jboss.test.selenium.locator.LocatorFactory.jq;
 import static org.jboss.test.selenium.utils.URLUtils.buildUrl;
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertFalse;
@@ -649,6 +650,22 @@ public class TestRichCalendarAttributes extends AbstractCalendarTest {
                 assertFalse(displayed, "Bar with week numbers should not be visible.");
             }
         }
+    }
+
+    @Test
+    public void testValueChangeListener() {
+        String time1Value = selenium.getText(time);
+        selenium.click(input);
+        selenium.click(cellDay.format(6));
+        guardXhr(selenium).click(applyButton);
+        waitGui.failWith("Page was not updated").waitForChange(time1Value, retrieveText.locator(time));
+
+        String selectedDate1 = selenium.getValue(input);
+        String selectedDate2 = selenium.getText(output);
+        String listenerOutput = selenium.getText(jq("ul.phases-list li:eq(3)"));
+
+        assertEquals(selectedDate1, selectedDate2, "Output and calendar's input should be the same.");
+        assertEquals(listenerOutput, "* value changed: null -> " + selectedDate1);
     }
 
     /**

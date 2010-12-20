@@ -151,11 +151,11 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                                showWeeksBar="#{richCalendarBean.attributes['showWeeksBar'].value}"
                                style="#{richCalendarBean.attributes['style'].value}"
                                tabindex="#{richCalendarBean.attributes['tabindex'].value}"
-                               timeZone="#{richCalendarBean.attributes['timeZone'].value}"
+                               timeZone="#{richCalendarBean.timeZone}"
                                todayControlMode="#{richCalendarBean.attributes['todayControlMode'].value}"
                                validatorMessage="#{richCalendarBean.attributes['validatorMessage'].value}"
                                value="#{richCalendarBean.attributes['value'].value}"
-                               valueChangeListener="#{richBean.valueChangeListener}"
+                               valueChangeListener="#{richCalendarBean.valueChangeListener}"
                                verticalOffset="#{richCalendarBean.attributes['verticalOffset'].value}"
                                zindex="#{richCalendarBean.attributes['zindex'].value}"
                                >
@@ -165,7 +165,11 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 
             <br/><br/>
 
-            output: <h:outputText id="output" value="#{richCalendarBean.attributes['value'].value}"/>
+            output:
+            <h:outputText id="output" value="#{richCalendarBean.attributes['value'].value}">
+                <f:convertDateTime pattern="#{richCalendarBean.attributes['datePattern'].value}"
+                                   timeZone="#{richCalendarBean.timeZone}"/>
+            </h:outputText>
 
         </ui:define>
 

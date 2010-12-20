@@ -21,6 +21,8 @@
  *******************************************************************************/
 package org.richfaces.tests.metamer.ftest.richCalendar;
 
+import static org.jboss.test.selenium.locator.LocatorFactory.jq;
+
 import org.jboss.test.selenium.locator.JQueryLocator;
 import org.richfaces.tests.metamer.ftest.AbstractMetamerTest;
 
@@ -86,4 +88,7 @@ public abstract class AbstractCalendarTest extends AbstractMetamerTest {
     protected JQueryLocator minutesInputDown = pjq("div[id$=calendarTimeMinutesBtnDown]");
     protected JQueryLocator okButton = pjq("td.rf-ca-time-layout-ok > div");
     protected JQueryLocator cancelButton = pjq("td.rf-ca-time-layout-cancel > div");
+
+    protected JQueryLocator output = pjq("span[id$=output]");
+    JQueryLocator time = jq("span[id$=requestTime]");
 }

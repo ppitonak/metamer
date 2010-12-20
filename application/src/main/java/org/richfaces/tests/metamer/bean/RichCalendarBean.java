@@ -22,11 +22,14 @@
 package org.richfaces.tests.metamer.bean;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.TimeZone;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.event.ValueChangeEvent;
 import org.richfaces.component.UICalendar;
 
 import org.richfaces.tests.metamer.Attributes;
@@ -47,6 +50,7 @@ public class RichCalendarBean implements Serializable {
     private static Logger logger;
     private Attributes attributes;
     private Date date = new Date();
+    private TimeZone timeZone = TimeZone.getTimeZone("UTC");
 
     /**
      * Initializes the managed bean.
@@ -75,6 +79,7 @@ public class RichCalendarBean implements Serializable {
         attributes.remove("dataModel");
         attributes.remove("validator");
         attributes.remove("valueChangeListener");
+        attributes.remove("timeZone");
     }
 
     public Attributes getAttributes() {
@@ -91,5 +96,36 @@ public class RichCalendarBean implements Serializable {
 
     public void setDate(Date date) {
         this.date = date;
+    }
+
+    public TimeZone getTimeZone() {
+        return timeZone;
+    }
+
+    public void setTimeZone(TimeZone timeZone) {
+        this.timeZone = timeZone;
+    }
+
+    /**
+     * A value change listener that logs to the page old and new value.
+     *
+     * @param event
+     *            an event representing the activation of a user interface component
+     */
+    public void valueChangeListener(ValueChangeEvent event) {
+        SimpleDateFormat sdf = new SimpleDateFormat(attributes.get("datePattern").getValue().toString());
+        sdf.setTimeZone(timeZone);
+
+        String oldDate = "null";
+        String newDate = "null";
+
+        if (event.getOldValue() != null) {
+            oldDate = sdf.format((Date) event.getOldValue());
+        }
+        if (event.getNewValue() != null) {
+            newDate = sdf.format((Date) event.getNewValue());
+        }
+
+        RichBean.logToPage("* value changed: " + oldDate + " -> " + newDate);
     }
 }
