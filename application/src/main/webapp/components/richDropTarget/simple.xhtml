@@ -55,49 +55,49 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 			<tr>
 				<td>
 					<a4j:outputPanel id="draggable1" layout="block" styleClass="draggable">
-						<h:outputText value="#{richDragBehaviorBean.dragValues[0]}" />
-						<rich:dragBehavior event="mouseover"
-							dragValue="#{richDragBehaviorBean.dragValues[0]}"
+						<h:outputText value="#{richDragSourceBean.dragValues[0]}" />
+						<rich:dragSource event="mouseover"
+							dragValue="#{richDragSourceBean.dragValues[0]}"
 							type="drg1"  />
 					</a4j:outputPanel>
 				</td>
 				<td>
 					<a4j:outputPanel id="draggable2" layout="block" styleClass="draggable">
-						<h:outputText value="#{richDragBehaviorBean.dragValues[1]}" />
-						<rich:dragBehavior event="mouseover" type="drg2" dragIndicator="indicator" dragValue="#{richDragBehaviorBean.dragValues[1]}" />
+						<h:outputText value="#{richDragSourceBean.dragValues[1]}" />
+						<rich:dragSource event="mouseover" type="drg2" dragIndicator="indicator" dragValue="#{richDragSourceBean.dragValues[1]}" />
 					</a4j:outputPanel>
 				</td>
 				<td>
 					<a4j:outputPanel id="draggable3" layout="block" styleClass="draggable">
-						<h:outputText value="#{richDragBehaviorBean.dragValues[2]}" />
-						<rich:dragBehavior event="mouseover" type="drg3" dragIndicator="indicator" dragValue="#{richDragBehaviorBean.dragValues[2]}" />
+						<h:outputText value="#{richDragSourceBean.dragValues[2]}" />
+						<rich:dragSource event="mouseover" type="drg3" dragIndicator="indicator" dragValue="#{richDragSourceBean.dragValues[2]}" />
 					</a4j:outputPanel>
 				</td>
 			</tr>
 		</table>
 
 		<a4j:outputPanel id="droppable" layout="block" styleClass="droppable">
-			<rich:dropBehavior event="mouseover"
-				dropValue="#{richDropBehaviorBean.dropValue}"
-				listener="#{richDropListenerBean.processDragging}"
+			<rich:dropTarget event="mouseover"
+				dropValue="#{richDropTargetBean.dropValue}"
+				dropListener="#{richDropListenerBean.processDragging}"
 				
-				acceptedTypes="#{richDragBehaviorBean.attributes['acceptedTypes'].value}"
-				bypassUpdates="#{richDragBehaviorBean.attributes['bypassUpdates'].value}"
-				data="#{richDragBehaviorBean.attributes['data'].value}"
-				disabled="#{richDragBehaviorBean.attributes['disabled'].value}"
-				execute="#{richDragBehaviorBean.attributes['execute'].value}"
-				immediate="#{richDragBehaviorBean.attributes['immediate'].value}"
-				limitRender="#{richDragBehaviorBean.attributes['limitRender'].value}"
-				onbeforedomupdate="#{richDragBehaviorBean.attributes['onbeforedomupdate'].value}"
-				onbegin="#{richDragBehaviorBean.attributes['onbegin'].value}"
-				oncomplete="#{richDragBehaviorBean.attributes['oncomplete'].value}"
-				onerror="#{richDragBehaviorBean.attributes['onerror'].value}"
-				queueId="#{richDragBehaviorBean.attributes['queueId'].value}"
-				render="#{richDragBehaviorBean.attributes['render'].value}"
-				status="#{richDragBehaviorBean.attributes['status'].value}"
+				acceptedTypes="#{richDragSourceBean.attributes['acceptedTypes'].value}"
+				bypassUpdates="#{richDragSourceBean.attributes['bypassUpdates'].value}"
+				data="#{richDragSourceBean.attributes['data'].value}"
+				disabled="#{richDragSourceBean.attributes['disabled'].value}"
+				execute="#{richDragSourceBean.attributes['execute'].value}"
+				immediate="#{richDragSourceBean.attributes['immediate'].value}"
+				limitRender="#{richDragSourceBean.attributes['limitRender'].value}"
+				onbeforedomupdate="#{richDragSourceBean.attributes['onbeforedomupdate'].value}"
+				onbegin="#{richDragSourceBean.attributes['onbegin'].value}"
+				oncomplete="#{richDragSourceBean.attributes['oncomplete'].value}"
+				onerror="#{richDragSourceBean.attributes['onerror'].value}"
+				queueId="#{richDragSourceBean.attributes['queueId'].value}"
+				render="#{richDragSourceBean.attributes['render'].value}"
+				status="#{richDragSourceBean.attributes['status'].value}"
 				 />
 			
-			<h:dataTable id="droppedValues" var="droppedValue" value="#{richDropBehaviorBean.droppedEntries}">
+			<h:dataTable id="droppedValues" var="droppedValue" value="#{richDropTargetBean.droppedEntries}">
 				<h:column>
 					<h:outputText value="#{droppedValue}" />
 				</h:column>
@@ -125,7 +125,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 			</h:panelGrid>
 		</a4j:outputPanel>
 	
-		<metamer:attributes value="#{richDropBehaviorBean.attributes}" id="dropBehaviorAttributes" />
+		<metamer:attributes value="#{richDropTargetBean.attributes}" id="dropBehaviorAttributes" />
 	</ui:define>
 
 </ui:composition>

@@ -39,27 +39,27 @@ public class RichDropListenerBean {
 
     private DropEvent dropEvent;
 
-    @ManagedProperty("#{richDropBehaviorBean}")
-    private RichDropBehaviorBean richDropBehaviorBean;
+    @ManagedProperty("#{richDropTargetBean}")
+    private RichDropTargetBean richDropTargetBean;
 
     public void processDragging(DropEvent dropEvent) {
         DragValue dragValue = (DragValue) dropEvent.getDragValue();
         DropValue dropValue = (DropValue) dropEvent.getDropValue();
 
         this.dropEvent = dropEvent;
-        richDropBehaviorBean.increaseDropValue();
-        richDropBehaviorBean.getDroppedValues().put(dropValue, dragValue);
+        richDropTargetBean.increaseDropValue();
+        richDropTargetBean.getDroppedValues().put(dropValue, dragValue);
     }
 
     public DropEvent getDropEvent() {
         return dropEvent;
     }
 
-    public RichDropBehaviorBean getRichDropBehaviorBean() {
-        return richDropBehaviorBean;
+    public RichDropTargetBean getRichDropTargetBean() {
+        return richDropTargetBean;
     }
 
-    public void setRichDropBehaviorBean(RichDropBehaviorBean richDropBehaviorBean) {
-        this.richDropBehaviorBean = richDropBehaviorBean;
+    public void setRichDropTargetBean(RichDropTargetBean richDropBehaviorBean) {
+        this.richDropTargetBean = richDropBehaviorBean;
     }
 }

@@ -27,12 +27,14 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 
     <ui:composition template="/templates/list.xhtml">
 
-        <ui:define name="pageTitle">Rich Drop Behavior</ui:define>
+        <ui:define name="pageTitle">Rich Drag Source</ui:define>
 
         <ui:define name="links">
 
             <metamer:testPageLink id="simple" outcome="simple" value="Simple">
-            	
+            	<div>The 3 simple <b>rich:dragSource</b> components tied to target component.</div>
+            	<div>Attributes are tied to first of components.</div>
+            	<div>After drop to target, details of event appears.</div>
             </metamer:testPageLink>
 
         </ui:define>

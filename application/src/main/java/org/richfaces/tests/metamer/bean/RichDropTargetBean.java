@@ -33,7 +33,7 @@ import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
-import org.richfaces.component.behavior.DropBehavior;
+import org.richfaces.component.UIDropTarget;
 import org.richfaces.tests.metamer.Attributes;
 import org.richfaces.tests.metamer.model.drag.DragValue;
 import org.richfaces.tests.metamer.model.drag.DropValue;
@@ -44,9 +44,9 @@ import org.slf4j.LoggerFactory;
  * @author <a href="mailto:lfryc@redhat.com">Lukas Fryc</a>
  * @version $Revision$
  */
-@ManagedBean(name = "richDropBehaviorBean")
+@ManagedBean(name = "richDropTargetBean")
 @ViewScoped
-public class RichDropBehaviorBean implements Serializable {
+public class RichDropTargetBean implements Serializable {
 
     private static final long serialVersionUID = 4008175400649809L;
     private static Logger logger;
@@ -64,11 +64,13 @@ public class RichDropBehaviorBean implements Serializable {
         logger = LoggerFactory.getLogger(getClass());
         logger.debug("initializing bean " + getClass().getName());
 
-        attributes = Attributes.getBehaviorAttributesFromClass(DropBehavior.class, getClass());
+        attributes = Attributes.getComponentAttributesFromClass(UIDropTarget.class, getClass());
 
         attributes.setAttribute("event", "mouseover");
         attributes.setAttribute("acceptedTypes", "drg1, drg2");
         attributes.setAttribute("render", "droppedValues");
+        
+        attributes.remove("dropListener");
         
         increaseDropValue();
     }

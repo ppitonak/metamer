@@ -29,7 +29,7 @@ import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
-import org.richfaces.component.behavior.DragBehavior;
+import org.richfaces.component.UIDragSource;
 import org.richfaces.tests.metamer.Attributes;
 import org.richfaces.tests.metamer.model.drag.DragValue;
 import org.slf4j.Logger;
@@ -39,9 +39,9 @@ import org.slf4j.LoggerFactory;
  * @author <a href="mailto:lfryc@redhat.com">Lukas Fryc</a>
  * @version $Revision$
  */
-@ManagedBean(name = "richDragBehaviorBean")
+@ManagedBean(name = "richDragSourceBean")
 @ViewScoped
-public class RichDragBehaviorBean implements Serializable {
+public class RichDragSourceBean implements Serializable {
 
     private static final int DRAG_VALUES = 3;
     private static final long serialVersionUID = 4008175400649809L;
@@ -58,7 +58,7 @@ public class RichDragBehaviorBean implements Serializable {
         logger = LoggerFactory.getLogger(getClass());
         logger.debug("initializing bean " + getClass().getName());
 
-        attributes = Attributes.getBehaviorAttributesFromClass(DragBehavior.class, getClass());
+        attributes = Attributes.getComponentAttributesFromClass(UIDragSource.class, getClass());
 
         attributes.setAttribute("event", "mouseover");
         attributes.setAttribute("type", "drg1");
