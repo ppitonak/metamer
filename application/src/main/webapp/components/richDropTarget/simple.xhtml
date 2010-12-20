@@ -80,21 +80,15 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 			<rich:dropTarget event="mouseover"
 				dropValue="#{richDropTargetBean.dropValue}"
 				dropListener="#{richDropListenerBean.processDragging}"
+				action="#{richBean.dummyAction}"
+				actionListener="#{richBean.dummyActionListener}"
 				
 				acceptedTypes="#{richDragSourceBean.attributes['acceptedTypes'].value}"
 				bypassUpdates="#{richDragSourceBean.attributes['bypassUpdates'].value}"
-				data="#{richDragSourceBean.attributes['data'].value}"
-				disabled="#{richDragSourceBean.attributes['disabled'].value}"
-				execute="#{richDragSourceBean.attributes['execute'].value}"
 				immediate="#{richDragSourceBean.attributes['immediate'].value}"
-				limitRender="#{richDragSourceBean.attributes['limitRender'].value}"
-				onbeforedomupdate="#{richDragSourceBean.attributes['onbeforedomupdate'].value}"
-				onbegin="#{richDragSourceBean.attributes['onbegin'].value}"
-				oncomplete="#{richDragSourceBean.attributes['oncomplete'].value}"
-				onerror="#{richDragSourceBean.attributes['onerror'].value}"
-				queueId="#{richDragSourceBean.attributes['queueId'].value}"
 				render="#{richDragSourceBean.attributes['render'].value}"
-				status="#{richDragSourceBean.attributes['status'].value}"
+				rendered="#{richDragSourceBean.attributes['rendered'].value}"
+				value="#{richDragSourceBean.attributes['value'].value}"
 				 />
 			
 			<h:dataTable id="droppedValues" var="droppedValue" value="#{richDropTargetBean.droppedEntries}">

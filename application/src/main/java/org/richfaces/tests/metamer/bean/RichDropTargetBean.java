@@ -64,13 +64,17 @@ public class RichDropTargetBean implements Serializable {
         logger = LoggerFactory.getLogger(getClass());
         logger.debug("initializing bean " + getClass().getName());
 
-        attributes = Attributes.getComponentAttributesFromClass(UIDropTarget.class, getClass());
+        attributes = Attributes.getComponentAttributesFromFacesConfig(UIDropTarget.class, getClass());
 
-        attributes.setAttribute("event", "mouseover");
         attributes.setAttribute("acceptedTypes", "drg1, drg2");
         attributes.setAttribute("render", "droppedValues");
         
+        attributes.remove("event");
+        attributes.remove("actionExpression");
+        attributes.remove("action");
+        attributes.remove("actionListener");
         attributes.remove("dropListener");
+        attributes.remove("dropValue");
         
         increaseDropValue();
     }

@@ -58,10 +58,15 @@ public class RichDragSourceBean implements Serializable {
         logger = LoggerFactory.getLogger(getClass());
         logger.debug("initializing bean " + getClass().getName());
 
-        attributes = Attributes.getComponentAttributesFromClass(UIDragSource.class, getClass());
+        attributes = Attributes.getComponentAttributesFromFacesConfig(UIDragSource.class, getClass());
 
-        attributes.setAttribute("event", "mouseover");
+        attributes.setAttribute("dragIndicator", "indicator");
         attributes.setAttribute("type", "drg1");
+        attributes.setAttribute("rendered", true);
+        
+        attributes.remove("dragValue");
+        attributes.remove("event");
+        
 
         for (int i = 0; i < DRAG_VALUES; i++) {
             dragValues.add(new DragValue(i + 1));
