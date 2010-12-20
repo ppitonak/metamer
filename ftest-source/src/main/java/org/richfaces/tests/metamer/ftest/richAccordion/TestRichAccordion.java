@@ -28,6 +28,7 @@ import static org.jboss.test.selenium.locator.LocatorFactory.jq;
 import static org.jboss.test.selenium.utils.URLUtils.buildUrl;
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertFalse;
+import static org.testng.Assert.assertNotSame;
 import static org.testng.Assert.assertTrue;
 
 import java.net.URL;
@@ -295,6 +296,26 @@ public class TestRichAccordion extends AbstractMetamerTest {
     @Test
     public void testLang() {
         testLang(accordion);
+    }
+
+    @Test
+    @IssueTracking("https://issues.jboss.org/browse/RF-9934")
+    public void testLimitRender() {
+        JQueryLocator timeLoc = jq("span[id$=requestTime]");
+
+//        selenium.type(pjq("input[type=text][id$=renderInput]"), "@this");
+//        selenium.waitForPageToLoad();
+
+        selenium.click(pjq("input[type=radio][name$=limitRenderInput][value=true]"));
+        selenium.waitForPageToLoad();
+
+        String time = selenium.getText(timeLoc);
+
+        guardXhr(selenium).click(inactiveHeaders[1]);
+        waitGui.failWith("Item 2 is not displayed.").until(isDisplayed.locator(itemContents[1]));
+
+        String newTime = selenium.getText(timeLoc);
+        assertNotSame(newTime, time, "Panel with ajaxRendered=true should not be rerendered.");
     }
 
     @Test

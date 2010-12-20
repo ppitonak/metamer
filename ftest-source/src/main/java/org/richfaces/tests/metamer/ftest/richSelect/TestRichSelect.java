@@ -73,7 +73,8 @@ public class TestRichSelect extends AbstractMetamerTest {
 
     @Test
     public void testSelectWithMouse() {
-        guardNoRequest(selenium).click(button);
+        guardNoRequest(selenium).mouseDown(button);
+        selenium.mouseUp(button);
         assertTrue(selenium.isVisible(popup), "Popup should be displayed.");
 
         for (int i = 0; i < 50; i++) {
@@ -173,11 +174,11 @@ public class TestRichSelect extends AbstractMetamerTest {
         AttributeLocator readonlyAttr = input.getAttribute(new Attribute("readonly"));
         assertEquals(selenium.getAttribute(readonlyAttr), "readonly", "Input should be read-only");
 
-        selenium.click(button);
+        selenium.mouseDown(button);
         assertTrue(selenium.isVisible(popup), "Popup should be displayed.");
 
         selenium.click(options.format(10));
-        guardXhr(selenium).fireEvent(input, Event.BLUR);
+        selenium.fireEvent(input, Event.BLUR);
         assertTrue(selenium.belongsClass(options.format(10), "rf-sel-sel"));
 
         waitGui.failWith("Bean was not updated").until(textEquals.locator(output).text("Hawaii"));
@@ -361,8 +362,15 @@ public class TestRichSelect extends AbstractMetamerTest {
     }
 
     @Test
-    public void testOnselect() {
-        testFireEvent(Event.SELECT, input);
+    public void testOnselectitem() {
+        selenium.type(pjq("input[type=text][id$=onselectitemInput]"), "metamerEvents += \"selectitem \"");
+        selenium.waitForPageToLoad();
+
+        selenium.click(button);
+        selenium.click(options.format(10));
+
+        waitGui.failWith("Attribute onchange does not work correctly").until(
+                new EventFiredCondition(new Event("selectitem")));
     }
 
     @Test
