@@ -30,6 +30,7 @@ import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertFalse;
 import static org.testng.Assert.assertNotSame;
 import static org.testng.Assert.assertTrue;
+import static org.testng.Assert.fail;
 
 import java.net.URL;
 
@@ -101,8 +102,7 @@ public class TestRichAccordion extends AbstractMetamerTest {
 
     @Test
     public void testSwitchTypeAjax() {
-        JQueryLocator selectOption = pjq("input[type=radio][id$=switchTypeInput:0]");
-        selenium.click(selectOption);
+        selenium.click(pjq("input[type=radio][id$=switchTypeInput:0]"));
         selenium.waitForPageToLoad();
 
         testSwitchTypeNull();
@@ -110,8 +110,7 @@ public class TestRichAccordion extends AbstractMetamerTest {
 
     @Test
     public void testSwitchTypeClient() {
-        JQueryLocator selectOption = pjq("input[type=radio][id$=switchTypeInput:1]");
-        selenium.click(selectOption);
+        selenium.click(pjq("input[type=radio][id$=switchTypeInput:1]"));
         selenium.waitForPageToLoad();
 
         for (int i = 2; i >= 0; i--) {
@@ -124,8 +123,7 @@ public class TestRichAccordion extends AbstractMetamerTest {
     @Test
     @IssueTracking("https://issues.jboss.org/browse/RF-10040")
     public void testSwitchTypeServer() {
-        JQueryLocator selectOption = pjq("input[type=radio][id$=switchTypeInput:3]");
-        selenium.click(selectOption);
+        selenium.click(pjq("input[type=radio][id$=switchTypeInput:3]"));
         selenium.waitForPageToLoad();
 
         for (int i = 2; i >= 0; i--) {
@@ -136,9 +134,43 @@ public class TestRichAccordion extends AbstractMetamerTest {
     }
 
     @Test
+    public void testActiveItem() {
+        selenium.type(pjq("input[type=text][id$=activeItemInput]"), "item5");
+        selenium.waitForPageToLoad();
+
+        boolean accordionDisplayed = selenium.isDisplayed(accordion);
+        assertTrue(accordionDisplayed, "Accordion is not present on the page.");
+
+        for (int i = 0; i < 5; i++) {
+            accordionDisplayed = selenium.isDisplayed(itemHeaders[i]);
+            assertTrue(accordionDisplayed, "Item" + (i + 1) + "'s header should be visible.");
+        }
+
+        accordionDisplayed = selenium.isDisplayed(itemContents[4]);
+        assertTrue(accordionDisplayed, "Content of item5 should be visible.");
+
+        for (int i = 0; i < 4; i++) {
+            accordionDisplayed = selenium.isDisplayed(itemContents[i]);
+            assertFalse(accordionDisplayed, "Item" + (i + 1) + "'s content should not be visible.");
+        }
+
+        selenium.type(pjq("input[type=text][id$=activeItemInput]"), "item4");
+        selenium.waitForPageToLoad();
+
+        for (int i = 0; i < 5; i++) {
+            accordionDisplayed = selenium.isDisplayed(itemHeaders[i]);
+            assertTrue(accordionDisplayed, "Item" + (i + 1) + "'s header should be visible.");
+        }
+
+        for (int i = 0; i < 5; i++) {
+            accordionDisplayed = selenium.isDisplayed(itemContents[i]);
+            assertFalse(accordionDisplayed, "Item" + (i + 1) + "'s content should not be visible.");
+        }
+    }
+
+    @Test
     public void testBypassUpdates() {
-        JQueryLocator input = pjq("input[type=radio][name$=bypassUpdatesInput][value=true]");
-        selenium.click(input);
+        selenium.click(pjq("input[type=radio][name$=bypassUpdatesInput][value=true]"));
         selenium.waitForPageToLoad();
 
         selenium.click(itemHeaders[2]);
@@ -161,8 +193,7 @@ public class TestRichAccordion extends AbstractMetamerTest {
         result = selenium.getEval(new JavaScript("window.RichFaces.$('" + accordionId + "').prevItem('item1')"));
         assertEquals(result, "null", "Result of function prevItem('item1')");
 
-        JQueryLocator input = pjq("input[type=radio][name$=cycledSwitchingInput][value=true]");
-        selenium.click(input);
+        selenium.click(pjq("input[type=radio][name$=cycledSwitchingInput][value=true]"));
         selenium.waitForPageToLoad();
 
         // RichFaces.$('form:accordion').nextItem('item5') will be item1
@@ -175,20 +206,53 @@ public class TestRichAccordion extends AbstractMetamerTest {
     }
 
     @Test
+    @IssueTracking("https://issues.jboss.org/browse/RF-10061")
+    public void testData() {
+        selenium.type(pjq("input[type=text][id$=dataInput]"), "RichFaces 4");
+        selenium.waitForPageToLoad();
+
+        selenium.type(pjq("input[type=text][id$=onitemchangeInput]"), "data = event.data");
+        selenium.waitForPageToLoad();
+
+        guardXhr(selenium).click(itemHeaders[2]);
+        waitGui.failWith("Item 3 is not displayed.").until(isDisplayed.locator(itemContents[2]));
+
+        String data = selenium.getEval(new JavaScript("window.data"));
+        assertEquals(data, "RichFaces 4", "Data sent with ajax request");
+    }
+
+    @Test
     public void testDir() {
         testDir(accordion);
     }
 
     @Test
+    public void testExecute() {
+        selenium.type(pjq("input[type=text][id$=executeInput]"), "@this executeChecker");
+        selenium.waitForPageToLoad();
+
+        guardXhr(selenium).click(itemHeaders[2]);
+        waitGui.failWith("Item 3 is not displayed.").until(isDisplayed.locator(itemContents[2]));
+
+        JQueryLocator logItems = jq("ul.phases-list li:eq({0})");
+        for (int i = 0; i < 6; i++) {
+            if ("* executeChecker".equals(selenium.getText(logItems.format(i)))) {
+                return;
+            }
+        }
+
+        fail("Attribute execute does not work");
+    }
+
+    @Test
     public void testHeight() {
-        JQueryLocator input = pjq("input[type=text][id$=heightInput]");
         AttributeLocator<?> attribute = accordion.getAttribute(new Attribute("style"));
 
         // height = null
         assertFalse(selenium.isAttributePresent(attribute), "Attribute style should not be present.");
 
         // height = 300px
-        selenium.type(input, "300px");
+        selenium.type(pjq("input[type=text][id$=heightInput]"), "300px");
         selenium.waitForPageToLoad(TIMEOUT);
 
         assertTrue(selenium.isAttributePresent(attribute), "Attribute style should be present.");
@@ -198,14 +262,25 @@ public class TestRichAccordion extends AbstractMetamerTest {
 
     @Test
     public void testImmediate() {
-        JQueryLocator input = pjq("input[type=radio][name$=immediateInput][value=true]");
-        selenium.click(input);
+        selenium.click(pjq("input[type=radio][name$=immediateInput][value=true]"));
         selenium.waitForPageToLoad();
 
         selenium.click(itemHeaders[2]);
         waitGui.failWith("Item 3 is not displayed.").until(isDisplayed.locator(itemContents[2]));
 
         assertPhases(PhaseId.RESTORE_VIEW, PhaseId.APPLY_REQUEST_VALUES, PhaseId.RENDER_RESPONSE);
+
+        String listenerOutput = selenium.getText(jq("div#phasesPanel li:eq(2)"));
+        assertEquals(listenerOutput, "* item changed item1 -> item3", "Item change listener's output");
+    }
+
+    @Test
+    public void testItemChangeListener() {
+        selenium.click(itemHeaders[2]);
+        waitGui.failWith("Item 3 is not displayed.").until(isDisplayed.locator(itemContents[2]));
+
+        String listenerOutput = selenium.getText(jq("div#phasesPanel li:eq(5)"));
+        assertEquals(listenerOutput, "* item changed: item1 -> item3", "Item change listener's output");
     }
 
     @Test
@@ -303,9 +378,6 @@ public class TestRichAccordion extends AbstractMetamerTest {
     public void testLimitRender() {
         JQueryLocator timeLoc = jq("span[id$=requestTime]");
 
-//        selenium.type(pjq("input[type=text][id$=renderInput]"), "@this");
-//        selenium.waitForPageToLoad();
-
         selenium.click(pjq("input[type=radio][name$=limitRenderInput][value=true]"));
         selenium.waitForPageToLoad();
 
@@ -355,8 +427,7 @@ public class TestRichAccordion extends AbstractMetamerTest {
 
     @Test
     public void testRendered() {
-        JQueryLocator input = pjq("input[type=radio][name$=renderedInput][value=false]");
-        selenium.click(input);
+        selenium.click(pjq("input[type=radio][name$=renderedInput][value=false]"));
         selenium.waitForPageToLoad();
 
         assertFalse(selenium.isElementPresent(accordion), "Accordion should not be rendered when rendered=false.");
@@ -379,14 +450,13 @@ public class TestRichAccordion extends AbstractMetamerTest {
 
     @Test
     public void testWidth() {
-        JQueryLocator input = pjq("input[type=text][id$=widthInput]");
         AttributeLocator<?> attribute = accordion.getAttribute(new Attribute("style"));
 
         // width = null
         assertFalse(selenium.isAttributePresent(attribute), "Attribute style should not be present.");
 
         // width = 50%
-        selenium.type(input, "50%");
+        selenium.type(pjq("input[type=text][id$=widthInput]"), "50%");
         selenium.waitForPageToLoad(TIMEOUT);
 
         assertTrue(selenium.isAttributePresent(attribute), "Attribute style should be present.");

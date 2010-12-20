@@ -58,7 +58,8 @@ public class RichAccordionBean implements Serializable {
 
         attributes.setAttribute("activeItem", "item1");
         attributes.setAttribute("rendered", true);
-        
+
+        attributes.remove("itemChangeListener");
     }
 
     public Attributes getAttributes() {

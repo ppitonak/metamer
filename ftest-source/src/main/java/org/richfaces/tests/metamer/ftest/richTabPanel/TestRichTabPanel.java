@@ -30,6 +30,7 @@ import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertFalse;
 import static org.testng.Assert.assertTrue;
 import static org.testng.Assert.assertNotSame;
+import static org.testng.Assert.fail;
 
 import java.net.URL;
 
@@ -37,7 +38,6 @@ import javax.faces.event.PhaseId;
 
 import org.jboss.test.selenium.dom.Event;
 import org.jboss.test.selenium.encapsulated.JavaScript;
-import org.jboss.test.selenium.locator.ElementLocator;
 import org.jboss.test.selenium.locator.JQueryLocator;
 import org.jboss.test.selenium.waiting.EventFiredCondition;
 import org.richfaces.tests.metamer.ftest.AbstractMetamerTest;
@@ -111,8 +111,7 @@ public class TestRichTabPanel extends AbstractMetamerTest {
 
     @Test
     public void testSwitchTypeAjax() {
-        JQueryLocator selectOption = pjq("input[name$=switchTypeInput][value=ajax]");
-        selenium.click(selectOption);
+        selenium.click(pjq("input[name$=switchTypeInput][value=ajax]"));
         selenium.waitForPageToLoad();
 
         testSwitchTypeNull();
@@ -120,8 +119,7 @@ public class TestRichTabPanel extends AbstractMetamerTest {
 
     @Test
     public void testSwitchTypeClient() {
-        JQueryLocator selectOption = pjq("input[name$=switchTypeInput][value=client]");
-        selenium.click(selectOption);
+        selenium.click(pjq("input[name$=switchTypeInput][value=client]"));
         selenium.waitForPageToLoad();
 
         for (int i = 2; i >= 0; i--) {
@@ -134,8 +132,7 @@ public class TestRichTabPanel extends AbstractMetamerTest {
     @Test
     @IssueTracking("https://issues.jboss.org/browse/RF-10040")
     public void testSwitchTypeServer() {
-        JQueryLocator selectOption = pjq("input[name$=switchTypeInput][value=server]");
-        selenium.click(selectOption);
+        selenium.click(pjq("input[name$=switchTypeInput][value=server]"));
         selenium.waitForPageToLoad();
 
         for (int i = 2; i >= 0; i--) {
@@ -146,10 +143,44 @@ public class TestRichTabPanel extends AbstractMetamerTest {
     }
 
     @Test
+    public void testActiveItem() {
+        selenium.type(pjq("input[type=text][id$=activeItemInput]"), "tab5");
+        selenium.waitForPageToLoad();
+
+        boolean displayed = selenium.isDisplayed(panel);
+        assertTrue(displayed, "Tab panel is not present on the page.");
+
+        for (int i = 0; i < 4; i++) {
+            displayed = selenium.isDisplayed(activeHeaders[i]);
+            assertFalse(displayed, "Tab" + (i + 1) + "'s header should not be active.");
+        }
+
+        displayed = selenium.isDisplayed(itemContents[4]);
+        assertTrue(displayed, "Content of tab5 should be visible.");
+
+        for (int i = 0; i < 4; i++) {
+            displayed = selenium.isDisplayed(itemContents[i]);
+            assertFalse(displayed, "Tab" + (i + 1) + "'s content should not be visible.");
+        }
+
+        selenium.type(pjq("input[type=text][id$=activeItemInput]"), "tab4");
+        selenium.waitForPageToLoad();
+
+        for (int i = 0; i < 5; i++) {
+            displayed = selenium.isDisplayed(activeHeaders[i]);
+            assertFalse(displayed, "Tab" + (i + 1) + "'s header should not be active.");
+        }
+
+        for (int i = 0; i < 5; i++) {
+            displayed = selenium.isDisplayed(itemContents[i]);
+            assertFalse(displayed, "Tab" + (i + 1) + "'s content should not be visible.");
+        }
+    }
+
+    @Test
     @IssueTracking("https://issues.jboss.org/browse/RF-10054")
     public void testBypassUpdates() {
-        JQueryLocator input = pjq("input[type=radio][name$=bypassUpdatesInput][value=true]");
-        selenium.click(input);
+        selenium.click(pjq("input[type=radio][name$=bypassUpdatesInput][value=true]"));
         selenium.waitForPageToLoad();
 
         selenium.click(inactiveHeaders[2]);
@@ -172,8 +203,7 @@ public class TestRichTabPanel extends AbstractMetamerTest {
         result = selenium.getEval(new JavaScript("window.RichFaces.$('" + panelId + "').prevItem('tab1')"));
         assertEquals(result, "null", "Result of function prevItem('tab1')");
 
-        JQueryLocator input = pjq("input[type=radio][name$=cycledSwitchingInput][value=true]");
-        selenium.click(input);
+        selenium.click(pjq("input[type=radio][name$=cycledSwitchingInput][value=true]"));
         selenium.waitForPageToLoad();
 
         // RichFaces.$('form:tabPanel').nextItem('tab5') will be item1
@@ -186,21 +216,66 @@ public class TestRichTabPanel extends AbstractMetamerTest {
     }
 
     @Test
+    @IssueTracking("https://issues.jboss.org/browse/RF-10061")
+    public void testData() {
+        selenium.type(pjq("input[type=text][id$=dataInput]"), "RichFaces 4");
+        selenium.waitForPageToLoad();
+
+        selenium.type(pjq("input[type=text][id$=onitemchangeInput]"), "data = event.data");
+        selenium.waitForPageToLoad();
+
+        guardXhr(selenium).click(inactiveHeaders[2]);
+        waitGui.failWith("Item 3 is not displayed.").until(isDisplayed.locator(itemContents[2]));
+
+        String data = selenium.getEval(new JavaScript("window.data"));
+        assertEquals(data, "RichFaces 4", "Data sent with ajax request");
+    }
+
+    @Test
     public void testDir() {
         super.testDir(panel);
     }
 
     @Test
+    public void testExecute() {
+        selenium.type(pjq("input[type=text][id$=executeInput]"), "@this executeChecker");
+        selenium.waitForPageToLoad();
+
+        guardXhr(selenium).click(inactiveHeaders[2]);
+        waitGui.failWith("Item 3 is not displayed.").until(isDisplayed.locator(itemContents[2]));
+
+        JQueryLocator logItems = jq("ul.phases-list li:eq({0})");
+        for (int i = 0; i < 6; i++) {
+            if ("* executeChecker".equals(selenium.getText(logItems.format(i)))) {
+                return;
+            }
+        }
+
+        fail("Attribute execute does not work");
+    }
+
+    @Test
     @IssueTracking("https://issues.jboss.org/browse/RF-10054")
     public void testImmediate() {
-        JQueryLocator input = pjq("input[type=radio][name$=immediateInput][value=true]");
-        selenium.click(input);
+        selenium.click(pjq("input[type=radio][name$=immediateInput][value=true]"));
         selenium.waitForPageToLoad();
 
         selenium.click(inactiveHeaders[2]);
         waitGui.failWith("Tab 3 is not displayed.").until(isDisplayed.locator(itemContents[2]));
 
         assertPhases(PhaseId.RESTORE_VIEW, PhaseId.APPLY_REQUEST_VALUES, PhaseId.RENDER_RESPONSE);
+
+        String listenerOutput = selenium.getText(jq("div#phasesPanel li:eq(2)"));
+        assertEquals(listenerOutput, "* item changed: tab1 -> tab3", "Item change listener's output");
+    }
+
+    @Test
+    public void testItemChangeListener() {
+        selenium.click(inactiveHeaders[2]);
+        waitGui.failWith("Item 3 is not displayed.").until(isDisplayed.locator(itemContents[2]));
+
+        String listenerOutput = selenium.getText(jq("div#phasesPanel li:eq(5)"));
+        assertEquals(listenerOutput, "* item changed: tab1 -> tab3", "Item change listener's output");
     }
 
     @Test
@@ -308,8 +383,7 @@ public class TestRichTabPanel extends AbstractMetamerTest {
 
     @Test
     public void testRendered() {
-        JQueryLocator input = pjq("input[type=radio][name$=renderedInput][value=false]");
-        selenium.click(input);
+        selenium.click(pjq("input[type=radio][name$=renderedInput][value=false]"));
         selenium.waitForPageToLoad();
 
         assertFalse(selenium.isElementPresent(panel), "Tab panel should not be rendered when rendered=false.");
@@ -327,10 +401,9 @@ public class TestRichTabPanel extends AbstractMetamerTest {
 
     @Test
     public void testTabContentClass() {
-        ElementLocator<?> classInput = pjq("input[id$=tabContentClassInput]");
         final String value = "metamer-ftest-class";
 
-        selenium.type(classInput, value);
+        selenium.type(pjq("input[id$=tabContentClassInput]"), value);
         selenium.waitForPageToLoad();
 
         for (JQueryLocator loc : itemContents) {

@@ -29,6 +29,7 @@ import static org.jboss.test.selenium.utils.URLUtils.buildUrl;
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertFalse;
 import static org.testng.Assert.assertTrue;
+import static org.testng.Assert.fail;
 
 import java.net.URL;
 
@@ -234,10 +235,27 @@ public class TestRichTogglePanel extends AbstractMetamerTest {
     }
 
     @Test
+    public void testActiveItem() {
+        selenium.type(pjq("input[type=text][id$=activeItemInput]"), "item3");
+        selenium.waitForPageToLoad();
+
+        boolean displayed = selenium.isDisplayed(panel);
+        assertTrue(displayed, "Toggle panel is not present on the page.");
+
+        displayed = selenium.isDisplayed(item1);
+        assertFalse(displayed, "Content of item1 should not be visible.");
+
+        displayed = selenium.isDisplayed(item2);
+        assertFalse(displayed, "Content of item2 should not be visible.");
+
+        displayed = selenium.isDisplayed(item3);
+        assertTrue(displayed, "Content of item3 should be visible.");
+    }
+
+    @Test
     @IssueTracking("https://issues.jboss.org/browse/RF-10054")
     public void testBypassUpdates() {
-        JQueryLocator input = pjq("input[type=radio][name$=bypassUpdatesInput][value=true]");
-        selenium.click(input);
+        selenium.click(pjq("input[type=radio][name$=bypassUpdatesInput][value=true]"));
         selenium.waitForPageToLoad();
 
         selenium.click(tc3);
@@ -262,15 +280,48 @@ public class TestRichTogglePanel extends AbstractMetamerTest {
     }
 
     @Test
+    @IssueTracking("https://issues.jboss.org/browse/RF-10061")
+    public void testData() {
+        selenium.type(pjq("input[type=text][id$=dataInput]"), "RichFaces 4");
+        selenium.waitForPageToLoad();
+
+        selenium.type(pjq("input[type=text][id$=onitemchangeInput]"), "data = event.data");
+        selenium.waitForPageToLoad();
+
+        guardXhr(selenium).click(tc3);
+        waitGui.failWith("Item 3 is not displayed.").until(isDisplayed.locator(item3));
+
+        String data = selenium.getEval(new JavaScript("window.data"));
+        assertEquals(data, "RichFaces 4", "Data sent with ajax request");
+    }
+
+    @Test
     public void testDir() {
         super.testDir(panel);
     }
 
     @Test
+    public void testExecute() {
+        selenium.type(pjq("input[type=text][id$=executeInput]"), "@this executeChecker");
+        selenium.waitForPageToLoad();
+
+        guardXhr(selenium).click(tc3);
+        waitGui.failWith("Item 3 is not displayed.").until(isDisplayed.locator(item3));
+
+        JQueryLocator logItems = jq("ul.phases-list li:eq({0})");
+        for (int i = 0; i < 6; i++) {
+            if ("* executeChecker".equals(selenium.getText(logItems.format(i)))) {
+                return;
+            }
+        }
+
+        fail("Attribute execute does not work");
+    }
+
+    @Test
     @IssueTracking("https://issues.jboss.org/browse/RF-10054")
     public void testImmediate() {
-        JQueryLocator input = pjq("input[type=radio][name$=immediateInput][value=true]");
-        selenium.click(input);
+        selenium.click(pjq("input[type=radio][name$=immediateInput][value=true]"));
         selenium.waitForPageToLoad();
 
         selenium.click(tc3);
@@ -279,7 +330,16 @@ public class TestRichTogglePanel extends AbstractMetamerTest {
         assertPhases(PhaseId.RESTORE_VIEW, PhaseId.APPLY_REQUEST_VALUES, PhaseId.RENDER_RESPONSE);
 
         String listenerOutput = selenium.getText(jq("div#phasesPanel li:eq(2)"));
-        assertEquals(listenerOutput, "* item changed item1 -> item3", "Item change listener's output");
+        assertEquals(listenerOutput, "* item changed: item1 -> item3", "Item change listener's output");
+    }
+
+    @Test
+    public void testItemChangeListener() {
+        selenium.click(tc3);
+        waitGui.failWith("Item 3 is not displayed.").until(isDisplayed.locator(item3));
+
+        String listenerOutput = selenium.getText(jq("div#phasesPanel li:eq(5)"));
+        assertEquals(listenerOutput, "* item changed: item1 -> item3", "Item change listener's output");
     }
 
     @Test
@@ -384,8 +444,7 @@ public class TestRichTogglePanel extends AbstractMetamerTest {
 
     @Test
     public void testRendered() {
-        JQueryLocator input = pjq("input[type=radio][name$=renderedInput][value=false]");
-        selenium.click(input);
+        selenium.click(pjq("input[type=radio][name$=renderedInput][value=false]"));
         selenium.waitForPageToLoad();
 
         assertFalse(selenium.isElementPresent(panel), "Toggle panel should not be rendered when rendered=false.");
