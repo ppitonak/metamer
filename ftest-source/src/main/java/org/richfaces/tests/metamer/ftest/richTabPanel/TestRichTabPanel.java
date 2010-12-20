@@ -132,6 +132,7 @@ public class TestRichTabPanel extends AbstractMetamerTest {
     }
 
     @Test
+    @IssueTracking("https://issues.jboss.org/browse/RF-10040")
     public void testSwitchTypeServer() {
         JQueryLocator selectOption = pjq("input[name$=switchTypeInput][value=server]");
         selenium.click(selectOption);
@@ -145,6 +146,7 @@ public class TestRichTabPanel extends AbstractMetamerTest {
     }
 
     @Test
+    @IssueTracking("https://issues.jboss.org/browse/RF-10054")
     public void testBypassUpdates() {
         JQueryLocator input = pjq("input[type=radio][name$=bypassUpdatesInput][value=true]");
         selenium.click(input);
@@ -189,6 +191,7 @@ public class TestRichTabPanel extends AbstractMetamerTest {
     }
 
     @Test
+    @IssueTracking("https://issues.jboss.org/browse/RF-10054")
     public void testImmediate() {
         JQueryLocator input = pjq("input[type=radio][name$=immediateInput][value=true]");
         selenium.click(input);
@@ -207,13 +210,13 @@ public class TestRichTabPanel extends AbstractMetamerTest {
 
     @Test
     @IssueTracking("https://jira.jboss.org/browse/RF-9535")
-    public void testLimitToList() {
+    public void testLimitRender() {
         JQueryLocator timeLoc = jq("span[id$=requestTime]");
 
         selenium.type(pjq("input[type=text][id$=renderInput]"), "@this");
         selenium.waitForPageToLoad();
 
-        selenium.click(pjq("input[type=radio][name$=limitToListInput][value=true]"));
+        selenium.click(pjq("input[type=radio][name$=limitRenderInput][value=true]"));
         selenium.waitForPageToLoad();
 
         String time = selenium.getText(timeLoc);

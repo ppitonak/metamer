@@ -61,6 +61,7 @@ public class RichTabPanelBean implements Serializable {
 
         // TODO has to be tested in another way
         attributes.remove("converter");
+        attributes.remove("itemChangeListener");
     }
 
     public Attributes getAttributes() {
