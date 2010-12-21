@@ -38,18 +38,18 @@ public class DataTable extends AbstractModel<JQueryLocator> implements
 
     AjaxSelenium selenium = AjaxSeleniumProxy.getInstance();
 
-    ReferencedLocator<JQueryLocator> tbody = ref(root, "> tbody.rf-dt");
+    ReferencedLocator<JQueryLocator> tbody = ref(root, "> tbody.rf-dt-b");
     ReferencedLocator<JQueryLocator> firstColumnRows = ref(tbody, "> tr > td.rf-dt-c:nth-child(1)");
     ReferencedLocator<JQueryLocator> firstRowColumns = ref(tbody, "> tr:eq(0) > td.rf-dt-c");
-    ReferencedLocator<JQueryLocator> noData = ref(tbody, "> tr > td.rf-dt-ndt");
+    ReferencedLocator<JQueryLocator> noData = ref(tbody, "> tr.rf-dt-nd > td.rf-dt-nd-c");
     ReferencedLocator<JQueryLocator> columns = ref(tbody, "> tr");
     JQueryLocator columnToElement = jq("td.rf-dt-c");
 
-    ReferencedLocator<JQueryLocator> thead = ref(root, "> thead.rf-dt-thead");
+    ReferencedLocator<JQueryLocator> thead = ref(root, "> thead.rf-dt-thd");
     ReferencedLocator<JQueryLocator> tableHeader = ref(thead, "> tr.rf-dt-hdr > th.rf-dt-hdr-c");
     ReferencedLocator<JQueryLocator> columnHeader = ref(thead, "> tr.rf-dt-shdr > th.rf-dt-shdr-c");
 
-    ReferencedLocator<JQueryLocator> columnFooter = ref(root, "> tfoot.rd-dt-tfoot > tr.rf-dt-sftr > td.rf-dt-sftr-c");
+    ReferencedLocator<JQueryLocator> columnFooter = ref(root, "> tfoot.rf-dt-tft > tr.rf-dt-sftr > td.rf-dt-sftr-c");
 
     public DataTable(JQueryLocator root) {
         super(root);
