@@ -368,8 +368,7 @@
         <profile>
             <id>jboss6x-mojarra</id>
             <properties>
-                <deployable.classifier>jee6</deployable.classifier>
-                <jsf.config>Mojarra-2.0</jsf.config>
+                <deployable.classifier>jee6-bundled-mojarra</deployable.classifier>
             </properties>
         </profile>
         <profile>
@@ -381,7 +380,7 @@
         <profile>
             <id>jboss6x-myfaces</id>
             <properties>
-                <deployable.classifier>myfaces</deployable.classifier>
+                <deployable.classifier>jee6-bundled-myfaces</deployable.classifier>
             </properties>
         </profile>
         <profile>
