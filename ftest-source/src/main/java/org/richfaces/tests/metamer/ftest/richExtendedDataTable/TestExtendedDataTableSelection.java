@@ -40,6 +40,7 @@ import org.jboss.test.selenium.locator.JQueryLocator;
 import org.jboss.test.selenium.utils.array.ArrayTransform;
 import org.jboss.test.selenium.waiting.retrievers.Retriever;
 import org.richfaces.tests.metamer.ftest.abstractions.AbstractDataTableTest;
+import org.richfaces.tests.metamer.ftest.annotations.IssueTracking;
 import org.richfaces.tests.metamer.ftest.model.ExtendedDataTable;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
@@ -118,6 +119,7 @@ public class TestExtendedDataTableSelection extends AbstractDataTableTest {
     }
 
     @Test
+    @IssueTracking("https://issues.jboss.org/browse/RF-9977")
     public void testMultiSelectionUsingCtrlAndShiftCombinations() {
         IntRange range1 = new IntRange(2, 14);
         IntRange range2 = new IntRange(18, 31);
