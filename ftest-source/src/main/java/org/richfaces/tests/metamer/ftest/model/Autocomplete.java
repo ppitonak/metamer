@@ -51,8 +51,8 @@ public class Autocomplete implements Model {
 	JQueryLocator input = pjq("input.rf-au-inp[id$=autocompleteInput]");
 
 	JQueryLocator items = jq("div.rf-au-lst-cord[id$=autocompleteList] div[id$=autocompleteItems]");
-	JQueryLocator selection = items.getDescendant(jq("div.rf-au-sel"));
-	JQueryLocator option = jq("div.rf-au-opt");
+	JQueryLocator selection = items.getDescendant(jq("div.rf-au-itm-sel"));
+	JQueryLocator option = jq("div.rf-au-itm");
 	JQueryLocator labeledOption = jq("div.rf-au-opt:contains('{0}')");
 
 	public void typeKeys(String keys) {
