@@ -38,7 +38,7 @@ import org.testng.annotations.Test;
 public class TestHGraphicImage extends AbstractTestCommand {
 
     private JQueryLocator button = pjq("img[id$=image]");
-    
+
     @Override
     public URL getTestUrl() {
         return buildUrl(contextPath, "faces/components/a4jAjax/hGraphicImage.xhtml");
@@ -63,6 +63,11 @@ public class TestHGraphicImage extends AbstractTestCommand {
     @Test
     public void testData() {
         super.testData(button);
+    }
+
+    @Test
+    public void testExecute() {
+        super.testExecute(button);
     }
 
     @Test

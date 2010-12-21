@@ -24,6 +24,7 @@ package org.richfaces.tests.metamer.ftest.a4jAjax;
 import static org.jboss.test.selenium.guard.request.RequestTypeGuardFactory.guardXhr;
 import static org.jboss.test.selenium.locator.LocatorFactory.jq;
 import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.fail;
 
 import javax.faces.event.PhaseId;
 import org.jboss.test.selenium.dom.Event;
@@ -89,6 +90,25 @@ public abstract class AbstractTestTextInput extends AbstractMetamerTest {
 
         String data = selenium.getEval(new JavaScript("window.data"));
         assertEquals(data, "RichFaces 4 data", "Data sent with ajax request");
+    }
+
+    public void testExecute(JQueryLocator input) {
+        selenium.type(pjq("input[type=text][id$=executeInput]"), "@this executeChecker");
+        selenium.waitForPageToLoad();
+
+        JQueryLocator time = jq("span[id$=requestTime]");
+        String timeValue = selenium.getText(time);
+        typeToInput(input, "RichFaces 4");
+        waitGui.failWith("Page was not updated").waitForChange(timeValue, retrieveText.locator(time));
+
+        JQueryLocator logItems = jq("ul.phases-list li:eq({0})");
+        for (int i = 0; i < 6; i++) {
+            if ("* executeChecker".equals(selenium.getText(logItems.format(i)))) {
+                return;
+            }
+        }
+
+        fail("Attribute execute does not work");
     }
 
     public void testImmediate(JQueryLocator input) {

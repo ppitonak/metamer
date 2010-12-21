@@ -32,15 +32,11 @@ import static org.testng.Assert.assertTrue;
 
 import java.net.URL;
 import java.util.Locale;
-import java.util.Random;
-import java.util.Set;
 
 import javax.faces.event.PhaseId;
 
 import org.apache.commons.lang.LocaleUtils;
 import org.jboss.test.selenium.AbstractTestCase;
-import org.jboss.test.selenium.cookie.Cookie;
-import org.jboss.test.selenium.cookie.DeleteCookieOptions;
 import org.jboss.test.selenium.dom.Event;
 import org.jboss.test.selenium.encapsulated.JavaScript;
 import org.jboss.test.selenium.locator.Attribute;
@@ -64,6 +60,7 @@ import org.testng.annotations.BeforeMethod;
  */
 public abstract class AbstractMetamerTest extends AbstractTestCase {
 
+    protected JQueryLocator time = jq("span[id$=requestTime]");
     /**
      * timeout in miliseconds
      */

@@ -24,6 +24,7 @@ package org.richfaces.tests.metamer.ftest.a4jAjax;
 import static org.jboss.test.selenium.guard.request.RequestTypeGuardFactory.guardXhr;
 import static org.jboss.test.selenium.locator.LocatorFactory.jq;
 import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.fail;
 
 import javax.faces.event.PhaseId;
 
@@ -54,7 +55,6 @@ public abstract class AbstractTestCommand extends AbstractMetamerTest {
     }
 
     public void testBypassUpdates(JQueryLocator command) {
-        JQueryLocator time = jq("span[id$=requestTime]");
         String timeValue = selenium.getText(time);
 
         selenium.click(pjq("input[type=radio][name$=bypassUpdatesInput][value=true]"));
@@ -76,7 +76,6 @@ public abstract class AbstractTestCommand extends AbstractMetamerTest {
         selenium.type(pjq("input[type=text][id$=oncompleteInput]"), "data = event.data");
         selenium.waitForPageToLoad();
 
-        JQueryLocator time = jq("span[id$=requestTime]");
         String timeValue = selenium.getText(time);
 
         selenium.type(input, "some input text");
@@ -87,8 +86,25 @@ public abstract class AbstractTestCommand extends AbstractMetamerTest {
         assertEquals(data, "RichFaces 4", "Data sent with ajax request");
     }
 
+    public void testExecute(JQueryLocator command) {
+        selenium.type(pjq("input[type=text][id$=executeInput]"), "input executeChecker");
+        selenium.waitForPageToLoad();
+
+        selenium.type(input, "RichFaces 4");
+        guardXhr(selenium).click(command);
+        waitGui.failWith("Page was not updated").waitForChangeAndReturn("", retrieveText.locator(output1));
+
+        JQueryLocator logItems = jq("ul.phases-list li:eq({0})");
+        for (int i = 0; i < 6; i++) {
+            if ("* executeChecker".equals(selenium.getText(logItems.format(i)))) {
+                return;
+            }
+        }
+
+        fail("Attribute execute does not work");
+    }
+
     public void testImmediate(JQueryLocator command) {
-        JQueryLocator time = jq("span[id$=requestTime]");
         String timeValue = selenium.getText(time);
 
         selenium.click(pjq("input[type=radio][name$=immediateInput][value=true]"));
@@ -104,7 +120,6 @@ public abstract class AbstractTestCommand extends AbstractMetamerTest {
     }
 
     public void testImmediateBypassUpdates(JQueryLocator command) {
-        JQueryLocator time = jq("span[id$=requestTime]");
         String timeValue = selenium.getText(time);
 
         selenium.click(pjq("input[type=radio][name$=bypassUpdatesInput][value=true]"));
@@ -124,7 +139,6 @@ public abstract class AbstractTestCommand extends AbstractMetamerTest {
         selenium.click(pjq("input[type=radio][name$=limitRenderInput][value=true]"));
         selenium.waitForPageToLoad();
 
-        JQueryLocator time = jq("span[id$=requestTime]");
         String timeValue = selenium.getText(time);
 
         selenium.type(input, "RichFaces 4");

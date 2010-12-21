@@ -38,7 +38,7 @@ import org.testng.annotations.Test;
 public class TestHCommandLink extends AbstractTestCommand {
 
     private JQueryLocator link = pjq("a[id$=commandLink]");
-    
+
     @Override
     public URL getTestUrl() {
         return buildUrl(contextPath, "faces/components/a4jAjax/hCommandLink.xhtml");
@@ -63,6 +63,11 @@ public class TestHCommandLink extends AbstractTestCommand {
     @Test
     public void testData() {
         super.testData(link);
+    }
+
+    @Test
+    public void testExecute() {
+        super.testExecute(link);
     }
 
     @Test

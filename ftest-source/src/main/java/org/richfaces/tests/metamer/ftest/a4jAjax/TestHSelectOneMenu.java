@@ -59,6 +59,11 @@ public class TestHSelectOneMenu extends AbstractTestSelectOne {
     }
 
     @Test
+    public void testExecute() {
+        super.testExecute(input);
+    }
+
+    @Test
     public void testImmediate() {
         super.testImmediate(input);
     }

@@ -66,6 +66,11 @@ public class TestHInputText extends AbstractTestTextInput {
     }
 
     @Test
+    public void testExecute() {
+        super.testExecute(input);
+    }
+
+    @Test
     public void testImmediate() {
         super.testImmediate(input);
     }

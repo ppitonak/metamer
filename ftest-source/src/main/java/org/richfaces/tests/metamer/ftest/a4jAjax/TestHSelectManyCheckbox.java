@@ -25,6 +25,7 @@ import static org.jboss.test.selenium.utils.URLUtils.buildUrl;
 import static org.jboss.test.selenium.guard.request.RequestTypeGuardFactory.guardXhr;
 import static org.jboss.test.selenium.locator.LocatorFactory.jq;
 import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.fail;
 
 import java.net.URL;
 
@@ -95,6 +96,26 @@ public class TestHSelectManyCheckbox extends AbstractMetamerTest {
 
         String data = selenium.getEval(new JavaScript("window.data"));
         assertEquals(data, "RichFaces 4 data", "Data sent with ajax request");
+    }
+
+    @Test
+    public void testExecute() {
+        selenium.type(pjq("input[type=text][id$=executeInput]"), "input executeChecker");
+        selenium.waitForPageToLoad();
+
+        JQueryLocator time = jq("span[id$=requestTime]");
+        String timeValue = selenium.getText(time);
+        guardXhr(selenium).click(input);
+        waitGui.failWith("Page was not updated").waitForChange(timeValue, retrieveText.locator(time));
+
+        JQueryLocator logItems = jq("ul.phases-list li:eq({0})");
+        for (int i = 0; i < 6; i++) {
+            if ("* executeChecker".equals(selenium.getText(logItems.format(i)))) {
+                return;
+            }
+        }
+
+        fail("Attribute execute does not work");
     }
 
     @Test

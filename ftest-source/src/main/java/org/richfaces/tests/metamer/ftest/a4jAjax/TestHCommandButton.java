@@ -66,6 +66,11 @@ public class TestHCommandButton extends AbstractTestCommand {
     }
 
     @Test
+    public void testExecute() {
+        super.testExecute(button);
+    }
+
+    @Test
     public void testImmediate() {
         super.testImmediate(button);
     }

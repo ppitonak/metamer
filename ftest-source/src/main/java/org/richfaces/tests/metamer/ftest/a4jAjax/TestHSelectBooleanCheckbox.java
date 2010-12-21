@@ -25,6 +25,7 @@ import static org.jboss.test.selenium.utils.URLUtils.buildUrl;
 import static org.jboss.test.selenium.guard.request.RequestTypeGuardFactory.guardXhr;
 import static org.jboss.test.selenium.locator.LocatorFactory.jq;
 import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.fail;
 
 import java.net.URL;
 
@@ -65,7 +66,6 @@ public class TestHSelectBooleanCheckbox extends AbstractMetamerTest {
 
     @Test
     public void testBypassUpdates() {
-        JQueryLocator time = jq("span[id$=requestTime]");
         String timeValue = selenium.getText(time);
 
         selenium.click(pjq("input[type=radio][name$=bypassUpdatesInput][value=true]"));
@@ -87,7 +87,6 @@ public class TestHSelectBooleanCheckbox extends AbstractMetamerTest {
         selenium.type(pjq("input[type=text][id$=oncompleteInput]"), "data = event.data");
         selenium.waitForPageToLoad();
 
-        JQueryLocator time = jq("span[id$=requestTime]");
         String timeValue = selenium.getText(time);
 
         guardXhr(selenium).click(input);
@@ -98,8 +97,26 @@ public class TestHSelectBooleanCheckbox extends AbstractMetamerTest {
     }
 
     @Test
+    public void testExecute() {
+        selenium.type(pjq("input[type=text][id$=executeInput]"), "input executeChecker");
+        selenium.waitForPageToLoad();
+
+        String timeValue = selenium.getText(time);
+        guardXhr(selenium).click(input);
+        waitGui.failWith("Page was not updated").waitForChange(timeValue, retrieveText.locator(time));
+
+        JQueryLocator logItems = jq("ul.phases-list li:eq({0})");
+        for (int i = 0; i < 6; i++) {
+            if ("* executeChecker".equals(selenium.getText(logItems.format(i)))) {
+                return;
+            }
+        }
+
+        fail("Attribute execute does not work");
+    }
+
+    @Test
     public void testImmediate() {
-        JQueryLocator time = jq("span[id$=requestTime]");
         String timeValue = selenium.getText(time);
 
         selenium.click(pjq("input[type=radio][name$=immediateInput][value=true]"));
@@ -115,7 +132,6 @@ public class TestHSelectBooleanCheckbox extends AbstractMetamerTest {
 
     @Test
     public void testImmediateBypassUpdates() {
-        JQueryLocator time = jq("span[id$=requestTime]");
         String timeValue = selenium.getText(time);
 
         selenium.click(pjq("input[type=radio][name$=bypassUpdatesInput][value=true]"));
@@ -135,7 +151,6 @@ public class TestHSelectBooleanCheckbox extends AbstractMetamerTest {
         selenium.click(pjq("input[type=radio][name$=limitRenderInput][value=true]"));
         selenium.waitForPageToLoad();
 
-        JQueryLocator time = jq("span[id$=requestTime]");
         String timeValue = selenium.getText(time);
 
         guardXhr(selenium).click(input);
