@@ -24,7 +24,6 @@ package org.richfaces.tests.metamer.ftest.richTogglePanelItem;
 import static org.jboss.test.selenium.guard.request.RequestTypeGuardFactory.guardHttp;
 import static org.jboss.test.selenium.guard.request.RequestTypeGuardFactory.guardNoRequest;
 import static org.jboss.test.selenium.guard.request.RequestTypeGuardFactory.guardXhr;
-import static org.jboss.test.selenium.locator.LocatorFactory.jq;
 import static org.jboss.test.selenium.utils.URLUtils.buildUrl;
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertFalse;
@@ -104,7 +103,7 @@ public class TestRichTogglePanelItem extends AbstractMetamerTest {
     }
 
     @Test
-    @IssueTracking("https://jira.jboss.org/browse/RF-9895")
+    @IssueTracking("https://issues.jboss.org/browse/RF-9895")
     public void testOnenter() {
         selenium.type(pjq("input[type=text][id$=onenterInput]"), "metamerEvents += \"enter \"");
         selenium.waitForPageToLoad();
@@ -124,7 +123,7 @@ public class TestRichTogglePanelItem extends AbstractMetamerTest {
     }
 
     @Test
-    @IssueTracking("https://jira.jboss.org/browse/RF-9895")
+    @IssueTracking("https://issues.jboss.org/browse/RF-9895")
     public void testOnleave() {
         selenium.type(pjq("input[type=text][id$=onleaveInput]"), "metamerEvents += \"leave \"");
         selenium.waitForPageToLoad();
@@ -167,7 +166,7 @@ public class TestRichTogglePanelItem extends AbstractMetamerTest {
     }
 
     @Test
-    @IssueTracking("https://jira.jboss.org/browse/RF-9894")
+    @IssueTracking("https://issues.jboss.org/browse/RF-9894")
     public void testRendered() {
         JQueryLocator input = pjq("input[type=radio][name$=renderedInput][value=false]");
         selenium.click(input);

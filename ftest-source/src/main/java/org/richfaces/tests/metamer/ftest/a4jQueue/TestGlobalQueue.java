@@ -153,7 +153,7 @@ public class TestGlobalQueue extends AbstractMetamerTest {
     }
 
     @Test
-    @IssueTracking("https://jira.jboss.org/browse/RF-9328")
+    @IssueTracking("https://issues.jboss.org/browse/RF-9328")
     public void testRendered() {
         attributes.setRequestDelay(1500);
         attributes.setRendered(false);

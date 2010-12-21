@@ -284,7 +284,7 @@ public class TestRichTabPanel extends AbstractMetamerTest {
     }
 
     @Test
-    @IssueTracking("https://jira.jboss.org/browse/RF-9535")
+    @IssueTracking("https://issues.jboss.org/browse/RF-9535")
     public void testLimitRender() {
         selenium.type(pjq("input[type=text][id$=renderInput]"), "@this");
         selenium.waitForPageToLoad();

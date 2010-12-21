@@ -72,7 +72,7 @@ public class TestRichInplaceSelect extends AbstractMetamerTest {
     }
 
     @Test
-    @IssueTracking("https://jira.jboss.org/browse/RF-9664")
+    @IssueTracking("https://issues.jboss.org/browse/RF-9664")
     public void testClick() {
         guardNoRequest(selenium).click(select);
         assertFalse(selenium.belongsClass(edit, "rf-is-none"), "Edit should not contain class rf-is-none when popup is open.");
@@ -140,13 +140,13 @@ public class TestRichInplaceSelect extends AbstractMetamerTest {
     }
 
     @Test
-    @IssueTracking("https://jira.jboss.org/browse/RF-9845")
+    @IssueTracking("https://issues.jboss.org/browse/RF-9845")
     public void testListClass() {
         testStyleClass(popup, "listClass");
     }
 
     @Test
-    @IssueTracking("https://jira.jboss.org/browse/RF-9647")
+    @IssueTracking("https://issues.jboss.org/browse/RF-9647")
     public void testListHeight() {
         selenium.type(pjq("input[type=text][id$=listHeightInput]"), "300px");
         selenium.waitForPageToLoad();
@@ -164,7 +164,7 @@ public class TestRichInplaceSelect extends AbstractMetamerTest {
     }
 
     @Test
-    @IssueTracking("https://jira.jboss.org/browse/RF-9647")
+    @IssueTracking("https://issues.jboss.org/browse/RF-9647")
     public void testListWidth() {
         selenium.type(pjq("input[type=text][id$=listWidthInput]"), "300px");
         selenium.waitForPageToLoad();
@@ -182,7 +182,7 @@ public class TestRichInplaceSelect extends AbstractMetamerTest {
     }
 
     @Test
-    @IssueTracking("https://jira.jboss.org/browse/RF-9849")
+    @IssueTracking("https://issues.jboss.org/browse/RF-9849")
     public void testOnblur() {
         selenium.type(pjq("input[id$=onblurInput]"), "metamerEvents += \"blur \"");
         selenium.waitForPageToLoad(TIMEOUT);
@@ -194,7 +194,7 @@ public class TestRichInplaceSelect extends AbstractMetamerTest {
     }
 
     @Test
-    @IssueTracking("https://jira.jboss.org/browse/RF-9571")
+    @IssueTracking("https://issues.jboss.org/browse/RF-9571")
     public void testOnchange() {
         selenium.type(pjq("input[type=text][id$=onchangeInput]"), "metamerEvents += \"change \"");
         selenium.waitForPageToLoad();
@@ -218,7 +218,7 @@ public class TestRichInplaceSelect extends AbstractMetamerTest {
     }
 
     @Test
-    @IssueTracking("https://jira.jboss.org/browse/RF-9849")
+    @IssueTracking("https://issues.jboss.org/browse/RF-9849")
     public void testOnfocus() {
         selenium.type(pjq("input[type=text][id$=onfocusInput]"), "metamerEvents += \"focus \"");
         selenium.waitForPageToLoad();
@@ -473,7 +473,7 @@ public class TestRichInplaceSelect extends AbstractMetamerTest {
     }
 
     @Test
-    @IssueTracking("https://jira.jboss.org/browse/RF-9896")
+    @IssueTracking("https://issues.jboss.org/browse/RF-9896")
     public void testSelectItemClass() {
         selenium.type(pjq("input[type=text][id$=selectItemClassInput]"), "metamer-ftest-class");
         selenium.waitForPageToLoad();

@@ -50,7 +50,7 @@ public class TestHInputTextarea extends AbstractTestTextInput {
     }
 
     @Test
-    @IssueTracking("https://jira.jboss.org/browse/RF-9665")
+    @IssueTracking("https://issues.jboss.org/browse/RF-9665")
     public void testSimpleTypeUnicode() {
         super.testType(input, "ľščťžýáíéúôň фывацукйешгщь");
     }

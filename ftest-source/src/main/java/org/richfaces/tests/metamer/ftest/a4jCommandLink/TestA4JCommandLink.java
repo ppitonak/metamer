@@ -74,7 +74,7 @@ public class TestA4JCommandLink extends AbstractMetamerTest {
     }
 
     @Test
-    @IssueTracking("https://jira.jboss.org/browse/RF-9665")
+    @IssueTracking("https://issues.jboss.org/browse/RF-9665")
     public void testSimpleClickUnicode() {
         selenium.typeKeys(input, "ľščťžýáíéňô");
         selenium.click(link);
@@ -271,7 +271,7 @@ public class TestA4JCommandLink extends AbstractMetamerTest {
     }
 
     @Test
-    @IssueTracking("https://jira.jboss.org/browse/RF-9307")
+    @IssueTracking("https://issues.jboss.org/browse/RF-9307")
     public void testStyleClass() {
         JQueryLocator bold = pjq("input[name$=styleClassInput][value=bold]");
         JQueryLocator strike = pjq("input[name$=styleClassInput][value=strike]");

@@ -50,7 +50,7 @@ public class TestHCommandLink extends AbstractTestCommand {
     }
 
     @Test
-    @IssueTracking("https://jira.jboss.org/browse/RF-9665")
+    @IssueTracking("https://issues.jboss.org/browse/RF-9665")
     public void testSimpleClickUnicode() {
         super.testClick(link, "ľščťžýáíéúôň фывацукйешгщь");
     }

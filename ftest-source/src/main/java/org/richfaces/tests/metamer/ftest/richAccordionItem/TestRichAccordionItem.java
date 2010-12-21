@@ -173,7 +173,7 @@ public class TestRichAccordionItem extends AbstractMetamerTest {
     }
 
     @Test
-    @IssueTracking("https://jira.jboss.org/browse/RF-9821")
+    @IssueTracking("https://issues.jboss.org/browse/RF-9821")
     public void testOnenter() {
         testFireEvent(Event.CLICK, itemHeaders[0], "enter");
     }
@@ -204,7 +204,7 @@ public class TestRichAccordionItem extends AbstractMetamerTest {
     }
 
     @Test
-    @IssueTracking("https://jira.jboss.org/browse/RF-9821")
+    @IssueTracking("https://issues.jboss.org/browse/RF-9821")
     public void testOnleave() {
         selenium.type(pjq("input[type=text][id$=onleaveInput]"), "metamerEvents += \"leave \"");
         selenium.waitForPageToLoad();

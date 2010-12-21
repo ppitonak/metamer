@@ -24,7 +24,6 @@ package org.richfaces.tests.metamer.ftest.richTab;
 import static org.jboss.test.selenium.guard.request.RequestTypeGuardFactory.guardHttp;
 import static org.jboss.test.selenium.guard.request.RequestTypeGuardFactory.guardNoRequest;
 import static org.jboss.test.selenium.guard.request.RequestTypeGuardFactory.guardXhr;
-import static org.jboss.test.selenium.locator.LocatorFactory.jq;
 import static org.jboss.test.selenium.utils.URLUtils.buildUrl;
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertFalse;
@@ -245,7 +244,7 @@ public class TestRichTab extends AbstractMetamerTest {
     }
 
     @Test
-    @IssueTracking("https://jira.jboss.org/browse/RF-9537")
+    @IssueTracking("https://issues.jboss.org/browse/RF-9537")
     public void testOnenter() {
         selenium.type(pjq("input[type=text][id$=onenterInput]"), "metamerEvents += \"enter \"");
         selenium.waitForPageToLoad();
@@ -289,7 +288,7 @@ public class TestRichTab extends AbstractMetamerTest {
     }
 
     @Test
-    @IssueTracking("https://jira.jboss.org/browse/RF-9537")
+    @IssueTracking("https://issues.jboss.org/browse/RF-9537")
     public void testOnleave() {
         selenium.type(pjq("input[type=text][id$=onleaveInput]"), "metamerEvents += \"leave \"");
         selenium.waitForPageToLoad();

@@ -74,7 +74,7 @@ public class TestA4JCommandButton extends AbstractMetamerTest {
     }
 
     @Test
-    @IssueTracking("https://jira.jboss.org/browse/RF-9665")
+    @IssueTracking("https://issues.jboss.org/browse/RF-9665")
     public void testSimpleClickUnicode() {
         selenium.typeKeys(input, "ľščťžýáíéňô");
         selenium.click(button);
@@ -268,7 +268,7 @@ public class TestA4JCommandButton extends AbstractMetamerTest {
     }
 
     @Test
-    @IssueTracking("https://jira.jboss.org/browse/RF-9307")
+    @IssueTracking("https://issues.jboss.org/browse/RF-9307")
     public void testStyleClass() {
         JQueryLocator wide = pjq("input[name$=styleClassInput][value=wide]");
         JQueryLocator big = pjq("input[name$=styleClassInput][value=big]");

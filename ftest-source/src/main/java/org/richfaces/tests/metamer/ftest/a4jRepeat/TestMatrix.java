@@ -41,7 +41,7 @@ import org.testng.annotations.Test;
  * @author <a href="mailto:lfryc@redhat.com">Lukas Fryc</a>
  * @version $Revision$
  */
-@IssueTracking("https://jira.jboss.org/browse/RF-9375")
+@IssueTracking("https://issues.jboss.org/browse/RF-9375")
 public class TestMatrix extends AbstractMetamerTest {
 
     Vector<Vector<Integer>> matrix;

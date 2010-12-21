@@ -425,7 +425,7 @@ public class TestRichSlider extends AbstractMetamerTest {
     }
 
     @Test
-    @IssueTracking("https://jira.jboss.org/browse/RF-9860")
+    @IssueTracking("https://issues.jboss.org/browse/RF-9860")
     public void testMaxlength() {
         selenium.type(pjq("input[type=text][id$=maxlengthInput]"), "5");
         selenium.waitForPageToLoad();

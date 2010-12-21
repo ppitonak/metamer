@@ -166,7 +166,7 @@ public class TestRichSelect extends AbstractMetamerTest {
     }
 
     @Test
-    @IssueTracking("https://jira.jboss.org/browse/RF-9855")
+    @IssueTracking("https://issues.jboss.org/browse/RF-9855")
     public void testEnableManualInput() {
         selenium.click(pjq("input[type=radio][name$=enableManualInputInput][value=false]"));
         selenium.waitForPageToLoad();
@@ -197,13 +197,13 @@ public class TestRichSelect extends AbstractMetamerTest {
     }
 
     @Test
-    @IssueTracking("https://jira.jboss.org/browse/RF-9735")
+    @IssueTracking("https://issues.jboss.org/browse/RF-9735")
     public void testListClass() {
         testStyleClass(popup, "listClass");
     }
 
     @Test
-    @IssueTracking("https://jira.jboss.org/browse/RF-9737")
+    @IssueTracking("https://issues.jboss.org/browse/RF-9737")
     public void testListHeight() {
         selenium.type(pjq("input[type=text][id$=listHeightInput]"), "300px");
         selenium.waitForPageToLoad();
@@ -221,7 +221,7 @@ public class TestRichSelect extends AbstractMetamerTest {
     }
 
     @Test
-    @IssueTracking("https://jira.jboss.org/browse/RF-9737")
+    @IssueTracking("https://issues.jboss.org/browse/RF-9737")
     public void testListWidth() {
         selenium.type(pjq("input[type=text][id$=listWidthInput]"), "300px");
         selenium.waitForPageToLoad();
@@ -451,7 +451,7 @@ public class TestRichSelect extends AbstractMetamerTest {
     }
 
     @Test
-    @IssueTracking("https://jira.jboss.org/browse/RF-9663")
+    @IssueTracking("https://issues.jboss.org/browse/RF-9663")
     public void testShowButtonClick() {
         selenium.click(pjq("input[type=radio][name$=showButtonInput][value=false]"));
         selenium.waitForPageToLoad();

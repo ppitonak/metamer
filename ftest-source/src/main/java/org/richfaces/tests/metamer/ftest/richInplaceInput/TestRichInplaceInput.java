@@ -167,7 +167,7 @@ public class TestRichInplaceInput extends AbstractMetamerTest {
     }
 
     @Test
-    @IssueTracking("https://jira.jboss.org/browse/RF-9868")
+    @IssueTracking("https://issues.jboss.org/browse/RF-9868")
     public void testOnblur() {
         selenium.type(pjq("input[id$=onblurInput]"), "metamerEvents += \"blur \"");
         selenium.waitForPageToLoad(TIMEOUT);
@@ -205,7 +205,7 @@ public class TestRichInplaceInput extends AbstractMetamerTest {
     }
 
     @Test
-    @IssueTracking("https://jira.jboss.org/browse/RF-9868")
+    @IssueTracking("https://issues.jboss.org/browse/RF-9868")
     public void testOnfocus() {
         selenium.type(pjq("input[id$=onfocusInput]"), "metamerEvents += \"focus \"");
         selenium.waitForPageToLoad(TIMEOUT);
@@ -345,7 +345,7 @@ public class TestRichInplaceInput extends AbstractMetamerTest {
     }
 
     @Test
-    @IssueTracking("https://jira.jboss.org/browse/RF-9872")
+    @IssueTracking("https://issues.jboss.org/browse/RF-9872")
     public void testClickCancelButton() {
         selenium.click(pjq("input[type=radio][name$=showControlsInput][value=true]"));
         selenium.waitForPageToLoad();

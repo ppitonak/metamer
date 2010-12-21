@@ -23,7 +23,6 @@ package org.richfaces.tests.metamer.ftest.richInputNumberSpinner;
 
 import static org.jboss.test.selenium.guard.request.RequestTypeGuardFactory.guardNoRequest;
 import static org.jboss.test.selenium.guard.request.RequestTypeGuardFactory.guardXhr;
-import static org.jboss.test.selenium.locator.LocatorFactory.jq;
 import static org.jboss.test.selenium.utils.URLUtils.buildUrl;
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertFalse;
@@ -382,7 +381,7 @@ public class TestRichSpinner extends AbstractMetamerTest {
     }
 
     @Test
-    @IssueTracking("https://jira.jboss.org/browse/RF-9568")
+    @IssueTracking("https://issues.jboss.org/browse/RF-9568")
     public void testOninputdblclick() {
         testFireEvent(Event.DBLCLICK, input, "inputdblclick");
     }

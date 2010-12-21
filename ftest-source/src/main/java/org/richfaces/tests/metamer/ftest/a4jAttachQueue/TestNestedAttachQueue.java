@@ -114,7 +114,7 @@ public class TestNestedAttachQueue extends AbstractMetamerTest {
     }
 
     @Test
-    @IssueTracking("https://jira.jboss.org/browse/RF-9328")
+    @IssueTracking("https://issues.jboss.org/browse/RF-9328")
     public void testRendered() {
         attributesAttachQueue1.setRequestDelay(1500);
         attributesAttachQueue1.setRendered(false);

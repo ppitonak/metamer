@@ -348,7 +348,7 @@ public class TestRichTogglePanel extends AbstractMetamerTest {
     }
 
     @Test
-    @IssueTracking("https://jira.jboss.org/browse/RF-9881")
+    @IssueTracking("https://issues.jboss.org/browse/RF-9881")
     public void testLimitRender() {
         selenium.click(pjq("input[type=radio][name$=limitRenderInput][value=true]"));
         selenium.waitForPageToLoad();

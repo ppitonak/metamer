@@ -276,7 +276,7 @@ public class TestRichCalendarAttributes extends AbstractCalendarTest {
     }
 
     @Test
-    @IssueTracking("https://jira.jboss.org/browse/RF-9837")
+    @IssueTracking("https://issues.jboss.org/browse/RF-9837")
     public void testDefaultTime() {
         selenium.type(pjq("input[type=text][id$=defaultTimeInput]"), "21:24");
         selenium.waitForPageToLoad();
@@ -319,7 +319,7 @@ public class TestRichCalendarAttributes extends AbstractCalendarTest {
     }
 
     @Test
-    @IssueTracking("https://jira.jboss.org/browse/RF-9646")
+    @IssueTracking("https://issues.jboss.org/browse/RF-9646")
     public void testFirstWeekDay() {
         selenium.type(pjq("input[type=text][id$=firstWeekDayInput]"), "6");
         selenium.waitForPageToLoad();
@@ -404,7 +404,7 @@ public class TestRichCalendarAttributes extends AbstractCalendarTest {
     }
 
     @Test
-    @IssueTracking("https://jira.jboss.org/browse/RF-9602")
+    @IssueTracking("https://issues.jboss.org/browse/RF-9602")
     public void testOninputchange() {
         selenium.click(pjq("input[name$=enableManualInputInput][value=true]"));
         selenium.waitForPageToLoad();

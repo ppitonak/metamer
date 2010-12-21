@@ -50,7 +50,7 @@ public class TestHCommandButton extends AbstractTestCommand {
     }
 
     @Test
-    @IssueTracking("https://jira.jboss.org/browse/RF-9665")// </editor-fold>
+    @IssueTracking("https://issues.jboss.org/browse/RF-9665")// </editor-fold>
     public void testSimpleClickUnicode() {
         super.testClick(button, "ľščťžýáíéúôň фывацукйешгщь");
     }

@@ -77,7 +77,7 @@ public class TestFormQueue extends AbstractMetamerTest {
      * </p>
      */
     @Test
-    @IssueTracking("https://jira.jboss.org/browse/RF-9606")
+    @IssueTracking("https://issues.jboss.org/browse/RF-9606")
     public void testTimingOneQueueTwoEvents() {
         attributesQueueA.setRequestDelay(DELAY_A);
         attributesGlobalQueue.setRequestDelay(GLOBAL_DELAY);
@@ -149,7 +149,7 @@ public class TestFormQueue extends AbstractMetamerTest {
      * </p>
      */
     @Test
-    @IssueTracking("https://jira.jboss.org/browse/RF-9606")
+    @IssueTracking("https://issues.jboss.org/browse/RF-9606")
     public void testTimingTwoQueuesFourEvents() {
         attributesQueueA.setRequestDelay(DELAY_A);
         attributesQueueB.setRequestDelay(DELAY_B);
