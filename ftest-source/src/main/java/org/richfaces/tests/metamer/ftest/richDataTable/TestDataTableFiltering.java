@@ -26,6 +26,7 @@ import static org.jboss.test.selenium.utils.URLUtils.buildUrl;
 import java.net.URL;
 
 import org.richfaces.tests.metamer.ftest.abstractions.DataTableFilteringTest;
+import org.richfaces.tests.metamer.ftest.annotations.IssueTracking;
 import org.richfaces.tests.metamer.ftest.model.DataTable;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
@@ -78,6 +79,7 @@ public class TestDataTableFiltering extends DataTableFilteringTest {
 
     @Test
     @Override
+    @IssueTracking("http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-790")
     public void testRerenderAll() {
         super.testRerenderAll();
     }
