@@ -83,7 +83,7 @@ public class ExtendedDataTable extends AbstractModel<JQueryLocator> implements D
 
     @Override
     public boolean isNoData() {
-        return selenium.isElementPresent(body) && getRows() == 0;
+        return selenium.isElementPresent(body) && !selenium.isElementPresent(tbody);
     }
 
     @Override

@@ -71,7 +71,7 @@ public abstract class DataTableSimpleTest extends AbstractDataTableTest {
         } else {
             expectedRows = Math.min(rows, ELEMENTS_TOTAL) - expectedFirst;
         }
-        
+
         if (expectedRows > 0) {
             expectedColumns = COLUMNS_TOTAL;
         } else {
@@ -83,9 +83,9 @@ public abstract class DataTableSimpleTest extends AbstractDataTableTest {
 
     public void testRendered() {
         assertTrue(model.isVisible());
-        
+
         attributes.setRendered(false);
-        
+
         assertFalse(model.isVisible());
         assertFalse(model.isNoData());
         assertEquals(model.getColumns(), 0);
@@ -95,10 +95,10 @@ public abstract class DataTableSimpleTest extends AbstractDataTableTest {
     public void testNoDataLabel() {
         assertTrue(model.isVisible());
         assertFalse(model.isNoData());
-        
+
         attributes.setNoDataLabel(NO_DATA);
         attributes.setShowData(false);
-        
+
         assertTrue(model.isVisible());
         assertTrue(model.isNoData());
         assertEquals(model.getColumns(), 0);
@@ -116,9 +116,9 @@ public abstract class DataTableSimpleTest extends AbstractDataTableTest {
 
     public void verifyTable() {
         assertTrue(model.isVisible());
-        assertFalse(model.isNoData());
         assertEquals(model.getColumns(), expectedColumns);
         assertEquals(model.getRows(), expectedRows);
+        assertFalse(model.isNoData());
     }
 
     public void verifyElements() {
