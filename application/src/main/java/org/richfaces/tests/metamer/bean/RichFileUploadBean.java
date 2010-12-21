@@ -95,4 +95,8 @@ public class RichFileUploadBean implements Serializable {
         files.clear();
         return null;
     }
+
+    public boolean isRenderButton() {
+        return files.size() > 0;
+    }
 }
