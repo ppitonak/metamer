@@ -28,7 +28,6 @@ import static org.jboss.test.selenium.locator.LocatorFactory.jq;
 import static org.jboss.test.selenium.utils.URLUtils.buildUrl;
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertFalse;
-import static org.testng.Assert.assertNotSame;
 import static org.testng.Assert.assertTrue;
 import static org.testng.Assert.fail;
 
@@ -73,7 +72,6 @@ public class TestRichSlider extends AbstractMetamerTest {
     private JQueryLocator handle = pjq("span.rf-insl-hnd");
     private JQueryLocator tooltip = pjq("span.rf-insl-tt");
     private JQueryLocator output = pjq("span[id$=output]");
-    private JQueryLocator time = jq("span[id$=requestTime]");
     private String[] correctNumbers = {"-10", "-5", "-1", "0", "1", "5", "10"};
     private String[] smallNumbers = {"-11", "-15", "-100"};
     private String[] bigNumbers = {"11", "15", "100"};

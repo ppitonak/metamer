@@ -106,8 +106,6 @@ public class TestRichTogglePanelItem extends AbstractMetamerTest {
     @Test
     @IssueTracking("https://jira.jboss.org/browse/RF-9895")
     public void testOnenter() {
-        JQueryLocator time = jq("span[id$=requestTime]");
-
         selenium.type(pjq("input[type=text][id$=onenterInput]"), "metamerEvents += \"enter \"");
         selenium.waitForPageToLoad();
 
@@ -128,8 +126,6 @@ public class TestRichTogglePanelItem extends AbstractMetamerTest {
     @Test
     @IssueTracking("https://jira.jboss.org/browse/RF-9895")
     public void testOnleave() {
-        JQueryLocator time = jq("span[id$=requestTime]");
-
         selenium.type(pjq("input[type=text][id$=onleaveInput]"), "metamerEvents += \"leave \"");
         selenium.waitForPageToLoad();
 

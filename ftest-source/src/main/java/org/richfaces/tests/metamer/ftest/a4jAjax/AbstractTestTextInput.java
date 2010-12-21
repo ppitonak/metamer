@@ -61,7 +61,6 @@ public abstract class AbstractTestTextInput extends AbstractMetamerTest {
     }
 
     public void testBypassUpdates(JQueryLocator input) {
-        JQueryLocator time = jq("span[id$=requestTime]");
         String timeValue = selenium.getText(time);
 
         selenium.click(pjq("input[type=radio][name$=bypassUpdatesInput][value=true]"));
@@ -82,7 +81,6 @@ public abstract class AbstractTestTextInput extends AbstractMetamerTest {
         selenium.type(pjq("input[type=text][id$=oncompleteInput]"), "data = event.data");
         selenium.waitForPageToLoad();
 
-        JQueryLocator time = jq("span[id$=requestTime]");
         String timeValue = selenium.getText(time);
 
         typeToInput(input, "RichFaces 4");
@@ -96,7 +94,6 @@ public abstract class AbstractTestTextInput extends AbstractMetamerTest {
         selenium.type(pjq("input[type=text][id$=executeInput]"), "@this executeChecker");
         selenium.waitForPageToLoad();
 
-        JQueryLocator time = jq("span[id$=requestTime]");
         String timeValue = selenium.getText(time);
         typeToInput(input, "RichFaces 4");
         waitGui.failWith("Page was not updated").waitForChange(timeValue, retrieveText.locator(time));
@@ -112,7 +109,6 @@ public abstract class AbstractTestTextInput extends AbstractMetamerTest {
     }
 
     public void testImmediate(JQueryLocator input) {
-        JQueryLocator time = jq("span[id$=requestTime]");
         String timeValue = selenium.getText(time);
 
         selenium.click(pjq("input[type=radio][name$=immediateInput][value=true]"));
@@ -127,7 +123,6 @@ public abstract class AbstractTestTextInput extends AbstractMetamerTest {
     }
 
     public void testImmediateBypassUpdates(JQueryLocator input) {
-        JQueryLocator time = jq("span[id$=requestTime]");
         String timeValue = selenium.getText(time);
 
         selenium.click(pjq("input[type=radio][name$=bypassUpdatesInput][value=true]"));
@@ -146,7 +141,6 @@ public abstract class AbstractTestTextInput extends AbstractMetamerTest {
         selenium.click(pjq("input[type=radio][name$=limitRenderInput][value=true]"));
         selenium.waitForPageToLoad();
 
-        JQueryLocator time = jq("span[id$=requestTime]");
         String timeValue = selenium.getText(time);
 
         typeToInput(input, "RichFaces 4");

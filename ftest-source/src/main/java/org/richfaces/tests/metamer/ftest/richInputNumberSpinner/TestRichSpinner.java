@@ -58,7 +58,6 @@ public class TestRichSpinner extends AbstractMetamerTest {
     private JQueryLocator up = pjq("span[id$=spinner] span.rf-insp-inc");
     private JQueryLocator down = pjq("span[id$=spinner] span.rf-insp-dec");
     private JQueryLocator output = pjq("span[id$=output]");
-    private JQueryLocator time = jq("span[id$=requestTime]");
     private String[] correctNumbers = {"-10", "-5", "-1", "0", "1", "5", "10"};
     private String[] smallNumbers = {"-11", "-15", "-100"};
     private String[] bigNumbers = {"11", "15", "100"};

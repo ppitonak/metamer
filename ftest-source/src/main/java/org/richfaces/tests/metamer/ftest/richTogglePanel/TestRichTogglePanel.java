@@ -350,18 +350,16 @@ public class TestRichTogglePanel extends AbstractMetamerTest {
     @Test
     @IssueTracking("https://jira.jboss.org/browse/RF-9881")
     public void testLimitRender() {
-        JQueryLocator timeLoc = jq("span[id$=requestTime]");
-
         selenium.click(pjq("input[type=radio][name$=limitRenderInput][value=true]"));
         selenium.waitForPageToLoad();
 
-        String time = selenium.getText(timeLoc);
+        String timeValue = selenium.getText(time);
 
         guardXhr(selenium).click(tc2);
         waitGui.failWith("Item 2 is not displayed.").until(isDisplayed.locator(item2));
 
-        String newTime = selenium.getText(timeLoc);
-        assertEquals(newTime, time, "Panel with ajaxRendered=true should not be rerendered.");
+        String newTimeValue = selenium.getText(time);
+        assertEquals(newTimeValue, timeValue, "Panel with ajaxRendered=true should not be rerendered.");
     }
 
     @Test
@@ -377,8 +375,6 @@ public class TestRichTogglePanel extends AbstractMetamerTest {
 
     @Test
     public void testItemchangeEvents() {
-        JQueryLocator time = jq("span[id$=requestTime]");
-
         selenium.type(pjq("input[type=text][id$=onbeforeitemchangeInput]"), "metamerEvents += \"beforeitemchange \"");
         selenium.waitForPageToLoad();
         selenium.type(pjq("input[type=text][id$=onitemchangeInput]"), "metamerEvents += \"itemchange \"");

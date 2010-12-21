@@ -52,8 +52,7 @@ public class TestRichCollapsiblePanel extends AbstractMetamerTest {
     private JQueryLocator headerExp = pjq("div[id$=collapsiblePanel:header] div.rf-cp-hdr-exp");
     private JQueryLocator headerColps = pjq("div[id$=collapsiblePanel:header] div.rf-cp-hdr-colps");
     private JQueryLocator content = pjq("div[id$=collapsiblePanel:content]");
-    private JQueryLocator time = jq("span[id$=requestTime]");
-
+    
     @Override
     public URL getTestUrl() {
         return buildUrl(contextPath, "faces/components/richCollapsiblePanel/simple.xhtml");
@@ -163,20 +162,18 @@ public class TestRichCollapsiblePanel extends AbstractMetamerTest {
     @Test
     @IssueTracking("https://jira.jboss.org/browse/RF-9535")
     public void testLimitRender() {
-        JQueryLocator timeLoc = jq("span[id$=requestTime]");
-
         selenium.type(pjq("input[type=text][id$=renderInput]"), "@this");
         selenium.waitForPageToLoad();
 
         selenium.click(pjq("input[type=radio][name$=limitRenderInput][value=true]"));
         selenium.waitForPageToLoad();
 
-        String timeValue = selenium.getText(timeLoc);
+        String timeValue = selenium.getText(time);
 
         guardXhr(selenium).click(header);
         waitGui.failWith("Panel should be collapsed.").until(isDisplayed.locator(headerColps));
 
-        String newTime = selenium.getText(timeLoc);
+        String newTime = selenium.getText(time);
         assertTrue(newTime.equals(timeValue), "Panel with ajaxRendered=true should not be rerendered (old and new time should be same).");
     }
 

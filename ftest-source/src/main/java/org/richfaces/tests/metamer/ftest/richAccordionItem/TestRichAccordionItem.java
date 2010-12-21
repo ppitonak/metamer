@@ -206,8 +206,6 @@ public class TestRichAccordionItem extends AbstractMetamerTest {
     @Test
     @IssueTracking("https://jira.jboss.org/browse/RF-9821")
     public void testOnleave() {
-        JQueryLocator time = jq("span[id$=requestTime]");
-
         selenium.type(pjq("input[type=text][id$=onleaveInput]"), "metamerEvents += \"leave \"");
         selenium.waitForPageToLoad();
 

@@ -56,7 +56,6 @@ public class TestRichInplaceInput extends AbstractMetamerTest {
     private JQueryLocator okButton = pjq("input.rf-ii-btn[id$=Okbtn]");
     private JQueryLocator cancelButton = pjq("input.rf-ii-btn[id$=Cancelbtn]");
     private JQueryLocator output = pjq("span[id$=output]");
-    private JQueryLocator time = jq("span[id$=requestTime]");
 
     @Override
     public URL getTestUrl() {

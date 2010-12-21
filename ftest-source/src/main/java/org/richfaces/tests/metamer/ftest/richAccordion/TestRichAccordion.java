@@ -349,8 +349,6 @@ public class TestRichAccordion extends AbstractMetamerTest {
 
     @Test
     public void testItemchangeEvents() {
-        JQueryLocator time = jq("span[id$=requestTime]");
-
         selenium.type(pjq("input[type=text][id$=onbeforeitemchangeInput]"), "metamerEvents += \"beforeitemchange \"");
         selenium.waitForPageToLoad();
         selenium.type(pjq("input[type=text][id$=onitemchangeInput]"), "metamerEvents += \"itemchange \"");
@@ -376,18 +374,16 @@ public class TestRichAccordion extends AbstractMetamerTest {
     @Test
     @IssueTracking("https://issues.jboss.org/browse/RF-9934")
     public void testLimitRender() {
-        JQueryLocator timeLoc = jq("span[id$=requestTime]");
-
         selenium.click(pjq("input[type=radio][name$=limitRenderInput][value=true]"));
         selenium.waitForPageToLoad();
 
-        String time = selenium.getText(timeLoc);
+        String timeValue = selenium.getText(time);
 
         guardXhr(selenium).click(inactiveHeaders[1]);
         waitGui.failWith("Item 2 is not displayed.").until(isDisplayed.locator(itemContents[1]));
 
-        String newTime = selenium.getText(timeLoc);
-        assertNotSame(newTime, time, "Panel with ajaxRendered=true should not be rerendered.");
+        String newTime = selenium.getText(time);
+        assertNotSame(newTime, timeValue, "Panel with ajaxRendered=true should not be rerendered.");
     }
 
     @Test

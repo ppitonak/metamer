@@ -286,21 +286,19 @@ public class TestRichTabPanel extends AbstractMetamerTest {
     @Test
     @IssueTracking("https://jira.jboss.org/browse/RF-9535")
     public void testLimitRender() {
-        JQueryLocator timeLoc = jq("span[id$=requestTime]");
-
         selenium.type(pjq("input[type=text][id$=renderInput]"), "@this");
         selenium.waitForPageToLoad();
 
         selenium.click(pjq("input[type=radio][name$=limitRenderInput][value=true]"));
         selenium.waitForPageToLoad();
 
-        String time = selenium.getText(timeLoc);
+        String timeValue = selenium.getText(time);
 
         guardXhr(selenium).click(inactiveHeaders[1]);
         waitGui.failWith("Tab 2 is not displayed.").until(isDisplayed.locator(itemContents[1]));
 
-        String newTime = selenium.getText(timeLoc);
-        assertNotSame(newTime, time, "Panel with ajaxRendered=true should not be rerendered.");
+        String newTimeValue = selenium.getText(time);
+        assertNotSame(newTimeValue, timeValue, "Panel with ajaxRendered=true should not be rerendered.");
     }
 
     @Test
@@ -316,8 +314,6 @@ public class TestRichTabPanel extends AbstractMetamerTest {
 
     @Test
     public void testItemchangeEvents() {
-        JQueryLocator time = jq("span[id$=requestTime]");
-
         selenium.type(pjq("input[type=text][id$=onbeforeitemchangeInput]"), "metamerEvents += \"beforeitemchange \"");
         selenium.waitForPageToLoad();
         selenium.type(pjq("input[type=text][id$=onitemchangeInput]"), "metamerEvents += \"itemchange \"");
