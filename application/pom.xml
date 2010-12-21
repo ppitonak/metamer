@@ -67,6 +67,11 @@
             <groupId>org.richfaces.cdk</groupId>
             <artifactId>annotations</artifactId>
         </dependency>
+        
+        <dependency>
+        	<groupId>javax.validation</groupId>
+        	<artifactId>validation-api</artifactId>
+        </dependency>
 
         <dependency>
             <groupId>javax.servlet</groupId>
@@ -299,7 +304,7 @@
 		                <artifactId>maven-war-plugin</artifactId>
 		                <configuration>
 		                	<classifier>jee6</classifier>
-		                	<packagingExcludes>WEB-INF/lib/jsf-api-*,WEB-INF/lib/jsf-impl-*,WEB-INF/lib/myfaces-api-*,WEB-INF/lib/myfaces-impl-*</packagingExcludes>
+		                	<packagingExcludes>WEB-INF/lib/jsf-api-*,WEB-INF/lib/jsf-impl-*,WEB-INF/lib/myfaces-api-*,WEB-INF/lib/myfaces-impl-*,WEB-INF/lib/validation-api-*</packagingExcludes>
 		                </configuration>
 		                <executions>
 		                	<execution>
@@ -503,6 +508,11 @@
 					<artifactId>jsf-impl</artifactId>
 					<scope>provided</scope>
 				</dependency>
+				<dependency>
+		        	<groupId>javax.validation</groupId>
+		        	<artifactId>validation-api</artifactId>
+		        	<scope>provided</scope>
+		        </dependency>
 			</dependencies>
 		</profile>
     </profiles>
