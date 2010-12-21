@@ -36,7 +36,7 @@
 	
 				grid.event = function(event) {
 					event = (event) ? event : 1;
-					var id = "#{rich:clientId('event1')}:outputTime".replace("1", event);
+					var id = "#{rich:clientId('event1')}:outputTime".replace("event1", "event" + event);
 					Metamer.ClientTime.refresh(document.getElementById(id));
 				}
 	
