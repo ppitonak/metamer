@@ -49,7 +49,7 @@ public abstract class DataTableFacetsTest extends AbstractDataTableTest {
         attributes.setShowData(false);
         facets.setNoData(EMPTY_STRING);
         attributes.setNoDataLabel(SAMPLE_STRING);
-        assertEquals(selenium.getText(model.getNoData()), SAMPLE_STRING);
+        assertEquals(selenium.getText(model.getNoData()), EMPTY_STRING);
     }
 
     public void testHeaderInstantChange() {
@@ -59,7 +59,7 @@ public abstract class DataTableFacetsTest extends AbstractDataTableTest {
 
     public void testHeaderEmpty() {
         facets.setHeader(EMPTY_STRING);
-        assertFalse(selenium.isElementPresent(model.getHeader()));
+        assertEquals(selenium.getText(model.getHeader()), EMPTY_STRING);
     }
 
     public void testStateHeaderInstantChange() {
@@ -68,8 +68,8 @@ public abstract class DataTableFacetsTest extends AbstractDataTableTest {
     }
 
     public void testStateHeaderEmpty() {
-        facets.setStateFooter(EMPTY_STRING);
-        assertFalse(selenium.isElementPresent(model.getColumnHeader(COLUMN_STATE)));
+        facets.setStateHeader(EMPTY_STRING);
+        assertEquals(selenium.getText(model.getColumnHeader(COLUMN_STATE)), EMPTY_STRING);
     }
 
     public void testStateFooterInstantChange() {
@@ -79,7 +79,7 @@ public abstract class DataTableFacetsTest extends AbstractDataTableTest {
 
     public void testStateFooterEmpty() {
         facets.setStateFooter(EMPTY_STRING);
-        assertFalse(selenium.isElementPresent(model.getColumnFooter(COLUMN_STATE)));
+        assertEquals(selenium.getText(model.getColumnFooter(COLUMN_STATE)), EMPTY_STRING);
     }
 
     public void testCapitalHeaderInstantChange() {
@@ -89,7 +89,7 @@ public abstract class DataTableFacetsTest extends AbstractDataTableTest {
 
     public void testCapitalHeaderEmpty() {
         facets.setCapitalHeader(EMPTY_STRING);
-        assertFalse(selenium.isElementPresent(model.getColumnHeader(COLUMN_CAPITAL)));
+        assertEquals(selenium.getText(model.getColumnHeader(COLUMN_CAPITAL)), EMPTY_STRING);
     }
 
     public void testCapitalFooterInstantChange() {
@@ -99,6 +99,6 @@ public abstract class DataTableFacetsTest extends AbstractDataTableTest {
 
     public void testCapitalFooterEmpty() {
         facets.setCapitalFooter(EMPTY_STRING);
-        assertFalse(selenium.isElementPresent(model.getColumnFooter(COLUMN_CAPITAL)));
+        assertEquals(selenium.getText(model.getColumnFooter(COLUMN_CAPITAL)), EMPTY_STRING);
     }
 }
