@@ -26,6 +26,7 @@ import static org.jboss.test.selenium.utils.URLUtils.buildUrl;
 import java.net.URL;
 
 import org.richfaces.tests.metamer.ftest.abstractions.DataTableSortingTest;
+import org.richfaces.tests.metamer.ftest.annotations.IssueTracking;
 import org.richfaces.tests.metamer.ftest.model.ExtendedDataTable;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
@@ -96,6 +97,7 @@ public class TestExtendedDataTableSortingUsingComponentControl extends DataTable
 
     @Test
     @Override
+    @IssueTracking("https://issues.jboss.org/browse/RF-9932")
     public void testSortModeMultiRerenderAll() {
         super.testSortModeMultiRerenderAll();
     }

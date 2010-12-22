@@ -26,6 +26,7 @@ import static org.jboss.test.selenium.utils.URLUtils.buildUrl;
 import java.net.URL;
 
 import org.richfaces.tests.metamer.ftest.abstractions.DataTableSortingTest;
+import org.richfaces.tests.metamer.ftest.annotations.IssueTracking;
 import org.richfaces.tests.metamer.ftest.model.DataTable;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
@@ -66,6 +67,7 @@ public class TestDataTableSortingUsingComponentControl extends DataTableSortingT
 
     @Test
     @Override
+    @IssueTracking("https://issues.jboss.org/browse/RF-9932")
     public void testSortModeSingleRerenderAll() {
         super.testSortModeSingleRerenderAll();
     }
@@ -78,30 +80,35 @@ public class TestDataTableSortingUsingComponentControl extends DataTableSortingT
 
     @Test
     @Override
+    @IssueTracking("https://issues.jboss.org/browse/RF-9931")
     public void testSortModeMulti() {
         super.testSortModeMulti();
     }
 
     @Test
     @Override
+    @IssueTracking("https://issues.jboss.org/browse/RF-9931")
     public void testSortModeMultiReverse() {
         super.testSortModeMultiReverse();
     }
 
     @Test
     @Override
+    @IssueTracking("https://issues.jboss.org/browse/RF-9931")
     public void testSortModeMultiReplacingOldOccurences() {
         super.testSortModeMultiReplacingOldOccurences();
     }
 
     @Test
     @Override
+    @IssueTracking({ "https://issues.jboss.org/browse/RF-9931", "https://issues.jboss.org/browse/RF-9932" })
     public void testSortModeMultiRerenderAll() {
         super.testSortModeMultiRerenderAll();
     }
 
     @Test
     @Override
+    @IssueTracking("https://issues.jboss.org/browse/RF-9931")
     public void testSortModeMultiFullPageRefresh() {
         super.testSortModeMultiFullPageRefresh();
     }
