@@ -54,7 +54,12 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 
         <ui:define name="component">
             <div style="padding: 250px">
-                <rich:calendar id="calendar" boundaryDatesMode="scroll" dataModel="#{calendarModel}" mode="ajax" >
+                <rich:calendar id="calendar"
+                               boundaryDatesMode="scroll"
+                               dataModel="#{calendarModel}"
+                               mode="ajax"
+                               timeZone="#{richCalendarBean.timeZone}"
+                               value="#{richCalendarBean.attributes['value'].value}" >
                     <a4j:ajax event="change" render="output, phasesPanel" limitRender="#{true}"/>
                 </rich:calendar>
             </div>
