@@ -79,4 +79,9 @@ public class CalendarModel implements CalendarDataModel {
 
         return modelItems;
     }
+
+    @Override
+    public Object getToolTip(Date date) {
+        return null;
+    }
 }

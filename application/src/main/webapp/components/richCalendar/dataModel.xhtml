@@ -55,13 +55,17 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
         <ui:define name="component">
             <div style="padding: 250px">
                 <rich:calendar id="calendar" boundaryDatesMode="scroll" dataModel="#{calendarModel}" mode="ajax" >
-                    <a4j:ajax event="change" render="output, requestTime" limitRender="#{true}"/>
+                    <a4j:ajax event="change" render="output, phasesPanel" limitRender="#{true}"/>
                 </rich:calendar>
             </div>
 
             <br/><br/>
 
-            output: <h:outputText id="output" value="#{richCalendarBean.attributes['value'].value}"/>
+            output:
+            <h:outputText id="output" value="#{richCalendarBean.attributes['value'].value}">
+                <f:convertDateTime pattern="#{richCalendarBean.attributes['datePattern'].value}"
+                                   timeZone="#{richCalendarBean.timeZone}"/>
+            </h:outputText>
 
         </ui:define>
 

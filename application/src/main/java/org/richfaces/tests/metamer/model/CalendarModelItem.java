@@ -49,4 +49,20 @@ public class CalendarModelItem implements CalendarDataModelItem {
     public String getStyleClass() {
         return styleClass;
     }
+
+    public Object getData() {
+        return null;
+    }
+
+    public boolean hasToolTip() {
+        return false;
+    }
+
+    public Object getToolTip() {
+        return null;
+    }
+
+    public int getDay() {
+        return 0;
+    }
 }
