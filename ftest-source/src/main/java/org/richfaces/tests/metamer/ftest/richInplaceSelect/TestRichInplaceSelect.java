@@ -375,6 +375,7 @@ public class TestRichInplaceSelect extends AbstractMetamerTest {
     }
 
     @Test
+    @IssueTracking("https://issues.jboss.org/browse/RF-9849")
     public void testOnselectitem() {
         selenium.type(pjq("input[type=text][id$=onselectitemInput]"), "metamerEvents += \"selectitem \"");
         selenium.waitForPageToLoad();
