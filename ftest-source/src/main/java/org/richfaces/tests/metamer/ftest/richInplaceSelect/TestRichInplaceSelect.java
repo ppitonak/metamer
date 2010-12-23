@@ -410,9 +410,6 @@ public class TestRichInplaceSelect extends AbstractMetamerTest {
 
     @Test
     public void testSaveOnBlurSelectTrueTrue() {
-        selenium.click(pjq("input[type=radio][name$=saveOnBlurInput][value=true]"));
-        selenium.waitForPageToLoad();
-
         selenium.click(select);
         assertTrue(selenium.isDisplayed(popup), "Popup should be displayed.");
 
@@ -423,8 +420,6 @@ public class TestRichInplaceSelect extends AbstractMetamerTest {
 
     @Test
     public void testSaveOnBlurSelectTrueFalse() {
-        selenium.click(pjq("input[type=radio][name$=saveOnBlurInput][value=true]"));
-        selenium.waitForPageToLoad();
         selenium.click(pjq("input[type=radio][name$=saveOnSelectInput][value=false]"));
         selenium.waitForPageToLoad();
 
