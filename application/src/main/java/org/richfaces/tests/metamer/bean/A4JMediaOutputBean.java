@@ -33,7 +33,7 @@ import java.io.Serializable;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
+import javax.faces.bean.RequestScoped;
 import javax.imageio.ImageIO;
 
 import org.richfaces.component.UIMediaOutput;
@@ -48,7 +48,7 @@ import org.slf4j.LoggerFactory;
  * @version $Revision$
  */
 @ManagedBean(name = "a4jMediaOutputBean")
-@ViewScoped
+@RequestScoped
 public class A4JMediaOutputBean implements Serializable {
 
     private static final long serialVersionUID = -1L;
@@ -71,6 +71,7 @@ public class A4JMediaOutputBean implements Serializable {
         attributes.remove("element");
         attributes.remove("value");
         attributes.remove("mimeType");
+        attributes.remove("uriAttribute");
     }
 
     /**
