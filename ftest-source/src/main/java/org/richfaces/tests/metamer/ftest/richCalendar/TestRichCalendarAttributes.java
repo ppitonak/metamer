@@ -277,7 +277,7 @@ public class TestRichCalendarAttributes extends AbstractCalendarTest {
     }
 
     @Test
-    @IssueTracking("https://issues.jboss.org/browse/RF-9837")
+    @IssueTracking("https://issues.jboss.org/browse/RF-9837 https://issues.jboss.org/browse/RF-10085")
     public void testDefaultTime() {
         selenium.type(pjq("input[type=text][id$=defaultTimeInput]"), "21:24");
         selenium.waitForPageToLoad();

@@ -179,6 +179,7 @@ public class TestRichInplaceInput extends AbstractMetamerTest {
     }
 
     @Test
+    @IssueTracking("https://issues.jboss.org/browse/RF-10044")
     public void testOnchange() {
         selenium.type(pjq("input[type=text][id$=onchangeInput]"), "metamerEvents += \"change \"");
         selenium.waitForPageToLoad();

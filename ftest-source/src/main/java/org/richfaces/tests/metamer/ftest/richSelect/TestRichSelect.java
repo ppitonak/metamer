@@ -179,6 +179,7 @@ public class TestRichSelect extends AbstractMetamerTest {
 
         selenium.click(options.format(10));
         selenium.fireEvent(input, Event.BLUR);
+        selenium.fireEvent(input, Event.BLUR); // blur has to be fired twice for Firefox - just Selenium hack
         assertTrue(selenium.belongsClass(options.format(10), "rf-sel-sel"));
 
         waitGui.failWith("Bean was not updated").until(textEquals.locator(output).text("Hawaii"));
