@@ -37,7 +37,7 @@
 			<dependency>
 				<artifactId>root</artifactId>
 				<groupId>org.jboss.test.richfaces-selenium</groupId>
-				<version>1.5.2.SP3</version>
+				<version>1.5.3-SNAPSHOT</version>
 				<scope>import</scope>
 				<type>pom</type>
 			</dependency>
