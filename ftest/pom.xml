@@ -84,6 +84,7 @@
         <ftest.source.version>4.0.0-SNAPSHOT</ftest.source.version>
         <testng.suite.xml>src/test/resources/testng.xml</testng.suite.xml>
         <container.home>target/installs/${container.dir.deflatted}/${container.dir.unflatted}</container.home>
+        <jsf.config>Mojarra-2.0</jsf.config>
     </properties>
 
     <repositories>
@@ -388,14 +389,12 @@
             <id>jboss6x-snapshot-mojarra</id>
             <properties>
                 <deployable.classifier>jee6</deployable.classifier>
-                <jsf.config>Mojarra-2.0</jsf.config>
             </properties>
         </profile>
         <profile>
             <id>jboss6x-snapshot-mojarra_2_1_0</id>
             <properties>
                 <deployable.classifier>mojarra_2_1_0</deployable.classifier>
-                <jsf.config>Mojarra-2.0</jsf.config>
             </properties>
         </profile>
         <profile>
@@ -404,6 +403,41 @@
                 <deployable.classifier>jee6</deployable.classifier>
                 <jsf.config>MyFaces-2.0</jsf.config>
             </properties>
+        </profile>
+        <profile>
+            <id>jboss6x-rewrite-default-jsf-config</id>
+            <activation>
+                <property>
+                    <name>containerId</name>
+                    <value>jboss6x</value>
+                </property>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>com.google.code.maven-replacer-plugin</groupId>
+                        <artifactId>maven-replacer-plugin</artifactId>
+                        <version>1.3.2</version>
+                        <executions>
+                            <execution>
+                                <phase>package</phase>
+                                <goals>
+                                    <goal>replace</goal>
+                                </goals>
+                                <configuration>
+                                    <file>${container.home}/server/${container.configuration}/deployers/jsf.deployer/META-INF/jsf-integration-deployer-jboss-beans.xml</file>
+                                    <regex>true</regex>
+                                    <regexFlags>
+                                        <regexFlag>MULTILINE</regexFlag>
+                                    </regexFlags>
+                                    <token>&lt;property name="defaultJSFConfig"&gt;\s*&lt;value&gt;[a-zA-Z0-9\.\-]+&lt;/value&gt;</token>
+                                    <value>&lt;property name="defaultJSFConfig"&gt;&lt;value&gt;${jsf.config}&lt;/value&gt;</value>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
         </profile>
         <profile>
             <id>jboss6x-snapshot-rewrite-default-jsf-config</id>
