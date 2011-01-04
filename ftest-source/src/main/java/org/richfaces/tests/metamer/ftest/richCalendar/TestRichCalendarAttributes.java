@@ -66,10 +66,11 @@ public class TestRichCalendarAttributes extends AbstractCalendarTest {
         assertEquals(newMonth, month, "Month should not change.");
 
         // the most top-left column might be 1st day of month
-        while (selenium.getText(cellWeekDay.format(1, 0)).equals("1")) {
+        while (selenium.getText(cellWeekDay.format(1, 1)).equals("1")) {
             selenium.click(prevMonthButton);
         }
 
+        month = selenium.getText(monthLabel);
         guardNoRequest(selenium).click(cellWeekDay.format(1, 1));
         newMonth = selenium.getText(monthLabel);
         assertEquals(newMonth, month, "Month should not change.");
