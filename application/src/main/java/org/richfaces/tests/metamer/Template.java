@@ -34,13 +34,13 @@ public enum Template {
     REDDIV ("redDiv", "Red div", ""),
     BLUEDIV ("blueDiv", "Blue div", ""),
     RICHDATATABLE1 ("richDataTable1", "Rich Data Table Row 1", "containerRichDataTable1:0:"),
-    RICHDATATABLE2 ("richDataTable2", "Rich Data Table Row 2", "containerRichDataTable1:1:"),
+    RICHDATATABLE2 ("richDataTable2", "Rich Data Table Row 2", "containerRichDataTable2:1:"),
     HDATATABLE1 ("hDataTable1", "JSF Data Table Row 1", "containerHDataTable1:0:"),
     HDATATABLE2 ("hDataTable2", "JSF Data Table Row 2", "containerHDataTable1:1:"),
     UIREPEAT1 ("uiRepeat1", "UI Repeat Row 1", "containerUiRepeat1:0:"),
-    UIREPEAT2 ("uiRepeat2", "UI Repeat Row 2", "containerUiRepeat1:1:"),
+    UIREPEAT2 ("uiRepeat2", "UI Repeat Row 2", "containerUiRepeat2:1:"),
     A4JREPEAT1 ("a4jRepeat1", "A4J Repeat Row 1", "containerA4JRepeat1:0:"),
-    A4JREPEAT2 ("a4jRepeat2", "A4J Repeat Row 2", "containerA4JRepeat1:0:");
+    A4JREPEAT2 ("a4jRepeat2", "A4J Repeat Row 2", "containerA4JRepeat2:1:");
 
     /**
      * identifier of a template
