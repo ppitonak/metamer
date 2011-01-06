@@ -261,7 +261,7 @@ public class TestRichCalendarAttributes extends AbstractCalendarTest {
         selenium.click(input);
 
         for (int i = 2; i < 42; i += 7) {
-            if (!selenium.belongsClass(cellDay.format(i), "rf-ca-boundary-dates")) {
+            if (!selenium.belongsClass(cellDay.format(i), "rf-cal-boundary-day")) {
                 assertTrue(selenium.belongsClass(cellDay.format(i), "yellowDay"), "Cell nr. " + i + " should be yellow.");
             }
         }
@@ -674,7 +674,7 @@ public class TestRichCalendarAttributes extends AbstractCalendarTest {
      */
     private void assertNoDateSelected() {
         for (int i = 0; i < 42; i++) {
-            assertFalse(selenium.belongsClass(cellDay.format(i), "rf-ca-sel"), "Cell nr. " + i + " should not be selected.");
+            assertFalse(selenium.belongsClass(cellDay.format(i), "rf-cal-sel"), "Cell nr. " + i + " should not be selected.");
         }
     }
 
@@ -695,9 +695,9 @@ public class TestRichCalendarAttributes extends AbstractCalendarTest {
         // check 3 lines of cells that contain selected date
         for (int i = lowerBoundary; i < upperBoundary; i++) {
             if (exceptOfDate.equals(selenium.getText(cellDay.format(i)))) {
-                assertTrue(selenium.belongsClass(cellDay.format(i), "rf-ca-sel"), "Cell nr. " + i + " should not be selected.");
+                assertTrue(selenium.belongsClass(cellDay.format(i), "rf-cal-sel"), "Cell nr. " + i + " should not be selected.");
             } else {
-                assertFalse(selenium.belongsClass(cellDay.format(i), "rf-ca-sel"), "Cell nr. " + i + " should not be selected.");
+                assertFalse(selenium.belongsClass(cellDay.format(i), "rf-cal-sel"), "Cell nr. " + i + " should not be selected.");
             }
         }
 
@@ -706,7 +706,7 @@ public class TestRichCalendarAttributes extends AbstractCalendarTest {
 
         // check other 3 lines of cells
         for (int i = lowerBoundary; i < upperBoundary; i++) {
-            assertFalse(selenium.belongsClass(cellDay.format(i), "rf-ca-sel"), "Cell nr. " + i + " should not be selected.");
+            assertFalse(selenium.belongsClass(cellDay.format(i), "rf-cal-sel"), "Cell nr. " + i + " should not be selected.");
         }
     }
 }

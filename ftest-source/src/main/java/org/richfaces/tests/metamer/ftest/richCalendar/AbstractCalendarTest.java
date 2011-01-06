@@ -53,29 +53,29 @@ public abstract class AbstractCalendarTest extends AbstractMetamerTest {
     // basic parts
     protected JQueryLocator calendar = pjq("span[id$=calendar]");
     protected JQueryLocator inputs = pjq("span[id$=calendarPopup]");
-    protected JQueryLocator input = pjq("input.rf-ca-inp");
-    protected JQueryLocator image = pjq("img.rf-ca-btn");
-    protected JQueryLocator button = pjq("button.rf-ca-btn");
+    protected JQueryLocator input = pjq("input.rf-cal-inp");
+    protected JQueryLocator image = pjq("img.rf-cal-btn");
+    protected JQueryLocator button = pjq("button.rf-cal-btn");
     // popup
     protected JQueryLocator popup = pjq("table[id$=calendarContent]");
-    protected JQueryLocator prevYearButton = pjq("td.rf-ca-tl:eq(0) > div");
-    protected JQueryLocator nextYearButton = pjq("td.rf-ca-tl:eq(3) > div");
-    protected JQueryLocator prevMonthButton = pjq("td.rf-ca-tl:eq(1) > div");
-    protected JQueryLocator nextMonthButton = pjq("td.rf-ca-tl:eq(2) > div");
-    protected JQueryLocator closeButton = pjq("td.rf-ca-tl:eq(4) > div");
-    protected JQueryLocator monthLabel = pjq("td.rf-ca-month > div");
+    protected JQueryLocator prevYearButton = pjq("td.rf-cal-tl:eq(0) > div");
+    protected JQueryLocator nextYearButton = pjq("td.rf-cal-tl:eq(3) > div");
+    protected JQueryLocator prevMonthButton = pjq("td.rf-cal-tl:eq(1) > div");
+    protected JQueryLocator nextMonthButton = pjq("td.rf-cal-tl:eq(2) > div");
+    protected JQueryLocator closeButton = pjq("td.rf-cal-tl:eq(4) > div");
+    protected JQueryLocator monthLabel = pjq("td.rf-cal-hdr-month > div");
     // 0 = blank, 1 = Sun, 2 = Mon, 3 = Tue ...
-    protected JQueryLocator weekDayLabel = pjq("td.rf-ca-days:eq({0})");
+    protected JQueryLocator weekDayLabel = pjq("td.rf-cal-day-lbl:eq({0})");
     // week = 1..6, day = 0..6
     protected JQueryLocator cellWeekDay = pjq("tr[id$=calendarWeekNum{0}] > td:eq({1})");
     // day = 0..41
-    protected JQueryLocator cellDay = pjq("td.rf-ca-c:eq({0})");
+    protected JQueryLocator cellDay = pjq("td.rf-cal-c:eq({0})");
     // 0..6
-    protected JQueryLocator week = pjq("td.rf-ca-week:eq({0})");
-    protected JQueryLocator cleanButton = pjq("td.rf-ca-tl-ftr:eq(1) > div");
-    protected JQueryLocator timeButton = pjq("td.rf-ca-tl-ftr:eq(2) > div");
-    protected JQueryLocator todayButton = pjq("td.rf-ca-tl-ftr:eq(4) > div");
-    protected JQueryLocator applyButton = pjq("td.rf-ca-tl-ftr:eq(5) > div");
+    protected JQueryLocator week = pjq("td.rf-cal-week:eq({0})");
+    protected JQueryLocator cleanButton = pjq("td.rf-cal-tl-ftr:eq(1) > div");
+    protected JQueryLocator timeButton = pjq("td.rf-cal-tl-ftr:eq(2) > div");
+    protected JQueryLocator todayButton = pjq("td.rf-cal-tl-ftr:eq(4) > div");
+    protected JQueryLocator applyButton = pjq("td.rf-cal-tl-ftr:eq(5) > div");
     // time panel
     protected JQueryLocator timePanel = pjq("table[id$=calendarEditor]");
     protected JQueryLocator hoursInput = pjq("input[id$=calendarTimeHours]");
@@ -84,8 +84,8 @@ public abstract class AbstractCalendarTest extends AbstractMetamerTest {
     protected JQueryLocator minutesInput = pjq("input[id$=calendarTimeMinutes]");
     protected JQueryLocator minutesInputUp = pjq("div[id$=calendarTimeMinutesBtnUp]");
     protected JQueryLocator minutesInputDown = pjq("div[id$=calendarTimeMinutesBtnDown]");
-    protected JQueryLocator okButton = pjq("td.rf-ca-time-layout-ok > div");
-    protected JQueryLocator cancelButton = pjq("td.rf-ca-time-layout-cancel > div");
+    protected JQueryLocator okButton = pjq("td.rf-cal-time-layout-ok > div");
+    protected JQueryLocator cancelButton = pjq("td.rf-cal-time-layout-cancel > div");
 
     protected JQueryLocator output = pjq("span[id$=output]");
 }

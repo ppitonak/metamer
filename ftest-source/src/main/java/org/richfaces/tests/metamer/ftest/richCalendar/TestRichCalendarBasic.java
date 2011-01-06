@@ -184,7 +184,7 @@ public class TestRichCalendarBasic extends AbstractCalendarTest {
         for (int i = lowerBoundary; i < upperBoundary; i++) {
             String day = selenium.getText(cellDay.format(i));
             if (day.equals(today)) {
-                assertTrue(selenium.belongsClass(cellDay.format(i), "rf-ca-today"), "Today's date is not styled correctly.");
+                assertTrue(selenium.belongsClass(cellDay.format(i), "rf-cal-today"), "Today's date is not styled correctly.");
                 return;
             }
         }
@@ -214,10 +214,10 @@ public class TestRichCalendarBasic extends AbstractCalendarTest {
         selenium.click(input);
 
         guardNoRequest(selenium).click(cellDay.format(6));
-        assertTrue(selenium.belongsClass(cellDay.format(6), "rf-ca-sel"), "Last date in the first week is not selected.");
+        assertTrue(selenium.belongsClass(cellDay.format(6), "rf-cal-sel"), "Last date in the first week is not selected.");
 
         selenium.click(cellDay.format(8));
-        assertFalse(selenium.belongsClass(cellDay.format(6), "rf-ca-sel"), "Last date in the first week should not be selected.");
+        assertFalse(selenium.belongsClass(cellDay.format(6), "rf-cal-sel"), "Last date in the first week should not be selected.");
     }
 
     @Test
@@ -226,7 +226,7 @@ public class TestRichCalendarBasic extends AbstractCalendarTest {
         selenium.click(cellDay.format(6));
 
         guardNoRequest(selenium).click(cleanButton);
-        assertFalse(selenium.belongsClass(cellDay.format(6), "rf-ca-sel"), "Last date in the first week should not be selected.");
+        assertFalse(selenium.belongsClass(cellDay.format(6), "rf-cal-sel"), "Last date in the first week should not be selected.");
     }
 
     @Test
