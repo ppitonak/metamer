@@ -12,6 +12,13 @@
         version: typeof window.opera != "undefined" ? opera.version() : (userAgent.match( /.+(?:rv|it|ra|ie|me)[\/: ]([\d.]+)/ ) || [])[1],
         os : navigator.platform
     };
+    
+    if (jQuery.browser.mozilla) {
+    	var matcher = /firefox\/([\d.]+)/;
+    	if (matcher.test(userAgent)) {
+    		jQuery.browser.version = userAgent.match(matcher)[1];
+    	}
+    }
 
     if (jQuery.browser.chrome) {
         jQuery.browser.name = "Chrome";
