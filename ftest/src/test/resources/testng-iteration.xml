@@ -1,0 +1,13 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="seleniumTest">
+
+    <test name="Iteration Components">
+        <packages>
+            <package name="org.richfaces.tests.metamer.ftest.richDataGrid" />
+            <package name="org.richfaces.tests.metamer.ftest.richDataTable" />
+            <package name="org.richfaces.tests.metamer.ftest.richExtendedDataTable" />
+        </packages>
+    </test>
+
+</suite>
+
