@@ -50,16 +50,16 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 
             <h:panelGrid columns="2">
                 rich:clientId('input')
-                <h:outputText value="#{rich:clientId('input')}" style="font-weight: bold;" />
+                <h:outputText id="clientIdOutput" value="#{rich:clientId('input')}" style="font-weight: bold;" />
 
                 rich:element('input')
-                <h:outputText value="#{rich:element('input')}" style="font-weight: bold;" />
+                <h:outputText id="elementOutput" value="#{rich:element('input')}" style="font-weight: bold;" />
 
                 rich:component('input')
-                <h:outputText value="#{rich:component('input')}" style="font-weight: bold;" />
+                <h:outputText id="componentOutput" value="#{rich:component('input')}" style="font-weight: bold;" />
 
                 rich:findComponent('input').value
-                <h:outputText value="#{rich:findComponent('input').value}" style="font-weight: bold;" />
+                <h:outputText id="findComponentOutput" value="#{rich:findComponent('input').value}" style="font-weight: bold;" />
             </h:panelGrid>
 
             <hr/>
@@ -67,7 +67,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
             <h:outputLabel value="Role name: " for="roleName" />
             <h:inputText value="#{userBean.rolename}" id="roleName" />
             <br />
-            <h:commandLink value="Apply role name" />
+            <h:commandLink id="applyLink" value="Apply role name" />
 
             <hr/>
             <h:panelGrid columns="2">
