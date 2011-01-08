@@ -23,13 +23,13 @@ package org.richfaces.tests.metamer.ftest.richList;
 
 import static org.jboss.test.selenium.locator.LocatorFactory.jq;
 import static org.jboss.test.selenium.locator.reference.ReferencedLocator.ref;
-import static org.richfaces.tests.metamer.ftest.richList.ListAttributes.Type;
+
 import org.jboss.test.selenium.framework.AjaxSelenium;
 import org.jboss.test.selenium.framework.AjaxSeleniumProxy;
 import org.jboss.test.selenium.locator.JQueryLocator;
-import org.jboss.test.selenium.locator.reference.LocatorReference;
 import org.jboss.test.selenium.locator.reference.ReferencedLocator;
 import org.richfaces.tests.metamer.ftest.model.AbstractModel;
+import org.richfaces.tests.metamer.ftest.richList.ListAttributes.Type;
 
 /**
  * @author <a href="mailto:lfryc@redhat.com">Lukas Fryc</a>
