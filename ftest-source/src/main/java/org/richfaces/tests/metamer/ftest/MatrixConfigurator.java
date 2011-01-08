@@ -301,71 +301,94 @@ public class MatrixConfigurator extends TestMethodSelector implements IInvokedMe
     }
 
     private List<? extends Object> getUseParameter(Class<?> testClass, Class<?> parameterType, Use useAnnotation) {
+        
+        List<Object> result = new LinkedList<Object>();
+        
         if (useAnnotation.empty()) {
-            return Arrays.asList(new Object[] { null });
+            result.addAll(Arrays.asList(new Object[] { null }));
         }
 
         if (useAnnotation.ints().length > 0) {
             if (parameterType == int.class || parameterType == Integer.class) {
-                return Arrays.asList(ArrayUtils.toObject(useAnnotation.ints()));
+                result.addAll(Arrays.asList(ArrayUtils.toObject(useAnnotation.ints())));
             }
         }
         
         if (useAnnotation.decimals().length > 0) {
         	if (parameterType == double.class || parameterType == Double.class) {
-        		return Arrays.asList(ArrayUtils.toObject(useAnnotation.decimals()));
+        	    result.addAll(Arrays.asList(ArrayUtils.toObject(useAnnotation.decimals())));
         	}
         }
         
         if (useAnnotation.strings().length > 0) {
         	if (parameterType == String.class) {
-        		return Arrays.asList(useAnnotation.strings());
+        	    result.addAll(Arrays.asList(useAnnotation.strings()));
         	}
         }
         
         if (useAnnotation.booleans().length > 0) {
         	if (parameterType == boolean.class || parameterType == Boolean.class) {
-        		return Arrays.asList(ArrayUtils.toObject(useAnnotation.booleans()));
+        	    result.addAll(Arrays.asList(ArrayUtils.toObject(useAnnotation.booleans())));
         	}
+        }
+        
+        if (useAnnotation.enumeration()) {
+            if (!parameterType.isEnum()) {
+                throw new IllegalArgumentException(parameterType + "have to be enumeration");
+            }
+            
+            result.addAll(Arrays.asList((Object) parameterType.getEnumConstants()));
         }
 
         // tries satisfy parameter from fields
-        List<Object> result = new LinkedList<Object>();
-        Object testInstance = getTestInstance(testClass);
-        for (int i = 0; i < useAnnotation.value().length; i++) {
-            boolean satisfied = false;
-            String namePattern = useAnnotation.value()[i];
-            namePattern = StringUtils.replace(namePattern, "*", ".+");
-            namePattern = StringUtils.replace(namePattern, "?", ".");
-
-            for (Field field : getAllFields(testClass)) {
-                Pattern pattern = Pattern.compile(namePattern);
-                if (pattern.matcher(field.getName()).matches()) {
-                    boolean isArray = field.getType().isArray();
-                    Class<?> representedType;
-                    if (isArray) {
-                        representedType = field.getType().getComponentType();
-                    } else {
-                        representedType = field.getType();
-                    }
-                    if (parameterType.isAssignableFrom(representedType)) {
-                        Object[] assignments = getDeclaredFieldValues(testInstance, field);
-                        for (Object assignment : assignments) {
-                            result.add(assignment);
+        if (result.isEmpty()) {
+            Object testInstance = getTestInstance(testClass);
+            for (int i = 0; i < useAnnotation.value().length; i++) {
+                boolean satisfied = false;
+                String namePattern = useAnnotation.value()[i];
+                namePattern = StringUtils.replace(namePattern, "*", ".+");
+                namePattern = StringUtils.replace(namePattern, "?", ".");
+    
+                for (Field field : getAllFields(testClass)) {
+                    Pattern pattern = Pattern.compile(namePattern);
+                    if (pattern.matcher(field.getName()).matches()) {
+                        boolean isArray = field.getType().isArray();
+                        Class<?> representedType;
+                        if (isArray) {
+                            representedType = field.getType().getComponentType();
+                        } else {
+                            representedType = field.getType();
                         }
-                        satisfied = true;
-                    } else {
-                        throw new IllegalStateException("cannot satisfy parameter with declared field"
-                            + field.getName());
+                        if (parameterType.isAssignableFrom(representedType)) {
+                            Object[] assignments = getDeclaredFieldValues(testInstance, field);
+                            for (Object assignment : assignments) {
+                                result.add(assignment);
+                            }
+                            satisfied = true;
+                        } else {
+                            throw new IllegalStateException("cannot satisfy parameter with declared field "
+                                + field.getName());
+                        }
                     }
                 }
+                if (satisfied) {
+                    continue;
+                }
+                throw new IllegalStateException("cannot find the field satysfying injection point with name pattern: "
+                    + useAnnotation.value()[i]);
             }
-            if (satisfied) {
-                continue;
-            }
-            throw new IllegalStateException("cannot find the field satysfying injection point with name pattern: "
-                + useAnnotation.value()[i]);
         }
+        
+        if (useAnnotation.useNull()) {
+            if (parameterType.isPrimitive()) {
+                throw new IllegalArgumentException("parameterType is primitive, can't use null value");
+            }
+            
+            if (result.contains(null)) {
+                result.addAll(null);
+            }
+        }
+        
         return result;
     }
 

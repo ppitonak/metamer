@@ -36,14 +36,18 @@ public @interface Use {
     String field() default "";
 
     String[] value() default {};
-    
+
     String[] strings() default {};
-    
+
     boolean[] booleans() default {};
 
     int[] ints() default {};
-    
+
     double[] decimals() default {};
-    
-    boolean empty() default false; 
+
+    boolean enumeration() default false;
+
+    boolean useNull() default false;
+
+    boolean empty() default false;
 }
