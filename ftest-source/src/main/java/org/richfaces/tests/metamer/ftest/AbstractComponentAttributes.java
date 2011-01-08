@@ -93,7 +93,12 @@ public class AbstractComponentAttributes {
         } else if ("radio".equals(inputType)) {
             locator = propertyLocator.format(propertyName, "[value="
                 + ("".equals(valueAsString) ? "null" : valueAsString) + "]");
-            guardHttp(selenium).click(locator);
+
+            if (selenium.isChecked(locator)) {
+                guardHttp(selenium).fireEvent(locator, Event.CHANGE);
+            } else {
+                guardHttp(selenium).click(locator);
+            }
         }
     }
 
