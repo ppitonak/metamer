@@ -21,6 +21,7 @@
  *******************************************************************************/
 package org.richfaces.tests.metamer.ftest.a4jOutputPanel;
 
+import static org.jboss.test.selenium.guard.request.RequestTypeGuardFactory.guardXhr;
 import static org.jboss.test.selenium.locator.LocatorFactory.jq;
 import static org.jboss.test.selenium.utils.URLUtils.buildUrl;
 import static org.testng.Assert.assertEquals;
@@ -166,8 +167,12 @@ public class TestA4JOutputPanel extends AbstractMetamerTest {
         selenium.waitForPageToLoad(TIMEOUT);
         assertFalse(selenium.isElementPresent(outputDiv), "Panel should not be rendered.");
 
-        selenium.click(increaseCounterButton);
-        selenium.click(increaseCounterButton);
+        String timeValue = selenium.getText(time);
+        guardXhr(selenium).click(increaseCounterButton);
+        waitGui.failWith("Page was not updated").waitForChange(timeValue, retrieveText.locator(time));
+        timeValue = selenium.getText(time);
+        guardXhr(selenium).click(increaseCounterButton);
+        waitGui.failWith("Page was not updated").waitForChange(timeValue, retrieveText.locator(time));
 
         selenium.click(renderedInputTrue);
         selenium.waitForPageToLoad(TIMEOUT);
