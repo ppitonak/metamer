@@ -34,6 +34,14 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
             <metamer:testPageLink id="simple" outcome="simple" value="Simple">
                 Page that contains a table with two <b>rich:collapsibleSubTable</b>s with defined facets (header, footer, noData) and input boxes for all its attributes.
             </metamer:testPageLink>
+            
+            <metamer:testPageLink id="facets" outcome="facets" value="Facets">
+                Simple page that contains <b>rich:collapsibleSubTable</b> (with model containing employees) and all facets for this table updateable by Ajax.
+            </metamer:testPageLink>
+
+            <metamer:testPageLink id="scroller" outcome="scroller" value="Data Scroller">
+                Page that contains <b>rich:collapsibleSubTable</b> (with model containing employees), data scroller and input boxes for all its attributes.
+            </metamer:testPageLink>
 
             <metamer:testPageLink id="components1" outcome="components1" value="Various Components 1">
                 Page that contains a table with two <b>rich:collapsibleSubTable</b>s (with model containing employees) and input boxes for all its attributes.
@@ -43,6 +51,18 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
             <metamer:testPageLink id="components2" outcome="components2" value="Various Components 2">
                 Page that contains a table with two <b>rich:collapsibleSubTable</b>s (with model containing employees) and input boxes for all its attributes.
                 <span style="color: red">TODO will be used with various types of input and command components as soon as available</span>
+            </metamer:testPageLink>
+
+            <metamer:testPageLink id="sorting-using-component-control" outcome="sorting-using-component-control" value="Table Sorting - Component Control">
+                <b>rich:collapsibleSubTable</b> (with model containing employees) sortable by <b>rich:componentControl</b>. 
+            </metamer:testPageLink>
+            
+            <metamer:testPageLink id="sorting-using-column" outcome="sorting-using-column" value="Table Sorting - Column based">
+                <b>rich:collapsibleSubTable</b> (with model containing employees) with custom sorting by <b>rich:column</b>'s attribute @sortBy, @sortOrder. 
+            </metamer:testPageLink>
+
+            <metamer:testPageLink id="filtering" outcome="filtering" value="Table Filtering">
+                Page that contains filterable <b>rich:collapsibleSubTable</b> (with model containing employees) and input boxes for all its attributes filterable by its columns.
             </metamer:testPageLink>
 
         </ui:define>

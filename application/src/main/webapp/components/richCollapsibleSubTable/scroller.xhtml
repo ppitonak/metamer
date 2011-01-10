@@ -46,7 +46,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
         </ui:define>
 
         <ui:define name="component">
-
+                    
             <rich:dataTable id="richDataTable" value="#{richSubTableBean.lists}" var="list">
                 <f:facet name="header">
                     <rich:columnGroup id="columnGroup">
@@ -101,6 +101,10 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                                           toggleListeners="#{richSubTableBean.attributes['toggleListeners'].value}"
                                           value="#{richSubTableBean.state ? list : null}"
                                           var="item">
+
+                    <f:facet name="footer">
+                        <rich:dataScroller id="scroller1" for="richSubTable" maxPages="7" render="richDataTable" />
+                    </f:facet>
 
                     <rich:column id="columnName">
                         <h:outputText id="name" value="#{item.name}" />

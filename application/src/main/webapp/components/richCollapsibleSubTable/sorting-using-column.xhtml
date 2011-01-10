@@ -102,6 +102,14 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                                           value="#{richSubTableBean.state ? list : null}"
                                           var="item">
 
+                    <f:facet name="header">
+                        header facet
+                    </f:facet>
+
+                    <f:facet name="noData">
+                        no data facet
+                    </f:facet>
+
                     <rich:column id="columnName">
                         <h:outputText id="name" value="#{item.name}" />
                     </rich:column>
@@ -113,6 +121,10 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                             <f:convertDateTime pattern="d MMM yyyy"/>
                         </h:outputText>
                     </rich:column>
+
+                    <f:facet name="footer">
+                        footer facet
+                    </f:facet>
 
                 </rich:collapsibleSubTable>
             </rich:dataTable>

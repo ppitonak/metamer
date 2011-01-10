@@ -23,7 +23,9 @@ package org.richfaces.tests.metamer.bean;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
@@ -56,6 +58,9 @@ public class RichCollapsibleSubTableBean implements Serializable {
     // true = model, false = empty table
     private boolean state;
 
+    // facets
+    private Map<String, String> facets = new HashMap<String, String>();
+
     /**
      * Initializes the managed bean.
      */
@@ -64,7 +69,7 @@ public class RichCollapsibleSubTableBean implements Serializable {
         logger = LoggerFactory.getLogger(getClass());
         logger.debug("initializing bean " + getClass().getName());
         
-        attributes = Attributes.getComponentAttributesFromClass(UICollapsibleSubTable.class, getClass());
+        attributes = Attributes.getComponentAttributesFromFacesConfig(UICollapsibleSubTable.class, getClass());
 
         attributes.setAttribute("expandMode", "client");
         attributes.setAttribute("expanded", true);
@@ -72,6 +77,9 @@ public class RichCollapsibleSubTableBean implements Serializable {
         attributes.setAttribute("rows", 5);
 
         // TODO these attributes have to be tested in another way
+        attributes.remove("filterVar");
+        attributes.remove("keepSaved");
+        attributes.remove("iterationStatusVar");
         attributes.remove("componentState");
         attributes.remove("rowKeyVar");
         attributes.remove("stateVar");
@@ -126,6 +134,10 @@ public class RichCollapsibleSubTableBean implements Serializable {
 
     public void setState(boolean state) {
         this.state = state;
+    }
+
+    public Map<String, String> getFacets() {
+        return facets;
     }
 
 }

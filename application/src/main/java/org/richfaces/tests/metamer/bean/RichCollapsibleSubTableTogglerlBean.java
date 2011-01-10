@@ -64,7 +64,7 @@ public class RichCollapsibleSubTableTogglerlBean implements Serializable {
         logger = LoggerFactory.getLogger(getClass());
         logger.debug("initializing bean " + getClass().getName());
         
-        attributes = Attributes.getComponentAttributesFromClass(UICollapsibleSubTableToggleControl.class, getClass());
+        attributes = Attributes.getComponentAttributesFromFacesConfig(UICollapsibleSubTableToggleControl.class, getClass());
         attributes.setAttribute("event", "click");
         attributes.setAttribute("rendered", true);
         // TODO these attributes have to be tested in another way
