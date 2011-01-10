@@ -53,13 +53,15 @@ public class TestRichAccordionItem extends AbstractMetamerTest {
         pjq("div[id$=item3:header]"), pjq("div[id$=item4:header]"), pjq("div[id$=item5:header]")};
     private JQueryLocator[] itemContents = {pjq("div[id$=item1:content]"), pjq("div[id$=item2:content]"),
         pjq("div[id$=item3:content]"), pjq("div[id$=item4:content]"), pjq("div[id$=item5:content]")};
-    private JQueryLocator[] activeHeaders = {pjq("div.rf-ac-itm-hdr-act:eq(0)"), pjq("div.rf-ac-itm-hdr-act:eq(1)"),
-        pjq("div.rf-ac-itm-hdr-act:eq(2)"), pjq("div.rf-ac-itm-hdr-act:eq(3)"), pjq("div.rf-ac-itm-hdr-act:eq(4)")};
-    private JQueryLocator[] inactiveHeaders = {pjq("div.rf-ac-itm-hdr-inact:eq(0)"),
-        pjq("div.rf-ac-itm-hdr-inact:eq(1)"), pjq("div.rf-ac-itm-hdr-inact:eq(2)"),
-        pjq("div.rf-ac-itm-hdr-inact:eq(3)"), pjq("div.rf-ac-itm-hdr-inact:eq(4)")};
-    private JQueryLocator[] disabledHeaders = {pjq("div.rf-ac-itm-hdr-dis:eq(0)"), pjq("div.rf-ac-itm-hdr-dis:eq(1)"),
-        pjq("div.rf-ac-itm-hdr-dis:eq(2)"), pjq("div.rf-ac-itm-hdr-dis:eq(3)"), pjq("div.rf-ac-itm-hdr-dis:eq(4)")};
+    private JQueryLocator[] activeHeaders = {pjq("div[id$=item1:header] div.rf-ac-itm-lbl-act"),
+        pjq("div[id$=item2:header] div.rf-ac-itm-lbl-act"), pjq("div[id$=item3:header] div.rf-ac-itm-lbl-act"),
+        pjq("div[id$=item4:header] div.rf-ac-itm-lbl-act"), pjq("div[id$=item5:header] div.rf-ac-itm-lbl-act")};
+    private JQueryLocator[] inactiveHeaders = {pjq("div[id$=item1:header] div.rf-ac-itm-lbl-inact"),
+        pjq("div[id$=item2:header] div.rf-ac-itm-lbl-inact"), pjq("div[id$=item3:header] div.rf-ac-itm-lbl-inact"),
+        pjq("div[id$=item4:header] div.rf-ac-itm-lbl-inact"), pjq("div[id$=item5:header] div.rf-ac-itm-lbl-inact")};
+    private JQueryLocator[] disabledHeaders = {pjq("div[id$=item1:header] div.rf-ac-itm-lbl-dis"),
+        pjq("div[id$=item2:header] div.rf-ac-itm-lbl-dis"), pjq("div[id$=item3:header] div.rf-ac-itm-lbl-dis"),
+        pjq("div[id$=item4:header] div.rf-ac-itm-lbl-dis"), pjq("div[id$=item5:header] div.rf-ac-itm-lbl-dis")};
 
     @Override
     public URL getTestUrl() {
@@ -107,7 +109,7 @@ public class TestRichAccordionItem extends AbstractMetamerTest {
         selenium.type(pjq("input[id$=headerInput]"), "new header");
         selenium.waitForPageToLoad();
 
-        String header = selenium.getText(itemHeaders[0]);
+        String header = selenium.getText(activeHeaders[0]);
         assertEquals(header, "new header", "Header of item1 did not change.");
     }
 
@@ -129,10 +131,10 @@ public class TestRichAccordionItem extends AbstractMetamerTest {
 
     @Test
     public void testHeaderClassDisabled() {
+        selenium.click(pjq("input[type=radio][name$=disabledInput][value=true]"));
+        selenium.waitForPageToLoad();
+
         testStyleClass(disabledHeaders[0], "headerClassDisabled");
-        assertFalse(selenium.belongsClass(disabledHeaders[1], "metamer-ftest-class"), "headerClassDisabled should be set only on first item");
-        assertFalse(selenium.belongsClass(disabledHeaders[2], "metamer-ftest-class"), "headerClassDisabled should be set only on first item");
-        assertFalse(selenium.belongsClass(disabledHeaders[3], "metamer-ftest-class"), "headerClassDisabled should be set only on first item");
     }
 
     @Test

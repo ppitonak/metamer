@@ -37,6 +37,8 @@ import javax.faces.event.PhaseId;
 
 import org.apache.commons.lang.LocaleUtils;
 import org.jboss.test.selenium.AbstractTestCase;
+import org.jboss.test.selenium.SystemProperties;
+import org.jboss.test.selenium.browser.BrowserType;
 import org.jboss.test.selenium.dom.Event;
 import org.jboss.test.selenium.encapsulated.JavaScript;
 import org.jboss.test.selenium.locator.Attribute;
@@ -265,18 +267,23 @@ public abstract class AbstractMetamerTest extends AbstractTestCase {
      */
     protected void testLang(ElementLocator<?> element) {
         JQueryLocator langInput = pjq("input[type=text][id$=langInput]");
+        JavaScript getAttributeLang = null;
+
+        if (SystemProperties.getBrowser().getType() == BrowserType.FIREFOX) {
+            getAttributeLang = new JavaScript("window.jQuery('" + element.getRawLocator() + "').attr('lang')");
+        } else {
+            getAttributeLang = new JavaScript("window.jQuery('" + element.getRawLocator() + "').attr('xml:lang')");
+        }
 
         // lang = null
-        AttributeLocator<?> langAttr = element.getAttribute(new Attribute("lang"));
-        assertFalse(selenium.isAttributePresent(langAttr), "Attribute xml:lang should not be present.");
+        String langAttr = selenium.getEval(getAttributeLang);
+        assertTrue("null".equals(langAttr) || "".equals(langAttr), "Attribute xml:lang should not be present.");
 
         selenium.type(langInput, "sk");
         selenium.waitForPageToLoad();
 
         // lang = sk
-        langAttr = element.getAttribute(new Attribute("lang"));
-        assertTrue(selenium.isAttributePresent(langAttr), "Attribute xml:lang should be present.");
-        assertEquals(selenium.getAttribute(langAttr), "sk", "Attribute xml:lang should be present.");
+        assertEquals(selenium.getEval(getAttributeLang), "sk", "Attribute xml:lang should be present.");
     }
 
     /**

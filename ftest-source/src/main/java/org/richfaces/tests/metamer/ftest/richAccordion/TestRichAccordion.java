@@ -59,13 +59,15 @@ public class TestRichAccordion extends AbstractMetamerTest {
         pjq("div[id$=item3:header]"), pjq("div[id$=item4:header]"), pjq("div[id$=item5:header]")};
     private JQueryLocator[] itemContents = {pjq("div[id$=item1:content]"), pjq("div[id$=item2:content]"),
         pjq("div[id$=item3:content]"), pjq("div[id$=item4:content]"), pjq("div[id$=item5:content]")};
-    private JQueryLocator[] activeHeaders = {pjq("div.rf-ac-itm-hdr-act:eq(0)"), pjq("div.rf-ac-itm-hdr-act:eq(1)"),
-        pjq("div.rf-ac-itm-hdr-act:eq(2)"), pjq("div.rf-ac-itm-hdr-act:eq(3)"), pjq("div.rf-ac-itm-hdr-act:eq(4)")};
-    private JQueryLocator[] inactiveHeaders = {pjq("div.rf-ac-itm-hdr-inact:eq(0)"),
-        pjq("div.rf-ac-itm-hdr-inact:eq(1)"), pjq("div.rf-ac-itm-hdr-inact:eq(2)"),
-        pjq("div.rf-ac-itm-hdr-inact:eq(3)"), pjq("div.rf-ac-itm-hdr-inact:eq(4)")};
-    private JQueryLocator[] disabledHeaders = {pjq("div.rf-ac-itm-hdr-dis:eq(0)"), pjq("div.rf-ac-itm-hdr-dis:eq(1)"),
-        pjq("div.rf-ac-itm-hdr-dis:eq(2)"), pjq("div.rf-ac-itm-hdr-dis:eq(3)"), pjq("div.rf-ac-itm-hdr-dis:eq(4)")};
+    private JQueryLocator[] activeHeaders = {pjq("div[id$=item1:header] div.rf-ac-itm-lbl-act"),
+        pjq("div[id$=item2:header] div.rf-ac-itm-lbl-act"), pjq("div[id$=item3:header] div.rf-ac-itm-lbl-act"),
+        pjq("div[id$=item4:header] div.rf-ac-itm-lbl-act"), pjq("div[id$=item5:header] div.rf-ac-itm-lbl-act")};
+    private JQueryLocator[] inactiveHeaders = {pjq("div[id$=item1:header] div.rf-ac-itm-lbl-inact"),
+        pjq("div[id$=item2:header] div.rf-ac-itm-lbl-inact"), pjq("div[id$=item3:header] div.rf-ac-itm-lbl-inact"),
+        pjq("div[id$=item4:header] div.rf-ac-itm-lbl-inact"), pjq("div[id$=item5:header] div.rf-ac-itm-lbl-inact")};
+    private JQueryLocator[] disabledHeaders = {pjq("div[id$=item1:header] div.rf-ac-itm-lbl-dis"),
+        pjq("div[id$=item2:header] div.rf-ac-itm-lbl-dis"), pjq("div[id$=item3:header] div.rf-ac-itm-lbl-dis"),
+        pjq("div[id$=item4:header] div.rf-ac-itm-lbl-dis"), pjq("div[id$=item5:header] div.rf-ac-itm-lbl-dis")};
 
     @Override
     public URL getTestUrl() {
@@ -102,7 +104,7 @@ public class TestRichAccordion extends AbstractMetamerTest {
 
     @Test
     public void testSwitchTypeAjax() {
-        selenium.click(pjq("input[type=radio][id$=switchTypeInput:0]"));
+        selenium.click(pjq("input[type=radio][name$=switchTypeInput][value=ajax]"));
         selenium.waitForPageToLoad();
 
         testSwitchTypeNull();
@@ -110,7 +112,7 @@ public class TestRichAccordion extends AbstractMetamerTest {
 
     @Test
     public void testSwitchTypeClient() {
-        selenium.click(pjq("input[type=radio][id$=switchTypeInput:1]"));
+        selenium.click(pjq("input[type=radio][name$=switchTypeInput][value=client]"));
         selenium.waitForPageToLoad();
 
         for (int i = 2; i >= 0; i--) {
@@ -123,7 +125,7 @@ public class TestRichAccordion extends AbstractMetamerTest {
     @Test
     @IssueTracking("https://issues.jboss.org/browse/RF-10040")
     public void testSwitchTypeServer() {
-        selenium.click(pjq("input[type=radio][id$=switchTypeInput:3]"));
+        selenium.click(pjq("input[type=radio][name$=switchTypeInput][value=server]"));
         selenium.waitForPageToLoad();
 
         for (int i = 2; i >= 0; i--) {
@@ -297,56 +299,17 @@ public class TestRichAccordion extends AbstractMetamerTest {
 
     @Test
     public void testItemHeaderClassActive() {
-        selenium.type(pjq("input[id$=itemHeaderClassActiveInput]"), "metamer-ftest-class");
-        selenium.waitForPageToLoad();
-
-        for (JQueryLocator loc : activeHeaders) {
-            assertTrue(selenium.belongsClass(loc, "metamer-ftest-class"), "itemHeaderClassActive does not work");
-        }
-
-        for (JQueryLocator loc : inactiveHeaders) {
-            assertFalse(selenium.belongsClass(loc, "metamer-ftest-class"), "itemHeaderClassActive does not work");
-        }
-
-        for (JQueryLocator loc : disabledHeaders) {
-            assertFalse(selenium.belongsClass(loc, "metamer-ftest-class"), "itemHeaderClassActive does not work");
-        }
+        testStyleClass(activeHeaders[0], "itemHeaderClassActive");
     }
 
     @Test
     public void testItemHeaderClassDisabled() {
-        selenium.type(pjq("input[id$=itemHeaderClassDisabledInput]"), "metamer-ftest-class");
-        selenium.waitForPageToLoad();
-
-        for (JQueryLocator loc : activeHeaders) {
-            assertFalse(selenium.belongsClass(loc, "metamer-ftest-class"), "itemHeaderClassDisabled does not work");
-        }
-
-        for (JQueryLocator loc : inactiveHeaders) {
-            assertFalse(selenium.belongsClass(loc, "metamer-ftest-class"), "itemHeaderClassDisabled does not work");
-        }
-
-        for (JQueryLocator loc : disabledHeaders) {
-            assertTrue(selenium.belongsClass(loc, "metamer-ftest-class"), "itemHeaderClassDisabled does not work");
-        }
+        testStyleClass(disabledHeaders[3], "itemHeaderClassDisabled");
     }
 
     @Test
     public void testItemHeaderClassInactive() {
-        selenium.type(pjq("input[id$=itemHeaderClassInactiveInput]"), "metamer-ftest-class");
-        selenium.waitForPageToLoad();
-
-        for (JQueryLocator loc : activeHeaders) {
-            assertFalse(selenium.belongsClass(loc, "metamer-ftest-class"), "itemHeaderClassInactive does not work");
-        }
-
-        for (JQueryLocator loc : inactiveHeaders) {
-            assertTrue(selenium.belongsClass(loc, "metamer-ftest-class"), "itemHeaderClassInactive does not work");
-        }
-
-        for (JQueryLocator loc : disabledHeaders) {
-            assertFalse(selenium.belongsClass(loc, "metamer-ftest-class"), "itemHeaderClassInactive does not work");
-        }
+        testStyleClass(inactiveHeaders[1], "itemHeaderClassInactive");
     }
 
     @Test
@@ -381,7 +344,7 @@ public class TestRichAccordion extends AbstractMetamerTest {
 
         String timeValue = selenium.getText(time);
 
-        guardXhr(selenium).click(inactiveHeaders[1]);
+        guardXhr(selenium).click(itemHeaders[1]);
         waitGui.failWith("Item 2 is not displayed.").until(isDisplayed.locator(itemContents[1]));
 
         String newTime = selenium.getText(time);
