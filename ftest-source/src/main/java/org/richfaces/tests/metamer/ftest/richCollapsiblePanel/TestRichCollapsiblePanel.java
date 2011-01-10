@@ -47,9 +47,9 @@ import org.testng.annotations.Test;
 public class TestRichCollapsiblePanel extends AbstractMetamerTest {
 
     private JQueryLocator panel = pjq("div[id$=collapsiblePanel]");
-    private JQueryLocator header = pjq("div[id$=collapsiblePanel:header]");
-    private JQueryLocator headerExp = pjq("div[id$=collapsiblePanel:header] div.rf-cp-hdr-exp");
-    private JQueryLocator headerColps = pjq("div[id$=collapsiblePanel:header] div.rf-cp-hdr-colps");
+    private JQueryLocator header = pjq("div[id$=collapsiblePanel:header] div.rf-cp-lbl-exp");
+    private JQueryLocator headerExp = pjq("div[id$=collapsiblePanel:header] div.rf-cp-lbl-exp");
+    private JQueryLocator headerColps = pjq("div[id$=collapsiblePanel:header] div.rf-cp-lbl-colps");
     private JQueryLocator content = pjq("div[id$=collapsiblePanel:content]");
     
     @Override
@@ -119,7 +119,7 @@ public class TestRichCollapsiblePanel extends AbstractMetamerTest {
     }
 
     @Test
-    @IssueTracking("https://issues.jboss.org/browse/RF-9421")
+    @IssueTracking("https://issues.jboss.org/browse/RF-10054")
     public void testBypassUpdates() {
         selenium.click(pjq("input[type=radio][name$=bypassUpdatesInput][value=true]"));
         selenium.waitForPageToLoad();
@@ -146,7 +146,7 @@ public class TestRichCollapsiblePanel extends AbstractMetamerTest {
     }
 
     @Test
-    @IssueTracking("https://issues.jboss.org/browse/RF-9421")
+    @IssueTracking("https://issues.jboss.org/browse/RF-10054")
     public void testImmediate() {
         selenium.click(pjq("input[type=radio][name$=immediateInput][value=true]"));
         selenium.waitForPageToLoad();

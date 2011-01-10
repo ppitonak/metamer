@@ -45,8 +45,8 @@ public class TestFacets extends AbstractMetamerTest {
 
     private JQueryLocator panel = pjq("div[id$=collapsiblePanel]");
     private JQueryLocator header = pjq("div[id$=collapsiblePanel:header]");
-    private JQueryLocator headerExp = pjq("div[id$=collapsiblePanel:header] div.rf-cp-hdr-exp");
-    private JQueryLocator headerColps = pjq("div[id$=collapsiblePanel:header] div.rf-cp-hdr-colps");
+    private JQueryLocator headerExp = pjq("div[id$=collapsiblePanel:header] div.rf-cp-lbl-exp");
+    private JQueryLocator headerColps = pjq("div[id$=collapsiblePanel:header] div.rf-cp-lbl-colps");
     private JQueryLocator content = pjq("div[id$=collapsiblePanel:content]");
     
     @Override
@@ -131,7 +131,7 @@ public class TestFacets extends AbstractMetamerTest {
         displayed = selenium.isDisplayed(content);
         assertTrue(displayed, "Panel's content should be visible.");
 
-        String text = selenium.getText(header);
+        String text = selenium.getText(headerExp);
         assertEquals(text, "header expanded", "Header of the panel.");
 
         text = selenium.getText(content);
@@ -153,7 +153,7 @@ public class TestFacets extends AbstractMetamerTest {
             assertFalse(displayed, "Panel's content should not be visible.");
         }
 
-        String text = selenium.getText(header);
+        String text = selenium.getText(headerColps);
         assertEquals(text, "header collapsed", "Header of the panel.");
     }
 }
