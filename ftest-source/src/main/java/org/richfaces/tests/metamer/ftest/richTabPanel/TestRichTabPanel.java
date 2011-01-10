@@ -313,6 +313,7 @@ public class TestRichTabPanel extends AbstractMetamerTest {
     }
 
     @Test
+    @IssueTracking("https://issues.jboss.org/browse/RF-10165")
     public void testItemchangeEvents() {
         selenium.type(pjq("input[type=text][id$=onbeforeitemchangeInput]"), "metamerEvents += \"beforeitemchange \"");
         selenium.waitForPageToLoad();
@@ -327,8 +328,9 @@ public class TestRichTabPanel extends AbstractMetamerTest {
 
         String[] events = selenium.getEval(new JavaScript("window.metamerEvents")).split(" ");
 
+        assertEquals(events.length, 2, "Two events should be fired - beforeitemchange and itemchange.");
         assertEquals(events[0], "beforeitemchange", "Attribute onbeforeitemchange doesn't work");
-        assertEquals(events[1], "itemchange", "Attribute onbeforeitemchange doesn't work");
+        assertEquals(events[1], "itemchange", "Attribute onitemchange doesn't work");
     }
 
     @Test
@@ -408,6 +410,7 @@ public class TestRichTabPanel extends AbstractMetamerTest {
     }
 
     @Test
+    @IssueTracking("https://issues.jboss.org/browse/RF-9309")
     public void testTabHeaderClass() {
         selenium.type(pjq("input[id$=tabHeaderClassInput]"), "metamer-ftest-class");
         selenium.waitForPageToLoad();
@@ -426,6 +429,7 @@ public class TestRichTabPanel extends AbstractMetamerTest {
     }
 
     @Test
+    @IssueTracking("https://issues.jboss.org/browse/RF-9309")
     public void testTabHeaderClassActive() {
         selenium.type(pjq("input[id$=tabHeaderClassActiveInput]"), "metamer-ftest-class");
         selenium.waitForPageToLoad();
@@ -444,6 +448,7 @@ public class TestRichTabPanel extends AbstractMetamerTest {
     }
 
     @Test
+    @IssueTracking("https://issues.jboss.org/browse/RF-9309")
     public void testTabHeaderClassDisabled() {
         selenium.type(pjq("input[id$=tabHeaderClassDisabledInput]"), "metamer-ftest-class");
         selenium.waitForPageToLoad();
@@ -462,6 +467,7 @@ public class TestRichTabPanel extends AbstractMetamerTest {
     }
 
     @Test
+    @IssueTracking("https://issues.jboss.org/browse/RF-9309")
     public void testTabHeaderClassInactive() {
         selenium.type(pjq("input[id$=tabHeaderClassInactiveInput]"), "metamer-ftest-class");
         selenium.waitForPageToLoad();
