@@ -27,7 +27,7 @@ import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
-import org.richfaces.component.UIPanelMenu;
+import org.richfaces.component.html.HtmlPanelMenu;
 import org.richfaces.event.ItemChangeEvent;
 import org.richfaces.tests.metamer.Attributes;
 import org.slf4j.Logger;
@@ -35,7 +35,7 @@ import org.slf4j.LoggerFactory;
 
 /**
  * Managed bean for rich:panelMenu.
- *
+ * 
  * @author <a href="mailto:ppitonak@redhat.com">Pavol Pitonak</a>
  * @version $Revision$
  */
@@ -55,21 +55,15 @@ public class RichPanelMenuBean implements Serializable {
         logger = LoggerFactory.getLogger(getClass());
         logger.debug("initializing bean " + getClass().getName());
 
-        attributes = Attributes.getComponentAttributesFromFacesConfig(UIPanelMenu.class, getClass());
+        // loading from Class to work around RF-10161
+        attributes = Attributes.getComponentAttributesFromClass(HtmlPanelMenu.class, getClass());
 
-        attributes.setAttribute("groupCollapseIconLeft", "disc");
-        attributes.setAttribute("groupCollapseIconRight", "chevronDown");
-        attributes.setAttribute("groupExpandIconLeft", "disc");
-        attributes.setAttribute("groupExpandIconRight", "chevronUp");
         attributes.setAttribute("rendered", true);
         attributes.setAttribute("style", "width: 200px;");
-        attributes.setAttribute("topGroupCollapseIconLeft", "disc");
-        attributes.setAttribute("topGroupCollapseIconRight", "chevronDown");
-        attributes.setAttribute("topGroupExpandIconLeft", "disc");
-        attributes.setAttribute("topGroupExpandIconRight", "chevronUp");
 
-        // will tested in another way
+        // will be tested in another way
         attributes.remove("itemChangeListener");
+        attributes.remove("converter");
     }
 
     public Attributes getAttributes() {
@@ -82,7 +76,7 @@ public class RichPanelMenuBean implements Serializable {
 
     /**
      * An item change listener that logs to the page old and new value.
-     *
+     * 
      * @param event
      *            an event representing the activation of a user interface component
      */
