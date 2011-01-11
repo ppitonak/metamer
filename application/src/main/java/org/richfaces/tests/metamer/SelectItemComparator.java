@@ -46,8 +46,12 @@ public class SelectItemComparator implements Comparator<SelectItem> {
      * {@inheritDoc}
      */
     public int compare(SelectItem o1, SelectItem o2) {
-        if (o1 == null || o1.getLabel() == null) {
+        if (o1 == null || o1.getLabel() == null || o1.getLabel().equals("null")) {
             return -1;
+        }
+        
+        if (o2 == null || o2.getLabel() == null || o2.getLabel().equals("null")) {
+            return 1;
         }
 
         return o1.getLabel().compareTo(o2.getLabel());
