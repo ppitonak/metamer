@@ -54,13 +54,13 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                             <h:outputText id="columnHeaderEmployeesText" value="Employees" />
                         </rich:column>
                         <rich:column id="columnHeaderName" breakRowBefore="true">
-                            <h:outputText id="columnHeaderNameText" value="Name" />
+                        	<a4j:commandLink id="sortByName" value="Name" render="richDataTable" action="#{richSubTableBean.sorting['columnName'].reverseOrder}" />
                         </rich:column>
                         <rich:column id="columnHeaderTitle">
-                            <h:outputText id="columnHeaderTitleText" value="Title" />
+                            <a4j:commandLink id="sortByTitle" value="Title" render="richDataTable" action="#{richSubTableBean.sorting['columnTitle'].reverseOrder}" />
                         </rich:column>
                         <rich:column id="columnHeaderBirthdate">
-                            <h:outputText id="columnHeaderBirthdateText" value="Birthdate" />
+                            <a4j:commandLink id="sortByBirthdate" value="Birthdate" render="richDataTable" action="#{richSubTableBean.sorting['columnBirthdate'].reverseOrder}" />
                         </rich:column>
                     </rich:columnGroup>
                 </f:facet>
@@ -71,6 +71,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                 </rich:column>
 
                 <rich:collapsibleSubTable id="richSubTable"
+                						  binding="#{richSubTableBean.binding}"
                                           breakBefore="#{richSubTableBean.attributes['breakBefore'].value}"
                                           expandMode="#{richSubTableBean.attributes['expandMode'].value}"
                                           expanded="#{richSubTableBean.attributes['expanded'].value}"
@@ -102,30 +103,18 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                                           value="#{richSubTableBean.state ? list : null}"
                                           var="item">
 
-                    <f:facet name="header">
-                        header facet
-                    </f:facet>
-
-                    <f:facet name="noData">
-                        no data facet
-                    </f:facet>
-
-                    <rich:column id="columnName">
+                    <rich:column id="columnName" sortBy="#{item.name}" sortOrder="#{richSubTableBean.sorting['columnName'].order}">
                         <h:outputText id="name" value="#{item.name}" />
                     </rich:column>
-                    <rich:column id="columnTitle">
+                    <rich:column id="columnTitle" sortBy="#{item.title}" sortOrder="#{richSubTableBean.sorting['columnTitle'].order}">
                         <h:outputText id="title" value="#{item.title}" />
                     </rich:column>
-                    <rich:column id="columnBirthdate">
+                    <rich:column id="columnBirthdate" sortBy="#{item.birthdate}" sortOrder="#{richSubTableBean.sorting['columnBirthdate'].order}">
                         <h:outputText id="birthdate" value="#{item.birthdate}">
                             <f:convertDateTime pattern="d MMM yyyy"/>
                         </h:outputText>
                     </rich:column>
-
-                    <f:facet name="footer">
-                        footer facet
-                    </f:facet>
-
+                    
                 </rich:collapsibleSubTable>
             </rich:dataTable>
 

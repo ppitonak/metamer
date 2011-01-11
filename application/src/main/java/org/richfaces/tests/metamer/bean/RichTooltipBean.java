@@ -67,20 +67,16 @@ public class RichTooltipBean implements Serializable {
         attributes.setAttribute("followMouse", true);
         attributes.setAttribute("disabled", false);
         attributes.setAttribute("layout", "inline");
-        attributes.setAttribute("direction", "bottomRight");
         attributes.setAttribute("mode", "client");
         attributes.setAttribute("showEvent", "mouseenter");
         attributes.setAttribute("hideEvent", "mouseleave");
         attributes.setAttribute("target", "form:panel");
         
-        // intentionally hidden attributes
-        attributes.remove("bypassUpdates");
+        // attributes that needs to be tested in other way
         attributes.remove("converter");
-        attributes.remove("data");
-        attributes.remove("execute");
-        attributes.remove("limitToList");
+        
+        // intentionally hidden attributes
         attributes.remove("localValue");
-        attributes.remove("render");
         attributes.remove("value");
     }
 

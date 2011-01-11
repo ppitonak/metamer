@@ -33,7 +33,9 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 
 import org.richfaces.component.UICollapsibleSubTable;
+import org.richfaces.component.UIDataTableBase;
 import org.richfaces.tests.metamer.Attributes;
+import org.richfaces.tests.metamer.ColumnSortingMap;
 import org.richfaces.tests.metamer.model.Employee;
 import org.richfaces.tests.metamer.model.Employee.Sex;
 import org.slf4j.Logger;
@@ -45,7 +47,7 @@ import org.slf4j.LoggerFactory;
  * @author <a href="mailto:ppitonak@redhat.com">Pavol Pitonak</a>
  * @version $Revision$
  */
-@ManagedBean(name="richSubTableBean")
+@ManagedBean(name = "richSubTableBean")
 @ViewScoped
 public class RichCollapsibleSubTableBean implements Serializable {
 
@@ -55,11 +57,28 @@ public class RichCollapsibleSubTableBean implements Serializable {
     @ManagedProperty(value = "#{model.employees}")
     private List<Employee> employees;
     private List<List<Employee>> lists;
+    private UICollapsibleSubTable binding;
     // true = model, false = empty table
     private boolean state;
 
     // facets
     private Map<String, String> facets = new HashMap<String, String>();
+
+    // sorting
+    private ColumnSortingMap sorting = new ColumnSortingMap() {
+        private static final long serialVersionUID = 1L;
+
+        protected UIDataTableBase getBinding() {
+            return binding;
+        }
+
+        protected Attributes getAttributes() {
+            return attributes;
+        }
+    };
+
+    // filtering
+    private Map<String, Object> filtering = new HashMap<String, Object>();
 
     /**
      * Initializes the managed bean.
@@ -68,15 +87,15 @@ public class RichCollapsibleSubTableBean implements Serializable {
     public void init() {
         logger = LoggerFactory.getLogger(getClass());
         logger.debug("initializing bean " + getClass().getName());
-        
+
         attributes = Attributes.getComponentAttributesFromFacesConfig(UICollapsibleSubTable.class, getClass());
 
-        attributes.setAttribute("expandMode", "client");
         attributes.setAttribute("expanded", true);
         attributes.setAttribute("rendered", true);
         attributes.setAttribute("rows", 5);
 
         // TODO these attributes have to be tested in another way
+        attributes.remove("selection");
         attributes.remove("filterVar");
         attributes.remove("keepSaved");
         attributes.remove("iterationStatusVar");
@@ -139,5 +158,20 @@ public class RichCollapsibleSubTableBean implements Serializable {
     public Map<String, String> getFacets() {
         return facets;
     }
-
+    
+    public UICollapsibleSubTable getBinding() {
+        return binding;
+    }
+    
+    public void setBinding(UICollapsibleSubTable binding) {
+        this.binding = binding;
+    }
+    
+    public ColumnSortingMap getSorting() {
+        return sorting;
+    }
+    
+    public Map<String, Object> getFiltering() {
+        return filtering;
+    }
 }

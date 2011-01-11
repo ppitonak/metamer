@@ -2,7 +2,8 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
       xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:metamer="http://java.sun.com/jsf/composite/metamer"
-      xmlns:rich="http://richfaces.org/rich" xmlns:a4j="http://richfaces.org/a4j">
+      xmlns:rich="http://richfaces.org/rich" xmlns:a4j="http://richfaces.org/a4j"
+      xmlns:fn="http://java.sun.com/jsp/jstl/functions">
 
     <!--
 JBoss, Home of Professional Open Source
@@ -55,9 +56,21 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                         </rich:column>
                         <rich:column id="columnHeaderName" breakRowBefore="true">
                             <h:outputText id="columnHeaderNameText" value="Name" />
+	                        <br/>
+	                        <h:outputText id="columnHeaderNameType" value="(expression contains ignore case)" />
+	                        <br/>
+	                        <h:inputText id="columnHeaderNameInput" value="#{richSubTableBean.filtering['name']}">
+	                            <a4j:ajax render="commonGrid" event="change"/>
+	                        </h:inputText> 	
                         </rich:column>
                         <rich:column id="columnHeaderTitle">
                             <h:outputText id="columnHeaderTitleText" value="Title" />
+	                        <br/>
+	                        <h:outputText id="columnHeaderTitleType" value="(expression equals)" />
+	                        <br/>
+	                        <h:inputText id="columnHeaderTitleInput" value="#{richSubTableBean.filtering['title']}">
+	                            <a4j:ajax render="commonGrid" event="change"/>
+	                        </h:inputText>
                         </rich:column>
                         <rich:column id="columnHeaderBirthdate">
                             <h:outputText id="columnHeaderBirthdateText" value="Birthdate" />
@@ -102,18 +115,10 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                                           value="#{richSubTableBean.state ? list : null}"
                                           var="item">
 
-                    <f:facet name="header">
-                        header facet
-                    </f:facet>
-
-                    <f:facet name="noData">
-                        no data facet
-                    </f:facet>
-
-                    <rich:column id="columnName">
+                    <rich:column id="columnName" filterExpression="#{fn:containsIgnoreCase(item.name, richSubTableBean.filtering['name'])}">
                         <h:outputText id="name" value="#{item.name}" />
                     </rich:column>
-                    <rich:column id="columnTitle">
+                    <rich:column id="columnTitle" filterExpression="#{richSubTableBean.filtering['title'] == null || richSubTableBean.filtering['title'] == '' || item.title == richSubTableBean.filtering['title']}">
                         <h:outputText id="title" value="#{item.title}" />
                     </rich:column>
                     <rich:column id="columnBirthdate">
@@ -121,10 +126,6 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                             <f:convertDateTime pattern="d MMM yyyy"/>
                         </h:outputText>
                     </rich:column>
-
-                    <f:facet name="footer">
-                        footer facet
-                    </f:facet>
 
                 </rich:collapsibleSubTable>
             </rich:dataTable>
