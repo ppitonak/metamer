@@ -1,6 +1,6 @@
 /*******************************************************************************
  * JBoss, Home of Professional Open Source
- * Copyright 2010, Red Hat, Inc. and individual contributors
+ * Copyright 2010-2011, Red Hat, Inc. and individual contributors
  * by the @authors tag. See the copyright.txt in the distribution for a
  * full listing of individual contributors.
  *
@@ -173,10 +173,12 @@ public class TestRichTogglePanelItem extends AbstractMetamerTest {
         selenium.waitForPageToLoad();
 
         assertFalse(selenium.isElementPresent(item1), "Tab should not be rendered when rendered=false.");
-        selenium.click(link2);
-        waitGui.failWith("Item 2 was not displayed.").until(isDisplayed.locator(item2));
-        selenium.click(link3);
-        waitGui.failWith("Item 3 was not displayed.").until(isDisplayed.locator(item3));
+        assertTrue(selenium.isDisplayed(item2), "Item 2 should be displayed when item 1 is not rendered.");
+
+        String timeValue = selenium.getText(time);
+        guardXhr(selenium).click(link3);
+        waitGui.failWith("Page was not updated").waitForChange(timeValue, retrieveText.locator(time));
+        assertTrue(selenium.isDisplayed(item3), "Item 3 was not displayed.");
     }
 
     @Test
