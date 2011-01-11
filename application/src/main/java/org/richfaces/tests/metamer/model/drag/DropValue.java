@@ -1,6 +1,6 @@
 /*******************************************************************************
  * JBoss, Home of Professional Open Source
- * Copyright 2010, Red Hat, Inc. and individual contributors
+ * Copyright 2010-2011, Red Hat, Inc. and individual contributors
  * by the @authors tag. See the copyright.txt in the distribution for a
  * full listing of individual contributors.
  *
@@ -21,11 +21,15 @@
  *******************************************************************************/
 package org.richfaces.tests.metamer.model.drag;
 
+import java.io.Serializable;
+
 /**
  * @author <a href="mailto:lfryc@redhat.com">Lukas Fryc</a>
  * @version $Revision$
  */
-public class DropValue {
+public class DropValue implements Serializable {
+
+    private static final long serialVersionUID = -1L;
     int number;
 
     public DropValue(int number) {
