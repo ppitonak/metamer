@@ -1,6 +1,6 @@
 /*******************************************************************************
  * JBoss, Home of Professional Open Source
- * Copyright 2010, Red Hat, Inc. and individual contributors
+ * Copyright 2010-2011, Red Hat, Inc. and individual contributors
  * by the @authors tag. See the copyright.txt in the distribution for a
  * full listing of individual contributors.
  *
@@ -266,9 +266,7 @@ public abstract class AbstractMetamerTest extends AbstractTestCase {
      *            locator of tested element
      */
     protected void testLang(ElementLocator<?> element) {
-        JQueryLocator langInput = pjq("input[type=text][id$=langInput]");
         JavaScript getAttributeLang = null;
-
         if (SystemProperties.getBrowser().getType() == BrowserType.FIREFOX) {
             getAttributeLang = new JavaScript("window.jQuery('" + element.getRawLocator() + "').attr('lang')");
         } else {
@@ -279,7 +277,7 @@ public abstract class AbstractMetamerTest extends AbstractTestCase {
         String langAttr = selenium.getEval(getAttributeLang);
         assertTrue("null".equals(langAttr) || "".equals(langAttr), "Attribute xml:lang should not be present.");
 
-        selenium.type(langInput, "sk");
+        selenium.type(pjq("input[type=text][id$=langInput]"), "sk");
         selenium.waitForPageToLoad();
 
         // lang = sk
@@ -306,6 +304,25 @@ public abstract class AbstractMetamerTest extends AbstractTestCase {
         assertTrue(selenium.isAttributePresent(attribute), "Attribute title should be present.");
         String value = selenium.getAttribute(attribute);
         assertEquals(value, "RichFaces 4", "Attribute title");
+    }
+
+    /**
+     * A helper method for testing standard HTML attributes (RichFaces attributes that are directly put into markup), e.g. hreflang.
+     * @param element
+     *            locator of tested element
+     * @param attribute
+     *            tested attribute, e.g. "hreflang"
+     * @param value
+     *            value that should be set, e.g. "cs"
+     */
+    protected void testHtmlAttribute(ElementLocator<?> element, String attribute, String value) {
+        AttributeLocator<?> attr = element.getAttribute(new Attribute(attribute));
+        assertFalse(selenium.isAttributePresent(attr), "Attribute " + attribute + " should not be present.");
+
+        selenium.type(pjq("input[id$=" + attribute + "Input]"), value);
+        selenium.waitForPageToLoad();
+
+        assertTrue(selenium.getAttribute(attr).contains(value), "Attribute " + attribute + " should contain \"" + value + "\".");
     }
 
     /**

@@ -99,27 +99,27 @@ public class TestImage extends AbstractMetamerTest {
 
     @Test
     public void testAccesskey() {
-        testHtmlAttribute("accesskey", "r");
+        testHtmlAttribute(image, "accesskey", "r");
     }
 
     @Test
     public void testAlign() {
-        testHtmlAttribute("align", "left");
+        testHtmlAttribute(image, "align", "left");
     }
 
     @Test
     public void testBorder() {
-        testHtmlAttribute("border", "3");
+        testHtmlAttribute(image, "border", "3");
     }
 
     @Test
     public void testCharset() {
-        testHtmlAttribute("charset", "utf-8");
+        testHtmlAttribute(image, "charset", "utf-8");
     }
 
     @Test
     public void testCoords() {
-        testHtmlAttribute("coords", "circle: 150, 60, 60");
+        testHtmlAttribute(image, "coords", "circle: 150, 60, 60");
     }
 
     @Test
@@ -129,7 +129,7 @@ public class TestImage extends AbstractMetamerTest {
 
     @Test
     public void testHreflang() {
-        testHtmlAttribute("hreflang", "sk");
+        testHtmlAttribute(image, "hreflang", "sk");
     }
 
     @Test
@@ -206,7 +206,7 @@ public class TestImage extends AbstractMetamerTest {
 
     @Test
     public void testRel() {
-        testHtmlAttribute("rel", "metamer");
+        testHtmlAttribute(image, "rel", "metamer");
     }
 
     @Test
@@ -220,12 +220,12 @@ public class TestImage extends AbstractMetamerTest {
 
     @Test
     public void testRev() {
-        testHtmlAttribute("rev", "metamer");
+        testHtmlAttribute(image, "rev", "metamer");
     }
 
     @Test
     public void testShape() {
-        testHtmlAttribute("shape", "default");
+        testHtmlAttribute(image, "shape", "default");
     }
 
     @Test
@@ -240,12 +240,12 @@ public class TestImage extends AbstractMetamerTest {
 
     @Test
     public void testTabindex() {
-        testHtmlAttribute("tabindex", "50");
+        testHtmlAttribute(image, "tabindex", "50");
     }
 
     @Test
     public void testTarget() {
-        testHtmlAttribute("target", "_blank");
+        testHtmlAttribute(image, "target", "_blank");
     }
 
     @Test
@@ -255,16 +255,6 @@ public class TestImage extends AbstractMetamerTest {
 
     @Test
     public void testUsemap() {
-        testHtmlAttribute("usemap", "metamer");
-    }
-
-    private void testHtmlAttribute(String attribute, String value) {
-        AttributeLocator<?> attr = image.getAttribute(new Attribute(attribute));
-        assertFalse(selenium.isAttributePresent(attr), "Attribute " + attribute + " should not be present.");
-
-        selenium.type(pjq("input[id$=" + attribute + "Input]"), value);
-        selenium.waitForPageToLoad();
-
-        assertTrue(selenium.getAttribute(attr).contains(value), "Attribute " + attribute + " should contain \"" + value + "\".");
+        testHtmlAttribute(image, "usemap", "metamer");
     }
 }
