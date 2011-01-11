@@ -27,7 +27,7 @@ import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
-import org.richfaces.component.html.HtmlPanelMenuItem;
+import org.richfaces.component.html.HtmlPanelMenuGroup;
 import org.richfaces.tests.metamer.Attributes;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -38,9 +38,9 @@ import org.slf4j.LoggerFactory;
  * @author <a href="mailto:ppitonak@redhat.com">Pavol Pitonak</a>
  * @version $Revision$
  */
-@ManagedBean(name = "richPanelMenuItemBean")
+@ManagedBean(name = "richPanelMenuGroupBean")
 @ViewScoped
-public class RichPanelMenuItemBean implements Serializable {
+public class RichPanelMenuGroupBean implements Serializable {
 
     private static final long serialVersionUID = -1L;
     private static Logger logger;
@@ -54,7 +54,7 @@ public class RichPanelMenuItemBean implements Serializable {
         logger = LoggerFactory.getLogger(getClass());
         logger.debug("initializing bean " + getClass().getName());
         
-        attributes = Attributes.getComponentAttributesFromClass(HtmlPanelMenuItem.class, getClass());
+        attributes = Attributes.getComponentAttributesFromClass(HtmlPanelMenuGroup.class, getClass());
         
         attributes.setAttribute("rendered", true);
         
@@ -66,6 +66,7 @@ public class RichPanelMenuItemBean implements Serializable {
         attributes.remove("panelMenu");
         attributes.remove("parentItem");
         attributes.remove("topItem");
+        attributes.remove("submittedExpanded");
         attributes.remove("value");
     }
 
@@ -75,5 +76,10 @@ public class RichPanelMenuItemBean implements Serializable {
 
     public void setAttributes(Attributes attributes) {
         this.attributes = attributes;
+    }
+    
+    public void changeExpandListener(Object event) {
+        // TODO ajax or server expansion doesn't work yet
+        throw new UnsupportedOperationException("needs to be implemented in Metamer");
     }
 }

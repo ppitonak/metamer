@@ -43,6 +43,8 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
             <rich:panelMenu id="panelMenu"
                             action="#{richBean.dummyAction}"
                             actionListener="#{richBean.dummyActionListener}"
+                            itemChangeListener="#{richPanelMenuBean.itemChangeListener}"
+                            
                             activeItem="#{richPanelMenuBean.attributes['activeItem'].value}"
                             bubbleSelection="#{richPanelMenuBean.attributes['bubbleSelection'].value}"
                             bypassUpdates="#{richPanelMenuBean.attributes['bypassUpdates'].value}"
@@ -62,7 +64,6 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                             groupExpandIconRight="#{richPanelMenuBean.attributes['groupExpandIconRight'].value}"
                             groupMode="#{richPanelMenuBean.attributes['groupMode'].value}"
                             immediate="#{richPanelMenuBean.attributes['immediate'].value}"
-                            itemChangeListener="#{richPanelMenuBean.itemChangeListener}"
                             itemClass="#{richPanelMenuBean.attributes['topItemClass'].value}"
                             itemDisableClass="#{richPanelMenuBean.attributes['topItemDisableClass'].value}"
                             itemDisableIconLeft="#{richPanelMenuBean.attributes['topItemDisableIconLeft'].value}"
