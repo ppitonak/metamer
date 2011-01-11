@@ -1,6 +1,6 @@
 /*******************************************************************************
  * JBoss, Home of Professional Open Source
- * Copyright 2010, Red Hat, Inc. and individual contributors
+ * Copyright 2010-2011, Red Hat, Inc. and individual contributors
  * by the @authors tag. See the copyright.txt in the distribution for a
  * full listing of individual contributors.
  *
@@ -22,9 +22,7 @@
 package org.richfaces.tests.metamer.bean;
 
 import java.awt.Color;
-import java.awt.Font;
 import java.awt.Graphics2D;
-import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
@@ -96,57 +94,24 @@ public class A4JMediaOutputBean implements Serializable {
     public void paint(OutputStream out, Object data) throws IOException {
         if (data instanceof MediaData) {
             MediaData paintData = (MediaData) data;
-            BufferedImage img = new BufferedImage(paintData.width, paintData.height, BufferedImage.TYPE_INT_RGB);
-            Graphics2D g2d = img.createGraphics();
+            BufferedImage img = new BufferedImage(paintData.getWidth(), paintData.getHeight(), BufferedImage.TYPE_INT_RGB);
+            Graphics2D graphics2D = img.createGraphics();
+            graphics2D.clearRect(0, 0, paintData.getWidth(), paintData.getHeight());
 
-            g2d.setColor(Color.WHITE);
-            g2d.fillRect(0, 0, paintData.width, paintData.height);
+            graphics2D.setColor(Color.YELLOW);
+            graphics2D.fillRect(0, 0, paintData.width / 2, paintData.height / 2);
 
-            int testLenght = paintData.text.length();
-            int fontSize = testLenght < 8 ? 40 : 40 - (testLenght - 8);
+            graphics2D.setColor(Color.RED);
+            graphics2D.fillRect(paintData.width / 2, 0, paintData.width / 2, paintData.height / 2);
 
-            if (fontSize < 12) {
-                fontSize = 12;
-            }
+            graphics2D.setColor(Color.BLUE);
+            graphics2D.fillRect(0, paintData.height / 2, paintData.width / 2, paintData.height / 2);
 
-            Font font = new Font("Serif", Font.HANGING_BASELINE, fontSize);
+            graphics2D.setColor(Color.GREEN);
+            graphics2D.fillRect(paintData.width / 2, paintData.height / 2, paintData.width / 2, paintData.height / 2);
 
-            g2d.setFont(font);
-
-            int x = 10;
-            int y = fontSize * 5 / 2;
-
-            g2d.translate(x, y);
-
-            Color color = new Color(paintData.color);
-
-            g2d.setPaint(new Color(color.getRed(), color.getGreen(), color.getBlue(), 30));
-
-            AffineTransform origTransform = g2d.getTransform();
-
-            g2d.shear(-0.5 * paintData.scale, 0);
-            g2d.scale(1, paintData.scale);
-            g2d.drawString(paintData.text, 0, 0);
-            g2d.setTransform(origTransform);
-            g2d.setPaint(color);
-            g2d.drawString(paintData.text, 0, 0);
-            ImageIO.write(img, "jpeg", out);
+            ImageIO.write(img, "png", out);
         }
-
-//    if (data instanceof MediaData) {
-//
-//            MediaData paintData = (MediaData) data;
-//            BufferedImage img = new BufferedImage(paintData.getWidth(),paintData.getHeight(),BufferedImage.TYPE_INT_RGB);
-//            Graphics2D graphics2D = img.createGraphics();
-//            graphics2D.clearRect(0,0,paintData.getWidth(),paintData.getHeight());
-//            graphics2D.drawLine(5,5,paintData.getWidth()-5,paintData.getHeight()-5);
-//            graphics2D.drawChars(new String("RichFaces").toCharArray(),0,9,40,15);
-//            graphics2D.drawChars(new String("mediaOutput").toCharArray(),0,11,5,45);
-//
-//            ImageIO.write(img,"jpeg",out);
-//
-//        }
-
     }
 
     private void copy(InputStream in, OutputStream out) throws IOException {
