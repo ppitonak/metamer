@@ -21,6 +21,8 @@
  *******************************************************************************/
 package org.richfaces.tests.metamer.ftest.richToolbar;
 
+import static org.jboss.test.selenium.locator.LocatorFactory.jq;
+import static org.jboss.test.selenium.locator.option.OptionLocatorFactory.optionLabel;
 import static org.jboss.test.selenium.utils.URLUtils.buildUrl;
 import static org.testng.Assert.assertFalse;
 import static org.testng.Assert.assertTrue;
@@ -28,6 +30,8 @@ import static org.testng.Assert.assertTrue;
 import java.net.URL;
 
 import org.jboss.test.selenium.dom.Event;
+import org.jboss.test.selenium.locator.Attribute;
+import org.jboss.test.selenium.locator.AttributeLocator;
 import org.jboss.test.selenium.locator.JQueryLocator;
 import org.richfaces.tests.metamer.ftest.AbstractMetamerTest;
 import org.richfaces.tests.metamer.ftest.annotations.Inject;
@@ -47,9 +51,13 @@ public class TestRichToolbar extends AbstractMetamerTest {
     private JQueryLocator[] items = {pjq("td[id$=createDocument_itm]"), pjq("td[id$=createFolder_itm]"),
         pjq("td[id$=copy_itm]"), pjq("td[id$=save_itm]"), pjq("td[id$=saveAs_itm]"), pjq("td[id$=saveAll_itm]"),
         pjq("td[id$=input_itm]"), pjq("td[id$=button_itm]")};
+    private String[] separators = {"disc", "grid", "line", "square"};
     @Inject
     @Use(empty = true)
     private JQueryLocator item;
+    @Inject
+    @Use(empty = true)
+    private String itemSeparator;
 
     @Override
     public URL getTestUrl() {
@@ -82,6 +90,65 @@ public class TestRichToolbar extends AbstractMetamerTest {
     @Use(field = "item", value = "items")
     public void testItemClass() {
         testStyleClass(item, "itemClass");
+    }
+
+    @Test
+    @Use(field = "itemSeparator", value = "separators")
+    public void testItemSeparatorCorrect() {
+        JQueryLocator input = pjq("select[id$=itemSeparatorInput]");
+        selenium.select(input, optionLabel(itemSeparator));
+        selenium.waitForPageToLoad();
+
+        JQueryLocator separatorDiv = separator.getDescendant(jq("div.rf-tb-sep-" + itemSeparator));
+
+        assertTrue(selenium.isElementPresent(separator), "Item separator should be present on the page.");
+        assertTrue(selenium.isElementPresent(separatorDiv), "Item separator does not work correctly.");
+    }
+
+    @Test
+    public void testItemSeparatorNone() {
+        JQueryLocator input = pjq("select[id$=itemSeparatorInput]");
+        selenium.select(input, optionLabel("none"));
+        selenium.waitForPageToLoad();
+
+        assertFalse(selenium.isElementPresent(separator), "Item separator should not be present on the page.");
+
+        selenium.select(input, optionLabel("null"));
+        selenium.waitForPageToLoad();
+
+        assertFalse(selenium.isElementPresent(separator), "Item separator should not be present on the page.");
+    }
+
+    @Test
+    public void testItemSeparatorCustom() {
+        JQueryLocator input = pjq("select[id$=itemSeparatorInput]");
+        selenium.select(input, optionLabel("star"));
+        selenium.waitForPageToLoad();
+
+        JQueryLocator separatorImg = separator.getDescendant(jq("> img"));
+        AttributeLocator attr = separatorImg.getAttribute(Attribute.SRC);
+
+        assertTrue(selenium.isElementPresent(separator), "Item separator should be present on the page.");
+        assertTrue(selenium.isElementPresent(separatorImg), "Item separator does not work correctly.");
+
+        String src = selenium.getAttribute(attr);
+        assertTrue(src.contains("star.png"), "Separator's image should link to picture star.png.");
+    }
+
+    @Test
+    public void testItemSeparatorNonExisting() {
+        JQueryLocator input = pjq("select[id$=itemSeparatorInput]");
+        selenium.select(input, optionLabel("non-existing"));
+        selenium.waitForPageToLoad();
+
+        JQueryLocator separatorImg = separator.getDescendant(jq("> img"));
+        AttributeLocator attr = separatorImg.getAttribute(Attribute.SRC);
+
+        assertTrue(selenium.isElementPresent(separator), "Item separator should be present on the page.");
+        assertTrue(selenium.isElementPresent(separatorImg), "Item separator does not work correctly.");
+
+        String src = selenium.getAttribute(attr);
+        assertTrue(src.contains("non-existing"), "Separator's image should link to \"non-existing\".");
     }
 
     @Test
