@@ -152,10 +152,11 @@ public class TestA4JOutputPanel extends AbstractMetamerTest {
         assertTrue(selenium.isElementPresent(outputDiv), "Div should be rendered when block is set.");
         assertFalse(selenium.isElementPresent(outputSpan), "Div should be rendered when block is set.");
 
-        selenium.click(optionNone);
-        selenium.waitForPageToLoad(TIMEOUT);
-        assertFalse(selenium.isElementPresent(outputDiv), "Span should be rendered when none is set.");
-        assertTrue(selenium.isElementPresent(outputSpan), "Span should be rendered when none is set.");
+        // TODO uncomment as soon as implemented https://issues.jboss.org/browse/RF-7819
+        // selenium.click(optionNone);
+        // selenium.waitForPageToLoad(TIMEOUT);
+        // assertFalse(selenium.isElementPresent(outputDiv), "Span should be rendered when none is set.");
+        // assertTrue(selenium.isElementPresent(outputSpan), "Span should be rendered when none is set.");
     }
 
     @Test
