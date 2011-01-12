@@ -44,8 +44,9 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
             <rich:dataTable id="richDataTable" rows="10" value="#{model.employees}" var="record">
 
                 <f:facet name="header">
+               		
+               		
                     <rich:columnGroup id="columnGroup"
-                                      breakBefore="#{richColumnGroupBean.attributes['breakBefore'].value}"
                                       rendered="#{richColumnGroupBean.attributes['rendered'].value}">
                         <rich:column id="colHeaderName" rowspan="2">
                             <h:outputText id="colHeaderNameText" value="Name" />
@@ -66,6 +67,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                             <h:outputText id="colHeaderNumberOfKidsText" value="Number of Kids" />
                         </rich:column>
                     </rich:columnGroup>
+               		
                 </f:facet>
 
                 <rich:column id="columnName">
@@ -93,7 +95,33 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                 </rich:column>
 
                 <f:facet name="footer">
-                    <rich:dataScroller id="scroller2" for="richDataTable" page="#{richColumnGroupBean.page}" maxPages="7" render="richDataTable" />
+               		
+               		
+                    <rich:columnGroup id="columnGroup1"
+                                      rendered="#{richColumnGroupBean.attributes['rendered'].value}">
+                        <rich:column colspan="5">
+                        	<rich:dataScroller />
+                        </rich:column>
+                        <rich:column id="colHeaderName1" rowspan="2"  breakRowBefore="true">
+                            <h:outputText id="colHeaderNameText1" value="Name" />
+                        </rich:column>
+                        <rich:column id="colHeaderTitle1" >
+                            <h:outputText id="colHeaderTitleText1" value="Title" />
+                        </rich:column>
+                        <rich:column id="colHeaderSmoker1">
+                            <h:outputText id="colHeaderSmokerText1" value="Smoker" />
+                        </rich:column>
+                        <rich:column id="colHeaderColor1">
+                            <h:outputText id="colHeaderColorText1" value="Favorite Color" />
+                        </rich:column>
+                        <rich:column id="colHeaderNumberOfKids1">
+                            <h:outputText id="colHeaderNumberOfKidsText1" value="Number of Kids" />
+                        </rich:column>
+                        <rich:column id="colHeaderInfo1" colspan="4" breakRowBefore="true">
+                            <h:outputText id="colHeaderInfoText1" value="Information" />
+                        </rich:column>
+                    </rich:columnGroup>
+               		
                 </f:facet>
 
             </rich:dataTable>
