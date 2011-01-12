@@ -22,30 +22,52 @@
 package org.richfaces.tests.metamer.bean;
 
 import java.io.Serializable;
+import java.util.Comparator;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ViewScoped;
 
+import org.richfaces.component.SortOrder;
 import org.richfaces.component.UIColumn;
+import org.richfaces.model.Filter;
 import org.richfaces.tests.metamer.Attributes;
+import org.richfaces.tests.metamer.model.Capital;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
  * Managed bean for rich:column
- *
+ * 
  * @author <a href="mailto:pjha@redhat.com">Prabhat Jha</a>, <a href="mailto:ppitonak@redhat.com">Pavol Pitonak</a>
  * @version $Revision$
  */
 @ManagedBean(name = "richColumnBean")
-@SessionScoped
+@ViewScoped
 public class RichColumnBean implements Serializable {
+
+    public static final Comparator<Capital> STATE_NAME_LENGTH_COMPARATOR = new Comparator<Capital>() {
+        @Override
+        public int compare(Capital o1, Capital o2) {
+            return o1.getState().length() - o2.getState().length();
+        }
+    };
 
     private static final long serialVersionUID = -1L;
     private static Logger logger;
-    private Attributes attributes;   
-   
+
+    private Attributes attributes;
+    private String stateNameToFilter;
+    private SortOrder sortOrder = SortOrder.ascending;
+
+    private final Filter<Capital> stateFilter = new Filter<Capital>() {
+
+        @Override
+        public boolean accept(Capital c) {
+            return c.getState().toLowerCase().contains(stateNameToFilter == null ? "" : stateNameToFilter.toLowerCase());
+        }
+    };
+
     /**
      * Initializes the managed bean.
      */
@@ -55,9 +77,18 @@ public class RichColumnBean implements Serializable {
         logger.debug("initializing bean " + getClass().getName());
 
         attributes = Attributes.getComponentAttributesFromFacesConfig(UIColumn.class, getClass());
-        attributes.setAttribute("colspan", 1);
         attributes.setAttribute("rendered", true);
-        attributes.setAttribute("rowspan", 1);
+        attributes.setAttribute("colspan", 2);
+        attributes.setAttribute("rowspan", 2);
+        attributes.setAttribute("breakRowBefore", true);
+
+        // attributes which needs to be tested another way
+        attributes.remove("filter");
+        attributes.remove("filterValue");
+        attributes.remove("filterExpression");
+        attributes.remove("comparator");
+        attributes.remove("sortBy");
+        attributes.remove("sortOrder");
     }
 
     public Attributes getAttributes() {
@@ -68,5 +99,31 @@ public class RichColumnBean implements Serializable {
         this.attributes = attributes;
     }
 
+    public Comparator<Capital> getStateNameLengthComparator() {
+        return STATE_NAME_LENGTH_COMPARATOR;
+    }
+
+    public Filter<Capital> getStateNameFilter() {
+        return stateFilter;
+    }
     
+    public String getStateNameToFilter() {
+        return stateNameToFilter;
+    }
+    
+    public void setStateNameToFilter(String stateNameToFilter) {
+        this.stateNameToFilter = stateNameToFilter;
+    }
+    
+    public SortOrder[] getSortOrders() {
+        return SortOrder.values();
+    }
+    
+    public void setSortOrder(SortOrder sortOrder) {
+        this.sortOrder = sortOrder;
+    }
+    
+    public SortOrder getSortOrder() {
+        return sortOrder;
+    }
 }

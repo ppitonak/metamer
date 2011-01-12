@@ -34,7 +34,19 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
             <metamer:testPageLink id="simple" outcome="simple" value="Simple">
                 Simple page that contains a table with two columns 
             </metamer:testPageLink>
-
+			
+			<metamer:testPageLink id="comparator" outcome="comparator" value="Custom Comparator">
+                Data table with first column with customized sorting (sorted by length of the state name) using <tt>Comparator&lt;?&gt;</tt>
+            </metamer:testPageLink>
+            
+            <metamer:testPageLink id="sorting" outcome="sorting" value="Sorting">
+                Data table with first column with customized sorting (sorted by length of the state name) using expression
+            </metamer:testPageLink>
+            
+            <metamer:testPageLink id="filtering" outcome="filtering" value="Filtering">
+                Two data tables with first column filtered by custom <tt>Filter&lt;?&gt;</tt> and by expression
+            </metamer:testPageLink>
+            
         </ui:define>
 
     </ui:composition>

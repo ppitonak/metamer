@@ -2,7 +2,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
       xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:metamer="http://java.sun.com/jsf/composite/metamer"
-      xmlns:rich="http://richfaces.org/rich" >
+      xmlns:rich="http://richfaces.org/rich" xmlns:a4j="http://richfaces.org/a4j">
 
     <!--
 JBoss, Home of Professional Open Source
@@ -27,6 +27,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
     -->
 
     <ui:composition template="/templates/template.xhtml">
+    	<ui:param name="componentId" value="richDataTable" />
 
         <ui:define name="head">
             <f:metadata>
@@ -37,44 +38,45 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
         </ui:define>
 
         <ui:define name="outOfTemplateBefore">
-
+        	<h:form id="attributes">
+        		<fieldset>
+        			<h:panelGrid columns="2">
+	        			<h:outputLabel for="sortOrderInput" value="Sort Order:" />
+			        	<h:selectOneRadio id="sortOrderInput" value="#{richColumnBean.sortOrder}">
+			        		<f:selectItems value="#{richColumnBean.sortOrders}" />
+			        		<a4j:ajax render="#{nestedComponentId}" />
+			        	</h:selectOneRadio>
+		        	</h:panelGrid>
+	        	</fieldset>
+        	</h:form>
         </ui:define>
 
         <ui:define name="component">
+        	
             <rich:dataTable id="richDataTable"
                             rendered="true"
                             value="#{model.capitals}"
-                            rows="5"
                             var="record">
-
+				
 				<f:facet name="header">
-					<rich:columnGroup>
-						<rich:column colspan="#{richColumnBean.attributes['colspan'].value}"><tt>colspan=#{richColumnBean.attributes['colspan'].value}</tt></rich:column>
-						<rich:column breakRowBefore="#{richColumnBean.attributes['breakRowBefore'].value}"><tt>breakBefore=#{richColumnBean.attributes['breakRowBefore'].value}</tt></rich:column>
-						<rich:column rowspan="#{richColumnBean.attributes['rowspan'].value}"><tt>rowspan=#{richColumnBean.attributes['rowspan'].value}</tt></rich:column>
-						<rich:column breakRowBefore="true">Dummy</rich:column>
-						<rich:column breakRowBefore="#{richColumnBean.attributes['rowspan'].value > 1}">Breaked by <tt>rowspan</tt> > 1</rich:column>
-					</rich:columnGroup>
+					<rich:column>
+						Sorted by custom <tt>comparator</tt>
+					</rich:column>
 				</f:facet>
 				
-                <rich:column id="columnState"
-                             comparator="#{richColumnBean.attributes['comparator'].value}"
-                             filter="#{richColumnBean.attributes['filter'].value}"
-                             filterValue="#{richColumnBean.attributes['filterValue'].value}"
-                             rendered="#{richColumnBean.attributes['rendered'].value}"
-                             sortOrder="#{richColumnBean.attributes['sortOrder'].value}"
-                             >   
+                <rich:column id="columnState" comparator="#{richColumnBean.stateNameLengthComparator}" sortOrder="#{richColumnBean.sortOrder}">
+                	<f:facet name="header">State</f:facet>
                     <h:outputText id="state" value="#{record.state}" />
                 </rich:column>
 
                 <rich:column id="columnCapital">
+                	<f:facet name="header">Capital</f:facet>
                     <h:outputText id="capital" value="#{record.name}" />
-                </rich:column>                                   
+                </rich:column>
             </rich:dataTable>
         </ui:define>
 
         <ui:define name="outOfTemplateAfter">
-            <metamer:attributes value="#{richColumnBean.attributes}" id="attributes" />
         </ui:define>
 
     </ui:composition>
