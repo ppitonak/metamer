@@ -1,6 +1,6 @@
 /*******************************************************************************
  * JBoss, Home of Professional Open Source
- * Copyright 2010, Red Hat, Inc. and individual contributors
+ * Copyright 2010-2011, Red Hat, Inc. and individual contributors
  * by the @authors tag. See the copyright.txt in the distribution for a
  * full listing of individual contributors.
  *
@@ -22,12 +22,14 @@
 package org.richfaces.tests.metamer.bean;
 
 import java.io.Serializable;
+import java.util.Map;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
 
-import org.ajax4jsf.component.UIActionParameter;
+import org.richfaces.component.UIParameter;
 import org.richfaces.tests.metamer.Attributes;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -55,10 +57,11 @@ public class A4JParamBean implements Serializable {
         logger = LoggerFactory.getLogger(getClass());
         logger.debug("initializing bean " + getClass().getName());
 
-        attributes = Attributes.getComponentAttributesFromClass(UIActionParameter.class, getClass());
+        attributes = Attributes.getComponentAttributesFromFacesConfig(UIParameter.class, getClass());
 
         attributes.setAttribute("name", "param");
         attributes.setAttribute("noEscape", true);
+        attributes.get("noEscape").setType(Boolean.class);
         attributes.setAttribute("value", "screen.width");
     }
 
@@ -87,6 +90,11 @@ public class A4JParamBean implements Serializable {
 
     public void setParameter(String parameter) {
         this.parameter = parameter;
+    }
+
+    public String getRequestParameter() {
+        Map<String, String> requestParameterMap = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
+        return requestParameterMap.get(attributes.get("name").getValue().toString());
     }
 
     public String reset() {
