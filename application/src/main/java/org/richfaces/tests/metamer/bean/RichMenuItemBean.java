@@ -1,6 +1,6 @@
 /*******************************************************************************
  * JBoss, Home of Professional Open Source
- * Copyright 2010, Red Hat, Inc. and individual contributors
+ * Copyright 2010-2011, Red Hat, Inc. and individual contributors
  * by the @authors tag. See the copyright.txt in the distribution for a
  * full listing of individual contributors.
  *
@@ -58,6 +58,9 @@ public class RichMenuItemBean implements Serializable {
         attributes.setAttribute("label", "New");
         attributes.setAttribute("mode", "ajax");
         attributes.setAttribute("rendered", true);
+
+        attributes.remove("action");
+        attributes.remove("actionListener");
     }
 
     public Attributes getAttributes() {
