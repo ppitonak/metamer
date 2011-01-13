@@ -112,6 +112,10 @@ public final class ReferencedLocator<T extends ExtendedLocator<T>> extends Abstr
     public Iterable<T> getAllChildren() {
         return getReferenced().getAllChildren();
     }
+    
+    public Iterable<T> getAllOccurrences() {
+        return getReferenced().getAllOccurrences();
+    }
 
     public Iterable<T> getChildren(T elementLocator) {
         return getReferenced().getChildren(elementLocator);
