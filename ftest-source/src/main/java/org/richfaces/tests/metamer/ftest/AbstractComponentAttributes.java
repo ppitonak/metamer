@@ -21,6 +21,10 @@
  *******************************************************************************/
 package org.richfaces.tests.metamer.ftest;
 
+import static org.jboss.test.selenium.guard.request.RequestTypeGuardFactory.guard;
+import static org.jboss.test.selenium.locator.reference.ReferencedLocator.referenceInferred;
+import static org.richfaces.tests.metamer.ftest.AbstractMetamerTest.pjq;
+
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.WordUtils;
 import org.jboss.test.selenium.dom.Event;
@@ -29,14 +33,11 @@ import org.jboss.test.selenium.framework.AjaxSeleniumProxy;
 import org.jboss.test.selenium.locator.Attribute;
 import org.jboss.test.selenium.locator.AttributeLocator;
 import org.jboss.test.selenium.locator.ElementLocator;
-import org.jboss.test.selenium.locator.JQueryLocator;
 import org.jboss.test.selenium.locator.ExtendedLocator;
+import org.jboss.test.selenium.locator.JQueryLocator;
 import org.jboss.test.selenium.locator.reference.LocatorReference;
 import org.jboss.test.selenium.locator.reference.ReferencedLocator;
-
-import static org.jboss.test.selenium.guard.request.RequestTypeGuardFactory.guardHttp;
-import static org.richfaces.tests.metamer.ftest.AbstractMetamerTest.pjq;
-import static org.jboss.test.selenium.locator.reference.ReferencedLocator.referenceInferred;
+import org.jboss.test.selenium.request.RequestType;
 
 /**
  * @author <a href="mailto:lfryc@redhat.com">Lukas Fryc</a>
@@ -48,6 +49,8 @@ public class AbstractComponentAttributes {
     LocatorReference<ExtendedLocator<JQueryLocator>> root = new LocatorReference<ExtendedLocator<JQueryLocator>>(
         pjq(""));
     ReferencedLocator<JQueryLocator> propertyLocator = referenceInferred(root, "input[id*={0}Input]{1}");
+
+    RequestType requestType = RequestType.HTTP;
 
     public AbstractComponentAttributes() {
     }
@@ -94,20 +97,30 @@ public class AbstractComponentAttributes {
             locator = propertyLocator.format(propertyName, "[value="
                 + ("".equals(valueAsString) ? "null" : valueAsString) + "]");
 
-            if (selenium.isChecked(locator)) {
-                guardHttp(selenium).fireEvent(locator, Event.CHANGE);
-            } else {
-                guardHttp(selenium).click(locator);
+            if (!selenium.isChecked(locator)) {
+                applyRadio(locator);
             }
         }
     }
 
+    public void setRequestType(RequestType requestType) {
+        this.requestType = requestType;
+    }
+
+    public RequestType getRequestType() {
+        return requestType;
+    }
+
     protected void applyText(ElementLocator<?> locator, String value) {
-        guardHttp(selenium).type(locator, value);
+        guard(selenium, requestType, false).type(locator, value);
     }
 
     protected void applyCheckbox(ElementLocator<?> locator, boolean checked) {
         selenium.check(locator, checked);
-        guardHttp(selenium).fireEvent(locator, Event.CHANGE);
+        guard(selenium, requestType, false).fireEvent(locator, Event.CHANGE);
+    }
+
+    protected void applyRadio(ElementLocator<?> locator) {
+        guard(selenium, requestType, false).click(locator);
     }
 }
