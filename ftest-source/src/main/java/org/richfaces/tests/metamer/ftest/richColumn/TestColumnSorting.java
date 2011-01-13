@@ -38,4 +38,10 @@ public class TestColumnSorting extends AbstractColumnSortingTest {
     public URL getTestUrl() {
         return buildUrl(contextPath, "faces/components/richColumn/sorting.xhtml");
     }
+
+    @Test
+    @Override
+    public void testSortingWithSortOrder() {
+        super.testSortingWithSortOrder();
+    }
 }

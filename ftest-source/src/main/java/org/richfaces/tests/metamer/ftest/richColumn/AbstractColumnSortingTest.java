@@ -31,7 +31,6 @@ import org.richfaces.tests.metamer.bean.RichColumnBean;
 import org.richfaces.tests.metamer.ftest.annotations.Inject;
 import org.richfaces.tests.metamer.ftest.annotations.Use;
 import org.richfaces.tests.metamer.model.Capital;
-import org.testng.annotations.Test;
 
 /**
  * @author <a href="mailto:lfryc@redhat.com">Lukas Fryc</a>
@@ -42,8 +41,7 @@ public abstract class AbstractColumnSortingTest extends AbstractColumnModelTest 
     @Inject
     @Use(enumeration = true)
     SortOrder sortOrder;
-
-    @Test
+    
     public void testSortingWithSortOrder() {
         attributes.setRequestType(RequestType.XHR);
         attributes.setSortOrder(sortOrder);
