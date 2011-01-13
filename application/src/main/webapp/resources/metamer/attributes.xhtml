@@ -40,20 +40,23 @@
                                     <f:selectItem itemValue="false" itemLabel="false"/>
                                 </h:selectOneRadio>
                             </c:when>
-							
+
                             <c:when test="#{entry.value.selectOptions != null}">
-                            	<c:choose> 
-	                            	<c:when test="#{fn:length(entry.value.selectOptions) > 4}">
-		                                <h:selectOneMenu id="#{entry.key}Input" value="#{entry.value.value}" onchange="#{cc.attrs.type == 'server' ? 'submit()' : 'submitAjax()'}">
-	                                		<f:selectItems value="#{entry.value.selectOptions}" noSelectionValue="null" />
-	                                	</h:selectOneMenu>
-	                                </c:when>
-	                                <c:otherwise>
-	                                	<h:selectOneRadio id="#{entry.key}Input" value="#{entry.value.value}" onchange="#{cc.attrs.type == 'server' ? 'submit()' : 'submitAjax()'}"
-		                                                  layout="pageDirection">
-		                                    <f:selectItems value="#{entry.value.selectOptions}" />
-		                                </h:selectOneRadio>
-	                                </c:otherwise>
+                                <c:choose>
+                                    <c:when test="#{fn:length(entry.value.selectOptions) > 4}">
+                                        <h:selectOneMenu id="#{entry.key}Input" value="#{entry.value.value}"
+                                                         onchange="#{cc.attrs.type == 'server' ? 'submit()' : 'submitAjax()'}"
+                                                         style="width: 100%">
+                                            <f:selectItems value="#{entry.value.selectOptions}" noSelectionValue="null" />
+                                        </h:selectOneMenu>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <h:selectOneRadio id="#{entry.key}Input" value="#{entry.value.value}"
+                                                          onchange="#{cc.attrs.type == 'server' ? 'submit()' : 'submitAjax()'}"
+                                                          layout="pageDirection">
+                                            <f:selectItems value="#{entry.value.selectOptions}" />
+                                        </h:selectOneRadio>
+                                    </c:otherwise>
                                 </c:choose>
                             </c:when>
 
