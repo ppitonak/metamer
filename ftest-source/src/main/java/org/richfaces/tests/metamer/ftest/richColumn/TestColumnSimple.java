@@ -23,14 +23,12 @@ package org.richfaces.tests.metamer.ftest.richColumn;
 
 import static org.jboss.test.selenium.locator.Attribute.COLSPAN;
 import static org.jboss.test.selenium.locator.Attribute.ROWSPAN;
-import static org.jboss.test.selenium.locator.LocatorFactory.jq;
 import static org.jboss.test.selenium.utils.URLUtils.buildUrl;
 import static org.testng.Assert.assertEquals;
 
 import java.net.URL;
 
 import org.jboss.test.selenium.locator.JQueryLocator;
-import org.richfaces.tests.metamer.ftest.AbstractMetamerTest;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
@@ -38,18 +36,7 @@ import org.testng.annotations.Test;
  * @author <a href="mailto:lfryc@redhat.com">Lukas Fryc</a>
  * @version $Revision$
  */
-public class TestColumnSimple extends AbstractMetamerTest {
-
-    ColumnAttributes attributes = new ColumnAttributes();
-
-    JQueryLocator table = pjq("table.rf-dt[id$=richDataTable]");
-    JQueryLocator header = table.getChild(jq("thead.rf-dt-thd"));
-
-    JQueryLocator headerRow = header.getChild(jq("tr.rf-dt-hdr"));
-    JQueryLocator headerCell = jq("th.rf-dt-hdr-c");
-
-    JQueryLocator bodyRow = table.getChild(jq("tbody.rf-dt-b")).getChild(jq("tr.rf-dt-r"));
-    JQueryLocator bodyCell = jq("td.rf-dt-c");
+public class TestColumnSimple extends AbstractColumnModelTest {
 
     @Override
     public URL getTestUrl() {
