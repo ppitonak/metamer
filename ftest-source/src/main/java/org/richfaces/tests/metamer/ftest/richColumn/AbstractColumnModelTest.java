@@ -35,8 +35,8 @@ import org.testng.annotations.Test;
  */
 public abstract class AbstractColumnModelTest extends AbstractMetamerTest {
 
-    ColumnAttributes attributes = new ColumnAttributes();
-    ColumnModel model = new ColumnModel("richDataTable", pjq("table.rf-dt[id$=richDataTable]"));
+    protected ColumnAttributes attributes = new ColumnAttributes();
+    protected ColumnModel model = new ColumnModel("richDataTable", pjq("table.rf-dt[id$=richDataTable]"));
 
     List<Capital> capitals;
 

@@ -45,15 +45,30 @@ public class ColumnModel extends AbstractModel<JQueryLocator> {
 
     private ReferencedLocator<JQueryLocator> tableHeader = ref(root, "> thead.rf-dt-thd");
     private ReferencedLocator<JQueryLocator> tableBody = ref(root, "> tbody.rf-dt-b");
+    private ReferencedLocator<JQueryLocator> tableFooter = ref(root, "> tfoot.rf-dt-tft");
 
     private ReferencedLocator<JQueryLocator> headerRow = ref(tableHeader, "> tr.rf-dt-hdr");
     private ReferencedLocator<JQueryLocator> bodyRow = ref(tableBody, "> tr.rf-dt-r");
+    private ReferencedLocator<JQueryLocator> footerRow = ref(tableFooter, "> tr.rf-dt-ftr");
 
     private JQueryLocator headerCell = jq("th.rf-dt-hdr-c");
     private JQueryLocator bodyCell = jq("td.rf-dt-c");
+    private JQueryLocator footerCell = jq("td.rf-dt-ftr-c");
 
     public ColumnModel(String name, JQueryLocator root) {
         super(name, root);
+    }
+
+    public int getBodyRowCount() {
+        return selenium.getCount(bodyRow.getChild(bodyCell).getNthChildElement(1));
+    }
+
+    public int getHeaderRowCount() {
+        return selenium.getCount(headerRow.getChild(headerCell).getNthChildElement(1));
+    }
+
+    public int getFooterRowCount() {
+        return selenium.getCount(footerRow.getChild(footerCell).getNthChildElement(1));
     }
 
     public int getBodyRowCellCount(int row) {
@@ -64,12 +79,20 @@ public class ColumnModel extends AbstractModel<JQueryLocator> {
         return selenium.getCount(headerRow.getNthChildElement(row).getChild(headerCell));
     }
 
+    public int getFooterRowCellCount(int row) {
+        return selenium.getCount(footerRow.getNthChildElement(row).getChild(footerCell));
+    }
+
     public JQueryLocator getBodyCell(int row, int column) {
         return bodyRow.getNthChildElement(row).getChild(bodyCell).getNthChildElement(column);
     }
 
     public JQueryLocator getHeaderCell(int row, int column) {
         return headerRow.getNthChildElement(row).getChild(headerCell).getNthChildElement(column);
+    }
+
+    public JQueryLocator getFooterCell(int row, int column) {
+        return footerRow.getNthChildElement(row).getChild(footerCell).getNthChildElement(column);
     }
 
     public Capital getCapital(int index) {
@@ -80,7 +103,7 @@ public class ColumnModel extends AbstractModel<JQueryLocator> {
         result.setState(state);
         return result;
     }
-    
+
     public Collection<Capital> getCapitals() {
         int count = getBodyRowCount();
         List<Capital> capitals = new LinkedList<Capital>();
@@ -89,8 +112,5 @@ public class ColumnModel extends AbstractModel<JQueryLocator> {
         }
         return capitals;
     }
-    
-    public int getBodyRowCount() {
-        return selenium.getCount(bodyRow.getChild(bodyCell).getNthChildElement(1));
-    }
+
 }
