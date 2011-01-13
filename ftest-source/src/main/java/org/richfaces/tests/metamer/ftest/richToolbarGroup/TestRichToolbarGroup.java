@@ -244,15 +244,14 @@ public class TestRichToolbarGroup extends AbstractMetamerTest {
 
     @Test
     public void testRendered() {
-        JQueryLocator renderedInput = pjq("input[type=radio][name$=renderedInput][value=false]");
-        selenium.click(renderedInput);
+        selenium.click(pjq("input[type=radio][name$=renderedInput][value=false]"));
         selenium.waitForPageToLoad();
 
         assertTrue(selenium.isElementPresent(toolbar), "Toolbar should be present on the page.");
         assertTrue(selenium.isVisible(toolbar), "Toolbar should be visible.");
         assertFalse(selenium.isElementPresent(separator), "No item separator should be present on the page.");
-        assertTrue(selenium.isElementPresent(renderedInput), "Input should be present on the page.");
-        assertTrue(selenium.isVisible(renderedInput), "Input should be visible.");
+        assertTrue(selenium.isElementPresent(input), "Input should be present on the page.");
+        assertTrue(selenium.isVisible(input), "Input should be visible.");
         assertTrue(selenium.isElementPresent(button), "Button should be present on the page.");
         assertTrue(selenium.isVisible(button), "Button should be visible.");
 

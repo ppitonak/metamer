@@ -95,8 +95,7 @@ public class TestRichToolbar extends AbstractMetamerTest {
     @Test
     @Use(field = "itemSeparator", value = "separators")
     public void testItemSeparatorCorrect() {
-        JQueryLocator input = pjq("select[id$=itemSeparatorInput]");
-        selenium.select(input, optionLabel(itemSeparator));
+        selenium.select(pjq("select[id$=itemSeparatorInput]"), optionLabel(itemSeparator));
         selenium.waitForPageToLoad();
 
         JQueryLocator separatorDiv = separator.getDescendant(jq("div.rf-tb-sep-" + itemSeparator));
@@ -121,8 +120,7 @@ public class TestRichToolbar extends AbstractMetamerTest {
 
     @Test
     public void testItemSeparatorCustom() {
-        JQueryLocator input = pjq("select[id$=itemSeparatorInput]");
-        selenium.select(input, optionLabel("star"));
+        selenium.select(pjq("select[id$=itemSeparatorInput]"), optionLabel("star"));
         selenium.waitForPageToLoad();
 
         JQueryLocator separatorImg = separator.getDescendant(jq("> img"));
@@ -137,8 +135,7 @@ public class TestRichToolbar extends AbstractMetamerTest {
 
     @Test
     public void testItemSeparatorNonExisting() {
-        JQueryLocator input = pjq("select[id$=itemSeparatorInput]");
-        selenium.select(input, optionLabel("non-existing"));
+        selenium.select(pjq("select[id$=itemSeparatorInput]"), optionLabel("non-existing"));
         selenium.waitForPageToLoad();
 
         JQueryLocator separatorImg = separator.getDescendant(jq("> img"));
@@ -219,8 +216,7 @@ public class TestRichToolbar extends AbstractMetamerTest {
 
     @Test
     public void testRendered() {
-        JQueryLocator input = pjq("input[type=radio][name$=renderedInput][value=false]");
-        selenium.click(input);
+        selenium.click(pjq("input[type=radio][name$=renderedInput][value=false]"));
         selenium.waitForPageToLoad();
 
         assertFalse(selenium.isElementPresent(toolbar), "Toolbar should not be rendered when rendered=false.");
