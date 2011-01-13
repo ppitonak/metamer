@@ -58,7 +58,7 @@ public abstract class AbstractColumnSortingTest extends AbstractColumnModelTest 
         }
 
         for (int i = 0; i < capitals.size(); i++) {
-            Capital actualCapital = getCapital(i);
+            Capital actualCapital = model.getCapital(i);
             Capital expectedCapital = capitals.get(i);
 
             assertEquals(actualCapital.getName(), expectedCapital.getName());

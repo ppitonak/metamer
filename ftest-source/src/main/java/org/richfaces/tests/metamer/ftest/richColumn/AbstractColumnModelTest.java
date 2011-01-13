@@ -21,11 +21,8 @@
  *******************************************************************************/
 package org.richfaces.tests.metamer.ftest.richColumn;
 
-import static org.jboss.test.selenium.locator.LocatorFactory.jq;
-
 import java.util.List;
 
-import org.jboss.test.selenium.locator.JQueryLocator;
 import org.richfaces.tests.metamer.bean.Model;
 import org.richfaces.tests.metamer.ftest.AbstractMetamerTest;
 import org.richfaces.tests.metamer.model.Capital;
@@ -37,34 +34,13 @@ import org.testng.annotations.BeforeMethod;
  */
 public abstract class AbstractColumnModelTest extends AbstractMetamerTest {
 
-    JQueryLocator table = pjq("table.rf-dt[id$=richDataTable]");
-    JQueryLocator header = table.getChild(jq("thead.rf-dt-thd"));
-
-    JQueryLocator headerRow = header.getChild(jq("tr.rf-dt-hdr"));
-    JQueryLocator headerCell = jq("th.rf-dt-hdr-c");
-
-    JQueryLocator bodyRow = table.getChild(jq("tbody.rf-dt-b")).getChild(jq("tr.rf-dt-r"));
-    JQueryLocator bodyCell = jq("td.rf-dt-c");
-
     ColumnAttributes attributes = new ColumnAttributes();
+    ColumnModel model = new ColumnModel("richDataTable", pjq("table.rf-dt[id$=richDataTable]"));
 
     List<Capital> capitals;
 
     @BeforeMethod
     public void prepareModel() {
         capitals = Model.unmarshallCapitals();
-    }
-
-    public Capital getCapital(int index) {
-        String state = selenium.getText(bodyCell(index + 1, 1));
-        String name = selenium.getText(bodyCell(index + 1, 2));
-        Capital result = new Capital();
-        result.setName(name);
-        result.setState(state);
-        return result;
-    }
-
-    public JQueryLocator bodyCell(int row, int column) {
-        return bodyRow.getNthChildElement(row).getChild(bodyCell).getNthChildElement(column);
     }
 }

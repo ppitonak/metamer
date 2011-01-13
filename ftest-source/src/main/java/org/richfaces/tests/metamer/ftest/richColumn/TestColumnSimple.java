@@ -119,16 +119,16 @@ public class TestColumnSimple extends AbstractColumnModelTest {
         assertEquals(selenium.getAttribute(headerCell(2, 2).getAttribute(ROWSPAN)), "2");
     }
 
-    public JQueryLocator headerCell(int iRow, int iColumn) {
-        return headerRow.getNthChildElement(iRow).getChild(headerCell).getNthChildElement(iColumn);
+    public JQueryLocator headerCell(int row, int column) {
+        return model.getHeaderCell(row, column);
     }
 
-    public int headerCount(int iRow) {
-        return selenium.getCount(headerRow.getNthChildElement(iRow).getChild(headerCell));
+    public int headerCount(int row) {
+        return model.getHeaderRowCellCount(row);
     }
 
-    public int bodyCount(int iRow) {
-        return selenium.getCount(bodyRow.getNthChildElement(iRow).getChild(bodyCell));
+    public int bodyCount(int row) {
+        return model.getBodyRowCellCount(row);
     }
 
 }
