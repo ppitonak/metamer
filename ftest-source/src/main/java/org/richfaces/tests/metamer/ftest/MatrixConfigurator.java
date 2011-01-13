@@ -337,7 +337,7 @@ public class MatrixConfigurator extends TestMethodSelector implements IInvokedMe
                 throw new IllegalArgumentException(parameterType + "have to be enumeration");
             }
             
-            result.addAll(Arrays.asList((Object) parameterType.getEnumConstants()));
+            result.addAll(Arrays.asList(parameterType.getEnumConstants()));
         }
 
         // tries satisfy parameter from fields
