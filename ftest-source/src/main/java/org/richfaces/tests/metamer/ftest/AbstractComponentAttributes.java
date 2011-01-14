@@ -22,6 +22,7 @@
 package org.richfaces.tests.metamer.ftest;
 
 import static org.jboss.test.selenium.guard.request.RequestTypeGuardFactory.guard;
+import static org.jboss.test.selenium.locator.LocatorFactory.jq;
 import static org.jboss.test.selenium.locator.reference.ReferencedLocator.referenceInferred;
 import static org.richfaces.tests.metamer.ftest.AbstractMetamerTest.pjq;
 
@@ -35,6 +36,7 @@ import org.jboss.test.selenium.locator.AttributeLocator;
 import org.jboss.test.selenium.locator.ElementLocator;
 import org.jboss.test.selenium.locator.ExtendedLocator;
 import org.jboss.test.selenium.locator.JQueryLocator;
+import org.jboss.test.selenium.locator.option.OptionValueLocator;
 import org.jboss.test.selenium.locator.reference.LocatorReference;
 import org.jboss.test.selenium.locator.reference.ReferencedLocator;
 import org.jboss.test.selenium.request.RequestType;
@@ -48,7 +50,7 @@ public class AbstractComponentAttributes {
     protected AjaxSelenium selenium = AjaxSeleniumProxy.getInstance();
     LocatorReference<ExtendedLocator<JQueryLocator>> root = new LocatorReference<ExtendedLocator<JQueryLocator>>(
         pjq(""));
-    ReferencedLocator<JQueryLocator> propertyLocator = referenceInferred(root, "input[id*={0}Input]{1}");
+    ReferencedLocator<JQueryLocator> propertyLocator = referenceInferred(root, "*[id*={0}Input]{1}");
 
     RequestType requestType = RequestType.HTTP;
 
@@ -65,12 +67,15 @@ public class AbstractComponentAttributes {
     }
 
     protected void setProperty(String propertyName, Object value) {
-        ElementLocator<?> locator = propertyLocator.format(propertyName);
+        ExtendedLocator<JQueryLocator> locator = propertyLocator.format(propertyName);
         final AttributeLocator<?> typeLocator = locator.getAttribute(Attribute.TYPE);
+        final ExtendedLocator<JQueryLocator> optionLocator = locator.getChild(jq("option"));
 
         String inputType = null;
         if (selenium.getCount(propertyLocator.format(propertyName)) > 1) {
             inputType = "radio";
+        } else if (selenium.getCount(optionLocator) > 1) {
+            inputType = "select";
         } else {
             inputType = selenium.getAttribute(typeLocator);
         }
@@ -100,6 +105,8 @@ public class AbstractComponentAttributes {
             if (!selenium.isChecked(locator)) {
                 applyRadio(locator);
             }
+        } else if ("select".equals(inputType)) {
+            applySelect(locator, valueAsString);
         }
     }
 
@@ -112,15 +119,20 @@ public class AbstractComponentAttributes {
     }
 
     protected void applyText(ElementLocator<?> locator, String value) {
-        guard(selenium, requestType, false).type(locator, value);
+        guard(selenium, requestType).type(locator, value);
     }
 
     protected void applyCheckbox(ElementLocator<?> locator, boolean checked) {
         selenium.check(locator, checked);
-        guard(selenium, requestType, false).fireEvent(locator, Event.CHANGE);
+        guard(selenium, requestType).fireEvent(locator, Event.CHANGE);
     }
 
     protected void applyRadio(ElementLocator<?> locator) {
-        guard(selenium, requestType, false).click(locator);
+        guard(selenium, requestType).click(locator);
+    }
+    
+    protected void applySelect(ElementLocator<?> locator, String value) {
+        OptionValueLocator optionLocator = new OptionValueLocator(value);
+        guard(selenium, requestType).select(locator, optionLocator);
     }
 }
