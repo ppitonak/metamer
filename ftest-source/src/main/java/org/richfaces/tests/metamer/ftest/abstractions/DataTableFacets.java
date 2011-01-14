@@ -39,6 +39,10 @@ public class DataTableFacets extends AbstractComponentAttributes {
     public void setHeader(String header) {
         setProperty("header", header);
     }
+    
+    public void setFooter(String footer) {
+        setProperty("footer", footer);
+    }
 
     public void setStateHeader(String stateHeader) {
         setProperty("stateHeader", stateHeader);

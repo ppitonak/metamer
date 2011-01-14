@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.richfaces.tests.metamer.bean.Model;
 import org.richfaces.tests.metamer.ftest.AbstractMetamerTest;
+import org.richfaces.tests.metamer.ftest.abstractions.DataTableFacets;
 import org.richfaces.tests.metamer.ftest.annotations.Inject;
 import org.richfaces.tests.metamer.ftest.annotations.Use;
 import org.richfaces.tests.metamer.ftest.model.CollapsibleSubTable;
@@ -21,7 +22,8 @@ public abstract class AbstractCollapsibleSubTableTest extends AbstractMetamerTes
     private static final List<Employee> EMPLOYEES = Model.unmarshallEmployees();
 
     CollapsibleSubTableAttributes attributes = new CollapsibleSubTableAttributes();
-    DataTable model = new DataTable(pjq("table.rf-dt"));;
+    DataTable dataTable = new DataTable(pjq("table.rf-dt"));;
+    DataTableFacets facets = new DataTableFacets();
 
     @Inject
     @Use(value = "configuration*")
@@ -58,8 +60,8 @@ public abstract class AbstractCollapsibleSubTableTest extends AbstractMetamerTes
 
         public Configuration(int i, String name) {
             this.name = name;
-            subtable = model.getSubtable(i);
-            toggler = model.getToggler(i);
+            subtable = dataTable.getSubtable(i);
+            toggler = dataTable.getToggler(i);
             final Employee.Sex sex = (i == 1) ? Employee.Sex.MALE : Employee.Sex.FEMALE;
 
             employees = new LinkedList<Employee>(Collections2.filter(EMPLOYEES, new Predicate<Employee>() {
