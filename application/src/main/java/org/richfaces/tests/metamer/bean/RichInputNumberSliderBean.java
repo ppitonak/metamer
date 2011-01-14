@@ -1,6 +1,6 @@
 /*******************************************************************************
  * JBoss, Home of Professional Open Source
- * Copyright 2010, Red Hat, Inc. and individual contributors
+ * Copyright 2010-2011, Red Hat, Inc. and individual contributors
  * by the @authors tag. See the copyright.txt in the distribution for a
  * full listing of individual contributors.
  *
@@ -54,7 +54,7 @@ public class RichInputNumberSliderBean implements Serializable {
         logger = LoggerFactory.getLogger(getClass());
         logger.debug("initializing bean " + getClass().getName());
 
-        attributes = Attributes.getComponentAttributesFromClass(HtmlInputNumberSlider.class, getClass());
+        attributes = Attributes.getComponentAttributesFromFacesConfig(HtmlInputNumberSlider.class, getClass());
 
         attributes.setAttribute("enableManualInput", true);
         attributes.setAttribute("inputSize", 3);
@@ -67,10 +67,8 @@ public class RichInputNumberSliderBean implements Serializable {
         attributes.setAttribute("step", 1);
         attributes.setAttribute("value", 2);
 
-        attributes.remove("converter");
-        attributes.remove("validator");
+        // will be tested in another way
         attributes.remove("valueChangeListener");
-        attributes.remove("valueChangeListeners");
     }
 
     public Attributes getAttributes() {
