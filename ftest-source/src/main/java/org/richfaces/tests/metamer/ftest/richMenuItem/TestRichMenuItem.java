@@ -335,17 +335,17 @@ public class TestRichMenuItem extends AbstractMetamerTest {
     }
 
     @Test
-    public void testOnitemkeydown() {
+    public void testOnkeydown() {
         testFireEvent(Event.KEYDOWN, menuItem1);
     }
 
     @Test
-    public void testOnitemkeypress() {
+    public void testOnkeypress() {
         testFireEvent(Event.KEYPRESS, menuItem1);
     }
 
     @Test
-    public void testOnitemkeyup() {
+    public void testOnkeyup() {
         testFireEvent(Event.KEYUP, menuItem1);
     }
 
