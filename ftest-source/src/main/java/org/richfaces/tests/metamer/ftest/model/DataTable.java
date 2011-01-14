@@ -50,6 +50,10 @@ public class DataTable extends AbstractModel<JQueryLocator> implements
     ReferencedLocator<JQueryLocator> columnHeader = ref(thead, "> tr.rf-dt-shdr > th.rf-dt-shdr-c");
 
     ReferencedLocator<JQueryLocator> columnFooter = ref(root, "> tfoot.rf-dt-tft > tr.rf-dt-sftr > td.rf-dt-sftr-c");
+    
+    ReferencedLocator<JQueryLocator> subtables = ref(root, "> tbody.rf-cst");
+
+    ReferencedLocator<JQueryLocator> togglers = ref(root, "span[id$=subTableTC]");
 
     public DataTable(JQueryLocator root) {
         super(root);
@@ -103,5 +107,24 @@ public class DataTable extends AbstractModel<JQueryLocator> implements
     public JQueryLocator getHeader() {
         return tableHeader.getReferenced();
     }
+    
+    public CollapsibleSubTable getSubtable(int index) {
+        return new CollapsibleSubTable(subtables.getNthOccurence(index));
+    }
 
+    public Iterable<CollapsibleSubTable> getSubtables() {
+        return new ModelIterable<JQueryLocator, CollapsibleSubTable>(subtables.getAllOccurrences(), CollapsibleSubTable.class);
+    }
+
+    public int getSubtableCount() {
+        return selenium.getCount(subtables);
+    }
+
+    public int getTogglerCount() {
+        return selenium.getCount(togglers);
+    }
+
+    public CollapsibleSubTableToggler getToggler(int index) {
+        return new CollapsibleSubTableToggler(togglers.getNthOccurence(index));
+    }
 }

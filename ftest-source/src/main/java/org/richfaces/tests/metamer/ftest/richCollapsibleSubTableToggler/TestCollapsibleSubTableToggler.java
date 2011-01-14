@@ -25,8 +25,10 @@ package org.richfaces.tests.metamer.ftest.richCollapsibleSubTableToggler;
  * @author <a href="mailto:lfryc@redhat.com">Lukas Fryc</a>
  * @version $Revision$
  */
+import static org.jboss.test.selenium.dom.Event.DBLCLICK;
+import static org.jboss.test.selenium.dom.Event.MOUSEDOWN;
+import static org.jboss.test.selenium.dom.Event.MOUSEUP;
 import static org.jboss.test.selenium.locator.Attribute.SRC;
-import static org.jboss.test.selenium.dom.Event.*;
 import static org.jboss.test.selenium.locator.LocatorFactory.jq;
 import static org.jboss.test.selenium.utils.URLUtils.buildUrl;
 import static org.testng.Assert.assertEquals;
@@ -41,6 +43,9 @@ import org.richfaces.tests.metamer.ftest.AbstractMetamerTest;
 import org.richfaces.tests.metamer.ftest.annotations.Inject;
 import org.richfaces.tests.metamer.ftest.annotations.IssueTracking;
 import org.richfaces.tests.metamer.ftest.annotations.Use;
+import org.richfaces.tests.metamer.ftest.model.CollapsibleSubTable;
+import org.richfaces.tests.metamer.ftest.model.CollapsibleSubTableToggler;
+import org.richfaces.tests.metamer.ftest.model.DataTable;
 import org.testng.annotations.Test;
 
 public class TestCollapsibleSubTableToggler extends AbstractMetamerTest {
@@ -48,26 +53,22 @@ public class TestCollapsibleSubTableToggler extends AbstractMetamerTest {
     private final static String IMAGE_URL = "/resources/images/star.png";
     private final static String LABEL = "Label";
 
-    @Override
-    public URL getTestUrl() {
-        return buildUrl(contextPath, "faces/components/richCollapsibleSubTableToggler/simple.xhtml");
-    }
-
-    CollapsibleSubTableTogglerAttributes attributes = new CollapsibleSubTableTogglerAttributes();
-
-    JQueryLocator togglers = pjq("span[id$=richSTTControl]");
-    JQueryLocator collapsedTogglers = togglers.getChild(jq("span[id$=expand]"));
-    JQueryLocator expandedTogglers = togglers.getChild(jq("span[id$=collapse]"));
     JQueryLocator link = jq("a");
     JQueryLocator image = jq("img");
-
-    JQueryLocator subtables = pjq("table.rf-dt > tbody.rf-cst");
 
     @Inject
     @Use(empty = true)
     Event event;
 
     Event[] events = new Event[] { DBLCLICK, MOUSEDOWN, MOUSEUP };
+
+    @Override
+    public URL getTestUrl() {
+        return buildUrl(contextPath, "faces/components/richCollapsibleSubTableToggler/simple.xhtml");
+    }
+
+    CollapsibleSubTableTogglerAttributes attributes = new CollapsibleSubTableTogglerAttributes();
+    DataTable dataTable = new DataTable(pjq("table.rf-dt"));
 
     @Test
     @Use(field = "event", value = "events")
@@ -83,7 +84,7 @@ public class TestCollapsibleSubTableToggler extends AbstractMetamerTest {
     public void testRendered() {
         attributes.setRendered(false);
 
-        assertFalse(selenium.isElementPresent(togglers));
+        assertEquals(dataTable.getTogglerCount(), 0);
     }
 
     @Test
@@ -212,9 +213,9 @@ public class TestCollapsibleSubTableToggler extends AbstractMetamerTest {
 
         JQueryLocator expander;
         JQueryLocator collapser;
-        JQueryLocator togglerRoot;
+        CollapsibleSubTableToggler togglerRoot;
 
-        JQueryLocator subtable;
+        CollapsibleSubTable subtable;
         JQueryLocator togglerExpanded;
         JQueryLocator togglerCollapsed;
 
@@ -225,10 +226,10 @@ public class TestCollapsibleSubTableToggler extends AbstractMetamerTest {
 
         public void testToggler() {
             for (int i = 1; i <= 2; i++) {
-                subtable = subtables.getNthOccurence(i);
-                togglerRoot = togglers.getNthOccurence(i);
-                togglerExpanded = expandedTogglers.getNthOccurence(i).getChild(expander);
-                togglerCollapsed = collapsedTogglers.getNthOccurence(i).getChild(collapser);
+                subtable = dataTable.getSubtable(i);
+                togglerRoot = dataTable.getToggler(i);
+                togglerExpanded = dataTable.getToggler(i).getExpanded().getChild(expander);
+                togglerCollapsed = dataTable.getToggler(i).getCollapsed().getChild(collapser);
 
                 verifyBefore();
 
