@@ -24,12 +24,12 @@ package org.richfaces.tests.metamer.ftest.model;
 
 import static org.jboss.test.selenium.guard.request.RequestTypeGuardFactory.guardXhr;
 import static org.jboss.test.selenium.locator.reference.ReferencedLocator.ref;
-import static org.jboss.test.selenium.utils.text.SimplifiedFormat.format;
 
 import org.jboss.test.selenium.framework.AjaxSelenium;
 import org.jboss.test.selenium.framework.AjaxSeleniumProxy;
 import org.jboss.test.selenium.locator.JQueryLocator;
 import org.jboss.test.selenium.locator.reference.ReferencedLocator;
+import org.jboss.test.selenium.utils.text.SimplifiedFormat;
 
 /**
  * Provides DataScroller control methods.
@@ -96,7 +96,7 @@ public class DataScroller extends AbstractModel<JQueryLocator> {
 
     public void gotoPage(int pageNumber) {
         if (lastPage != null && (pageNumber < 1 || pageNumber > lastPage)) {
-            throw new IllegalStateException(format("The given pageNumber '{0}' is out of range of pages <1,{1}>", pageNumber, lastPage));
+            throw new IllegalStateException(SimplifiedFormat.format("The given pageNumber '{0}' is out of range of pages <1,{1}>", pageNumber, lastPage));
         }
         while (pageNumber > getLastVisiblePage()) {
             fastForward(pageNumber);
