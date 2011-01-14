@@ -1,3 +1,24 @@
+/*******************************************************************************
+ * JBoss, Home of Professional Open Source
+ * Copyright 2010, Red Hat, Inc. and individual contributors
+ * by the @authors tag. See the copyright.txt in the distribution for a
+ * full listing of individual contributors.
+ *
+ * This is free software; you can redistribute it and/or modify it
+ * under the terms of the GNU Lesser General Public License as
+ * published by the Free Software Foundation; either version 2.1 of
+ * the License, or (at your option) any later version.
+ *
+ * This software is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this software; if not, write to the Free
+ * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
+ * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
+ *******************************************************************************/
 package org.richfaces.tests.metamer.ftest.richCollapsibleSubTable;
 
 import static org.jboss.test.selenium.guard.request.RequestTypeGuardFactory.guard;
@@ -13,22 +34,21 @@ import java.util.List;
 import org.jboss.test.selenium.request.RequestType;
 import org.richfaces.ExpandMode;
 import org.richfaces.component.UICollapsibleSubTable;
-import org.richfaces.tests.metamer.ftest.annotations.Inject;
 import org.richfaces.tests.metamer.ftest.annotations.IssueTracking;
 import org.richfaces.tests.metamer.ftest.annotations.Use;
 import org.richfaces.tests.metamer.model.Employee;
 import org.testng.annotations.Test;
 
+/**
+ * @author <a href="mailto:lfryc@redhat.com">Lukas Fryc</a>
+ * @version $Revision$
+ */
 public class TestCollapsibleSubTableSimple extends AbstractCollapsibleSubTableTest {
 
     @Override
     public URL getTestUrl() {
         return buildUrl(contextPath, "faces/components/richCollapsibleSubTable/simple.xhtml");
     }
-
-    @Inject
-    @Use(empty = true)
-    ExpandMode expandMode;
 
     @Test
     @Use(field = "expandMode", enumeration = true)
@@ -132,16 +152,5 @@ public class TestCollapsibleSubTableSimple extends AbstractCollapsibleSubTableTe
     public void testClasses() {
         // TODO classes are currently not working
         fail();
-    }
-
-    private RequestType getRequestTypeForExpandMode() {
-        switch (expandMode) {
-            case ajax:
-                return RequestType.XHR;
-            case server:
-                return RequestType.HTTP;
-            default:
-                return RequestType.NONE;
-        }
     }
 }
