@@ -1,6 +1,6 @@
 /*******************************************************************************
  * JBoss, Home of Professional Open Source
- * Copyright 2010, Red Hat, Inc. and individual contributors
+ * Copyright 2010-2011, Red Hat, Inc. and individual contributors
  * by the @authors tag. See the copyright.txt in the distribution for a
  * full listing of individual contributors.
  *
@@ -19,19 +19,22 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  *******************************************************************************/
-
 package org.richfaces.tests.metamer.ftest.a4jCommandLink;
 
+import static org.jboss.test.selenium.guard.request.RequestTypeGuardFactory.guardNoRequest;
+import static org.jboss.test.selenium.guard.request.RequestTypeGuardFactory.guardXhr;
+import static org.jboss.test.selenium.locator.LocatorFactory.jq;
 import static org.jboss.test.selenium.utils.URLUtils.buildUrl;
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertFalse;
 import static org.testng.Assert.assertTrue;
+import static org.testng.Assert.fail;
 
 import java.net.URL;
+import javax.faces.event.PhaseId;
 
 import org.jboss.test.selenium.dom.Event;
-import org.jboss.test.selenium.locator.Attribute;
-import org.jboss.test.selenium.locator.AttributeLocator;
+import org.jboss.test.selenium.encapsulated.JavaScript;
 import org.jboss.test.selenium.locator.JQueryLocator;
 import org.richfaces.tests.metamer.ftest.AbstractMetamerTest;
 import org.richfaces.tests.metamer.ftest.annotations.IssueTracking;
@@ -58,8 +61,8 @@ public class TestA4JCommandLink extends AbstractMetamerTest {
 
     @Test(groups = "client-side-perf")
     public void testSimpleClick() {
-        selenium.typeKeys(input, "RichFaces 4");
-        selenium.click(link);
+        guardNoRequest(selenium).typeKeys(input, "RichFaces 4");
+        guardXhr(selenium).click(link);
 
         waitGui.until(textEquals.locator(output1).text("RichFaces 4"));
 
@@ -76,8 +79,8 @@ public class TestA4JCommandLink extends AbstractMetamerTest {
     @Test
     @IssueTracking("https://issues.jboss.org/browse/RF-9665")
     public void testSimpleClickUnicode() {
-        selenium.typeKeys(input, "ľščťžýáíéňô");
-        selenium.click(link);
+        guardNoRequest(selenium).typeKeys(input, "ľščťžýáíéňô");
+        guardXhr(selenium).click(link);
 
         waitGui.until(textEquals.locator(output1).text("ľščťžýáíéňô"));
 
@@ -93,82 +96,192 @@ public class TestA4JCommandLink extends AbstractMetamerTest {
 
     @Test
     public void testAction() {
-        JQueryLocator doubleStringAction = pjq("input[value=doubleStringAction]");
-        JQueryLocator first6CharsAction = pjq("input[value=first6CharsAction]");
-        JQueryLocator toUpperCaseAction = pjq("input[value=toUpperCaseAction]");
-
-        selenium.click(doubleStringAction);
-        selenium.waitForPageToLoad(TIMEOUT);
+        selenium.click(pjq("input[name$=actionInput][value=doubleStringAction]"));
+        selenium.waitForPageToLoad();
         selenium.typeKeys(input, "RichFaces 4");
-        selenium.click(link);
+        guardXhr(selenium).click(link);
         waitGui.until(textEquals.locator(output1).text("RichFaces 4"));
-        String output = selenium.getText(output2);
-        assertEquals(output, "RichFaces 4RichFaces 4",
-            "output2 when 'RichFaces 4' in input and doubleStringAction selected");
+        assertEquals(selenium.getText(output2), "RichFaces 4RichFaces 4", "output2 when 'RichFaces 4' in input and doubleStringAction selected");
 
-        selenium.click(first6CharsAction);
-        selenium.waitForPageToLoad(TIMEOUT);
+        selenium.click(pjq("input[name$=actionInput][value=first6CharsAction]"));
+        selenium.waitForPageToLoad();
         selenium.typeKeys(input, "RichFaces 4ň");
-        selenium.click(link);
+        guardXhr(selenium).click(link);
         waitGui.until(textEquals.locator(output1).text("RichFaces 4ň"));
-        output = selenium.getText(output2);
-        assertEquals(output, "RichFa", "output2 when 'RichFaces 4ň' in input and first6CharsAction selected");
+        assertEquals(selenium.getText(output2), "RichFa", "output2 when 'RichFaces 4ň' in input and first6CharsAction selected");
 
-        selenium.click(toUpperCaseAction);
-        selenium.waitForPageToLoad(TIMEOUT);
+        selenium.click(pjq("input[name$=actionInput][value=toUpperCaseAction]"));
+        selenium.waitForPageToLoad();
         selenium.typeKeys(input, "RichFaces 4ě");
-        selenium.click(link);
+        guardXhr(selenium).click(link);
         waitGui.until(textEquals.locator(output1).text("RichFaces 4ě"));
-        output = selenium.getText(output2);
-        assertEquals(output, "RICHFACES 4Ě", "output2 when 'RichFaces 4ě' in input and toUpperCaseAction selected");
+        assertEquals(selenium.getText(output2), "RICHFACES 4Ě", "output2 when 'RichFaces 4ě' in input and toUpperCaseAction selected");
     }
 
     @Test
     public void testActionListener() {
-        JQueryLocator doubleStringActionListener = pjq("input[value=doubleStringActionListener]");
-        JQueryLocator first6CharsActionListener = pjq("input[value=first6CharsActionListener]");
-        JQueryLocator toUpperCaseActionListener = pjq("input[value=toUpperCaseActionListener]");
-
-        selenium.click(doubleStringActionListener);
-        selenium.waitForPageToLoad(TIMEOUT);
+        selenium.click(pjq("input[name$=actionListenerInput][value=doubleStringActionListener]"));
+        selenium.waitForPageToLoad();
         selenium.typeKeys(input, "RichFaces 4");
-        selenium.click(link);
+        guardXhr(selenium).click(link);
         waitGui.until(textEquals.locator(output1).text("RichFaces 4"));
-        String output = selenium.getText(output3);
-        assertEquals(output, "RichFaces 4RichFaces 4",
-            "output2 when 'RichFaces 4' in input and doubleStringActionListener selected");
+        assertEquals(selenium.getText(output3), "RichFaces 4RichFaces 4",
+                "output3 when 'RichFaces 4' in input and doubleStringActionListener selected");
 
-        selenium.click(first6CharsActionListener);
-        selenium.waitForPageToLoad(TIMEOUT);
+        selenium.click(pjq("input[name$=actionListenerInput][value=first6CharsActionListener]"));
+        selenium.waitForPageToLoad();
         selenium.typeKeys(input, "RichFaces 4ň");
-        selenium.click(link);
+        guardXhr(selenium).click(link);
         waitGui.until(textEquals.locator(output1).text("RichFaces 4ň"));
-        output = selenium.getText(output3);
-        assertEquals(output, "RichFa", "output2 when 'RichFaces 4ň' in input and first6CharsActionListener selected");
+        assertEquals(selenium.getText(output3), "RichFa", "output3 when 'RichFaces 4ň' in input and first6CharsActionListener selected");
 
-        selenium.click(toUpperCaseActionListener);
-        selenium.waitForPageToLoad(TIMEOUT);
+        selenium.click(pjq("input[name$=actionListenerInput][value=toUpperCaseActionListener]"));
+        selenium.waitForPageToLoad();
         selenium.typeKeys(input, "RichFaces 4ě");
-        selenium.click(link);
+        guardXhr(selenium).click(link);
         waitGui.until(textEquals.locator(output1).text("RichFaces 4ě"));
-        output = selenium.getText(output3);
-        assertEquals(output, "RICHFACES 4Ě",
-            "output2 when 'RichFaces 4ě' in input and toUpperCaseActionListener selected");
+        assertEquals(selenium.getText(output3), "RICHFACES 4Ě", "output3 when 'RichFaces 4ě' in input and toUpperCaseActionListener selected");
+    }
+
+    @Test
+    public void testBypassUpdates() {
+        selenium.click(pjq("input[type=radio][name$=bypassUpdatesInput][value=true]"));
+        selenium.waitForPageToLoad();
+
+        String reqTime = selenium.getText(time);
+        guardXhr(selenium).click(link);
+        waitGui.failWith("Page was not updated").waitForChange(reqTime, retrieveText.locator(time));
+
+        assertEquals(selenium.getText(output1), "", "Output 1 should not change");
+        assertEquals(selenium.getText(output2), "", "Output 2 should not change");
+        assertEquals(selenium.getText(output3), "", "Output 3 should not change");
+        assertPhases(PhaseId.RESTORE_VIEW, PhaseId.APPLY_REQUEST_VALUES, PhaseId.PROCESS_VALIDATIONS,
+                PhaseId.RENDER_RESPONSE);
+
+        String listenerOutput = selenium.getText(jq("div#phasesPanel li:eq(3)"));
+        assertEquals(listenerOutput, "* action listener invoked", "Action listener's output");
+        listenerOutput = selenium.getText(jq("div#phasesPanel li:eq(4)"));
+        assertEquals(listenerOutput, "* action invoked", "Action's output");
+    }
+
+    @Test
+    public void testCharset() {
+        testHtmlAttribute(link, "charset", "utf-8");
+    }
+
+    @Test
+    public void testCoords() {
+        testHtmlAttribute(link, "coords", "circle: 150, 60, 60");
+    }
+
+    @Test
+    public void testData() {
+        selenium.type(pjq("input[type=text][id$=dataInput]"), "RichFaces 4");
+        selenium.waitForPageToLoad();
+
+        selenium.type(pjq("input[type=text][id$=oncompleteInput]"), "data = event.data");
+        selenium.waitForPageToLoad();
+
+        String reqTime = selenium.getText(time);
+
+        selenium.type(input, "some input text");
+        guardXhr(selenium).click(link);
+        waitGui.failWith("Page was not updated").waitForChange(reqTime, retrieveText.locator(time));
+
+        String data = selenium.getEval(new JavaScript("window.data"));
+        assertEquals(data, "RichFaces 4", "Data sent with ajax request");
     }
 
     @Test
     public void testDisabled() {
-        JQueryLocator disabledCheckbox = pjq("input[type=radio][name$=disabledInput][value=true]");
         JQueryLocator newLink = pjq("span[id$=a4jCommandLink]");
 
-        selenium.click(disabledCheckbox);
-        selenium.waitForPageToLoad(TIMEOUT);
+        selenium.click(pjq("input[name$=disabledInput][value=true]"));
+        selenium.waitForPageToLoad();
 
-        assertFalse(selenium.isElementPresent(link), link.getAsString()
-            + " should not be on page when the link is disabled");
-        assertTrue(selenium.isElementPresent(newLink), newLink.getAsString()
-            + " should be on page when the link is disabled");
+        assertFalse(selenium.isElementPresent(link), link.getAsString() + " should not be on page when the link is disabled");
+        assertTrue(selenium.isElementPresent(newLink), newLink.getAsString() + " should be on page when the link is disabled");
+    }
 
+    @Test
+    public void testExecute() {
+        selenium.type(pjq("input[type=text][id$=executeInput]"), "input executeChecker");
+        selenium.waitForPageToLoad();
+
+        selenium.type(input, "RichFaces 4");
+        guardXhr(selenium).click(link);
+        waitGui.failWith("Page was not updated").waitForChangeAndReturn("", retrieveText.locator(output1));
+
+        JQueryLocator logItems = jq("ul.phases-list li:eq({0})");
+        for (int i = 0; i < 6; i++) {
+            if ("* executeChecker".equals(selenium.getText(logItems.format(i)))) {
+                return;
+            }
+        }
+
+        fail("Attribute execute does not work");
+    }
+
+    @Test
+    public void testHreflang() {
+        testHtmlAttribute(link, "hreflang", "sk");
+    }
+
+    @Test
+    public void testImmediate() {
+        selenium.click(pjq("input[type=radio][name$=immediateInput][value=true]"));
+        selenium.waitForPageToLoad();
+
+        String reqTime = selenium.getText(time);
+        guardXhr(selenium).click(link);
+        waitGui.failWith("Page was not updated").waitForChange(reqTime, retrieveText.locator(time));
+
+        assertEquals(selenium.getText(output1), "", "Output 1 should not change");
+        assertEquals(selenium.getText(output2), "", "Output 2 should not change");
+        assertEquals(selenium.getText(output3), "", "Output 3 should not change");
+        assertPhases(PhaseId.RESTORE_VIEW, PhaseId.APPLY_REQUEST_VALUES, PhaseId.RENDER_RESPONSE);
+
+        String listenerOutput = selenium.getText(jq("div#phasesPanel li:eq(2)"));
+        assertEquals(listenerOutput, "* action listener invoked", "Action listener's output");
+        listenerOutput = selenium.getText(jq("div#phasesPanel li:eq(3)"));
+        assertEquals(listenerOutput, "* action invoked", "Action's output");
+    }
+
+    @Test
+    public void testLimitRender() {
+        selenium.click(pjq("input[type=radio][name$=limitRenderInput][value=true]"));
+        selenium.waitForPageToLoad();
+
+        String timeValue = selenium.getText(time);
+
+        selenium.type(input, "RichFaces 4");
+        guardXhr(selenium).click(link);
+        waitGui.failWith("Page was not updated").waitForChange("", retrieveText.locator(output1));
+
+        assertEquals(selenium.getText(time), timeValue, "Ajax-rendered a4j:outputPanel shouldn't change");
+    }
+
+    @Test
+    public void testEvents() {
+        selenium.type(pjq("input[type=text][id$=onbeginInput]"), "metamerEvents += \"begin \"");
+        selenium.waitForPageToLoad();
+        selenium.type(pjq("input[type=text][id$=onbeforedomupdateInput]"), "metamerEvents += \"beforedomupdate \"");
+        selenium.waitForPageToLoad();
+        selenium.type(pjq("input[type=text][id$=oncompleteInput]"), "metamerEvents += \"complete \"");
+        selenium.waitForPageToLoad();
+
+        selenium.getEval(new JavaScript("window.metamerEvents = \"\";"));
+
+        selenium.type(input, "RichFaces 4");
+        guardXhr(selenium).click(link);
+        waitGui.failWith("Page was not updated").waitForChange("", retrieveText.locator(output1));
+
+        String[] events = selenium.getEval(new JavaScript("window.metamerEvents")).split(" ");
+
+        assertEquals(events.length, 3, "3 events should be fired.");
+        assertEquals(events[0], "begin", "Attribute onbegin doesn't work");
+        assertEquals(events[1], "beforedomupdate", "Attribute onbeforedomupdate doesn't work");
+        assertEquals(events[2], "complete", "Attribute oncomplete doesn't work");
     }
 
     @Test
@@ -222,14 +335,19 @@ public class TestA4JCommandLink extends AbstractMetamerTest {
     }
 
     @Test
+    public void testRel() {
+        testHtmlAttribute(link, "rel", "metamer");
+    }
+
+    @Test
     public void testRender() {
         JQueryLocator renderInput = pjq("input[name$=renderInput]");
 
         selenium.type(renderInput, "output1");
-        selenium.waitForPageToLoad(TIMEOUT);
+        selenium.waitForPageToLoad();
 
         selenium.typeKeys(input, "aaa");
-        selenium.click(link);
+        guardXhr(selenium).click(link);
 
         waitGui.until(textEquals.locator(output1).text("aaa"));
 
@@ -243,10 +361,10 @@ public class TestA4JCommandLink extends AbstractMetamerTest {
         assertEquals(output, "", "output3 when 'aaa' in input and 'output1' set to be rerendered");
 
         selenium.type(renderInput, "output2 output3");
-        selenium.waitForPageToLoad(TIMEOUT);
+        selenium.waitForPageToLoad();
 
         selenium.typeKeys(input, "bbb");
-        selenium.click(link);
+        guardXhr(selenium).click(link);
 
         waitGui.until(textEquals.locator(output2).text("bbb"));
 
@@ -258,60 +376,57 @@ public class TestA4JCommandLink extends AbstractMetamerTest {
 
         output = selenium.getText(output3);
         assertEquals(output, "BBB", "output3 when 'bbb' in input and 'output2 output3' set to be rerendered");
-
     }
 
     @Test
     public void testRendered() {
-        JQueryLocator renderedCheckbox = pjq("input[name$=renderedInput]");
+        selenium.click(pjq("input[name$=renderedInput][value=false]"));
+        selenium.waitForPageToLoad();
+        assertFalse(selenium.isElementPresent(link), "Link should not be displayed");
+    }
 
-        selenium.click(renderedCheckbox);
-        selenium.waitForPageToLoad(TIMEOUT);
-        assertFalse(selenium.isElementPresent(link), "Button should not be displayed");
+    @Test
+    public void testRev() {
+        testHtmlAttribute(link, "rev", "metamer");
+    }
+
+    @Test
+    public void testShape() {
+        testHtmlAttribute(link, "shape", "default");
+    }
+
+    @Test
+    public void testStyle() {
+        testStyle(link, "style");
     }
 
     @Test
     @IssueTracking("https://issues.jboss.org/browse/RF-9307")
     public void testStyleClass() {
-        JQueryLocator bold = pjq("input[name$=styleClassInput][value=bold]");
-        JQueryLocator strike = pjq("input[name$=styleClassInput][value=strike]");
-        JQueryLocator none = pjq("input[name$=styleClassInput][value=]");
-
-        final AttributeLocator<?> classAttribute = link.getAttribute(new Attribute("class"));
-
-        selenium.click(bold);
-        selenium.waitForPageToLoad(TIMEOUT);
-        assertTrue(selenium.belongsClass(link, "bold"), "Button's class was not changed to 'bold'");
-
-        selenium.click(strike);
-        selenium.waitForPageToLoad(TIMEOUT);
-        assertTrue(selenium.belongsClass(link, "strike"), "Button's class was not changed to 'strike'");
-
-        selenium.click(none);
-        selenium.waitForPageToLoad(TIMEOUT);
-        assertFalse(selenium.isAttributePresent(classAttribute), "Button's class was not removed.");
+        testStyleClass(link, "styleClass");
     }
 
     @Test
-    public void testStyle() {
-        JQueryLocator styleInput = pjq("input[id$=styleInput]");
-        final AttributeLocator<?> attribute = link.getAttribute(new Attribute("style"));
-        final String value = "font-size: 20px;";
+    @IssueTracking("https://issues.jboss.org/browse/RF-10222")
+    public void testTarget() {
+        testHtmlAttribute(link, "target", "_blank");
+    }
 
-        selenium.type(styleInput, value);
-        selenium.waitForPageToLoad(TIMEOUT);
-        
-        assertEquals(selenium.getAttribute(attribute), value, "Style of the button did not change");
+    @Test
+    public void testTitle() {
+        testTitle(link);
+    }
+
+    @Test
+    public void testType() {
+        testHtmlAttribute(link, "type", "metamer");
     }
 
     @Test
     public void testValue() {
-        JQueryLocator valueInput = pjq("input[id$=valueInput]");
-        final String value = "new label";
+        selenium.type(pjq("input[id$=valueInput]"), "new label");
+        selenium.waitForPageToLoad();
 
-        selenium.type(valueInput, value);
-        selenium.waitForPageToLoad(TIMEOUT);
-        
-        assertEquals(selenium.getText(link), value, "Value of the button did not change");
+        assertEquals(selenium.getText(link), "new label", "Value of the button did not change");
     }
 }
