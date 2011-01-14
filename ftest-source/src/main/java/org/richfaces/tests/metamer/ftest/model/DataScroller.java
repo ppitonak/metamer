@@ -46,10 +46,10 @@ public class DataScroller extends AbstractModel<JQueryLocator> {
     ReferencedLocator<JQueryLocator> numberedPages = ref(root, "> .rf-ds-nmb-btn");
     ReferencedLocator<JQueryLocator> specificNumberedPage = ref(root, "> .rf-ds-nmb-btn:textEquals('{0}')");
 
-    ReferencedLocator<JQueryLocator> firstPageButton = ref(root, "> .rf-ds-lft[id$=ds_f]");
-    ReferencedLocator<JQueryLocator> fastRewindButton = ref(root, "> .rf-ds-lft[id$=ds_fr]");
-    ReferencedLocator<JQueryLocator> fastForwardButton = ref(root, "> .rf-ds-rgh[id$=ds_ff]");
-    ReferencedLocator<JQueryLocator> lastPageButton = ref(root, "> .rf-ds-rgh[id$=ds_l]");
+    ReferencedLocator<JQueryLocator> firstPageButton = ref(root, "> .rf-ds-btn-first");
+    ReferencedLocator<JQueryLocator> fastRewindButton = ref(root, "> .rf-ds-btn-fastrwd");
+    ReferencedLocator<JQueryLocator> fastForwardButton = ref(root, "> .rf-ds-btn-fastfwd");
+    ReferencedLocator<JQueryLocator> lastPageButton = ref(root, "> .rf-ds-btn-last");
 
     ReferencedLocator<JQueryLocator> firstVisiblePage = ref(root, "> .rf-ds-nmb-btn:first");
     ReferencedLocator<JQueryLocator> lastVisiblePage = ref(root, "> .rf-ds-nmb-btn:last");
