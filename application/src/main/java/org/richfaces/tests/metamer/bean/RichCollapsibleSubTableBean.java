@@ -95,6 +95,7 @@ public class RichCollapsibleSubTableBean implements Serializable {
         attributes.setAttribute("rows", 5);
 
         // TODO these attributes have to be tested in another way
+        attributes.remove("columns");
         attributes.remove("selection");
         attributes.remove("filterVar");
         attributes.remove("keepSaved");
