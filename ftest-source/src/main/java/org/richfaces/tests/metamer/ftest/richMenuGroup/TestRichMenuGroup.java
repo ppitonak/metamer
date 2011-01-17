@@ -37,6 +37,7 @@ import org.jboss.test.selenium.locator.AttributeLocator;
 import org.jboss.test.selenium.locator.JQueryLocator;
 import org.jboss.test.selenium.waiting.EventFiredCondition;
 import org.richfaces.tests.metamer.ftest.AbstractMetamerTest;
+import org.richfaces.tests.metamer.ftest.annotations.IssueTracking;
 import org.testng.annotations.Test;
 
 /**
@@ -121,6 +122,7 @@ public class TestRichMenuGroup extends AbstractMetamerTest {
 //        fail("not implemented in RichFaces");
 //    }
     @Test
+    @IssueTracking("https://issues.jboss.org/browse/RF-9989")
     public void testIcon() {
         AttributeLocator attr = icon.getAttribute(Attribute.SRC);
 
@@ -139,6 +141,7 @@ public class TestRichMenuGroup extends AbstractMetamerTest {
     }
 
     @Test
+    @IssueTracking("https://issues.jboss.org/browse/RF-9989")
     public void testIconDisabled() {
         selenium.click(pjq("input[type=radio][name$=disabledInput][value=true]"));
         selenium.waitForPageToLoad();
