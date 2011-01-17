@@ -1,6 +1,6 @@
 /*******************************************************************************
  * JBoss, Home of Professional Open Source
- * Copyright 2010, Red Hat, Inc. and individual contributors
+ * Copyright 2010-2011, Red Hat, Inc. and individual contributors
  * by the @authors tag. See the copyright.txt in the distribution for a
  * full listing of individual contributors.
  *
@@ -19,13 +19,10 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  *******************************************************************************/
-
 package org.richfaces.tests.metamer.ftest.hCommandButton;
 
 import static org.jboss.test.selenium.utils.URLUtils.buildUrl;
 import static org.testng.Assert.assertEquals;
-import static org.testng.Assert.assertFalse;
-import static org.testng.Assert.assertTrue;
 
 import java.net.URL;
 
@@ -90,6 +87,11 @@ public class TestHCommandButton extends AbstractMetamerTest {
     }
 
     @Test
+    public void testAccesskey() {
+        testHtmlAttribute(button, "accesskey", "b");
+    }
+
+    @Test
     public void testAction() {
         JQueryLocator doubleStringAction = pjq("input[value=doubleStringAction]");
         JQueryLocator first6CharsAction = pjq("input[value=first6CharsAction]");
@@ -102,7 +104,7 @@ public class TestHCommandButton extends AbstractMetamerTest {
         waitGui.until(textEquals.locator(output1).text("RichFaces 4"));
         String output = selenium.getText(output2);
         assertEquals(output, "RichFaces 4RichFaces 4",
-            "output2 when 'RichFaces 4' in input and doubleStringAction selected");
+                "output2 when 'RichFaces 4' in input and doubleStringAction selected");
 
         selenium.click(first6CharsAction);
         selenium.waitForPageToLoad(TIMEOUT);
@@ -134,7 +136,7 @@ public class TestHCommandButton extends AbstractMetamerTest {
         waitGui.until(textEquals.locator(output1).text("RichFaces 4"));
         String output = selenium.getText(output3);
         assertEquals(output, "RichFaces 4RichFaces 4",
-            "output2 when 'RichFaces 4' in input and doubleStringActionListener selected");
+                "output2 when 'RichFaces 4' in input and doubleStringActionListener selected");
 
         selenium.click(first6CharsActionListener);
         selenium.waitForPageToLoad(TIMEOUT);
@@ -151,7 +153,12 @@ public class TestHCommandButton extends AbstractMetamerTest {
         waitGui.until(textEquals.locator(output1).text("RichFaces 4ě"));
         output = selenium.getText(output3);
         assertEquals(output, "RICHFACES 4Ě",
-            "output2 when 'RichFaces 4ě' in input and toUpperCaseActionListener selected");
+                "output2 when 'RichFaces 4ě' in input and toUpperCaseActionListener selected");
+    }
+
+    @Test
+    public void testAlt() {
+        testHtmlAttribute(button, "alt", "metamer");
     }
 
     @Test
@@ -166,14 +173,12 @@ public class TestHCommandButton extends AbstractMetamerTest {
         assertEquals(isDisabled.toLowerCase(), "disabled", "The value of attribute disabled");
     }
 
-    // not implemented in Mojarra
-    // @Test
+    @Test
     public void testOnblur() {
         testFireEvent(Event.BLUR, button);
     }
 
-    // not implemented in Mojarra
-    // @Test
+    @Test
     public void testOnchange() {
         testFireEvent(Event.CHANGE, button);
     }
@@ -188,8 +193,7 @@ public class TestHCommandButton extends AbstractMetamerTest {
         testFireEvent(Event.DBLCLICK, button);
     }
 
-    // not implemented in Mojarra
-    // @Test
+    @Test
     public void testOnfocus() {
         testFireEvent(Event.FOCUS, button);
     }
@@ -235,37 +239,18 @@ public class TestHCommandButton extends AbstractMetamerTest {
     }
 
     @Test
-    public void testStyleClass() {
-
-        JQueryLocator wide = pjq("input[name$=styleClassInput][value=wide]");
-        JQueryLocator big = pjq("input[name$=styleClassInput][value=big]");
-        JQueryLocator none = pjq("input[name$=styleClassInput][value=]");
-
-        final AttributeLocator<?> classAttribute = button.getAttribute(new Attribute("class"));
-
-        selenium.click(wide);
-        selenium.waitForPageToLoad(TIMEOUT);
-        assertTrue(selenium.belongsClass(button, "wide"), "Button's class was not changed to 'wide'");
-
-        selenium.click(big);
-        selenium.waitForPageToLoad(TIMEOUT);
-        assertTrue(selenium.belongsClass(button, "big"), "Button's class was not changed to 'big'");
-
-        selenium.click(none);
-        selenium.waitForPageToLoad(TIMEOUT);
-        assertFalse(selenium.isAttributePresent(classAttribute), "Button's class was not removed.");
+    public void testStyle() {
+        testStyle(button, "style");
     }
 
     @Test
-    public void testStyle() {
-        JQueryLocator styleInput = pjq("input[id$=styleInput]");
-        final AttributeLocator<?> attribute = button.getAttribute(new Attribute("style"));
-        final String value = "font-size: 20px;";
+    public void testStyleClass() {
+        testStyleClass(button, "styleClass");
+    }
 
-        selenium.type(styleInput, value);
-        selenium.waitForPageToLoad(TIMEOUT);
-
-        assertEquals(selenium.getAttribute(attribute), value, "Style of the button did not change");
+    @Test
+    public void testTitle() {
+        testTitle(button);
     }
 
     @Test
@@ -279,5 +264,4 @@ public class TestHCommandButton extends AbstractMetamerTest {
 
         assertEquals(selenium.getAttribute(attribute), value, "Value of the button did not change");
     }
-
 }

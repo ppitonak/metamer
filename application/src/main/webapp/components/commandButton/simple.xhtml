@@ -5,7 +5,7 @@
 
     <!--
 JBoss, Home of Professional Open Source
-Copyright 2010, Red Hat, Inc. and individual contributors
+Copyright 2010-2011, Red Hat, Inc. and individual contributors
 by the @authors tag. See the copyright.txt in the distribution for a
 full listing of individual contributors.
 
@@ -33,8 +33,6 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                     <f:converter converterId="templatesListConverter" />
                 </f:viewParam>
             </f:metadata>
-
-            <h:outputStylesheet library="css" name="commandButton.css"/>
         </ui:define>
 
         <ui:define name="outOfTemplateBefore">
@@ -46,12 +44,20 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                 <h:inputText id="input" value="#{buttonBean.input}" />
 
                 <h:commandButton id="commandButton"
+                                 accesskey="#{buttonBean.attributes['accesskey'].value}"
                                  action="#{buttonBean.attributes.action}"
                                  actionListener="#{buttonBean.attributes.actionListener}"
+                                 alt="#{buttonBean.attributes['alt'].value}"
+                                 dir="#{buttonBean.attributes['dir'].value}"
                                  disabled="#{buttonBean.attributes['disabled'].value}"
                                  immediate="#{buttonBean.attributes['immediate'].value}"
+                                 label="#{buttonBean.attributes['label'].value}"
+                                 lang="#{buttonBean.attributes['lang'].value}"
+                                 onblur="#{buttonBean.attributes['onblur'].value}"
+                                 onchange="#{buttonBean.attributes['onchange'].value}"
                                  onclick="#{buttonBean.attributes['onclick'].value}"
                                  ondblclick="#{buttonBean.attributes['ondblclick'].value}"
+                                 onfocus="#{buttonBean.attributes['onfocus'].value}"
                                  onkeydown="#{buttonBean.attributes['onkeydown'].value}"
                                  onkeypress="#{buttonBean.attributes['onkeypress'].value}"
                                  onkeyup="#{buttonBean.attributes['onkeyup'].value}"
@@ -60,10 +66,14 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                                  onmouseout="#{buttonBean.attributes['onmouseout'].value}"
                                  onmouseover="#{buttonBean.attributes['onmouseover'].value}"
                                  onmouseup="#{buttonBean.attributes['onmouseup'].value}"
-                                 render="#{buttonBean.attributes['render'].value}"
+                                 onselect="#{buttonBean.attributes['onselect'].value}"
+                                 readonly="#{buttonBean.attributes['readonly'].value}"
                                  rendered="#{buttonBean.attributes['rendered'].value}"
                                  style="#{buttonBean.attributes['style'].value}"
                                  styleClass="#{buttonBean.attributes['styleClass'].value}"
+                                 tabindex="#{buttonBean.attributes['tabindex'].value}"
+                                 title="#{buttonBean.attributes['title'].value}"
+                                 type="#{buttonBean.attributes['type'].value}"
                                  value="#{buttonBean.attributes['value'].value}"
                                  execute="@form" />
             </h:panelGrid>
