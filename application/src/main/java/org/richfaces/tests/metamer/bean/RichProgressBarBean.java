@@ -1,6 +1,6 @@
 /*******************************************************************************
  * JBoss, Home of Professional Open Source
- * Copyright 2010, Red Hat, Inc. and individual contributors
+ * Copyright 2010-2011, Red Hat, Inc. and individual contributors
  * by the @authors tag. See the copyright.txt in the distribution for a
  * full listing of individual contributors.
  *
@@ -64,7 +64,7 @@ public class RichProgressBarBean implements Serializable {
 
         attributes.setAttribute("maxValue", 100);
         attributes.setAttribute("minValue", 0);
-        attributes.setAttribute("interval", 1000);
+        attributes.setAttribute("interval", 500);
         attributes.setAttribute("rendered", true);
         attributes.setAttribute("value", -1);
 
@@ -89,13 +89,13 @@ public class RichProgressBarBean implements Serializable {
 
     public Long getCurrentValue() {
         if (Boolean.TRUE.equals(attributes.get("enabled").getValue())) {
-            Long current = (new Date().getTime() - startTime) / 1000;
-            if (current > 100) {
+            Long current = (new Date().getTime() - startTime) / 500;
+            if (current >= 100) {
                 buttonRendered = true;
             } else if (current.equals(0L)) {
                 return 1L;
             }
-            return (new Date().getTime() - startTime) / 1000;
+            return (new Date().getTime() - startTime) / 500;
         }
         if (startTime == null) {
             return -1L;

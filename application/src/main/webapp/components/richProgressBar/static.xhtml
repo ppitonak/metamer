@@ -41,9 +41,9 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 
         <ui:define name="component">
             <h:panelGrid id="settingsPanel" columns="2">
-                Children rendered: <h:selectBooleanCheckbox value="#{richProgressBarBean.childrenRendered}" onclick="submit()" />
-                'initial' facet rendered: <h:selectBooleanCheckbox value="#{richProgressBarBean.initialFacetRendered}" onclick="submit()" />
-                'finish' facet rendered: <h:selectBooleanCheckbox value="#{richProgressBarBean.finishFacetRendered}" onclick="submit()" />
+                Children rendered: <h:selectBooleanCheckbox id="childrenRendered" value="#{richProgressBarBean.childrenRendered}" onclick="submit()" />
+                'initial' facet rendered: <h:selectBooleanCheckbox id="initialFacetRendered" value="#{richProgressBarBean.initialFacetRendered}" onclick="submit()" />
+                'finish' facet rendered: <h:selectBooleanCheckbox id="finishFacetRendered" value="#{richProgressBarBean.finishFacetRendered}" onclick="submit()" />
             </h:panelGrid>
 
             <rich:progressBar id="progressBar"
@@ -84,7 +84,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                 </f:facet>
                 <f:facet name="finish">
                     <h:panelGroup rendered="#{richProgressBarBean.finishFacetRendered}">
-                        <h:outputText id="completeOutput" value="Complete"/>
+                        <h:outputText id="finishOutput" value="Finish"/>
                     </h:panelGroup>
                 </f:facet>
             </rich:progressBar>
