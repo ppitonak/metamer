@@ -86,7 +86,7 @@ public class TestCollapsibleSubTableScroller extends AbstractCollapsibleSubTable
 
     @Test
     @Use(field = "expandMode", enumeration = true)
-    public void testScrollerWithRowsAttribute() {
+    public void testScroller() {
         paginationTester.testNumberedPages();
     }
 

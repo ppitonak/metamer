@@ -61,7 +61,7 @@ public abstract class AbstractCollapsibleSubTableTest extends AbstractMetamerTes
     CollapsibleSubTable subtable;
     CollapsibleSubTableToggler toggler;
     List<Employee> employees;
-    
+
     Configuration secondConfiguration;
     CollapsibleSubTable secondSubtable;
     CollapsibleSubTableToggler secondToggler;
@@ -69,18 +69,22 @@ public abstract class AbstractCollapsibleSubTableTest extends AbstractMetamerTes
     @Inject
     @Use(empty = true)
     ExpandMode expandMode;
-    
+
     @BeforeMethod
     public void configure() {
         if (configuration != null) {
             subtable = configuration.subtable;
             toggler = configuration.toggler;
             employees = configuration.employees;
-            
+
             secondConfiguration = configuration.name.equals("Men") ? configurationWomen : configurationMen;
             secondSubtable = secondConfiguration.subtable;
             secondToggler = secondConfiguration.toggler;
         }
+    }
+
+    protected void resetEmployees() {
+        employees = configuration.employees;
     }
 
     public class Configuration {
@@ -102,13 +106,13 @@ public abstract class AbstractCollapsibleSubTableTest extends AbstractMetamerTes
                 }
             }));
         }
-        
+
         @Override
         public String toString() {
             return name;
         }
     }
-    
+
     protected RequestType getRequestTypeForExpandMode() {
         switch (expandMode) {
             case ajax:

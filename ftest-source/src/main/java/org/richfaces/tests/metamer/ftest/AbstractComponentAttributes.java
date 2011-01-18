@@ -130,7 +130,7 @@ public class AbstractComponentAttributes {
     protected void applyRadio(ElementLocator<?> locator) {
         guard(selenium, requestType).click(locator);
     }
-    
+
     protected void applySelect(ElementLocator<?> locator, String value) {
         OptionValueLocator optionLocator = new OptionValueLocator(value);
         guard(selenium, requestType).select(locator, optionLocator);

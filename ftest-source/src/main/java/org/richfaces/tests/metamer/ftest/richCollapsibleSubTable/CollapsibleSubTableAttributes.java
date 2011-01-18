@@ -37,7 +37,7 @@ import org.richfaces.tests.metamer.ftest.AbstractComponentAttributes;
  * @version $Revision$
  */
 public class CollapsibleSubTableAttributes extends AbstractComponentAttributes {
-    
+
     JQueryLocator showDataLocator = pjq("input[id$=noDataCheckbox]");
 
     public void setShowData(boolean showData) {
@@ -68,7 +68,7 @@ public class CollapsibleSubTableAttributes extends AbstractComponentAttributes {
     public void setRows(Integer rows) {
         setProperty("rows", rows);
     }
-    
+
     public Integer getRows() {
         return Integer.valueOf(getProperty("rows"));
     }
