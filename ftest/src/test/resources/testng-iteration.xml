@@ -3,8 +3,13 @@
 
     <test name="Iteration Components">
         <packages>
+            <package name="org.richfaces.tests.metamer.ftest.richCollapsibleSubTable" />
+            <package name="org.richfaces.tests.metamer.ftest.richCollapsibleSubTableToggler" />
+            <package name="org.richfaces.tests.metamer.ftest.richColumn" />
+            <package name="org.richfaces.tests.metamer.ftest.richColumnGroup" />
             <package name="org.richfaces.tests.metamer.ftest.richDataGrid" />
             <package name="org.richfaces.tests.metamer.ftest.richDataTable" />
+            <package name="org.richfaces.tests.metamer.ftest.richDataScroller" />
             <package name="org.richfaces.tests.metamer.ftest.richExtendedDataTable" />
         </packages>
     </test>
