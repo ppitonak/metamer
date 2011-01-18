@@ -27,7 +27,7 @@ import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
-import org.richfaces.component.html.HtmlTogglePanelItem;
+import org.richfaces.component.UITogglePanelItem;
 import org.richfaces.tests.metamer.Attributes;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -54,7 +54,7 @@ public class RichTogglePanelItemBean implements Serializable {
         logger = LoggerFactory.getLogger(getClass());
         logger.debug("initializing bean " + getClass().getName());
 
-        attributes = Attributes.getComponentAttributesFromFacesConfig(HtmlTogglePanelItem.class, getClass());
+        attributes = Attributes.getComponentAttributesFromFacesConfig(UITogglePanelItem.class, getClass());
 
         attributes.setAttribute("name", "item1");
         attributes.setAttribute("rendered", true);

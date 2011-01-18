@@ -21,16 +21,15 @@
  *******************************************************************************/
 package org.richfaces.tests.metamer.bean;
 
-import java.io.Serializable;
+import org.richfaces.component.UITabPanel;
+import org.richfaces.tests.metamer.Attributes;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
-
-import org.richfaces.component.html.HtmlTabPanel;
-import org.richfaces.tests.metamer.Attributes;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import java.io.Serializable;
 
 /**
  * Managed bean for rich:tabPanel.
@@ -54,7 +53,7 @@ public class RichTabPanelBean implements Serializable {
         logger = LoggerFactory.getLogger(getClass());
         logger.debug("initializing bean " + getClass().getName());
 
-        attributes = Attributes.getComponentAttributesFromClass(HtmlTabPanel.class, getClass());
+        attributes = Attributes.getComponentAttributesFromClass(UITabPanel.class, getClass());
 
         attributes.setAttribute("activeItem", "tab1");
         attributes.setAttribute("rendered", true);

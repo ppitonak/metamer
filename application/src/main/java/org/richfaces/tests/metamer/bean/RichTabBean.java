@@ -27,7 +27,7 @@ import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
-import org.richfaces.component.html.HtmlTab;
+import org.richfaces.component.AbstractTab;
 import org.richfaces.tests.metamer.Attributes;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -54,7 +54,7 @@ public class RichTabBean implements Serializable {
         logger = LoggerFactory.getLogger(getClass());
         logger.debug("initializing bean " + getClass().getName());
 
-        attributes = Attributes.getComponentAttributesFromClass(HtmlTab.class, getClass());
+        attributes = Attributes.getComponentAttributesFromClass(AbstractTab.class, getClass());
 
         attributes.setAttribute("header", "tab1 header");
         attributes.setAttribute("name", "tab1");

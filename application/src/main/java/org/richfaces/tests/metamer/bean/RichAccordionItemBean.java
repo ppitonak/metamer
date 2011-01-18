@@ -26,7 +26,8 @@ import java.io.Serializable;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
-import org.richfaces.component.html.HtmlAccordionItem;
+
+import org.richfaces.component.AbstractAccordionItem;
 
 import org.richfaces.tests.metamer.Attributes;
 import org.slf4j.Logger;
@@ -54,7 +55,7 @@ public class RichAccordionItemBean implements Serializable {
         logger = LoggerFactory.getLogger(getClass());
         logger.debug("initializing bean " + getClass().getName());
 
-        attributes = Attributes.getComponentAttributesFromFacesConfig(HtmlAccordionItem.class, getClass());
+        attributes = Attributes.getComponentAttributesFromFacesConfig(AbstractAccordionItem.class, getClass());
 
         attributes.setAttribute("header", "Item 1");
         attributes.setAttribute("name", "item1");
