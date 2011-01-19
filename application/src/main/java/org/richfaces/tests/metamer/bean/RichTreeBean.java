@@ -80,21 +80,13 @@ public class RichTreeBean implements Serializable {
         attributes.get("toggleType").setValue("ajax");
         attributes.get("selectionType").setValue("ajax");
 
-        // FIXME attributes not in taglib
-        attributes.setAttribute("iconLeaf", null);
-        attributes.setAttribute("iconExpanded", null);
-        attributes.setAttribute("iconCollapsed", null);
-        attributes.setAttribute("handleClass", null);
-        attributes.setAttribute("iconClass", null);
-        attributes.setAttribute("labelClass", null);
-        attributes.setAttribute("nodeClass", null);
-        attributes.setAttribute("execute", null);
-        attributes.setAttribute("render", null);
-        attributes.setAttribute("toggleNodeEvent", null);
-
-        // hidden attributes
+        // attributes which needs to be tested another way
         attributes.remove("selectionChangeListener");
         attributes.remove("toggleListener");
+        attributes.remove("value");
+        attributes.remove("var");
+        attributes.remove("rowKeyVar");
+        attributes.remove("stateVar");
 
         for (CompactDiscXmlDescriptor descriptor : model.getCompactDiscs()) {
             createCompactDisc(descriptor);

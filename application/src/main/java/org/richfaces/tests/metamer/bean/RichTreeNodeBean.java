@@ -54,17 +54,10 @@ public class RichTreeNodeBean implements Serializable {
 
         for (int i = 0; i < attributes.length; i++) {
             attributes[i] = Attributes.getComponentAttributesFromFacesConfig(UITreeNode.class, getClass());
-
-        
             attributes[i].get("rendered").setValue(true);
-    
-            // FIXME attributes not in taglib
-            attributes[i].setAttribute("iconLeaf", null);
-            attributes[i].setAttribute("iconExpanded", null);
-            attributes[i].setAttribute("iconCollapsed", null);
-            attributes[i].setAttribute("handleClass", null);
-            attributes[i].setAttribute("iconClass", null);
-            attributes[i].setAttribute("labelClass", null);
+            
+            // attributes which needs to be tested another way
+            attributes[i].remove("type");
         }
     }
 
