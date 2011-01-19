@@ -20,6 +20,12 @@ body {
     border-color: '#{a4jSkin.panelBorderColor}';
 }
 
+.phases-list {
+	font-size: 0.7em;
+	height: 130px;
+	overflow: auto;
+}
+
 a img {
     border: 0px;
 }
