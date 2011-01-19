@@ -33,7 +33,6 @@ import java.util.List;
 
 import org.jboss.test.selenium.request.RequestType;
 import org.richfaces.ExpandMode;
-import org.richfaces.component.UICollapsibleSubTable;
 import org.richfaces.tests.metamer.ftest.annotations.IssueTracking;
 import org.richfaces.tests.metamer.ftest.annotations.Use;
 import org.richfaces.tests.metamer.model.Employee;
@@ -93,8 +92,6 @@ public class TestCollapsibleSubTableSimple extends AbstractCollapsibleSubTableTe
 
         assertTrue(configurationMen.subtable.hasVisibleRows());
         assertTrue(configurationWomen.subtable.hasVisibleRows());
-
-        new UICollapsibleSubTable().getCaptionClass();
     }
 
     @Test
