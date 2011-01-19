@@ -1,6 +1,6 @@
 /*******************************************************************************
  * JBoss, Home of Professional Open Source
- * Copyright 2010, Red Hat, Inc. and individual contributors
+ * Copyright 2010-2011, Red Hat, Inc. and individual contributors
  * by the @authors tag. See the copyright.txt in the distribution for a
  * full listing of individual contributors.
  *
@@ -27,8 +27,7 @@ import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
-import org.richfaces.component.AbstractAccordionItem;
-
+import org.richfaces.component.UIAccordionItem;
 import org.richfaces.tests.metamer.Attributes;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -55,7 +54,7 @@ public class RichAccordionItemBean implements Serializable {
         logger = LoggerFactory.getLogger(getClass());
         logger.debug("initializing bean " + getClass().getName());
 
-        attributes = Attributes.getComponentAttributesFromFacesConfig(AbstractAccordionItem.class, getClass());
+        attributes = Attributes.getComponentAttributesFromFacesConfig(UIAccordionItem.class, getClass());
 
         attributes.setAttribute("header", "Item 1");
         attributes.setAttribute("name", "item1");

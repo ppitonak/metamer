@@ -1,6 +1,6 @@
 /*******************************************************************************
  * JBoss, Home of Professional Open Source
- * Copyright 2010, Red Hat, Inc. and individual contributors
+ * Copyright 2010-2011, Red Hat, Inc. and individual contributors
  * by the @authors tag. See the copyright.txt in the distribution for a
  * full listing of individual contributors.
  *
@@ -27,7 +27,7 @@ import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
-import org.richfaces.component.html.HtmlPanelMenuItem;
+import org.richfaces.component.UIPanelMenuItem;
 import org.richfaces.tests.metamer.Attributes;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -53,15 +53,15 @@ public class RichPanelMenuItemBean implements Serializable {
     public void init() {
         logger = LoggerFactory.getLogger(getClass());
         logger.debug("initializing bean " + getClass().getName());
-        
-        attributes = Attributes.getComponentAttributesFromClass(HtmlPanelMenuItem.class, getClass());
-        
+
+        attributes = Attributes.getComponentAttributesFromFacesConfig(UIPanelMenuItem.class, getClass());
+
         attributes.setAttribute("rendered", true);
-        
+
         // already defined in source directly
         attributes.remove("name");
         attributes.remove("label");
-        
+
         // attributes should be hidden
         attributes.remove("panelMenu");
         attributes.remove("parentItem");

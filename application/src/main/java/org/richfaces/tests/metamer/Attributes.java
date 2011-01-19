@@ -45,6 +45,7 @@ import java.util.regex.Pattern;
 import javax.el.ELContext;
 import javax.el.ExpressionFactory;
 import javax.el.MethodExpression;
+import javax.faces.FacesException;
 import javax.faces.bean.ManagedBean;
 import javax.faces.component.UIComponent;
 import javax.faces.component.behavior.BehaviorBase;
@@ -103,6 +104,8 @@ public final class Attributes implements Map<String, Attribute>, Serializable {
                 Attribute newAttr = new Attribute(a);
                 attributes.put(newAttr.getName(), newAttr);
             }
+        } else if (!loadFromClass && !richfacesAttributes.containsKey(componentClass)) {
+            throw new FacesException("Componnent " + componentClass.getName() + " is not included in faces-config.xml.");
         } else {
             logger.debug("retrieving attributes of " + componentClass.getName() + " from class descriptor");
             loadAttributesFromClass(componentClass);
@@ -631,68 +634,65 @@ public final class Attributes implements Map<String, Attribute>, Serializable {
     private void loadRichFacesComponents() {
         richfacesAttributes = new HashMap<Class<?>, List<Attribute>>();
 
-        final String[] files = {"META-INF/faces-config.xml", "META-INF/pn.faces-config.xml"};
+        try {
+            ClassLoader cl = UIStatus.class.getClassLoader();
+            Enumeration<URL> fileUrls = cl.getResources("META-INF/faces-config.xml");
+            URL configFile = null;
 
-        for (String file : files) {
-            try {
-                ClassLoader cl = UIStatus.class.getClassLoader();
-                Enumeration<URL> fileUrls = cl.getResources(file);
-                URL configFile = null;
-
-                while (fileUrls.hasMoreElements()) {
-                    URL url = fileUrls.nextElement();
-                    if (url.getPath().contains("richfaces-components-ui")) {
-                        configFile = url;
-                    }
+            while (fileUrls.hasMoreElements()) {
+                URL url = fileUrls.nextElement();
+                if (url.getPath().contains("richfaces-components-ui")) {
+                    configFile = url;
                 }
-
-                JAXBContext context = JAXBContext.newInstance(FacesConfigHolder.class);
-                FacesConfigHolder facesConfigHolder = (FacesConfigHolder) context.createUnmarshaller().unmarshal(configFile);
-                List<Component> components = facesConfigHolder.getComponents();
-                List<Behavior> behaviors = facesConfigHolder.getBehaviors();
-
-                for (Component c : components) {
-                    if (c.getAttributes() == null) {
-                        continue;
-                    }
-
-                    // remove hidden attributes
-                    Iterator<Attribute> i = c.getAttributes().iterator();
-                    while (i.hasNext()) {
-                        Attribute a = i.next();
-                        if (a.isHidden() || "id".equals(a.getName()) || "binding".equals(a.getName())) {
-                            i.remove();
-                        }
-                    }
-
-                    richfacesAttributes.put(c.getComponentClass(), c.getAttributes());
-                    logger.info("attributes for component " + c.getComponentClass().getName() + " loaded");
-                }
-
-                for (Behavior b : behaviors) {
-                    if (b.getAttributes() == null) {
-                        continue;
-                    }
-
-                    // remove hidden attributes
-                    Iterator<Attribute> i = b.getAttributes().iterator();
-                    while (i.hasNext()) {
-                        Attribute a = i.next();
-                        if (a.isHidden() || "id".equals(a.getName()) || "binding".equals(a.getName())) {
-                            i.remove();
-                        }
-                    }
-
-                    richfacesAttributes.put(b.getBehaviorClass(), b.getAttributes());
-                    logger.info("attributes for behavior " + b.getBehaviorClass().getName() + " loaded");
-                }
-
-            } catch (IOException ex) {
-                logger.error("Input/output error.", ex);
-            } catch (JAXBException ex) {
-                logger.error("XML reading error.", ex);
             }
+
+            JAXBContext context = JAXBContext.newInstance(FacesConfigHolder.class);
+            FacesConfigHolder facesConfigHolder = (FacesConfigHolder) context.createUnmarshaller().unmarshal(configFile);
+            List<Component> components = facesConfigHolder.getComponents();
+            List<Behavior> behaviors = facesConfigHolder.getBehaviors();
+
+            for (Component c : components) {
+                if (c.getAttributes() == null) {
+                    continue;
+                }
+
+                // remove hidden attributes
+                Iterator<Attribute> i = c.getAttributes().iterator();
+                while (i.hasNext()) {
+                    Attribute a = i.next();
+                    if (a.isHidden() || "id".equals(a.getName()) || "binding".equals(a.getName())) {
+                        i.remove();
+                    }
+                }
+
+                richfacesAttributes.put(c.getComponentClass(), c.getAttributes());
+                logger.info("attributes for component " + c.getComponentClass().getName() + " loaded");
+            }
+
+            for (Behavior b : behaviors) {
+                if (b.getAttributes() == null) {
+                    continue;
+                }
+
+                // remove hidden attributes
+                Iterator<Attribute> i = b.getAttributes().iterator();
+                while (i.hasNext()) {
+                    Attribute a = i.next();
+                    if (a.isHidden() || "id".equals(a.getName()) || "binding".equals(a.getName())) {
+                        i.remove();
+                    }
+                }
+
+                richfacesAttributes.put(b.getBehaviorClass(), b.getAttributes());
+                logger.info("attributes for behavior " + b.getBehaviorClass().getName() + " loaded");
+            }
+
+        } catch (IOException ex) {
+            logger.error("Input/output error.", ex);
+        } catch (JAXBException ex) {
+            logger.error("XML reading error.", ex);
         }
+
     }
 
     @XmlRootElement(name = "faces-config", namespace = "http://java.sun.com/xml/ns/javaee")

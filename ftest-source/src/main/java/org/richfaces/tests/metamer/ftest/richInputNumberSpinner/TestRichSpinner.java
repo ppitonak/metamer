@@ -464,8 +464,7 @@ public class TestRichSpinner extends AbstractMetamerTest {
 
     @Test
     public void testRendered() {
-        JQueryLocator renderedInput = pjq("input[type=radio][name$=renderedInput][value=false]");
-        selenium.click(renderedInput);
+        selenium.click(pjq("input[type=radio][name$=renderedInput][value=false]"));
         selenium.waitForPageToLoad();
 
         assertFalse(selenium.isElementPresent(spinner), "Spinner should not be rendered when rendered=false.");
