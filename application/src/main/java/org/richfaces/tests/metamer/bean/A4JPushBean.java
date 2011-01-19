@@ -1,6 +1,6 @@
 /*******************************************************************************
  * JBoss, Home of Professional Open Source
- * Copyright 2010, Red Hat, Inc. and individual contributors
+ * Copyright 2010-2011, Red Hat, Inc. and individual contributors
  * by the @authors tag. See the copyright.txt in the distribution for a
  * full listing of individual contributors.
  *
@@ -19,7 +19,6 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  *******************************************************************************/
-
 package org.richfaces.tests.metamer.bean;
 
 import java.io.Serializable;
@@ -31,9 +30,9 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.event.ActionEvent;
+
 //import org.ajax4jsf.event.PushEventListener;
 import org.richfaces.component.UIPush;
-
 import org.richfaces.tests.metamer.Attributes;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -53,7 +52,6 @@ public class A4JPushBean implements Serializable {
     private Attributes attributes;
     private int counter = 0;
 //    private transient volatile PushEventListener listener;
-
     @ManagedProperty(value = "#{a4jPushEventProcuder}")
     private transient A4JPushEventProcuder pushEventProducer;
 
@@ -102,12 +100,11 @@ public class A4JPushBean implements Serializable {
     public void setAttributes(Attributes attributes) {
         this.attributes = attributes;
     }
-    
+
 //    public void setListener(EventListener listener) {
 //        this.listener = (PushEventListener) listener;
 //        pushEventProducer.registerListener(this.listener);
 //    }
-
     public int getCounter() {
         return counter;
     }
@@ -134,4 +131,3 @@ public class A4JPushBean implements Serializable {
         return new Date();
     }
 }
-

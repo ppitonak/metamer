@@ -1,6 +1,6 @@
 /*******************************************************************************
  * JBoss, Home of Professional Open Source
- * Copyright 2010, Red Hat, Inc. and individual contributors
+ * Copyright 2010-2011, Red Hat, Inc. and individual contributors
  * by the @authors tag. See the copyright.txt in the distribution for a
  * full listing of individual contributors.
  *
@@ -137,11 +137,11 @@ public class Attribute implements Serializable {
     public void setType(Class<?> type) {
         this.type = type;
     }
-    
+
     public Class<?> getMemberType() {
         return memberType;
     }
-    
+
     public void setMemberType(Class<?> memberType) {
         this.memberType = memberType;
     }

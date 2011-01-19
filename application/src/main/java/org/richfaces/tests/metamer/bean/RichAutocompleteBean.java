@@ -1,6 +1,6 @@
 /*******************************************************************************
  * JBoss, Home of Professional Open Source
- * Copyright 2010, Red Hat, Inc. and individual contributors
+ * Copyright 2010-2011, Red Hat, Inc. and individual contributors
  * by the @authors tag. See the copyright.txt in the distribution for a
  * full listing of individual contributors.
  *
@@ -30,8 +30,8 @@ import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
-import org.richfaces.component.UIAutocomplete;
 
+import org.richfaces.component.UIAutocomplete;
 import org.richfaces.tests.metamer.Attributes;
 import org.richfaces.tests.metamer.model.Capital;
 import org.slf4j.Logger;
@@ -63,7 +63,7 @@ public class RichAutocompleteBean implements Serializable {
         logger = LoggerFactory.getLogger(getClass());
         logger.debug("initializing bean " + getClass().getName());
 
-        attributes = Attributes.getComponentAttributesFromClass(UIAutocomplete.class, getClass());
+        attributes = Attributes.getComponentAttributesFromFacesConfig(UIAutocomplete.class, getClass());
         attributes.setAttribute("converterMessage", "converter message");
         attributes.setAttribute("mode", "ajax");
         attributes.setAttribute("rendered", true);

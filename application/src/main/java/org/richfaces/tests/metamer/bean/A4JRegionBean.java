@@ -1,6 +1,6 @@
 /*******************************************************************************
  * JBoss, Home of Professional Open Source
- * Copyright 2010, Red Hat, Inc. and individual contributors
+ * Copyright 2010-2011, Red Hat, Inc. and individual contributors
  * by the @authors tag. See the copyright.txt in the distribution for a
  * full listing of individual contributors.
  *
@@ -47,11 +47,11 @@ import org.slf4j.LoggerFactory;
 public class A4JRegionBean implements Serializable {
 
     private static final long serialVersionUID = -1L;
-    private static final SelectItem[] AVAILABLE_EXECUTE_OPTIONS = new SelectItem[] { new SelectItem(null, "default"),
+    private static final SelectItem[] AVAILABLE_EXECUTE_OPTIONS = new SelectItem[]{new SelectItem(null, "default"),
         new SelectItem("@all"), new SelectItem("@form"), new SelectItem("@region"), new SelectItem("@this"),
         new SelectItem("outerValueInput", "Outer"), new SelectItem("regionValueInput", "Region"),
         new SelectItem("nestedRegionValueInput", "Nested region"),
-        new SelectItem("decorationValueInput", "Decoration"), new SelectItem("insertionValueInput", "Insertion") };
+        new SelectItem("decorationValueInput", "Decoration"), new SelectItem("insertionValueInput", "Insertion")};
     private static Logger logger;
     // for page simple.xhtml
     private Attributes attributes;
@@ -81,7 +81,7 @@ public class A4JRegionBean implements Serializable {
         user1 = new Employee();
         user2 = new Employee();
 
-        attributes = Attributes.getComponentAttributesFromClass(UIRegion.class, getClass());
+        attributes = Attributes.getComponentAttributesFromFacesConfig(UIRegion.class, getClass());
         attributes.setAttribute("rendered", true);
     }
 
@@ -162,7 +162,7 @@ public class A4JRegionBean implements Serializable {
     public void setOuterExecute(String outerExecute) {
         this.outerExecute = outerExecute;
     }
-    
+
     public String getInsertionExecute() {
         return insertionExecute;
     }

@@ -1,6 +1,6 @@
 /*******************************************************************************
  * JBoss, Home of Professional Open Source
- * Copyright 2010, Red Hat, Inc. and individual contributors
+ * Copyright 2010-2011, Red Hat, Inc. and individual contributors
  * by the @authors tag. See the copyright.txt in the distribution for a
  * full listing of individual contributors.
  *
@@ -57,8 +57,8 @@ public class A4JPollBean implements Serializable {
         logger = LoggerFactory.getLogger(getClass());
         logger.debug("initializing bean " + getClass().getName());
 
-        attributes = Attributes.getComponentAttributesFromClass(UIPoll.class, getClass());
-        
+        attributes = Attributes.getComponentAttributesFromFacesConfig(UIPoll.class, getClass());
+
         attributes.setAttribute("enabled", true);
         attributes.setAttribute("rendered", true);
         attributes.setAttribute("interval", 2500);
@@ -115,4 +115,3 @@ public class A4JPollBean implements Serializable {
         counter--;
     }
 }
-

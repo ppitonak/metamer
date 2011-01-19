@@ -1,6 +1,6 @@
 /*******************************************************************************
  * JBoss, Home of Professional Open Source
- * Copyright 2010, Red Hat, Inc. and individual contributors
+ * Copyright 2010-2011, Red Hat, Inc. and individual contributors
  * by the @authors tag. See the copyright.txt in the distribution for a
  * full listing of individual contributors.
  *
@@ -61,7 +61,7 @@ public class RichJQueryBean implements Serializable {
         componentsDataList = new ArrayList<String>();
         addComponent();
 
-        attributes = Attributes.getComponentAttributesFromClass(UIJQuery.class, getClass());
+        attributes = Attributes.getComponentAttributesFromFacesConfig(UIJQuery.class, getClass());
 
         attributes.setAttribute("event", "click");
         attributes.setAttribute("name", "bubu");

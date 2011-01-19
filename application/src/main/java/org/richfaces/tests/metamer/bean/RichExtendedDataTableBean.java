@@ -1,6 +1,6 @@
 /*******************************************************************************
  * JBoss, Home of Professional Open Source
- * Copyright 2010, Red Hat, Inc. and individual contributors
+ * Copyright 2010-2011, Red Hat, Inc. and individual contributors
  * by the @authors tag. See the copyright.txt in the distribution for a
  * full listing of individual contributors.
  *
@@ -19,7 +19,6 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  *******************************************************************************/
-
 package org.richfaces.tests.metamer.bean;
 
 import java.io.Serializable;
@@ -59,24 +58,23 @@ public class RichExtendedDataTableBean implements Serializable {
     private int page = 1;
     // true = model, false = empty table
     private boolean state = true;
-
     // sorting
     private ColumnSortingMap sorting = new ColumnSortingMap() {
+
         private static final long serialVersionUID = 1L;
+
         protected UIDataTableBase getBinding() {
             return binding;
         }
+
         protected Attributes getAttributes() {
             return attributes;
         }
     };
-
     // filtering
     private Map<String, Object> filtering = new HashMap<String, Object>();
-
     // facets
     private Map<String, String> facets = new HashMap<String, String>();
-
     private UIExtendedDataTable binding;
 
     /**
@@ -87,13 +85,13 @@ public class RichExtendedDataTableBean implements Serializable {
         logger = LoggerFactory.getLogger(getClass());
         logger.debug("initializing bean " + getClass().getName());
 
-        attributes = Attributes.getComponentAttributesFromClass(UIExtendedDataTable.class, getClass());
+        attributes = Attributes.getComponentAttributesFromFacesConfig(UIExtendedDataTable.class, getClass());
 
         attributes.setAttribute("rendered", true);
         attributes.setAttribute("rows", 30);
         attributes.setAttribute("styleClass", "extended-data-table");
         attributes.setAttribute("style", null);
-        
+
         // setup types
         attributes.get("selection").setType(TreeSet.class);
         attributes.get("selection").setMemberType(Integer.class);
@@ -215,7 +213,7 @@ public class RichExtendedDataTableBean implements Serializable {
             public boolean accept(Employee e) {
                 String sex = (String) getFiltering().get("sex");
                 if (sex == null || sex.length() == 0 || sex.equalsIgnoreCase("all")
-                    || sex.equalsIgnoreCase(e.getSex().toString())) {
+                        || sex.equalsIgnoreCase(e.getSex().toString())) {
                     return true;
                 }
                 return false;
@@ -234,8 +232,4 @@ public class RichExtendedDataTableBean implements Serializable {
     public Map<String, Object> getFiltering() {
         return filtering;
     }
-
-    
-
-    
 }

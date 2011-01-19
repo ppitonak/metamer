@@ -1,6 +1,6 @@
 /*******************************************************************************
  * JBoss, Home of Professional Open Source
- * Copyright 2010, Red Hat, Inc. and individual contributors
+ * Copyright 2010-2011, Red Hat, Inc. and individual contributors
  * by the @authors tag. See the copyright.txt in the distribution for a
  * full listing of individual contributors.
  *
@@ -26,8 +26,8 @@ import java.io.Serializable;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
-import org.richfaces.component.UIAttachQueue;
 
+import org.richfaces.component.UIAttachQueue;
 import org.richfaces.tests.metamer.Attributes;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -58,21 +58,21 @@ public class A4JAttachQueueBean implements Serializable {
         logger.debug("initializing bean " + getClass().getName());
 
         // initialize attributes
-        attributes = Attributes.getComponentAttributesFromClass(UIAttachQueue.class, getClass());
+        attributes = Attributes.getComponentAttributesFromFacesConfig(UIAttachQueue.class, getClass());
         initializeAttributes(attributes);
         attributes.setAttribute("requestDelay", 500);
 
-        attributes2 = Attributes.getComponentAttributesFromClass(UIAttachQueue.class, getClass());
+        attributes2 = Attributes.getComponentAttributesFromFacesConfig(UIAttachQueue.class, getClass());
         initializeAttributes(attributes2);
         attributes2.setAttribute("requestDelay", 1500);
     }
-    
+
     private void initializeAttributes(Attributes attributes) {
         attributes.setAttribute("rendered", true);
-        
+
         // hidden attributes
         attributes.remove("queueId");
-        
+
         // not implemented yet
         // TODO RFPL-734
         attributes.remove("name");

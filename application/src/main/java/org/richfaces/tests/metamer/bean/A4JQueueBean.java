@@ -1,6 +1,6 @@
 /*******************************************************************************
  * JBoss, Home of Professional Open Source
- * Copyright 2010, Red Hat, Inc. and individual contributors
+ * Copyright 2010-2011, Red Hat, Inc. and individual contributors
  * by the @authors tag. See the copyright.txt in the distribution for a
  * full listing of individual contributors.
  *
@@ -26,8 +26,8 @@ import java.io.Serializable;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
-import org.richfaces.component.UIQueue;
 
+import org.richfaces.component.UIQueue;
 import org.richfaces.tests.metamer.Attributes;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -46,7 +46,6 @@ public class A4JQueueBean implements Serializable {
     private static Logger logger;
     private Attributes attributes;
     private String text;
-
     private A4JQueueBean globalQueue;
     private A4JQueueBean formQueue1;
     private A4JQueueBean formQueue2;
@@ -60,7 +59,7 @@ public class A4JQueueBean implements Serializable {
         logger.debug("initializing bean " + getClass().getName());
 
         // initialize attributes
-        attributes = Attributes.getComponentAttributesFromClass(UIQueue.class, getClass());
+        attributes = Attributes.getComponentAttributesFromFacesConfig(UIQueue.class, getClass());
         attributes.setAttribute("rendered", true);
         attributes.setAttribute("requestDelay", 750);
 
@@ -106,7 +105,7 @@ public class A4JQueueBean implements Serializable {
         }
         return formQueue2;
     }
-    
+
     public A4JQueueBean[] getFormQueues() {
         return new A4JQueueBean[]{getFormQueue1(), getFormQueue2()};
     }

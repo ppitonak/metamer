@@ -1,6 +1,6 @@
 /*******************************************************************************
  * JBoss, Home of Professional Open Source
- * Copyright 2010, Red Hat, Inc. and individual contributors
+ * Copyright 2010-2011, Red Hat, Inc. and individual contributors
  * by the @authors tag. See the copyright.txt in the distribution for a
  * full listing of individual contributors.
  *
@@ -19,7 +19,6 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  *******************************************************************************/
-
 package org.richfaces.tests.metamer.bean;
 
 import java.io.Serializable;
@@ -48,7 +47,7 @@ public class RichDataScrollerBean implements Serializable {
     private Attributes attributes;
     private int page = 1;
     private boolean state = true;
-    
+
     /**
      * Initializes the managed bean.
      */
@@ -57,8 +56,8 @@ public class RichDataScrollerBean implements Serializable {
         logger = LoggerFactory.getLogger(getClass());
         logger.debug("initializing bean " + getClass().getName());
 
-        attributes = Attributes.getComponentAttributesFromClass(UIDataScroller.class, getClass());
-        
+        attributes = Attributes.getComponentAttributesFromFacesConfig(UIDataScroller.class, getClass());
+
         attributes.setAttribute("boundaryControls", "show");
         attributes.setAttribute("fastControls", "show");
         attributes.setAttribute("fastStep", 1);
@@ -114,5 +113,4 @@ public class RichDataScrollerBean implements Serializable {
     public void setState(boolean state) {
         this.state = state;
     }
-
 }

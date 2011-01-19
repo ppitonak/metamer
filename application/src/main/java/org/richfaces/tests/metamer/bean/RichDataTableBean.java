@@ -1,6 +1,6 @@
 /*******************************************************************************
  * JBoss, Home of Professional Open Source
- * Copyright 2010, Red Hat, Inc. and individual contributors
+ * Copyright 2010-2011, Red Hat, Inc. and individual contributors
  * by the @authors tag. See the copyright.txt in the distribution for a
  * full listing of individual contributors.
  *
@@ -87,7 +87,7 @@ public class RichDataTableBean implements Serializable {
         logger = LoggerFactory.getLogger(getClass());
         logger.debug("initializing bean " + getClass().getName());
 
-        attributes = Attributes.getComponentAttributesFromClass(UIDataTable.class, getClass());
+        attributes = Attributes.getComponentAttributesFromFacesConfig(UIDataTable.class, getClass());
 
         attributes.setAttribute("rendered", true);
         attributes.setAttribute("rows", 10);

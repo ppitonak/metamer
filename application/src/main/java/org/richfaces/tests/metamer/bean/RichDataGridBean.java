@@ -1,6 +1,6 @@
 /*******************************************************************************
  * JBoss, Home of Professional Open Source
- * Copyright 2010, Red Hat, Inc. and individual contributors
+ * Copyright 2010-2011, Red Hat, Inc. and individual contributors
  * by the @authors tag. See the copyright.txt in the distribution for a
  * full listing of individual contributors.
  *
@@ -19,7 +19,6 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  *******************************************************************************/
-
 package org.richfaces.tests.metamer.bean;
 
 import java.io.Serializable;
@@ -49,7 +48,7 @@ public class RichDataGridBean implements Serializable {
     // true = model, false = empty table
     private boolean state = true;
     private int page = 1;
-    
+
     /**
      * Initializes the managed bean.
      */
@@ -58,11 +57,11 @@ public class RichDataGridBean implements Serializable {
         logger = LoggerFactory.getLogger(getClass());
         logger.debug("initializing bean " + getClass().getName());
 
-        attributes = Attributes.getComponentAttributesFromClass(UIDataGrid.class, getClass());
+        attributes = Attributes.getComponentAttributesFromFacesConfig(UIDataGrid.class, getClass());
 
         attributes.setAttribute("columns", 3);
         attributes.setAttribute("rendered", true);
-        
+
         // TODO has to be tested in other way
         attributes.remove("componentState");
         attributes.remove("rowKeyVar");
@@ -70,7 +69,7 @@ public class RichDataGridBean implements Serializable {
         attributes.remove("stateVar");
         attributes.remove("value");
         attributes.remove("var");
-        
+
         // should be hidden
         attributes.remove("rows");
         attributes.remove("rowAvailable");
@@ -104,5 +103,4 @@ public class RichDataGridBean implements Serializable {
     public void setPage(int page) {
         this.page = page;
     }
-    
 }
