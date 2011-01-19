@@ -26,9 +26,10 @@ import static org.jboss.test.selenium.locator.LocatorFactory.jq;
 import static org.jboss.test.selenium.utils.URLUtils.buildUrl;
 import static org.testng.Assert.assertEquals;
 
+import java.awt.Color;
 import java.net.URL;
 
-import org.jboss.test.selenium.css.CssProperty;
+import org.jboss.cheiron.retriever.ColorRetriever;
 import org.jboss.test.selenium.locator.JQueryLocator;
 import org.richfaces.tests.metamer.ftest.AbstractMetamerTest;
 import org.testng.annotations.Test;
@@ -46,6 +47,8 @@ public class TestSimple extends AbstractMetamerTest {
 
     RichJQueryAttributes attributes = new RichJQueryAttributes();
 
+    ColorRetriever buttonColorRetriver = new ColorRetriever().locator(button);
+
     @Override
     public URL getTestUrl() {
         return buildUrl(contextPath, "faces/components/richJQuery/simple.xhtml");
@@ -55,20 +58,21 @@ public class TestSimple extends AbstractMetamerTest {
     public void testDefaultTiming() {
         setupDomReadyTypeAttributes();
         attributes.setTiming(null);
-        assertEquals("red", selenium.getStyle(button, CssProperty.COLOR));
+        assertEquals(buttonColorRetriver.retrieve(), Color.RED);
     }
 
     @Test
     public void testTimingImmediate() {
         setupImmediateTypeAttributes();
+        buttonColorRetriver.initializeValue();
         selenium.click(button);
-        waitGui.until(styleEquals.locator(button).property(CssProperty.COLOR).value("red"));
+        assertEquals(waitModel.waitForChangeAndReturn(buttonColorRetriver), Color.RED);
     }
 
     @Test
     public void testTimingDomReady() {
         setupDomReadyTypeAttributes();
-        assertEquals("red", selenium.getStyle(button, CssProperty.COLOR));
+        assertEquals(buttonColorRetriver.retrieve(), Color.RED);
     }
 
     @Test
