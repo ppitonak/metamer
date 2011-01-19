@@ -1,6 +1,6 @@
 /*******************************************************************************
  * JBoss, Home of Professional Open Source
- * Copyright 2010, Red Hat, Inc. and individual contributors
+ * Copyright 2010-2011, Red Hat, Inc. and individual contributors
  * by the @authors tag. See the copyright.txt in the distribution for a
  * full listing of individual contributors.
  *
@@ -417,11 +417,11 @@ public class TestRichAccordion extends AbstractMetamerTest {
         assertFalse(selenium.isAttributePresent(attribute), "Attribute style should not be present.");
 
         // width = 50%
-        selenium.type(pjq("input[type=text][id$=widthInput]"), "50%");
+        selenium.type(pjq("input[type=text][id$=widthInput]"), "356px");
         selenium.waitForPageToLoad(TIMEOUT);
 
         assertTrue(selenium.isAttributePresent(attribute), "Attribute style should be present.");
         String value = selenium.getStyle(accordion, CssProperty.WIDTH);
-        assertEquals(value, "50%", "Attribute width");
+        assertEquals(value, "356px", "Attribute width");
     }
 }

@@ -1,6 +1,6 @@
 /*******************************************************************************
  * JBoss, Home of Professional Open Source
- * Copyright 2010, Red Hat, Inc. and individual contributors
+ * Copyright 2010-2011, Red Hat, Inc. and individual contributors
  * by the @authors tag. See the copyright.txt in the distribution for a
  * full listing of individual contributors.
  *
@@ -190,6 +190,7 @@ public class TestRichCalendarAttributes extends AbstractCalendarTest {
     }
 
     @Test
+    @IssueTracking("https://issues.jboss.org/browse/RF-10255")
     public void testButtonIconDisabled() {
         selenium.click(pjq("input[name$=disabledInput][value=true]"));
         selenium.waitForPageToLoad();
