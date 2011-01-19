@@ -102,7 +102,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 		            	iconClass="#{richTreeNodeBean.attributes[0]['iconClass'].value}"
 		            	labelClass="#{richTreeNodeBean.attributes[0]['labelClass'].value}"
 		            	styleClass="#{richTreeNodeBean.attributes[0]['styleClass'].value}">
-		            	<f:facet name="loading">
+		            	<f:facet name="handleLoading">
 							<h:graphicImage value="/resources/images/loading.gif" rendered="#{richTreeBean.testLoadingFacet}" />
 						</f:facet>
 	           			<a4j:outputPanel id="panel">
@@ -141,7 +141,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 			            	labelClass="#{richTreeNodeBean.attributes[1]['labelClass'].value}"
 			            	styleClass="#{richTreeNodeBean.attributes[1]['styleClass'].value}"
 	           				>
-	           				<f:facet name="loading">
+	           				<f:facet name="handleLoading">
 								<h:graphicImage value="/resources/images/loading.gif" rendered="#{richTreeBean.testLoadingFacet}" />
 							</f:facet>
 	           				#{node.label}
