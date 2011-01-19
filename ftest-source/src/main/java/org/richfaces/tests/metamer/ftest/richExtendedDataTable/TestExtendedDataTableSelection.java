@@ -108,6 +108,7 @@ public class TestExtendedDataTableSelection extends AbstractDataTableTest {
     }
 
     @Test
+    @IssueTracking("https://issues.jboss.org/browse/RF-10256")
     public void testMultiSelectionUsingShiftBetweenPagesInReversedOrder() {
         IntRange range = new IntRange(12, 35);
 
@@ -139,6 +140,7 @@ public class TestExtendedDataTableSelection extends AbstractDataTableTest {
     }
 
     @Test
+    @IssueTracking("https://issues.jboss.org/browse/RF-10256")
     public void testMultiSelectionRemovingUsingCtrl() {
         IntRange range1 = new IntRange(2, 14);
 
