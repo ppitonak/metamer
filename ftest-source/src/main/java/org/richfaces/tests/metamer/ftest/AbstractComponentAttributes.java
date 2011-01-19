@@ -106,6 +106,10 @@ public class AbstractComponentAttributes {
                 applyRadio(locator);
             }
         } else if ("select".equals(inputType)) {
+            String curValue = selenium.getValue(locator);
+            if (valueAsString.equals(curValue)) {
+                return;
+            }
             applySelect(locator, valueAsString);
         }
     }
