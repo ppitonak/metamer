@@ -195,8 +195,8 @@ public class TestA4JLog extends AbstractMetamerTest {
     private void testLogging(LogLevel logLevel, LogLevel filterLevel) {
         JQueryLocator logButton = pjq("input[id$=" + logLevel.toString().toLowerCase() + "Button]");
         JQueryLocator levelInput = pjq("input[type=radio][value=" + filterLevel.toString().toLowerCase() + "]");
-        JQueryLocator msgType = logMsg.getChild(jq("span:eq(0)"));
-        JQueryLocator msgContent = logMsg.getChild(jq("span:eq(1)"));
+        JQueryLocator msgType = logMsg.getChild(jq("span.rf-log-entry-lbl"));
+        JQueryLocator msgContent = logMsg.getChild(jq("span.rf-log-entry-msg"));
 
         if (filterLevel != LogLevel.DEBUG) {
             selenium.click(levelInput);
@@ -217,10 +217,9 @@ public class TestA4JLog extends AbstractMetamerTest {
             return;
         }
         
-        String output = selenium.getText(msgType).replaceAll(" *\\[.*\\]:$", "");
-        assertEquals(output, logLevel.toString().toLowerCase(), "Message type in log.");
-        output = selenium.getText(msgContent);
-        assertEquals(output, logLevel.toString(), "Message content.");
-
+        String loggedValue = selenium.getText(msgType).replaceAll(" *\\[.*\\]:$", "");
+        assertEquals(loggedValue, logLevel.toString().toLowerCase(), "Message type in log.");
+        loggedValue = selenium.getText(msgContent);
+        assertEquals(loggedValue, logLevel.toString(), "Message content.");
     }
 }

@@ -1,6 +1,6 @@
 /*******************************************************************************
  * JBoss, Home of Professional Open Source
- * Copyright 2010, Red Hat, Inc. and individual contributors
+ * Copyright 2010-2011, Red Hat, Inc. and individual contributors
  * by the @authors tag. See the copyright.txt in the distribution for a
  * full listing of individual contributors.
  *
@@ -57,7 +57,7 @@ public class A4JLogBean implements Serializable {
 
         name = "John";
 
-        attributes = Attributes.getComponentAttributesFromClass(UIAjaxLog.class, getClass());
+        attributes = Attributes.getComponentAttributesFromFacesConfig(UIAjaxLog.class, getClass());
 
         attributes.setAttribute("rendered", true);
         attributes.setAttribute("level", "debug");
