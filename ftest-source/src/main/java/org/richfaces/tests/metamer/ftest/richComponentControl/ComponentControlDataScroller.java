@@ -21,13 +21,12 @@
  *******************************************************************************/
 package org.richfaces.tests.metamer.ftest.richComponentControl;
 
-import org.jboss.test.selenium.dom.Event;
+import static org.jboss.test.selenium.guard.request.RequestTypeGuardFactory.guardXhr;
+import static org.jboss.test.selenium.locator.LocatorFactory.jq;
+import static org.testng.Assert.assertEquals;
+
 import org.jboss.test.selenium.locator.JQueryLocator;
 import org.richfaces.tests.metamer.ftest.model.AssertingDataScroller;
-
-import static org.jboss.test.selenium.locator.LocatorFactory.*;
-import static org.jboss.test.selenium.guard.request.RequestTypeGuardFactory.*;
-import static org.testng.Assert.*;
 
 /**
  * @author <a href="mailto:lfryc@redhat.com">Lukas Fryc</a>
@@ -36,7 +35,8 @@ import static org.testng.Assert.*;
 public class ComponentControlDataScroller extends AssertingDataScroller {
 
     JQueryLocator button = jq(":submit[id$=button]");
-    JQueryLocator selectOperation = jq(":radio[name$=operationInput][value={0}]");
+
+    ComponentControlAttributes attributes = new ComponentControlAttributes();
 
     public ComponentControlDataScroller() {
         super(jq("span.rf-ds[id$=scroller]"));
@@ -63,11 +63,7 @@ public class ComponentControlDataScroller extends AssertingDataScroller {
     }
 
     private void doOperation(String operation) {
-        JQueryLocator locator = selectOperation.format(operation);
-        if (!"on".equals(selenium.getValue(locator))) {
-            selenium.check(locator);
-            guardHttp(selenium).fireEvent(locator, Event.CHANGE);
-        }
+        attributes.setOperation(operation);
         guardXhr(selenium).click(button);
     }
 
