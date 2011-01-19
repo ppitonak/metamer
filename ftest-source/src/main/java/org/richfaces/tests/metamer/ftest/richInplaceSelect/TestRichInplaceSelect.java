@@ -1,6 +1,6 @@
 /*******************************************************************************
  * JBoss, Home of Professional Open Source
- * Copyright 2010, Red Hat, Inc. and individual contributors
+ * Copyright 2010-2011, Red Hat, Inc. and individual contributors
  * by the @authors tag. See the copyright.txt in the distribution for a
  * full listing of individual contributors.
  *
@@ -523,13 +523,14 @@ public class TestRichInplaceSelect extends AbstractMetamerTest {
 
         selenium.click(select);
         selenium.click(options.format(10));
-        assertEquals(selenium.getText(label), "Click here to edit", "Label should contain default value.");
+        assertFalse(selenium.isDisplayed(label), "Label should not be displayed.");
         assertFalse(selenium.isDisplayed(popup), "Popup should not be displayed.");
 
         selenium.click(cancelButton);
+        waitGui.failWith("Default label is not displayed.").until(isDisplayed.locator(label));
+        assertEquals(selenium.getText(label), "Click here to edit", "Label should contain default value.");
         if (selenium.isElementPresent(popup)) {
             assertFalse(selenium.isDisplayed(popup), "Popup should not be displayed.");
         }
-        assertEquals(selenium.getText(label), "Click here to edit", "Label should contain default value.");
     }
 }
