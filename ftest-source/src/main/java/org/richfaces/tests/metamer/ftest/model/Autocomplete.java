@@ -158,10 +158,10 @@ public class Autocomplete implements Model {
 	}
 
 	public boolean isCompletionVisible() {
-		if (!selenium.isElementPresent(option)) {
+		if (!selenium.isElementPresent(items)) {
 			return false;
 		}
-		return selenium.isVisible(option);
+		return selenium.isVisible(items);
 	}
 
 	public void waitForCompletionVisible() {

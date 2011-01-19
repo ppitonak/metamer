@@ -22,6 +22,7 @@
 package org.richfaces.tests.metamer.ftest.richAutocomplete;
 
 import static org.jboss.test.selenium.RequestTypeModelGuard.guardXhr;
+import static org.jboss.test.selenium.RequestTypeModelGuard.guardNoRequest;
 import static org.jboss.test.selenium.utils.URLUtils.buildUrl;
 import static org.testng.Assert.assertEquals;
 
@@ -32,6 +33,7 @@ import java.util.List;
 import org.richfaces.tests.metamer.bean.Model;
 import org.richfaces.tests.metamer.ftest.AbstractMetamerTest;
 import org.richfaces.tests.metamer.ftest.annotations.Inject;
+import org.richfaces.tests.metamer.ftest.annotations.IssueTracking;
 import org.richfaces.tests.metamer.ftest.annotations.Use;
 import org.richfaces.tests.metamer.ftest.model.Autocomplete;
 import org.richfaces.tests.metamer.model.Capital;
@@ -42,118 +44,115 @@ import org.testng.annotations.Test;
  * @author <a href="mailto:lfryc@redhat.com">Lukas Fryc</a>
  * @version $Revision$
  */
+@IssueTracking("https://issues.jboss.org/browse/RF-10254")
 public class TestAutocompleteByKeys extends AbstractMetamerTest {
 
-	AutocompleteAttributes attributes = new AutocompleteAttributes();
-	Autocomplete autocomplete = new Autocomplete();
+    AutocompleteAttributes attributes = new AutocompleteAttributes();
+    Autocomplete autocomplete = new Autocomplete();
 
-	@Override
-	public URL getTestUrl() {
-		return buildUrl(contextPath,
-				"faces/components/richAutocomplete/autocomplete.xhtml");
-	}
+    @Override
+    public URL getTestUrl() {
+        return buildUrl(contextPath, "faces/components/richAutocomplete/autocomplete.xhtml");
+    }
 
-	@Inject
-	@Use(booleans = { true, false })
-	Boolean autofill;
+    @Inject
+    @Use(booleans = { true, false })
+    Boolean autofill = false;
 
-	@Inject
-	@Use(booleans = { true, false })
-	Boolean selectFirst;
+    @Inject
+    @Use(booleans = { true, false })
+    Boolean selectFirst = false;
 
-	List<Capital> capitals = Model.unmarshallCapitals();
+    List<Capital> capitals = Model.unmarshallCapitals();
 
-	StringBuilder partialInput;
+    StringBuilder partialInput;
 
-	@BeforeMethod
-	public void prepareProperties() {
-		attributes.setAutofill(autofill);
-		attributes.setSelectFirst(selectFirst);
-		if (autofill == null) {
-			autofill = false;
-		}
-		if (selectFirst == null) {
-			selectFirst = false;
-		}
-	}
+    @BeforeMethod
+    public void prepareProperties() {
+        attributes.setAutofill(autofill);
+        attributes.setSelectFirst(selectFirst);
+        if (autofill == null) {
+            autofill = false;
+        }
+        if (selectFirst == null) {
+            selectFirst = false;
+        }
+    }
 
-	@Test
-	public void testTypingPrefixAndThenConfirm() {
-		assertCompletionVisible(false);
-		typePrefix("ala");
-		assertCompletionVisible(true);
-		confirm();
-		assertCompletionVisible(false);
-	}
+    @Test
+    public void testTypingPrefixAndThenConfirm() {
+        assertCompletionVisible(false);
+        typePrefix("ala");
+        assertCompletionVisible(true);
+        confirm();
+        assertCompletionVisible(false);
+    }
 
-	@Test
-	public void testTypingPrefixAndThenDeleteAll() {
-		assertCompletionVisible(false);
-		typePrefix("ala");
-		assertCompletionVisible(true);
-		deleteAll();
-		assertCompletionVisible(true);
-	}
+    @Test
+    public void testTypingPrefixAndThenDeleteAll() {
+        assertCompletionVisible(false);
+        typePrefix("ala");
+        assertCompletionVisible(true);
+        deleteAll();
+        assertCompletionVisible(true);
+        typePrefix("ala");
+        assertCompletionVisible(true);
+    }
 
-	private void assertCompletionVisible(boolean assertCompletionVisible) {
-		assertEquals(autocomplete.isCompletionVisible(),
-				assertCompletionVisible);
-	}
+    private void assertCompletionVisible(boolean assertCompletionVisible) {
+        assertEquals(autocomplete.isCompletionVisible(), assertCompletionVisible);
+    }
 
-	public void confirm() {
-		autocomplete.confirmByKeys();
-		autocomplete.waitForCompletionVisible();
-	}
+    public void confirm() {
+        autocomplete.confirmByKeys();
+        autocomplete.waitForCompletionVisible();
+    }
 
-	public void deleteAll() {
-		partialInput = new StringBuilder();
+    public void deleteAll() {
+        partialInput = new StringBuilder();
 
-		autocomplete.textSelectAll();
-		guardXhr(autocomplete).pressBackspace();
+        autocomplete.textSelectAll();
+        guardNoRequest(autocomplete).pressBackspace();
 
-		assertEquals(autocomplete.getInputText(), getExpectedStateForPrefix());
-		assertEquals(autocomplete.getSelectedOptionIndex(),
-				getExpectedSelectedOptionIndex());
-	}
+        assertEquals(autocomplete.getInputText(), getExpectedStateForPrefix());
+        assertEquals(autocomplete.getSelectedOptionIndex(), getExpectedSelectedOptionIndex());
+    }
 
-	public void typePrefix(String wholeInput) {
-		partialInput = new StringBuilder(autocomplete.getInputText());
+    public void typePrefix(String wholeInput) {
+        partialInput = new StringBuilder(autocomplete.getInputText());
 
-		for (int i = 0; i < wholeInput.length(); i++) {
-			String chr = String.valueOf(wholeInput.charAt(i));
+        for (int i = 0; i < wholeInput.length(); i++) {
+            String chr = String.valueOf(wholeInput.charAt(i));
 
-			guardXhr(autocomplete).typeKeys(chr);
-			partialInput.append(chr);
+            guardXhr(autocomplete).typeKeys(chr);
+            partialInput.append(chr);
 
-			assertEquals(autocomplete.getInputText(),
-					getExpectedStateForPrefix());
-			assertEquals(autocomplete.getSelectedOptionIndex(),
-					getExpectedSelectedOptionIndex());
-		}
-	}
+            assertEquals(autocomplete.getInputText(), getExpectedStateForPrefix());
+            assertEquals(autocomplete.getSelectedOptionIndex(), getExpectedSelectedOptionIndex());
+        }
+    }
 
-	public String getExpectedStateForPrefix() {
-		if (selectFirst && autofill && partialInput.length() > 0) {
-			return getStatesByPrefix(partialInput.toString()).get(0)
-					.toLowerCase();
-		}
+    public String getExpectedStateForPrefix() {
+        if (selectFirst && autofill && partialInput.length() > 0) {
+            return getStatesByPrefix(partialInput.toString()).get(0).toLowerCase();
+        }
 
-		return partialInput.toString();
-	}
+        return partialInput.toString();
+    }
 
-	public int getExpectedSelectedOptionIndex() {
-		return (selectFirst) ? 0 : -1;
-	}
+    public int getExpectedSelectedOptionIndex() {
+        return (selectFirst) ? 0 : -1;
+    }
 
-	public List<String> getStatesByPrefix(String prefix) {
-		List<String> states = new LinkedList<String>();
+    public List<String> getStatesByPrefix(String prefix) {
+        List<String> states = new LinkedList<String>();
 
-		for (Capital cap : capitals) {
-			if (cap.getState().toLowerCase().startsWith(prefix)) {
-				states.add(cap.getState());
-			}
-		}
+        for (Capital cap : capitals) {
+            if (cap.getState().toLowerCase().startsWith(prefix)) {
+                states.add(cap.getState());
+            }
+        }
 
-		return states;
-	}
+        return states;
+    }
 }
