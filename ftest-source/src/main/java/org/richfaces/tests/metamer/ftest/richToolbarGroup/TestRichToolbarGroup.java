@@ -113,7 +113,7 @@ public class TestRichToolbarGroup extends AbstractMetamerTest {
 
         assertFalse(selenium.isElementPresent(separator), "No item separator should be present on the page.");
 
-        selenium.select(input, optionLabel("null"));
+        selenium.select(pjq("select[id$=itemSeparatorInput]"), optionLabel("null"));
         selenium.waitForPageToLoad();
 
         assertFalse(selenium.isElementPresent(separator), "No item separator should be present on the page.");

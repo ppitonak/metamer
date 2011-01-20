@@ -1,6 +1,6 @@
 /*******************************************************************************
  * JBoss, Home of Professional Open Source
- * Copyright 2010, Red Hat, Inc. and individual contributors
+ * Copyright 2010-2011, Red Hat, Inc. and individual contributors
  * by the @authors tag. See the copyright.txt in the distribution for a
  * full listing of individual contributors.
  *
@@ -30,8 +30,8 @@ import static org.testng.Assert.assertFalse;
 import static org.testng.Assert.assertTrue;
 
 import java.net.URL;
-import org.jboss.test.selenium.css.CssProperty;
 
+import org.jboss.test.selenium.css.CssProperty;
 import org.jboss.test.selenium.dom.Event;
 import org.jboss.test.selenium.locator.Attribute;
 import org.jboss.test.selenium.locator.AttributeLocator;
@@ -215,8 +215,6 @@ public class TestRichSelect extends AbstractMetamerTest {
         selenium.type(pjq("input[type=text][id$=listHeightInput]"), "");
         selenium.waitForPageToLoad();
 
-        // it cannot handle null because of a bug in Mojarra and Myfaces and
-        // generates style="height: ; " instead of default value
         height = selenium.getStyle(jq("span.rf-is-lst-scrl"), CssProperty.HEIGHT);
         assertEquals(height, "200px", "Height of list did not change");
     }
@@ -227,15 +225,15 @@ public class TestRichSelect extends AbstractMetamerTest {
         selenium.type(pjq("input[type=text][id$=listWidthInput]"), "300px");
         selenium.waitForPageToLoad();
 
-        String width = selenium.getStyle(jq("span.rf-is-lst-pos"), CssProperty.WIDTH);
+        selenium.mouseUp(button);
+        String width = selenium.getStyle(jq("div.rf-sel-lst-scrl"), CssProperty.WIDTH);
         assertEquals(width, "300px", "Width of list did not change");
 
         selenium.type(pjq("input[type=text][id$=listWidthInput]"), "");
         selenium.waitForPageToLoad();
 
-        // it cannot handle null because of a bug in Mojarra and Myfaces and
-        // generates style="width: ; " instead of default value
-        width = selenium.getStyle(jq("span.rf-is-lst-pos"), CssProperty.WIDTH);
+        selenium.mouseUp(button);
+        width = selenium.getStyle(jq("div.rf-sel-lst-scrl"), CssProperty.WIDTH);
         assertEquals(width, "200px", "Width of list did not change");
     }
 
@@ -457,11 +455,11 @@ public class TestRichSelect extends AbstractMetamerTest {
         selenium.click(pjq("input[type=radio][name$=showButtonInput][value=false]"));
         selenium.waitForPageToLoad();
 
-        selenium.click(select);
         if (selenium.isElementPresent(button)) {
             assertFalse(selenium.isVisible(button), "Button should not be visible.");
         }
 
+        selenium.mouseDown(input);
         assertTrue(selenium.isVisible(popup), "Popup should be displayed.");
 
         for (int i = 0; i < 50; i++) {
@@ -474,7 +472,8 @@ public class TestRichSelect extends AbstractMetamerTest {
         }
 
         selenium.click(options.format(10));
-        guardXhr(selenium).fireEvent(input, Event.BLUR);
+        selenium.fireEvent(input, Event.BLUR);
+        guardXhr(selenium).fireEvent(input, Event.BLUR); // some Selenium issue
         assertTrue(selenium.belongsClass(options.format(10), "rf-sel-sel"));
 
         waitGui.failWith("Bean was not updated").until(textEquals.locator(output).text("Hawaii"));

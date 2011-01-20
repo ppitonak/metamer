@@ -24,6 +24,7 @@ package org.richfaces.tests.metamer.ftest.richToolbar;
 import static org.jboss.test.selenium.locator.LocatorFactory.jq;
 import static org.jboss.test.selenium.locator.option.OptionLocatorFactory.optionLabel;
 import static org.jboss.test.selenium.utils.URLUtils.buildUrl;
+import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertFalse;
 import static org.testng.Assert.assertTrue;
 
@@ -225,9 +226,13 @@ public class TestRichToolbar extends AbstractMetamerTest {
 
     @Test
     public void testWidth() {
-        selenium.type(pjq("input[id$=widthInput]"), "");
+        AttributeLocator attr = toolbar.getAttribute(Attribute.WIDTH);
+        assertTrue(selenium.isAttributePresent(attr), "Attribute width should be present.");
+        assertEquals(selenium.getAttribute(attr), "100%", "Attribute width when it is not set.");
+
+        selenium.type(pjq("input[id$=widthInput]"), "500px");
         selenium.waitForPageToLoad();
 
-        testHtmlAttribute(toolbar, "width", "700px");
+        assertTrue(selenium.getAttribute(attr).contains("500px"), "Attribute width should contain \"500px\".");
     }
 }

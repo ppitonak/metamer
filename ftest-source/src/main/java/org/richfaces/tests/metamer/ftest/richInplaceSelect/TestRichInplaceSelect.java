@@ -152,7 +152,7 @@ public class TestRichInplaceSelect extends AbstractMetamerTest {
         selenium.waitForPageToLoad();
 
         String height = selenium.getStyle(jq("span.rf-is-lst-scrl"), CssProperty.HEIGHT);
-        assertEquals(height, "300px", "Height of list did not change");
+        assertEquals(height, "300px", "Height of list did not change correctly.");
 
         selenium.type(pjq("input[type=text][id$=listHeightInput]"), "");
         selenium.waitForPageToLoad();
@@ -160,7 +160,7 @@ public class TestRichInplaceSelect extends AbstractMetamerTest {
         // it cannot handle null because of a bug in Mojarra and Myfaces and
         // generates style="height: ; " instead of default value
         height = selenium.getStyle(jq("span.rf-is-lst-scrl"), CssProperty.HEIGHT);
-        assertEquals(height, "200px", "Height of list did not change");
+        assertEquals(height, "100px", "Height of list did not change correctly.");
     }
 
     @Test
@@ -415,7 +415,8 @@ public class TestRichInplaceSelect extends AbstractMetamerTest {
 
         selenium.click(options.format(10));
         assertFalse(selenium.isDisplayed(popup), "Popup should not be displayed.");
-        assertEquals(selenium.getText(label), "Hawaii", "Label should contain selected value.");
+        assertFalse(selenium.isDisplayed(label), "Label should not be displayed.");
+        assertEquals(selenium.getValue(input), "Hawaii", "Input should contain selected value.");
     }
 
     @Test
@@ -427,13 +428,13 @@ public class TestRichInplaceSelect extends AbstractMetamerTest {
         assertTrue(selenium.isDisplayed(popup), "Popup should be displayed.");
 
         selenium.click(options.format(10));
-        assertEquals(selenium.getText(label), "Click here to edit", "Label should contain default value.");
+        assertFalse(selenium.isDisplayed(label), "Label should not be displayed.");
         assertFalse(selenium.isDisplayed(popup), "Popup should not be displayed.");
 
         selenium.fireEvent(input, Event.BLUR);
+        assertFalse(selenium.isDisplayed(label), "Label should not be displayed.");
         assertFalse(selenium.isDisplayed(popup), "Popup should not be displayed.");
         assertEquals(selenium.getValue(input), "Hawaii", "Input should contain selected value.");
-        waitGui.failWith("Label should contain selected value.").until(textEquals.locator(label).text("Hawaii"));
     }
 
     @Test
@@ -446,7 +447,8 @@ public class TestRichInplaceSelect extends AbstractMetamerTest {
 
         selenium.click(options.format(10));
         assertFalse(selenium.isDisplayed(popup), "Popup should not be displayed.");
-        assertEquals(selenium.getText(label), "Hawaii", "Label should contain selected value.");
+        assertFalse(selenium.isDisplayed(label), "Label should not be displayed.");
+        assertEquals(selenium.getValue(input), "Hawaii", "Input should contain selected value.");
     }
 
     @Test
@@ -460,12 +462,13 @@ public class TestRichInplaceSelect extends AbstractMetamerTest {
         assertTrue(selenium.isDisplayed(popup), "Popup should be displayed.");
 
         selenium.click(options.format(10));
-        assertEquals(selenium.getText(label), "Click here to edit", "Label should contain default value.");
+        assertFalse(selenium.isDisplayed(label), "Label should not be displayed.");
         assertFalse(selenium.isDisplayed(popup), "Popup should not be displayed.");
 
-        selenium.fireEvent(input, Event.BLUR);
+        guardNoRequest(selenium).fireEvent(input, Event.BLUR);
+        assertFalse(selenium.isDisplayed(label), "Label should not be displayed.");
         assertFalse(selenium.isDisplayed(popup), "Popup should not be displayed.");
-        assertEquals(selenium.getText(label), "Click here to edit", "Label should contain default value.");
+        assertEquals(selenium.getValue(input), "Click here to edit", "Input should contain default label.");
     }
 
     @Test
@@ -503,7 +506,7 @@ public class TestRichInplaceSelect extends AbstractMetamerTest {
 
         selenium.click(select);
         selenium.click(options.format(10));
-        assertEquals(selenium.getText(label), "Click here to edit", "Label should contain default value.");
+        assertFalse(selenium.isDisplayed(label), "Label should not be displayed.");
         assertFalse(selenium.isDisplayed(popup), "Popup should not be displayed.");
 
         selenium.mouseDown(okButton);

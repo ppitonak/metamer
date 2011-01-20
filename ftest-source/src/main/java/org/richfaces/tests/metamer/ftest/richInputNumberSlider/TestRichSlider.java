@@ -1,6 +1,6 @@
 /*******************************************************************************
  * JBoss, Home of Professional Open Source
- * Copyright 2010, Red Hat, Inc. and individual contributors
+ * Copyright 2010-2011, Red Hat, Inc. and individual contributors
  * by the @authors tag. See the copyright.txt in the distribution for a
  * full listing of individual contributors.
  *
@@ -25,6 +25,7 @@ import java.text.ParseException;
 import static org.jboss.test.selenium.guard.request.RequestTypeGuardFactory.guardNoRequest;
 import static org.jboss.test.selenium.guard.request.RequestTypeGuardFactory.guardXhr;
 import static org.jboss.test.selenium.locator.LocatorFactory.jq;
+import static org.jboss.test.selenium.locator.option.OptionLocatorFactory.optionLabel;
 import static org.jboss.test.selenium.utils.URLUtils.buildUrl;
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertFalse;
@@ -41,7 +42,6 @@ import java.util.TreeSet;
 import javax.faces.event.PhaseId;
 
 import org.jboss.test.selenium.css.CssProperty;
-
 import org.jboss.test.selenium.encapsulated.JavaScript;
 import org.jboss.test.selenium.geometry.Point;
 import org.jboss.test.selenium.locator.Attribute;
@@ -231,7 +231,7 @@ public class TestRichSlider extends AbstractMetamerTest {
     }
 
     @Test
-    @Use(field = "delay", ints = {300, 500, 3700})
+    @Use(field = "delay", ints = {600, 1250, 3700})
     public void testDelay() {
         selenium.type(pjq("input[type=text][id$=delayInput]"), delay.toString());
         selenium.waitForPageToLoad();
@@ -334,35 +334,35 @@ public class TestRichSlider extends AbstractMetamerTest {
     public void testInputPosition() {
         JQueryLocator br = pjq("span[id$=slider] br");
 
-        selenium.click(pjq("input[type=radio][name$=inputPositionInput][value=bottom]"));
+        selenium.select(pjq("select[id$=inputPositionInput]"), optionLabel("bottom"));
         selenium.waitForPageToLoad();
         int inputPosition = selenium.getElementPositionTop(input);
         int trackPosition = selenium.getElementPositionTop(track);
         assertTrue(trackPosition < inputPosition, "Track should be above input on the page.");
         assertTrue(selenium.isElementPresent(br), "Track and input should not be on the same line.");
 
-        selenium.click(pjq("input[type=radio][name$=inputPositionInput][value=top]"));
+        selenium.select(pjq("select[id$=inputPositionInput]"), optionLabel("top"));
         selenium.waitForPageToLoad();
         inputPosition = selenium.getElementPositionTop(input);
         trackPosition = selenium.getElementPositionTop(track);
         assertTrue(trackPosition > inputPosition, "Track should be below input on the page.");
         assertTrue(selenium.isElementPresent(br), "Track and input should not be on the same line.");
 
-        selenium.click(pjq("input[type=radio][name$=inputPositionInput][value=right]"));
+        selenium.select(pjq("select[id$=inputPositionInput]"), optionLabel("right"));
         selenium.waitForPageToLoad();
         inputPosition = selenium.getElementPositionLeft(input);
         trackPosition = selenium.getElementPositionLeft(track);
         assertTrue(trackPosition < inputPosition, "Track should be on the left of input on the page.");
         assertFalse(selenium.isElementPresent(br), "Track and input should be on the same line.");
 
-        selenium.click(pjq("input[type=radio][name$=inputPositionInput][value=left]"));
+        selenium.select(pjq("select[id$=inputPositionInput]"), optionLabel("left"));
         selenium.waitForPageToLoad();
         inputPosition = selenium.getElementPositionLeft(input);
         trackPosition = selenium.getElementPositionLeft(track);
         assertTrue(trackPosition > inputPosition, "Track should be on the right of input on the page.");
         assertFalse(selenium.isElementPresent(br), "Track and input should be on the same line.");
 
-        selenium.click(pjq("input[type=radio][name$=inputPositionInput][value=]"));
+        selenium.select(pjq("select[id$=inputPositionInput]"), optionLabel("null"));
         selenium.waitForPageToLoad();
         inputPosition = selenium.getElementPositionLeft(input);
         trackPosition = selenium.getElementPositionLeft(track);
@@ -436,9 +436,7 @@ public class TestRichSlider extends AbstractMetamerTest {
         selenium.type(pjq("input[type=text][id$=maxlengthInput]"), "");
         selenium.waitForPageToLoad();
 
-        if (Integer.parseInt(selenium.getAttribute(attr)) == 0) {
-            fail("Null attribute maxlength should not be evaluated as 0.");
-        }
+        assertFalse(selenium.isAttributePresent(attr), "Attribute maxlength should not be present.");
     }
 
     @Test
@@ -467,7 +465,7 @@ public class TestRichSlider extends AbstractMetamerTest {
         String reqTime = selenium.getText(time);
         guardXhr(selenium).mouseDownAt(track, new Point(30, 0));
         waitGui.failWith("Page was not updated").waitForChange(reqTime, retrieveText.locator(time));
-        assertEquals(selenium.getText(output), "-15", "Output was not updated.");
+        assertEquals(selenium.getText(output), "-16", "Output was not updated.");
         String margin = selenium.getStyle(handle, CssProperty.MARGIN_LEFT).replace("px", "").trim();
         double marginD = Double.parseDouble(margin);
         assertTrue(marginD > 25 && marginD < 35, "Left margin of handle should be between 25 and 35.");
