@@ -72,8 +72,23 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                 <h:outputLabel value="Render Checker" />
                 <a4j:outputPanel id="renderChecker">
                 	<h:outputText value="#{phasesBean.date}">
-                		<f:convertDateTime pattern="ss.SSS" />
+                		<f:convertDateTime pattern="HH:MM:ss.SSS" />
                 	</h:outputText>
+                </a4j:outputPanel>
+                
+                <h:outputLabel value="Status Checker" />
+                <a4j:outputPanel id="statusCheckerPanel">
+                    <a4j:status name="statusChecker" onstop="updateStatusChecker()" />
+                    <h:outputText id="statusCheckerOutput" value="" />
+                    
+		        	<h:outputScript target="head" library="script" name="date-format.js" />
+		            <h:outputScript target="head"  library="script" name="clientTime-refresh.js" />
+                    <script>
+                    	function updateStatusChecker() {
+                    		Metamer.ClientTime.refresh(#{rich:element('statusCheckerOutput')});
+                    	}
+                    	updateStatusChecker();
+                    </script>
                 </a4j:outputPanel>
                 
                 <ui:debug hotkey="L" />
