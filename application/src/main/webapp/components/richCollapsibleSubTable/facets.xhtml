@@ -27,6 +27,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
     -->
 
     <ui:composition template="/templates/template.xhtml">
+    	<ui:param name="componentId" value="richDataTable" />
 
         <ui:define name="head">
             <f:metadata>
@@ -46,6 +47,8 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
         </ui:define>
 
         <ui:define name="component">
+        
+        	#{nestedComponentId}
 
             <rich:dataTable id="richDataTable" value="#{richSubTableBean.lists}" var="list">
                 <f:facet name="header">
