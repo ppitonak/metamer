@@ -58,8 +58,16 @@ public class RichPanelMenuBean implements Serializable {
         // loading from Class to work around RF-10161
         attributes = Attributes.getComponentAttributesFromFacesConfig(UIPanelMenu.class, getClass());
 
+        attributes.setAttribute("groupLeftIconCollapsed", "disc");
+        attributes.setAttribute("groupRightIconCollapsed", "chevronDown");
+        attributes.setAttribute("groupLeftIconExpanded", "disc");
+        attributes.setAttribute("groupRightIconExpanded", "chevronUp");
         attributes.setAttribute("rendered", true);
         attributes.setAttribute("style", "width: 200px;");
+        attributes.setAttribute("topGroupLeftIconCollapsed", "disc");
+        attributes.setAttribute("topGroupRightIconCollapsed", "chevronDown");
+        attributes.setAttribute("topGroupLeftIconExpanded", "disc");
+        attributes.setAttribute("topGroupRightIconExpanded", "chevronUp");
 
         // will be tested in another way
         attributes.remove("itemChangeListener");
