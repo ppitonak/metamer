@@ -9,6 +9,6 @@ if (Metamer.ClientTime == undefined) {
 Metamer.ClientTime.refresh = function (element) {
    	var now = new Date();
    	jQuery(element)
-		.text(now.format("dd.mm.yyyy HH:MM:ss.l", false))
+		.text(now.format("HH:MM:ss.l", false))
 		.attr("title", now.getTime());
 }
