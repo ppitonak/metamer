@@ -21,6 +21,8 @@
  *******************************************************************************/
 package org.richfaces.tests.metamer.ftest.richTree;
 
+import org.jboss.test.selenium.locator.ExtendedLocator;
+import org.jboss.test.selenium.locator.JQueryLocator;
 import org.richfaces.component.SwitchType;
 import org.richfaces.tests.metamer.ftest.AbstractComponentAttributes;
 
@@ -29,66 +31,75 @@ import org.richfaces.tests.metamer.ftest.AbstractComponentAttributes;
  * @version $Revision$
  */
 public class TreeAttributes extends AbstractComponentAttributes {
+
+    public TreeAttributes() {
+        super();
+    }
+
+    public <T extends ExtendedLocator<JQueryLocator>> TreeAttributes(T root) {
+        super(root);
+    }
+
     public void setData(String data) {
         setProperty("data", data);
     }
-    
+
     public void setExecute(String execute) {
         setProperty("execute", execute);
     }
-    
+
     public void setIconCollapsed(String iconCollapsed) {
         setProperty("iconCollapsed", iconCollapsed);
     }
-    
+
     public void setIconExpanded(String iconExpanded) {
         setProperty("iconExpanded", iconExpanded);
     }
-    
+
     public void setIconLeaf(String iconLeaf) {
         setProperty("iconLeaf", iconLeaf);
     }
-    
+
     public void setImmediate(Boolean immediate) {
         setProperty("immediate", immediate);
     }
-    
+
     public void setKeepSaved(Boolean keepSaved) {
         setProperty("keepSaved", keepSaved);
     }
-    
+
     public void setLang(String lang) {
         setProperty("lang", lang);
     }
-    
-    public void setLimitRender(String limitRender) {
+
+    public void setLimitRender(Boolean limitRender) {
         setProperty("limitRender", limitRender);
     }
-    
+
     public void setRender(String render) {
         setProperty("render", render);
     }
-    
+
     public void setRendered(Boolean rendered) {
         setProperty("rendered", rendered);
     }
-    
+
     public void setSelectionType(SwitchType selectionType) {
         setProperty("selectionType", selectionType);
     }
-    
+
     public void setStatus(String status) {
         setProperty("status", status);
     }
-    
+
     public void setTitle(String title) {
         setProperty("title", title);
     }
-    
+
     public void setToggleNodeEvent(String toggleNodeEvent) {
         setProperty("toggleNodeEvent", toggleNodeEvent);
     }
-    
+
     public void setToggleType(SwitchType toggleType) {
         setProperty("toggleType", toggleType);
     }

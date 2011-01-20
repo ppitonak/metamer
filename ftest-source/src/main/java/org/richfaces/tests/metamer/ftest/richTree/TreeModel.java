@@ -21,37 +21,40 @@
  *******************************************************************************/
 package org.richfaces.tests.metamer.ftest.richTree;
 
-import static org.jboss.test.selenium.locator.LocatorFactory.jq;
-import static org.jboss.test.selenium.locator.reference.ReferencedLocator.ref;
-
 import org.jboss.test.selenium.locator.JQueryLocator;
-import org.jboss.test.selenium.locator.reference.ReferencedLocator;
-import org.richfaces.tests.metamer.ftest.model.AbstractModel;
-import org.richfaces.tests.metamer.ftest.model.ModelIterable;
+import org.richfaces.component.SwitchType;
 
 /**
  * @author <a href="mailto:lfryc@redhat.com">Lukas Fryc</a>
  * @version $Revision$
  */
-public class TreeModel extends AbstractModel<JQueryLocator> {
+public class TreeModel extends AbstractTreeNodeModel {
 
-    static JQueryLocator treeNode = jq("> div.rf-td-nd");
+    SwitchType toggleType;
+    SwitchType selectionType;
 
     public TreeModel(JQueryLocator root) {
         super(root);
+        this.setTree(this);
     }
 
-    public TreeModel(String name, JQueryLocator root) {
-        super(name, root);
+    public void setToggleType(SwitchType toggleType) {
+        this.toggleType = toggleType;
     }
 
-    ReferencedLocator<JQueryLocator> node = ref(root, treeNode.getRawLocator());
-
-    public Iterable<TreeNodeModel> getNodes() {
-        return new ModelIterable<JQueryLocator, TreeNodeModel>(node.getAllOccurrences(), TreeNodeModel.class);
+    public SwitchType getToggleType() {
+        return toggleType;
     }
 
-    public JQueryLocator getNode(int index) {
-        return node.getNthOccurence(index);
+    public void setSelectionType(SwitchType selectionType) {
+        this.selectionType = selectionType;
+    }
+
+    public SwitchType getSelectionType() {
+        return selectionType;
+    }
+    
+    public TreeNodeModel getAnyNode() {
+        return new TreeNodeModel(root.getLocator().getDescendant(treeNode));
     }
 }

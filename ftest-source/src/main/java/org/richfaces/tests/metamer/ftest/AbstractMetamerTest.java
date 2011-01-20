@@ -25,7 +25,9 @@ import static org.jboss.test.selenium.guard.request.RequestTypeGuardFactory.guar
 import static org.jboss.test.selenium.guard.request.RequestTypeGuardFactory.guardXhr;
 import static org.jboss.test.selenium.locator.LocatorFactory.id;
 import static org.jboss.test.selenium.locator.LocatorFactory.jq;
+import static org.jboss.test.selenium.encapsulated.JavaScript.js;
 import static org.jboss.test.selenium.utils.URLUtils.buildUrl;
+import static org.jboss.test.selenium.utils.text.SimplifiedFormat.format;
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertFalse;
 import static org.testng.Assert.assertTrue;
@@ -36,6 +38,7 @@ import java.util.Locale;
 import javax.faces.event.PhaseId;
 
 import org.apache.commons.lang.LocaleUtils;
+import org.jboss.cheiron.retriever.ScriptEvaluationRetriever;
 import org.jboss.test.selenium.AbstractTestCase;
 import org.jboss.test.selenium.SystemProperties;
 import org.jboss.test.selenium.browser.BrowserType;
@@ -44,8 +47,11 @@ import org.jboss.test.selenium.encapsulated.JavaScript;
 import org.jboss.test.selenium.locator.Attribute;
 import org.jboss.test.selenium.locator.AttributeLocator;
 import org.jboss.test.selenium.locator.ElementLocator;
+import org.jboss.test.selenium.locator.ExtendedLocator;
 import org.jboss.test.selenium.locator.JQueryLocator;
 import org.jboss.test.selenium.waiting.EventFiredCondition;
+import org.jboss.test.selenium.waiting.retrievers.Retriever;
+import org.jboss.test.selenium.waiting.retrievers.TextRetriever;
 import org.richfaces.tests.metamer.Phase;
 import org.richfaces.tests.metamer.TemplatesList;
 import org.richfaces.tests.metamer.ftest.annotations.Inject;
@@ -63,6 +69,12 @@ import org.testng.annotations.BeforeMethod;
 public abstract class AbstractMetamerTest extends AbstractTestCase {
 
     protected JQueryLocator time = jq("span[id$=requestTime]");
+    protected TextRetriever retrieveRequestTime = retrieveText.locator(time);
+    protected Retriever<String> retrieveWindowData = new ScriptEvaluationRetriever().script(js("window.data"));
+    protected TextRetriever retrieveRenderChecker = retrieveText.locator(jq("#renderChecker"));
+    protected TextRetriever retrieveStatusChecker = retrieveText.locator(jq("#statusCheckerOutput"));
+    protected PhaseInfo phaseInfo = new PhaseInfo();
+    
     /**
      * timeout in miliseconds
      */
@@ -220,14 +232,34 @@ public abstract class AbstractMetamerTest extends AbstractTestCase {
      * @param attribute
      *            name of the attribute that will be set (e.g. styleClass, headerClass, itemContentClass)
      */
-    protected void testStyleClass(ElementLocator<?> element, String attribute) {
+    protected void testStyleClass(ExtendedLocator<JQueryLocator> element, String attribute) {
         ElementLocator<?> classInput = pjq("input[id$=" + attribute + "Input]");
-        final String value = "metamer-ftest-class";
+        final String styleClass = "metamer-ftest-class";
 
-        selenium.type(classInput, value);
+        selenium.type(classInput, styleClass);
         selenium.waitForPageToLoad();
 
-        assertTrue(selenium.belongsClass(element, value), attribute + " does not work");
+        JQueryLocator elementWhichHasntThatClass = jq(element.getRawLocator() + ":not(.{0})").format(styleClass);
+        assertTrue(selenium.isElementPresent(element));
+        assertFalse(selenium.isElementPresent(elementWhichHasntThatClass));
+    }
+    
+    public void testRequestEventsBefore(String... events) {
+        for (String event : events) {
+            selenium.type(pjq(format("input[type=text][id$=on{0}Input]", event)), format("metamerEvents += \"{0} \"", event));
+            selenium.waitForPageToLoad();
+        }
+
+        selenium.getEval(new JavaScript("window.metamerEvents = \"\";"));
+
+        retrieveRequestTime.initializeValue();
+    }
+    
+    public void testRequestEventsAfter(String... events) {
+        waitGui.failWith("Page was not updated").waitForChange(retrieveRequestTime);
+
+        String[] actualEvents = selenium.getEval(new JavaScript("window.metamerEvents")).split(" ");
+        assertEquals(actualEvents, events, "The events don't came in right order");
     }
 
     /**
@@ -237,8 +269,8 @@ public abstract class AbstractMetamerTest extends AbstractTestCase {
      *            locator of tested element
      */
     protected void testDir(ElementLocator<?> element) {
-        JQueryLocator ltrInput = pjq("input[type=radio][name$=dirInput][value=ltr]");
-        JQueryLocator rtlInput = pjq("input[type=radio][name$=dirInput][value=rtl]");
+        JQueryLocator ltrInput = pjq("input[type=radio][name$=dirInput][value=ltr],input[type=radio][name$=dirInput][value=LTR]");
+        JQueryLocator rtlInput = pjq("input[type=radio][name$=dirInput][value=rtl],input[type=radio][name$=dirInput][value=RTL]");
         AttributeLocator<?> dirAttribute = element.getAttribute(new Attribute("dir"));
 
         // dir = null
@@ -249,14 +281,14 @@ public abstract class AbstractMetamerTest extends AbstractTestCase {
         selenium.waitForPageToLoad();
         assertTrue(selenium.isAttributePresent(dirAttribute), "Attribute dir should be present.");
         String value = selenium.getAttribute(dirAttribute);
-        assertEquals(value, "ltr", "Attribute dir");
+        assertEquals(value.toLowerCase(), "ltr", "Attribute dir");
 
         // dir = rtl
         selenium.click(rtlInput);
         selenium.waitForPageToLoad();
         assertTrue(selenium.isAttributePresent(dirAttribute), "Attribute dir should be present.");
         value = selenium.getAttribute(dirAttribute);
-        assertEquals(value, "rtl", "Attribute dir");
+        assertEquals(value.toLowerCase(), "rtl", "Attribute dir");
     }
 
     /**
@@ -343,20 +375,8 @@ public abstract class AbstractMetamerTest extends AbstractTestCase {
      * Verifies that only given phases were executed. It uses the list of phases in the header of the page.
      * @param phases phases that are expected to have been executed
      */
+    @Deprecated
     protected void assertPhases(PhaseId... phases) {
-        JQueryLocator phasesItems = jq("div#phasesPanel li");
-        int count = selenium.getCount(phasesItems);
-
-        String phase;
-        int phaseNumber = 1;
-
-        for (int i = 0; i < count; i++) {
-            phase = selenium.getText(jq("div#phasesPanel li:eq(" + i + ")"));
-            // check that it is really name of a phase
-            if (!phase.startsWith("* ")) {
-                assertEquals(phase, new Phase(phases[phaseNumber - 1]).toString(), "Phase nr. " + phaseNumber);
-                phaseNumber++;
-            }
-        }
+        phaseInfo.assertPhases(phases);
     }
 }

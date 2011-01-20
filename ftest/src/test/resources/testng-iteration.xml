@@ -11,6 +11,7 @@
             <package name="org.richfaces.tests.metamer.ftest.richDataTable" />
             <package name="org.richfaces.tests.metamer.ftest.richDataScroller" />
             <package name="org.richfaces.tests.metamer.ftest.richExtendedDataTable" />
+            <package name="org.richfaces.tests.metamer.ftest.richTree" />
         </packages>
     </test>
 

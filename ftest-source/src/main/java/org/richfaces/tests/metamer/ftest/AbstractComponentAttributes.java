@@ -139,4 +139,8 @@ public class AbstractComponentAttributes {
         OptionValueLocator optionLocator = new OptionValueLocator(value);
         guard(selenium, requestType).select(locator, optionLocator);
     }
+    
+    public void setOncomplete(String oncomplete) {
+        setProperty("oncomplete", oncomplete);
+    }
 }

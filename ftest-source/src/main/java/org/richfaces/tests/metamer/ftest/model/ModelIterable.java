@@ -34,13 +34,16 @@ public class ModelIterable<E extends ExtendedLocator<E>, T extends AbstractModel
             ExtendedLocator<E> locator = iterator.next();
 
             try {
-                Constructor<T> constructor = classT.getConstructor(ExtendedLocator.class);
-                T newInstance = constructor.newInstance(locator);
-                return newInstance;
+                for (Constructor<?> constructor : classT.getConstructors()) {
+                    if (ExtendedLocator.class.isAssignableFrom(constructor.getParameterTypes()[0])) {
+                        T newInstance = (T) constructor.newInstance(locator);
+                        return newInstance;
+                    }
+                }
             } catch (Exception e) {
                 throw new IllegalStateException(e);
             }
-
+            throw new NoSuchMethodError("There is no constructor for ExtendedLocator");
         }
 
         @Override

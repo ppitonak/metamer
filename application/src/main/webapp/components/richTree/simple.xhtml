@@ -54,6 +54,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 					
 					dir="#{richTreeBean.attributes['dir'].value}"
 	            	lang="#{richTreeBean.attributes['lang'].value}"
+	            	data="#{richTreeBean.attributes['data'].value}"
 	            	onbeforedomupdate="#{richTreeBean.attributes['onbeforedomupdate'].value}"
 	            	onbeforenodetoggle="#{richTreeBean.attributes['onbeforenodetoggle'].value}"
 	            	onbeforeselectionchange="#{richTreeBean.attributes['onbeforeselectionchange'].value}"
@@ -90,10 +91,14 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 					render="#{richTreeBean.attributes['render'].value}"
 					execute="#{richTreeBean.attributes['execute'].value}"
 					toggleNodeEvent="#{richTreeBean.attributes['toggleNodeEvent'].value}"
+	            	limitRender="#{richTreeBean.attributes['limitRender'].value}"
+	            	status="#{richTreeBean.attributes['status'].value}"
+	            	immediate="#{richTreeBean.attributes['immediate'].value}"
 	            	>
 					
 					<rich:treeNode type="country"
 						rendered="#{richTreeNodeBean.attributes[0]['rendered'].value}"
+						expanded="#{richTreeNodeBean.attributes[0]['expanded'].value}"
 						iconLeaf="#{richTreeNodeBean.attributes[0]['iconLeaf'].value}"
 		            	iconExpanded="#{richTreeNodeBean.attributes[0]['iconExpanded'].value}"
 		            	iconCollapsed="#{richTreeNodeBean.attributes[0]['iconCollapsed'].value}"
@@ -111,6 +116,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 					<rich:treeNode type="company"
 						icon="/images/tree/disc.gif"
 						rendered="#{richTreeNodeBean.attributes[1]['rendered'].value}"
+						expanded="#{richTreeNodeBean.attributes[1]['expanded'].value}"
 		            	iconLeaf="#{richTreeNodeBean.attributes[1]['iconLeaf'].value}"
 		            	iconExpanded="#{richTreeNodeBean.attributes[1]['iconExpanded'].value}"
 		            	iconCollapsed="#{richTreeNodeBean.attributes[1]['iconCollapsed'].value}"
@@ -129,6 +135,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 					<rich:treeNode type="cd"
 						icon="/images/tree/song.gif"
 						rendered="#{richTreeNodeBean.attributes[2]['rendered'].value}"
+						expanded="#{richTreeNodeBean.attributes[2]['expanded'].value}"
 						iconLeaf="#{richTreeNodeBean.attributes[2]['iconLeaf'].value}"
 		            	iconExpanded="#{richTreeNodeBean.attributes[2]['iconExpanded'].value}"
 		            	iconCollapsed="#{richTreeNodeBean.attributes[2]['iconCollapsed'].value}"
