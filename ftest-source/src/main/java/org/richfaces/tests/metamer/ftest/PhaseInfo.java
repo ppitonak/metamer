@@ -1,6 +1,6 @@
 /*******************************************************************************
  * JBoss, Home of Professional Open Source
- * Copyright 2010, Red Hat, Inc. and individual contributors
+ * Copyright 2010-2011, Red Hat, Inc. and individual contributors
  * by the @authors tag. See the copyright.txt in the distribution for a
  * full listing of individual contributors.
  *
@@ -46,10 +46,8 @@ import org.jboss.test.selenium.waiting.retrievers.TextRetriever;
 public class PhaseInfo {
 
     private AjaxSelenium selenium = AjaxSeleniumProxy.getInstance();
-
     private TextRetriever retrieveRequestTime = RetrieverFactory.RETRIEVE_TEXT.locator(jq("span[id$=requestTime]"));
     private JQueryLocator phasesItems = jq("div#phasesPanel li");
-
     private Map<PhaseId, Set<String>> map = new LinkedHashMap<PhaseId, Set<String>>();
 
     /**
@@ -90,7 +88,7 @@ public class PhaseInfo {
             int count = selenium.getCount(phasesItems);
 
             Set<String> set;
-            for (int i = 0; i < count; i++) {
+            for (int i = 1; i <= count; i++) {
                 String description = selenium.getText(phasesItems.getNthChildElement(i));
 
                 set = new LinkedHashSet<String>();
@@ -111,5 +109,4 @@ public class PhaseInfo {
         }
         throw new IllegalStateException("no such phase '" + phaseIdentifier + "'");
     }
-
 }
