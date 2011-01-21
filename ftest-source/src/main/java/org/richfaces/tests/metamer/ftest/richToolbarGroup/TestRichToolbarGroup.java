@@ -163,8 +163,8 @@ public class TestRichToolbarGroup extends AbstractMetamerTest {
 
     @Test
     public void testLocation() {
-        JQueryLocator emptyCellBefore = toolbar.getDescendant(jq("td:not([class]):nth-child(1)"));
-        JQueryLocator emptyCellAfter = toolbar.getDescendant(jq("td:not([class]):nth-child(7)"));
+        JQueryLocator emptyCellBefore = toolbar.getDescendant(jq("td.rf-tb-emp:nth-child(1)"));
+        JQueryLocator emptyCellAfter = toolbar.getDescendant(jq("td.rf-tb-emp:nth-child(7)"));
 
         assertFalse(selenium.isElementPresent(emptyCellBefore), "Toolbar group should  be located on the left.");
         assertTrue(selenium.isElementPresent(emptyCellAfter), "Toolbar group should  be located on the left.");
