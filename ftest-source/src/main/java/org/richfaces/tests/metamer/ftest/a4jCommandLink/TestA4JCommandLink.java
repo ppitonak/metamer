@@ -407,12 +407,6 @@ public class TestA4JCommandLink extends AbstractMetamerTest {
     }
 
     @Test
-    @IssueTracking("https://issues.jboss.org/browse/RF-10222")
-    public void testTarget() {
-        testHtmlAttribute(link, "target", "_blank");
-    }
-
-    @Test
     public void testTitle() {
         testTitle(link);
     }
