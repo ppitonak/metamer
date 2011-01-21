@@ -83,6 +83,7 @@ public class PhaseInfo {
 
     private void initialize() {
         if (retrieveRequestTime.isValueChanged()) {
+            map.clear();
             retrieveRequestTime.initializeValue();
 
             int count = selenium.getCount(phasesItems);
