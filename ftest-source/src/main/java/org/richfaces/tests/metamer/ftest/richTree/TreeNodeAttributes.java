@@ -42,10 +42,6 @@ public class TreeNodeAttributes extends AbstractComponentAttributes {
         setProperty("dir", dir);
     }
 
-    public void setExpanded(Boolean expanded) {
-        setProperty("expanded", expanded);
-    }
-
     public void setIconCollapsed(String iconCollapsed) {
         setProperty("iconCollapsed", iconCollapsed);
     }

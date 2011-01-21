@@ -58,6 +58,7 @@ public class RichTreeNodeBean implements Serializable {
             
             // attributes which needs to be tested another way
             attributes[i].remove("type");
+            attributes[i].remove("expanded");
         }
     }
 

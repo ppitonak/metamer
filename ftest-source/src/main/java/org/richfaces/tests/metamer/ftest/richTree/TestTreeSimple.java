@@ -34,6 +34,8 @@ import static org.jboss.test.selenium.dom.Event.MOUSEOUT;
 import static org.jboss.test.selenium.dom.Event.MOUSEOVER;
 import static org.jboss.test.selenium.dom.Event.MOUSEUP;
 import static org.jboss.test.selenium.guard.request.RequestTypeGuardFactory.guard;
+import static org.jboss.test.selenium.guard.request.RequestTypeGuardFactory.guardXhr;
+import static org.jboss.test.selenium.locator.LocatorFactory.jq;
 import static org.jboss.test.selenium.utils.URLUtils.buildUrl;
 import static org.jboss.test.selenium.utils.text.SimplifiedFormat.format;
 import static org.testng.Assert.assertEquals;
@@ -72,11 +74,6 @@ public class TestTreeSimple extends AbstractMetamerTest {
     Event domEvent;
     Event[] domEvents = { CLICK, DBLCLICK, KEYDOWN, KEYPRESS, KEYUP, MOUSEDOWN, MOUSEMOVE, MOUSEOUT, MOUSEOVER, MOUSEUP };
 
-    @Override
-    public URL getTestUrl() {
-        return buildUrl(contextPath, "faces/components/richTree/simple.xhtml");
-    }
-
     TreeModel tree = new TreeModel(pjq("div.rf-tr[id$=richTree]"));
     TreeNodeModel treeNode;
 
@@ -85,6 +82,13 @@ public class TestTreeSimple extends AbstractMetamerTest {
         new TreeNodeAttributes(pjq("span[id*=treeNode1Attributes]")),
         new TreeNodeAttributes(pjq("span[id*=treeNode2Attributes]")),
         new TreeNodeAttributes(pjq("span[id*=treeNode3Attributes]")) };
+
+    JQueryLocator expandAll = jq("input:submit[id$=expandAll]");
+
+    @Override
+    public URL getTestUrl() {
+        return buildUrl(contextPath, "faces/components/richTree/simple.xhtml");
+    }
 
     @Test
     public void testData() {
@@ -149,7 +153,7 @@ public class TestTreeSimple extends AbstractMetamerTest {
             assertEquals(with > 0, i < 2);
             assertEquals(without > 0, i > 0);
 
-            nodeAttributes[i].setExpanded(true);
+            expandLevel(i);
         }
     }
 
@@ -168,7 +172,7 @@ public class TestTreeSimple extends AbstractMetamerTest {
             assertEquals(with > 0, i > 0);
             assertEquals(without > 0, i < 2);
 
-            nodeAttributes[i].setExpanded(true);
+            expandLevel(i);
         }
     }
 
@@ -187,7 +191,7 @@ public class TestTreeSimple extends AbstractMetamerTest {
             assertEquals(with > 0, i > 1);
             assertEquals(without > 0, i < 2);
 
-            nodeAttributes[i].setExpanded(true);
+            expandLevel(i);
         }
     }
 
@@ -313,7 +317,23 @@ public class TestTreeSimple extends AbstractMetamerTest {
     }
 
     private void expandAll() {
-        nodeAttributes[0].setExpanded(true);
-        nodeAttributes[1].setExpanded(true);
+        guardXhr(selenium).click(expandAll);
+    }
+
+    private void expandLevel(int level) {
+        switch (level) {
+            case 0:
+                for (TreeNodeModel treeNode1 : tree.getNodes()) {
+                    treeNode1.expand();
+                }
+                break;
+            case 1:
+                for (TreeNodeModel treeNode1 : tree.getNodes()) {
+                    for (TreeNodeModel treeNode2 : treeNode1.getNodes()) {
+                        treeNode2.expand();
+                    }
+                }
+            default:
+        }
     }
 }

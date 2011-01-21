@@ -97,8 +97,8 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 	            	>
 					
 					<rich:treeNode type="country"
+						expanded="#{richTreeBean.expanded[node]}"
 						rendered="#{richTreeNodeBean.attributes[0]['rendered'].value}"
-						expanded="#{richTreeNodeBean.attributes[0]['expanded'].value}"
 						iconLeaf="#{richTreeNodeBean.attributes[0]['iconLeaf'].value}"
 		            	iconExpanded="#{richTreeNodeBean.attributes[0]['iconExpanded'].value}"
 		            	iconCollapsed="#{richTreeNodeBean.attributes[0]['iconCollapsed'].value}"
@@ -115,8 +115,8 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 					
 					<rich:treeNode type="company"
 						icon="/images/tree/disc.gif"
+						expanded="#{richTreeBean.expanded[node]}"
 						rendered="#{richTreeNodeBean.attributes[1]['rendered'].value}"
-						expanded="#{richTreeNodeBean.attributes[1]['expanded'].value}"
 		            	iconLeaf="#{richTreeNodeBean.attributes[1]['iconLeaf'].value}"
 		            	iconExpanded="#{richTreeNodeBean.attributes[1]['iconExpanded'].value}"
 		            	iconCollapsed="#{richTreeNodeBean.attributes[1]['iconCollapsed'].value}"
@@ -134,8 +134,8 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 					
 					<rich:treeNode type="cd"
 						icon="/images/tree/song.gif"
+						expanded="#{richTreeBean.expanded[node]}"
 						rendered="#{richTreeNodeBean.attributes[2]['rendered'].value}"
-						expanded="#{richTreeNodeBean.attributes[2]['expanded'].value}"
 						iconLeaf="#{richTreeNodeBean.attributes[2]['iconLeaf'].value}"
 		            	iconExpanded="#{richTreeNodeBean.attributes[2]['iconExpanded'].value}"
 		            	iconCollapsed="#{richTreeNodeBean.attributes[2]['iconCollapsed'].value}"
@@ -204,9 +204,12 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 
         <ui:define name="outOfTemplateAfter">
         	
-        	
+        	<a4j:commandButton id="expandAll" value="Expand All" action="#{richTreeBean.expandAll}" render="#{nestedComponentId}" />
+   			<a4j:commandButton id="collapseAll" value="Collapse All" action="#{richTreeBean.collapseAll}" render="#{nestedComponentId}" />
+        			
         	<a4j:outputPanel ajaxRendered="true">
 	        	<h:panelGrid columns="2">
+	        
 	        		<h:outputLabel value="Test Loading Facet:" />
 	        		<h:selectBooleanCheckbox value="#{richTreeBean.testLoadingFacet}">
 		        		<a4j:ajax render="#{nestedComponentId}" />

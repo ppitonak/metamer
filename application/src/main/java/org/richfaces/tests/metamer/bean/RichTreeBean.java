@@ -27,6 +27,8 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
+import java.util.TreeMap;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
@@ -66,6 +68,8 @@ public class RichTreeBean implements Serializable {
 
     private boolean testLoadingFacet = false;
     private boolean delayedRender = false;
+    
+    private Map<TreeNode, Boolean> expanded = new HashMap<TreeNode, Boolean>();
 
     /**
      * Initializes the managed bean.
@@ -87,6 +91,7 @@ public class RichTreeBean implements Serializable {
         attributes.remove("var");
         attributes.remove("rowKeyVar");
         attributes.remove("stateVar");
+        attributes.remove("nodeType");
 
         for (CompactDiscXmlDescriptor descriptor : model.getCompactDiscs()) {
             createCompactDisc(descriptor);
@@ -107,6 +112,7 @@ public class RichTreeBean implements Serializable {
         CompactDisc cd = new CompactDisc(descriptor.getTitle(), descriptor.getArtist(), company, descriptor.getPrice(),
             descriptor.getYear());
         company.getCds().add(cd);
+        expanded.put(cd, false);
         return cd;
     }
 
@@ -121,6 +127,7 @@ public class RichTreeBean implements Serializable {
             company.setParent(country);
             country.getCompanies().add(company);
             companiesCache.put(companyName, company);
+            expanded.put(company, false);
         }
         return company;
     }
@@ -132,6 +139,7 @@ public class RichTreeBean implements Serializable {
             country = new Country();
             country.setName(countryName);
             countriesCache.put(countryName, country);
+            expanded.put(country, false);
             root.add(country);
         }
         return country;
@@ -177,6 +185,22 @@ public class RichTreeBean implements Serializable {
             } catch (Exception e) {
                 throw new IllegalStateException();
             }
+        }
+    }
+    
+    public Map<TreeNode, Boolean> getExpanded() {
+        return expanded;
+    }
+    
+    public void expandAll() {
+        for (Entry<TreeNode, Boolean> entry : expanded.entrySet()) {
+            entry.setValue(true);
+        }
+    }
+    
+    public void collapseAll() {
+        for (Entry<TreeNode, Boolean> entry : expanded.entrySet()) {
+            entry.setValue(false);
         }
     }
 }
