@@ -69,8 +69,7 @@ public class TestInstantAttributes extends AbstracStatusTest {
     }
 
     @Test
-    @IssueTracking({ "https://issues.jboss.org/browse/RF-9118",
-        "https://javaserverfaces.dev.java.net/issues/show_bug.cgi?id=1788" })
+    @IssueTracking({ "https://issues.jboss.org/browse/RF-9118", "http://java.net/jira/browse/JAVASERVERFACES-1788" })
     public void testOnError() {
         for (int i = 0; i < 2; i++) {
             attributes.setOnError(alert.parametrize("error" + i));
