@@ -67,7 +67,8 @@ public class TestDataTableSortingUsingComponentControl extends DataTableSortingT
 
     @Test
     @Override
-    @IssueTracking("https://issues.jboss.org/browse/RF-9932")
+    @IssueTracking({ "https://issues.jboss.org/browse/RF-9932",
+        "http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-790" })
     public void testSortModeSingleRerenderAll() {
         super.testSortModeSingleRerenderAll();
     }
@@ -80,35 +81,32 @@ public class TestDataTableSortingUsingComponentControl extends DataTableSortingT
 
     @Test
     @Override
-    @IssueTracking("https://issues.jboss.org/browse/RF-9931")
     public void testSortModeMulti() {
         super.testSortModeMulti();
     }
 
     @Test
     @Override
-    @IssueTracking("https://issues.jboss.org/browse/RF-9931")
     public void testSortModeMultiReverse() {
         super.testSortModeMultiReverse();
     }
 
     @Test
     @Override
-    @IssueTracking("https://issues.jboss.org/browse/RF-9931")
     public void testSortModeMultiReplacingOldOccurences() {
         super.testSortModeMultiReplacingOldOccurences();
     }
 
     @Test
     @Override
-    @IssueTracking({ "https://issues.jboss.org/browse/RF-9931", "https://issues.jboss.org/browse/RF-9932" })
+    @IssueTracking({ "https://issues.jboss.org/browse/RF-9932",
+        "http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-790" })
     public void testSortModeMultiRerenderAll() {
         super.testSortModeMultiRerenderAll();
     }
 
     @Test
     @Override
-    @IssueTracking("https://issues.jboss.org/browse/RF-9931")
     public void testSortModeMultiFullPageRefresh() {
         super.testSortModeMultiFullPageRefresh();
     }
