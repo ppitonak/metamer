@@ -41,7 +41,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 
         <ui:define name="component">
 
-            <rich:dataTable id="dataTable" value="#{richSubTableBean.lists}" var="list">
+            <rich:dataTable id="dataTable" value="#{richSubTableBean.lists}" var="list" keepSaved="true">
                 <f:facet name="header">
                     <rich:columnGroup>
                         <rich:column id="columnHeaderEmployees" colspan="6">
@@ -86,7 +86,6 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                 <rich:collapsibleSubTable id="richSubTable"
                                           breakBefore="#{richSubTableBean.attributes['breakBefore'].value}"
                                           expandMode="#{richSubTableBean.attributes['expandMode'].value}"
-                                          expanded="#{richSubTableBean.attributes['expanded'].value}"
                                           filterVar="#{richSubTableBean.attributes['filterVar'].value}"
                                           filteringListeners="#{richSubTableBean.attributes['filteringListeners'].value}"
                                           first="#{richSubTableBean.attributes['first'].value}"
@@ -112,6 +111,12 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                                           sortPriority="#{richSubTableBean.attributes['sortPriority'].value}"
                                           sortingListeners="#{richSubTableBean.attributes['sortingListeners'].value}"
                                           toggleListeners="#{richSubTableBean.attributes['toggleListeners'].value}"
+                                          columnClasses="#{richSubTableBean.attributes['columnClasses'].value}"
+                                          footerClass="#{richSubTableBean.attributes['footerClass'].value}"
+                                          headerClass="#{richSubTableBean.attributes['headerClass'].value}"
+                                          rowClass="#{richSubTableBean.attributes['rowClass'].value}"
+                                          rowClasses="#{richSubTableBean.attributes['rowClasses'].value}"
+                                          expanded="#{richSubTableBean.expanded[list]}"
                                           value="#{list}"
                                           var="item">
                     <rich:column id="columnSex">

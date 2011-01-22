@@ -21,16 +21,18 @@
  *******************************************************************************/
 package org.richfaces.tests.metamer.ftest.richCollapsibleSubTable;
 
+import static org.jboss.test.selenium.JQuerySelectors.append;
+import static org.jboss.test.selenium.JQuerySelectors.not;
 import static org.jboss.test.selenium.guard.request.RequestTypeGuardFactory.guard;
 import static org.jboss.test.selenium.utils.URLUtils.buildUrl;
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertFalse;
 import static org.testng.Assert.assertTrue;
-import static org.testng.Assert.fail;
 
 import java.net.URL;
 import java.util.List;
 
+import org.jboss.test.selenium.locator.JQueryLocator;
 import org.jboss.test.selenium.request.RequestType;
 import org.richfaces.ExpandMode;
 import org.richfaces.tests.metamer.ftest.annotations.IssueTracking;
@@ -51,7 +53,6 @@ public class TestCollapsibleSubTableSimple extends AbstractCollapsibleSubTableTe
 
     @Test
     @Use(field = "expandMode", enumeration = true)
-    @IssueTracking("https://issues.jboss.org/browse/RF-10181")
     public void testExpandMode() {
         final RequestType requestType = getRequestTypeForExpandMode();
 
@@ -144,10 +145,40 @@ public class TestCollapsibleSubTableSimple extends AbstractCollapsibleSubTableTe
     }
 
     @Test
-    @IssueTracking("https://issues.jboss.org/browse/RF-10217")
-    @Use(field = "configuration", empty = true)
-    public void testClasses() {
-        // TODO classes are currently not working
-        fail();
+    public void testColumnClasses() {
+        attributes.setColumnClasses("col1,col2,col3");
+        for (int i = 1; i <= 3; i++) {
+            JQueryLocator anyCellInColumn = subtable.getAnyCellInColumn(i);
+            JQueryLocator haveClassSet = append(anyCellInColumn, ".col" + i);
+            JQueryLocator haveNotClassSet = not(anyCellInColumn, ".col" + i);
+            assertTrue(selenium.isElementPresent(haveClassSet) && selenium.isVisible(haveClassSet));
+            assertFalse(selenium.isElementPresent(haveNotClassSet));
+        }
+    }
+
+    @Test
+    public void testRowClasses() {
+        attributes.setRows(13);
+        attributes.setRowClasses("row1,row2,row3");
+
+        int rowCount = subtable.getRowCount();
+        assertEquals(rowCount, 13);
+
+        for (int i = 1; i <= rowCount; i++) {
+            JQueryLocator row = subtable.getRow(i);
+            selenium.belongsClass(row, "row" + (i + 1 % 3));
+        }
+    }
+
+    @Test
+    @IssueTracking("https://issues.jboss.org/browse/RF-10212")
+    public void testRowClass() {
+        attributes.setRows(13);
+        attributes.setRowClass("rowClass");
+        JQueryLocator anyRow = subtable.getAnyRow();
+        JQueryLocator haveClassSet = append(anyRow, ".rowClass");
+        JQueryLocator haveNotClassSet = not(append(anyRow, ":visible"), ".rowClass");
+        assertEquals(selenium.getCount(haveClassSet), 13);
+        assertEquals(selenium.getCount(haveNotClassSet), 0);
     }
 }

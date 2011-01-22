@@ -79,6 +79,9 @@ public class RichCollapsibleSubTableBean implements Serializable {
 
     // filtering
     private Map<String, Object> filtering = new HashMap<String, Object>();
+    
+    // expanded
+    private Map<List<Employee>, Boolean> expanded = new HashMap<List<Employee>, Boolean>();
 
     /**
      * Initializes the managed bean.
@@ -89,12 +92,12 @@ public class RichCollapsibleSubTableBean implements Serializable {
         logger.debug("initializing bean " + getClass().getName());
 
         attributes = Attributes.getComponentAttributesFromFacesConfig(UICollapsibleSubTable.class, getClass());
-
-        attributes.setAttribute("expanded", true);
+        
         attributes.setAttribute("rendered", true);
         attributes.setAttribute("rows", 5);
 
         // TODO these attributes have to be tested in another way
+        attributes.remove("expanded");
         attributes.remove("columns");
         attributes.remove("selection");
         attributes.remove("filterVar");
@@ -120,6 +123,9 @@ public class RichCollapsibleSubTableBean implements Serializable {
         lists = new ArrayList<List<Employee>>();
         lists.add(men);
         lists.add(women);
+        
+        expanded.put(men, true);
+        expanded.put(women, true);
 
         state = true;
     }
@@ -174,5 +180,9 @@ public class RichCollapsibleSubTableBean implements Serializable {
     
     public Map<String, Object> getFiltering() {
         return filtering;
+    }
+    
+    public Map<List<Employee>, Boolean> getExpanded() {
+        return expanded;
     }
 }

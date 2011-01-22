@@ -80,4 +80,24 @@ public class CollapsibleSubTableAttributes extends AbstractComponentAttributes {
     public void setSortPriority(Collection<String> sortPriority) {
         setProperty("sortPriority", sortPriority);
     }
+
+    public void setColumnClasses(String columnClasses) {
+        setProperty("columnClasses", columnClasses);
+    }
+
+    public void setRowClasses(String rowClasses) {
+        setProperty("rowClasses", rowClasses);
+    }
+
+    public void setRowClass(String rowClass) {
+        setProperty("rowClass", rowClass);
+    }
+
+    public void setHeaderClass(String headerClass) {
+        setProperty("headerClass", headerClass);
+    }
+
+    public void setFooterClass(String footerClass) {
+        setProperty("footerClass", footerClass);
+    }
 }

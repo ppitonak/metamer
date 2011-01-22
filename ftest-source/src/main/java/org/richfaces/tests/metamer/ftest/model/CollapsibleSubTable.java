@@ -5,6 +5,7 @@ import static org.jboss.test.selenium.locator.reference.ReferencedLocator.ref;
 
 import org.jboss.test.selenium.framework.AjaxSelenium;
 import org.jboss.test.selenium.framework.AjaxSeleniumProxy;
+import org.jboss.test.selenium.locator.ElementLocator;
 import org.jboss.test.selenium.locator.ExtendedLocator;
 import org.jboss.test.selenium.locator.JQueryLocator;
 import org.jboss.test.selenium.locator.reference.ReferencedLocator;
@@ -13,7 +14,7 @@ public class CollapsibleSubTable extends AbstractModel<JQueryLocator> {
 
     AjaxSelenium selenium = AjaxSeleniumProxy.getInstance();
 
-    JQueryLocator subtableRow = jq("tr[class^=rf-cst][class$=-r]");
+    JQueryLocator subtableRow = jq("tr[class*=rf-cst-][class*=-r]");
     JQueryLocator subtableCell = jq("td.rf-cst-c");
 
     ReferencedLocator<JQueryLocator> noData = ref(root, "> tr.rf-cst-nd > td.rf-cst-nd-c");
@@ -24,6 +25,14 @@ public class CollapsibleSubTable extends AbstractModel<JQueryLocator> {
 
     public CollapsibleSubTable(JQueryLocator root) {
         super(root);
+    }
+    
+    public JQueryLocator getAnyRow() {
+        return root.getLocator().getChild(subtableRow);
+    }
+    
+    public JQueryLocator getAnyCellInColumn(int column) {
+        return root.getLocator().getChild(subtableRow).getChild(subtableCell).getNthChildElement(column);
     }
 
     public Iterable<JQueryLocator> getRows() {
