@@ -25,6 +25,7 @@ import static org.jboss.test.selenium.RequestTypeModelGuard.guardXhr;
 import static org.jboss.test.selenium.RequestTypeModelGuard.guardNoRequest;
 import static org.jboss.test.selenium.utils.URLUtils.buildUrl;
 import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.assertTrue;
 
 import java.net.URL;
 import java.util.LinkedList;
@@ -57,11 +58,11 @@ public class TestAutocompleteByKeys extends AbstractMetamerTest {
 
     @Inject
     @Use(booleans = { true, false })
-    Boolean autofill = false;
+    Boolean autofill;
 
     @Inject
     @Use(booleans = { true, false })
-    Boolean selectFirst = false;
+    Boolean selectFirst;
 
     List<Capital> capitals = Model.unmarshallCapitals();
 
@@ -86,6 +87,7 @@ public class TestAutocompleteByKeys extends AbstractMetamerTest {
         assertCompletionVisible(true);
         confirm();
         assertCompletionVisible(false);
+        assertTrue(autocomplete.getInputText().toLowerCase().startsWith(getExpectedStateForPrefix().toLowerCase()));
     }
 
     @Test
@@ -141,7 +143,7 @@ public class TestAutocompleteByKeys extends AbstractMetamerTest {
     }
 
     public int getExpectedSelectedOptionIndex() {
-        return (selectFirst) ? 0 : -1;
+        return (selectFirst && partialInput.length() > 0) ? 0 : -1;
     }
 
     public List<String> getStatesByPrefix(String prefix) {

@@ -21,11 +21,12 @@
  *******************************************************************************/
 package org.richfaces.tests.metamer.ftest.model;
 
-import static org.richfaces.tests.metamer.ftest.AbstractMetamerTest.pjq;
-import static org.jboss.test.selenium.locator.LocatorFactory.jq;
-import static org.jboss.test.selenium.javascript.JQueryScript.jqScript;
 import static org.jboss.test.selenium.javascript.JQueryScript.jqObject;
-import static org.jboss.test.selenium.waiting.WaitFactory.*;
+import static org.jboss.test.selenium.javascript.JQueryScript.jqScript;
+import static org.jboss.test.selenium.locator.LocatorFactory.jq;
+import static org.jboss.test.selenium.waiting.WaitFactory.elementPresent;
+import static org.jboss.test.selenium.waiting.WaitFactory.waitGui;
+import static org.richfaces.tests.metamer.ftest.AbstractMetamerTest.pjq;
 
 import java.awt.event.KeyEvent;
 
@@ -41,8 +42,7 @@ import org.jboss.test.selenium.locator.JQueryLocator;
  * @version $Revision$
  */
 public class Autocomplete implements Model {
-
-	private static String KEY_ENTER = "13";
+    
 	private static String KEY_UP = "38";
 	private static String KEY_DOWN = "40";
 
@@ -120,7 +120,7 @@ public class Autocomplete implements Model {
 	}
 
 	public void pressEnter() {
-		selenium.keyDown(input, KEY_ENTER);
+	    selenium.keyDownNative(Integer.toString(KeyEvent.VK_ENTER));
 	}
 
 	public void pressLeft() {
