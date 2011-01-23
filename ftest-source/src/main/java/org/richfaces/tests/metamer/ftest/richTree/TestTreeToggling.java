@@ -33,7 +33,6 @@ import java.util.LinkedList;
 import org.richfaces.component.SwitchType;
 import org.richfaces.tests.metamer.ftest.AbstractMetamerTest;
 import org.richfaces.tests.metamer.ftest.annotations.Inject;
-import org.richfaces.tests.metamer.ftest.annotations.IssueTracking;
 import org.richfaces.tests.metamer.ftest.annotations.Use;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;

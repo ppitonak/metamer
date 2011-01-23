@@ -26,11 +26,13 @@ import static org.testng.Assert.assertEquals;
 
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
+import java.util.LinkedList;
 import java.util.Map;
 import java.util.Set;
 
 import javax.faces.event.PhaseId;
 
+import org.apache.commons.lang.ArrayUtils;
 import org.jboss.test.selenium.framework.AjaxSelenium;
 import org.jboss.test.selenium.framework.AjaxSeleniumProxy;
 import org.jboss.test.selenium.locator.JQueryLocator;
@@ -55,6 +57,9 @@ public class PhaseInfo {
      */
     public void assertPhases(PhaseId... expectedPhases) {
         initialize();
+        if (ArrayUtils.contains(expectedPhases, PhaseId.ANY_PHASE)) {
+            expectedPhases = new LinkedList<PhaseId>(PhaseId.VALUES).subList(1, 7).toArray(new PhaseId[6]);
+        }
         PhaseId[] actualPhases = map.keySet().toArray(new PhaseId[map.size()]);
         assertEquals(actualPhases, expectedPhases);
     }
@@ -88,12 +93,12 @@ public class PhaseInfo {
 
             int count = selenium.getCount(phasesItems);
 
-            Set<String> set;
+            Set<String> set = null;
             for (int i = 1; i <= count; i++) {
                 String description = selenium.getText(phasesItems.getNthChildElement(i));
 
-                set = new LinkedHashSet<String>();
                 if (!description.startsWith("* ")) {
+                    set = new LinkedHashSet<String>();
                     map.put(getPhaseId(description), set);
                 } else {
                     set.add(description.substring(2));
