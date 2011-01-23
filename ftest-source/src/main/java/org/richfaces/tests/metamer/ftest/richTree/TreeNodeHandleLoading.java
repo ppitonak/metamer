@@ -21,8 +21,12 @@
  *******************************************************************************/
 package org.richfaces.tests.metamer.ftest.richTree;
 
+import static org.jboss.test.selenium.locator.LocatorFactory.jq;
+
 import org.jboss.test.selenium.framework.AjaxSelenium;
 import org.jboss.test.selenium.framework.AjaxSeleniumProxy;
+import org.jboss.test.selenium.locator.Attribute;
+import org.jboss.test.selenium.locator.AttributeLocator;
 import org.jboss.test.selenium.locator.JQueryLocator;
 import org.richfaces.tests.metamer.ftest.model.AbstractModel;
 
@@ -30,31 +34,20 @@ import org.richfaces.tests.metamer.ftest.model.AbstractModel;
  * @author <a href="mailto:lfryc@redhat.com">Lukas Fryc</a>
  * @version $Revision$
  */
-public class TreeNodeHandle extends AbstractModel<JQueryLocator> {
+public class TreeNodeHandleLoading extends AbstractModel<JQueryLocator> {
 
     AjaxSelenium selenium = AjaxSeleniumProxy.getInstance();
 
-    String classHandleLeaf = "rf-trn-hnd-lf";
-    String classHandleExpanded = "rf-trn-hnd-exp";
-    String classHandleCollapsed = "rf-trn-hnd-colps";
-
-    public TreeNodeHandle(JQueryLocator root) {
+    public TreeNodeHandleLoading(JQueryLocator root) {
         super(root);
     }
 
-    public boolean isExpanded() {
-        return isVisible() && selenium.belongsClass(this, classHandleExpanded);
+    public String getImageUrl() {
+        AttributeLocator<JQueryLocator> imageSrc = this.getChild(jq("img")).getAttribute(Attribute.SRC);
+        return selenium.getAttribute(imageSrc);
     }
 
-    public boolean isCollapsed() {
-        return isVisible() && selenium.belongsClass(this, classHandleCollapsed);
-    }
-
-    public boolean isLeaf() {
-        return isVisible() && selenium.belongsClass(this, classHandleLeaf);
-    }
-
-    private boolean isVisible() {
+    public boolean isVisible() {
         return selenium.isVisible(this);
     }
 }

@@ -44,11 +44,13 @@ import static org.testng.Assert.assertTrue;
 
 import java.net.URL;
 
+import org.jboss.cheiron.halt.XHRHalter;
 import org.jboss.test.selenium.dom.Event;
 import org.jboss.test.selenium.locator.ElementLocator;
 import org.jboss.test.selenium.locator.ExtendedLocator;
 import org.jboss.test.selenium.locator.JQueryLocator;
 import org.jboss.test.selenium.request.RequestType;
+import org.jboss.test.selenium.waiting.selenium.SeleniumCondition;
 import org.richfaces.component.SwitchType;
 import org.richfaces.tests.metamer.ftest.AbstractMetamerTest;
 import org.richfaces.tests.metamer.ftest.annotations.Inject;
@@ -84,6 +86,7 @@ public class TestTreeSimple extends AbstractMetamerTest {
         new TreeNodeAttributes(pjq("span[id*=treeNode3Attributes]")) };
 
     JQueryLocator expandAll = jq("input:submit[id$=expandAll]");
+    JQueryLocator loadingFacet = jq("input:checkbox[id$=loadingFacet]");
 
     @Override
     public URL getTestUrl() {
@@ -300,6 +303,43 @@ public class TestTreeSimple extends AbstractMetamerTest {
         }
     }
 
+    @Test
+    public void testLoadingFacet() {
+        setLoadingFacet(true);
+        tree.setToggleType(null);
+        XHRHalter.enable();
+
+        XHRHalter xhrHalter = null;
+
+        for (int index : new int[] { 2, 3 }) {
+            treeNode = (index == 2) ? tree.getNode(index) : treeNode.getNode(index);
+
+            assertFalse(treeNode.getHandleLoading().isVisible());
+            assertTrue(treeNode.getHandle().isCollapsed());
+            assertFalse(treeNode.getHandle().isExpanded());
+            treeNode.expand();
+            assertTrue(treeNode.getHandleLoading().isVisible());
+            assertTrue(treeNode.getHandleLoading().getImageUrl().endsWith(IMAGE_URL));
+            assertFalse(treeNode.getHandle().isCollapsed());
+            assertFalse(treeNode.getHandle().isExpanded());
+
+            if (xhrHalter == null) {
+                xhrHalter = XHRHalter.getHandleBlocking();
+            }
+            xhrHalter.complete();
+
+            waitModel.until(treeNodeExpanded);
+        }
+    }
+
+    SeleniumCondition treeNodeExpanded = new SeleniumCondition() {
+
+        @Override
+        public boolean isTrue() {
+            return treeNode.isExpanded();
+        }
+    };
+
     private void fireEvent(ElementLocator<?> target, Event eventToFire, Event eventToSetup) {
         RequestType requestType = (eventToFire == eventToSetup) ? RequestType.XHR : RequestType.NONE;
         if (eventToFire == MOUSEDOWN) {
@@ -313,6 +353,13 @@ public class TestTreeSimple extends AbstractMetamerTest {
         }
         if (eventToFire == MOUSEOUT) {
             guard(selenium, requestType).mouseOut(target);
+        }
+    }
+
+    private void setLoadingFacet(boolean turnOn) {
+        boolean checked = Boolean.valueOf(selenium.getValue(loadingFacet));
+        if (checked != turnOn) {
+            guardXhr(selenium).click(loadingFacet);
         }
     }
 

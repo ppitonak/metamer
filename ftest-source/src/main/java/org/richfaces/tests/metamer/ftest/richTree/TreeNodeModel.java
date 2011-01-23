@@ -51,18 +51,23 @@ public class TreeNodeModel extends AbstractTreeNodeModel {
     private ReferencedLocator<JQueryLocator> content = ref(treeNode, "> span.rf-trn-cnt");
     private ReferencedLocator<JQueryLocator> icon = ref(content, "> .rf-trn-ico");
     private ReferencedLocator<JQueryLocator> label = ref(content, "> .rf-trn-lbl");
+    private ReferencedLocator<JQueryLocator> handleLoading = ref(treeNode, "> .rf-trn-hnd-ldn-fct");
 
     public TreeNodeModel(JQueryLocator root, TreeModel tree) {
         super(root);
         this.tree = tree;
     }
-    
+
     public ExtendedLocator<JQueryLocator> getTreeNode() {
         return treeNode;
     }
 
     public TreeNodeHandle getHandle() {
         return new TreeNodeHandle(handle.getReferenced());
+    }
+    
+    public TreeNodeHandleLoading getHandleLoading() {
+        return new TreeNodeHandleLoading(handleLoading.getReferenced());
     }
 
     public TreeNodeIcon getIcon() {
@@ -92,15 +97,19 @@ public class TreeNodeModel extends AbstractTreeNodeModel {
     public String getLabelText() {
         return selenium.getText(label);
     }
-    
+
     public void expand() {
-        guard(selenium, getRequestType(tree.getToggleType())).click(getHandle());
+        if (tree.getToggleType() == null) {
+            selenium.click(getHandle());
+        } else {
+            guard(selenium, getRequestType(tree.getToggleType())).click(getHandle());
+        }
     }
-    
+
     public void select() {
-        guard(selenium, getRequestType(tree.getSelectionType())).clickAt(getLabel(), new Point(0,0));
+        guard(selenium, getRequestType(tree.getSelectionType())).clickAt(getLabel(), new Point(0, 0));
     }
-    
+
     private RequestType getRequestType(SwitchType switchType) {
         switch (switchType) {
             case ajax:
