@@ -47,10 +47,12 @@ public class AbstractTreeNodeModel extends AbstractModel<JQueryLocator> {
     static JQueryLocator treeNode = jq("div.rf-tr-nd");
     static JQueryLocator treeNodeExpanded = jq("div.rf-tr-nd-exp");
     static JQueryLocator treeNodeCollapsed = jq("div.rf-tr-nd-colps");
+    static JQueryLocator treeNodeSelected = jq("div.rf-tr-nd:has(> .rf-trn > .rf-trn-sel)");
 
     ReferencedLocator<JQueryLocator> nodes = ref(root, "> " + treeNode.getRawLocator());
     ReferencedLocator<JQueryLocator> nodesCollapsed = ref(root, "> " + treeNodeCollapsed.getRawLocator());
     ReferencedLocator<JQueryLocator> nodesExpanded = ref(root, "> " + treeNodeExpanded.getRawLocator());
+    ReferencedLocator<JQueryLocator> anyNodesSelected = ref(root, treeNodeSelected.getRawLocator());
 
     public Iterable<TreeNodeModel> getNodes() {
         Iterable<TreeNodeModel> result = new ModelIterable<JQueryLocator, TreeNodeModel>(nodes.getAllOccurrences(),
@@ -76,6 +78,13 @@ public class AbstractTreeNodeModel extends AbstractModel<JQueryLocator> {
             new Object[] { tree });
         return result;
     }
+    
+    public Iterable<TreeNodeModel> getAnySelectedNodes() {
+        Iterable<TreeNodeModel> result = new ModelIterable<JQueryLocator, TreeNodeModel>(
+            anyNodesSelected.getAllOccurrences(), TreeNodeModel.class, new Class[] { TreeModel.class },
+            new Object[] { tree });
+        return result;
+    }
 
     public int getExpandedNodesCount() {
         return selenium.getCount(nodesExpanded);
@@ -83,5 +92,9 @@ public class AbstractTreeNodeModel extends AbstractModel<JQueryLocator> {
 
     public int getCollapsedNodesCount() {
         return selenium.getCount(nodesCollapsed);
+    }
+    
+    public int getAnySelectedNodesCount() {
+        return selenium.getCount(anyNodesSelected);
     }
 }

@@ -22,10 +22,8 @@
 package org.richfaces.tests.metamer.ftest.richTree;
 
 import static org.jboss.test.selenium.guard.request.RequestTypeGuardFactory.guard;
-import static org.jboss.test.selenium.guard.request.RequestTypeGuardFactory.guardXhr;
 import static org.jboss.test.selenium.locator.reference.ReferencedLocator.ref;
 
-import org.jboss.test.selenium.dom.Event;
 import org.jboss.test.selenium.framework.AjaxSelenium;
 import org.jboss.test.selenium.framework.AjaxSeleniumProxy;
 import org.jboss.test.selenium.geometry.Point;
@@ -33,10 +31,7 @@ import org.jboss.test.selenium.locator.ExtendedLocator;
 import org.jboss.test.selenium.locator.JQueryLocator;
 import org.jboss.test.selenium.locator.reference.ReferencedLocator;
 import org.jboss.test.selenium.request.RequestType;
-import org.junit.Assert;
 import org.richfaces.component.SwitchType;
-import org.richfaces.tests.metamer.ftest.model.AbstractModel;
-import org.richfaces.tests.metamer.ftest.model.ModelIterable;
 
 /**
  * @author <a href="mailto:lfryc@redhat.com">Lukas Fryc</a>
@@ -45,8 +40,6 @@ import org.richfaces.tests.metamer.ftest.model.ModelIterable;
 public class TreeNodeModel extends AbstractTreeNodeModel {
 
     private AjaxSelenium selenium = AjaxSeleniumProxy.getInstance();
-
-    private ReferencedLocator<JQueryLocator> subnodes = ref(root, TreeModel.treeNode.getRawLocator());
 
     private String classNodeExpanded = "rf-tr-nd-exp";
     private String classNodeLeaf = "rf-tr-nd-lf";
@@ -81,7 +74,7 @@ public class TreeNodeModel extends AbstractTreeNodeModel {
     }
 
     public boolean isSelected() {
-        return selenium.belongsClass(root.getLocator(), classSelected);
+        return selenium.belongsClass(content, classSelected);
     }
 
     public boolean isExpanded() {
@@ -105,7 +98,7 @@ public class TreeNodeModel extends AbstractTreeNodeModel {
     }
     
     public void select() {
-        guardXhr(selenium).clickAt(getLabel(), new Point(0,0));
+        guard(selenium, getRequestType(tree.getSelectionType())).clickAt(getLabel(), new Point(0,0));
     }
     
     private RequestType getRequestType(SwitchType switchType) {

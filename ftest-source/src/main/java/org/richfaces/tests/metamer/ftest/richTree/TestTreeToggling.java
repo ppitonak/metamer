@@ -94,7 +94,6 @@ public class TestTreeToggling extends AbstractMetamerTest {
     }
 
     @Test
-    @IssueTracking("https://issues.jboss.org/browse/RF-10264")
     public void testDeepExpansion() {
         for (int[] path : PATHS) {
             for (int d = 1; d <= path.length; d++) {

@@ -221,30 +221,30 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 		        	</h:selectBooleanCheckbox>
         	
 	        		<h:outputLabel value="Selection:" />
-	        		<h:outputText value="#{richTreeBean.selection}" />
+	        		<h:outputText id="selection" value="#{richTreeBean.selection}" />
 	        		
 	        		<h:outputLabel value="Selection Change Event:" rendered="#{not empty richTreeListenerBean.treeSelectionChangeEvent}" />
 	        		<h:panelGrid columns="2" rendered="#{not empty richTreeListenerBean.treeSelectionChangeEvent}">
 	        			<h:outputLabel value="Client ID:" />
-        				<h:outputText value="#{richTreeListenerBean.treeSelectionChangeEvent.component.id}" />
+        				<h:outputText id="selectionEventClientId" value="#{richTreeListenerBean.treeSelectionChangeEvent.component.id}" />
         				
         				<h:outputLabel value="New Selection:" />
-        				<h:outputText value="#{richTreeListenerBean.treeSelectionChangeEvent.newSelection}" />
+        				<h:outputText id="selectionEventNewSelection" value="#{richTreeListenerBean.treeSelectionChangeEvent.newSelection}" />
         				
         				<h:outputLabel value="Old Selection:" />
-        				<h:outputText value="#{richTreeListenerBean.treeSelectionChangeEvent.oldSelection}" />
+        				<h:outputText id="selectionEventOldSelection" value="#{richTreeListenerBean.treeSelectionChangeEvent.oldSelection}" />
 	        		</h:panelGrid>
 	        		
 	        		<h:outputLabel value="Tree Toggle Event:" rendered="#{not empty richTreeListenerBean.treeToggleEvent}" />
 	        		<h:panelGrid columns="2" rendered="#{not empty richTreeListenerBean.treeToggleEvent}">
 	        			<h:outputLabel value="Client ID:" />
-        				<h:outputText value="#{richTreeListenerBean.treeToggleEvent.component.id}" />
+        				<h:outputText id="toggleEventClientId" value="#{richTreeListenerBean.treeToggleEvent.component.id}" />
         				
         				<h:outputLabel value="Collapsed:" />
-        				<h:outputText value="#{richTreeListenerBean.treeToggleEvent.collapsed}" />
+        				<h:outputText id="toggleEventCollapsed" value="#{richTreeListenerBean.treeToggleEvent.collapsed}" />
         				
         				<h:outputLabel value="Expanded:" />
-        				<h:outputText value="#{richTreeListenerBean.treeToggleEvent.expanded}" />
+        				<h:outputText id="toggleEventExpanded" value="#{richTreeListenerBean.treeToggleEvent.expanded}" />
 	        		</h:panelGrid>
 	        	</h:panelGrid>
         	</a4j:outputPanel>
