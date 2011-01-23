@@ -21,6 +21,7 @@
  *******************************************************************************/
 package org.richfaces.tests.metamer.ftest.richTree;
 
+import static org.jboss.test.selenium.guard.request.RequestTypeGuardFactory.guard;
 import static org.jboss.test.selenium.guard.request.RequestTypeGuardFactory.guardXhr;
 import static org.jboss.test.selenium.locator.reference.ReferencedLocator.ref;
 
@@ -31,7 +32,9 @@ import org.jboss.test.selenium.geometry.Point;
 import org.jboss.test.selenium.locator.ExtendedLocator;
 import org.jboss.test.selenium.locator.JQueryLocator;
 import org.jboss.test.selenium.locator.reference.ReferencedLocator;
+import org.jboss.test.selenium.request.RequestType;
 import org.junit.Assert;
+import org.richfaces.component.SwitchType;
 import org.richfaces.tests.metamer.ftest.model.AbstractModel;
 import org.richfaces.tests.metamer.ftest.model.ModelIterable;
 
@@ -56,8 +59,9 @@ public class TreeNodeModel extends AbstractTreeNodeModel {
     private ReferencedLocator<JQueryLocator> icon = ref(content, "> .rf-trn-ico");
     private ReferencedLocator<JQueryLocator> label = ref(content, "> .rf-trn-lbl");
 
-    public TreeNodeModel(JQueryLocator root) {
+    public TreeNodeModel(JQueryLocator root, TreeModel tree) {
         super(root);
+        this.tree = tree;
     }
     
     public ExtendedLocator<JQueryLocator> getTreeNode() {
@@ -97,10 +101,21 @@ public class TreeNodeModel extends AbstractTreeNodeModel {
     }
     
     public void expand() {
-        guardXhr(selenium).click(getHandle());
+        guard(selenium, getRequestType(tree.getToggleType())).click(getHandle());
     }
     
     public void select() {
         guardXhr(selenium).clickAt(getLabel(), new Point(0,0));
+    }
+    
+    private RequestType getRequestType(SwitchType switchType) {
+        switch (switchType) {
+            case ajax:
+                return RequestType.XHR;
+            case server:
+                return RequestType.HTTP;
+            default:
+                return RequestType.NONE;
+        }
     }
 }

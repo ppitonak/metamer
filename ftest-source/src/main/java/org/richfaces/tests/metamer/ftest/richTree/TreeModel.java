@@ -30,12 +30,12 @@ import org.richfaces.component.SwitchType;
  */
 public class TreeModel extends AbstractTreeNodeModel {
 
-    SwitchType toggleType;
-    SwitchType selectionType;
+    SwitchType toggleType = SwitchType.ajax;
+    SwitchType selectionType = SwitchType.ajax;
 
     public TreeModel(JQueryLocator root) {
         super(root);
-        this.setTree(this);
+        this.tree = this;
     }
 
     public void setToggleType(SwitchType toggleType) {
@@ -55,6 +55,6 @@ public class TreeModel extends AbstractTreeNodeModel {
     }
     
     public TreeNodeModel getAnyNode() {
-        return new TreeNodeModel(root.getLocator().getDescendant(treeNode));
+        return new TreeNodeModel(root.getLocator().getDescendant(treeNode), tree);
     }
 }

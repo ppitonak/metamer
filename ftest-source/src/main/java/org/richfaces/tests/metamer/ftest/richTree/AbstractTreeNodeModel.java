@@ -40,10 +40,6 @@ public class AbstractTreeNodeModel extends AbstractModel<JQueryLocator> {
     public AbstractTreeNodeModel(JQueryLocator root) {
         super(root);
     }
-    
-    public void setTree(TreeModel tree) {
-         this.tree = tree;
-    }
 
     private AjaxSelenium selenium = AjaxSeleniumProxy.getInstance();
     protected TreeModel tree;
@@ -57,32 +53,27 @@ public class AbstractTreeNodeModel extends AbstractModel<JQueryLocator> {
     ReferencedLocator<JQueryLocator> nodesExpanded = ref(root, "> " + treeNodeExpanded.getRawLocator());
 
     public Iterable<TreeNodeModel> getNodes() {
-        Iterable<TreeNodeModel> result = new ModelIterable<JQueryLocator, TreeNodeModel>(nodes.getAllOccurrences(), TreeNodeModel.class);
-        for (TreeNodeModel trn : result) {
-            trn.setTree(tree);
-        }
+        Iterable<TreeNodeModel> result = new ModelIterable<JQueryLocator, TreeNodeModel>(nodes.getAllOccurrences(),
+            TreeNodeModel.class, new Class[] { TreeModel.class }, new Object[] { tree });
         return result;
     }
 
     public TreeNodeModel getNode(int index) {
-        TreeNodeModel trn = new TreeNodeModel(nodes.getNthOccurence(index));
-        trn.setTree(tree);
+        TreeNodeModel trn = new TreeNodeModel(nodes.getNthOccurence(index), tree);
         return trn;
     }
 
     public Iterable<TreeNodeModel> getExpandedNodes() {
-        Iterable<TreeNodeModel> result = new ModelIterable<JQueryLocator, TreeNodeModel>(nodesExpanded.getAllOccurrences(), TreeNodeModel.class);
-        for (TreeNodeModel trn : result) {
-            trn.setTree(tree);
-        }
+        Iterable<TreeNodeModel> result = new ModelIterable<JQueryLocator, TreeNodeModel>(
+            nodesExpanded.getAllOccurrences(), TreeNodeModel.class, new Class[] { TreeModel.class },
+            new Object[] { tree });
         return result;
     }
 
     public Iterable<TreeNodeModel> getCollapsedNodes() {
-        Iterable<TreeNodeModel> result = new ModelIterable<JQueryLocator, TreeNodeModel>(nodesCollapsed.getAllOccurrences(), TreeNodeModel.class);
-        for (TreeNodeModel trn : result) {
-            trn.setTree(tree);
-        }
+        Iterable<TreeNodeModel> result = new ModelIterable<JQueryLocator, TreeNodeModel>(
+            nodesCollapsed.getAllOccurrences(), TreeNodeModel.class, new Class[] { TreeModel.class },
+            new Object[] { tree });
         return result;
     }
 

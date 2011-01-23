@@ -21,6 +21,7 @@
  *******************************************************************************/
 package org.richfaces.tests.metamer.ftest.richTree;
 
+import static org.jboss.test.selenium.locator.LocatorFactory.jq;
 import static org.jboss.test.selenium.utils.URLUtils.buildUrl;
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertTrue;
@@ -29,8 +30,11 @@ import java.net.URL;
 import java.util.Deque;
 import java.util.LinkedList;
 
+import org.richfaces.component.SwitchType;
 import org.richfaces.tests.metamer.ftest.AbstractMetamerTest;
+import org.richfaces.tests.metamer.ftest.annotations.Inject;
 import org.richfaces.tests.metamer.ftest.annotations.IssueTracking;
+import org.richfaces.tests.metamer.ftest.annotations.Use;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
@@ -38,15 +42,20 @@ import org.testng.annotations.Test;
  * @author <a href="mailto:lfryc@redhat.com">Lukas Fryc</a>
  * @version $Revision$
  */
-public class TestTreeExpansion extends AbstractMetamerTest {
+public class TestTreeToggling extends AbstractMetamerTest {
 
     private static final int TOP_LEVEL_NODES = 4;
     private static final int DEPTH = 3;
 
     int[][] PATHS = new int[][] { { 3, 2, 1 }, { 2, 4, 1 } };
 
+    private TreeAttributes treeAttributes = new TreeAttributes(jq("span[id*=attributes]"));
     private TreeModel tree = new TreeModel(pjq("div.rf-tr[id$=richTree]"));
     private TreeNodeModel treeNode;
+
+    @Inject
+    @Use(enumeration = true)
+    SwitchType toggleType = SwitchType.ajax;
 
     @Override
     public URL getTestUrl() {
@@ -55,6 +64,8 @@ public class TestTreeExpansion extends AbstractMetamerTest {
 
     @BeforeMethod
     public void verifyInitialState() {
+        treeAttributes.setToggleType(toggleType);
+        tree.setToggleType(toggleType);
         assertEquals(tree.getCollapsedNodesCount(), TOP_LEVEL_NODES);
         assertEquals(tree.getExpandedNodesCount(), 0);
     }
@@ -102,7 +113,6 @@ public class TestTreeExpansion extends AbstractMetamerTest {
     }
 
     @Test
-    @IssueTracking("https://issues.jboss.org/browse/RF-10264")
     public void testDeepCollapsion() {
         Deque<TreeNodeModel> stack = new LinkedList<TreeNodeModel>();
 
