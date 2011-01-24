@@ -14,6 +14,7 @@
             <package name="org.richfaces.tests.metamer.ftest.richTogglePanelItem" />
             <package name="org.richfaces.tests.metamer.ftest.richToolbar" />
             <package name="org.richfaces.tests.metamer.ftest.richToolbarGroup" />
+            <package name="org.richfaces.tests.metamer.ftest.richTooltip" />
         </packages>
     </test>
 
