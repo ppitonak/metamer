@@ -366,8 +366,8 @@ public class MatrixConfigurator extends TestMethodSelector implements IInvokedMe
                             }
                             satisfied = true;
                         } else {
-                            throw new IllegalStateException("cannot satisfy parameter with declared field "
-                                + field.getName());
+                            throw new IllegalStateException("cannot satisfy parameter with declared field '"
+                                + field.getName() + "'");
                         }
                     }
                 }
