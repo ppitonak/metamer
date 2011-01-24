@@ -34,6 +34,7 @@ import static org.testng.Assert.assertTrue;
 import static org.testng.Assert.fail;
 
 import java.net.URL;
+
 import javax.faces.event.PhaseId;
 
 import org.jboss.test.selenium.dom.Event;
@@ -73,7 +74,7 @@ public class TestRichMenuItem extends AbstractMetamerTest {
         assertTrue(selenium.isElementPresent(menuItem1), "Menu item \"New\" should be present on the page.");
         assertFalse(selenium.isVisible(menuItem1), "Menu item \"New\" should not be visible on the page.");
 
-        guardNoRequest(selenium).click(fileMenu);
+        guardNoRequest(selenium).mouseOver(fileMenu);
 
         assertTrue(selenium.isElementPresent(menuItem1), "Menu item \"New\" should be present on the page.");
         assertTrue(selenium.isVisible(menuItem1), "Menu item \"New\" should be visible on the page.");
@@ -109,7 +110,7 @@ public class TestRichMenuItem extends AbstractMetamerTest {
     @Test
     public void testActionListener() {
         String reqTime = selenium.getText(time);
-        selenium.click(fileMenu);
+        selenium.mouseOver(fileMenu);
         guardXhr(selenium).click(menuItem1);
         waitGui.failWith("Page was not updated").waitForChange(reqTime, retrieveText.locator(time));
 
@@ -123,7 +124,7 @@ public class TestRichMenuItem extends AbstractMetamerTest {
         selenium.waitForPageToLoad();
 
         String reqTime = selenium.getText(time);
-        selenium.click(fileMenu);
+        selenium.mouseOver(fileMenu);
         guardXhr(selenium).click(menuItem1);
         waitGui.failWith("Page was not updated").waitForChange(reqTime, retrieveText.locator(time));
 
@@ -145,7 +146,7 @@ public class TestRichMenuItem extends AbstractMetamerTest {
         selenium.waitForPageToLoad();
 
         String reqTime = selenium.getText(time);
-        selenium.click(fileMenu);
+        selenium.mouseOver(fileMenu);
         guardXhr(selenium).click(menuItem1);
         waitGui.failWith("Page was not updated").waitForChange(reqTime, retrieveText.locator(time));
 
@@ -174,7 +175,7 @@ public class TestRichMenuItem extends AbstractMetamerTest {
         selenium.waitForPageToLoad();
 
         String reqTime = selenium.getText(time);
-        selenium.click(fileMenu);
+        selenium.mouseOver(fileMenu);
         guardXhr(selenium).click(menuItem1);
         waitGui.failWith("Page was not updated").waitForChange(reqTime, retrieveText.locator(time));
 
@@ -231,7 +232,7 @@ public class TestRichMenuItem extends AbstractMetamerTest {
         selenium.waitForPageToLoad();
 
         String reqTime = selenium.getText(time);
-        selenium.click(fileMenu);
+        selenium.mouseOver(fileMenu);
         guardXhr(selenium).click(menuItem1);
         waitGui.failWith("Page was not updated").waitForChange(reqTime, retrieveText.locator(time));
 
@@ -261,20 +262,18 @@ public class TestRichMenuItem extends AbstractMetamerTest {
         selenium.click(pjq("input[type=radio][name$=limitRenderInput][value=true]"));
         selenium.waitForPageToLoad();
 
-        String timeValue = selenium.getText(time);
-
         String reqTime = selenium.getText(time);
-        selenium.click(fileMenu);
+        selenium.mouseOver(fileMenu);
         guardXhr(selenium).click(menuItem1);
         String newTime = selenium.getText(time);
-        assertNotSame(newTime, timeValue, "Panel with ajaxRendered=true should not be rerendered.");
+        assertNotSame(newTime, reqTime, "Panel with ajaxRendered=true should not be rerendered.");
     }
 
     @Test
     @IssueTracking("https://issues.jboss.org/browse/RF-10200")
     public void testMode() {
         String reqTime = selenium.getText(time);
-        selenium.click(fileMenu);
+        selenium.mouseOver(fileMenu);
         guardXhr(selenium).click(menuItem1);
         waitGui.failWith("Page was not updated").waitForChange(reqTime, retrieveText.locator(time));
 
@@ -289,7 +288,7 @@ public class TestRichMenuItem extends AbstractMetamerTest {
         selenium.type(pjq("input[id$=modeInput]"), "server");
         selenium.waitForPageToLoad();
 
-        selenium.click(fileMenu);
+        selenium.mouseOver(fileMenu);
         guardHttp(selenium).click(menuItem1);
 
         assertPhases(PhaseId.RESTORE_VIEW, PhaseId.APPLY_REQUEST_VALUES, PhaseId.PROCESS_VALIDATIONS,
@@ -313,7 +312,7 @@ public class TestRichMenuItem extends AbstractMetamerTest {
         selenium.getEval(new JavaScript("window.metamerEvents = \"\";"));
 
         String reqTime = selenium.getText(time);
-        selenium.click(fileMenu);
+        selenium.mouseOver(fileMenu);
         guardXhr(selenium).click(menuItem1);
         waitGui.failWith("Page was not updated").waitForChange(reqTime, retrieveText.locator(time));
 
