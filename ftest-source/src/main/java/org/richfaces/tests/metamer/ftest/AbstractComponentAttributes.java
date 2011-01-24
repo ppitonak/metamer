@@ -87,10 +87,12 @@ public class AbstractComponentAttributes {
         String valueAsString = value.toString();
 
         if (value.getClass().isEnum()) {
-            valueAsString = valueAsString.toLowerCase();
-            valueAsString = WordUtils.capitalizeFully(valueAsString, new char[] { '_' });
-            valueAsString = valueAsString.replace("_", "");
-            valueAsString = StringUtils.uncapitalize(valueAsString);
+            if ("select".equals(inputType) && !selenium.getSelectOptions(locator).contains(valueAsString)) {
+                valueAsString = valueAsString.toLowerCase();
+                valueAsString = WordUtils.capitalizeFully(valueAsString, new char[] { '_' });
+                valueAsString = valueAsString.replace("_", "");
+                valueAsString = StringUtils.uncapitalize(valueAsString);
+            }
         }
 
         if ("text".equals(inputType)) {
@@ -139,7 +141,7 @@ public class AbstractComponentAttributes {
         OptionValueLocator optionLocator = new OptionValueLocator(value);
         guard(selenium, requestType).select(locator, optionLocator);
     }
-    
+
     public void setOncomplete(String oncomplete) {
         setProperty("oncomplete", oncomplete);
     }
