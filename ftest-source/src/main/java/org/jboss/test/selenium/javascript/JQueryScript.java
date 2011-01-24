@@ -25,6 +25,7 @@ import static org.jboss.test.selenium.utils.text.SimplifiedFormat.format;
 
 import org.apache.commons.lang.StringEscapeUtils;
 import org.jboss.test.selenium.encapsulated.JavaScript;
+import org.jboss.test.selenium.locator.ExtendedLocator;
 import org.jboss.test.selenium.locator.JQueryLocator;
 
 /**
@@ -43,12 +44,12 @@ public class JQueryScript extends JavaScript {
             StringEscapeUtils.escapeJavaScript(selector), jqueryScript));
     }
 
-    public JQueryScript(JQueryLocator jQueryLocator) {
+    public JQueryScript(ExtendedLocator<JQueryLocator> jQueryLocator) {
         super(format("jQuery('{0}', selenium.browserbot.getCurrentWindow().document)",
             StringEscapeUtils.escapeJavaScript(jQueryLocator.getRawLocator())));
     }
 
-    public JQueryScript(JQueryLocator jQueryLocator, String jqueryScript) {
+    public JQueryScript(ExtendedLocator<JQueryLocator> jQueryLocator, String jqueryScript) {
         super(format("jQuery('{0}', selenium.browserbot.getCurrentWindow().document).{1}",
             StringEscapeUtils.escapeJavaScript(jQueryLocator.getRawLocator()), jqueryScript));
     }
@@ -65,7 +66,7 @@ public class JQueryScript extends JavaScript {
         return new JQueryScript(selector, jqueryScript);
     }
 
-    public static JQueryScript jqScript(JQueryLocator jQueryLocator, String jqueryScript) {
+    public static JQueryScript jqScript(ExtendedLocator<JQueryLocator> jQueryLocator, String jqueryScript) {
         return new JQueryScript(jQueryLocator, jqueryScript);
     }
 }
