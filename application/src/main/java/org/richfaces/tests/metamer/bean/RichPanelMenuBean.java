@@ -46,6 +46,8 @@ public class RichPanelMenuBean implements Serializable {
     private static final long serialVersionUID = -1L;
     private static Logger logger;
     private Attributes attributes;
+    
+    private Object activeItem;
 
     /**
      * Initializes the managed bean.
@@ -54,20 +56,11 @@ public class RichPanelMenuBean implements Serializable {
     public void init() {
         logger = LoggerFactory.getLogger(getClass());
         logger.debug("initializing bean " + getClass().getName());
-
-        // loading from Class to work around RF-10161
+        
         attributes = Attributes.getComponentAttributesFromFacesConfig(UIPanelMenu.class, getClass());
-
-        attributes.setAttribute("groupLeftIconCollapsed", "disc");
-        attributes.setAttribute("groupRightIconCollapsed", "chevronDown");
-        attributes.setAttribute("groupLeftIconExpanded", "disc");
-        attributes.setAttribute("groupRightIconExpanded", "chevronUp");
+        
         attributes.setAttribute("rendered", true);
         attributes.setAttribute("style", "width: 200px;");
-        attributes.setAttribute("topGroupLeftIconCollapsed", "disc");
-        attributes.setAttribute("topGroupRightIconCollapsed", "chevronDown");
-        attributes.setAttribute("topGroupLeftIconExpanded", "disc");
-        attributes.setAttribute("topGroupRightIconExpanded", "chevronUp");
 
         // will be tested in another way
         attributes.remove("itemChangeListener");
@@ -89,7 +82,15 @@ public class RichPanelMenuBean implements Serializable {
      *            an event representing the activation of a user interface component
      */
     public void itemChangeListener(ItemChangeEvent event) {
-        attributes.get("activeItem").setValue(event.getNewItem());
+        activeItem = event.getNewItem();
         RichBean.logToPage("* item changed: " + event.getOldItem() + " -> " + event.getNewItem());
+    }
+    
+    public void setActiveItem(Object activeItem) {
+        this.activeItem = activeItem;
+    }
+    
+    public Object getActiveItem() {
+        return activeItem;
     }
 }
