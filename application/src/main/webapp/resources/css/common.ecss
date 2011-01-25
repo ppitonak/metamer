@@ -23,7 +23,7 @@ body {
 .phases-list {
 	font-size: 0.7em;
 	height: 130px;
-	overflow: auto;
+	overflow: visible;
 }
 
 a img {
