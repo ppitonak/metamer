@@ -1,6 +1,6 @@
 /*******************************************************************************
  * JBoss, Home of Professional Open Source
- * Copyright 2010, Red Hat, Inc. and individual contributors
+ * Copyright 2010-2011, Red Hat, Inc. and individual contributors
  * by the @authors tag. See the copyright.txt in the distribution for a
  * full listing of individual contributors.
  *
@@ -136,18 +136,18 @@ public class TestRichTogglePanel extends AbstractMetamerTest {
 
         guardHttp(selenium).click(tc3);
         assertTrue(selenium.isVisible(item3), "Item 3 should be visible.");
-        assertFalse(selenium.isElementPresent(item1), "Item 1 should not be present.");
-        assertFalse(selenium.isElementPresent(item2), "Item 2 should not be present.");
+        assertFalse(selenium.isDisplayed(item1), "Item 1 should not be displayed.");
+        assertFalse(selenium.isDisplayed(item2), "Item 2 should not be displayed.");
 
         guardHttp(selenium).click(tc2);
         assertTrue(selenium.isVisible(item2), "Item 2 should be visible.");
-        assertFalse(selenium.isElementPresent(item1), "Item 1 should not be present.");
-        assertFalse(selenium.isElementPresent(item3), "Item 3 should not be present.");
+        assertFalse(selenium.isDisplayed(item1), "Item 1 should not be displayed.");
+        assertFalse(selenium.isDisplayed(item3), "Item 3 should not be displayed.");
 
         guardHttp(selenium).click(tc1);
         assertTrue(selenium.isVisible(item1), "Item 1 should be visible.");
-        assertFalse(selenium.isElementPresent(item2), "Item 2 should not be present.");
-        assertFalse(selenium.isElementPresent(item3), "Item 3 should not be present.");
+        assertFalse(selenium.isDisplayed(item2), "Item 2 should not be displayed.");
+        assertFalse(selenium.isDisplayed(item3), "Item 3 should not be displayed.");
     }
 
     @Test
@@ -215,23 +215,23 @@ public class TestRichTogglePanel extends AbstractMetamerTest {
 
         guardHttp(selenium).click(tcNext);
         assertTrue(selenium.isVisible(item2), "Next item (2) should be visible.");
-        assertFalse(selenium.isElementPresent(item1), "Item 1 should not be present.");
-        assertFalse(selenium.isElementPresent(item3), "Item 3 should not be present.");
+        assertFalse(selenium.isDisplayed(item1), "Item 1 should not be displayed.");
+        assertFalse(selenium.isDisplayed(item3), "Item 3 should not be displayed.");
 
         guardHttp(selenium).click(tcPrev);
         assertTrue(selenium.isVisible(item1), "Previous item (2) should be visible.");
-        assertFalse(selenium.isElementPresent(item2), "Item 2 should not be present.");
-        assertFalse(selenium.isElementPresent(item3), "Item 3 should not be present.");
+        assertFalse(selenium.isDisplayed(item2), "Item 2 should not be displayed.");
+        assertFalse(selenium.isDisplayed(item3), "Item 3 should not be displayed.");
 
         guardHttp(selenium).click(tcLast);
         assertTrue(selenium.isVisible(item3), "Last item (3) should be visible.");
-        assertFalse(selenium.isElementPresent(item1), "Item 1 should not be present.");
-        assertFalse(selenium.isElementPresent(item2), "Item 2 should not be present.");
+        assertFalse(selenium.isDisplayed(item1), "Item 1 should not be displayed.");
+        assertFalse(selenium.isDisplayed(item2), "Item 2 should not be displayed.");
 
         guardHttp(selenium).click(tcFirst);
         assertTrue(selenium.isVisible(item1), "First item (1) should be visible.");
-        assertFalse(selenium.isElementPresent(item2), "Item 2 should not be present.");
-        assertFalse(selenium.isElementPresent(item3), "Item 3 should not be present.");
+        assertFalse(selenium.isDisplayed(item2), "Item 2 should not be displayed.");
+        assertFalse(selenium.isDisplayed(item3), "Item 3 should not be displayed.");
     }
 
     @Test
