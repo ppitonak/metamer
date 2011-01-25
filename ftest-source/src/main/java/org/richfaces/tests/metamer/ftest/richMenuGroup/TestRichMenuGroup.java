@@ -71,7 +71,7 @@ public class TestRichMenuGroup extends AbstractMetamerTest {
         assertFalse(selenium.isVisible(group), "Menu group \"Save As...\" should not be visible on the page.");
 
         assertFalse(selenium.isDisplayed(fileMenuList), "Menu should not be expanded.");
-        guardNoRequest(selenium).click(fileMenu);
+        guardNoRequest(selenium).mouseOver(fileMenu);
         assertTrue(selenium.isDisplayed(fileMenuList), "Menu should be expanded.");
 
         assertTrue(selenium.isElementPresent(group), "Menu group \"Save As...\" should be present on the page.");
@@ -193,7 +193,7 @@ public class TestRichMenuGroup extends AbstractMetamerTest {
         selenium.type(pjq("input[id$=onhideInput]"), "metamerEvents += \"hide \"");
         selenium.waitForPageToLoad(TIMEOUT);
 
-        selenium.click(fileMenu);
+        selenium.mouseOver(fileMenu);
         waitGui.failWith("Menu was not open.").until(isDisplayed.locator(fileMenuList));
         selenium.mouseOver(group);
         waitGui.failWith("Submenu was not open").until(isDisplayed.locator(groupList));
@@ -247,7 +247,7 @@ public class TestRichMenuGroup extends AbstractMetamerTest {
         selenium.type(pjq("input[id$=onshowInput]"), "metamerEvents += \"show \"");
         selenium.waitForPageToLoad(TIMEOUT);
 
-        selenium.click(fileMenu);
+        selenium.mouseOver(fileMenu);
         waitGui.failWith("Menu was not open.").until(isDisplayed.locator(fileMenuList));
         selenium.mouseOver(group);
         waitGui.failWith("Submenu was not open").until(isDisplayed.locator(groupList));

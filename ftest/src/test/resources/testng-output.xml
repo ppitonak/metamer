@@ -7,6 +7,7 @@
             <package name="org.richfaces.tests.metamer.ftest.richAccordionItem" />
             <package name="org.richfaces.tests.metamer.ftest.richCollapsiblePanel" />
             <package name="org.richfaces.tests.metamer.ftest.richPanel" />
+            <package name="org.richfaces.tests.metamer.ftest.richPopupPanel" />
             <package name="org.richfaces.tests.metamer.ftest.richProgressBar" />
             <package name="org.richfaces.tests.metamer.ftest.richTab" />
             <package name="org.richfaces.tests.metamer.ftest.richTabPanel" />
