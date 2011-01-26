@@ -60,39 +60,58 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 			<tr>
 				<td>
 					<a4j:outputPanel id="draggable1" layout="block" styleClass="draggable">
-						<h:outputText value="#{richDragSourceBean.dragValues[0]}" />
-						<rich:dragSource event="mouseover"
+						<h:outputText value="#1: type=#{richDragSourceBean.attributes['type'].value}" />
+						<rich:dragSource
 							dragValue="#{richDragSourceBean.dragValues[0]}"
 							type="drg1"  />
 					</a4j:outputPanel>
 				</td>
 				<td>
 					<a4j:outputPanel id="draggable2" layout="block" styleClass="draggable">
-						<h:outputText value="#{richDragSourceBean.dragValues[1]}" />
-						<rich:dragSource event="mouseover" type="drg2" dragIndicator="indicator" dragValue="#{richDragSourceBean.dragValues[1]}" />
+						<h:outputText value="#2: type=drg2" />
+						<rich:dragSource type="drg2" dragIndicator="indicator" dragValue="#{richDragSourceBean.dragValues[1]}" />
 					</a4j:outputPanel>
 				</td>
 				<td>
 					<a4j:outputPanel id="draggable3" layout="block" styleClass="draggable">
-						<h:outputText value="#{richDragSourceBean.dragValues[2]}" />
-						<rich:dragSource event="mouseover" type="drg3" dragIndicator="indicator" dragValue="#{richDragSourceBean.dragValues[2]}" />
+						<h:outputText value="#3: type=drg3" />
+						<rich:dragSource type="drg3" dragIndicator="indicator" dragValue="#{richDragSourceBean.dragValues[2]}" />
 					</a4j:outputPanel>
 				</td>
 			</tr>
 		</table>
 
 		<a4j:outputPanel id="droppable" layout="block" styleClass="droppable">
-			<rich:dropTarget event="mouseover"
+			<rich:dropTarget
+				id="richDropTarget"
 				dropValue="#{richDropTargetBean.dropValue}"
 				dropListener="#{richDropListenerBean.processDragging}"
 				acceptedTypes="drg1, drg2"
-				render="droppedValues"
+				render="droppable"
 				 />
+			
+			<h:outputText value="Accepts: drg1, drg2" />
+			<br />
+			
+			<h:outputText id="dropNumber" value="Drops: #{richDropTargetBean.dropValue.number}" />
+			<br />
+			
+			
 			
 			<h:dataTable id="droppedValues" var="droppedValue" value="#{richDropTargetBean.droppedEntries}">
 				<h:column>
-					<h:outputText value="#{droppedValue}" />
+					<f:facet name="header">
+						Dragged
+					</f:facet>
+					<h:outputText value="##{droppedValue.value.number}" />
 				</h:column>
+				<h:column>
+					<f:facet name="header">
+						Dropped
+					</f:facet>
+					<h:outputText value="#{droppedValue.key.number}" />
+				</h:column>
+				
 			</h:dataTable>
 		</a4j:outputPanel>
 

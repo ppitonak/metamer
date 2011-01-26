@@ -35,6 +35,10 @@ public class DragValue implements Serializable {
     public DragValue(int number) {
         this.number = number;
     }
+    
+    public int getNumber() {
+        return number;
+    }
 
     @Override
     public String toString() {

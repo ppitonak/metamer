@@ -67,9 +67,9 @@ public class RichDropTargetBean implements Serializable {
         attributes = Attributes.getComponentAttributesFromFacesConfig(UIDropTarget.class, getClass());
 
         attributes.setAttribute("acceptedTypes", "drg1, drg2");
-        attributes.setAttribute("render", "droppedValues");
+        attributes.setAttribute("render", "droppable");
+        attributes.setAttribute("rendered", true);
         
-        attributes.remove("event");
         attributes.remove("actionExpression");
         attributes.remove("action");
         attributes.remove("actionListener");

@@ -35,6 +35,10 @@ public class DropValue implements Serializable {
     public DropValue(int number) {
         this.number = number;
     }
+    
+    public int getNumber() {
+        return number;
+    }
 
     @Override
     public String toString() {
