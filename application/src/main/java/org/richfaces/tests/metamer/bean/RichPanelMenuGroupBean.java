@@ -61,13 +61,7 @@ public class RichPanelMenuGroupBean implements Serializable {
         // already defined in source directly
         attributes.remove("name");
         attributes.remove("label");
-
-        // attributes should be hidden
-        attributes.remove("panelMenu");
-        attributes.remove("parentItem");
-        attributes.remove("topItem");
-        attributes.remove("submittedExpanded");
-        attributes.remove("value");
+        attributes.remove("changeExpandListener");
     }
 
     public Attributes getAttributes() {
@@ -79,7 +73,6 @@ public class RichPanelMenuGroupBean implements Serializable {
     }
 
     public void changeExpandListener(Object event) {
-        // TODO ajax or server expansion doesn't work yet
-        throw new UnsupportedOperationException("needs to be implemented in Metamer");
+        RichBean.logToPage("* group expanded");
     }
 }

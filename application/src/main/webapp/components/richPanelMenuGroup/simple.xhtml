@@ -40,10 +40,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 
         <ui:define name="component">
 
-            <rich:panelMenu id="panelMenu" style="width: 250px; "
-                            action="#{richBean.dummyAction}"
-                            actionListener="#{richBean.dummyActionListener}"
-          					activeItem="#{richPanelMenuBean.attributes['activeItem'].value}"
+            <rich:panelMenu id="panelMenu" style="width: 250px;"
                             itemChangeListener="#{richPanelMenuBean.itemChangeListener}">
 
                 <rich:panelMenuGroup id="group1" name="group1" label="Group 1">
@@ -69,13 +66,14 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                 	expanded="#{richPanelMenuGroupBean.attributes['expanded'].value}"
                 	hoverClass="#{richPanelMenuGroupBean.attributes['hoverClass'].value}"
                 	iconLeftClass="#{richPanelMenuGroupBean.attributes['iconLeftClass'].value}"
-                	iconLeftCollapsed="#{richPanelMenuGroupBean.attributes['iconLeftCollapsed'].value}"
-                	iconLeftDisabled="#{richPanelMenuGroupBean.attributes['iconLeftDisabled'].value}"
-                	iconLeftExpanded="#{richPanelMenuGroupBean.attributes['iconLeftExpanded'].value}"
-                	iconRightClass="#{richPanelMenuGroupBean.attributes['iconRightClass'].value}"
-                	iconRightCollapsed="#{richPanelMenuGroupBean.attributes['iconRightCollapsed'].value}"
-                	iconRightDisabled="#{richPanelMenuGroupBean.attributes['iconRightDisabled'].value}"
-                	iconRightExpanded="#{richPanelMenuGroupBean.attributes['iconRightExpanded'].value}"
+                	leftIcon="#{richPanelMenuGroupBean.attributes['leftIcon'].value}"
+                	leftIconCollapsed="#{richPanelMenuGroupBean.attributes['leftIconCollapsed'].value}"
+                	leftIconDisabled="#{richPanelMenuGroupBean.attributes['leftIconDisabled'].value}"
+                	leftIconExpanded="#{richPanelMenuGroupBean.attributes['leftIconExpanded'].value}"
+                	rightIcon="#{richPanelMenuGroupBean.attributes['rightIcon'].value}"
+                	rightIconCollapsed="#{richPanelMenuGroupBean.attributes['rightIconCollapsed'].value}"
+                	rightIconDisabled="#{richPanelMenuGroupBean.attributes['rightIconDisabled'].value}"
+                	rightIconExpanded="#{richPanelMenuGroupBean.attributes['rightIconExpanded'].value}"
                 	immediate="#{richPanelMenuGroupBean.attributes['immediate'].value}"
                 	limitRender="#{richPanelMenuGroupBean.attributes['limitRender'].value}"
                 	mode="#{richPanelMenuGroupBean.attributes['mode'].value}"
