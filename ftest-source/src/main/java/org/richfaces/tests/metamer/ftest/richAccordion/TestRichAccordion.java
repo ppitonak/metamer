@@ -214,7 +214,7 @@ public class TestRichAccordion extends AbstractMetamerTest {
         selenium.type(pjq("input[type=text][id$=dataInput]"), "RichFaces 4");
         selenium.waitForPageToLoad();
 
-        selenium.type(pjq("input[type=text][id$=onitemchangeInput]"), "data = event.data");
+        selenium.type(pjq("input[type=text][id$=oncompleteInput]"), "data = event.data");
         selenium.waitForPageToLoad();
 
         guardXhr(selenium).click(itemHeaders[2]);

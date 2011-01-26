@@ -1,6 +1,6 @@
 /*******************************************************************************
  * JBoss, Home of Professional Open Source
- * Copyright 2010, Red Hat, Inc. and individual contributors
+ * Copyright 2010-2011, Red Hat, Inc. and individual contributors
  * by the @authors tag. See the copyright.txt in the distribution for a
  * full listing of individual contributors.
  *
@@ -221,7 +221,7 @@ public class TestRichTabPanel extends AbstractMetamerTest {
         selenium.type(pjq("input[type=text][id$=dataInput]"), "RichFaces 4");
         selenium.waitForPageToLoad();
 
-        selenium.type(pjq("input[type=text][id$=onitemchangeInput]"), "data = event.data");
+        selenium.type(pjq("input[type=text][id$=oncompleteInput]"), "data = event.data");
         selenium.waitForPageToLoad();
 
         guardXhr(selenium).click(inactiveHeaders[2]);
