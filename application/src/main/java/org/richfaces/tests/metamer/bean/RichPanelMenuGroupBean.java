@@ -57,11 +57,15 @@ public class RichPanelMenuGroupBean implements Serializable {
         attributes = Attributes.getComponentAttributesFromFacesConfig(UIPanelMenuGroup.class, getClass());
 
         attributes.setAttribute("rendered", true);
+        attributes.setAttribute("selectable", true);
+        attributes.setAttribute("mode", "ajax");
 
         // already defined in source directly
         attributes.remove("name");
         attributes.remove("label");
         attributes.remove("changeExpandListener");
+        attributes.remove("action");
+        attributes.remove("actionListener");
     }
 
     public Attributes getAttributes() {

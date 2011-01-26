@@ -59,14 +59,10 @@ public class RichPanelMenuItemBean implements Serializable {
         attributes.setAttribute("rendered", true);
 
         // already defined in source directly
+        attributes.remove("action");
+        attributes.remove("actionListener");
         attributes.remove("name");
         attributes.remove("label");
-
-        // attributes should be hidden
-        attributes.remove("panelMenu");
-        attributes.remove("parentItem");
-        attributes.remove("topItem");
-        attributes.remove("value");
     }
 
     public Attributes getAttributes() {

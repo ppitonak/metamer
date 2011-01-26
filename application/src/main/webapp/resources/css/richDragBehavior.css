@@ -31,3 +31,15 @@
 .rf-ind-rejt {
 	background-color: red;
 }
+
+.acceptClass {
+	border: 5px solid green;
+}
+
+.draggingClass {
+	border: 5px solid black;
+}
+
+.rejectClass {
+	border: 5px solid #E80000;
+}
