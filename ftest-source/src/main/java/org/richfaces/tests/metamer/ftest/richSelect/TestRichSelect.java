@@ -400,6 +400,7 @@ public class TestRichSelect extends AbstractMetamerTest {
         selenium.focus(input);
         selenium.keyPressNative("40"); // arrow down
         selenium.keyPressNative("40"); // arrow down
+        waitModel.withDelay(true).failWith("Popup did not show").until(isDisplayed.locator(popup));
 
         assertTrue(selenium.belongsClass(options.format(0), "metamer-ftest-class"), "Selected item does not contain defined class.");
         for (int i = 1; i < 50; i++) {

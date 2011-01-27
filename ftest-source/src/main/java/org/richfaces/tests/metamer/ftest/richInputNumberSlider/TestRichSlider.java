@@ -231,7 +231,7 @@ public class TestRichSlider extends AbstractMetamerTest {
     }
 
     @Test
-    @Use(field = "delay", ints = {600, 1250, 3700})
+    @Use(field = "delay", ints = {800, 1250, 3700})
     public void testDelay() {
         selenium.type(pjq("input[type=text][id$=delayInput]"), delay.toString());
         selenium.waitForPageToLoad();
@@ -290,6 +290,7 @@ public class TestRichSlider extends AbstractMetamerTest {
     }
 
     @Test
+    @IssueTracking("https://issues.jboss.org/browse/RF-10048")
     public void testImmediate() {
         selenium.click(pjq("input[type=radio][name$=immediateInput][value=true]"));
         selenium.waitForPageToLoad();
@@ -671,7 +672,7 @@ public class TestRichSlider extends AbstractMetamerTest {
 
         selenium.mouseDown(arrow);
 
-        for (int i = 0; i < 12; i++) {
+        for (int i = 0; i < 14; i++) {
             timesSet.add(selenium.getText(time));
             waitFor(delta);
         }
@@ -686,10 +687,17 @@ public class TestRichSlider extends AbstractMetamerTest {
         }
 
         delta = (long) (delay * 0.5);
-        for (int i = 1; i < timesArray.length - 1; i++) {
-            long diff = timesArray[i + 1].getTime() - timesArray[i].getTime();
-            assertTrue(Math.abs(diff - delay) < delta, "Delay " + diff + " is too far from set value (" + delay + ")");
+        long average = countAverage(timesArray);
+        assertTrue(Math.abs(average - delay) < delta, "Average delay " + average + " is too far from set value (" + delay + ")");
+        assertFalse(average < delay, "Average interval " + average + " cannot be smaller than set value (" + delay + ")");
+    }
+
+    private long countAverage(Date[] times) {
+        long total = 0L;
+        for (int i = 1; i < times.length - 1; i++) {
+            total += (times[i].getTime() - times[i + 1].getTime());
         }
 
+        return Math.abs(total / (times.length - 2));
     }
 }

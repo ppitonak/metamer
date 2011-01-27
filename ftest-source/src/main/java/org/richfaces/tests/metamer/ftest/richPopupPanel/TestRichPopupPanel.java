@@ -237,7 +237,7 @@ public class TestRichPopupPanel extends AbstractMetamerTest {
 
     @Test
     public void testLeft() {
-        double width = Integer.parseInt(selenium.getEval(new JavaScript("window.document.body.clientWidth")));
+        double width = Integer.parseInt(selenium.getEval(new JavaScript("window.innerWidth")));
         width = (width - 500) / 2;
         selenium.click(openButton);
         waitGui.failWith("Panel was not opened.").until(isDisplayed.locator(panel));
@@ -479,10 +479,11 @@ public class TestRichPopupPanel extends AbstractMetamerTest {
 
     @Test
     public void testTop() {
-        double top = Integer.parseInt(selenium.getEval(new JavaScript("window.document.body.clientHeight")));
+        double top = Integer.parseInt(selenium.getEval(new JavaScript("window.innerHeight")));
         top = (top - 300) / 2;
         selenium.click(openButton);
         waitGui.failWith("Panel was not opened.").until(isDisplayed.locator(panel));
+        waitFor(6000);
         assertEquals(selenium.getElementPositionTop(panelContainer), Math.round(top), "Top margin of the panel");
 
         selenium.type(pjq("input[id$=topInput]"), "200");

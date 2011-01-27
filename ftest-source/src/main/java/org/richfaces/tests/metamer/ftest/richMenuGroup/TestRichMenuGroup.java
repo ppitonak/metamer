@@ -49,6 +49,7 @@ import org.testng.annotations.Test;
 public class TestRichMenuGroup extends AbstractMetamerTest {
 
     private JQueryLocator fileMenu = pjq("div[id$=menu1]");
+    private JQueryLocator fileMenuLabel = pjq("div[id$=menu1_label]");
     private JQueryLocator fileMenuList = pjq("div[id$=menu1_list]");
     private JQueryLocator group = pjq("div[id$=menuGroup4]");
     private JQueryLocator groupList = pjq("div[id$=menuGroup4_list]");
@@ -71,7 +72,7 @@ public class TestRichMenuGroup extends AbstractMetamerTest {
         assertFalse(selenium.isVisible(group), "Menu group \"Save As...\" should not be visible on the page.");
 
         assertFalse(selenium.isDisplayed(fileMenuList), "Menu should not be expanded.");
-        guardNoRequest(selenium).mouseOver(fileMenu);
+        guardNoRequest(selenium).mouseOver(fileMenuLabel);
         assertTrue(selenium.isDisplayed(fileMenuList), "Menu should be expanded.");
 
         assertTrue(selenium.isElementPresent(group), "Menu group \"Save As...\" should be present on the page.");
@@ -193,7 +194,7 @@ public class TestRichMenuGroup extends AbstractMetamerTest {
         selenium.type(pjq("input[id$=onhideInput]"), "metamerEvents += \"hide \"");
         selenium.waitForPageToLoad(TIMEOUT);
 
-        selenium.mouseOver(fileMenu);
+        selenium.mouseOver(fileMenuLabel);
         waitGui.failWith("Menu was not open.").until(isDisplayed.locator(fileMenuList));
         selenium.mouseOver(group);
         waitGui.failWith("Submenu was not open").until(isDisplayed.locator(groupList));
@@ -247,7 +248,7 @@ public class TestRichMenuGroup extends AbstractMetamerTest {
         selenium.type(pjq("input[id$=onshowInput]"), "metamerEvents += \"show \"");
         selenium.waitForPageToLoad(TIMEOUT);
 
-        selenium.mouseOver(fileMenu);
+        selenium.mouseOver(fileMenuLabel);
         waitGui.failWith("Menu was not open.").until(isDisplayed.locator(fileMenuList));
         selenium.mouseOver(group);
         waitGui.failWith("Submenu was not open").until(isDisplayed.locator(groupList));
