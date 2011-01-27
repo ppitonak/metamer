@@ -68,12 +68,14 @@ import org.testng.annotations.BeforeMethod;
 public abstract class AbstractMetamerTest extends AbstractTestCase {
 
     protected JQueryLocator time = jq("span[id$=requestTime]");
+    protected JQueryLocator renderChecker = jq("span[id$=renderChecker]");
+    protected JQueryLocator statusChecker = jq("span[id$=statusCheckerOutput]");
     protected TextRetriever retrieveRequestTime = retrieveText.locator(time);
     protected Retriever<String> retrieveWindowData = new ScriptEvaluationRetriever().script(js("window.data"));
     protected TextRetriever retrieveRenderChecker = retrieveText.locator(jq("#renderChecker"));
     protected TextRetriever retrieveStatusChecker = retrieveText.locator(jq("#statusCheckerOutput"));
     protected PhaseInfo phaseInfo = new PhaseInfo();
-    
+
     /**
      * timeout in miliseconds
      */
@@ -242,7 +244,7 @@ public abstract class AbstractMetamerTest extends AbstractTestCase {
         assertTrue(selenium.isElementPresent(element));
         assertFalse(selenium.isElementPresent(elementWhichHasntThatClass));
     }
-    
+
     public void testRequestEventsBefore(String... events) {
         for (String event : events) {
             selenium.type(pjq(format("input[type=text][id$=on{0}Input]", event)), format("metamerEvents += \"{0} \"", event));
@@ -253,7 +255,7 @@ public abstract class AbstractMetamerTest extends AbstractTestCase {
 
         retrieveRequestTime.initializeValue();
     }
-    
+
     public void testRequestEventsAfter(String... events) {
         waitGui.failWith("Page was not updated").waitForChange(retrieveRequestTime);
 

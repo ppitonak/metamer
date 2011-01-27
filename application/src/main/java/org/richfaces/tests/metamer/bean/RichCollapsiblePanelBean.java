@@ -22,9 +22,11 @@
 package org.richfaces.tests.metamer.bean;
 
 import java.io.Serializable;
+
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+
 import org.richfaces.component.UICollapsiblePanel;
 import org.richfaces.event.PanelToggleEvent;
 import org.richfaces.tests.metamer.Attributes;
@@ -58,13 +60,11 @@ public class RichCollapsiblePanelBean implements Serializable {
         attributes.setAttribute("rendered", true);
         attributes.setAttribute("header", "collapsible panel header");
 
-        // TODO has to be tested in another way
-        attributes.remove("changeExpandListener");
+        // will be tested in another way
         attributes.remove("converter");
-        attributes.remove("itemChangeListener");
 
-        // hidden attributes
-        attributes.remove("changeExpandListeners");
+        // TODO remove as soon as it is added to taglib RF-10310
+        attributes.setAttribute("onbegin", null);
     }
 
     public Attributes getAttributes() {
