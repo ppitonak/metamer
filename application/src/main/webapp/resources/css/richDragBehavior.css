@@ -32,11 +32,11 @@
 	background-color: red;
 }
 
-.acceptClass {
-	border: 5px solid green;
+.draggingClass {
+	border: 5px dashed black;
 }
 
-.draggingClass {
+.acceptClass {
 	border: 5px solid black;
 }
 
