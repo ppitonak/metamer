@@ -67,6 +67,8 @@ public class TestDataTableSortingUsingColumn extends DataTableSortingTest {
 
     @Test
     @Override
+    @IssueTracking({ "https://issues.jboss.org/browse/RF-9932",
+        "http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-790" })
     public void testSortModeSingleRerenderAll() {
         super.testSortModeSingleRerenderAll();
     }
