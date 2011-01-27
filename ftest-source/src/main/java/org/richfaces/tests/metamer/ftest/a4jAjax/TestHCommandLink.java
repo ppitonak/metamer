@@ -1,6 +1,6 @@
 /*******************************************************************************
  * JBoss, Home of Professional Open Source
- * Copyright 2010, Red Hat, Inc. and individual contributors
+ * Copyright 2010-2011, Red Hat, Inc. and individual contributors
  * by the @authors tag. See the copyright.txt in the distribution for a
  * full listing of individual contributors.
  *
@@ -46,52 +46,62 @@ public class TestHCommandLink extends AbstractTestCommand {
 
     @Test
     public void testSimpleClick() {
-        super.testClick(link, "RichFaces 4");
+        testClick(link, "RichFaces 4");
     }
 
     @Test
     @IssueTracking("https://issues.jboss.org/browse/RF-9665")
     public void testSimpleClickUnicode() {
-        super.testClick(link, "ľščťžýáíéúôň фывацукйешгщь");
+        testClick(link, "ľščťžýáíéúôň фывацукйешгщь");
     }
 
     @Test
     public void testBypassUpdates() {
-        super.testBypassUpdates(link);
+        testBypassUpdates(link);
     }
 
     @Test
     public void testData() {
-        super.testData(link);
+        testData(link);
+    }
+
+    @Test
+    public void testDisabled() {
+        testDisabled(link);
     }
 
     @Test
     public void testExecute() {
-        super.testExecute(link);
+        testExecute(link);
     }
 
     @Test
     public void testImmediate() {
-        super.testImmediate(link);
+        testImmediate(link);
     }
 
     @Test
     public void testImmediateBypassUpdates() {
-        super.testImmediateBypassUpdates(link);
+        testImmediateBypassUpdates(link);
     }
 
     @Test
     public void testLimitRender() {
-        super.testLimitRender(link);
+        testLimitRender(link);
     }
 
     @Test
     public void testEvents() {
-        super.testEvents(link);
+        testEvents(link);
     }
 
     @Test
     public void testRender() {
-        super.testRender(link);
+        testRender(link);
+    }
+
+    @Test
+    public void testStatus() {
+        testStatus(link);
     }
 }

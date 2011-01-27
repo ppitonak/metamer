@@ -1,6 +1,6 @@
 /*******************************************************************************
  * JBoss, Home of Professional Open Source
- * Copyright 2010, Red Hat, Inc. and individual contributors
+ * Copyright 2010-2011, Red Hat, Inc. and individual contributors
  * by the @authors tag. See the copyright.txt in the distribution for a
  * full listing of individual contributors.
  *
@@ -46,52 +46,62 @@ public class TestHGraphicImage extends AbstractTestCommand {
 
     @Test
     public void testSimpleClick() {
-        super.testClick(button, "RichFaces 4");
+        testClick(button, "RichFaces 4");
     }
 
     @Test
     @IssueTracking("https://issues.jboss.org/browse/RF-9665")
     public void testSimpleClickUnicode() {
-        super.testClick(button, "ľščťžýáíéúôň фывацукйешгщь");
+        testClick(button, "ľščťžýáíéúôň фывацукйешгщь");
     }
 
     @Test
     public void testBypassUpdates() {
-        super.testBypassUpdates(button);
+        testBypassUpdates(button);
     }
 
     @Test
     public void testData() {
-        super.testData(button);
+        testData(button);
+    }
+
+    @Test
+    public void testDisabled() {
+        testDisabled(button);
     }
 
     @Test
     public void testExecute() {
-        super.testExecute(button);
+        testExecute(button);
     }
 
     @Test
     public void testImmediate() {
-        super.testImmediate(button);
+        testImmediate(button);
     }
 
     @Test
     public void testImmediateBypassUpdates() {
-        super.testImmediateBypassUpdates(button);
+        testImmediateBypassUpdates(button);
     }
 
     @Test
     public void testLimitRender() {
-        super.testLimitRender(button);
+        testLimitRender(button);
     }
 
     @Test
     public void testEvents() {
-        super.testEvents(button);
+        testEvents(button);
     }
 
     @Test
     public void testRender() {
-        super.testRender(button);
+        testRender(button);
+    }
+
+    @Test
+    public void testStatus() {
+        testStatus(button);
     }
 }

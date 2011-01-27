@@ -38,7 +38,7 @@ import org.testng.annotations.Test;
 public class TestHCommandButton extends AbstractTestCommand {
 
     private JQueryLocator button = pjq("input[type=submit][id$=commandButton]");
-    
+
     @Override
     public URL getTestUrl() {
         return buildUrl(contextPath, "faces/components/a4jAjax/hCommandButton.xhtml");
@@ -46,52 +46,62 @@ public class TestHCommandButton extends AbstractTestCommand {
 
     @Test
     public void testSimpleClick() {
-        super.testClick(button, "RichFaces 4");
+        testClick(button, "RichFaces 4");
     }
 
     @Test
     @IssueTracking("https://issues.jboss.org/browse/RF-9665")// </editor-fold>
     public void testSimpleClickUnicode() {
-        super.testClick(button, "ľščťžýáíéúôň фывацукйешгщь");
+        testClick(button, "ľščťžýáíéúôň фывацукйешгщь");
     }
 
     @Test
     public void testBypassUpdates() {
-        super.testBypassUpdates(button);
+        testBypassUpdates(button);
     }
 
     @Test
     public void testData() {
-        super.testData(button);
+        testData(button);
+    }
+
+    @Test
+    public void testDisabled() {
+        testDisabled(button);
     }
 
     @Test
     public void testExecute() {
-        super.testExecute(button);
+        testExecute(button);
     }
 
     @Test
     public void testImmediate() {
-        super.testImmediate(button);
+        testImmediate(button);
     }
 
     @Test
     public void testImmediateBypassUpdates() {
-        super.testImmediateBypassUpdates(button);
+        testImmediateBypassUpdates(button);
     }
 
     @Test
     public void testLimitRender() {
-        super.testLimitRender(button);
+        testLimitRender(button);
     }
 
     @Test
     public void testEvents() {
-        super.testEvents(button);
+        testEvents(button);
     }
 
     @Test
     public void testRender() {
-        super.testRender(button);
+        testRender(button);
+    }
+
+    @Test
+    public void testStatus() {
+        testStatus(button);
     }
 }

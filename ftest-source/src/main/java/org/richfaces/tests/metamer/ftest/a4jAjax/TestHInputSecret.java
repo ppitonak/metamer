@@ -1,6 +1,6 @@
 /*******************************************************************************
  * JBoss, Home of Professional Open Source
- * Copyright 2010, Red Hat, Inc. and individual contributors
+ * Copyright 2010-2011, Red Hat, Inc. and individual contributors
  * by the @authors tag. See the copyright.txt in the distribution for a
  * full listing of individual contributors.
  *
@@ -24,9 +24,9 @@ package org.richfaces.tests.metamer.ftest.a4jAjax;
 import static org.jboss.test.selenium.utils.URLUtils.buildUrl;
 
 import java.net.URL;
+
 import org.jboss.test.selenium.locator.JQueryLocator;
 import org.richfaces.tests.metamer.ftest.annotations.IssueTracking;
-
 import org.testng.annotations.Test;
 
 /**
@@ -46,52 +46,62 @@ public class TestHInputSecret extends AbstractTestTextInput {
 
     @Test
     public void testSimpleType() {
-        super.testType(input, "RichFaces 4");
+        testType(input, "RichFaces 4");
     }
 
     @Test
     @IssueTracking("https://issues.jboss.org/browse/RF-9665")
     public void testSimpleTypeUnicode() {
-        super.testType(input, "ľščťžýáíéúôň фывацукйешгщь");
+        testType(input, "ľščťžýáíéúôň фывацукйешгщь");
     }
 
     @Test
     public void testBypassUpdates() {
-        super.testBypassUpdates(input);
+        testBypassUpdates(input);
     }
 
     @Test
     public void testData() {
-        super.testData(input);
+        testData(input);
+    }
+
+    @Test
+    public void testDisabled() {
+        testDisabled(input);
     }
 
     @Test
     public void testExecute() {
-        super.testExecute(input);
+        testExecute(input);
     }
 
     @Test
     public void testImmediate() {
-        super.testImmediate(input);
+        testImmediate(input);
     }
 
     @Test
     public void testImmediateBypassUpdates() {
-        super.testImmediateBypassUpdates(input);
+        testImmediateBypassUpdates(input);
     }
 
     @Test
     public void testLimitRender() {
-        super.testLimitRender(input);
+        testLimitRender(input);
     }
 
     @Test
     public void testEvents() {
-        super.testEvents(input);
+        testEvents(input);
     }
 
     @Test
     public void testRender() {
-        super.testRender(input);
+        testRender(input);
+    }
+
+    @Test
+    public void testStatus() {
+        testStatus(input);
     }
 }

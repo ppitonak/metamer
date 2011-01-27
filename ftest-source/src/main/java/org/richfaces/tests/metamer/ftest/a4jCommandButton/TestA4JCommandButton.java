@@ -166,7 +166,7 @@ public class TestA4JCommandButton extends AbstractMetamerTest {
         assertEquals(selenium.getText(output1), "", "Output 1 should not change");
         assertEquals(selenium.getText(output2), "", "Output 2 should not change");
         assertEquals(selenium.getText(output3), "", "Output 3 should not change");
-        assertPhases(PhaseId.RESTORE_VIEW, PhaseId.APPLY_REQUEST_VALUES, PhaseId.PROCESS_VALIDATIONS,
+        phaseInfo.assertPhases(PhaseId.RESTORE_VIEW, PhaseId.APPLY_REQUEST_VALUES, PhaseId.PROCESS_VALIDATIONS,
                 PhaseId.RENDER_RESPONSE);
 
         String listenerOutput = selenium.getText(jq("div#phasesPanel li:eq(3)"));
@@ -235,7 +235,7 @@ public class TestA4JCommandButton extends AbstractMetamerTest {
         assertEquals(selenium.getText(output1), "", "Output 1 should not change");
         assertEquals(selenium.getText(output2), "", "Output 2 should not change");
         assertEquals(selenium.getText(output3), "", "Output 3 should not change");
-        assertPhases(PhaseId.RESTORE_VIEW, PhaseId.APPLY_REQUEST_VALUES, PhaseId.RENDER_RESPONSE);
+        phaseInfo.assertPhases(PhaseId.RESTORE_VIEW, PhaseId.APPLY_REQUEST_VALUES, PhaseId.RENDER_RESPONSE);
 
         String listenerOutput = selenium.getText(jq("div#phasesPanel li:eq(2)"));
         assertEquals(listenerOutput, "* action listener invoked", "Action listener's output");

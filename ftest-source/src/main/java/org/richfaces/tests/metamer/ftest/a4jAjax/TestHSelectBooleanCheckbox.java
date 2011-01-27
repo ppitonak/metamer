@@ -1,6 +1,6 @@
 /*******************************************************************************
  * JBoss, Home of Professional Open Source
- * Copyright 2010, Red Hat, Inc. and individual contributors
+ * Copyright 2010-2011, Red Hat, Inc. and individual contributors
  * by the @authors tag. See the copyright.txt in the distribution for a
  * full listing of individual contributors.
  *
@@ -66,16 +66,16 @@ public class TestHSelectBooleanCheckbox extends AbstractMetamerTest {
 
     @Test
     public void testBypassUpdates() {
-        String timeValue = selenium.getText(time);
+        String reqTime = selenium.getText(time);
 
         selenium.click(pjq("input[type=radio][name$=bypassUpdatesInput][value=true]"));
         selenium.waitForPageToLoad();
 
         guardXhr(selenium).click(input);
-        waitGui.failWith("Page was not updated").waitForChange(timeValue, retrieveText.locator(time));
+        waitGui.failWith("Page was not updated").waitForChange(reqTime, retrieveText.locator(time));
 
         assertEquals(selenium.getText(output1), "false", "Output should not change");
-        assertPhases(PhaseId.RESTORE_VIEW, PhaseId.APPLY_REQUEST_VALUES, PhaseId.PROCESS_VALIDATIONS,
+        phaseInfo.assertPhases(PhaseId.RESTORE_VIEW, PhaseId.APPLY_REQUEST_VALUES, PhaseId.PROCESS_VALIDATIONS,
                 PhaseId.RENDER_RESPONSE);
     }
 
@@ -87,13 +87,26 @@ public class TestHSelectBooleanCheckbox extends AbstractMetamerTest {
         selenium.type(pjq("input[type=text][id$=oncompleteInput]"), "data = event.data");
         selenium.waitForPageToLoad();
 
-        String timeValue = selenium.getText(time);
+        String reqTime = selenium.getText(time);
 
         guardXhr(selenium).click(input);
-        waitGui.failWith("Page was not updated").waitForChange(timeValue, retrieveText.locator(time));
+        waitGui.failWith("Page was not updated").waitForChange(reqTime, retrieveText.locator(time));
 
         String data = selenium.getEval(new JavaScript("window.data"));
         assertEquals(data, "RichFaces 4 data", "Data sent with ajax request");
+    }
+
+    @Test
+    public void testDisabled() {
+        selenium.click(pjq("input[type=radio][name$=disabledInput][value=true]"));
+        selenium.waitForPageToLoad();
+
+        String reqTime = selenium.getText(time);
+        guardXhr(selenium).click(input);
+        waitGui.failWith("Page was not updated").waitForChange(reqTime, retrieveText.locator(time));
+
+        assertEquals(selenium.getText(output1), "false", "Output1 should not change");
+        assertEquals(selenium.getText(output2), "false", "Output2 should not change");
     }
 
     @Test
@@ -101,9 +114,9 @@ public class TestHSelectBooleanCheckbox extends AbstractMetamerTest {
         selenium.type(pjq("input[type=text][id$=executeInput]"), "input executeChecker");
         selenium.waitForPageToLoad();
 
-        String timeValue = selenium.getText(time);
+        String reqTime = selenium.getText(time);
         guardXhr(selenium).click(input);
-        waitGui.failWith("Page was not updated").waitForChange(timeValue, retrieveText.locator(time));
+        waitGui.failWith("Page was not updated").waitForChange(reqTime, retrieveText.locator(time));
 
         JQueryLocator logItems = jq("ul.phases-list li:eq({0})");
         for (int i = 0; i < 6; i++) {
@@ -117,22 +130,22 @@ public class TestHSelectBooleanCheckbox extends AbstractMetamerTest {
 
     @Test
     public void testImmediate() {
-        String timeValue = selenium.getText(time);
+        String reqTime = selenium.getText(time);
 
         selenium.click(pjq("input[type=radio][name$=immediateInput][value=true]"));
         selenium.waitForPageToLoad();
 
         guardXhr(selenium).click(input);
-        waitGui.failWith("Page was not updated").waitForChange(timeValue, retrieveText.locator(time));
+        waitGui.failWith("Page was not updated").waitForChange(reqTime, retrieveText.locator(time));
 
         assertEquals(selenium.getText(output1), "true", "Output should change");
-        assertPhases(PhaseId.RESTORE_VIEW, PhaseId.APPLY_REQUEST_VALUES, PhaseId.PROCESS_VALIDATIONS,
+        phaseInfo.assertPhases(PhaseId.RESTORE_VIEW, PhaseId.APPLY_REQUEST_VALUES, PhaseId.PROCESS_VALIDATIONS,
                 PhaseId.UPDATE_MODEL_VALUES, PhaseId.INVOKE_APPLICATION, PhaseId.RENDER_RESPONSE);
     }
 
     @Test
     public void testImmediateBypassUpdates() {
-        String timeValue = selenium.getText(time);
+        String reqTime = selenium.getText(time);
 
         selenium.click(pjq("input[type=radio][name$=bypassUpdatesInput][value=true]"));
         selenium.waitForPageToLoad();
@@ -140,10 +153,10 @@ public class TestHSelectBooleanCheckbox extends AbstractMetamerTest {
         selenium.waitForPageToLoad();
 
         guardXhr(selenium).click(input);
-        waitGui.failWith("Page was not updated").waitForChange(timeValue, retrieveText.locator(time));
+        waitGui.failWith("Page was not updated").waitForChange(reqTime, retrieveText.locator(time));
 
         assertEquals(selenium.getText(output1), "false", "Output should not change");
-        assertPhases(PhaseId.RESTORE_VIEW, PhaseId.APPLY_REQUEST_VALUES, PhaseId.RENDER_RESPONSE);
+        phaseInfo.assertPhases(PhaseId.RESTORE_VIEW, PhaseId.APPLY_REQUEST_VALUES, PhaseId.RENDER_RESPONSE);
     }
 
     @Test
@@ -151,16 +164,18 @@ public class TestHSelectBooleanCheckbox extends AbstractMetamerTest {
         selenium.click(pjq("input[type=radio][name$=limitRenderInput][value=true]"));
         selenium.waitForPageToLoad();
 
-        String timeValue = selenium.getText(time);
+        String reqTime = selenium.getText(time);
 
         guardXhr(selenium).click(input);
         waitGui.failWith("Page was not updated").waitForChange("", retrieveText.locator(output1));
 
-        assertEquals(selenium.getText(time), timeValue, "Ajax-rendered a4j:outputPanel shouldn't change");
+        assertEquals(selenium.getText(time), reqTime, "Ajax-rendered a4j:outputPanel shouldn't change");
     }
 
     @Test
     public void testEvents() {
+        selenium.type(pjq("input[type=text][id$=onbeforesubmitInput]"), "metamerEvents += \"beforesubmit \"");
+        selenium.waitForPageToLoad();
         selenium.type(pjq("input[type=text][id$=onbeginInput]"), "metamerEvents += \"begin \"");
         selenium.waitForPageToLoad();
         selenium.type(pjq("input[type=text][id$=onbeforedomupdateInput]"), "metamerEvents += \"beforedomupdate \"");
@@ -175,9 +190,11 @@ public class TestHSelectBooleanCheckbox extends AbstractMetamerTest {
 
         String[] events = selenium.getEval(new JavaScript("window.metamerEvents")).split(" ");
 
-        assertEquals(events[0], "begin", "Attribute onbegin doesn't work");
-        assertEquals(events[1], "beforedomupdate", "Attribute onbeforedomupdate doesn't work");
-        assertEquals(events[2], "complete", "Attribute oncomplete doesn't work");
+        assertEquals(events.length, 4, "4 events should be fired.");
+        assertEquals(events[0], "beforesubmit", "Attribute onbeforesubmit doesn't work");
+        assertEquals(events[1], "begin", "Attribute onbegin doesn't work");
+        assertEquals(events[2], "beforedomupdate", "Attribute onbeforedomupdate doesn't work");
+        assertEquals(events[3], "complete", "Attribute oncomplete doesn't work");
     }
 
     @Test
@@ -191,5 +208,15 @@ public class TestHSelectBooleanCheckbox extends AbstractMetamerTest {
 
         assertEquals(outputValue, "true", "Wrong output1");
         assertEquals(selenium.getText(output2), "false", "Wrong output2");
+    }
+
+    @Test
+    public void testStatus() {
+        selenium.type(pjq("input[type=text][id$=statusInput]"), "statusChecker");
+        selenium.waitForPageToLoad();
+
+        String statusCheckerTime = selenium.getText(statusChecker);
+        guardXhr(selenium).click(input);
+        waitGui.failWith("Attribute status doesn't work").waitForChange(statusCheckerTime, retrieveText.locator(statusChecker));
     }
 }
