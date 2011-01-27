@@ -21,15 +21,12 @@
  *******************************************************************************/
 package org.richfaces.tests.metamer.ftest.richDataScroller;
 
-import static org.jboss.test.selenium.guard.request.RequestTypeGuardFactory.guardHttp;
-import static org.jboss.test.selenium.locator.LocatorFactory.id;
 import static org.jboss.test.selenium.utils.URLUtils.buildUrl;
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertFalse;
 
 import java.net.URL;
 
-import org.jboss.test.selenium.locator.IdLocator;
 import org.richfaces.tests.metamer.ftest.AbstractMetamerTest;
 import org.richfaces.tests.metamer.ftest.annotations.Inject;
 import org.richfaces.tests.metamer.ftest.annotations.Use;
@@ -58,6 +55,8 @@ public abstract class AbstractScrollerTest extends AbstractMetamerTest {
     DataScroller dataScroller1 = PaginationTester.DATA_SCROLLER_OUTSIDE_TABLE;
     DataScroller dataScroller2 = PaginationTester.DATA_SCROLLER_IN_TABLE_FOOTER;
 
+    DataScrollerAttributes attributes = new DataScrollerAttributes();
+    
     PaginationTester paginationTester = new PaginationTester() {
 
         @Override
@@ -72,9 +71,6 @@ public abstract class AbstractScrollerTest extends AbstractMetamerTest {
         }
     };
 
-    IdLocator attributeFastStep = id("form:attributes:fastStepInput");
-    IdLocator attributeMaxPages = id("form:attributes:maxPagesInput");
-
     ExtendedDataTable dataTable = new ExtendedDataTable(pjq("table.rf-dt[id$=richDataTable]"));
 
     String tableText;
@@ -86,8 +82,8 @@ public abstract class AbstractScrollerTest extends AbstractMetamerTest {
 
     @BeforeMethod
     public void prepareComponent() {
-        guardHttp(selenium).type(attributeFastStep, String.valueOf(fastStep));
-        guardHttp(selenium).type(attributeMaxPages, String.valueOf(maxPages));
+        attributes.setFastStep(fastStep);
+        attributes.setMaxPages(maxPages);
 
         paginationTester.setDataScroller(dataScroller);
         dataScroller.setFastStep(fastStep);
