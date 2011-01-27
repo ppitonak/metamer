@@ -79,23 +79,6 @@ public class TestCollapsibleSubTableSimple extends AbstractCollapsibleSubTableTe
     }
 
     @Test
-    @Use(field = "configuration", empty = true)
-    public void testExpanded() {
-        attributes.setExpanded(false);
-
-        assertFalse(configurationMen.subtable.hasVisibleRows());
-        assertFalse(configurationWomen.subtable.hasVisibleRows());
-
-        selenium.click(configurationMen.toggler);
-        assertTrue(configurationMen.subtable.hasVisibleRows());
-
-        attributes.setExpanded(true);
-
-        assertTrue(configurationMen.subtable.hasVisibleRows());
-        assertTrue(configurationWomen.subtable.hasVisibleRows());
-    }
-
-    @Test
     public void testFirst() {
         attributes.setFirst(2);
 
