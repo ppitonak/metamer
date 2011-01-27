@@ -181,12 +181,12 @@ public class TestTooltipSimple extends AbstractMetamerTest {
     }
 
     @Test
+    @IssueTracking("https://issues.jboss.org/browse/RF-10333")
     public void testExecute() {
         attributes.setExecute("@this executeChecker");
         attributes.setMode(TooltipMode.ajax);
 
         tooltip.recall();
-
         phaseInfo.assertListener(UPDATE_MODEL_VALUES, "executeChecker");
     }
 
@@ -223,7 +223,7 @@ public class TestTooltipSimple extends AbstractMetamerTest {
         delay = System.currentTimeMillis() - delay;
 
         long deviation = Math.abs(presetDelay - delay);
-        long maxDeviation = Math.max(200, presetDelay / 2);
+        long maxDeviation = Math.max(250, presetDelay / 2);
 
         assertTrue(deviation < maxDeviation,
             format("deviation '{0}' is greater than maxDeviation '{1}'", deviation, maxDeviation));
