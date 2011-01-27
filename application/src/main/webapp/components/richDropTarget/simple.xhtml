@@ -54,7 +54,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 		<table>
 			<tr>
 				<td>
-					<a4j:outputPanel id="draggable1" layout="block" styleClass="draggable">
+					<a4j:outputPanel id="draggable1" layout="block" styleClass="metamer-draggable">
 						<h:outputText value="#1: type=#{richDragSourceBean.attributes['type'].value}" />
 						<rich:dragSource
 							dragIndicator="indicator"
@@ -63,13 +63,13 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 					</a4j:outputPanel>
 				</td>
 				<td>
-					<a4j:outputPanel id="draggable2" layout="block" styleClass="draggable">
+					<a4j:outputPanel id="draggable2" layout="block" styleClass="metamer-draggable">
 						<h:outputText value="#2: type=drg2" />
 						<rich:dragSource type="drg2" dragIndicator="indicator" dragValue="#{richDragSourceBean.dragValues[1]}" />
 					</a4j:outputPanel>
 				</td>
 				<td>
-					<a4j:outputPanel id="draggable3" layout="block" styleClass="draggable">
+					<a4j:outputPanel id="draggable3" layout="block" styleClass="metamer-draggable">
 						<h:outputText value="#3: type=drg3" />
 						<rich:dragSource type="drg3" dragIndicator="indicator" dragValue="#{richDragSourceBean.dragValues[2]}" />
 					</a4j:outputPanel>
@@ -77,7 +77,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 			</tr>
 		</table>
 
-		<a4j:outputPanel id="droppable" layout="block" styleClass="droppable" style="border: 3px solid red">
+		<a4j:outputPanel id="droppable1" layout="block" styleClass="metamer-droppable" style="border: 3px solid red; float: left">
 			<rich:dropTarget
 				id="richDropTarget"
 				dropValue="#{richDropTargetBean.dropValue}"
@@ -85,21 +85,55 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 				action="#{richBean.dummyAction}"
 				actionListener="#{richBean.dummyActionListener}"
 				
-				acceptedTypes="#{richDragSourceBean.attributes['acceptedTypes'].value}"
-				bypassUpdates="#{richDragSourceBean.attributes['bypassUpdates'].value}"
-				immediate="#{richDragSourceBean.attributes['immediate'].value}"
-				render="#{richDragSourceBean.attributes['render'].value}"
-				rendered="#{richDragSourceBean.attributes['rendered'].value}"
-				value="#{richDragSourceBean.attributes['value'].value}"
+				acceptedTypes="#{richDropTargetBean.attributes['acceptedTypes'].value}"
+				bypassUpdates="#{richDropTargetBean.attributes['bypassUpdates'].value}"
+				immediate="#{richDropTargetBean.attributes['immediate'].value}"
+				render="#{richDropTargetBean.attributes['render'].value}"
+				rendered="#{richDropTargetBean.attributes['rendered'].value}"
+				value="#{richDropTargetBean.attributes['value'].value}"
 				 />
 				 
-			<h:outputText value="Accepts: drg1, drg2" />
+			<h:outputText value="Accepts: #{richDragSourceBean.attributes['acceptedTypes'].value}" />
 			<br />
 			
-			<h:outputText id="dropNumber" value="Drops: #{richDropTargetBean.dropValue.number}" />
+			<h:outputText id="dropNumber1" value="Drops: #{richDropTargetBean.dropValue.number}" />
 			<br />
 			
-			<h:dataTable id="droppedValues" var="droppedValue" value="#{richDropTargetBean.droppedEntries}">
+			<h:dataTable id="droppedValues1" var="droppedValue" value="#{richDropTargetBean.droppedEntries1}">
+				<h:column>
+					<f:facet name="header">
+						Dragged
+					</f:facet>
+					<h:outputText value="##{droppedValue.value.number}" />
+				</h:column>
+				<h:column>
+					<f:facet name="header">
+						Dropped
+					</f:facet>
+					<h:outputText value="#{droppedValue.key.number}" />
+				</h:column>
+				
+			</h:dataTable>
+		</a4j:outputPanel>
+		
+		<a4j:outputPanel id="droppable2" layout="block" styleClass="metamer-droppable">
+			<rich:dropTarget
+				id="richDropTarget2"
+				dropValue="#{richDropTargetBean.dropValue}"
+				dropListener="#{richDropListenerBean.processDragging}"
+				acceptedTypes="drg2, drg3"
+				render="droppable1 droppable2"
+				 />
+			
+			<h:outputText value="Accepts: drg2, drg3" />
+			<br />
+			
+			<h:outputText id="dropNumber2" value="Drops: #{richDropTargetBean.dropValue.number}" />
+			<br />
+			
+			
+			
+			<h:dataTable id="droppedValues2" var="droppedValue" value="#{richDropTargetBean.droppedEntries2}">
 				<h:column>
 					<f:facet name="header">
 						Dragged

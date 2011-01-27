@@ -1,4 +1,4 @@
-.droppable {
+.metamer-droppable {
 	border: 1px solid blue;
 	margin: 1em;
 	padding: 1em;
@@ -8,7 +8,7 @@
 	overflow: auto;
 }
 
-.draggable {
+.metamer-draggable {
 	border: 1px solid #000000;
 	background-color: silver;
 	margin: 2px;

@@ -47,8 +47,13 @@ public class RichDropListenerBean {
         DropValue dropValue = (DropValue) dropEvent.getDropValue();
 
         this.dropEvent = dropEvent;
+        
         richDropTargetBean.increaseDropValue();
-        richDropTargetBean.getDroppedValues().put(dropValue, dragValue);
+        if (dropEvent.getComponent().getClientId().endsWith("1")) {
+            richDropTargetBean.getDroppedValues1().put(dropValue, dragValue);
+        } else {
+            richDropTargetBean.getDroppedValues2().put(dropValue, dragValue);
+        }
     }
 
     public DropEvent getDropEvent() {

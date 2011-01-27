@@ -52,7 +52,8 @@ public class RichDropTargetBean implements Serializable {
     private static Logger logger;
     private Attributes attributes;
 
-    private Map<DropValue, DragValue> droppedValues = new LinkedHashMap<DropValue, DragValue>();
+    private Map<DropValue, DragValue> droppedValues1 = new LinkedHashMap<DropValue, DragValue>();
+    private Map<DropValue, DragValue> droppedValues2 = new LinkedHashMap<DropValue, DragValue>();
     private DropValue dropValue;
     private int dropValueCounter = 1;
 
@@ -67,7 +68,7 @@ public class RichDropTargetBean implements Serializable {
         attributes = Attributes.getComponentAttributesFromFacesConfig(UIDropTarget.class, getClass());
 
         attributes.setAttribute("acceptedTypes", "drg1, drg2");
-        attributes.setAttribute("render", "droppable");
+        attributes.setAttribute("render", "droppable1 droppable2");
         attributes.setAttribute("rendered", true);
         
         attributes.remove("actionExpression");
@@ -87,8 +88,12 @@ public class RichDropTargetBean implements Serializable {
         this.attributes = attributes;
     }
 
-    public Map<DropValue, DragValue> getDroppedValues() {
-        return droppedValues;
+    public Map<DropValue, DragValue> getDroppedValues1() {
+        return droppedValues1;
+    }
+    
+    public Map<DropValue, DragValue> getDroppedValues2() {
+        return droppedValues2;
     }
     
     public void increaseDropValue() {
@@ -99,8 +104,14 @@ public class RichDropTargetBean implements Serializable {
         return dropValue;
     }
     
-    public List<Entry<DropValue, DragValue>> getDroppedEntries() {
-        List<Entry<DropValue, DragValue>> list = new LinkedList<Entry<DropValue, DragValue>>(droppedValues.entrySet());
+    public List<Entry<DropValue, DragValue>> getDroppedEntries1() {
+        List<Entry<DropValue, DragValue>> list = new LinkedList<Entry<DropValue, DragValue>>(droppedValues1.entrySet());
+        Collections.reverse(list);
+        return list;
+    }
+    
+    public List<Entry<DropValue, DragValue>> getDroppedEntries2() {
+        List<Entry<DropValue, DragValue>> list = new LinkedList<Entry<DropValue, DragValue>>(droppedValues2.entrySet());
         Collections.reverse(list);
         return list;
     }
