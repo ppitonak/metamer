@@ -50,7 +50,7 @@ public class AbstractComponentAttributes {
     protected AjaxSelenium selenium = AjaxSeleniumProxy.getInstance();
     LocatorReference<ExtendedLocator<JQueryLocator>> root = new LocatorReference<ExtendedLocator<JQueryLocator>>(
         pjq(""));
-    ReferencedLocator<JQueryLocator> propertyLocator = referenceInferred(root, "*[id$=\\:{0}Input]{1}");
+    ReferencedLocator<JQueryLocator> propertyLocator = referenceInferred(root, ":input[id*=:{0}Input]{1}");
 
     RequestType requestType = RequestType.HTTP;
 
