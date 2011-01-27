@@ -26,8 +26,6 @@ import static org.jboss.test.selenium.locator.LocatorFactory.jq;
 import static org.jboss.test.selenium.locator.reference.ReferencedLocator.referenceInferred;
 import static org.richfaces.tests.metamer.ftest.AbstractMetamerTest.pjq;
 
-import org.apache.commons.lang.StringUtils;
-import org.apache.commons.lang.WordUtils;
 import org.jboss.test.selenium.dom.Event;
 import org.jboss.test.selenium.framework.AjaxSelenium;
 import org.jboss.test.selenium.framework.AjaxSeleniumProxy;
@@ -85,15 +83,6 @@ public class AbstractComponentAttributes {
         }
 
         String valueAsString = value.toString();
-
-        if (value.getClass().isEnum()) {
-            if ("select".equals(inputType) && !selenium.getSelectOptions(locator).contains(valueAsString)) {
-                valueAsString = valueAsString.toLowerCase();
-                valueAsString = WordUtils.capitalizeFully(valueAsString, new char[] { '_' });
-                valueAsString = valueAsString.replace("_", "");
-                valueAsString = StringUtils.uncapitalize(valueAsString);
-            }
-        }
 
         if ("text".equals(inputType)) {
             applyText(locator, valueAsString);

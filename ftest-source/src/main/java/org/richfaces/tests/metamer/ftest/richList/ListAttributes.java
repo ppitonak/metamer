@@ -23,6 +23,7 @@ package org.richfaces.tests.metamer.ftest.richList;
 
 import org.jboss.test.selenium.locator.ExtendedLocator;
 import org.jboss.test.selenium.locator.JQueryLocator;
+import org.richfaces.component.ListType;
 import org.richfaces.tests.metamer.ftest.AbstractComponentAttributes;
 
 /**
@@ -82,12 +83,8 @@ public class ListAttributes extends AbstractComponentAttributes {
         setProperty("title", title);
     }
 
-    public void setType(Type type) {
+    public void setType(ListType type) {
         setProperty("type", type);
-    }
-
-    public enum Type {
-        DEFINITIONS, ORDERED, UNORDERED;
     }
 
 }

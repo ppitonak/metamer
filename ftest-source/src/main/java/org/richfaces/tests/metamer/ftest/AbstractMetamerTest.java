@@ -21,11 +21,11 @@
  *******************************************************************************/
 package org.richfaces.tests.metamer.ftest;
 
+import static org.jboss.test.selenium.encapsulated.JavaScript.js;
 import static org.jboss.test.selenium.guard.request.RequestTypeGuardFactory.guardHttp;
 import static org.jboss.test.selenium.guard.request.RequestTypeGuardFactory.guardXhr;
 import static org.jboss.test.selenium.locator.LocatorFactory.id;
 import static org.jboss.test.selenium.locator.LocatorFactory.jq;
-import static org.jboss.test.selenium.encapsulated.JavaScript.js;
 import static org.jboss.test.selenium.utils.URLUtils.buildUrl;
 import static org.jboss.test.selenium.utils.text.SimplifiedFormat.format;
 import static org.testng.Assert.assertEquals;
@@ -52,7 +52,6 @@ import org.jboss.test.selenium.locator.JQueryLocator;
 import org.jboss.test.selenium.waiting.EventFiredCondition;
 import org.jboss.test.selenium.waiting.retrievers.Retriever;
 import org.jboss.test.selenium.waiting.retrievers.TextRetriever;
-import org.richfaces.tests.metamer.Phase;
 import org.richfaces.tests.metamer.TemplatesList;
 import org.richfaces.tests.metamer.ftest.annotations.Inject;
 import org.richfaces.tests.metamer.ftest.annotations.Templates;

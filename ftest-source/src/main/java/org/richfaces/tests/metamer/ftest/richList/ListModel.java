@@ -28,8 +28,8 @@ import org.jboss.test.selenium.framework.AjaxSelenium;
 import org.jboss.test.selenium.framework.AjaxSeleniumProxy;
 import org.jboss.test.selenium.locator.JQueryLocator;
 import org.jboss.test.selenium.locator.reference.ReferencedLocator;
+import org.richfaces.component.ListType;
 import org.richfaces.tests.metamer.ftest.model.AbstractModel;
-import org.richfaces.tests.metamer.ftest.richList.ListAttributes.Type;
 
 /**
  * @author <a href="mailto:lfryc@redhat.com">Lukas Fryc</a>
@@ -41,17 +41,17 @@ public class ListModel extends AbstractModel<JQueryLocator> {
         super(root);
     }
 
-    Type type;
+    ListType type;
     
     ReferencedLocator<JQueryLocator> rows = ref(root, "li");
 
     private AjaxSelenium selenium = AjaxSeleniumProxy.getInstance();
 
-    public Type getType() {
+    public ListType getType() {
         return type;
     }
 
-    public void setType(Type type) {
+    public void setType(ListType type) {
         this.type = type;
     }
 
@@ -77,11 +77,11 @@ public class ListModel extends AbstractModel<JQueryLocator> {
 
     private JQueryLocator getInnerElement() {
         switch (type) {
-            case ORDERED:
+            case ordered:
                 return jq("li.rf-olst-itm");
-            case UNORDERED:
+            case unordered:
                 return jq("li.rf-ulst-itm");
-            case DEFINITIONS:
+            case definitions:
                 return jq("dd.rf-dlst-dfn");
         }
         throw new IllegalStateException();

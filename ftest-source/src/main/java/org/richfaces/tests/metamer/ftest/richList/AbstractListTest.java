@@ -13,19 +13,16 @@ import static org.jboss.test.selenium.dom.Event.MOUSEOUT;
 import static org.jboss.test.selenium.dom.Event.MOUSEOVER;
 import static org.jboss.test.selenium.dom.Event.MOUSEUP;
 import static org.jboss.test.selenium.locator.LocatorFactory.jq;
-import static org.jboss.test.selenium.utils.URLUtils.buildUrl;
-import static org.richfaces.tests.metamer.ftest.richList.ListAttributes.Type.ORDERED;
 import static org.testng.Assert.assertEquals;
 
-import java.net.URL;
 import java.util.List;
 
 import org.jboss.test.selenium.dom.Event;
+import org.richfaces.component.ListType;
 import org.richfaces.tests.metamer.bean.Model;
 import org.richfaces.tests.metamer.ftest.AbstractMetamerTest;
 import org.richfaces.tests.metamer.ftest.annotations.Inject;
 import org.richfaces.tests.metamer.ftest.annotations.Use;
-import org.richfaces.tests.metamer.ftest.richList.ListAttributes.Type;
 import org.richfaces.tests.metamer.model.Employee;
 import org.testng.annotations.BeforeMethod;
 
@@ -52,7 +49,7 @@ public abstract class AbstractListTest extends AbstractMetamerTest {
     @Use(empty = true)
     Event event;
 
-    Type type = ORDERED;
+    ListType type = ListType.ordered;
 
     int expectedBegin;
     int displayedRows;
