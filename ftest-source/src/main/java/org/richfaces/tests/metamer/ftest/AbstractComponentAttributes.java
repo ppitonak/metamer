@@ -50,7 +50,7 @@ public class AbstractComponentAttributes {
     protected AjaxSelenium selenium = AjaxSeleniumProxy.getInstance();
     LocatorReference<ExtendedLocator<JQueryLocator>> root = new LocatorReference<ExtendedLocator<JQueryLocator>>(
         pjq(""));
-    ReferencedLocator<JQueryLocator> propertyLocator = referenceInferred(root, "*[id*={0}Input]{1}");
+    ReferencedLocator<JQueryLocator> propertyLocator = referenceInferred(root, "*[id$=\\:{0}Input]{1}");
 
     RequestType requestType = RequestType.HTTP;
 
@@ -67,8 +67,8 @@ public class AbstractComponentAttributes {
     }
 
     protected void setProperty(String propertyName, Object value) {
-        ExtendedLocator<JQueryLocator> locator = propertyLocator.format(propertyName);
-        final AttributeLocator<?> typeLocator = locator.format("").getAttribute(Attribute.TYPE);
+        ExtendedLocator<JQueryLocator> locator = propertyLocator.format(propertyName, "");
+        final AttributeLocator<?> typeLocator = locator.getAttribute(Attribute.TYPE);
         final ExtendedLocator<JQueryLocator> optionLocator = locator.getChild(jq("option"));
 
         String inputType = null;
