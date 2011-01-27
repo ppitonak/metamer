@@ -128,7 +128,7 @@ public abstract class AbstractModel<T extends ExtendedLocator<T>> implements Ext
     }
 
     @Override
-    public T format(Object... args) {
+    public ExtendedLocator<T> format(Object... args) {
         return root.getLocator().format(args);
     }
 

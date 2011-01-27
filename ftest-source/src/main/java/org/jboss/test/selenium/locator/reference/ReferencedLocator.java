@@ -65,7 +65,6 @@ public final class ReferencedLocator<T extends ExtendedLocator<T>> extends Abstr
 
     public T getReferenced() {
         ExtendedLocator<T> referencedLocator = reference.getLocator();
-
         @SuppressWarnings("unchecked")
         Class<T> tClass = (Class<T>) referencedLocator.getClass();
 
@@ -125,11 +124,10 @@ public final class ReferencedLocator<T extends ExtendedLocator<T>> extends Abstr
         return getReferenced().getDescendants(elementLocator);
     }
 
-    public T format(Object... args) {
+    public ReferencedLocator<T> format(Object... args) {
         String newAddition = SimplifiedFormat.format(addition, args);
         try {
-            // TODO fix the <T> param cast
-            return (T) new ReferencedLocator<T>(this.reference, newAddition);
+            return (ReferencedLocator<T>) new ReferencedLocator<T>(this.reference, newAddition);
         } catch (Exception e) {
             throw new IllegalStateException(e);
         }
