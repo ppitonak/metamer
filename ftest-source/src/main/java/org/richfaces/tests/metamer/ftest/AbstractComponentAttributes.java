@@ -68,7 +68,7 @@ public class AbstractComponentAttributes {
 
     protected void setProperty(String propertyName, Object value) {
         ExtendedLocator<JQueryLocator> locator = propertyLocator.format(propertyName);
-        final AttributeLocator<?> typeLocator = locator.getAttribute(Attribute.TYPE);
+        final AttributeLocator<?> typeLocator = locator.format("").getAttribute(Attribute.TYPE);
         final ExtendedLocator<JQueryLocator> optionLocator = locator.getChild(jq("option"));
 
         String inputType = null;
