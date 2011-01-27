@@ -27,6 +27,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
     -->
 
     <ui:composition template="/templates/template.xhtml">
+    	<ui:param name="componentId" value="status" />
 
         <ui:define name="head">
             <f:metadata>
@@ -49,11 +50,13 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                     <h:outputText value="Facet Error: " />
                     <h:inputText id="facetErrorTextInput" value="#{a4jStatusBean.facetErrorValue}" />
                 </h:panelGrid>
+                
+                <a4j:commandButton id="applyFacets" value="ApplyFacets" render="#{nestedComponentId}" execute="facetsSettings" />
             </fieldset>
         </ui:define>
 
         <ui:define name="component">
-            <a4j:commandButton id="applyFacets" value="ApplyFacets" render="status" execute="facetsSettings" />
+            
 
             <fieldset style="height: 3em">
                 <legend>status (inside form)</legend>
