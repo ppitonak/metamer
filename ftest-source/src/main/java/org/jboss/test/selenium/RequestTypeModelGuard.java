@@ -86,8 +86,8 @@ public class RequestTypeModelGuard implements MethodHandler {
      *            where should be registered regular HTTP request guard
      * @return the selenium guarded to use regular HTTP requests
      */
-    public static <T extends Model> T guardHttp(T selenium) {
-        return guard(selenium, RequestType.HTTP, false);
+    public static <T extends Model> T guardHttp(T model) {
+        return guard(model, RequestType.HTTP, false);
     }
 
     /**
@@ -97,8 +97,8 @@ public class RequestTypeModelGuard implements MethodHandler {
      *            where should be registered no request guard
      * @return the selenium guarded to use no request during interaction
      */
-    public static <T extends Model> T guardNoRequest(T selenium) {
-        return guard(selenium, RequestType.NONE, false);
+    public static <T extends Model> T guardNoRequest(T model) {
+        return guard(model, RequestType.NONE, false);
     }
 
     /**
@@ -108,8 +108,8 @@ public class RequestTypeModelGuard implements MethodHandler {
      *            where should be the guard registered
      * @return the selenium waiting for interception of XHR type request
      */
-    public static <T extends Model> T waitXhr(T selenium) {
-        return guard(selenium, RequestType.XHR, true);
+    public static <T extends Model> T waitXhr(T model) {
+        return guard(model, RequestType.XHR, true);
     }
 
     /**
@@ -119,8 +119,8 @@ public class RequestTypeModelGuard implements MethodHandler {
      *            selenium where should be the guard registered
      * @return the selenium waitinf for interception of HTTP type request
      */
-    public static <T extends Model> T waitHttp(T selenium) {
-        return guard(selenium, RequestType.HTTP, true);
+    public static <T extends Model> T waitHttp(T model) {
+        return guard(model, RequestType.HTTP, true);
     }
 
     public interface Model {
