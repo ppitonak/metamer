@@ -21,7 +21,6 @@
  *******************************************************************************/
 package org.richfaces.tests.metamer.ftest.richDragIndicator;
 
-import static org.jboss.test.selenium.locator.LocatorFactory.jq;
 import static org.jboss.test.selenium.utils.URLUtils.buildUrl;
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertFalse;
@@ -30,7 +29,6 @@ import java.net.URL;
 
 import org.jboss.test.selenium.actions.Drag;
 import org.jboss.test.selenium.request.RequestType;
-import org.richfaces.tests.metamer.ftest.AbstractMetamerTest;
 import org.richfaces.tests.metamer.ftest.richDragIndicator.Indicator.IndicatorState;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -39,22 +37,13 @@ import org.testng.annotations.Test;
  * @author <a href="mailto:lfryc@redhat.com">Lukas Fryc</a>
  * @version $Revision$
  */
-public class TestDragIndicator extends AbstractMetamerTest {
+public class TestDragIndicator extends AbstractDragNDropTest {
 
     private final static String ACCEPT_CLASS = "sample-accept-class";
     private final static String REJECT_CLASS = "sample-reject-class";
     private final static String DRAGGING_CLASS = "sample-dragging-class";
 
-    Draggable drg1 = new Draggable("drg1", pjq("[id$=draggable1]"));
-    Draggable drg2 = new Draggable("drg2", pjq("[id$=draggable2]"));
-    Draggable drg3 = new Draggable("drg3", pjq("[id$=draggable3]"));
-
-    Droppable drop1 = new Droppable("drop1", pjq("[id$=droppable1]"));
-    Droppable drop2 = new Droppable("drop2", pjq("[id$=droppable2]"));
-
-    Indicator indicator = new Indicator("ind", jq("div.rf-ind[id$=indicator]"));
-
-    DragIndicatorAttributes attributes = new DragIndicatorAttributes();
+    private DragIndicatorAttributes attributes = new DragIndicatorAttributes();
 
     @Override
     public URL getTestUrl() {
@@ -74,11 +63,11 @@ public class TestDragIndicator extends AbstractMetamerTest {
     @Test
     public void testRendered() {
         attributes.setRendered(false);
-
         selenium.getPageExtensions().install();
         selenium.getRequestInterceptor().clearRequestTypeDone();
 
-        Drag drag = new Drag(drg1, drop1);
+        drag = new Drag(drg1, drop1);
+        drag.setDragIndicator(indicator);
         drag.start();
         assertFalse(selenium.isElementPresent(indicator));
         drag.enter();
@@ -92,7 +81,8 @@ public class TestDragIndicator extends AbstractMetamerTest {
 
     @Test
     public void testDragging() {
-        Drag drag = new Drag(drg1, drg2);
+        drag = new Drag(drg1, drg2);
+        drag.setDragIndicator(indicator);
         indicator.verifyState(IndicatorState.HIDDEN);
 
         drag.start();
@@ -107,7 +97,8 @@ public class TestDragIndicator extends AbstractMetamerTest {
 
     @Test
     public void testAccepting() {
-        Drag drag = new Drag(drg1, drop1);
+        drag = new Drag(drg1, drop1);
+        drag.setDragIndicator(indicator);
         indicator.verifyState(IndicatorState.HIDDEN);
 
         drag.start();
@@ -122,7 +113,8 @@ public class TestDragIndicator extends AbstractMetamerTest {
 
     @Test
     public void testRejecting() {
-        Drag drag = new Drag(drg1, drop2);
+        drag = new Drag(drg1, drop2);
+        drag.setDragIndicator(indicator);
         indicator.verifyState(IndicatorState.HIDDEN);
 
         drag.start();
@@ -137,41 +129,10 @@ public class TestDragIndicator extends AbstractMetamerTest {
 
     @Test
     public void testMovingOverDifferentStates() {
-        Drag drag = new Drag(drg1, drop2);
-        drag.enter();
-        indicator.verifyState(IndicatorState.REJECTING);
-
-        drag.setDropTarget(drop1);
-        drag.enter();
-        indicator.verifyState(IndicatorState.ACCEPTING);
-
-        drag.setDropTarget(drg1);
-        drag.enter();
-        indicator.verifyState(IndicatorState.DRAGGING);
-
-        drag.setDropTarget(drop1);
-        drag.enter();
-        indicator.verifyState(IndicatorState.ACCEPTING);
-
-        drag.setDropTarget(drg2);
-        drag.enter();
-        indicator.verifyState(IndicatorState.DRAGGING);
-
-        drag.setDropTarget(drop2);
-        drag.enter();
-        indicator.verifyState(IndicatorState.REJECTING);
-
-        drag.setDropTarget(drg2);
-        drag.enter();
-        indicator.verifyState(IndicatorState.DRAGGING);
-
-        drag.setDropTarget(drop1);
-        drag.enter();
-        indicator.verifyState(IndicatorState.ACCEPTING);
-
-        drag.setDropTarget(drop2);
-        drag.enter();
-        indicator.verifyState(IndicatorState.REJECTING);
+        drag = new Drag(drg1, drop2);
+        drag.setDragIndicator(indicator);
+        drag.setNumberOfSteps(20);
+        super.testMovingOverDifferentStates();
     }
 
 }

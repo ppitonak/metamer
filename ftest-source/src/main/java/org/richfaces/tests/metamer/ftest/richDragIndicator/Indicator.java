@@ -38,12 +38,17 @@ public class Indicator extends AbstractModel<JQueryLocator> {
 
     private AjaxSelenium selenium = AjaxSeleniumProxy.getInstance();
 
+    private boolean defaultIndicator = false;
     private String acceptClass;
     private String rejectClass;
     private String draggingClass;
 
     public Indicator(String name, JQueryLocator root) {
         super(name, root);
+    }
+    
+    public void setDefaultIndicator(boolean defaultIndicator) {
+        this.defaultIndicator = defaultIndicator;
     }
 
     public void setAcceptClass(String acceptClass) {
@@ -74,6 +79,9 @@ public class Indicator extends AbstractModel<JQueryLocator> {
     }
 
     public boolean isDragging() {
+        if (defaultIndicator) {
+            return isVisible();
+        }
         return isVisible() && selenium.belongsClass(this, "rf-ind-drag");
     }
 
