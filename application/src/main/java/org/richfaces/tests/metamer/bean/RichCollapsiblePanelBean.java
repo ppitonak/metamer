@@ -57,6 +57,7 @@ public class RichCollapsiblePanelBean implements Serializable {
 
         attributes = Attributes.getComponentAttributesFromFacesConfig(UICollapsiblePanel.class, getClass());
 
+        attributes.setAttribute("expanded", true);
         attributes.setAttribute("rendered", true);
         attributes.setAttribute("header", "collapsible panel header");
 

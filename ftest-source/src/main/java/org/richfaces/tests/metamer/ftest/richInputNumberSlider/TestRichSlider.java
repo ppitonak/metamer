@@ -689,7 +689,6 @@ public class TestRichSlider extends AbstractMetamerTest {
         delta = (long) (delay * 0.5);
         long average = countAverage(timesArray);
         assertTrue(Math.abs(average - delay) < delta, "Average delay " + average + " is too far from set value (" + delay + ")");
-        assertFalse(average < delay, "Average interval " + average + " cannot be smaller than set value (" + delay + ")");
     }
 
     private long countAverage(Date[] times) {
