@@ -1,6 +1,6 @@
 /*******************************************************************************
  * JBoss, Home of Professional Open Source
- * Copyright 2010, Red Hat, Inc. and individual contributors
+ * Copyright 2010-2011, Red Hat, Inc. and individual contributors
  * by the @authors tag. See the copyright.txt in the distribution for a
  * full listing of individual contributors.
  *
@@ -36,8 +36,8 @@ import org.testng.annotations.Test;
  */
 public class TestRichTCTabPanel extends AbstractTestToggleControl {
 
-    JQueryLocator[] items1 = {pjq("div[id$=item11:content]"), pjq("div[id$=item12:content]"), pjq("div[id$=item13:content]")};
-    JQueryLocator[] items2 = {pjq("div[id$=item21:content]"), pjq("div[id$=item22:content]"), pjq("div[id$=item23:content]")};
+    JQueryLocator[] items1 = {pjq("div[id$=item11]"), pjq("div[id$=item12]"), pjq("div[id$=item13]")};
+    JQueryLocator[] items2 = {pjq("div[id$=item21]"), pjq("div[id$=item22]"), pjq("div[id$=item23]")};
 
     @Override
     public URL getTestUrl() {
