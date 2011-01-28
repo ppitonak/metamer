@@ -159,13 +159,13 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 				<h:panelGroup rendered="#{not empty richDropListenerBean.dropEvent}">
 					<h:panelGrid columns="2">
 						<h:outputLabel value="clientId:" />
-						<h:outputText value="#{richDropListenerBean.dropEvent.component.clientId}" />
+						<h:outputText id="clientId" value="#{richDropListenerBean.dropEvent.component.clientId}" />
 						
 						<h:outputLabel value="Drag Value:" />
-						<h:outputText value="#{richDropListenerBean.dropEvent.dragValue}" />
+						<h:outputText id="dragValue" value="#{richDropListenerBean.dropEvent.dragValue}" />
 						
 						<h:outputLabel value="Drop Value:" />
-						<h:outputText value="#{richDropListenerBean.dropEvent.dropValue}" />
+						<h:outputText id="dropValue" value="#{richDropListenerBean.dropEvent.dropValue}" />
 					</h:panelGrid>
 				</h:panelGroup>
 			</h:panelGrid>
