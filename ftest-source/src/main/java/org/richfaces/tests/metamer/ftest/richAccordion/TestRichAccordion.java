@@ -25,6 +25,7 @@ import static org.jboss.test.selenium.guard.request.RequestTypeGuardFactory.guar
 import static org.jboss.test.selenium.guard.request.RequestTypeGuardFactory.guardNoRequest;
 import static org.jboss.test.selenium.guard.request.RequestTypeGuardFactory.guardXhr;
 import static org.jboss.test.selenium.locator.LocatorFactory.jq;
+import static org.jboss.test.selenium.locator.option.OptionLocatorFactory.optionLabel;
 import static org.jboss.test.selenium.utils.URLUtils.buildUrl;
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertFalse;
@@ -42,6 +43,7 @@ import org.jboss.test.selenium.encapsulated.JavaScript;
 import org.jboss.test.selenium.locator.Attribute;
 import org.jboss.test.selenium.locator.AttributeLocator;
 import org.jboss.test.selenium.locator.JQueryLocator;
+import org.jboss.test.selenium.waiting.EventFiredCondition;
 import org.richfaces.tests.metamer.ftest.AbstractMetamerTest;
 import org.richfaces.tests.metamer.ftest.annotations.IssueTracking;
 import org.testng.annotations.Test;
@@ -68,6 +70,8 @@ public class TestRichAccordion extends AbstractMetamerTest {
     private JQueryLocator[] disabledHeaders = {pjq("div[id$=item1:header] div.rf-ac-itm-lbl-dis"),
         pjq("div[id$=item2:header] div.rf-ac-itm-lbl-dis"), pjq("div[id$=item3:header] div.rf-ac-itm-lbl-dis"),
         pjq("div[id$=item4:header] div.rf-ac-itm-lbl-dis"), pjq("div[id$=item5:header] div.rf-ac-itm-lbl-dis")};
+    private JQueryLocator leftIcon = pjq("div[id$=item{0}] td.rf-ac-itm-ico");
+    private JQueryLocator rightIcon = pjq("div[id$=item{0}] td.rf-ac-itm-exp-ico");
 
     @Override
     public URL getTestUrl() {
@@ -90,48 +94,6 @@ public class TestRichAccordion extends AbstractMetamerTest {
         for (int i = 1; i < 5; i++) {
             accordionDisplayed = selenium.isDisplayed(itemContents[i]);
             assertFalse(accordionDisplayed, "Item" + (i + 1) + "'s content should not be visible.");
-        }
-    }
-
-    @Test
-    public void testSwitchTypeNull() {
-        for (int i = 2; i >= 0; i--) {
-            final int index = i;
-            guardXhr(selenium).click(itemHeaders[index]);
-            waitGui.failWith("Item " + index + " is not displayed.").until(isDisplayed.locator(itemContents[index]));
-        }
-    }
-
-    @Test
-    public void testSwitchTypeAjax() {
-        selenium.click(pjq("input[type=radio][name$=switchTypeInput][value=ajax]"));
-        selenium.waitForPageToLoad();
-
-        testSwitchTypeNull();
-    }
-
-    @Test
-    public void testSwitchTypeClient() {
-        selenium.click(pjq("input[type=radio][name$=switchTypeInput][value=client]"));
-        selenium.waitForPageToLoad();
-
-        for (int i = 2; i >= 0; i--) {
-            final int index = i;
-            guardNoRequest(selenium).click(itemHeaders[index]);
-            waitGui.failWith("Item " + index + " is not displayed.").until(isDisplayed.locator(itemContents[index]));
-        }
-    }
-
-    @Test
-    @IssueTracking("https://issues.jboss.org/browse/RF-10040")
-    public void testSwitchTypeServer() {
-        selenium.click(pjq("input[type=radio][name$=switchTypeInput][value=server]"));
-        selenium.waitForPageToLoad();
-
-        for (int i = 2; i >= 0; i--) {
-            final int index = i;
-            guardHttp(selenium).click(itemHeaders[index]);
-            waitGui.failWith("Item " + index + " is not displayed.").until(isDisplayed.locator(itemContents[index]));
         }
     }
 
@@ -179,7 +141,7 @@ public class TestRichAccordion extends AbstractMetamerTest {
         selenium.click(itemHeaders[2]);
         waitGui.failWith("Item 3 is not displayed.").until(isDisplayed.locator(itemContents[2]));
 
-        assertPhases(PhaseId.RESTORE_VIEW, PhaseId.APPLY_REQUEST_VALUES, PhaseId.PROCESS_VALIDATIONS,
+        phaseInfo.assertPhases(PhaseId.RESTORE_VIEW, PhaseId.APPLY_REQUEST_VALUES, PhaseId.PROCESS_VALIDATIONS,
                 PhaseId.RENDER_RESPONSE);
     }
 
@@ -283,8 +245,7 @@ public class TestRichAccordion extends AbstractMetamerTest {
         selenium.click(itemHeaders[2]);
         waitGui.failWith("Item 3 is not displayed.").until(isDisplayed.locator(itemContents[2]));
 
-        String listenerOutput = selenium.getText(jq("div#phasesPanel li:eq(5)"));
-        assertEquals(listenerOutput, "* item changed: item1 -> item3", "Item change listener's output");
+        phaseInfo.assertListener(PhaseId.INVOKE_APPLICATION, "item changed: item1 -> item3");
     }
 
     @Test
@@ -313,22 +274,69 @@ public class TestRichAccordion extends AbstractMetamerTest {
     }
 
     @Test
-    public void testItemchangeEvents() {
-        selenium.type(pjq("input[type=text][id$=onbeforeitemchangeInput]"), "metamerEvents += \"beforeitemchange \"");
-        selenium.waitForPageToLoad();
-        selenium.type(pjq("input[type=text][id$=onitemchangeInput]"), "metamerEvents += \"itemchange \"");
-        selenium.waitForPageToLoad();
+    @IssueTracking("https://issues.jboss.org/browse/RF-10352")
+    public void testItemLeftIconActive() {
+        JQueryLocator icon = leftIcon.format(1).getDescendant(jq("div.rf-ac-itm-ico-act"));
+        JQueryLocator input = pjq("select[id$=itemLeftIconActiveInput]");
+        JQueryLocator image = leftIcon.format(1).getChild(jq("img"));
 
-        selenium.getEval(new JavaScript("window.metamerEvents = \"\";"));
-        String time1Value = selenium.getText(time);
+        // icon=null
+        for (int i = 1; i < 6; i++) {
+            assertFalse(selenium.isElementPresent(leftIcon.format(i)), "Left icon of item" + i + " should not be present on the page.");
+        }
 
-        guardXhr(selenium).click(itemHeaders[2]);
-        waitGui.failWith("Page was not updated").waitForChange(time1Value, retrieveText.locator(time));
+        verifyStandardIcons(input, icon, image, "");
+    }
 
-        String[] events = selenium.getEval(new JavaScript("window.metamerEvents")).split(" ");
+    @Test
+    public void testItemLeftIconDisabled() {
+        JQueryLocator icon = leftIcon.format(4).getDescendant(jq("div.rf-ac-itm-ico-inact"));
+        JQueryLocator input = pjq("select[id$=itemLeftIconDisabledInput]");
+        JQueryLocator image = leftIcon.format(4).getChild(jq("img"));
 
-        assertEquals(events[0], "beforeitemchange", "Attribute onbeforeitemchange doesn't work");
-        assertEquals(events[1], "itemchange", "Attribute onbeforeitemchange doesn't work");
+        verifyStandardIcons(input, icon, image, "-dis");
+    }
+
+    @Test
+    @IssueTracking("https://issues.jboss.org/browse/RF-10352")
+    public void testItemLeftIconInactive() {
+        JQueryLocator icon = leftIcon.format(3).getDescendant(jq("div.rf-ac-itm-ico-inact"));
+        JQueryLocator input = pjq("select[id$=itemLeftIconInactiveInput]");
+        JQueryLocator image = leftIcon.format(3).getChild(jq("img"));
+
+        verifyStandardIcons(input, icon, image, "");
+    }
+
+    @Test
+    public void testItemRightIconActive() {
+        JQueryLocator icon = rightIcon.format(1).getDescendant(jq("div.rf-ac-itm-ico-act"));
+        JQueryLocator input = pjq("select[id$=itemRightIconActiveInput]");
+        JQueryLocator image = rightIcon.format(1).getChild(jq("img"));
+
+        // icon=null
+        for (int i = 1; i < 6; i++) {
+            assertFalse(selenium.isElementPresent(rightIcon.format(i)), "Right icon of item" + i + " should not be present on the page.");
+        }
+
+        verifyStandardIcons(input, icon, image, "-hdr");
+    }
+
+    @Test
+    public void testItemRightIconDisabled() {
+        JQueryLocator icon = rightIcon.format(4).getDescendant(jq("div.rf-ac-itm-ico-inact"));
+        JQueryLocator input = pjq("select[id$=itemRightIconDisabledInput]");
+        JQueryLocator image = rightIcon.format(4).getChild(jq("img"));
+
+        verifyStandardIcons(input, icon, image, "-hdr-dis");
+    }
+
+    @Test
+    public void testItemRightIconInactive() {
+        JQueryLocator icon = rightIcon.format(3).getDescendant(jq("div.rf-ac-itm-ico-inact"));
+        JQueryLocator input = pjq("select[id$=itemRightIconInactiveInput]");
+        JQueryLocator image = rightIcon.format(3).getChild(jq("img"));
+
+        verifyStandardIcons(input, icon, image, "-hdr");
     }
 
     @Test
@@ -352,6 +360,58 @@ public class TestRichAccordion extends AbstractMetamerTest {
     }
 
     @Test
+    public void testAjaxEvents() {
+        selenium.type(pjq("input[type=text][id$=onbeginInput]"), "metamerEvents += \"begin \"");
+        selenium.waitForPageToLoad();
+        selenium.type(pjq("input[type=text][id$=onbeforedomupdateInput]"), "metamerEvents += \"beforedomupdate \"");
+        selenium.waitForPageToLoad();
+        selenium.type(pjq("input[type=text][id$=oncompleteInput]"), "metamerEvents += \"complete \"");
+        selenium.waitForPageToLoad();
+
+        selenium.getEval(new JavaScript("window.metamerEvents = \"\";"));
+
+        guardXhr(selenium).click(itemHeaders[1]);
+        waitGui.failWith("Item 2 is not displayed.").until(isDisplayed.locator(itemContents[1]));
+
+        String[] events = selenium.getEval(new JavaScript("window.metamerEvents")).split(" ");
+
+        assertEquals(events.length, 3, "3 events should be fired.");
+        assertEquals(events[0], "begin", "Attribute onbegin doesn't work");
+        assertEquals(events[1], "beforedomupdate", "Attribute onbeforedomupdate doesn't work");
+        assertEquals(events[2], "complete", "Attribute oncomplete doesn't work");
+    }
+
+    @Test
+    public void testItemchangeEvents() {
+        selenium.type(pjq("input[type=text][id$=onbeforeitemchangeInput]"), "metamerEvents += \"beforeitemchange \"");
+        selenium.waitForPageToLoad();
+        selenium.type(pjq("input[type=text][id$=onitemchangeInput]"), "metamerEvents += \"itemchange \"");
+        selenium.waitForPageToLoad();
+
+        selenium.getEval(new JavaScript("window.metamerEvents = \"\";"));
+        String time1Value = selenium.getText(time);
+
+        guardXhr(selenium).click(itemHeaders[2]);
+        waitGui.failWith("Page was not updated").waitForChange(time1Value, retrieveText.locator(time));
+
+        String[] events = selenium.getEval(new JavaScript("window.metamerEvents")).split(" ");
+
+        assertEquals(events[0], "beforeitemchange", "Attribute onbeforeitemchange doesn't work");
+        assertEquals(events[1], "itemchange", "Attribute onbeforeitemchange doesn't work");
+    }
+
+    @Test
+    public void testOnbeforeitemchange() {
+        selenium.type(pjq("input[id$=onbeforeitemchangeInput]"), "metamerEvents += \"onbeforeitemchange \"");
+        selenium.waitForPageToLoad(TIMEOUT);
+
+        guardXhr(selenium).click(itemHeaders[1]);
+        waitGui.failWith("Item 2 is not displayed.").until(isDisplayed.locator(itemContents[1]));
+
+        waitGui.failWith("onbeforeitemchange attribute does not work correctly").until(new EventFiredCondition(new Event("beforeitemchange")));
+    }
+
+    @Test
     public void testOnclick() {
         testFireEvent(Event.CLICK, accordion);
     }
@@ -359,6 +419,17 @@ public class TestRichAccordion extends AbstractMetamerTest {
     @Test
     public void testOndblclick() {
         testFireEvent(Event.DBLCLICK, accordion);
+    }
+
+    @Test
+    public void testOnitemchange() {
+        selenium.type(pjq("input[id$=onitemchangeInput]"), "metamerEvents += \"onitemchange \"");
+        selenium.waitForPageToLoad(TIMEOUT);
+
+        guardXhr(selenium).click(itemHeaders[1]);
+        waitGui.failWith("Item 2 is not displayed.").until(isDisplayed.locator(itemContents[1]));
+
+        waitGui.failWith("onitemchange attribute does not work correctly").until(new EventFiredCondition(new Event("itemchange")));
     }
 
     @Test
@@ -387,11 +458,31 @@ public class TestRichAccordion extends AbstractMetamerTest {
     }
 
     @Test
+    public void testRender() {
+        selenium.type(pjq("input[type=text][id$=renderInput]"), "renderChecker");
+        selenium.waitForPageToLoad();
+
+        String renderCheckerTime = selenium.getText(renderChecker);
+        guardXhr(selenium).click(itemHeaders[1]);
+        waitGui.failWith("Attribute render doesn't work").waitForChange(renderCheckerTime, retrieveText.locator(renderChecker));
+    }
+
+    @Test
     public void testRendered() {
         selenium.click(pjq("input[type=radio][name$=renderedInput][value=false]"));
         selenium.waitForPageToLoad();
 
         assertFalse(selenium.isElementPresent(accordion), "Accordion should not be rendered when rendered=false.");
+    }
+
+    @Test
+    public void testStatus() {
+        selenium.type(pjq("input[type=text][id$=statusInput]"), "statusChecker");
+        selenium.waitForPageToLoad();
+
+        String statusCheckerTime = selenium.getText(statusChecker);
+        guardXhr(selenium).click(itemHeaders[1]);
+        waitGui.failWith("Attribute status doesn't work").waitForChange(statusCheckerTime, retrieveText.locator(statusChecker));
     }
 
     @Test
@@ -402,6 +493,48 @@ public class TestRichAccordion extends AbstractMetamerTest {
     @Test
     public void testStyleClass() {
         testStyleClass(accordion, "styleClass");
+    }
+
+    @Test
+    public void testSwitchTypeNull() {
+        for (int i = 2; i >= 0; i--) {
+            final int index = i;
+            guardXhr(selenium).click(itemHeaders[index]);
+            waitGui.failWith("Item " + index + " is not displayed.").until(isDisplayed.locator(itemContents[index]));
+        }
+    }
+
+    @Test
+    public void testSwitchTypeAjax() {
+        selenium.click(pjq("input[type=radio][name$=switchTypeInput][value=ajax]"));
+        selenium.waitForPageToLoad();
+
+        testSwitchTypeNull();
+    }
+
+    @Test
+    public void testSwitchTypeClient() {
+        selenium.click(pjq("input[type=radio][name$=switchTypeInput][value=client]"));
+        selenium.waitForPageToLoad();
+
+        for (int i = 2; i >= 0; i--) {
+            final int index = i;
+            guardNoRequest(selenium).click(itemHeaders[index]);
+            waitGui.failWith("Item " + index + " is not displayed.").until(isDisplayed.locator(itemContents[index]));
+        }
+    }
+
+    @Test
+    @IssueTracking("https://issues.jboss.org/browse/RF-10040")
+    public void testSwitchTypeServer() {
+        selenium.click(pjq("input[type=radio][name$=switchTypeInput][value=server]"));
+        selenium.waitForPageToLoad();
+
+        for (int i = 2; i >= 0; i--) {
+            final int index = i;
+            guardHttp(selenium).click(itemHeaders[index]);
+            waitGui.failWith("Item " + index + " is not displayed.").until(isDisplayed.locator(itemContents[index]));
+        }
     }
 
     @Test
@@ -423,5 +556,63 @@ public class TestRichAccordion extends AbstractMetamerTest {
         assertTrue(selenium.isAttributePresent(attribute), "Attribute style should be present.");
         String value = selenium.getStyle(accordion, CssProperty.WIDTH);
         assertEquals(value, "356px", "Attribute width");
+    }
+
+    private void verifyStandardIcons(JQueryLocator input, JQueryLocator icon, JQueryLocator image, String classSuffix) {
+        String imageNameSuffix = "";
+        if (classSuffix.contains("dis")) {
+            imageNameSuffix = "Disabled";
+        }
+
+        selenium.select(input, optionLabel("chevronDown"));
+        selenium.waitForPageToLoad();
+        assertTrue(selenium.belongsClass(icon, "rf-ico-chevron-down" + classSuffix), "Div should have set class rf-ico-chevron-down" + classSuffix + ".");
+        assertTrue(selenium.getStyle(icon, CssProperty.BACKGROUND_IMAGE).contains("ChevronDown" + imageNameSuffix + ".png"), "Icon should contain a chevron down.");
+
+        selenium.select(input, optionLabel("chevronUp"));
+        selenium.waitForPageToLoad();
+        assertTrue(selenium.belongsClass(icon, "rf-ico-chevron-up" + classSuffix), "Div should have set class rf-ico-chevron-up" + classSuffix + ".");
+        assertTrue(selenium.getStyle(icon, CssProperty.BACKGROUND_IMAGE).contains("ChevronUp" + imageNameSuffix + ".png"), "Icon should contain a chevron up.");
+
+        selenium.select(input, optionLabel("disc"));
+        selenium.waitForPageToLoad();
+        assertTrue(selenium.belongsClass(icon, "rf-ico-disc" + classSuffix), "Div should have set class rf-ico-disc" + classSuffix + ".");
+        assertTrue(selenium.getStyle(icon, CssProperty.BACKGROUND_IMAGE).contains("Disc" + imageNameSuffix + ".png"), "Icon should contain a disc.");
+
+        selenium.select(input, optionLabel("grid"));
+        selenium.waitForPageToLoad();
+        assertTrue(selenium.belongsClass(icon, "rf-ico-grid" + classSuffix), "Div should have set class rf-ico-grid" + classSuffix + ".");
+        assertTrue(selenium.getStyle(icon, CssProperty.BACKGROUND_IMAGE).contains("Grid" + imageNameSuffix + ".png"), "Icon should contain a grid.");
+
+        selenium.select(input, optionLabel("triangle"));
+        selenium.waitForPageToLoad();
+        assertTrue(selenium.belongsClass(icon, "rf-ico-triangle" + classSuffix), "Div should have set class rf-ico-triangle" + classSuffix + ".");
+        assertTrue(selenium.getStyle(icon, CssProperty.BACKGROUND_IMAGE).contains("Triangle" + imageNameSuffix + ".png"), "Icon should contain a triangle.");
+
+        selenium.select(input, optionLabel("triangleDown"));
+        selenium.waitForPageToLoad();
+        assertTrue(selenium.belongsClass(icon, "rf-ico-triangle-down" + classSuffix), "Div should have set class rf-ico-triangle-down" + classSuffix + ".");
+        assertTrue(selenium.getStyle(icon, CssProperty.BACKGROUND_IMAGE).contains("TriangleDown" + imageNameSuffix + ".png"), "Icon should contain a triangle down.");
+
+        selenium.select(input, optionLabel("triangleUp"));
+        selenium.waitForPageToLoad();
+        assertTrue(selenium.belongsClass(icon, "rf-ico-triangle-up" + classSuffix), "Div should have set class rf-ico-triangle-up" + classSuffix + ".");
+        assertTrue(selenium.getStyle(icon, CssProperty.BACKGROUND_IMAGE).contains("TriangleUp" + imageNameSuffix + ".png"), "Icon should contain a triangle up.");
+
+        selenium.select(input, optionLabel("none"));
+        selenium.waitForPageToLoad();
+        assertFalse(selenium.isElementPresent(icon), "Icon should not be present when icon=none.");
+
+        selenium.select(input, optionLabel("star"));
+        selenium.waitForPageToLoad();
+        assertFalse(selenium.isElementPresent(icon), "Icon's div should not be present when icon=star.");
+        assertTrue(selenium.isElementPresent(image), "Icon's image should be rendered.");
+        assertTrue(selenium.getAttribute(image.getAttribute(Attribute.SRC)).contains("star.png"), "Icon's src attribute should contain star.png.");
+
+        selenium.select(input, optionLabel("nonexisting"));
+        selenium.waitForPageToLoad();
+        assertFalse(selenium.isElementPresent(icon), "Icon's div should not be present when icon=nonexisting.");
+        assertTrue(selenium.isElementPresent(image), "Icon's image should be rendered.");
+        assertTrue(selenium.getAttribute(image.getAttribute(Attribute.SRC)).contains("nonexisting"), "Icon's src attribute should contain nonexisting.");
     }
 }

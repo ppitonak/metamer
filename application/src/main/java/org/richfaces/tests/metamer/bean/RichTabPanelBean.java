@@ -58,9 +58,14 @@ public class RichTabPanelBean implements Serializable {
         attributes.setAttribute("activeItem", "tab1");
         attributes.setAttribute("rendered", true);
 
-        // TODO has to be tested in another way
+        // will be tested in another way
         attributes.remove("converter");
         attributes.remove("itemChangeListener");
+
+        // TODO remove as soon as it is added to taglib RF-10310
+        attributes.setAttribute("onbeforedomupdate", null);
+        attributes.setAttribute("onbegin", null);
+        attributes.setAttribute("oncomplete", null);
     }
 
     public Attributes getAttributes() {

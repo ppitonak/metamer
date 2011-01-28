@@ -206,8 +206,11 @@ public class TestRichSelect extends AbstractMetamerTest {
         selenium.type(pjq("input[type=text][id$=listHeightInput]"), "");
         selenium.waitForPageToLoad();
 
-        height = selenium.getStyle(jq("span.rf-is-lst-scrl"), CssProperty.HEIGHT);
-        assertEquals(height, "200px", "Height of list did not change");
+        selenium.mouseDown(button);
+        selenium.mouseUp(button);
+        assertTrue(selenium.isVisible(popup), "Popup should be displayed.");
+        
+        assertEquals(selenium.getElementHeight(jq("div.rf-sel-lst-scrl")), 100, "Height of list did not change");
     }
 
     @Test

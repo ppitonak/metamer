@@ -525,7 +525,6 @@ public class TestRichCollapsiblePanel extends AbstractMetamerTest {
         selenium.select(input, optionLabel("star"));
         selenium.waitForPageToLoad();
         assertFalse(selenium.isElementPresent(icon), "Icon's div should not be present when icon=star.");
-        waitFor(5000);
         assertTrue(selenium.isElementPresent(image), "Icon's image should be rendered.");
         assertTrue(selenium.getAttribute(image.getAttribute(Attribute.SRC)).contains("star.png"), "Icon's src attribute should contain star.png.");
 

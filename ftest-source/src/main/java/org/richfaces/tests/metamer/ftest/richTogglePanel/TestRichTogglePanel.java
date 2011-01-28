@@ -82,75 +82,6 @@ public class TestRichTogglePanel extends AbstractMetamerTest {
     }
 
     @Test
-    public void testSwitchTypeNull() {
-        guardXhr(selenium).click(tc3);
-        waitGui.failWith("Item 3 is not displayed.").until(isDisplayed.locator(item3));
-        assertFalse(selenium.isVisible(item1), "Item 1 should not be visible.");
-        assertFalse(selenium.isVisible(item2), "Item 2 should not be visible.");
-
-        guardXhr(selenium).click(tc2);
-        waitGui.failWith("Item 2 is not displayed.").until(isDisplayed.locator(item2));
-        assertFalse(selenium.isVisible(item1), "Item 1 should not be visible.");
-        assertFalse(selenium.isVisible(item3), "Item 3 should not be visible.");
-
-        guardXhr(selenium).click(tc1);
-        waitGui.failWith("Item 1 is not displayed.").until(isDisplayed.locator(item1));
-        assertFalse(selenium.isVisible(item2), "Item 2 should not be visible.");
-        assertFalse(selenium.isVisible(item3), "Item 3 should not be visible.");
-    }
-
-    @Test
-    public void testSwitchTypeAjax() {
-        selenium.click(pjq("input[name$=switchTypeInput][value=ajax]"));
-        selenium.waitForPageToLoad();
-
-        testSwitchTypeNull();
-    }
-
-    @Test
-    public void testSwitchTypeClient() {
-        selenium.click(pjq("input[name$=switchTypeInput][value=client]"));
-        selenium.waitForPageToLoad();
-
-        guardNoRequest(selenium).click(tc3);
-        waitGui.failWith("Item 3 is not displayed.").until(isDisplayed.locator(item3));
-        assertFalse(selenium.isVisible(item1), "Item 1 should not be visible.");
-        assertFalse(selenium.isVisible(item2), "Item 2 should not be visible.");
-
-        guardNoRequest(selenium).click(tc2);
-        waitGui.failWith("Item 2 is not displayed.").until(isDisplayed.locator(item2));
-        assertFalse(selenium.isVisible(item1), "Item 1 should not be visible.");
-        assertFalse(selenium.isVisible(item3), "Item 3 should not be visible.");
-
-        guardNoRequest(selenium).click(tc1);
-        waitGui.failWith("Item 1 is not displayed.").until(isDisplayed.locator(item1));
-        assertFalse(selenium.isVisible(item2), "Item 2 should not be visible.");
-        assertFalse(selenium.isVisible(item3), "Item 3 should not be visible.");
-    }
-
-    @Test
-    @IssueTracking("https://issues.jboss.org/browse/RF-10040")
-    public void testSwitchTypeServer() {
-        selenium.click(pjq("input[name$=switchTypeInput][value=server]"));
-        selenium.waitForPageToLoad();
-
-        guardHttp(selenium).click(tc3);
-        assertTrue(selenium.isVisible(item3), "Item 3 should be visible.");
-        assertFalse(selenium.isDisplayed(item1), "Item 1 should not be displayed.");
-        assertFalse(selenium.isDisplayed(item2), "Item 2 should not be displayed.");
-
-        guardHttp(selenium).click(tc2);
-        assertTrue(selenium.isVisible(item2), "Item 2 should be visible.");
-        assertFalse(selenium.isDisplayed(item1), "Item 1 should not be displayed.");
-        assertFalse(selenium.isDisplayed(item3), "Item 3 should not be displayed.");
-
-        guardHttp(selenium).click(tc1);
-        assertTrue(selenium.isVisible(item1), "Item 1 should be visible.");
-        assertFalse(selenium.isDisplayed(item2), "Item 2 should not be displayed.");
-        assertFalse(selenium.isDisplayed(item3), "Item 3 should not be displayed.");
-    }
-
-    @Test
     public void testFirstLastPrevNextSwitchNull() {
         guardXhr(selenium).click(tcNext);
         waitGui.failWith("Next item (2) is not displayed.").until(isDisplayed.locator(item2));
@@ -261,7 +192,7 @@ public class TestRichTogglePanel extends AbstractMetamerTest {
         selenium.click(tc3);
         waitGui.failWith("Item 3 is not displayed.").until(isDisplayed.locator(item3));
 
-        assertPhases(PhaseId.RESTORE_VIEW, PhaseId.APPLY_REQUEST_VALUES, PhaseId.PROCESS_VALIDATIONS,
+        phaseInfo.assertPhases(PhaseId.RESTORE_VIEW, PhaseId.APPLY_REQUEST_VALUES, PhaseId.PROCESS_VALIDATIONS,
                 PhaseId.RENDER_RESPONSE);
 
         String listenerOutput = selenium.getText(jq("div#phasesPanel li:eq(3)"));
@@ -327,7 +258,7 @@ public class TestRichTogglePanel extends AbstractMetamerTest {
         selenium.click(tc3);
         waitGui.failWith("Item 3 is not displayed.").until(isDisplayed.locator(item3));
 
-        assertPhases(PhaseId.RESTORE_VIEW, PhaseId.APPLY_REQUEST_VALUES, PhaseId.RENDER_RESPONSE);
+        phaseInfo.assertPhases(PhaseId.RESTORE_VIEW, PhaseId.APPLY_REQUEST_VALUES, PhaseId.RENDER_RESPONSE);
 
         String listenerOutput = selenium.getText(jq("div#phasesPanel li:eq(2)"));
         assertEquals(listenerOutput, "* item changed: item1 -> item3", "Item change listener's output");
@@ -338,8 +269,7 @@ public class TestRichTogglePanel extends AbstractMetamerTest {
         selenium.click(tc3);
         waitGui.failWith("Item 3 is not displayed.").until(isDisplayed.locator(item3));
 
-        String listenerOutput = selenium.getText(jq("div#phasesPanel li:eq(5)"));
-        assertEquals(listenerOutput, "* item changed: item1 -> item3", "Item change listener's output");
+        phaseInfo.assertListener(PhaseId.INVOKE_APPLICATION, "item changed: item1 -> item3");
     }
 
     @Test
@@ -371,6 +301,29 @@ public class TestRichTogglePanel extends AbstractMetamerTest {
         waitGui.failWith("Item 2 is not displayed.").until(isDisplayed.locator(item2));
 
         waitGui.failWith("onbeforeitemchange attribute does not work correctly").until(new EventFiredCondition(new Event("beforeitemchange")));
+    }
+
+    @Test
+    public void testAjaxEvents() {
+        selenium.type(pjq("input[type=text][id$=onbeginInput]"), "metamerEvents += \"begin \"");
+        selenium.waitForPageToLoad();
+        selenium.type(pjq("input[type=text][id$=onbeforedomupdateInput]"), "metamerEvents += \"beforedomupdate \"");
+        selenium.waitForPageToLoad();
+        selenium.type(pjq("input[type=text][id$=oncompleteInput]"), "metamerEvents += \"complete \"");
+        selenium.waitForPageToLoad();
+
+        selenium.getEval(new JavaScript("window.metamerEvents = \"\";"));
+
+        String reqTime = selenium.getText(time);
+        guardXhr(selenium).click(tc2);
+        waitGui.failWith("Page was not updated").waitForChange(reqTime, retrieveText.locator(time));
+
+        String[] events = selenium.getEval(new JavaScript("window.metamerEvents")).split(" ");
+
+        assertEquals(events.length, 3, "3 events should be fired.");
+        assertEquals(events[0], "begin", "Attribute onbegin doesn't work");
+        assertEquals(events[1], "beforedomupdate", "Attribute onbeforedomupdate doesn't work");
+        assertEquals(events[2], "complete", "Attribute oncomplete doesn't work");
     }
 
     @Test
@@ -439,11 +392,31 @@ public class TestRichTogglePanel extends AbstractMetamerTest {
     }
 
     @Test
+    public void testRender() {
+        selenium.type(pjq("input[type=text][id$=renderInput]"), "renderChecker");
+        selenium.waitForPageToLoad();
+
+        String renderCheckerTime = selenium.getText(renderChecker);
+        guardXhr(selenium).click(tc2);
+        waitGui.failWith("Attribute render doesn't work").waitForChange(renderCheckerTime, retrieveText.locator(renderChecker));
+    }
+
+    @Test
     public void testRendered() {
         selenium.click(pjq("input[type=radio][name$=renderedInput][value=false]"));
         selenium.waitForPageToLoad();
 
         assertFalse(selenium.isElementPresent(panel), "Toggle panel should not be rendered when rendered=false.");
+    }
+
+    @Test
+    public void testStatus() {
+        selenium.type(pjq("input[type=text][id$=statusInput]"), "statusChecker");
+        selenium.waitForPageToLoad();
+
+        String statusCheckerTime = selenium.getText(statusChecker);
+        guardXhr(selenium).click(tc2);
+        waitGui.failWith("Attribute status doesn't work").waitForChange(statusCheckerTime, retrieveText.locator(statusChecker));
     }
 
     @Test
@@ -454,6 +427,75 @@ public class TestRichTogglePanel extends AbstractMetamerTest {
     @Test
     public void testStyleClass() {
         testStyleClass(panel, "styleClass");
+    }
+
+    @Test
+    public void testSwitchTypeNull() {
+        guardXhr(selenium).click(tc3);
+        waitGui.failWith("Item 3 is not displayed.").until(isDisplayed.locator(item3));
+        assertFalse(selenium.isVisible(item1), "Item 1 should not be visible.");
+        assertFalse(selenium.isVisible(item2), "Item 2 should not be visible.");
+
+        guardXhr(selenium).click(tc2);
+        waitGui.failWith("Item 2 is not displayed.").until(isDisplayed.locator(item2));
+        assertFalse(selenium.isVisible(item1), "Item 1 should not be visible.");
+        assertFalse(selenium.isVisible(item3), "Item 3 should not be visible.");
+
+        guardXhr(selenium).click(tc1);
+        waitGui.failWith("Item 1 is not displayed.").until(isDisplayed.locator(item1));
+        assertFalse(selenium.isVisible(item2), "Item 2 should not be visible.");
+        assertFalse(selenium.isVisible(item3), "Item 3 should not be visible.");
+    }
+
+    @Test
+    public void testSwitchTypeAjax() {
+        selenium.click(pjq("input[name$=switchTypeInput][value=ajax]"));
+        selenium.waitForPageToLoad();
+
+        testSwitchTypeNull();
+    }
+
+    @Test
+    public void testSwitchTypeClient() {
+        selenium.click(pjq("input[name$=switchTypeInput][value=client]"));
+        selenium.waitForPageToLoad();
+
+        guardNoRequest(selenium).click(tc3);
+        waitGui.failWith("Item 3 is not displayed.").until(isDisplayed.locator(item3));
+        assertFalse(selenium.isVisible(item1), "Item 1 should not be visible.");
+        assertFalse(selenium.isVisible(item2), "Item 2 should not be visible.");
+
+        guardNoRequest(selenium).click(tc2);
+        waitGui.failWith("Item 2 is not displayed.").until(isDisplayed.locator(item2));
+        assertFalse(selenium.isVisible(item1), "Item 1 should not be visible.");
+        assertFalse(selenium.isVisible(item3), "Item 3 should not be visible.");
+
+        guardNoRequest(selenium).click(tc1);
+        waitGui.failWith("Item 1 is not displayed.").until(isDisplayed.locator(item1));
+        assertFalse(selenium.isVisible(item2), "Item 2 should not be visible.");
+        assertFalse(selenium.isVisible(item3), "Item 3 should not be visible.");
+    }
+
+    @Test
+    @IssueTracking("https://issues.jboss.org/browse/RF-10040")
+    public void testSwitchTypeServer() {
+        selenium.click(pjq("input[name$=switchTypeInput][value=server]"));
+        selenium.waitForPageToLoad();
+
+        guardHttp(selenium).click(tc3);
+        assertTrue(selenium.isVisible(item3), "Item 3 should be visible.");
+        assertFalse(selenium.isDisplayed(item1), "Item 1 should not be displayed.");
+        assertFalse(selenium.isDisplayed(item2), "Item 2 should not be displayed.");
+
+        guardHttp(selenium).click(tc2);
+        assertTrue(selenium.isVisible(item2), "Item 2 should be visible.");
+        assertFalse(selenium.isDisplayed(item1), "Item 1 should not be displayed.");
+        assertFalse(selenium.isDisplayed(item3), "Item 3 should not be displayed.");
+
+        guardHttp(selenium).click(tc1);
+        assertTrue(selenium.isVisible(item1), "Item 1 should be visible.");
+        assertFalse(selenium.isDisplayed(item2), "Item 2 should not be displayed.");
+        assertFalse(selenium.isDisplayed(item3), "Item 3 should not be displayed.");
     }
 
     @Test

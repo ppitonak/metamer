@@ -28,7 +28,6 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
 import org.richfaces.component.UIAccordion;
-
 import org.richfaces.tests.metamer.Attributes;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -60,7 +59,15 @@ public class RichAccordionBean implements Serializable {
         attributes.setAttribute("activeItem", "item1");
         attributes.setAttribute("rendered", true);
 
+        // will be tested in another way
+        attributes.remove("converter");
         attributes.remove("itemChangeListener");
+
+        // TODO remove as soon as it is added to taglib RF-10310
+        attributes.setAttribute("onbeforedomupdate", null);
+        attributes.setAttribute("onbegin", null);
+        attributes.setAttribute("oncomplete", null);
+
     }
 
     public Attributes getAttributes() {
