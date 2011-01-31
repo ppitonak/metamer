@@ -92,35 +92,6 @@ public class RichDataTableBean implements Serializable {
         attributes.setAttribute("rendered", true);
         attributes.setAttribute("rows", 10);
 
-        // hidden attributes
-        attributes.remove("filteringListeners");
-        attributes.remove("sortingListeners");
-        attributes.remove("filterVar");
-        attributes.remove("iterationState");
-        attributes.remove("iterationStatusVar");
-        attributes.remove("rowAvailable");
-        attributes.remove("rowCount");
-        attributes.remove("rowData");
-        attributes.remove("rowIndex");
-        attributes.remove("rowKey");
-        attributes.remove("rowKeyConverter");
-        attributes.remove("relativeRowIndex");
-
-        // TODO these must be tested in other way
-        attributes.remove("componentState");
-        attributes.remove("rowKeyVar");
-        attributes.remove("stateVar");
-        attributes.remove("selection");
-        attributes.remove("var");
-        attributes.remove("value");
-        attributes.remove("keepSaved");
-
-        // TODO can be these set as attributes or only as facets?
-        attributes.remove("caption");
-        attributes.remove("header");
-        attributes.remove("footer");
-        attributes.remove("noData");
-
         // facets initial values
         facets.put("noData", "There is no data.");
         facets.put("caption", "Caption");
@@ -129,6 +100,16 @@ public class RichDataTableBean implements Serializable {
         facets.put("columnStateFooter", "State Footer");
         facets.put("columnCapitalHeader", "Capital Header");
         facets.put("columnCapitalFooter", "Capital Footer");
+        
+        // attributes already in page
+        attributes.remove("value");
+        attributes.remove("var");
+        
+        // TODO needs to be tested another way
+        attributes.remove("filterVar");
+        attributes.remove("iterationStatusVar");
+        attributes.remove("rowKeyVar");
+        attributes.remove("stateVar");
     }
     
     public void setBinding(UIDataTable binding) {

@@ -25,7 +25,7 @@ import java.io.Serializable;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ViewScoped;
 
 import org.richfaces.component.UIDataGrid;
 import org.richfaces.tests.metamer.Attributes;
@@ -34,12 +34,12 @@ import org.slf4j.LoggerFactory;
 
 /**
  * Managed bean for rich:dataGrid.
- *
+ * 
  * @author <a href="mailto:ppitonak@redhat.com">Pavol Pitonak</a>
  * @version $Revision$
  */
 @ManagedBean(name = "richDataGridBean")
-@SessionScoped
+@ViewScoped
 public class RichDataGridBean implements Serializable {
 
     private static final long serialVersionUID = 4814439475400649809L;
@@ -62,22 +62,14 @@ public class RichDataGridBean implements Serializable {
         attributes.setAttribute("columns", 3);
         attributes.setAttribute("rendered", true);
 
-        // TODO has to be tested in other way
-        attributes.remove("componentState");
-        attributes.remove("rowKeyVar");
-        attributes.remove("rowKeyConverter");
-        attributes.remove("stateVar");
+        // attributes defined directly in page
         attributes.remove("value");
         attributes.remove("var");
 
-        // should be hidden
-        attributes.remove("rows");
-        attributes.remove("rowAvailable");
-        attributes.remove("rowCount");
-        attributes.remove("rowData");
-        attributes.remove("rowIndex");
-        attributes.remove("rowKey");
-        attributes.remove("relativeRowIndex");
+        // TODO attributes which needs to be tested in another way
+        attributes.remove("iterationStatusVar");
+        attributes.remove("rowKeyVar");
+        attributes.remove("stateVar");
     }
 
     public Attributes getAttributes() {

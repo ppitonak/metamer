@@ -96,40 +96,18 @@ public class RichExtendedDataTableBean implements Serializable {
         attributes.get("selection").setType(TreeSet.class);
         attributes.get("selection").setMemberType(Integer.class);
 
-        // hidden attributes
-        attributes.remove("filterVar");
-        attributes.remove("filteringListeners");
-        attributes.remove("iterationState");
-        attributes.remove("iterationStatusVar");
-        attributes.remove("relativeRowIndex");
-        attributes.remove("rowAvailable");
-        attributes.remove("rowCount");
-        attributes.remove("rowData");
-        attributes.remove("rowIndex");
-        attributes.remove("rowIndex");
-        attributes.remove("rowKey");
-        attributes.remove("rowKeyConverter");
-        attributes.remove("sortingListeners");
-        attributes.remove("clientFirst");
-        attributes.remove("clientRows");
-
-        // TODO these must be tested in other way
-        attributes.remove("componentState");
-        attributes.remove("rowKeyVar");
-        attributes.remove("stateVar");
+        // attributes which are already in page
         attributes.remove("value");
         attributes.remove("var");
-        attributes.remove("keepSaved");
-
-        // TODO can be these set as attributes or only as facets?
-        attributes.remove("caption");
-        attributes.remove("header");
-        attributes.remove("footer");
-        attributes.remove("noData");
+        
+        // TODO attributes which needs to be tested another way
+        attributes.remove("filterVar");
+        attributes.remove("iterationStatusVar");
+        attributes.remove("rowKeyVar");
+        attributes.remove("stateVar");
 
         // facets initial values
         facets.put("noData", "There is no data.");
-        facets.put("caption", "Caption");
         facets.put("header", "Header");
         facets.put("columnStateHeader", "State Header");
         facets.put("columnStateFooter", "State Footer");

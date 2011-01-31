@@ -27,6 +27,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
     -->
 
     <ui:composition template="/templates/template.xhtml">
+    	<ui:param name="componentId" value="richDataTable" />
 
         <ui:define name="head">
             <f:metadata>
@@ -46,25 +47,19 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
             </h:selectBooleanCheckbox>
             <br/><br/>
             <rich:dataScroller id="scroller1"
+                               for="#{richDataScrollerBean.attributes['for'].value}"
+                                       
                                boundaryControls="#{richDataScrollerBean.attributes['boundaryControls'].value}"
-                               dataTable="#{richDataScrollerBean.attributes['dataTable'].value}"
                                fastControls="#{richDataScrollerBean.attributes['fastControls'].value}"
-                               fastForward="#{richDataScrollerBean.attributes['fastForward'].value}"
-                               fastRewind="#{richDataScrollerBean.attributes['fastRewind'].value}"
                                fastStep="#{richDataScrollerBean.attributes['fastStep'].value}"
                                first="#{richDataScrollerBean.attributes['first'].value}"
-                               for="richDataTable"
-                               iterationState="#{richDataScrollerBean.attributes['iterationState'].value}"
-                               last="#{richDataScrollerBean.attributes['last'].value}"
                                lastPageMode="#{richDataScrollerBean.attributes['lastPageMode'].value}"
-                               localPageSet="#{richDataScrollerBean.attributes['localPageSet'].value}"
                                maxPages="#{richDataScrollerBean.attributes['maxPages'].value}"
-                               page="#{richDataScrollerBean.page}"
-                               pageCount="#{richDataScrollerBean.attributes['pageCount'].value}"
+                               page="#{richDataScrollerBean.attributes['page'].value}"
+                               render="#{richDataScrollerBean.attributes['render'].value} #{nestedComponentId}"
+                               renderIfSinglePage="#{richDataScrollerBean.attributes['renderIfSinglePage'].value}"
                                rendered="#{richDataScrollerBean.attributes['rendered'].value}"
-                               render="#{richDataScrollerBean.attributes['render'].value}"
-                               rowCount="#{richDataScrollerBean.attributes['rowCount'].value}"
-                               scrollerListeners="#{richDataScrollerBean.attributes['scrollerListeners'].value}"
+                               stepControls="#{richDataScrollerBean.attributes['stepControls'].value}"
                                />
         </ui:define>
 
@@ -104,25 +99,18 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 
                 <f:facet name="footer">
                     <rich:dataScroller id="scroller2"
+                                       
                                        boundaryControls="#{richDataScrollerBean.attributes['boundaryControls'].value}"
-                                       dataTable="#{richDataScrollerBean.attributes['dataTable'].value}"
                                        fastControls="#{richDataScrollerBean.attributes['fastControls'].value}"
-                                       fastForward="#{richDataScrollerBean.attributes['fastForward'].value}"
-                                       fastRewind="#{richDataScrollerBean.attributes['fastRewind'].value}"
                                        fastStep="#{richDataScrollerBean.attributes['fastStep'].value}"
                                        first="#{richDataScrollerBean.attributes['first'].value}"
-                                       for="richDataTable"
-                                       iterationState="#{richDataScrollerBean.attributes['iterationState'].value}"
-                                       last="#{richDataScrollerBean.attributes['last'].value}"
                                        lastPageMode="#{richDataScrollerBean.attributes['lastPageMode'].value}"
-                                       localPageSet="#{richDataScrollerBean.attributes['localPageSet'].value}"
                                        maxPages="#{richDataScrollerBean.attributes['maxPages'].value}"
-                                       page="#{richDataScrollerBean.page}"
-                                       pageCount="#{richDataScrollerBean.attributes['pageCount'].value}"
+                                       page="#{richDataScrollerBean.attributes['page'].value}"
+                                       render="#{richDataScrollerBean.attributes['render'].value} scroller1"
+                                       renderIfSinglePage="#{richDataScrollerBean.attributes['renderIfSinglePage'].value}"
                                        rendered="#{richDataScrollerBean.attributes['rendered'].value}"
-                                       render="#{richDataScrollerBean.attributes['render'].value}"
-                                       rowCount="#{richDataScrollerBean.attributes['rowCount'].value}"
-                                       scrollerListeners="#{richDataScrollerBean.attributes['scrollerListeners'].value}"
+                                       stepControls="#{richDataScrollerBean.attributes['stepControls'].value}"
                                        />
                 </f:facet>
 

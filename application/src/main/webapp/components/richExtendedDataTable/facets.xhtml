@@ -55,29 +55,33 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
         <ui:define name="component">
 
             <rich:extendedDataTable id="richEDT"
-                                    beforeselectionchange="#{richExtendedDataTableBean.attributes['beforeselectionchange'].value}"
+                                    value="#{richExtendedDataTableBean.state ? model.capitals : null}"
+                                    var="record"
+                                    
+                                    columnClasses="#{richExtendedDataTableBean.attributes['columnClasses'].value}"
+                                    columns="#{richExtendedDataTableBean.attributes['columns'].value}"
                                     first="#{richExtendedDataTableBean.attributes['first'].value}"
+                                    footerClass="#{richExtendedDataTableBean.attributes['footerClass'].value}"
                                     frozenColumns="#{richExtendedDataTableBean.attributes['frozenColumns'].value}"
+                                    headerClass="#{richExtendedDataTableBean.attributes['headerClass'].value}"
+                                    keepSaved="#{richExtendedDataTableBean.attributes['keepSaved'].value}"
                                     noDataLabel="#{richExtendedDataTableBean.attributes['noDataLabel'].value}"
+                                    onbeforeselectionchange="#{richExtendedDataTableBean.attributes['onbeforeselectionchange'].value}"
+                                    onselectionchange="#{richExtendedDataTableBean.attributes['onselectionchange'].value}"
                                     rendered="#{richExtendedDataTableBean.attributes['rendered'].value}"
+                                    rowClass="#{richExtendedDataTableBean.attributes['rowClass'].value}"
+                                    rowClasses="#{richExtendedDataTableBean.attributes['rowClasses'].value}"
                                     rows="#{richExtendedDataTableBean.attributes['rows'].value}"
                                     selection="#{richExtendedDataTableBean.attributes['selection'].value}"
-                                    selectionchange="#{richExtendedDataTableBean.attributes['selectionchange'].value}"
+                                    selectionMode="#{richExtendedDataTableBean.attributes['selectionMode'].value}"
                                     sortMode="#{richExtendedDataTableBean.attributes['sortMode'].value}"
                                     sortPriority="#{richExtendedDataTableBean.attributes['sortPriority'].value}"
                                     style="#{richExtendedDataTableBean.attributes['style'].value}"
                                     styleClass="#{richExtendedDataTableBean.attributes['styleClass'].value}"
-                                    value="#{richExtendedDataTableBean.state ? model.capitals : null}"
-                                    var="record"
                                     >
 
                 <f:facet name="noData">
                     <h:outputText value="#{richExtendedDataTableBean.facets['noData']}" style="color: red;"/>
-                </f:facet>
-
-                <f:facet name="caption">
-                    <h:outputText id="captionFacet" value="#{richExtendedDataTableBean.facets['caption']}"
-                    			rendered="#{not empty richExtendedDataTableBean.facets['caption']}"/>
                 </f:facet>
 
                 <f:facet name="header">
@@ -118,9 +122,6 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 	        	<h:panelGrid columns="2">
 		        	<h:outputLabel value="No Data Facet: " />
 	        		<h:inputText id="noDataInput" value="#{richExtendedDataTableBean.facets['noData']}" />
-	        		
-	        		<h:outputLabel value="Caption Facet: " />
-	        		<h:inputText id="captionInput" value="#{richExtendedDataTableBean.facets['caption']}" />
 	        		
 	        		<h:outputLabel value="Header Facet:" />
 	        		<h:inputText id="headerInput" value="#{richExtendedDataTableBean.facets['header']}" />

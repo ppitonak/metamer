@@ -51,15 +51,24 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 
         <ui:define name="component">
             <rich:dataTable id="richDataTable"
+                            value="#{richDataTableBean.state ? model.employees : null}"
+                            var="record"
+                            
+                            captionClass="#{richDataTableBean.attributes['captionClass'].value}"
+                            columnClasses="#{richDataTableBean.attributes['columnClasses'].value}"
+                            columns="#{richDataTableBean.attributes['columns'].value}"
                             first="#{richDataTableBean.attributes['first'].value}"
                             keepSaved="#{richDataTableBean.attributes['keepSaved'].value}"
                             noDataLabel="#{richDataTableBean.attributes['noDataLabel'].value}"
                             rendered="#{richDataTableBean.attributes['rendered'].value}"
+                            rowClass="#{richDataTableBean.attributes['rowClass'].value}"
+                            rowClasses="#{richDataTableBean.attributes['rowClasses'].value}"
                             rows="#{richDataTableBean.attributes['rows'].value}"
+                            selection="#{richDataTableBean.attributes['selection'].value}"
                             sortMode="#{richDataTableBean.attributes['sortMode'].value}"
                             sortPriority="#{richDataTableBean.attributes['sortPriority'].value}"
-                            value="#{richDataTableBean.state ? model.employees : null}"
-                            var="record"
+                            style="#{richDataTableBean.attributes['style'].value}"
+                            styleClass="#{richDataTableBean.attributes['styleClass'].value}"
                             >
 
                 <f:facet name="noData">

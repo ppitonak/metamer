@@ -22,10 +22,10 @@
 package org.richfaces.tests.metamer.bean;
 
 import java.io.Serializable;
-import javax.annotation.PostConstruct;
 
+import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ViewScoped;
 
 import org.richfaces.component.UIDataScroller;
 import org.richfaces.tests.metamer.Attributes;
@@ -39,13 +39,12 @@ import org.slf4j.LoggerFactory;
  * @version $Revision$
  */
 @ManagedBean(name = "richDataScrollerBean")
-@SessionScoped
+@ViewScoped
 public class RichDataScrollerBean implements Serializable {
 
     private static final long serialVersionUID = 122475400649809L;
     private static Logger logger;
     private Attributes attributes;
-    private int page = 1;
     private boolean state = true;
 
     /**
@@ -60,17 +59,15 @@ public class RichDataScrollerBean implements Serializable {
 
         attributes.setAttribute("boundaryControls", "show");
         attributes.setAttribute("fastControls", "show");
+        attributes.setAttribute("stepControls", "show");
         attributes.setAttribute("fastStep", 1);
         attributes.setAttribute("lastPageMode", "short");
         attributes.setAttribute("maxPages", 10);
         attributes.setAttribute("rendered", true);
         attributes.setAttribute("render", "richDataTable");
-
-        // FIXME doesn't work: could not find dataTable for datascroller scroller1
-        attributes.remove("for");
-
-        // will be tested in another way
-        attributes.remove("page");
+        attributes.setAttribute("page", 1);
+        attributes.setAttribute("renderIfSinglePage", true);
+        attributes.setAttribute("for", "richDataTable");
 
     }
 
@@ -80,22 +77,6 @@ public class RichDataScrollerBean implements Serializable {
 
     public void setAttributes(Attributes attributes) {
         this.attributes = attributes;
-    }
-
-    /**
-     * Getter for page.
-     * @return number of the page to which table is scrolled
-     */
-    public int getPage() {
-        return page;
-    }
-
-    /**
-     * Setter for page.
-     * @param page number of the page to which table is scrolled
-     */
-    public void setPage(int page) {
-        this.page = page;
     }
 
     /**

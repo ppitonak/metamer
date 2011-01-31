@@ -26,7 +26,7 @@ import java.io.Serializable;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ViewScoped;
 
 import org.richfaces.component.behavior.ComponentControlBehavior;
 import org.richfaces.tests.metamer.Attributes;
@@ -40,7 +40,7 @@ import org.slf4j.LoggerFactory;
  * @version $Revision$
  */
 @ManagedBean(name = "richComponentControlBean")
-@SessionScoped
+@ViewScoped
 public class RichComponentControlBean implements Serializable {
 
     private static final long serialVersionUID = 4476643239809L;
@@ -59,8 +59,8 @@ public class RichComponentControlBean implements Serializable {
         
         attributes.setAttribute("operation", "previous");
         attributes.setAttribute("target", "scroller");
-
-        // TODO has to be tested in another way
+        
+        // The 'event' attribute for behavior tag must be a literal
         attributes.remove("event");
     }
 

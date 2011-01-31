@@ -69,22 +69,6 @@ public class RichAutocompleteBean implements Serializable {
         attributes.setAttribute("rendered", true);
         attributes.setAttribute("tokens", ", ");
         attributes.setAttribute("validatorMessage", "validator message");
-
-        attributes.remove("autocompleteMethod");
-        attributes.remove("converter");
-        attributes.remove("fetchValue");
-        attributes.remove("itemConverter");
-        attributes.remove("validator");
-        attributes.remove("valueChangeListener");
-
-        // these are hidden attributes
-        attributes.remove("autocompleteList");
-        attributes.remove("localValue");
-        attributes.remove("localValueSet");
-        attributes.remove("submittedValue");
-        attributes.remove("valid");
-        attributes.remove("validators");
-        attributes.remove("valueChangeListeners");
     }
 
     public Attributes getAttributes() {
