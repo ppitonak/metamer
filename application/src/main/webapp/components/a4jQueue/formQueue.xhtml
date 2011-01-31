@@ -41,17 +41,19 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 
         <ui:define name="outOfTemplateBefore">
         
-        	<a4j:queue id="globalQueue" ignoreDupResponses="#{a4jQueueBean.globalQueue.attributes['ignoreDupResponses'].value}"
-                       name="#{a4jQueueBean.globalQueue.attributes['name'].value}"
+        	<a4j:queue id="globalQueue"
+        			   ignoreDupResponses="#{a4jQueueBean.globalQueue.attributes['ignoreDupResponses'].value}"
                        onbeforedomupdate="#{a4jQueueBean.globalQueue.attributes['onbeforedomupdate'].value}"
                        oncomplete="#{a4jQueueBean.globalQueue.attributes['oncomplete'].value}"
-                       onerror="#{a4jQueueBean.globalQueue.attributes['onerror'].value}" onevent="#{a4jQueueBean.globalQueue.attributes['event'].value}"
+                       onerror="#{a4jQueueBean.globalQueue.attributes['onerror'].value}"
+                       onevent="#{a4jQueueBean.globalQueue.attributes['onevent'].value}"
                        onrequestdequeue="#{a4jQueueBean.globalQueue.attributes['onrequestdequeue'].value}"
                        onrequestqueue="#{a4jQueueBean.globalQueue.attributes['onrequestqueue'].value}"
                        onsubmit="#{a4jQueueBean.globalQueue.attributes['onsubmit'].value}"
                        rendered="#{a4jQueueBean.globalQueue.attributes['rendered'].value}"
                        requestDelay="#{a4jQueueBean.globalQueue.attributes['requestDelay'].value}"
-                       timeout="#{a4jQueueBean.globalQueue.attributes['timeout'].value}" />
+                       timeout="#{a4jQueueBean.globalQueue.attributes['timeout'].value}"
+                       status="#{a4jQueueBean.globalQueue.attributes['status'].value}" />
                        
         </ui:define>
 

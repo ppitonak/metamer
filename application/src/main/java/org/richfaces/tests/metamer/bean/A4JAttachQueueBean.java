@@ -69,16 +69,6 @@ public class A4JAttachQueueBean implements Serializable {
 
     private void initializeAttributes(Attributes attributes) {
         attributes.setAttribute("rendered", true);
-
-        // hidden attributes
-        attributes.remove("queueId");
-
-        // not implemented yet
-        // TODO RFPL-734
-        attributes.remove("name");
-        attributes.remove("timeout");
-        attributes.remove("requestGroupingId");
-        attributes.remove("ignoreDupResponses");
     }
 
     public Attributes getAttributes() {
