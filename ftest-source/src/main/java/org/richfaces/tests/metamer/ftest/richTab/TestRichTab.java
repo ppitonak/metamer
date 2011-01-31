@@ -1,6 +1,6 @@
 /*******************************************************************************
  * JBoss, Home of Professional Open Source
- * Copyright 2010, Red Hat, Inc. and individual contributors
+ * Copyright 2010-2011, Red Hat, Inc. and individual contributors
  * by the @authors tag. See the copyright.txt in the distribution for a
  * full listing of individual contributors.
  *
@@ -90,13 +90,10 @@ public class TestRichTab extends AbstractMetamerTest {
 
     @Test
     public void testContentClass() {
-        ElementLocator<?> classInput = pjq("input[id$=contentClassInput]");
-        final String value = "metamer-ftest-class";
-
-        selenium.type(classInput, value);
+        selenium.type(pjq("input[id$=contentClassInput]"), "metamer-ftest-class");
         selenium.waitForPageToLoad();
 
-        assertTrue(selenium.belongsClass(itemContents[0], value), "contentClass does not work");
+        assertTrue(selenium.belongsClass(itemContents[0], "metamer-ftest-class"), "contentClass does not work");
     }
 
     @Test
@@ -149,6 +146,20 @@ public class TestRichTab extends AbstractMetamerTest {
     }
 
     @Test
+    public void testHeaderActiveClass() {
+        selenium.type(pjq("input[id$=headerActiveClassInput]"), "metamer-ftest-class");
+        selenium.waitForPageToLoad();
+
+        assertTrue(selenium.belongsClass(activeHeaders[0], "metamer-ftest-class"), "headerActiveClass does not work");
+        assertFalse(selenium.belongsClass(inactiveHeaders[0], "metamer-ftest-class"), "headerActiveClass does not work");
+        assertFalse(selenium.belongsClass(disabledHeaders[0], "metamer-ftest-class"), "headerActiveClass does not work");
+
+        assertFalse(selenium.belongsClass(activeHeaders[1], "metamer-ftest-class"), "headerActiveClass does not work");
+        assertFalse(selenium.belongsClass(inactiveHeaders[1], "metamer-ftest-class"), "headerActiveClass does not work");
+        assertFalse(selenium.belongsClass(disabledHeaders[1], "metamer-ftest-class"), "headerActiveClass does not work");
+    }
+
+    @Test
     public void testHeaderClass() {
         selenium.type(pjq("input[id$=headerClassInput]"), "metamer-ftest-class");
         selenium.waitForPageToLoad();
@@ -163,45 +174,31 @@ public class TestRichTab extends AbstractMetamerTest {
     }
 
     @Test
-    public void testheaderClassActive() {
-        selenium.type(pjq("input[id$=headerClassActiveInput]"), "metamer-ftest-class");
+    public void testHeaderDisabledClass() {
+        selenium.type(pjq("input[id$=headerDisabledClassInput]"), "metamer-ftest-class");
         selenium.waitForPageToLoad();
 
-        assertTrue(selenium.belongsClass(activeHeaders[0], "metamer-ftest-class"), "tabHeaderClassActive does not work");
-        assertFalse(selenium.belongsClass(inactiveHeaders[0], "metamer-ftest-class"), "tabHeaderClassActive does not work");
-        assertFalse(selenium.belongsClass(disabledHeaders[0], "metamer-ftest-class"), "tabHeaderClassActive does not work");
+        assertFalse(selenium.belongsClass(activeHeaders[0], "metamer-ftest-class"), "headerDisabledClass does not work");
+        assertFalse(selenium.belongsClass(inactiveHeaders[0], "metamer-ftest-class"), "headerDisabledClass does not work");
+        assertTrue(selenium.belongsClass(disabledHeaders[0], "metamer-ftest-class"), "headerDisabledClass does not work");
 
-        assertFalse(selenium.belongsClass(activeHeaders[1], "metamer-ftest-class"), "tabHeaderClassActive does not work");
-        assertFalse(selenium.belongsClass(inactiveHeaders[1], "metamer-ftest-class"), "tabHeaderClassActive does not work");
-        assertFalse(selenium.belongsClass(disabledHeaders[1], "metamer-ftest-class"), "tabHeaderClassActive does not work");
+        assertFalse(selenium.belongsClass(activeHeaders[1], "metamer-ftest-class"), "headerDisabledClass does not work");
+        assertFalse(selenium.belongsClass(inactiveHeaders[1], "metamer-ftest-class"), "headerDisabledClass does not work");
+        assertFalse(selenium.belongsClass(disabledHeaders[1], "metamer-ftest-class"), "headerDisabledClass does not work");
     }
 
     @Test
-    public void testTabHeaderClassDisabled() {
-        selenium.type(pjq("input[id$=headerClassDisabledInput]"), "metamer-ftest-class");
+    public void testHeaderInactiveClass() {
+        selenium.type(pjq("input[id$=headerInactiveClassInput]"), "metamer-ftest-class");
         selenium.waitForPageToLoad();
 
-        assertFalse(selenium.belongsClass(activeHeaders[0], "metamer-ftest-class"), "tabHeaderClassDisabled does not work");
-        assertFalse(selenium.belongsClass(inactiveHeaders[0], "metamer-ftest-class"), "tabHeaderClassDisabled does not work");
-        assertTrue(selenium.belongsClass(disabledHeaders[0], "metamer-ftest-class"), "tabHeaderClassDisabled does not work");
+        assertFalse(selenium.belongsClass(activeHeaders[0], "metamer-ftest-class"), "headerInactiveClass does not work");
+        assertTrue(selenium.belongsClass(inactiveHeaders[0], "metamer-ftest-class"), "headerInactiveClass does not work");
+        assertFalse(selenium.belongsClass(disabledHeaders[0], "metamer-ftest-class"), "headerInactiveClass does not work");
 
-        assertFalse(selenium.belongsClass(activeHeaders[1], "metamer-ftest-class"), "tabHeaderClassDisabled does not work");
-        assertFalse(selenium.belongsClass(inactiveHeaders[1], "metamer-ftest-class"), "tabHeaderClassDisabled does not work");
-        assertFalse(selenium.belongsClass(disabledHeaders[1], "metamer-ftest-class"), "tabHeaderClassDisabled does not work");
-    }
-
-    @Test
-    public void testTabHeaderClassInactive() {
-        selenium.type(pjq("input[id$=headerClassInactiveInput]"), "metamer-ftest-class");
-        selenium.waitForPageToLoad();
-
-        assertFalse(selenium.belongsClass(activeHeaders[0], "metamer-ftest-class"), "tabHeaderClassInactive does not work");
-        assertTrue(selenium.belongsClass(inactiveHeaders[0], "metamer-ftest-class"), "tabHeaderClassInactive does not work");
-        assertFalse(selenium.belongsClass(disabledHeaders[0], "metamer-ftest-class"), "tabHeaderClassInactive does not work");
-
-        assertFalse(selenium.belongsClass(activeHeaders[1], "metamer-ftest-class"), "tabHeaderClassInactive does not work");
-        assertFalse(selenium.belongsClass(inactiveHeaders[1], "metamer-ftest-class"), "tabHeaderClassInactive does not work");
-        assertFalse(selenium.belongsClass(disabledHeaders[1], "metamer-ftest-class"), "tabHeaderClassInactive does not work");
+        assertFalse(selenium.belongsClass(activeHeaders[1], "metamer-ftest-class"), "headerInactiveClass does not work");
+        assertFalse(selenium.belongsClass(inactiveHeaders[1], "metamer-ftest-class"), "headerInactiveClass does not work");
+        assertFalse(selenium.belongsClass(disabledHeaders[1], "metamer-ftest-class"), "headerInactiveClass does not work");
     }
 
     @Test

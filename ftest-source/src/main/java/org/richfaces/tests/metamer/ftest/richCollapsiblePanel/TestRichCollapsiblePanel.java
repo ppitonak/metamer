@@ -165,12 +165,6 @@ public class TestRichCollapsiblePanel extends AbstractMetamerTest {
     }
 
     @Test
-    @IssueTracking("https://issues.jboss.org/browse/RF-10331")
-    public void testHeaderControlClass() {
-        testStyleClass(header.getDescendant(jq("td.rf-cp-ico")), "headerControlClass");
-    }
-
-    @Test
     @IssueTracking("https://issues.jboss.org/browse/RF-10054")
     public void testImmediate() {
         selenium.click(pjq("input[type=radio][name$=immediateInput][value=true]"));
@@ -190,9 +184,9 @@ public class TestRichCollapsiblePanel extends AbstractMetamerTest {
     }
 
     @Test
-    public void testLeftIconCollapsed() {
+    public void testLeftCollapsedIcon() {
         JQueryLocator icon = leftIcon.getDescendant(jq("div.rf-cp-ico-colps"));
-        JQueryLocator input = pjq("select[id$=leftIconCollapsedInput]");
+        JQueryLocator input = pjq("select[id$=leftCollapsedIconInput]");
         JQueryLocator image = leftIcon.getChild(jq("img:nth-child(1)"));
 
         // icon=null
@@ -203,9 +197,9 @@ public class TestRichCollapsiblePanel extends AbstractMetamerTest {
     }
 
     @Test
-    public void testLeftIconExpanded() {
+    public void testLeftExpandedIcon() {
         JQueryLocator icon = leftIcon.getDescendant(jq("div.rf-cp-ico-exp"));
-        JQueryLocator input = pjq("select[id$=leftIconExpandedInput]");
+        JQueryLocator input = pjq("select[id$=leftExpandedIconInput]");
         JQueryLocator image = leftIcon.getChild(jq("img:nth-child(2)"));
 
         // icon=null
@@ -329,9 +323,9 @@ public class TestRichCollapsiblePanel extends AbstractMetamerTest {
     }
 
     @Test
-    public void testRightIconCollapsed() {
+    public void testRightCollapsedIcon() {
         JQueryLocator icon = rightIcon.getDescendant(jq("div.rf-cp-ico-colps"));
-        JQueryLocator input = pjq("select[id$=rightIconCollapsedInput]");
+        JQueryLocator input = pjq("select[id$=rightCollapsedIconInput]");
         JQueryLocator image = rightIcon.getChild(jq("img:nth-child(1)"));
 
         // icon=null
@@ -341,9 +335,9 @@ public class TestRichCollapsiblePanel extends AbstractMetamerTest {
     }
 
     @Test
-    public void testRightIconExpanded() {
+    public void testRightExpandedIcon() {
         JQueryLocator icon = rightIcon.getDescendant(jq("div.rf-cp-ico-exp"));
-        JQueryLocator input = pjq("select[id$=rightIconExpandedInput]");
+        JQueryLocator input = pjq("select[id$=rightExpandedIconInput]");
         JQueryLocator image = rightIcon.getChild(jq("img:nth-child(1)"));
 
         // icon=null

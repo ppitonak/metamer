@@ -1,6 +1,6 @@
 /*******************************************************************************
  * JBoss, Home of Professional Open Source
- * Copyright 2010, Red Hat, Inc. and individual contributors
+ * Copyright 2010-2011, Red Hat, Inc. and individual contributors
  * by the @authors tag. See the copyright.txt in the distribution for a
  * full listing of individual contributors.
  *
@@ -24,7 +24,6 @@ package org.richfaces.tests.metamer.ftest.richAccordionItem;
 import static org.jboss.test.selenium.guard.request.RequestTypeGuardFactory.guardHttp;
 import static org.jboss.test.selenium.guard.request.RequestTypeGuardFactory.guardNoRequest;
 import static org.jboss.test.selenium.guard.request.RequestTypeGuardFactory.guardXhr;
-import static org.jboss.test.selenium.locator.LocatorFactory.jq;
 import static org.jboss.test.selenium.utils.URLUtils.buildUrl;
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertFalse;
@@ -114,6 +113,14 @@ public class TestRichAccordionItem extends AbstractMetamerTest {
     }
 
     @Test
+    public void testHeaderActiveClass() {
+        testStyleClass(activeHeaders[0], "headerActiveClass");
+        assertFalse(selenium.belongsClass(activeHeaders[1], "metamer-ftest-class"), "headerActiveClass should be set only on first item");
+        assertFalse(selenium.belongsClass(activeHeaders[2], "metamer-ftest-class"), "headerActiveClass should be set only on first item");
+        assertFalse(selenium.belongsClass(activeHeaders[3], "metamer-ftest-class"), "headerActiveClass should be set only on first item");
+    }
+
+    @Test
     public void testHeaderClass() {
         testStyleClass(itemHeaders[0], "headerClass");
         assertFalse(selenium.belongsClass(itemHeaders[1], "metamer-ftest-class"), "headerClass should be set only on first item");
@@ -122,27 +129,19 @@ public class TestRichAccordionItem extends AbstractMetamerTest {
     }
 
     @Test
-    public void testHeaderClassActive() {
-        testStyleClass(activeHeaders[0], "headerClassActive");
-        assertFalse(selenium.belongsClass(activeHeaders[1], "metamer-ftest-class"), "headerClassActive should be set only on first item");
-        assertFalse(selenium.belongsClass(activeHeaders[2], "metamer-ftest-class"), "headerClassActive should be set only on first item");
-        assertFalse(selenium.belongsClass(activeHeaders[3], "metamer-ftest-class"), "headerClassActive should be set only on first item");
-    }
-
-    @Test
-    public void testHeaderClassDisabled() {
+    public void testHeaderDisabledClass() {
         selenium.click(pjq("input[type=radio][name$=disabledInput][value=true]"));
         selenium.waitForPageToLoad();
 
-        testStyleClass(disabledHeaders[0], "headerClassDisabled");
+        testStyleClass(disabledHeaders[0], "headerDisabledClass");
     }
 
     @Test
-    public void testHeaderClassInactive() {
-        testStyleClass(inactiveHeaders[0], "headerClassInactive");
-        assertFalse(selenium.belongsClass(inactiveHeaders[1], "metamer-ftest-class"), "headerClassInactive should be set only on first item");
-        assertFalse(selenium.belongsClass(inactiveHeaders[2], "metamer-ftest-class"), "headerClassInactive should be set only on first item");
-        assertFalse(selenium.belongsClass(inactiveHeaders[3], "metamer-ftest-class"), "headerClassInactive should be set only on first item");
+    public void testHeaderInactiveClass() {
+        testStyleClass(inactiveHeaders[0], "headerInactiveClass");
+        assertFalse(selenium.belongsClass(inactiveHeaders[1], "metamer-ftest-class"), "headerInactiveClass should be set only on first item");
+        assertFalse(selenium.belongsClass(inactiveHeaders[2], "metamer-ftest-class"), "headerInactiveClass should be set only on first item");
+        assertFalse(selenium.belongsClass(inactiveHeaders[3], "metamer-ftest-class"), "headerInactiveClass should be set only on first item");
     }
 
     @Test

@@ -2,7 +2,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
       xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:metamer="http://java.sun.com/jsf/composite/metamer"
-      xmlns:rich="http://richfaces.org/rich" xmlns:a4j="http://richfaces.org/a4j">
+      xmlns:rich="http://richfaces.org/rich" >
 
     <!--
 JBoss, Home of Professional Open Source
@@ -47,9 +47,9 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                           disabled="#{richTabBean.attributes['disabled'].value}"
                           header="#{richTabBean.attributes['header'].value}"
                           headerClass="#{richTabBean.attributes['headerClass'].value}"
-                          headerClassActive="#{richTabBean.attributes['headerClassActive'].value}"
-                          headerClassDisabled="#{richTabBean.attributes['headerClassDisabled'].value}"
-                          headerClassInactive="#{richTabBean.attributes['headerClassInactive'].value}"
+                          headerActiveClass="#{richTabBean.attributes['headerActiveClass'].value}"
+                          headerDisabledClass="#{richTabBean.attributes['headerDisabledClass'].value}"
+                          headerInactiveClass="#{richTabBean.attributes['headerInactiveClass'].value}"
                           headerStyle="#{richTabBean.attributes['headerStyle'].value}"
                           lang="#{richTabBean.attributes['lang'].value}"
                           name="#{richTabBean.attributes['name'].value}"

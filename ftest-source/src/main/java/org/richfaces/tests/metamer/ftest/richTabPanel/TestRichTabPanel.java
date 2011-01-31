@@ -103,6 +103,7 @@ public class TestRichTabPanel extends AbstractMetamerTest {
     }
 
     @Test
+    @IssueTracking("https://issues.jboss.org/browse/RF-10351")
     public void testActiveItem() {
         selenium.type(pjq("input[type=text][id$=activeItemInput]"), "tab5");
         selenium.waitForPageToLoad();
@@ -442,6 +443,25 @@ public class TestRichTabPanel extends AbstractMetamerTest {
     }
 
     @Test
+    @IssueTracking("https://issues.jboss.org/browse/RF-9309")
+    public void testTabActiveHeaderClass() {
+        selenium.type(pjq("input[id$=tabActiveHeaderClassInput]"), "metamer-ftest-class");
+        selenium.waitForPageToLoad();
+
+        for (JQueryLocator loc : activeHeaders) {
+            assertTrue(selenium.belongsClass(loc, "metamer-ftest-class"), "tabActiveHeaderClass does not work");
+        }
+
+        for (JQueryLocator loc : inactiveHeaders) {
+            assertFalse(selenium.belongsClass(loc, "metamer-ftest-class"), "tabActiveHeaderClass does not work");
+        }
+
+        for (JQueryLocator loc : disabledHeaders) {
+            assertFalse(selenium.belongsClass(loc, "metamer-ftest-class"), "tabActiveHeaderClass does not work");
+        }
+    }
+
+    @Test
     public void testTabContentClass() {
         final String value = "metamer-ftest-class";
 
@@ -449,6 +469,25 @@ public class TestRichTabPanel extends AbstractMetamerTest {
         selenium.waitForPageToLoad();
 
         assertTrue(selenium.belongsClass(itemContents[0], value), "tabContentClass does not work");
+    }
+
+    @Test
+    @IssueTracking("https://issues.jboss.org/browse/RF-9309")
+    public void testTabDisabledHeaderClass() {
+        selenium.type(pjq("input[id$=tabDisabledHeaderClassInput]"), "metamer-ftest-class");
+        selenium.waitForPageToLoad();
+
+        for (JQueryLocator loc : activeHeaders) {
+            assertFalse(selenium.belongsClass(loc, "metamer-ftest-class"), "tabDisabledHeaderClass does not work");
+        }
+
+        for (JQueryLocator loc : inactiveHeaders) {
+            assertFalse(selenium.belongsClass(loc, "metamer-ftest-class"), "tabDisabledHeaderClass does not work");
+        }
+
+        for (JQueryLocator loc : disabledHeaders) {
+            assertTrue(selenium.belongsClass(loc, "metamer-ftest-class"), "tabDisabledHeaderClass does not work");
+        }
     }
 
     @Test
@@ -472,58 +511,20 @@ public class TestRichTabPanel extends AbstractMetamerTest {
 
     @Test
     @IssueTracking("https://issues.jboss.org/browse/RF-9309")
-    public void testTabHeaderClassActive() {
-        selenium.type(pjq("input[id$=tabHeaderClassActiveInput]"), "metamer-ftest-class");
+    public void testTabInactiveHeaderClass() {
+        selenium.type(pjq("input[id$=tabInactiveHeaderClassInput]"), "metamer-ftest-class");
         selenium.waitForPageToLoad();
 
         for (JQueryLocator loc : activeHeaders) {
-            assertTrue(selenium.belongsClass(loc, "metamer-ftest-class"), "tabHeaderClassActive does not work");
+            assertFalse(selenium.belongsClass(loc, "metamer-ftest-class"), "tabInactiveHeaderClass does not work");
         }
 
         for (JQueryLocator loc : inactiveHeaders) {
-            assertFalse(selenium.belongsClass(loc, "metamer-ftest-class"), "tabHeaderClassActive does not work");
+            assertTrue(selenium.belongsClass(loc, "metamer-ftest-class"), "tabInactiveHeaderClass does not work");
         }
 
         for (JQueryLocator loc : disabledHeaders) {
-            assertFalse(selenium.belongsClass(loc, "metamer-ftest-class"), "tabHeaderClassActive does not work");
-        }
-    }
-
-    @Test
-    @IssueTracking("https://issues.jboss.org/browse/RF-9309")
-    public void testTabHeaderClassDisabled() {
-        selenium.type(pjq("input[id$=tabHeaderClassDisabledInput]"), "metamer-ftest-class");
-        selenium.waitForPageToLoad();
-
-        for (JQueryLocator loc : activeHeaders) {
-            assertFalse(selenium.belongsClass(loc, "metamer-ftest-class"), "tabHeaderClassDisabled does not work");
-        }
-
-        for (JQueryLocator loc : inactiveHeaders) {
-            assertFalse(selenium.belongsClass(loc, "metamer-ftest-class"), "tabHeaderClassDisabled does not work");
-        }
-
-        for (JQueryLocator loc : disabledHeaders) {
-            assertTrue(selenium.belongsClass(loc, "metamer-ftest-class"), "tabHeaderClassDisabled does not work");
-        }
-    }
-
-    @Test
-    @IssueTracking("https://issues.jboss.org/browse/RF-9309")
-    public void testTabHeaderClassInactive() {
-        selenium.type(pjq("input[id$=tabHeaderClassInactiveInput]"), "metamer-ftest-class");
-        selenium.waitForPageToLoad();
-
-        for (JQueryLocator loc : activeHeaders) {
-            assertFalse(selenium.belongsClass(loc, "metamer-ftest-class"), "tabHeaderClassInactive does not work");
-        }
-
-        for (JQueryLocator loc : inactiveHeaders) {
-            assertTrue(selenium.belongsClass(loc, "metamer-ftest-class"), "tabHeaderClassInactive does not work");
-        }
-
-        for (JQueryLocator loc : disabledHeaders) {
-            assertFalse(selenium.belongsClass(loc, "metamer-ftest-class"), "tabHeaderClassInactive does not work");
+            assertFalse(selenium.belongsClass(loc, "metamer-ftest-class"), "tabInactiveHeaderClass does not work");
         }
     }
 

@@ -59,6 +59,9 @@ public class RichTabBean implements Serializable {
         attributes.setAttribute("header", "tab1 header");
         attributes.setAttribute("name", "tab1");
         attributes.setAttribute("rendered", true);
+
+        // will be tested in another way
+        attributes.remove("converter");
     }
 
     public Attributes getAttributes() {

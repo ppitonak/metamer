@@ -249,35 +249,15 @@ public class TestRichAccordion extends AbstractMetamerTest {
     }
 
     @Test
-    public void testItemContentClass() {
-        testStyleClass(itemContents[2], "itemContentClass");
-    }
-
-    @Test
-    public void testItemHeaderClass() {
-        testStyleClass(itemHeaders[2], "itemHeaderClass");
-    }
-
-    @Test
-    public void testItemHeaderClassActive() {
-        testStyleClass(activeHeaders[0], "itemHeaderClassActive");
-    }
-
-    @Test
-    public void testItemHeaderClassDisabled() {
-        testStyleClass(disabledHeaders[3], "itemHeaderClassDisabled");
-    }
-
-    @Test
-    public void testItemHeaderClassInactive() {
-        testStyleClass(inactiveHeaders[1], "itemHeaderClassInactive");
+    public void testItemActiveHeaderClass() {
+        testStyleClass(activeHeaders[0], "itemActiveHeaderClass");
     }
 
     @Test
     @IssueTracking("https://issues.jboss.org/browse/RF-10352")
-    public void testItemLeftIconActive() {
+    public void testItemActiveLeftIcon() {
         JQueryLocator icon = leftIcon.format(1).getDescendant(jq("div.rf-ac-itm-ico-act"));
-        JQueryLocator input = pjq("select[id$=itemLeftIconActiveInput]");
+        JQueryLocator input = pjq("select[id$=itemActiveLeftIconInput]");
         JQueryLocator image = leftIcon.format(1).getChild(jq("img"));
 
         // icon=null
@@ -289,28 +269,9 @@ public class TestRichAccordion extends AbstractMetamerTest {
     }
 
     @Test
-    public void testItemLeftIconDisabled() {
-        JQueryLocator icon = leftIcon.format(4).getDescendant(jq("div.rf-ac-itm-ico-inact"));
-        JQueryLocator input = pjq("select[id$=itemLeftIconDisabledInput]");
-        JQueryLocator image = leftIcon.format(4).getChild(jq("img"));
-
-        verifyStandardIcons(input, icon, image, "-dis");
-    }
-
-    @Test
-    @IssueTracking("https://issues.jboss.org/browse/RF-10352")
-    public void testItemLeftIconInactive() {
-        JQueryLocator icon = leftIcon.format(3).getDescendant(jq("div.rf-ac-itm-ico-inact"));
-        JQueryLocator input = pjq("select[id$=itemLeftIconInactiveInput]");
-        JQueryLocator image = leftIcon.format(3).getChild(jq("img"));
-
-        verifyStandardIcons(input, icon, image, "");
-    }
-
-    @Test
-    public void testItemRightIconActive() {
+    public void testItemActiveRightIcon() {
         JQueryLocator icon = rightIcon.format(1).getDescendant(jq("div.rf-ac-itm-ico-act"));
-        JQueryLocator input = pjq("select[id$=itemRightIconActiveInput]");
+        JQueryLocator input = pjq("select[id$=itemActiveRightIconInput]");
         JQueryLocator image = rightIcon.format(1).getChild(jq("img"));
 
         // icon=null
@@ -322,18 +283,57 @@ public class TestRichAccordion extends AbstractMetamerTest {
     }
 
     @Test
-    public void testItemRightIconDisabled() {
+    public void testItemContentClass() {
+        testStyleClass(itemContents[2], "itemContentClass");
+    }
+
+    @Test
+    public void testItemDisabledHeaderClass() {
+        testStyleClass(disabledHeaders[3], "itemDisabledHeaderClass");
+    }
+
+    @Test
+    public void testItemDisabledLeftIcon() {
+        JQueryLocator icon = leftIcon.format(4).getDescendant(jq("div.rf-ac-itm-ico-inact"));
+        JQueryLocator input = pjq("select[id$=itemDisabledLeftIconInput]");
+        JQueryLocator image = leftIcon.format(4).getChild(jq("img"));
+
+        verifyStandardIcons(input, icon, image, "-dis");
+    }
+
+    @Test
+    public void testItemDisabledRightIcon() {
         JQueryLocator icon = rightIcon.format(4).getDescendant(jq("div.rf-ac-itm-ico-inact"));
-        JQueryLocator input = pjq("select[id$=itemRightIconDisabledInput]");
+        JQueryLocator input = pjq("select[id$=itemDisabledRightIconInput]");
         JQueryLocator image = rightIcon.format(4).getChild(jq("img"));
 
         verifyStandardIcons(input, icon, image, "-hdr-dis");
     }
 
     @Test
-    public void testItemRightIconInactive() {
+    public void testItemHeaderClass() {
+        testStyleClass(itemHeaders[2], "itemHeaderClass");
+    }
+
+    @Test
+    public void testItemInactiveHeaderClass() {
+        testStyleClass(inactiveHeaders[1], "itemInactiveHeaderClass");
+    }
+
+    @Test
+    @IssueTracking("https://issues.jboss.org/browse/RF-10352")
+    public void testItemInactiveLeftIcon() {
+        JQueryLocator icon = leftIcon.format(3).getDescendant(jq("div.rf-ac-itm-ico-inact"));
+        JQueryLocator input = pjq("select[id$=itemInactiveLeftIconInput]");
+        JQueryLocator image = leftIcon.format(3).getChild(jq("img"));
+
+        verifyStandardIcons(input, icon, image, "");
+    }
+
+    @Test
+    public void testItemInactiveRightIcon() {
         JQueryLocator icon = rightIcon.format(3).getDescendant(jq("div.rf-ac-itm-ico-inact"));
-        JQueryLocator input = pjq("select[id$=itemRightIconInactiveInput]");
+        JQueryLocator input = pjq("select[id$=itemInactiveRightIconInput]");
         JQueryLocator image = rightIcon.format(3).getChild(jq("img"));
 
         verifyStandardIcons(input, icon, image, "-hdr");

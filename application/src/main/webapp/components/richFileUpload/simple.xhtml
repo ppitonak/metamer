@@ -43,7 +43,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
             <rich:fileUpload id="fileUpload"
                              acceptedTypes="#{richFileUploadBean.attributes['acceptedTypes'].value}"
                              dir="#{richFileUploadBean.attributes['dir'].value}"
-                             enabled="#{richFileUploadBean.attributes['enabled'].value}"
+                             disabled="#{richFileUploadBean.attributes['disabled'].value}"
                              fileUploadListener="#{richFileUploadBean.listener}"
                              lang="#{richFileUploadBean.attributes['lang'].value}"
                              noDuplicate="#{richFileUploadBean.attributes['noDuplicate'].value}"
@@ -74,7 +74,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                             <li>#{item.name}</li>
                         </a4j:repeat>
                     </ul>
-                    
+
                     <br/>
 
                     <a4j:commandButton id="clearUploadedDataButton"
