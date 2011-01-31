@@ -143,6 +143,7 @@ public class TestRichAccordion extends AbstractMetamerTest {
 
         phaseInfo.assertPhases(PhaseId.RESTORE_VIEW, PhaseId.APPLY_REQUEST_VALUES, PhaseId.PROCESS_VALIDATIONS,
                 PhaseId.RENDER_RESPONSE);
+        phaseInfo.assertListener(PhaseId.PROCESS_VALIDATIONS, "item changed: item1 -> item3");
     }
 
     @Test
@@ -234,10 +235,8 @@ public class TestRichAccordion extends AbstractMetamerTest {
         selenium.click(itemHeaders[2]);
         waitGui.failWith("Item 3 is not displayed.").until(isDisplayed.locator(itemContents[2]));
 
-        assertPhases(PhaseId.RESTORE_VIEW, PhaseId.APPLY_REQUEST_VALUES, PhaseId.RENDER_RESPONSE);
-
-        String listenerOutput = selenium.getText(jq("div#phasesPanel li:eq(2)"));
-        assertEquals(listenerOutput, "* item changed item1 -> item3", "Item change listener's output");
+        phaseInfo.assertPhases(PhaseId.RESTORE_VIEW, PhaseId.APPLY_REQUEST_VALUES, PhaseId.RENDER_RESPONSE);
+        phaseInfo.assertListener(PhaseId.APPLY_REQUEST_VALUES, "item changed: item1 -> item3");
     }
 
     @Test
