@@ -191,18 +191,18 @@ public class TestRichCalendarAttributes extends AbstractCalendarTest {
 
     @Test
     @IssueTracking("https://issues.jboss.org/browse/RF-10255")
-    public void testButtonIconDisabled() {
+    public void testButtonDisabledIcon() {
         selenium.click(pjq("input[name$=disabledInput][value=true]"));
         selenium.waitForPageToLoad();
 
-        selenium.click(pjq("td:has(label:contains(heart)) > input[name$=buttonIconDisabledInput]"));
+        selenium.click(pjq("td:has(label:contains(heart)) > input[name$=buttonDisabledIconInput]"));
         selenium.waitForPageToLoad();
 
         AttributeLocator attr = image.getAttribute(Attribute.SRC);
         String src = selenium.getAttribute(attr);
         assertTrue(src.contains("heart.png"), "Calendar's icon was not updated.");
 
-        selenium.click(pjq("td:has(label:contains(null)) > input[name$=buttonIconDisabledInput]"));
+        selenium.click(pjq("td:has(label:contains(null)) > input[name$=buttonDisabledIconInput]"));
         selenium.waitForPageToLoad();
 
         src = selenium.getAttribute(attr);
