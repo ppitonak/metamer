@@ -415,7 +415,6 @@ public class TestRichInplaceSelect extends AbstractMetamerTest {
 
         selenium.click(options.format(10));
         assertFalse(selenium.isDisplayed(popup), "Popup should not be displayed.");
-        assertFalse(selenium.isDisplayed(label), "Label should not be displayed.");
         assertEquals(selenium.getValue(input), "Hawaii", "Input should contain selected value.");
     }
 
@@ -428,11 +427,9 @@ public class TestRichInplaceSelect extends AbstractMetamerTest {
         assertTrue(selenium.isDisplayed(popup), "Popup should be displayed.");
 
         selenium.click(options.format(10));
-        assertFalse(selenium.isDisplayed(label), "Label should not be displayed.");
         assertFalse(selenium.isDisplayed(popup), "Popup should not be displayed.");
 
         selenium.fireEvent(input, Event.BLUR);
-        assertFalse(selenium.isDisplayed(label), "Label should not be displayed.");
         assertFalse(selenium.isDisplayed(popup), "Popup should not be displayed.");
         assertEquals(selenium.getValue(input), "Hawaii", "Input should contain selected value.");
     }
@@ -447,7 +444,6 @@ public class TestRichInplaceSelect extends AbstractMetamerTest {
 
         selenium.click(options.format(10));
         assertFalse(selenium.isDisplayed(popup), "Popup should not be displayed.");
-        assertFalse(selenium.isDisplayed(label), "Label should not be displayed.");
         assertEquals(selenium.getValue(input), "Hawaii", "Input should contain selected value.");
     }
 
@@ -462,11 +458,9 @@ public class TestRichInplaceSelect extends AbstractMetamerTest {
         assertTrue(selenium.isDisplayed(popup), "Popup should be displayed.");
 
         selenium.click(options.format(10));
-        assertFalse(selenium.isDisplayed(label), "Label should not be displayed.");
         assertFalse(selenium.isDisplayed(popup), "Popup should not be displayed.");
-
+        
         guardNoRequest(selenium).fireEvent(input, Event.BLUR);
-        assertFalse(selenium.isDisplayed(label), "Label should not be displayed.");
         assertFalse(selenium.isDisplayed(popup), "Popup should not be displayed.");
         assertEquals(selenium.getValue(input), "Click here to edit", "Input should contain default label.");
     }
@@ -506,7 +500,6 @@ public class TestRichInplaceSelect extends AbstractMetamerTest {
 
         selenium.click(select);
         selenium.click(options.format(10));
-        assertFalse(selenium.isDisplayed(label), "Label should not be displayed.");
         assertFalse(selenium.isDisplayed(popup), "Popup should not be displayed.");
 
         selenium.mouseDown(okButton);
@@ -526,7 +519,6 @@ public class TestRichInplaceSelect extends AbstractMetamerTest {
 
         selenium.click(select);
         selenium.click(options.format(10));
-        assertFalse(selenium.isDisplayed(label), "Label should not be displayed.");
         assertFalse(selenium.isDisplayed(popup), "Popup should not be displayed.");
 
         selenium.click(cancelButton);
