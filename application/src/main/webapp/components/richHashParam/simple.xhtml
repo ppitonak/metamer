@@ -42,8 +42,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
             <rich:popupPanel id="popupPanel" resizeable="true"
                              header="Popup panel shown using rich:componentControl and rich:hashParam">
                 <f:facet name="controls">
-                    <h:outputLink value="#"
-                                  onclick="#{rich:component('popupPanel')}.hide(); return false;">
+                    <h:outputLink value="#" onclick="#{rich:component('popupPanel')}.hide(); return false;">
                         X
                     </h:outputLink>
                 </f:facet>
@@ -71,7 +70,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                 </fieldset>
             </rich:popupPanel>
 
-            <h:commandButton value="Show popup">
+            <h:commandButton id="openPanelButton" value="Show popup">
                 <rich:componentControl target="popupPanel" operation="show">
                     <a4j:param noEscape="true" value="event" />
                     <rich:hashParam>
@@ -79,8 +78,8 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                         <f:param name="height" value="345px" />
                         <f:param name="minWidth" value="300px" />
                         <f:param name="minHeight" value="150px" />
-                        <a4j:param noEscape="true" name="left" value="(jQuery(window).width()/2)-250" />
-                        <a4j:param noEscape="true" name="top" value="(jQuery(window).height()/2)-150" />
+                        <a4j:param noEscape="true" name="left" value="33+44" />
+                        <a4j:param noEscape="true" name="top" value="55-33" />
                     </rich:hashParam>
                 </rich:componentControl>
             </h:commandButton>
