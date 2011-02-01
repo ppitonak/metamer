@@ -46,7 +46,6 @@ public class TestRichHashParam extends AbstractMetamerTest {
     private JQueryLocator openButton = pjq("input[id$=openPanelButton]");
     private JQueryLocator panel = pjq("div[id$=popupPanel]");
     private JQueryLocator panelContainer = jq("div.rf-pp-cntr");
-    private JQueryLocator content = jq("div.rf-pp-cnt");
     private JQueryLocator header = jq("div.rf-pp-hdr");
     private JQueryLocator controls = jq("div.rf-pp-hdr-cntrls a");
     private JQueryLocator scroller = jq("div.rf-pp-cnt-scrlr");

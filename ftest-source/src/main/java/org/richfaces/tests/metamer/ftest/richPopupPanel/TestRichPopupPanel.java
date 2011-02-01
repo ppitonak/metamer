@@ -483,7 +483,6 @@ public class TestRichPopupPanel extends AbstractMetamerTest {
         top = (top - 300) / 2;
         selenium.click(openButton);
         waitGui.failWith("Panel was not opened.").until(isDisplayed.locator(panel));
-        waitFor(6000);
         assertEquals(selenium.getElementPositionTop(panelContainer), Math.round(top), "Top margin of the panel");
 
         selenium.type(pjq("input[id$=topInput]"), "200");
