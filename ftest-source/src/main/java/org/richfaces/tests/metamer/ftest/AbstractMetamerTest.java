@@ -31,6 +31,7 @@ import static org.jboss.test.selenium.utils.text.SimplifiedFormat.format;
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertFalse;
 import static org.testng.Assert.assertTrue;
+import static org.jboss.test.selenium.locator.reference.ReferencedLocator.ref;
 
 import java.net.URL;
 import java.util.Locale;
@@ -49,6 +50,8 @@ import org.jboss.test.selenium.locator.AttributeLocator;
 import org.jboss.test.selenium.locator.ElementLocator;
 import org.jboss.test.selenium.locator.ExtendedLocator;
 import org.jboss.test.selenium.locator.JQueryLocator;
+import org.jboss.test.selenium.locator.reference.LocatorReference;
+import org.jboss.test.selenium.locator.reference.ReferencedLocator;
 import org.jboss.test.selenium.waiting.EventFiredCondition;
 import org.jboss.test.selenium.waiting.retrievers.Retriever;
 import org.jboss.test.selenium.waiting.retrievers.TextRetriever;
@@ -66,7 +69,7 @@ import org.testng.annotations.BeforeMethod;
  * @version $Revision$
  */
 public abstract class AbstractMetamerTest extends AbstractTestCase {
-
+    
     protected JQueryLocator time = jq("span[id$=requestTime]");
     protected JQueryLocator renderChecker = jq("span[id$=renderChecker]");
     protected JQueryLocator statusChecker = jq("span[id$=statusCheckerOutput]");
@@ -75,6 +78,9 @@ public abstract class AbstractMetamerTest extends AbstractTestCase {
     protected TextRetriever retrieveRenderChecker = retrieveText.locator(jq("#renderChecker"));
     protected TextRetriever retrieveStatusChecker = retrieveText.locator(jq("#statusCheckerOutput"));
     protected PhaseInfo phaseInfo = new PhaseInfo();
+    
+    
+    protected LocatorReference<JQueryLocator> attributesRoot = new LocatorReference<JQueryLocator>(pjq("span[id$=:attributes:panel]"));
 
     /**
      * timeout in miliseconds
@@ -214,7 +220,7 @@ public abstract class AbstractMetamerTest extends AbstractTestCase {
      *            name of the attribute that will be set (e.g. style, headerStyle, itemContentStyle)
      */
     protected void testStyle(ElementLocator<?> element, String attribute) {
-        ElementLocator<?> styleInput = pjq("input[id$=" + attribute + "Input]");
+        ElementLocator<?> styleInput = ref(attributesRoot, "input[id$=" + attribute + "Input]");
         final String value = "background-color: yellow; font-size: 1.5em;";
 
         selenium.type(styleInput, value);
@@ -234,7 +240,7 @@ public abstract class AbstractMetamerTest extends AbstractTestCase {
      *            name of the attribute that will be set (e.g. styleClass, headerClass, itemContentClass)
      */
     protected void testStyleClass(ExtendedLocator<JQueryLocator> element, String attribute) {
-        ElementLocator<?> classInput = pjq("input[id$=" + attribute + "Input]");
+        ElementLocator<?> classInput = ref(attributesRoot, "input[id$=" + attribute + "Input]");
         final String styleClass = "metamer-ftest-class";
 
         selenium.type(classInput, styleClass);
@@ -247,7 +253,9 @@ public abstract class AbstractMetamerTest extends AbstractTestCase {
 
     public void testRequestEventsBefore(String... events) {
         for (String event : events) {
-            selenium.type(pjq(format("input[type=text][id$=on{0}Input]", event)), format("metamerEvents += \"{0} \"", event));
+            ReferencedLocator<JQueryLocator> input = ref(attributesRoot, "input[type=text][id$=on{0}Input]");
+            input = input.format(event);
+            selenium.type(input, format("metamerEvents += \"{0} \"", event));
             selenium.waitForPageToLoad();
         }
 
@@ -270,8 +278,9 @@ public abstract class AbstractMetamerTest extends AbstractTestCase {
      *            locator of tested element
      */
     protected void testDir(ElementLocator<?> element) {
-        JQueryLocator ltrInput = pjq("input[type=radio][name$=dirInput][value=ltr],input[type=radio][name$=dirInput][value=LTR]");
-        JQueryLocator rtlInput = pjq("input[type=radio][name$=dirInput][value=rtl],input[type=radio][name$=dirInput][value=RTL]");
+        ElementLocator<?> ltrInput = ref(attributesRoot, "input[type=radio][name$=dirInput][value=ltr]");
+        ElementLocator<?> rtlInput = ref(attributesRoot, "input[type=radio][name$=dirInput][value=rtl]");
+        
         AttributeLocator<?> dirAttribute = element.getAttribute(new Attribute("dir"));
 
         // dir = null
@@ -324,7 +333,7 @@ public abstract class AbstractMetamerTest extends AbstractTestCase {
      *            locator of tested element
      */
     protected void testTitle(ElementLocator<?> element) {
-        JQueryLocator input = pjq("input[type=text][id$=titleInput]");
+        ElementLocator<?> input = ref(attributesRoot, "input[type=text][id$=titleInput]");
         AttributeLocator<?> attribute = element.getAttribute(new Attribute("title"));
 
         // title = null

@@ -19,7 +19,7 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  *******************************************************************************/
-package org.richfaces.tests.metamer.ftest.richTree;
+package org.richfaces.tests.metamer.ftest.richTreeNode;
 
 import org.jboss.test.selenium.locator.ExtendedLocator;
 import org.jboss.test.selenium.locator.JQueryLocator;
@@ -42,6 +42,14 @@ public class TreeNodeAttributes extends AbstractComponentAttributes {
         setProperty("dir", dir);
     }
 
+    public void setHandleClass(String handleClass) {
+        setProperty("handleClass", handleClass);
+    }
+
+    public void setIconClass(String iconClass) {
+        setProperty("iconClass", iconClass);
+    }
+
     public void setIconCollapsed(String iconCollapsed) {
         setProperty("iconCollapsed", iconCollapsed);
     }
@@ -58,12 +66,32 @@ public class TreeNodeAttributes extends AbstractComponentAttributes {
         setProperty("immediate", immediate);
     }
 
+    public void setLabelClass(String labelClass) {
+        setProperty("labelClass", labelClass);
+    }
+
     public void setLang(String lang) {
         setProperty("lang", lang);
     }
 
+    public void setOnbeforetoggle(String onbeforetoggle) {
+        setProperty("onbeforetoggle", onbeforetoggle);
+    }
+
+    public void setOntoggle(String ontoggle) {
+        setProperty("ontoggle", ontoggle);
+    }
+
     public void setRendered(Boolean rendered) {
         setProperty("rendered", rendered);
+    }
+
+    public void setStyle(String style) {
+        setProperty("style", style);
+    }
+
+    public void setStyleClass(String styleClass) {
+        setProperty("styleClass", styleClass);
     }
 
     public void setTitle(String title) {

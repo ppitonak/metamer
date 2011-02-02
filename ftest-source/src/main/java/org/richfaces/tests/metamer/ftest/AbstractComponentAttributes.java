@@ -58,6 +58,10 @@ public class AbstractComponentAttributes {
     public <T extends ExtendedLocator<JQueryLocator>> AbstractComponentAttributes(T root) {
         this.root.setLocator(root);
     }
+    
+    public ExtendedLocator<JQueryLocator> getRoot() {
+        return root.getLocator();
+    }
 
     protected String getProperty(String propertyName) {
         final ElementLocator<?> locator = propertyLocator.format(propertyName, "");
