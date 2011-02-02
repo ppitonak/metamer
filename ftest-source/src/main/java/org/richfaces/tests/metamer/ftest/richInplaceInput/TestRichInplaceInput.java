@@ -1,6 +1,6 @@
 /*******************************************************************************
  * JBoss, Home of Professional Open Source
- * Copyright 2010, Red Hat, Inc. and individual contributors
+ * Copyright 2010-2011, Red Hat, Inc. and individual contributors
  * by the @authors tag. See the copyright.txt in the distribution for a
  * full listing of individual contributors.
  *
@@ -30,11 +30,13 @@ import static org.testng.Assert.assertFalse;
 import static org.testng.Assert.assertTrue;
 
 import java.net.URL;
-import javax.faces.event.PhaseId;
-import org.jboss.test.selenium.css.CssProperty;
 
+import javax.faces.event.PhaseId;
+
+import org.jboss.test.selenium.css.CssProperty;
 import org.jboss.test.selenium.dom.Event;
 import org.jboss.test.selenium.locator.Attribute;
+import org.jboss.test.selenium.locator.AttributeLocator;
 import org.jboss.test.selenium.locator.JQueryLocator;
 import org.jboss.test.selenium.waiting.EventFiredCondition;
 import org.richfaces.tests.metamer.ftest.AbstractMetamerTest;
@@ -67,7 +69,7 @@ public class TestRichInplaceInput extends AbstractMetamerTest {
         assertTrue(selenium.isElementPresent(inplaceInput), "Inplace input is not on the page.");
         assertTrue(selenium.isElementPresent(label), "Default label should be present on the page.");
         assertEquals(selenium.getText(label), "RichFaces 4", "Default label");
-        assertTrue(selenium.isElementPresent(inplaceInput), "Input should be present on the page.");
+        assertTrue(selenium.isElementPresent(input), "Input should be present on the page.");
         assertFalse(selenium.isElementPresent(okButton), "OK button should not be present on the page.");
         assertFalse(selenium.isElementPresent(cancelButton), "Cancel button should not be present on the page.");
         assertEquals(selenium.getValue(input), "RichFaces 4", "Value of inplace input.");
@@ -89,6 +91,24 @@ public class TestRichInplaceInput extends AbstractMetamerTest {
 
         String listenerText = selenium.getText(jq("div#phasesPanel li:eq(3)"));
         assertEquals(listenerText, "* value changed: RichFaces 4 -> new value", "Value change listener was not invoked.");
+
+        phaseInfo.assertPhases(PhaseId.RESTORE_VIEW, PhaseId.APPLY_REQUEST_VALUES, PhaseId.PROCESS_VALIDATIONS,
+                PhaseId.UPDATE_MODEL_VALUES, PhaseId.INVOKE_APPLICATION, PhaseId.RENDER_RESPONSE);
+        phaseInfo.assertListener(PhaseId.PROCESS_VALIDATIONS, "value changed: RichFaces 4 -> new value");
+    }
+
+    @Test
+    public void testChangedStateClass() {
+        selenium.type(pjq("input[id$=changedStateClassInput]"), "metamer-ftest-class");
+        selenium.waitForPageToLoad();
+
+        selenium.click(inplaceInput);
+        selenium.type(input, "new value");
+        selenium.fireEvent(input, Event.BLUR);
+
+        JQueryLocator elementWhichHasntThatClass = jq(inplaceInput.getRawLocator() + ":not(.metamer-ftest-class)");
+        assertTrue(selenium.isElementPresent(inplaceInput));
+        assertFalse(selenium.isElementPresent(elementWhichHasntThatClass));
     }
 
     @Test
@@ -104,6 +124,28 @@ public class TestRichInplaceInput extends AbstractMetamerTest {
         assertTrue(selenium.isElementPresent(inplaceInput), "Inplace select is not on the page.");
         assertTrue(selenium.isElementPresent(label), "Default label should be present on the page.");
         assertTrue(selenium.isElementPresent(input), "Input should be present on the page.");
+    }
+
+    @Test
+    public void testDisabled() {
+        selenium.click(pjq("input[type=radio][name$=disabledInput][value=true]"));
+        selenium.waitForPageToLoad();
+
+        assertTrue(selenium.isElementPresent(inplaceInput), "Inplace input is not on the page.");
+        assertTrue(selenium.isElementPresent(label), "Default label should be present on the page.");
+        assertEquals(selenium.getText(label), "RichFaces 4", "Default label");
+        assertFalse(selenium.isElementPresent(input), "Input should not be present on the page.");
+        assertFalse(selenium.isElementPresent(okButton), "OK button should not be present on the page.");
+        assertFalse(selenium.isElementPresent(cancelButton), "Cancel button should not be present on the page.");
+        assertFalse(selenium.isElementPresent(edit), "Edit should not be present on the page.");
+    }
+
+    @Test
+    public void testDisabledStateClass() {
+        selenium.click(pjq("input[type=radio][name$=disabledInput][value=true]"));
+        selenium.waitForPageToLoad();
+
+        testStyleClass(inplaceInput, "disabledStateClass");
     }
 
     @Test
@@ -123,6 +165,20 @@ public class TestRichInplaceInput extends AbstractMetamerTest {
     }
 
     @Test
+    public void testEditStateClass() {
+        selenium.type(pjq("input[id$=editStateClassInput]"), "metamer-ftest-class");
+        selenium.waitForPageToLoad();
+
+        assertFalse(selenium.belongsClass(inplaceInput, "metamer-ftest-class"), "Inplace input should not have class metamer-ftest-class.");
+
+        selenium.click(inplaceInput);
+        assertTrue(selenium.belongsClass(inplaceInput, "metamer-ftest-class"), "Inplace input should have class metamer-ftest-class.");
+
+        selenium.fireEvent(input, Event.BLUR);
+        assertFalse(selenium.belongsClass(inplaceInput, "metamer-ftest-class"), "Inplace input should not have class metamer-ftest-class.");
+    }
+
+    @Test
     public void testImmediate() {
         selenium.click(pjq("input[type=radio][name$=immediateInput][value=true]"));
         selenium.waitForPageToLoad();
@@ -133,10 +189,9 @@ public class TestRichInplaceInput extends AbstractMetamerTest {
         selenium.fireEvent(input, Event.BLUR);
         waitGui.failWith("Page was not updated").waitForChange(timeValue, retrieveText.locator(time));
 
-        assertPhases(PhaseId.RESTORE_VIEW, PhaseId.APPLY_REQUEST_VALUES, PhaseId.PROCESS_VALIDATIONS,
+        phaseInfo.assertPhases(PhaseId.RESTORE_VIEW, PhaseId.APPLY_REQUEST_VALUES, PhaseId.PROCESS_VALIDATIONS,
                 PhaseId.UPDATE_MODEL_VALUES, PhaseId.INVOKE_APPLICATION, PhaseId.RENDER_RESPONSE);
-        String listenerText = selenium.getText(jq("div#phasesPanel li:eq(2)"));
-        assertEquals(listenerText, "* value changed: RichFaces 4 -> new value", "Value change listener was not invoked.");
+        phaseInfo.assertListener(PhaseId.APPLY_REQUEST_VALUES, "value changed: RichFaces 4 -> new value");
     }
 
     @Test
@@ -312,11 +367,34 @@ public class TestRichInplaceInput extends AbstractMetamerTest {
     }
 
     @Test
+    public void testReadyStateClass() {
+        testStyleClass(inplaceInput, "readyStateClass");
+    }
+
+    @Test
     public void testRendered() {
         selenium.click(pjq("input[type=radio][name$=renderedInput][value=false]"));
         selenium.waitForPageToLoad();
 
         assertFalse(selenium.isElementPresent(inplaceInput), "Component should not be rendered when rendered=false.");
+    }
+
+    @Test
+    public void testSaveOnBlur() {
+        selenium.click(pjq("input[type=radio][name$=saveOnBlurInput][value=false]"));
+        selenium.waitForPageToLoad();
+
+        selenium.click(inplaceInput);
+        assertFalse(selenium.belongsClass(edit, "rf-ii-none"), "Edit should not contain class rf-is-none when popup is open.");
+        assertTrue(selenium.isDisplayed(input), "Input should be displayed.");
+
+        selenium.type(input, "new value");
+        selenium.fireEvent(input, Event.BLUR);
+        assertFalse(selenium.belongsClass(inplaceInput, "rf-ii-c-s"), "New class rf-ii-c-s should not be added to inplace input.");
+        assertTrue(selenium.belongsClass(edit, "rf-ii-none"), "Edit should contain class rf-is-none when popup is closed.");
+
+        assertEquals(selenium.getText(label), "RichFaces 4", "Label should not change.");
+        assertEquals(selenium.getText(output), "RichFaces 4", "Output should not change.");
     }
 
     @Test
@@ -358,6 +436,21 @@ public class TestRichInplaceInput extends AbstractMetamerTest {
         assertEquals(selenium.getText(label), "RichFaces 4", "Label");
         assertEquals(selenium.getValue(input), "RichFaces 4", "Value of inplace input.");
         assertEquals(selenium.getText(output), "RichFaces 4", "Output did not change.");
+    }
+
+    @Test
+    public void testStyle() {
+        testStyle(inplaceInput, "style");
+    }
+
+    @Test
+    public void testTabindex() {
+        AttributeLocator<?> attr = input.getAttribute(new Attribute("tabindex"));
+
+        selenium.type(pjq("input[id$=tabindexInput]"), "47");
+        selenium.waitForPageToLoad();
+
+        assertTrue(selenium.getAttribute(attr).contains("47"), "Attribute tabindex should contain \"47\".");
     }
 
     @Test

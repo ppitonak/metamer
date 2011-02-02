@@ -63,8 +63,16 @@ public class RichInplaceInputBean implements Serializable {
         attributes.setAttribute("value", "RichFaces 4");
 
         // TODO has to be tested in another way
+        attributes.remove("converter");
+        attributes.remove("converterMessage");
+        attributes.remove("required");
+        attributes.remove("requiredMessage");
         attributes.remove("validator");
+        attributes.remove("validatorMessage");
         attributes.remove("valueChangeListener");
+
+        // TODO remove as soon as RF-10411 is fixed
+        attributes.setAttribute("style", null);
     }
 
     public Attributes getAttributes() {
