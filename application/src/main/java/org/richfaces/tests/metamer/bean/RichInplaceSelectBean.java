@@ -81,7 +81,18 @@ public class RichInplaceSelectBean implements Serializable {
 
         // TODO has to be tested in another way
         attributes.remove("converter");
+        attributes.remove("converterMessage");
+        attributes.remove("required");
+        attributes.remove("requiredMessage");
         attributes.remove("validator");
+        attributes.remove("validatorMessage");
+        attributes.remove("valueChangeListener");
+
+        // TODO remove as soon as RF-10411 is resolved
+        attributes.setAttribute("changedStateClass", null);
+        attributes.setAttribute("disabledStateClass", null);
+        attributes.setAttribute("editStateClass", null);
+        attributes.setAttribute("readyStateClass", null);
     }
 
     public Attributes getAttributes() {

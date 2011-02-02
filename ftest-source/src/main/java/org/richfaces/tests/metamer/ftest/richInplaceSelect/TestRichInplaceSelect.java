@@ -30,9 +30,12 @@ import static org.testng.Assert.assertFalse;
 import static org.testng.Assert.assertTrue;
 
 import java.net.URL;
+import javax.faces.event.PhaseId;
 
 import org.jboss.test.selenium.css.CssProperty;
 import org.jboss.test.selenium.dom.Event;
+import org.jboss.test.selenium.locator.Attribute;
+import org.jboss.test.selenium.locator.AttributeLocator;
 import org.jboss.test.selenium.locator.JQueryLocator;
 import org.jboss.test.selenium.waiting.EventFiredCondition;
 import org.richfaces.tests.metamer.ftest.AbstractMetamerTest;
@@ -101,6 +104,21 @@ public class TestRichInplaceSelect extends AbstractMetamerTest {
     }
 
     @Test
+    public void testChangedStateClass() {
+        selenium.type(pjq("input[id$=changedStateClassInput]"), "metamer-ftest-class");
+        selenium.waitForPageToLoad();
+
+        selenium.click(select);
+        selenium.click(options.format(10));
+        guardXhr(selenium).fireEvent(input, Event.BLUR);
+        waitGui.failWith("Output did not change.").until(textEquals.locator(output).text("Hawaii"));
+
+        JQueryLocator elementWhichHasntThatClass = jq(select.getRawLocator() + ":not(.metamer-ftest-class)");
+        assertTrue(selenium.isElementPresent(select));
+        assertFalse(selenium.isElementPresent(elementWhichHasntThatClass));
+    }
+
+    @Test
     public void testDefaultLabel() {
         selenium.type(pjq("input[type=text][id$=defaultLabelInput]"), "new label");
         selenium.waitForPageToLoad();
@@ -117,6 +135,31 @@ public class TestRichInplaceSelect extends AbstractMetamerTest {
     }
 
     @Test
+    public void testDisabled() {
+        selenium.click(pjq("input[type=radio][name$=disabledInput][value=true]"));
+        selenium.waitForPageToLoad();
+
+        selenium.type(pjq("input[type=text][id$=valueInput]"), "Hawaii");
+        selenium.waitForPageToLoad();
+
+        assertTrue(selenium.isElementPresent(select), "Inplace input is not on the page.");
+        assertTrue(selenium.isElementPresent(label), "Default label should be present on the page.");
+        assertEquals(selenium.getText(label), "Hawaii", "Default label");
+        assertFalse(selenium.isElementPresent(input), "Input should not be present on the page.");
+        assertFalse(selenium.isElementPresent(okButton), "OK button should not be present on the page.");
+        assertFalse(selenium.isElementPresent(cancelButton), "Cancel button should not be present on the page.");
+        assertFalse(selenium.isElementPresent(edit), "Edit should not be present on the page.");
+    }
+
+    @Test
+    public void testDisabledStateClass() {
+        selenium.click(pjq("input[type=radio][name$=disabledInput][value=true]"));
+        selenium.waitForPageToLoad();
+
+        testStyleClass(select, "disabledStateClass");
+    }
+
+    @Test
     public void testEditEvent() {
         selenium.type(pjq("input[type=text][id$=editEventInput]"), "mouseup");
         selenium.waitForPageToLoad();
@@ -125,6 +168,51 @@ public class TestRichInplaceSelect extends AbstractMetamerTest {
         assertFalse(selenium.isDisplayed(popup), "Popup should not be displayed.");
         selenium.mouseUp(select);
         assertTrue(selenium.isDisplayed(popup), "Popup should be displayed.");
+    }
+
+    @Test
+    public void testEditStateClass() {
+        selenium.type(pjq("input[id$=editStateClassInput]"), "metamer-ftest-class");
+        selenium.waitForPageToLoad();
+
+        assertFalse(selenium.belongsClass(select, "metamer-ftest-class"), "Inplace input should not have class metamer-ftest-class.");
+
+        selenium.click(select);
+        assertTrue(selenium.belongsClass(select, "metamer-ftest-class"), "Inplace input should have class metamer-ftest-class.");
+
+        selenium.click(options.format(10));
+        guardXhr(selenium).fireEvent(input, Event.BLUR);
+        assertFalse(selenium.belongsClass(select, "metamer-ftest-class"), "Inplace input should not have class metamer-ftest-class.");
+    }
+
+    @Test
+    public void testImmediate() {
+        selenium.click(pjq("input[type=radio][name$=immediateInput][value=true]"));
+        selenium.waitForPageToLoad();
+
+        String reqTime = selenium.getText(time);
+        selenium.click(select);
+        selenium.click(options.format(10));
+        guardXhr(selenium).fireEvent(input, Event.BLUR);
+        waitGui.failWith("Page was not updated").waitForChange(reqTime, retrieveText.locator(time));
+
+        phaseInfo.assertPhases(PhaseId.RESTORE_VIEW, PhaseId.APPLY_REQUEST_VALUES, PhaseId.PROCESS_VALIDATIONS,
+                PhaseId.UPDATE_MODEL_VALUES, PhaseId.INVOKE_APPLICATION, PhaseId.RENDER_RESPONSE);
+        phaseInfo.assertListener(PhaseId.APPLY_REQUEST_VALUES, "value changed: -> Hawaii");
+    }
+
+    @Test
+    public void testInputWidth() {
+        selenium.type(pjq("input[type=text][id$=inputWidthInput]"), "300px");
+        selenium.waitForPageToLoad();
+
+        String width = selenium.getStyle(input, CssProperty.WIDTH);
+        assertEquals(width, "300px", "Width of input did not change.");
+
+        selenium.type(pjq("input[type=text][id$=inputWidthInput]"), "");
+        selenium.waitForPageToLoad();
+
+        assertFalse(selenium.isAttributePresent(input.getAttribute(Attribute.STYLE)), "Input should not have attribute style.");
     }
 
     @Test
@@ -401,6 +489,11 @@ public class TestRichInplaceSelect extends AbstractMetamerTest {
     }
 
     @Test
+    public void testReadyStateClass() {
+        testStyleClass(select, "readyStateClass");
+    }
+
+    @Test
     public void testRendered() {
         selenium.click(pjq("input[type=radio][name$=renderedInput][value=false]"));
         selenium.waitForPageToLoad();
@@ -459,7 +552,7 @@ public class TestRichInplaceSelect extends AbstractMetamerTest {
 
         selenium.click(options.format(10));
         assertFalse(selenium.isDisplayed(popup), "Popup should not be displayed.");
-        
+
         guardNoRequest(selenium).fireEvent(input, Event.BLUR);
         assertFalse(selenium.isDisplayed(popup), "Popup should not be displayed.");
         assertEquals(selenium.getValue(input), "Click here to edit", "Input should contain default label.");
@@ -527,5 +620,24 @@ public class TestRichInplaceSelect extends AbstractMetamerTest {
         if (selenium.isElementPresent(popup)) {
             assertFalse(selenium.isDisplayed(popup), "Popup should not be displayed.");
         }
+    }
+
+    @Test
+    public void testTabindex() {
+        AttributeLocator<?> attr = input.getAttribute(new Attribute("tabindex"));
+
+        selenium.type(pjq("input[id$=tabindexInput]"), "47");
+        selenium.waitForPageToLoad();
+
+        assertTrue(selenium.getAttribute(attr).contains("47"), "Attribute tabindex should contain \"47\".");
+    }
+
+    @Test
+    public void testValue() {
+        selenium.type(pjq("input[type=text][id$=valueInput]"), "North Carolina");
+        selenium.waitForPageToLoad();
+
+        assertTrue(selenium.belongsClass(edit, "rf-is-none"), "Edit should contain class rf-is-none when popup is closed.");
+        assertEquals(selenium.getText(label), "North Carolina", "Label should contain selected value.");
     }
 }
