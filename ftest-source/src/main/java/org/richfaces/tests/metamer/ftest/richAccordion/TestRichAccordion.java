@@ -264,7 +264,7 @@ public class TestRichAccordion extends AbstractMetamerTest {
             assertFalse(selenium.isElementPresent(leftIcon.format(i)), "Left icon of item" + i + " should not be present on the page.");
         }
 
-        verifyStandardIcons(input, icon, image, "");
+        verifyStandardIcons(input, icon, image, "-hdr");
     }
 
     @Test
@@ -326,7 +326,7 @@ public class TestRichAccordion extends AbstractMetamerTest {
         JQueryLocator input = pjq("select[id$=itemInactiveLeftIconInput]");
         JQueryLocator image = leftIcon.format(3).getChild(jq("img"));
 
-        verifyStandardIcons(input, icon, image, "");
+        verifyStandardIcons(input, icon, image, "-hdr");
     }
 
     @Test

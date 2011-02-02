@@ -59,6 +59,9 @@ public class RichAccordionItemBean implements Serializable {
         attributes.setAttribute("header", "Item 1");
         attributes.setAttribute("name", "item1");
         attributes.setAttribute("rendered", true);
+
+        // TODO will be tested in another way
+        attributes.remove("converter");
     }
 
     public Attributes getAttributes() {
