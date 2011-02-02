@@ -32,8 +32,6 @@ import static org.jboss.test.selenium.dom.Event.*;
 import java.net.URL;
 
 import org.jboss.test.selenium.dom.Event;
-import org.jboss.test.selenium.locator.Attribute;
-import org.jboss.test.selenium.locator.AttributeLocator;
 import org.jboss.test.selenium.locator.JQueryLocator;
 import org.richfaces.tests.metamer.ftest.AbstractMetamerTest;
 import org.richfaces.tests.metamer.ftest.annotations.Inject;
@@ -77,19 +75,10 @@ public class TestA4JOutputPanel extends AbstractMetamerTest {
         JQueryLocator element = null;
 
         if ("inline".equals(layout)) {
-            // for inline layout set background to blue
             selenium.click(pjq("input[name$=layoutInput][value=inline]"));
             selenium.waitForPageToLoad(TIMEOUT);
-
-            selenium.click(optionBlue);
-            selenium.waitForPageToLoad(TIMEOUT);
-
             element = outputSpan;
         } else {
-            // for inline layout set background to gray
-            selenium.click(optionGray);
-            selenium.waitForPageToLoad(TIMEOUT);
-
             element = outputDiv;
         }
 
@@ -185,50 +174,12 @@ public class TestA4JOutputPanel extends AbstractMetamerTest {
 
     @Test
     public void testStyle() {
-        String style = "background-color: magenta; color: white; font-weight: bold;";
-        JQueryLocator styleInput = pjq("input[id$=styleInput]");
-        AttributeLocator<?> attributeStyle = outputDiv.getAttribute(Attribute.STYLE);
-
-        selenium.typeKeys(styleInput, style);
-        selenium.waitForPageToLoad(TIMEOUT);
-
-        String attributeValue = selenium.getAttribute(attributeStyle);
-        assertEquals(attributeValue, style, "Value of attribute style.");
-
-        selenium.typeKeys(styleInput, "");
-        selenium.waitForPageToLoad(TIMEOUT);
-
-        if (selenium.isAttributePresent(attributeStyle)) {
-            attributeValue = selenium.getAttribute(attributeStyle);
-            assertEquals(attributeValue, "", "Value of attribute style.");
-        }
+        testStyle(outputDiv, "style");
     }
 
     @Test
     public void testStyleClass() {
-        JQueryLocator optionNone = pjq("input[name$=styleClassInput][value=]");
-        AttributeLocator<?> attributeClass = outputDiv.getAttribute(Attribute.CLASS);
-
-        selenium.click(optionBlue);
-        selenium.waitForPageToLoad(TIMEOUT);
-        assertTrue(selenium.belongsClass(outputDiv, "blue-background"), "Panel should have class blue-background set.");
-        assertFalse(selenium.belongsClass(outputDiv, "gray-background"),
-                "Panel should not have class gray-background set.");
-
-        selenium.click(optionGray);
-        selenium.waitForPageToLoad(TIMEOUT);
-        assertTrue(selenium.belongsClass(outputDiv, "gray-background"), "Panel should have class gray-background set.");
-        assertFalse(selenium.belongsClass(outputDiv, "blue-background"),
-                "Panel should not have class blue-background set.");
-
-        selenium.click(optionNone);
-        selenium.waitForPageToLoad(TIMEOUT);
-        if (selenium.isAttributePresent(attributeClass)) {
-            assertFalse(selenium.belongsClass(outputDiv, "blue-background"),
-                    "Panel should not have class blue-background set.");
-            assertFalse(selenium.belongsClass(outputDiv, "gray-background"),
-                    "Panel should not have class gray-background set.");
-        }
+        testStyleClass(outputDiv, "styleClass");
     }
 
     @Test
