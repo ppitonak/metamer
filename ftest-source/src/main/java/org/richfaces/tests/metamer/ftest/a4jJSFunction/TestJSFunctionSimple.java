@@ -1,6 +1,6 @@
 /*******************************************************************************
  * JBoss, Home of Professional Open Source
- * Copyright 2010, Red Hat, Inc. and individual contributors
+ * Copyright 2010-2011, Red Hat, Inc. and individual contributors
  * by the @authors tag. See the copyright.txt in the distribution for a
  * full listing of individual contributors.
  *
@@ -27,8 +27,10 @@ import static org.jboss.test.selenium.locator.LocatorFactory.jq;
 import static org.jboss.test.selenium.utils.URLUtils.buildUrl;
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertNotSame;
+import static org.testng.Assert.fail;
 
 import java.net.URL;
+
 import javax.faces.event.PhaseId;
 
 import org.jboss.test.selenium.dom.Event;
@@ -51,8 +53,6 @@ public class TestJSFunctionSimple extends AbstractMetamerTest {
     private JQueryLocator time2 = pjq("span[id$=time2]");
     private JQueryLocator year = pjq("span[id$=year]");
     private JQueryLocator ajaxRenderedTime = pjq("span[id$=autoTime]");
-    private String[] phasesNames = {"RESTORE_VIEW 1", "APPLY_REQUEST_VALUES 2", "PROCESS_VALIDATIONS 3",
-        "UPDATE_MODEL_VALUES 4", "INVOKE_APPLICATION 5", "RENDER_RESPONSE 6"};
 
     @Override
     public URL getTestUrl() {
@@ -82,12 +82,11 @@ public class TestJSFunctionSimple extends AbstractMetamerTest {
 
     @Test
     public void testAction() {
+        selenium.click(pjq("input[name$=actionInput][value=increaseYearAction]"));
+        selenium.waitForPageToLoad();
+
         int yearValue = Integer.parseInt(selenium.getText(year));
         String time1Value = selenium.getText(time1);
-
-        JQueryLocator incYearActionOption = pjq("input[id$=actionInput:1]");
-        selenium.click(incYearActionOption);
-        selenium.waitForPageToLoad();
 
         guardXhr(selenium).click(link);
         String newTime1Value = waitGui.failWith("Page was not updated").waitForChangeAndReturn(time1Value,
@@ -100,6 +99,8 @@ public class TestJSFunctionSimple extends AbstractMetamerTest {
                 retrieveText.locator(time1));
         assertNotSame(time1Value, newTime1Value, "Time1 did not change");
         assertEquals(Integer.parseInt(selenium.getText(year)), yearValue + 2, "Action was not called");
+
+        phaseInfo.assertListener(PhaseId.INVOKE_APPLICATION, "action invoked");
     }
 
     @Test
@@ -107,8 +108,7 @@ public class TestJSFunctionSimple extends AbstractMetamerTest {
         int yearValue = Integer.parseInt(selenium.getText(year));
         String time1Value = selenium.getText(time1);
 
-        JQueryLocator incYearActionListenerOption = pjq("input[id$=actionListenerInput:1]");
-        selenium.click(incYearActionListenerOption);
+        selenium.click(pjq("input[name$=actionListenerInput][value=increaseYearActionListener]"));
         selenium.waitForPageToLoad();
 
         guardXhr(selenium).click(link);
@@ -122,38 +122,76 @@ public class TestJSFunctionSimple extends AbstractMetamerTest {
                 retrieveText.locator(time1));
         assertNotSame(time1Value, newTime1Value, "Time1 did not change");
         assertEquals(Integer.parseInt(selenium.getText(year)), yearValue + 2, "Action was not called");
+
+        phaseInfo.assertListener(PhaseId.INVOKE_APPLICATION, "action listener invoked");
     }
 
     @Test
     public void testBypassUpdates() {
-        String time1Value = selenium.getText(time1);
-
-        JQueryLocator input = pjq("input[type=radio][name$=bypassUpdatesInput][value=true]");
-        selenium.click(input);
+        selenium.click(pjq("input[name$=actionInput][value=decreaseYearAction]"));
         selenium.waitForPageToLoad();
 
+        selenium.click(pjq("input[type=radio][name$=bypassUpdatesInput][value=true]"));
+        selenium.waitForPageToLoad();
+
+        String time1Value = selenium.getText(time1);
         guardXhr(selenium).click(link);
         waitGui.failWith("Page was not updated").waitForChange(time1Value, retrieveText.locator(time1));
 
-        JQueryLocator[] phases = {jq("div#phasesPanel li"), jq("div#phasesPanel li:eq(0)"),
-            jq("div#phasesPanel li:eq(1)"), jq("div#phasesPanel li:eq(2)"), jq("div#phasesPanel li:eq(3)")};
-
-        assertPhases(PhaseId.RESTORE_VIEW, PhaseId.APPLY_REQUEST_VALUES, PhaseId.PROCESS_VALIDATIONS,
+        phaseInfo.assertPhases(PhaseId.RESTORE_VIEW, PhaseId.APPLY_REQUEST_VALUES, PhaseId.PROCESS_VALIDATIONS,
                 PhaseId.RENDER_RESPONSE);
+        phaseInfo.assertListener(PhaseId.PROCESS_VALIDATIONS, "action invoked");
+    }
+
+    @Test
+    public void testData() {
+        selenium.type(pjq("input[type=text][id$=dataInput]"), "RichFaces 4");
+        selenium.waitForPageToLoad();
+
+        selenium.type(pjq("input[type=text][id$=oncompleteInput]"), "data = event.data");
+        selenium.waitForPageToLoad();
+
+        String reqTime = selenium.getText(time);
+        guardXhr(selenium).click(link);
+        waitGui.failWith("Page was not updated").waitForChange(reqTime, retrieveText.locator(time));
+
+        String data = selenium.getEval(new JavaScript("window.data"));
+        assertEquals(data, "RichFaces 4", "Data sent with ajax request");
+    }
+
+    @Test
+    public void testExecute() {
+        selenium.type(pjq("input[type=text][id$=executeInput]"), "input executeChecker");
+        selenium.waitForPageToLoad();
+
+        String reqTime = selenium.getText(time);
+        guardXhr(selenium).click(link);
+        waitGui.failWith("Page was not updated").waitForChange(reqTime, retrieveText.locator(time));
+
+        JQueryLocator logItems = jq("ul.phases-list li:eq({0})");
+        for (int i = 0; i < 6; i++) {
+            if ("* executeChecker".equals(selenium.getText(logItems.format(i)))) {
+                return;
+            }
+        }
+
+        fail("Attribute execute does not work");
     }
 
     @Test
     public void testImmediate() {
-        String time1Value = selenium.getText(time1);
-
-        JQueryLocator input = pjq("input[type=radio][name$=immediateInput][value=true]");
-        selenium.click(input);
+        selenium.click(pjq("input[name$=actionListenerInput][value=decreaseYearActionListener]"));
         selenium.waitForPageToLoad();
 
-        guardXhr(selenium).click(link);
-        waitGui.failWith("Page was not updated").waitForChange(time1Value, retrieveText.locator(time1));
+        selenium.click(pjq("input[name$=immediateInput][value=true]"));
+        selenium.waitForPageToLoad();
 
-        assertPhases(PhaseId.RESTORE_VIEW, PhaseId.APPLY_REQUEST_VALUES, PhaseId.RENDER_RESPONSE);
+        String reqTime = selenium.getText(time);
+        guardXhr(selenium).click(link);
+        waitGui.failWith("Page was not updated").waitForChange(reqTime, retrieveText.locator(time));
+
+        phaseInfo.assertPhases(PhaseId.RESTORE_VIEW, PhaseId.APPLY_REQUEST_VALUES, PhaseId.RENDER_RESPONSE);
+        phaseInfo.assertListener(PhaseId.APPLY_REQUEST_VALUES, "action listener invoked");
     }
 
     @Test
@@ -183,6 +221,14 @@ public class TestJSFunctionSimple extends AbstractMetamerTest {
         assertNotSame(newTime2Value, time2Value, "Time2 did not change");
         assertEquals(newYearValue, yearValue, "Year should not change");
         assertEquals(newAjaxRenderedTimeValue, ajaxRenderedTimeValue, "Ajax rendered time should not change");
+    }
+
+    @Test
+    public void testName() {
+        selenium.type(pjq("input[id$=nameInput]"), "metamer");
+        selenium.waitForPageToLoad();
+
+        testSimpleClick();
     }
 
     @Test
@@ -256,5 +302,15 @@ public class TestJSFunctionSimple extends AbstractMetamerTest {
         assertEquals(newTime2Value, time2Value, "Time2 should not change");
         assertEquals(newYearValue, yearValue, "Year should not change");
         assertEquals(newAjaxRenderedTimeValue, ajaxRenderedTimeValue, "Ajax rendered time should not change");
+    }
+
+    @Test
+    public void testStatus() {
+        selenium.type(pjq("input[type=text][id$=statusInput]"), "statusChecker");
+        selenium.waitForPageToLoad();
+
+        String statusCheckerTime = selenium.getText(statusChecker);
+        guardXhr(selenium).click(link);
+        waitGui.failWith("Attribute status doesn't work").waitForChange(statusCheckerTime, retrieveText.locator(statusChecker));
     }
 }
