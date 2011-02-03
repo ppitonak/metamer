@@ -94,10 +94,10 @@ public class TestRichHashParam extends AbstractMetamerTest {
         int shadowLeft = selenium.getElementPositionLeft(shadow);
 
         assertEquals(selenium.getStyle(header, new CssProperty("cursor")), "move", "Cursor used when mouse is over panel's header.");
-        selenium.dragAndDrop(header, new Offset(200, -100));
+        selenium.dragAndDrop(header, new Offset(20, 0));
 
-        assertEquals(selenium.getElementPositionLeft(panelContainer), panelLeft + 200, "Panel's position after move to the right (200px).");
-        assertEquals(selenium.getElementPositionLeft(shadow), shadowLeft + 200, "Shadow's position after move to the right (200px).");
+        assertEquals(selenium.getElementPositionLeft(panelContainer), panelLeft + 20, "Panel's position after move to the right (20px).");
+        assertEquals(selenium.getElementPositionLeft(shadow), shadowLeft + 20, "Shadow's position after move to the right (20px).");
     }
 
     @Test
@@ -116,13 +116,6 @@ public class TestRichHashParam extends AbstractMetamerTest {
         assertEquals(selenium.getElementWidth(panelContainer), panelWidth - 100, "Panel's width after resizing horizontally (-100px).");
         assertEquals(selenium.getElementHeight(panelContainer), panelHeight, "Panel's height after resizing horizontally.");
         assertEquals(selenium.getElementWidth(shadow), shadowWidth - 100, "Shadow's width after resizing horizontally (-100px).");
-        assertEquals(selenium.getElementHeight(shadow), shadowHeight, "Shadow's height after resizing horizontally.");
-
-        selenium.dragAndDrop(resizerE, new Offset(100, 0));
-
-        assertEquals(selenium.getElementWidth(panelContainer), panelWidth, "Panel's width after resizing horizontally (100px).");
-        assertEquals(selenium.getElementHeight(panelContainer), panelHeight, "Panel's height after resizing horizontally.");
-        assertEquals(selenium.getElementWidth(shadow), shadowWidth, "Shadow's width after resizing horizontally (100px).");
         assertEquals(selenium.getElementHeight(shadow), shadowHeight, "Shadow's height after resizing horizontally.");
     }
 

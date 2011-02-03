@@ -33,6 +33,7 @@ import java.net.URL;
 
 import org.jboss.test.selenium.locator.JQueryLocator;
 import org.richfaces.tests.metamer.ftest.AbstractMetamerTest;
+import org.richfaces.tests.metamer.ftest.annotations.IssueTracking;
 import org.testng.annotations.Test;
 
 /**
@@ -48,7 +49,7 @@ public class TestFacets extends AbstractMetamerTest {
     private JQueryLocator headerExp = pjq("div[id$=collapsiblePanel:header] div.rf-cp-lbl-exp");
     private JQueryLocator headerColps = pjq("div[id$=collapsiblePanel:header] div.rf-cp-lbl-colps");
     private JQueryLocator content = pjq("div[id$=collapsiblePanel:content]");
-    
+
     @Override
     public URL getTestUrl() {
         return buildUrl(contextPath, "faces/components/richCollapsiblePanel/facets.xhtml");
@@ -104,6 +105,7 @@ public class TestFacets extends AbstractMetamerTest {
     }
 
     @Test
+    @IssueTracking("https://issues.jboss.org/browse/RF-10368")
     public void testSwitchTypeServer() {
         JQueryLocator selectOption = pjq("input[name$=switchTypeInput][value=server]");
         selenium.click(selectOption);

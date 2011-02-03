@@ -406,6 +406,7 @@ public class TestRichCollapsiblePanel extends AbstractMetamerTest {
     }
 
     @Test
+    @IssueTracking("https://issues.jboss.org/browse/RF-10368")
     public void testSwitchTypeServer() {
         selenium.click(pjq("input[name$=switchTypeInput][value=server]"));
         selenium.waitForPageToLoad();
