@@ -297,7 +297,7 @@ public class TestRichAccordion extends AbstractMetamerTest {
         JQueryLocator input = pjq("select[id$=itemDisabledLeftIconInput]");
         JQueryLocator image = leftIcon.format(4).getChild(jq("img"));
 
-        verifyStandardIcons(input, icon, image, "-dis");
+        verifyStandardIcons(input, icon, image, "-hdr-dis");
     }
 
     @Test

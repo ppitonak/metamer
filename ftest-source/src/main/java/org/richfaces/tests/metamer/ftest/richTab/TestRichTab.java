@@ -50,8 +50,8 @@ import org.testng.annotations.Test;
 public class TestRichTab extends AbstractMetamerTest {
 
     private JQueryLocator panel = pjq("div[id$=tabPanel]");
-    private JQueryLocator[] itemContents = {pjq("div[id$=tab1] > div.rf-tb-cnt"), pjq("div[id$=tab2] > div.rf-tb-cnt"),
-        pjq("div[id$=tab3] > div.rf-tb-cnt"), pjq("div[id$=tab4] > div.rf-tb-cnt"), pjq("div[id$=tab5] > div.rf-tb-cnt")};
+    private JQueryLocator[] itemContents = {pjq("div[id$=tab1] > div.rf-tab-cnt"), pjq("div[id$=tab2] > div.rf-tab-cnt"),
+        pjq("div[id$=tab3] > div.rf-tab-cnt"), pjq("div[id$=tab4] > div.rf-tab-cnt"), pjq("div[id$=tab5] > div.rf-tab-cnt")};
     private JQueryLocator[] activeHeaders = {pjq("td[id$=tab1:header:active]"), pjq("td[id$=tab2:header:active]"),
         pjq("td[id$=tab3:header:active]"), pjq("td[id$=tab4:header:active]"), pjq("td[id$=tab5:header:active]")};
     private JQueryLocator[] inactiveHeaders = {pjq("td[id$=tab1:header:inactive]"), pjq("td[id$=tab2:header:inactive]"),
