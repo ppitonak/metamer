@@ -359,8 +359,7 @@ public abstract class AbstractMetamerTest extends AbstractTestCase {
      */
     protected void testHtmlAttribute(ElementLocator<?> element, String attribute, String value) {
         AttributeLocator<?> attr = element.getAttribute(new Attribute(attribute));
-        assertFalse(selenium.isAttributePresent(attr), "Attribute " + attribute + " should not be present.");
-
+        
         selenium.type(pjq("input[id$=" + attribute + "Input]"), value);
         selenium.waitForPageToLoad();
 

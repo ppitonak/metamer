@@ -1,6 +1,6 @@
 /*******************************************************************************
  * JBoss, Home of Professional Open Source
- * Copyright 2010, Red Hat, Inc. and individual contributors
+ * Copyright 2010-2011, Red Hat, Inc. and individual contributors
  * by the @authors tag. See the copyright.txt in the distribution for a
  * full listing of individual contributors.
  *
@@ -160,6 +160,11 @@ public class TestRichSpinner extends AbstractMetamerTest {
     }
 
     @Test
+    public void testAccesskey() {
+        testHtmlAttribute(input, "accesskey", "x");
+    }
+
+    @Test
     public void testCycled() {
         JQueryLocator selectOption = pjq("input[type=radio][name$=cycledInput][value=true]");
         selenium.click(selectOption);
@@ -222,12 +227,13 @@ public class TestRichSpinner extends AbstractMetamerTest {
         waitGui.failWith("Page was not updated").waitForChange(reqTime, retrieveText.locator(time));
         assertEquals(selenium.getText(output), "4", "Output was not updated.");
 
-        assertPhases(PhaseId.RESTORE_VIEW, PhaseId.APPLY_REQUEST_VALUES, PhaseId.PROCESS_VALIDATIONS, PhaseId.UPDATE_MODEL_VALUES,
-                PhaseId.INVOKE_APPLICATION, PhaseId.RENDER_RESPONSE);
+        phaseInfo.assertPhases(PhaseId.RESTORE_VIEW, PhaseId.APPLY_REQUEST_VALUES, PhaseId.PROCESS_VALIDATIONS,
+                PhaseId.UPDATE_MODEL_VALUES, PhaseId.INVOKE_APPLICATION, PhaseId.RENDER_RESPONSE);
+        phaseInfo.assertListener(PhaseId.APPLY_REQUEST_VALUES, "value changed: 2 -> 4");
     }
 
     @Test
-    public void testItemContentClass() {
+    public void testInputClass() {
         testStyleClass(input, "inputClass");
     }
 
@@ -314,9 +320,7 @@ public class TestRichSpinner extends AbstractMetamerTest {
 
     @Test
     public void testOnchangeType() {
-        ElementLocator<?> eventInput = pjq("input[id$=onchangeInput]");
-        String value = "metamerEvents += \"change \"";
-        selenium.type(eventInput, value);
+        selenium.type(pjq("input[id$=onchangeInput]"), "metamerEvents += \"change \"");
         selenium.waitForPageToLoad(TIMEOUT);
 
         selenium.getEval(new JavaScript("window.metamerEvents = \"\";"));
@@ -333,9 +337,7 @@ public class TestRichSpinner extends AbstractMetamerTest {
 
     @Test
     public void testOnchangeClick() {
-        ElementLocator<?> eventInput = pjq("input[id$=onchangeInput]");
-        String value = "metamerEvents += \"change \"";
-        selenium.type(eventInput, value);
+        selenium.type(pjq("input[id$=onchangeInput]"), "metamerEvents += \"change \"");
         selenium.waitForPageToLoad(TIMEOUT);
 
         selenium.getEval(new JavaScript("window.metamerEvents = \"\";"));
@@ -471,6 +473,30 @@ public class TestRichSpinner extends AbstractMetamerTest {
     }
 
     @Test
+    public void testStep() {
+        selenium.type(pjq("input[id$=stepInput]"), "7");
+        selenium.waitForPageToLoad();
+
+        clickArrow(up, 1);
+        assertEquals(selenium.getText(output), "9", "Wrong output");
+
+        clickArrow(up, 1);
+        assertEquals(selenium.getText(output), "10", "Wrong output");
+
+        clickArrow(down, 1);
+        assertEquals(selenium.getText(output), "3", "Wrong output");
+
+        clickArrow(down, 1);
+        assertEquals(selenium.getText(output), "-4", "Wrong output");
+
+        clickArrow(down, 1);
+        assertEquals(selenium.getText(output), "-10", "Wrong output");
+
+        clickArrow(up, 1);
+        assertEquals(selenium.getText(output), "-3", "Wrong output");
+    }
+
+    @Test
     public void testStyle() {
         testStyle(spinner, "style");
     }
@@ -478,6 +504,11 @@ public class TestRichSpinner extends AbstractMetamerTest {
     @Test
     public void testStyleClass() {
         testStyleClass(spinner, "styleClass");
+    }
+
+    @Test
+    public void testTabindex() {
+        testHtmlAttribute(input, "tabindex", "57");
     }
 
     @Test

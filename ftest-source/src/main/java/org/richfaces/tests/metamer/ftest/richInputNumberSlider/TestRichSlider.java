@@ -24,7 +24,6 @@ package org.richfaces.tests.metamer.ftest.richInputNumberSlider;
 import java.text.ParseException;
 import static org.jboss.test.selenium.guard.request.RequestTypeGuardFactory.guardNoRequest;
 import static org.jboss.test.selenium.guard.request.RequestTypeGuardFactory.guardXhr;
-import static org.jboss.test.selenium.locator.LocatorFactory.jq;
 import static org.jboss.test.selenium.locator.option.OptionLocatorFactory.optionLabel;
 import static org.jboss.test.selenium.utils.URLUtils.buildUrl;
 import static org.testng.Assert.assertEquals;
@@ -39,6 +38,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
+
 import javax.faces.event.PhaseId;
 
 import org.jboss.test.selenium.css.CssProperty;
@@ -210,6 +210,11 @@ public class TestRichSlider extends AbstractMetamerTest {
     }
 
     @Test
+    public void testAccesskey() {
+        testHtmlAttribute(input, "accesskey", "x");
+    }
+
+    @Test
     public void testDecreaseClass() {
         selenium.click(pjq("input[type=radio][name$=showArrowsInput][value=true]"));
         selenium.waitForPageToLoad();
@@ -299,10 +304,9 @@ public class TestRichSlider extends AbstractMetamerTest {
         guardXhr(selenium).mouseDownAt(track, new Point(0, 0));
         waitGui.failWith("Page was not updated").waitForChange(reqTime, retrieveText.locator(time));
 
-        assertPhases(PhaseId.RESTORE_VIEW, PhaseId.APPLY_REQUEST_VALUES, PhaseId.PROCESS_VALIDATIONS,
+        phaseInfo.assertPhases(PhaseId.RESTORE_VIEW, PhaseId.APPLY_REQUEST_VALUES, PhaseId.PROCESS_VALIDATIONS,
                 PhaseId.UPDATE_MODEL_VALUES, PhaseId.INVOKE_APPLICATION, PhaseId.RENDER_RESPONSE);
-        String listenerText = selenium.getText(jq("div#phasesPanel li:eq(2)"));
-        assertEquals(listenerText, "* value changed: 2 -> -10", "Value change listener was not invoked.");
+        phaseInfo.assertListener(PhaseId.APPLY_REQUEST_VALUES, "value changed: 2 -> -10");
     }
 
     @Test
@@ -575,6 +579,34 @@ public class TestRichSlider extends AbstractMetamerTest {
 
         selenium.mouseUpAt(track, new Point(0, 0));
         assertFalse(selenium.isVisible(tooltip), "Tooltip should not be visible.");
+    }
+
+    @Test
+    public void testStep() {
+        selenium.click(pjq("input[type=radio][name$=showArrowsInput][value=true]"));
+        selenium.waitForPageToLoad();
+        selenium.type(pjq("input[type=text][id$=delayInput]"), "100");
+        selenium.waitForPageToLoad();
+        selenium.type(pjq("input[id$=stepInput]"), "7");
+        selenium.waitForPageToLoad();
+
+        clickArrow(right, 1);
+        assertEquals(selenium.getText(output), "9", "Wrong output");
+
+        clickArrow(right, 1);
+        assertEquals(selenium.getText(output), "10", "Wrong output");
+
+        clickArrow(left, 1);
+        assertEquals(selenium.getText(output), "3", "Wrong output");
+
+        clickArrow(left, 1);
+        assertEquals(selenium.getText(output), "-4", "Wrong output");
+
+        clickArrow(left, 1);
+        assertEquals(selenium.getText(output), "-10", "Wrong output");
+
+        clickArrow(right, 1);
+        assertEquals(selenium.getText(output), "-3", "Wrong output");
     }
 
     @Test
