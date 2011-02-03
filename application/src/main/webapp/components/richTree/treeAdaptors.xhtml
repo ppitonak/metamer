@@ -91,6 +91,9 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 				toggleNodeEvent="#{richTreeBean.attributes['toggleNodeEvent'].value}"
             	toggleType="#{richTreeBean.attributes['toggleType'].value}"
 				>
+				<rich:treeNode expanded="#{richTreeModelRecursiveAdaptorBean.expanded[node.label]}">
+					#{node.label}
+				</rich:treeNode>
             		
             	<rich:treeModelRecursiveAdaptor
             		roots="#{richTreeModelRecursiveAdaptorBean.rootNodes}"
@@ -99,6 +102,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
             		>
             		
             		<rich:treeNode
+            			expanded="#{richTreeModelRecursiveAdaptorBean.expanded[node.label]}"
             			rendered="#{richTreeNodeBean.attributes[0]['rendered'].value || node.number != 1}"
             			iconLeaf="#{richTreeNodeBean.attributes[0]['iconLeaf'].value}"
 		            	iconExpanded="#{richTreeNodeBean.attributes[0]['iconExpanded'].value}"
@@ -137,6 +141,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
            						rendered="#{richTreeModelRecursiveAdaptorBean.attributes['rendered'].value}">
            						
 	           			<rich:treeNode
+	           				expanded="#{richTreeModelRecursiveAdaptorBean.expanded[node.label]}"
 	           				rendered="#{richTreeNodeBean.attributes[1]['rendered'].value || node.number != 1}"
 	           				iconLeaf="#{richTreeNodeBean.attributes[1]['iconLeaf'].value}"
 			            	iconExpanded="#{richTreeNodeBean.attributes[1]['iconExpanded'].value}"
@@ -162,7 +167,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
         	<a4j:outputPanel ajaxRendered="true">
 	        	<h:panelGrid id="selectionOutput" columns="2">
 	        		<h:outputLabel value="Test Loading Facet:" />
-	        		<h:selectBooleanCheckbox value="#{richTreeBean.testLoadingFacet}">
+	        		<h:selectBooleanCheckbox id="loadingFacet" value="#{richTreeBean.testLoadingFacet}">
 		        		<a4j:ajax render="#{nestedComponentId}" />
 		        	</h:selectBooleanCheckbox>
 		        	
@@ -172,46 +177,46 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 		        	</h:selectBooleanCheckbox>
 	        	
 	        		<h:outputLabel value="Recursive Leaf Children Nullable:" />
-	        		<h:selectBooleanCheckbox value="#{richTreeModelRecursiveAdaptorBean.leafChildrenNullable}">
-	        			<a4j:ajax render="commonGrid" />
+	        		<h:selectBooleanCheckbox id="recursiveLeafChildrenNullable" value="#{richTreeModelRecursiveAdaptorBean.leafChildrenNullable}">
+	        			<a4j:ajax render="#{nestedComponentId}" />
 	        		</h:selectBooleanCheckbox>
 	        		
 	        		<h:outputLabel value="Recursive Model Representation:" />
-	        		<h:selectOneRadio value="#{richTreeModelRecursiveAdaptorBean.useMapModel}">
+	        		<h:selectOneRadio id="recursiveModelRepresentation" value="#{richTreeModelRecursiveAdaptorBean.useMapModel}">
 	        			<f:selectItem itemLabel="List&lt;RecursiveNode&gt;" itemValue="false" />
 	        			<f:selectItem itemLabel="Map&lt;Integer, RecursiveNode&gt;" itemValue="true" />
 	        			
-	        			<a4j:ajax render="commonGrid" />
+	        			<a4j:ajax render="#{nestedComponentId}" />
 	        		</h:selectOneRadio>
 	        		
 	        		<h:outputLabel value="Selection:" />
-	        		<h:outputText value="#{richTreeBean.selection}" />
+	        		<h:outputText id="selection" value="#{richTreeBean.selection}" />
 	        		
 	        		<h:outputLabel value="Lazy Initialized:" />
-	        		<h:outputText value="#{richTreeModelRecursiveAdaptorBean.lazyInitializedNodes}" />
+	        		<h:outputText id="lazyInitialized" value="#{richTreeModelRecursiveAdaptorBean.lazyInitializedNodes}" />
 	        		
 	        		<h:outputLabel value="Selection Change Event:" rendered="#{not empty richTreeListenerBean.treeSelectionChangeEvent}" />
 	        		<h:panelGrid columns="2" rendered="#{not empty richTreeListenerBean.treeSelectionChangeEvent}">
 	        			<h:outputLabel value="Client ID:" />
-        				<h:outputText value="#{richTreeListenerBean.treeSelectionChangeEvent.component.id}" />
+        				<h:outputText id="selectionEventClientId" value="#{richTreeListenerBean.treeSelectionChangeEvent.component.id}" />
         				
         				<h:outputLabel value="New Selection:" />
-        				<h:outputText value="#{richTreeListenerBean.treeSelectionChangeEvent.newSelection}" />
+        				<h:outputText id="selectionEventNewSelection" value="#{richTreeListenerBean.treeSelectionChangeEvent.newSelection}" />
         				
         				<h:outputLabel value="Old Selection:" />
-        				<h:outputText value="#{richTreeListenerBean.treeSelectionChangeEvent.oldSelection}" />
+        				<h:outputText id="selectionEventOldSelection" value="#{richTreeListenerBean.treeSelectionChangeEvent.oldSelection}" />
 	        		</h:panelGrid>
 	        		
 	        		<h:outputLabel value="Tree Toggle Event:" rendered="#{not empty richTreeListenerBean.treeToggleEvent}" />
 	        		<h:panelGrid columns="2" rendered="#{not empty richTreeListenerBean.treeToggleEvent}">
 	        			<h:outputLabel value="Client ID:" />
-        				<h:outputText value="#{richTreeListenerBean.treeToggleEvent.component.id}" />
+        				<h:outputText id="toggleEventClientId" value="#{richTreeListenerBean.treeToggleEvent.component.id}" />
         				
         				<h:outputLabel value="Collapsed:" />
-        				<h:outputText value="#{richTreeListenerBean.treeToggleEvent.collapsed}" />
+        				<h:outputText id="toggleEventCollapsed" value="#{richTreeListenerBean.treeToggleEvent.collapsed}" />
         				
         				<h:outputLabel value="Expanded:" />
-        				<h:outputText value="#{richTreeListenerBean.treeToggleEvent.expanded}" />
+        				<h:outputText id="toggleEventExpanded" value="#{richTreeListenerBean.treeToggleEvent.expanded}" />
 	        		</h:panelGrid>
 	        	</h:panelGrid>
         	</a4j:outputPanel>

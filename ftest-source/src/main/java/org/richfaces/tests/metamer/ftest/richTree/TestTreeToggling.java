@@ -44,11 +44,10 @@ import org.testng.annotations.Test;
 public class TestTreeToggling extends AbstractMetamerTest {
 
     private static final int TOP_LEVEL_NODES = 4;
-    private static final int DEPTH = 3;
 
-    int[][] PATHS = new int[][] { { 3, 2, 1 }, { 2, 4, 1 } };
+    int[][] PATHS = new int[][] { { 3, 2, 1, 2 }, { 2, 4, 6 } };
 
-    private TreeAttributes treeAttributes = new TreeAttributes(jq("span[id*=attributes]"));
+    protected TreeAttributes treeAttributes = new TreeAttributes(jq("span[id*=attributes]"));
     private TreeModel tree = new TreeModel(pjq("div.rf-tr[id$=richTree]"));
     private TreeNodeModel treeNode;
 
@@ -95,11 +94,14 @@ public class TestTreeToggling extends AbstractMetamerTest {
     @Test
     public void testDeepExpansion() {
         for (int[] path : PATHS) {
+            int depth = path.length;
+
             for (int d = 1; d <= path.length; d++) {
                 int number = path[d - 1];
+
                 treeNode = (d == 1) ? tree.getNode(number) : treeNode.getNode(number);
 
-                if (d < DEPTH) {
+                if (d < depth) {
                     assertNodeState(NodeState.COLLAPSED);
                     treeNode.expand();
                     assertNodeState(NodeState.EXPANDED);

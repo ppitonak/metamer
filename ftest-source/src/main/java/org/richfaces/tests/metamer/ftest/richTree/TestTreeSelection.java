@@ -45,23 +45,24 @@ import org.testng.annotations.Test;
  * @author <a href="mailto:lfryc@redhat.com">Lukas Fryc</a>
  * @version $Revision$
  */
+@Use(field = "selectionPaths", value = "")
 public class TestTreeSelection extends AbstractMetamerTest {
 
-    Integer[][] SUBNODE_SELECTION_PATHS = new Integer[][] { { 2, 3 }, { 3, 4 }, { 4, 1, 1 }, { 4 }, { 4, 1 }, { 1, 5 },
-        { 2, 3, 3 } };
+    protected Integer[][] selectionPaths = new Integer[][] { { 2, 3 }, { 3, 4 }, { 4, 1, 1 }, { 4 }, { 4, 1 },
+        { 1, 5 }, { 2, 3, 3 } };
 
     @Override
     public URL getTestUrl() {
         return buildUrl(contextPath, "faces/components/richTree/simple.xhtml");
     }
 
-    private TreeAttributes treeAttributes = new TreeAttributes(jq("span[id*=attributes]"));
-    private TreeModel tree = new TreeModel(pjq("div.rf-tr[id$=richTree]"));
-    private TreeNodeModel treeNode;
+    protected TreeAttributes treeAttributes = new TreeAttributes(jq("span[id*=attributes]"));
+    protected TreeModel tree = new TreeModel(pjq("div.rf-tr[id$=richTree]"));
+    protected TreeNodeModel treeNode;
 
     @Inject
     @Use(value = "selectionTypes")
-    SwitchType selectionType = SwitchType.ajax;
+    SwitchType selectionType = SwitchType.client;
     SwitchType[] selectionTypes = new SwitchType[] { SwitchType.ajax, SwitchType.client };
     SwitchType[] eventEnabledSelectionTypes = new SwitchType[] { SwitchType.ajax };
 
@@ -94,10 +95,10 @@ public class TestTreeSelection extends AbstractMetamerTest {
 
     @Test
     public void testSubNodesSelection() {
-        guardXhr(selenium).click(expandAll);
+        expandAll();
         assertEquals(tree.getAnySelectedNodesCount(), 0);
 
-        for (Integer[] path : SUBNODE_SELECTION_PATHS) {
+        for (Integer[] path : selectionPaths) {
             treeNode = null;
             for (int index : path) {
                 treeNode = (treeNode == null) ? tree.getNode(index) : treeNode.getNode(index);
@@ -112,10 +113,9 @@ public class TestTreeSelection extends AbstractMetamerTest {
     @Test
     @Use(field = "selectionType", value = "eventEnabledSelectionTypes")
     public void testSubNodesSelectionEvents() {
-        guardXhr(selenium).click(expandAll);
-
+        expandAll();
         Integer[] old = null;
-        for (Integer[] path : SUBNODE_SELECTION_PATHS) {
+        for (Integer[] path : selectionPaths) {
             treeNode = null;
             for (int index : path) {
                 treeNode = (treeNode == null) ? tree.getNode(index) : treeNode.getNode(index);
@@ -131,6 +131,24 @@ public class TestTreeSelection extends AbstractMetamerTest {
             }
             old = getNewSelection();
         }
+    }
+
+    protected void expandAll() {
+        guardXhr(selenium).click(expandAll);
+    }
+
+    protected Integer[] getIntsFromString(String string) {
+        Pattern pattern = Pattern.compile(".*\\[((?:(?:\\d+)(?:, )?)+)\\].*");
+        Matcher matcher = pattern.matcher(string);
+        if (matcher.find()) {
+            String[] strings = StringUtils.split(matcher.group(1), ", ");
+            Integer[] numbers = new Integer[strings.length];
+            for (int i = 0; i < strings.length; i++) {
+                numbers[i] = Integer.valueOf(strings[i]) + 1;
+            }
+            return numbers;
+        }
+        throw new IllegalStateException("pattern does not match");
     }
 
     private Integer[] getSelection() {
@@ -150,19 +168,5 @@ public class TestTreeSelection extends AbstractMetamerTest {
 
     private String getClientId() {
         return selenium.getText(clientId);
-    }
-
-    private Integer[] getIntsFromString(String string) {
-        Pattern pattern = Pattern.compile(".*\\[((?:(?:\\d+)(?:, )?)+)\\].*");
-        Matcher matcher = pattern.matcher(string);
-        if (matcher.find()) {
-            String[] strings = StringUtils.split(matcher.group(1), ", ");
-            Integer[] numbers = new Integer[strings.length];
-            for (int i = 0; i < strings.length; i++) {
-                numbers[i] = Integer.valueOf(strings[i]) + 1;
-            }
-            return numbers;
-        }
-        throw new IllegalStateException("pattern does not match");
     }
 }

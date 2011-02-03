@@ -24,7 +24,9 @@ package org.richfaces.tests.metamer.bean;
 import java.io.Serializable;
 import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
+import java.util.TreeMap;
 import java.util.concurrent.atomic.AtomicReference;
 
 import javax.annotation.PostConstruct;
@@ -54,6 +56,7 @@ public class RichTreeModelRecursiveAdaptorBean implements Serializable {
     private AtomicReference<Boolean> leafChildrenNullable = new AtomicReference<Boolean>(true);
     private boolean useMapModel;
     private transient List<RecursiveNode> rootNodes;
+    private Map<String, Boolean> expanded = new TreeMap<String, Boolean>();
 
     /*
      * Nodes which was loaded lazily in the current request
@@ -118,5 +121,9 @@ public class RichTreeModelRecursiveAdaptorBean implements Serializable {
     
     public void setUseMapModel(boolean useMapModel) {
         this.useMapModel = useMapModel;
+    }
+    
+    public Map<String, Boolean> getExpanded() {
+        return expanded;
     }
 }

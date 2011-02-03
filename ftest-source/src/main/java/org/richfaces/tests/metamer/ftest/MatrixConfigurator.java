@@ -353,14 +353,14 @@ public class MatrixConfigurator extends TestMethodSelector implements IInvokedMe
                     Pattern pattern = Pattern.compile(namePattern);
                     if (pattern.matcher(field.getName()).matches()) {
                         boolean isArray = field.getType().isArray();
-                        Class<?> representedType;
-                        if (isArray) {
+                        Class<?> representedType = field.getType();
+                        if (!parameterType.isAssignableFrom(representedType) && isArray) {
                             representedType = field.getType().getComponentType();
                         } else {
-                            representedType = field.getType();
+                            isArray = false;
                         }
                         if (parameterType.isAssignableFrom(representedType)) {
-                            Object[] assignments = getDeclaredFieldValues(testInstance, field);
+                            Object[] assignments = getDeclaredFieldValues(testInstance, field, isArray);
                             for (Object assignment : assignments) {
                                 result.add(assignment);
                             }
@@ -410,14 +410,14 @@ public class MatrixConfigurator extends TestMethodSelector implements IInvokedMe
         field.setAccessible(isAccessible);
     }
 
-    private Object[] getDeclaredFieldValues(Object testInstance, Field field) {
+    private Object[] getDeclaredFieldValues(Object testInstance, Field field, boolean isArray) {
         try {
             boolean isAccessible = field.isAccessible();
             if (!isAccessible) {
                 field.setAccessible(true);
             }
             Object[] result;
-            if (field.getType().isArray()) {
+            if (isArray) {
                 result = (Object[]) field.get(testInstance);
             } else {
                 result = new Object[] { field.get(testInstance) };
