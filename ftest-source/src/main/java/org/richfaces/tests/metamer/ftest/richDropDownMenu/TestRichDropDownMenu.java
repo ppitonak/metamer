@@ -107,9 +107,10 @@ public class TestRichDropDownMenu extends AbstractMetamerTest {
         selenium.click(pjq("input[type=radio][name$=disabledInput][value=true]"));
         selenium.waitForPageToLoad();
 
-        assertTrue(selenium.belongsClass(fileMenu, "rf-ddm-itm-dis"), "Menu should have class \"rf-ddm-itm-dis\".");
-        assertTrue(selenium.isElementPresent(emptyIcon), "Empty icon should be present.");
-        assertFalse(selenium.isElementPresent(icon), "Icon should not be present.");
+        assertTrue(selenium.belongsClass(fileMenu, "rf-ddm-dis"), "Menu should have class \"rf-ddm-dis\".");
+        assertTrue(selenium.isElementPresent(icon), "Icon should be present on the page.");
+        assertFalse(selenium.isElementPresent(fileMenuLabel), "File menu should have a disabled label.");
+        assertTrue(selenium.isElementPresent(pjq("div[id$=menu1] div.rf-ddm-lbl-dis")), "File menu should have a disabled label.");
     }
 
     @Test
