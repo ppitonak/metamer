@@ -54,7 +54,7 @@ public class TestRichSelect extends AbstractMetamerTest {
     private AttributeLocator inputValue = input.getAttribute(Attribute.VALUE);
     private JQueryLocator popup = jq("div.rf-sel-lst-cord");
     private JQueryLocator options = jq("div.rf-sel-opt:eq({0})"); // 00..49
-    private JQueryLocator button = pjq("div.rf-sel-btn");
+    private JQueryLocator button = pjq("span.rf-sel-btn");
     private JQueryLocator output = pjq("span[id$=output]");
 
     @Override
@@ -209,7 +209,7 @@ public class TestRichSelect extends AbstractMetamerTest {
         selenium.mouseDown(button);
         selenium.mouseUp(button);
         assertTrue(selenium.isVisible(popup), "Popup should be displayed.");
-        
+
         assertEquals(selenium.getElementHeight(jq("div.rf-sel-lst-scrl")), 100, "Height of list did not change");
     }
 
