@@ -21,9 +21,10 @@
  *******************************************************************************/
 package org.richfaces.tests.metamer.ftest.a4jAjax;
 
-import static org.jboss.test.selenium.utils.URLUtils.buildUrl;
 import static org.jboss.test.selenium.guard.request.RequestTypeGuardFactory.guardXhr;
 import static org.jboss.test.selenium.locator.LocatorFactory.jq;
+import static org.jboss.test.selenium.locator.option.OptionLocatorFactory.optionLabel;
+import static org.jboss.test.selenium.utils.URLUtils.buildUrl;
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.fail;
 
@@ -68,6 +69,8 @@ public class TestHSelectManyCheckbox extends AbstractMetamerTest {
     public void testBypassUpdates() {
         String reqTime = selenium.getText(time);
 
+        selenium.select(pjq("select[name$=listenerInput]"), optionLabel("doubleStringListener"));
+        selenium.waitForPageToLoad();
         selenium.click(pjq("input[type=radio][name$=bypassUpdatesInput][value=true]"));
         selenium.waitForPageToLoad();
 
@@ -77,6 +80,7 @@ public class TestHSelectManyCheckbox extends AbstractMetamerTest {
         assertEquals(selenium.getText(output1), "[Ferrari, Lexus]", "Output should not change");
         phaseInfo.assertPhases(PhaseId.RESTORE_VIEW, PhaseId.APPLY_REQUEST_VALUES, PhaseId.PROCESS_VALIDATIONS,
                 PhaseId.RENDER_RESPONSE);
+        phaseInfo.assertListener(PhaseId.PROCESS_VALIDATIONS, "listener invoked");
     }
 
     @Test
@@ -131,6 +135,8 @@ public class TestHSelectManyCheckbox extends AbstractMetamerTest {
     public void testImmediate() {
         String reqTime = selenium.getText(time);
 
+        selenium.select(pjq("select[name$=listenerInput]"), optionLabel("doubleStringListener"));
+        selenium.waitForPageToLoad();
         selenium.click(pjq("input[type=radio][name$=immediateInput][value=true]"));
         selenium.waitForPageToLoad();
 
@@ -140,12 +146,15 @@ public class TestHSelectManyCheckbox extends AbstractMetamerTest {
         assertEquals(selenium.getText(output1), "[Audi, Ferrari, Lexus]", "Output should change");
         phaseInfo.assertPhases(PhaseId.RESTORE_VIEW, PhaseId.APPLY_REQUEST_VALUES, PhaseId.PROCESS_VALIDATIONS,
                 PhaseId.UPDATE_MODEL_VALUES, PhaseId.INVOKE_APPLICATION, PhaseId.RENDER_RESPONSE);
+        phaseInfo.assertListener(PhaseId.APPLY_REQUEST_VALUES, "listener invoked");
     }
 
     @Test
     public void testImmediateBypassUpdates() {
         String reqTime = selenium.getText(time);
 
+        selenium.select(pjq("select[name$=listenerInput]"), optionLabel("doubleStringListener"));
+        selenium.waitForPageToLoad();
         selenium.click(pjq("input[type=radio][name$=bypassUpdatesInput][value=true]"));
         selenium.waitForPageToLoad();
         selenium.click(pjq("input[type=radio][name$=immediateInput][value=true]"));
@@ -155,7 +164,9 @@ public class TestHSelectManyCheckbox extends AbstractMetamerTest {
         waitGui.failWith("Page was not updated").waitForChange(reqTime, retrieveText.locator(time));
 
         assertEquals(selenium.getText(output1), "[Ferrari, Lexus]", "Output should not change");
-        phaseInfo.assertPhases(PhaseId.RESTORE_VIEW, PhaseId.APPLY_REQUEST_VALUES, PhaseId.RENDER_RESPONSE);
+        phaseInfo.assertPhases(PhaseId.RESTORE_VIEW, PhaseId.APPLY_REQUEST_VALUES, PhaseId.PROCESS_VALIDATIONS,
+                PhaseId.RENDER_RESPONSE);
+        phaseInfo.assertListener(PhaseId.APPLY_REQUEST_VALUES, "listener invoked");
     }
 
     @Test

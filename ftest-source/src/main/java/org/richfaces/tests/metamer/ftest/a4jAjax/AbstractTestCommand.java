@@ -23,6 +23,7 @@ package org.richfaces.tests.metamer.ftest.a4jAjax;
 
 import static org.jboss.test.selenium.guard.request.RequestTypeGuardFactory.guardXhr;
 import static org.jboss.test.selenium.locator.LocatorFactory.jq;
+import static org.jboss.test.selenium.locator.option.OptionLocatorFactory.optionLabel;
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.fail;
 
@@ -57,6 +58,8 @@ public abstract class AbstractTestCommand extends AbstractMetamerTest {
     public void testBypassUpdates(JQueryLocator command) {
         String reqTime = selenium.getText(time);
 
+        selenium.select(pjq("select[name$=listenerInput]"), optionLabel("doubleStringListener"));
+        selenium.waitForPageToLoad();
         selenium.click(pjq("input[type=radio][name$=bypassUpdatesInput][value=true]"));
         selenium.waitForPageToLoad();
 
@@ -67,6 +70,7 @@ public abstract class AbstractTestCommand extends AbstractMetamerTest {
         assertEquals(selenium.getText(output1), "", "Output should not change");
         phaseInfo.assertPhases(PhaseId.RESTORE_VIEW, PhaseId.APPLY_REQUEST_VALUES, PhaseId.PROCESS_VALIDATIONS,
                 PhaseId.RENDER_RESPONSE);
+        phaseInfo.assertListener(PhaseId.PROCESS_VALIDATIONS, "listener invoked");
     }
 
     public void testData(JQueryLocator command) {
@@ -120,6 +124,8 @@ public abstract class AbstractTestCommand extends AbstractMetamerTest {
     public void testImmediate(JQueryLocator command) {
         String reqTime = selenium.getText(time);
 
+        selenium.select(pjq("select[name$=listenerInput]"), optionLabel("doubleStringListener"));
+        selenium.waitForPageToLoad();
         selenium.click(pjq("input[type=radio][name$=immediateInput][value=true]"));
         selenium.waitForPageToLoad();
 
@@ -130,11 +136,14 @@ public abstract class AbstractTestCommand extends AbstractMetamerTest {
         assertEquals(selenium.getText(output1), "RichFaces 4", "Output should change");
         phaseInfo.assertPhases(PhaseId.RESTORE_VIEW, PhaseId.APPLY_REQUEST_VALUES, PhaseId.PROCESS_VALIDATIONS,
                 PhaseId.UPDATE_MODEL_VALUES, PhaseId.INVOKE_APPLICATION, PhaseId.RENDER_RESPONSE);
+        phaseInfo.assertListener(PhaseId.APPLY_REQUEST_VALUES, "listener invoked");
     }
 
     public void testImmediateBypassUpdates(JQueryLocator command) {
         String reqTime = selenium.getText(time);
 
+        selenium.select(pjq("select[name$=listenerInput]"), optionLabel("doubleStringListener"));
+        selenium.waitForPageToLoad();
         selenium.click(pjq("input[type=radio][name$=bypassUpdatesInput][value=true]"));
         selenium.waitForPageToLoad();
         selenium.click(pjq("input[type=radio][name$=immediateInput][value=true]"));
@@ -145,7 +154,9 @@ public abstract class AbstractTestCommand extends AbstractMetamerTest {
         waitGui.failWith("Page was not updated").waitForChange(reqTime, retrieveText.locator(time));
 
         assertEquals(selenium.getText(output1), "", "Output should not change");
-        phaseInfo.assertPhases(PhaseId.RESTORE_VIEW, PhaseId.APPLY_REQUEST_VALUES, PhaseId.RENDER_RESPONSE);
+        phaseInfo.assertPhases(PhaseId.RESTORE_VIEW, PhaseId.APPLY_REQUEST_VALUES, PhaseId.PROCESS_VALIDATIONS,
+                PhaseId.RENDER_RESPONSE);
+        phaseInfo.assertListener(PhaseId.APPLY_REQUEST_VALUES, "listener invoked");
     }
 
     public void testLimitRender(JQueryLocator command) {
