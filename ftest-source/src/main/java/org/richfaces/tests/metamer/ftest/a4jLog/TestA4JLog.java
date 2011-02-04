@@ -19,10 +19,11 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  *******************************************************************************/
-
 package org.richfaces.tests.metamer.ftest.a4jLog;
 
+import java.awt.event.KeyEvent;
 import static org.jboss.test.selenium.locator.LocatorFactory.jq;
+import static org.jboss.test.selenium.locator.option.OptionLocatorFactory.optionLabel;
 import static org.jboss.test.selenium.utils.URLUtils.buildUrl;
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertFalse;
@@ -46,13 +47,12 @@ public class TestA4JLog extends AbstractMetamerTest {
      * Enumeration representing all possible levels for a4j:log.
      */
     public enum LogLevel {
-        DEBUG, INFO, WARN, ERROR;
-    }
 
+        DEBUG, NULL, INFO, WARN, ERROR;
+    }
     private JQueryLocator input = pjq("input[id$=nameInput]");
     private JQueryLocator submitButton = pjq("input[id$=submitButton]");
     private JQueryLocator output = pjq("span[id$=out]");
-
     private JQueryLocator log = pjq("div.rf-log");
     private JQueryLocator levelSelect = pjq("div.rf-log select");
     private JQueryLocator logMsg = pjq("div.rf-log div.rf-log-contents div");
@@ -113,6 +113,11 @@ public class TestA4JLog extends AbstractMetamerTest {
     }
 
     @Test
+    public void testDebugFilterNull() {
+        testLogging(LogLevel.DEBUG, LogLevel.NULL);
+    }
+
+    @Test
     public void testDebugFilterDebug() {
         testLogging(LogLevel.DEBUG, LogLevel.DEBUG);
     }
@@ -130,6 +135,11 @@ public class TestA4JLog extends AbstractMetamerTest {
     @Test
     public void testDebugFilterError() {
         testLogging(LogLevel.DEBUG, LogLevel.ERROR);
+    }
+
+    @Test
+    public void testInfoFilterNull() {
+        testLogging(LogLevel.INFO, LogLevel.NULL);
     }
 
     @Test
@@ -153,6 +163,11 @@ public class TestA4JLog extends AbstractMetamerTest {
     }
 
     @Test
+    public void testWarnFilterNull() {
+        testLogging(LogLevel.WARN, LogLevel.NULL);
+    }
+
+    @Test
     public void testWarnFilterDebug() {
         testLogging(LogLevel.WARN, LogLevel.DEBUG);
     }
@@ -170,6 +185,11 @@ public class TestA4JLog extends AbstractMetamerTest {
     @Test
     public void testWarnFilterError() {
         testLogging(LogLevel.WARN, LogLevel.ERROR);
+    }
+
+    @Test
+    public void testErrorFilterNull() {
+        testLogging(LogLevel.ERROR, LogLevel.NULL);
     }
 
     @Test
@@ -194,29 +214,32 @@ public class TestA4JLog extends AbstractMetamerTest {
 
     private void testLogging(LogLevel logLevel, LogLevel filterLevel) {
         JQueryLocator logButton = pjq("input[id$=" + logLevel.toString().toLowerCase() + "Button]");
-        JQueryLocator levelInput = pjq("input[type=radio][value=" + filterLevel.toString().toLowerCase() + "]");
         JQueryLocator msgType = logMsg.getChild(jq("span.rf-log-entry-lbl"));
         JQueryLocator msgContent = logMsg.getChild(jq("span.rf-log-entry-msg"));
 
         if (filterLevel != LogLevel.DEBUG) {
-            selenium.click(levelInput);
-            selenium.waitForPageToLoad(TIMEOUT);
+            selenium.select(pjq("select[name$=levelInput]"), optionLabel(filterLevel.toString().toLowerCase()));
+            selenium.waitForPageToLoad();
         }
-        
+
         String selectedLevel = selenium.getSelectedLabel(levelSelect);
-        assertEquals(selectedLevel, filterLevel.toString().toLowerCase(), "Log level in select wasn't changed.");
+        if (filterLevel == LogLevel.NULL) {
+            assertEquals(selectedLevel, "info", "Log level in select wasn't changed.");
+        } else {
+            assertEquals(selectedLevel, filterLevel.toString().toLowerCase(), "Log level in select wasn't changed.");
+        }
 
         selenium.typeKeys(input, logLevel.toString());
         selenium.click(logButton);
 
         int count = selenium.getCount(logMsg);
         assertEquals(count, filterLevel.ordinal() <= logLevel.ordinal() ? 1 : 0,
-            "There should be only one message in log.");
+                "There should be only one message in log.");
 
         if (count == 0) {
             return;
         }
-        
+
         String loggedValue = selenium.getText(msgType).replaceAll(" *\\[.*\\]:$", "");
         assertEquals(loggedValue, logLevel.toString().toLowerCase(), "Message type in log.");
         loggedValue = selenium.getText(msgContent);

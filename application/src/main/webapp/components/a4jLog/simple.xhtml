@@ -6,7 +6,7 @@
 
     <!--
 JBoss, Home of Professional Open Source
-Copyright 2010, Red Hat, Inc. and individual contributors
+Copyright 2010-2011, Red Hat, Inc. and individual contributors
 by the @authors tag. See the copyright.txt in the distribution for a
 full listing of individual contributors.
 
@@ -59,8 +59,12 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 
             <br/><br/>
 
-            <a4j:log id="log" rendered="#{a4jLogBean.attributes['rendered'].value}" level="#{a4jLogBean.attributes['level'].value}"
-                     style="#{a4jLogBean.attributes['style'].value}" styleClass="#{a4jLogBean.attributes['styleClass'].value}"/>
+            <a4j:log id="log"
+                     level="#{a4jLogBean.attributes['level'].value}"
+                     mode="#{a4jLogBean.attributes['mode'].value}"
+                     rendered="#{a4jLogBean.attributes['rendered'].value}"
+                     style="#{a4jLogBean.attributes['style'].value}"
+                     styleClass="#{a4jLogBean.attributes['styleClass'].value}"/>
 
         </ui:define>
 
