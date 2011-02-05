@@ -26,10 +26,10 @@ import java.util.Date;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ViewScoped;
 import javax.faces.event.ActionEvent;
-import org.richfaces.component.UIPoll;
 
+import org.richfaces.component.UIPoll;
 import org.richfaces.tests.metamer.Attributes;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -41,7 +41,7 @@ import org.slf4j.LoggerFactory;
  * @version $Revision$
  */
 @ManagedBean(name = "a4jPollBean")
-@SessionScoped
+@ViewScoped
 public class A4JPollBean implements Serializable {
 
     private static final long serialVersionUID = 4810889475400649809L;

@@ -29,12 +29,56 @@ import org.richfaces.tests.metamer.ftest.AbstractComponentAttributes;
  * @author <a href="mailto:lfryc@redhat.com">Lukas Fryc</a>
  * @version $Revision$
  */
-public class IntervalAttributes extends AbstractComponentAttributes {
+public class PollAttributes extends AbstractComponentAttributes {
     public void setEnabled(boolean enabled) {
         setProperty("enabled", enabled);
     }
 
     public void setInterval(long interval) {
         setProperty("interval", interval);
+    }
+    
+    public void setAction(String action) {
+        setProperty("action", action);
+    }
+    
+    public void setActionListener(String actionListener) {
+        setProperty("actionListener", actionListener);
+    }
+    
+    public void setBypassUpdates(Boolean bypassUpdates) {
+        setProperty("bypassUpdates", bypassUpdates);
+    }
+    
+    public void setData(String data) {
+        setProperty("data", data);
+    }
+    
+    public void setExecute(String execute) {
+        setProperty("execute", execute);
+    }
+    
+    public void setImmediate(Boolean immediate) {
+        setProperty("immediate", immediate);
+    }
+    
+    public void setInterval(Integer interval) {
+        setProperty("interval", interval);
+    }
+    
+    public void setLimitRender(Boolean limitRender) {
+        setProperty("limitRender", limitRender);
+    }
+    
+    public void setRender(String render) {
+        setProperty("render", render);
+    }
+    
+    public void setRendered(Boolean rendered) {
+        setProperty("rendered", rendered);
+    }
+    
+    public void setStatus(String status) {
+        setProperty("status", status);
     }
 }

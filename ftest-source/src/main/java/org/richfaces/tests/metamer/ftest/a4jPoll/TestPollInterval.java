@@ -46,14 +46,14 @@ import static org.jboss.test.selenium.utils.PrimitiveUtils.*;
  * @author <a href="mailto:lfryc@redhat.com">Lukas Fryc</a>
  * @version $Revision$
  */
-public class TestInterval extends AbstractMetamerTest {
+public class TestPollInterval extends AbstractMetamerTest {
 
     private static final int ITERATION_COUNT = 5;
 
     @Inject
     int interval;
 
-    IntervalAttributes attributes = new IntervalAttributes();
+    PollAttributes attributes = new PollAttributes();
 
     JQueryLocator time = pjq("span[id$=time]");
     AttributeLocator<?> clientTime = pjq("span[id$=event1:outputTime]").getAttribute(Attribute.TITLE);
