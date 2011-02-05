@@ -22,6 +22,7 @@
 package org.richfaces.tests.metamer.ftest.a4jQueue;
 
 import static org.jboss.test.selenium.utils.URLUtils.buildUrl;
+import static org.testng.Assert.assertEquals;
 
 import java.net.URL;
 
@@ -32,6 +33,8 @@ import org.richfaces.tests.metamer.ftest.annotations.Inject;
 import org.richfaces.tests.metamer.ftest.annotations.IssueTracking;
 import org.richfaces.tests.metamer.ftest.annotations.Use;
 import org.testng.annotations.Test;
+
+import com.thoughtworks.selenium.SeleniumException;
 
 /**
  * @author <a href="mailto:lfryc@redhat.com">Lukas Fryc</a>
@@ -184,16 +187,44 @@ public class TestGlobalQueue extends AbstractMetamerTest {
         // fireEvents(1);
     }
 
-    // TODO not implemented yet
+    @Test
     public void testIgnoreDuplicatedResponses() {
-        attributes.setIgnoreDupResponses(true);
+        attributes.setIgnoreDupResponses(false);
 
         XHRHalter.enable();
+        queue.type("a");
         queue.fireEvent(1);
         XHRHalter handle = XHRHalter.getHandleBlocking();
         handle.send();
+        queue.type("b");
         queue.fireEvent(1);
         handle.complete();
+        waitGui.dontFail().waitForChange("", retrieveText.locator(queue.repeatedText));
+        assertEquals(queue.getRepeatedText(), "a");
         handle.waitForOpen();
+        handle.complete();
+        waitGui.dontFail().waitForChange("a", retrieveText.locator(queue.repeatedText));
+        assertEquals(queue.getRepeatedText(), "b");
+
+        attributes.setIgnoreDupResponses(true);
+
+        XHRHalter.enable();
+        queue.type("c");
+        queue.fireEvent(1);
+        handle = XHRHalter.getHandleBlocking();
+        handle.send();
+        queue.type("d");
+        queue.fireEvent(1);
+        handle.complete();
+        try {
+            waitGui.dontFail().waitForChange("b", retrieveText.locator(queue.repeatedText));
+        } catch (SeleniumException e) {
+            // expected timeout
+        }
+        assertEquals(queue.getRepeatedText(), "b");
+        handle.waitForOpen();
+        handle.complete();
+        waitGui.dontFail().waitForChange("b", retrieveText.locator(queue.repeatedText));
+        assertEquals(queue.getRepeatedText(), "d");
     }
 }

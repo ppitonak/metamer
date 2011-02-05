@@ -41,6 +41,8 @@ public class QueueModel {
 
     ReferencedLocator<JQueryLocator> input1 = ref(form, "input:text[id$=input1]");
     ReferencedLocator<JQueryLocator> input2 = ref(form, "input:text[id$=input2]");
+    ReferencedLocator<JQueryLocator> button = ref(form, "input:submit[id$=actionButton]");
+    ReferencedLocator<JQueryLocator> repeatedText = ref(form, "span[id$=outtext]");
 
     ElementLocator<?> events1 = ref(form, "span[id$=events1]");
     ElementLocator<?> events2 = ref(form, "span[id$=events2]");
@@ -87,6 +89,18 @@ public class QueueModel {
         for (int i = 0; i < countOfEvents; i++) {
             selenium.fireEvent(input, KEYPRESS);
         }
+    }
+    
+    public void clickButton() {
+        selenium.click(button);
+    }
+    
+    public void type(String text) {
+        selenium.type(input1, text);
+    }
+    
+    public String getRepeatedText() {
+        return selenium.getText(repeatedText);
     }
 
     public void initializeCounts() {

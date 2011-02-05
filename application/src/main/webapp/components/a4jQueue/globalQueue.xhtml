@@ -74,6 +74,14 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                         <a4j:ajax event="keypress" onbegin="add(#{rich:element('requests')}); #{rich:element('timeWatcher:grid')}.begin(); " render="outtext" oncomplete="#{rich:element('timeWatcher:grid')}.complete(); #{rich:element('timeWatcher:grid')}.difference(); "
                                   onbeforedomupdate="add(#{rich:element('updates')});"/>
                     </h:inputText> 
+                    
+                    <h:outputText value="Click here:" />
+                    <h:commandButton id="actionButton" value="Action" action="#{a4jQueueBean.increment}"
+                    			onclick="add(#{rich:element('events1')}); #{rich:element('timeWatcher:grid')}.event();">
+                    	<a4j:ajax onbegin="add(#{rich:element('requests')}); #{rich:element('timeWatcher:grid')}.begin(); "
+                    			oncomplete="#{rich:element('timeWatcher:grid')}.complete(); #{rich:element('timeWatcher:grid')}.difference(); "
+                                onbeforedomupdate="add(#{rich:element('updates')});" />
+                    </h:commandButton>
 
                     <h:outputText value="Repeated text:" />
                     <h:outputText value="#{a4jQueueBean.text}" id="outtext" style="font-weight:bold;" />
