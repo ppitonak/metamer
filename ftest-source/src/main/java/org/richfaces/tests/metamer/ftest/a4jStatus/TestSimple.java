@@ -21,10 +21,17 @@
  *******************************************************************************/
 package org.richfaces.tests.metamer.ftest.a4jStatus;
 
+import static org.jboss.test.selenium.locator.LocatorFactory.jq;
 import static org.jboss.test.selenium.utils.URLUtils.buildUrl;
+import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.assertFalse;
+import static org.testng.Assert.assertTrue;
 
 import java.net.URL;
 
+import org.jboss.cheiron.halt.XHRHalter;
+import org.jboss.test.selenium.locator.JQueryLocator;
+import org.jboss.test.selenium.waiting.retrievers.TextRetriever;
 import org.testng.annotations.Test;
 
 /**
@@ -32,6 +39,12 @@ import org.testng.annotations.Test;
  * @version $Revision$
  */
 public class TestSimple extends AbstracStatusTest {
+
+    StatusAttributes attributes = new StatusAttributes();
+
+    JQueryLocator defaultStatus = jq("span[id$=a4jStatusPanel]");
+    TextRetriever retrieveDefaultStatus = retrieveText.locator(defaultStatus);
+
     @Override
     public URL getTestUrl() {
         return buildUrl(contextPath, "faces/components/a4jStatus/simple.xhtml");
@@ -59,5 +72,24 @@ public class TestSimple extends AbstracStatusTest {
         testRequestButton2();
         testRequestButtonError();
         testRequestButton1();
+    }
+
+    @Test
+    public void testRendered() {
+        assertTrue(selenium.isElementPresent(status));
+
+        attributes.setRendered(false);
+
+        assertFalse(selenium.isElementPresent(status));
+
+        XHRHalter.enable();
+        selenium.click(button1);
+        XHRHalter halt = getCurrentXHRHalter();
+        assertEquals(retrieveDefaultStatus.retrieve(), "WORKING");
+        retrieveDefaultStatus.initializeValue();
+        halt.complete();
+        waitAjax.waitForChange(retrieveDefaultStatus);
+        assertEquals(retrieveDefaultStatus.retrieve(), "");
+        XHRHalter.disable();
     }
 }
