@@ -7,16 +7,14 @@ import static org.jboss.test.selenium.dom.Event.KEYPRESS;
 import static org.jboss.test.selenium.locator.Attribute.TITLE;
 import static org.jboss.test.selenium.locator.reference.ReferencedLocator.ref;
 import static org.jboss.test.selenium.utils.text.SimplifiedFormat.format;
+import static org.jboss.test.selenium.waiting.WaitFactory.waitAjax;
 import static org.jboss.test.selenium.waiting.retrievers.RetrieverFactory.RETRIEVE_ATTRIBUTE;
 import static org.jboss.test.selenium.waiting.retrievers.RetrieverFactory.RETRIEVE_TEXT;
 import static org.richfaces.tests.metamer.ftest.AbstractMetamerTest.pjq;
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertTrue;
-import static org.jboss.test.selenium.waiting.WaitFactory.waitAjax;
-import static org.jboss.test.selenium.waiting.WaitFactory.textEquals;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
