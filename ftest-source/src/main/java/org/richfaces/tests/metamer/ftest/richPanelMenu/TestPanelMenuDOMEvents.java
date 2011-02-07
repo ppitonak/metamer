@@ -49,7 +49,7 @@ import org.testng.annotations.Test;
 public class TestPanelMenuDOMEvents extends AbstractPanelMenuTest {
 
     @Inject
-    PanelMenuMode mode = PanelMenuMode.client;
+    PanelMenuMode mode;
 
     @Inject
     @Use("events")
@@ -77,9 +77,11 @@ public class TestPanelMenuDOMEvents extends AbstractPanelMenuTest {
 
     @BeforeMethod
     public void setup() {
-        attributes.setGroupMode(mode);
-        menu.setGroupMode(mode);
         waitToggle = waitModel.timeout(5000).interval(500);
+        if (mode != null) {
+            attributes.setGroupMode(mode);
+            menu.setGroupMode(mode);
+        }
     }
 
     @Test

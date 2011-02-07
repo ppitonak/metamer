@@ -101,8 +101,8 @@ public class PanelMenuAttributes extends AbstractComponentAttributes {
         setProperty("itemDisabledRightIcon", itemDisabledRightIcon);
     }
 
-    public void setLeftIcon(String leftIcon) {
-        setProperty("leftIcon", leftIcon);
+    public void setItemLeftIcon(String itemLeftIcon) {
+        setProperty("itemLeftIcon", itemLeftIcon);
     }
 
     public void setItemMode(PanelMenuMode itemMode) {

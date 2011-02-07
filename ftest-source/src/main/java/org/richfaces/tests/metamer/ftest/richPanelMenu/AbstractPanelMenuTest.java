@@ -47,6 +47,7 @@ public class AbstractPanelMenuTest extends AbstractMetamerTest {
     PanelMenu.Group group24 = group2.getGroupContains("Group 2.4");
     PanelMenu.Group group26 = group2.getGroupContains("Group 2.6");
     PanelMenu.Item item242 = group24.getItemContains("Item 2.4.2");
+    PanelMenu.Group group4 = menu.getGroupContains("Group 4");
 
     @Override
     public URL getTestUrl() {
