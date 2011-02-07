@@ -21,7 +21,9 @@
  *******************************************************************************/
 package org.richfaces.tests.metamer.ftest;
 
+import static org.jboss.test.selenium.dom.Event.*;
 import static org.jboss.test.selenium.encapsulated.JavaScript.js;
+import static org.jboss.test.selenium.guard.request.RequestTypeGuardFactory.guard;
 import static org.jboss.test.selenium.guard.request.RequestTypeGuardFactory.guardHttp;
 import static org.jboss.test.selenium.guard.request.RequestTypeGuardFactory.guardXhr;
 import static org.jboss.test.selenium.locator.LocatorFactory.id;
@@ -70,7 +72,7 @@ import org.testng.annotations.BeforeMethod;
  * @version $Revision$
  */
 public abstract class AbstractMetamerTest extends AbstractTestCase {
-    
+
     protected JQueryLocator time = jq("span[id$=requestTime]");
     protected JQueryLocator renderChecker = jq("span[id$=renderChecker]");
     protected JQueryLocator statusChecker = jq("span[id$=statusCheckerOutput]");
@@ -79,17 +81,17 @@ public abstract class AbstractMetamerTest extends AbstractTestCase {
     protected TextRetriever retrieveRenderChecker = retrieveText.locator(jq("#renderChecker"));
     protected TextRetriever retrieveStatusChecker = retrieveText.locator(jq("#statusCheckerOutput"));
     protected PhaseInfo phaseInfo = new PhaseInfo();
-    
-    
-    protected LocatorReference<JQueryLocator> attributesRoot = new LocatorReference<JQueryLocator>(pjq("span[id$=:attributes:panel]"));
+
+    protected LocatorReference<JQueryLocator> attributesRoot = new LocatorReference<JQueryLocator>(
+        pjq("span[id$=:attributes:panel]"));
 
     /**
      * timeout in miliseconds
      */
     public static final long TIMEOUT = 5000;
     @Inject
-    @Templates({"plain", "richDataTable1,redDiv", "richDataTable2,redDiv", "a4jRepeat1", "a4jRepeat2", "hDataTable1",
-        "hDataTable2", "uiRepeat1", "uiRepeat2"})
+    @Templates({ "plain", "richDataTable1,redDiv", "richDataTable2,redDiv", "a4jRepeat1", "a4jRepeat2", "hDataTable1",
+        "hDataTable2", "uiRepeat1", "uiRepeat2" })
     private TemplatesList template;
 
     /**
@@ -181,7 +183,7 @@ public abstract class AbstractMetamerTest extends AbstractTestCase {
     /**
      * A helper method for testing javascripts events. It sets alert('testedevent') to the input field for given event
      * and fires the event. Then it checks the message in the alert dialog.
-     *
+     * 
      * @param event
      *            JavaScript event to be tested
      * @param element
@@ -199,11 +201,12 @@ public abstract class AbstractMetamerTest extends AbstractTestCase {
         selenium.fireEvent(element, event);
 
         waitGui.failWith("Attribute on" + attributeName + " does not work correctly").until(
-                new EventFiredCondition(event));
+            new EventFiredCondition(event));
     }
 
     /**
      * Returns the locale of the tested page
+     * 
      * @return the locale of the tested page
      */
     public Locale getLocale() {
@@ -214,7 +217,7 @@ public abstract class AbstractMetamerTest extends AbstractTestCase {
     /**
      * A helper method for testing attribute "style". It sets "background-color: yellow; font-size: 1.5em;" to the input
      * field and checks that it was changed on the page.
-     *
+     * 
      * @param element
      *            locator of tested element
      * @param attribute
@@ -274,14 +277,14 @@ public abstract class AbstractMetamerTest extends AbstractTestCase {
 
     /**
      * A helper method for testing attribute "dir". It tries null, ltr and rtl.
-     *
+     * 
      * @param element
      *            locator of tested element
      */
     protected void testDir(ElementLocator<?> element) {
         ElementLocator<?> ltrInput = ref(attributesRoot, "input[type=radio][name$=dirInput][value=ltr]");
         ElementLocator<?> rtlInput = ref(attributesRoot, "input[type=radio][name$=dirInput][value=rtl]");
-        
+
         AttributeLocator<?> dirAttribute = element.getAttribute(new Attribute("dir"));
 
         // dir = null
@@ -304,7 +307,7 @@ public abstract class AbstractMetamerTest extends AbstractTestCase {
 
     /**
      * A helper method for testing attribute "lang".
-     *
+     * 
      * @param element
      *            locator of tested element
      */
@@ -329,7 +332,7 @@ public abstract class AbstractMetamerTest extends AbstractTestCase {
 
     /**
      * A helper method for testing attribute "title".
-     *
+     * 
      * @param element
      *            locator of tested element
      */
@@ -350,7 +353,9 @@ public abstract class AbstractMetamerTest extends AbstractTestCase {
     }
 
     /**
-     * A helper method for testing standard HTML attributes (RichFaces attributes that are directly put into markup), e.g. hreflang.
+     * A helper method for testing standard HTML attributes (RichFaces attributes that are directly put into markup),
+     * e.g. hreflang.
+     * 
      * @param element
      *            locator of tested element
      * @param attribute
@@ -360,11 +365,12 @@ public abstract class AbstractMetamerTest extends AbstractTestCase {
      */
     protected void testHtmlAttribute(ElementLocator<?> element, String attribute, String value) {
         AttributeLocator<?> attr = element.getAttribute(new Attribute(attribute));
-        
+
         selenium.type(pjq("input[id$=" + attribute + "Input]"), value);
         selenium.waitForPageToLoad();
 
-        assertTrue(selenium.getAttribute(attr).contains(value), "Attribute " + attribute + " should contain \"" + value + "\".");
+        assertTrue(selenium.getAttribute(attr).contains(value), "Attribute " + attribute + " should contain \"" + value
+            + "\".");
     }
 
     /**
@@ -383,10 +389,32 @@ public abstract class AbstractMetamerTest extends AbstractTestCase {
 
     /**
      * Verifies that only given phases were executed. It uses the list of phases in the header of the page.
-     * @param phases phases that are expected to have been executed
+     * 
+     * @param phases
+     *            phases that are expected to have been executed
      */
     @Deprecated
     protected void assertPhases(PhaseId... phases) {
         phaseInfo.assertPhases(phases);
+    }
+
+    protected void fireEventNatively(ElementLocator<?> target, Event event) {
+        if (event == CLICK) {
+            selenium.click(target);
+        } else if (event == DBLCLICK) {
+            selenium.doubleClick(target);
+        } else if (event == MOUSEMOVE) {
+            selenium.mouseMove(target);
+        } else if (event == MOUSEDOWN) {
+            selenium.mouseDown(target);
+        } else if (event == MOUSEUP) {
+            selenium.mouseUp(target);
+        } else if (event == MOUSEOVER) {
+            selenium.mouseOver(target);
+        } else if (event == MOUSEOUT) {
+            selenium.mouseOut(target);
+        } else {
+            selenium.fireEvent(target, event);
+        }
     }
 }

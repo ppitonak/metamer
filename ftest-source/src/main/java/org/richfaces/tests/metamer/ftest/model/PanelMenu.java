@@ -4,8 +4,8 @@ import static org.jboss.test.selenium.locator.Attribute.CLASS;
 import static org.jboss.test.selenium.locator.Attribute.SRC;
 import static org.jboss.test.selenium.locator.LocatorFactory.jq;
 import static org.jboss.test.selenium.locator.reference.ReferencedLocator.ref;
-import static org.jboss.test.selenium.utils.text.SimplifiedFormat.format;
 
+import org.jboss.test.selenium.GuardRequest;
 import org.jboss.test.selenium.JQuerySelectors;
 import org.jboss.test.selenium.RequestTypeModelGuard.Model;
 import org.jboss.test.selenium.framework.AjaxSelenium;
@@ -14,7 +14,9 @@ import org.jboss.test.selenium.locator.AttributeLocator;
 import org.jboss.test.selenium.locator.ElementLocator;
 import org.jboss.test.selenium.locator.JQueryLocator;
 import org.jboss.test.selenium.locator.reference.ReferencedLocator;
+import org.jboss.test.selenium.request.RequestType;
 import org.jboss.test.selenium.utils.text.SimplifiedFormat;
+import org.richfaces.PanelMenuMode;
 
 public class PanelMenu extends AbstractModel<JQueryLocator> implements Model {
 
@@ -22,9 +24,24 @@ public class PanelMenu extends AbstractModel<JQueryLocator> implements Model {
 
     private ReferencedLocator<JQueryLocator> topItems = ref(root, "> .rf-pm-top-itm");
     private ReferencedLocator<JQueryLocator> topGroups = ref(root, "> .rf-pm-top-gr");
+    private ReferencedLocator<JQueryLocator> anySelectedItem = ref(root, ".rf-pm-itm-sel");
+    private ReferencedLocator<JQueryLocator> anySelectedGroup = ref(root, ".rf-pm-gr-sel");
+    private ReferencedLocator<JQueryLocator> anyDisabledItem = ref(root, "div[class*=rf-pm-][class*=-itm-dis]");
+    private ReferencedLocator<JQueryLocator> anyDisabledGroup = ref(root, "div[class*=rf-pm-][class*=-gr-dis]");
+
+    PanelMenuMode groupMode = PanelMenuMode.client;
+    PanelMenuMode itemMode = PanelMenuMode.ajax;
 
     public PanelMenu(JQueryLocator root) {
         super(root);
+    }
+
+    public void setGroupMode(PanelMenuMode groupMode) {
+        this.groupMode = groupMode;
+    }
+
+    public void setItemMode(PanelMenuMode itemMode) {
+        this.itemMode = itemMode;
     }
 
     public int getItemCount() {
@@ -46,7 +63,7 @@ public class PanelMenu extends AbstractModel<JQueryLocator> implements Model {
     public Item getItem(int index) {
         return new Item(topItems.getNthOccurence(index));
     }
-    
+
     public Item getItemContains(String string) {
         return new Item(JQuerySelectors.append(topItems, SimplifiedFormat.format(":contains('{0}')", string)));
     }
@@ -54,7 +71,7 @@ public class PanelMenu extends AbstractModel<JQueryLocator> implements Model {
     public Group getGroup(int index) {
         return new Group(topGroups.getNthOccurence(index));
     }
-    
+
     public Group getGroupContains(String string) {
         return new Group(JQuerySelectors.append(topGroups, SimplifiedFormat.format(":contains('{0}')", string)));
     }
@@ -65,6 +82,26 @@ public class PanelMenu extends AbstractModel<JQueryLocator> implements Model {
 
     public Group getAnyTopGroup() {
         return new Group(topGroups.getReferenced());
+    }
+    
+    public Group getAnySelectedItem() {
+        return new Group(anySelectedItem.getReferenced());
+    }
+    
+    public Group getAnySelectedGroup() {
+        return new Group(anySelectedGroup.getReferenced());
+    }
+    
+    public Group getAnyDisabledItem() {
+        return new Group(anyDisabledItem.getReferenced());
+    }
+    
+    public Group getAnyDisabledGroup() {
+        return new Group(anyDisabledGroup.getReferenced());
+    }
+    
+    public Group getAnyExpandedGroup() {
+        return new Group(JQuerySelectors.append(topGroups, ":has(.rf-pm-hdr-exp)"));
     }
 
     public class Group extends AbstractModel<JQueryLocator> implements Model {
@@ -110,7 +147,7 @@ public class PanelMenu extends AbstractModel<JQueryLocator> implements Model {
         public Group getGroup(int index) {
             return new Group(groups.getNthOccurence(index));
         }
-        
+
         public Group getGroupContains(String string) {
             return new Group(JQuerySelectors.append(groups, SimplifiedFormat.format(":contains('{0}')", string)));
         }
@@ -125,6 +162,14 @@ public class PanelMenu extends AbstractModel<JQueryLocator> implements Model {
 
         public boolean isSelected() {
             return selenium.getAttribute(header.getAttribute(CLASS)).contains("-sel");
+        }
+        
+        public boolean isExpanded() {
+            return selenium.getAttribute(header.getAttribute(CLASS)).contains("-exp");
+        }
+        
+        public boolean isCollapsed() {
+            return selenium.getAttribute(header.getAttribute(CLASS)).contains("-colps");
         }
 
         public boolean isHovered() {
@@ -152,7 +197,11 @@ public class PanelMenu extends AbstractModel<JQueryLocator> implements Model {
         }
 
         public void toggle() {
-            selenium.click(label);
+            new GuardRequest(getRequestTypeForMode(groupMode)) {
+                public void command() {
+                    selenium.click(label);
+                }
+            }.waitRequest();
         }
 
         public class Icon extends PanelMenu.Icon {
@@ -207,7 +256,11 @@ public class PanelMenu extends AbstractModel<JQueryLocator> implements Model {
         }
 
         public void select() {
-            selenium.click(label);
+            new GuardRequest(getRequestTypeForMode(itemMode)) {
+                public void command() {
+                    selenium.click(label);
+                }
+            }.waitRequest();
         }
 
         public void hover() {
@@ -261,6 +314,17 @@ public class PanelMenu extends AbstractModel<JQueryLocator> implements Model {
             super(root);
         }
 
+    }
+
+    public static RequestType getRequestTypeForMode(PanelMenuMode mode) {
+        switch (mode) {
+            case ajax:
+                return RequestType.XHR;
+            case server:
+                return RequestType.HTTP;
+            default:
+                return RequestType.NONE;
+        }
     }
 
 }

@@ -45,7 +45,7 @@ public class PanelMenuAttributes extends AbstractComponentAttributes {
         setProperty("expandEvent", expandEvent);
     }
 
-    public void setExpandSingle(String expandSingle) {
+    public void setExpandSingle(Boolean expandSingle) {
         setProperty("expandSingle", expandSingle);
     }
 
@@ -181,7 +181,7 @@ public class PanelMenuAttributes extends AbstractComponentAttributes {
         setProperty("topItemRightIcon", topItemRightIcon);
     }
 
-    public void setWidth(Integer width) {
+    public void setWidth(String width) {
         setProperty("width", width);
     }
 }

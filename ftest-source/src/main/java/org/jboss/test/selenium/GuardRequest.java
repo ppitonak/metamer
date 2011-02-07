@@ -33,7 +33,7 @@ public abstract class GuardRequest {
     private RequestTypeGuard guard;
 
     public GuardRequest(RequestType requestExpected) {
-        guard = new RequestTypeGuard(requestExpected, false);
+        this.guard = new RequestTypeGuard(requestExpected, false);
     }
 
     public void waitRequest() {
