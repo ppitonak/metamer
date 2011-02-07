@@ -57,6 +57,7 @@ public class RichPanelMenuItemBean implements Serializable {
         attributes = Attributes.getComponentAttributesFromFacesConfig(UIPanelMenuItem.class, getClass());
 
         attributes.setAttribute("rendered", true);
+        attributes.setAttribute("selectable", true);
 
         // already defined in source directly
         attributes.remove("action");
