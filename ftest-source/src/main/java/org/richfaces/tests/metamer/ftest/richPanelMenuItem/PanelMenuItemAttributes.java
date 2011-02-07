@@ -57,20 +57,24 @@ public class PanelMenuItemAttributes extends AbstractComponentAttributes {
         setProperty("leftDisabledIcon", leftDisabledIcon);
     }
 
-    public void setLeftExpandedIcon(String leftExpandedIcon) {
-        setProperty("leftIcon", leftExpandedIcon);
+    public void setLeftIcon(String leftIcon) {
+        setProperty("leftIcon", leftIcon);
     }
-    
+
     public void setLeftIconClass(String leftIconClass) {
         setProperty("leftIconClass", leftIconClass);
     }
 
-    public void setLimitRender(String limitRender) {
+    public void setLimitRender(Boolean limitRender) {
         setProperty("limitRender", limitRender);
     }
 
     public void setMode(PanelMenuMode mode) {
         setProperty("mode", mode);
+    }
+
+    public PanelMenuMode getMode() {
+        return PanelMenuMode.valueOf(getProperty("mode"));
     }
 
     public void setRender(String render) {
@@ -84,7 +88,11 @@ public class PanelMenuItemAttributes extends AbstractComponentAttributes {
     public void setRightDisabledIcon(String rightDisabledIcon) {
         setProperty("rightDisabledIcon", rightDisabledIcon);
     }
-    
+
+    public void setRightIcon(String rightIcon) {
+        setProperty("rightIcon", rightIcon);
+    }
+
     public void setRightIconClass(String rightIconClass) {
         setProperty("rightIconClass", rightIconClass);
     }
@@ -96,8 +104,8 @@ public class PanelMenuItemAttributes extends AbstractComponentAttributes {
     public void setStatus(String status) {
         setProperty("status", status);
     }
-    
-    public void setStyle (String style) {
+
+    public void setStyle(String style) {
         setProperty("style", style);
     }
 

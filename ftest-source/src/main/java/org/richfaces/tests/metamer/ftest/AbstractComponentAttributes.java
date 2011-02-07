@@ -22,6 +22,7 @@
 package org.richfaces.tests.metamer.ftest;
 
 import static org.jboss.test.selenium.guard.request.RequestTypeGuardFactory.guard;
+import static org.jboss.test.selenium.locator.Attribute.VALUE;
 import static org.jboss.test.selenium.locator.LocatorFactory.jq;
 import static org.jboss.test.selenium.locator.reference.ReferencedLocator.referenceInferred;
 import static org.richfaces.tests.metamer.ftest.AbstractMetamerTest.pjq;
@@ -68,7 +69,10 @@ public class AbstractComponentAttributes {
     }
 
     protected String getProperty(String propertyName) {
-        final ElementLocator<?> locator = propertyLocator.format(propertyName, "");
+        final ReferencedLocator<JQueryLocator> locator = propertyLocator.format(propertyName, "");
+        if (selenium.getCount(locator) > 1) {
+            return selenium.getAttribute(propertyLocator.format(propertyName, "[checked]").getAttribute(VALUE));
+        }
         return selenium.getValue(locator);
     }
 

@@ -1,19 +1,25 @@
 package org.richfaces.tests.metamer.ftest.model;
 
 import static org.jboss.test.selenium.locator.Attribute.CLASS;
+import static org.jboss.test.selenium.locator.Attribute.SRC;
 import static org.jboss.test.selenium.locator.reference.ReferencedLocator.ref;
+import static org.jboss.test.selenium.utils.text.SimplifiedFormat.format;
 
+import org.jboss.test.selenium.JQuerySelectors;
+import org.jboss.test.selenium.RequestTypeModelGuard.Model;
 import org.jboss.test.selenium.framework.AjaxSelenium;
 import org.jboss.test.selenium.framework.AjaxSeleniumProxy;
+import org.jboss.test.selenium.locator.AttributeLocator;
 import org.jboss.test.selenium.locator.JQueryLocator;
 import org.jboss.test.selenium.locator.reference.ReferencedLocator;
+import org.jboss.test.selenium.utils.text.SimplifiedFormat;
 
-public class PanelMenu extends AbstractModel<JQueryLocator> {
+public class PanelMenu extends AbstractModel<JQueryLocator> implements Model {
 
     AjaxSelenium selenium = AjaxSeleniumProxy.getInstance();
 
-    private ReferencedLocator<JQueryLocator> topItems = ref(root, "> rf-pm-top-itm");
-    private ReferencedLocator<JQueryLocator> topGroups = ref(root, "> rf-pm-top-gr");
+    private ReferencedLocator<JQueryLocator> topItems = ref(root, "> .rf-pm-top-itm");
+    private ReferencedLocator<JQueryLocator> topGroups = ref(root, "> .rf-pm-top-gr");
 
     public PanelMenu(JQueryLocator root) {
         super(root);
@@ -51,14 +57,15 @@ public class PanelMenu extends AbstractModel<JQueryLocator> {
         return new Group(topGroups.getReferenced());
     }
 
-    public class Group extends AbstractModel<JQueryLocator> {
+    public class Group extends AbstractModel<JQueryLocator> implements Model {
         ReferencedLocator<JQueryLocator> label = ref(root, "> table > tbody > tr > td[class*=rf-][class*=-gr-lbl]");
         ReferencedLocator<JQueryLocator> leftIcon = ref(root, "> table > tbody > tr > td[class*=rf-][class*=-gr-ico]");
         ReferencedLocator<JQueryLocator> rightIcon = ref(root,
             "div[class*=rf-][class*=-gr-hdr] > table > tbody > tr > td[class*=rf-][class*=-itm-gr-ico]");
 
-        private ReferencedLocator<JQueryLocator> items = ref(root, "> rf-pm-itm");
-        private ReferencedLocator<JQueryLocator> groups = ref(root, "> rf-pm-gr");
+        private ReferencedLocator<JQueryLocator> content = ref(root, "> div[class*=rf-pm-][class*=gr-cnt]");
+        private ReferencedLocator<JQueryLocator> items = ref(content, "> .rf-pm-itm");
+        private ReferencedLocator<JQueryLocator> groups = ref(content, "> .rf-pm-gr");
 
         public Group(JQueryLocator root) {
             super(root);
@@ -78,6 +85,10 @@ public class PanelMenu extends AbstractModel<JQueryLocator> {
 
         public Item getItem(int index) {
             return new Item(items.getNthOccurence(index));
+        }
+        
+        public Item getItemContains(String string) {
+            return new Item(JQuerySelectors.append(items, SimplifiedFormat.format(":contains('{0}')", string)));
         }
 
         public Iterable<Group> getAllGroups() {
@@ -99,7 +110,7 @@ public class PanelMenu extends AbstractModel<JQueryLocator> {
         public boolean isSelected() {
             return selenium.getAttribute(this.getAttribute(CLASS)).contains("-sel");
         }
-        
+
         public Icon getLeftIcon() {
             return new Icon(leftIcon.getReferenced());
         }
@@ -113,7 +124,7 @@ public class PanelMenu extends AbstractModel<JQueryLocator> {
         }
     }
 
-    public class Item extends AbstractModel<JQueryLocator> {
+    public class Item extends AbstractModel<JQueryLocator> implements Model {
         ReferencedLocator<JQueryLocator> label = ref(root, "> table > tbody > tr > td[class*=rf-][class*=-itm-lbl]");
         ReferencedLocator<JQueryLocator> leftIcon = ref(root, "> table > tbody > tr > td[class*=rf-][class*=-itm-ico]");
         ReferencedLocator<JQueryLocator> rightIcon = ref(root,
@@ -131,6 +142,14 @@ public class PanelMenu extends AbstractModel<JQueryLocator> {
             return selenium.getAttribute(this.getAttribute(CLASS)).contains("-hov");
         }
 
+        public boolean isDisabled() {
+            return selenium.getAttribute(this.getAttribute(CLASS)).contains("-dis");
+        }
+        
+        public boolean isVisible() {
+            return selenium.isElementPresent(this) && selenium.isDisplayed(this);
+        }
+
         public Icon getLeftIcon() {
             return new Icon(leftIcon.getReferenced());
         }
@@ -142,12 +161,39 @@ public class PanelMenu extends AbstractModel<JQueryLocator> {
         public Label getLabel() {
             return new Label(label.getReferenced());
         }
+
+        public void select() {
+            selenium.click(label);
+        }
+
+        public void hover() {
+            selenium.mouseOver(this);
+        }
     }
 
     public class Icon extends AbstractModel<JQueryLocator> {
 
         public Icon(JQueryLocator root) {
             super(root);
+        }
+
+        ReferencedLocator<JQueryLocator> img = ref(root, "> img");
+        AttributeLocator<?> imgSrc = img.getAttribute(SRC);
+
+        public boolean isTransparent() {
+            return selenium.getAttribute(this.getAttribute(CLASS)).contains("-transparent");
+        }
+
+        public boolean containsClass(String styleClass) {
+            return selenium.belongsClass(this, styleClass);
+        }
+
+        public boolean isCustomURL() {
+            return selenium.isElementPresent(img);
+        }
+
+        public String getCustomURL() {
+            return selenium.getAttribute(imgSrc);
         }
 
     }
