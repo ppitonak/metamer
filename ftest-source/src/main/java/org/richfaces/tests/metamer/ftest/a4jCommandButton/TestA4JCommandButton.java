@@ -399,9 +399,9 @@ public class TestA4JCommandButton extends AbstractMetamerTest {
         AttributeLocator attr = button.getAttribute(Attribute.TYPE);
         JQueryLocator typeInput = pjq("select[id$=typeInput]");
 
-        selenium.select(typeInput, optionLabel("nonvalid"));
+        selenium.select(typeInput, optionLabel("image"));
         selenium.waitForPageToLoad();
-        assertEquals(selenium.getAttribute(attr), "submit", "Button's type");
+        assertEquals(selenium.getAttribute(attr), "image", "Button's type");
 
         selenium.select(typeInput, optionLabel("reset"));
         selenium.waitForPageToLoad();
