@@ -68,10 +68,11 @@ public class TestPanelMenuGroupMode extends AbstractPanelMenuGroupTest {
         attributes.setImmediate(immediate);
         attributes.setBypassUpdates(bypassUpdates);
         attributes.setMode(mode);
+        menu.setGroupMode(mode);
 
         attributes.setExecute("@this executeChecker");
 
-        toggleGroup();
+        topGroup.toggle();
 
         if (mode != PanelMenuMode.client) {
             if ("phases".equals(listener)) {
@@ -86,7 +87,7 @@ public class TestPanelMenuGroupMode extends AbstractPanelMenuGroupTest {
     @Uses({ @Use(field = "immediate", empty = true), @Use(field = "bypassUpdates", empty = true),
         @Use(field = "mode", empty = true), @Use(field = "listener", empty = true) })
     public void testClientMode() {
-        toggleGroup();
+        topGroup.toggle();
     }
 
     private PhaseId[] getExpectedPhases() {

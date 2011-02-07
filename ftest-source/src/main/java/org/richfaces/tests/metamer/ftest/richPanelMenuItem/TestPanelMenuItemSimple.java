@@ -9,8 +9,10 @@ import java.net.URL;
 
 import org.jboss.test.selenium.GuardRequest;
 import org.jboss.test.selenium.request.RequestType;
+import org.richfaces.PanelMenuMode;
 import org.richfaces.tests.metamer.ftest.AbstractMetamerTest;
 import org.richfaces.tests.metamer.ftest.model.PanelMenu;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 /**
@@ -33,6 +35,12 @@ public class TestPanelMenuItemSimple extends AbstractMetamerTest {
     public URL getTestUrl() {
         return buildUrl(contextPath, "faces/components/richPanelMenuItem/simple.xhtml");
     }
+    
+    @BeforeMethod
+    public void setupMode() {
+        attributes.setMode(PanelMenuMode.ajax);
+        menu.setItemMode(PanelMenuMode.ajax);
+    }
 
     @Test
     public void testData() {
@@ -48,6 +56,7 @@ public class TestPanelMenuItemSimple extends AbstractMetamerTest {
 
     @Test
     public void testDisabled() {
+        menu.setItemMode(null);
         assertFalse(item.isDisabled());
 
         attributes.setDisabled(true);
@@ -152,6 +161,7 @@ public class TestPanelMenuItemSimple extends AbstractMetamerTest {
 
     @Test
     public void testSelectable() {
+        menu.setItemMode(null);
         attributes.setSelectable(false);
 
         new GuardRequest(RequestType.NONE) {

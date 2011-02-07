@@ -34,8 +34,6 @@ import java.util.LinkedList;
 
 import javax.faces.event.PhaseId;
 
-import org.jboss.test.selenium.GuardRequest;
-import org.jboss.test.selenium.request.RequestType;
 import org.richfaces.PanelMenuMode;
 import org.richfaces.tests.metamer.ftest.AbstractMetamerTest;
 import org.richfaces.tests.metamer.ftest.annotations.Inject;
@@ -81,15 +79,11 @@ public class TestPanelMenuItemMode extends AbstractMetamerTest {
         attributes.setImmediate(immediate);
         attributes.setBypassUpdates(bypassUpdates);
         attributes.setMode(mode);
+        menu.setItemMode(mode);
 
         attributes.setExecute("@this executeChecker");
 
-        new GuardRequest(getRequestTypeForMode()) {
-            @Override
-            public void command() {
-                item.select();
-            }
-        }.waitRequest();
+        item.select();
 
         if (mode != PanelMenuMode.client) {
             if ("phases".equals(listener)) {
@@ -118,16 +112,5 @@ public class TestPanelMenuItemMode extends AbstractMetamerTest {
     private PhaseId getExecutionPhase() {
         PhaseId[] phases = getExpectedPhases();
         return phases[phases.length - 2];
-    }
-
-    private RequestType getRequestTypeForMode() {
-        switch (mode) {
-            case ajax:
-                return RequestType.XHR;
-            case server:
-                return RequestType.HTTP;
-            default:
-                return RequestType.NONE;
-        }
     }
 }

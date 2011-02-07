@@ -59,9 +59,10 @@ public class TestPanelMenuGroupClientSideHandlers extends AbstractPanelMenuGroup
     @Use(field = "event", value = "ajaxCollapsionEvents")
     public void testClientSideCollapsionEvent() {
         attributes.setMode(ajax);
-        toggleGroup();
+        menu.setGroupMode(ajax);
+        
         super.testRequestEventsBefore(event);
-        toggleGroup();
+        topGroup.toggle();
         super.testRequestEventsAfter(event);
     }
 
@@ -69,60 +70,67 @@ public class TestPanelMenuGroupClientSideHandlers extends AbstractPanelMenuGroup
     @Use(field = "event", value = "ajaxExpansionEvents")
     public void testClientSideExpansionEvent() {
         attributes.setMode(ajax);
+        menu.setGroupMode(ajax);
         super.testRequestEventsBefore(event);
-        toggleGroup();
+        topGroup.toggle();
         super.testRequestEventsAfter(event);
     }
 
     @Test
     public void testClientSideExpansionEventsOrderClient() {
         attributes.setMode(client);
+        menu.setGroupMode(client);
         super.testRequestEventsBefore(serverExpansionEvents);
-        toggleGroup();
+        topGroup.toggle();
         super.testRequestEventsAfter(serverExpansionEvents);
     }
 
     @Test
     public void testClientSideCollapsionEventsOrderClient() {
         attributes.setMode(client);
-        toggleGroup();
+        menu.setGroupMode(client);
+        topGroup.toggle();
         super.testRequestEventsBefore(clientCollapsionEvents);
-        toggleGroup();
+        topGroup.toggle();
         super.testRequestEventsAfter(clientCollapsionEvents);
     }
 
     @Test
     public void testClientSideExpansionEventsOrderAjax() {
         attributes.setMode(ajax);
+        menu.setGroupMode(ajax);
         super.testRequestEventsBefore(ajaxExpansionEvents);
-        toggleGroup();
+        topGroup.toggle();
         super.testRequestEventsAfter(ajaxExpansionEvents);
     }
 
     @Test
     public void testClientSideCollapsionEventsOrderAjax() {
         attributes.setMode(ajax);
-        toggleGroup();
+        menu.setGroupMode(ajax);
+        topGroup.toggle();
         super.testRequestEventsBefore(ajaxCollapsionEvents);
-        toggleGroup();
+        topGroup.toggle();
         super.testRequestEventsAfter(ajaxCollapsionEvents);
     }
 
     @Test
     public void testClientSideExpansionEventsOrderServer() {
         attributes.setMode(server);
-        toggleGroup();
+        menu.setGroupMode(server);
+        topGroup.toggle();
         super.testRequestEventsBefore(serverExpansionEvents);
-        toggleGroup();
+        topGroup.toggle();
         super.testRequestEventsAfter(serverExpansionEvents);
     }
 
     @Test
     public void testClientSideCollapsionEventsOrderServer() {
         attributes.setMode(server);
-        toggleGroup();
+        menu.setGroupMode(server);
+        topGroup.toggle();
         super.testRequestEventsBefore(serverCollapsionEvents);
-        toggleGroup();
+        topGroup.toggle();
         super.testRequestEventsAfter(serverCollapsionEvents);
     }
 }

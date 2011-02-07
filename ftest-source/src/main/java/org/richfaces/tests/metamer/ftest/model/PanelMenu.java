@@ -29,8 +29,8 @@ public class PanelMenu extends AbstractModel<JQueryLocator> implements Model {
     private ReferencedLocator<JQueryLocator> anyDisabledItem = ref(root, "div[class*=rf-pm-][class*=-itm-dis]");
     private ReferencedLocator<JQueryLocator> anyDisabledGroup = ref(root, "div[class*=rf-pm-][class*=-gr-dis]");
 
-    PanelMenuMode groupMode = PanelMenuMode.client;
-    PanelMenuMode itemMode = PanelMenuMode.ajax;
+    PanelMenuMode groupMode;
+    PanelMenuMode itemMode;
 
     public PanelMenu(JQueryLocator root) {
         super(root);
@@ -83,23 +83,23 @@ public class PanelMenu extends AbstractModel<JQueryLocator> implements Model {
     public Group getAnyTopGroup() {
         return new Group(topGroups.getReferenced());
     }
-    
+
     public Group getAnySelectedItem() {
         return new Group(anySelectedItem.getReferenced());
     }
-    
+
     public Group getAnySelectedGroup() {
         return new Group(anySelectedGroup.getReferenced());
     }
-    
+
     public Group getAnyDisabledItem() {
         return new Group(anyDisabledItem.getReferenced());
     }
-    
+
     public Group getAnyDisabledGroup() {
         return new Group(anyDisabledGroup.getReferenced());
     }
-    
+
     public Group getAnyExpandedGroup() {
         return new Group(JQuerySelectors.append(topGroups, ":has(.rf-pm-hdr-exp)"));
     }
@@ -163,11 +163,11 @@ public class PanelMenu extends AbstractModel<JQueryLocator> implements Model {
         public boolean isSelected() {
             return selenium.getAttribute(header.getAttribute(CLASS)).contains("-sel");
         }
-        
+
         public boolean isExpanded() {
             return selenium.getAttribute(header.getAttribute(CLASS)).contains("-exp");
         }
-        
+
         public boolean isCollapsed() {
             return selenium.getAttribute(header.getAttribute(CLASS)).contains("-colps");
         }
@@ -197,11 +197,15 @@ public class PanelMenu extends AbstractModel<JQueryLocator> implements Model {
         }
 
         public void toggle() {
-            new GuardRequest(getRequestTypeForMode(groupMode)) {
-                public void command() {
-                    selenium.click(label);
-                }
-            }.waitRequest();
+            if (groupMode == null) {
+                selenium.click(label);
+            } else {
+                new GuardRequest(getRequestTypeForMode(groupMode)) {
+                    public void command() {
+                        selenium.click(label);
+                    }
+                }.waitRequest();
+            }
         }
 
         public class Icon extends PanelMenu.Icon {
@@ -256,11 +260,15 @@ public class PanelMenu extends AbstractModel<JQueryLocator> implements Model {
         }
 
         public void select() {
-            new GuardRequest(getRequestTypeForMode(itemMode)) {
-                public void command() {
-                    selenium.click(label);
-                }
-            }.waitRequest();
+            if (itemMode == null) {
+                selenium.click(label);
+            } else {
+                new GuardRequest(getRequestTypeForMode(itemMode)) {
+                    public void command() {
+                        selenium.click(label);
+                    }
+                }.waitRequest();
+            }
         }
 
         public void hover() {

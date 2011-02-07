@@ -72,7 +72,7 @@ public class TestPanelMenuGroupSimple extends AbstractPanelMenuGroupTest {
     public void testLeftCollapsedIcon() {
         attributes.setLeftCollapsedIcon(CHEVRON_DOWN);
 
-        toggleGroup();
+        topGroup.toggle();
 
         assertTrue(leftIcon.containsClass(CHEVRON_DOWN_CLASS));
 
@@ -141,7 +141,7 @@ public class TestPanelMenuGroupSimple extends AbstractPanelMenuGroupTest {
     public void testRightCollapsedIcon() {
         attributes.setRightCollapsedIcon(CHEVRON_DOWN);
 
-        toggleGroup();
+        topGroup.toggle();
 
         assertTrue(rightIcon.containsClass(CHEVRON_DOWN_CLASS));
 

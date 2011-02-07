@@ -62,52 +62,36 @@ public class TestPanelMenuItemClientSideHandlers extends AbstractMetamerTest {
     @Use(field = "event", value = "ajaxEvents")
     public void testClientSideEvent() {
         attributes.setMode(ajax);
+        menu.setItemMode(ajax);
         super.testRequestEventsBefore(event);
-        selectItem();
+        item.select();
         super.testRequestEventsAfter(event);
     }
 
     @Test
     public void testClientSideEventsOrderClient() {
         attributes.setMode(client);
+        menu.setItemMode(client);
         super.testRequestEventsBefore(clientEvents);
-        selectItem();
+        item.select();
         super.testRequestEventsAfter(clientEvents);
     }
 
     @Test
     public void testClientSideEventsOrderAjax() {
         attributes.setMode(ajax);
+        menu.setItemMode(ajax);
         super.testRequestEventsBefore(ajaxEvents);
-        selectItem();
+        item.select();
         super.testRequestEventsAfter(ajaxEvents);
     }
 
     @Test
     public void testClientSideEventsOrderServer() {
         attributes.setMode(server);
+        menu.setItemMode(server);
         super.testRequestEventsBefore(serverEvents);
-        selectItem();
+        item.select();
         super.testRequestEventsAfter(serverEvents);
-    }
-
-    private void selectItem() {
-        new GuardRequest(getRequestTypeForMode()) {
-            @Override
-            public void command() {
-                item.select();
-            }
-        }.waitRequest();
-    }
-
-    private RequestType getRequestTypeForMode() {
-        switch (attributes.getMode()) {
-            case ajax:
-                return RequestType.XHR;
-            case server:
-                return RequestType.HTTP;
-            default:
-                return RequestType.NONE;
-        }
     }
 }
