@@ -77,12 +77,16 @@ public class PanelMenuGroupAttributes extends AbstractComponentAttributes {
         setProperty("leftExpandedIcon", leftExpandedIcon);
     }
 
-    public void setLimitRender(String limitRender) {
+    public void setLimitRender(Boolean limitRender) {
         setProperty("limitRender", limitRender);
     }
 
     public void setMode(PanelMenuMode mode) {
         setProperty("mode", mode);
+    }
+    
+    public PanelMenuMode getMode() {
+        return PanelMenuMode.valueOf(getProperty("mode"));
     }
 
     public void setRender(String render) {

@@ -22,6 +22,8 @@
 package org.richfaces.tests.metamer.bean;
 
 import java.io.Serializable;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
@@ -45,6 +47,7 @@ public class RichPanelMenuGroupBean implements Serializable {
     private static final long serialVersionUID = -1L;
     private static Logger logger;
     private Attributes attributes;
+    private Map<String, Boolean> expanded = new HashMap<String, Boolean>();
 
     /**
      * Initializes the managed bean.
@@ -66,6 +69,11 @@ public class RichPanelMenuGroupBean implements Serializable {
         attributes.remove("changeExpandListener");
         attributes.remove("action");
         attributes.remove("actionListener");
+        
+        // expanded needs to be set separately
+        attributes.remove("expanded");
+        expanded.put("group2", true);
+        expanded.put("group23", true);
     }
 
     public Attributes getAttributes() {
@@ -74,6 +82,10 @@ public class RichPanelMenuGroupBean implements Serializable {
 
     public void setAttributes(Attributes attributes) {
         this.attributes = attributes;
+    }
+    
+    public Map<String, Boolean> getExpanded() {
+        return expanded;
     }
 
     public void changeExpandListener(Object event) {

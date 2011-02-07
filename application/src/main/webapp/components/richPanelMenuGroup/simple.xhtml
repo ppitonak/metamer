@@ -40,7 +40,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 
         <ui:define name="component">
 
-            <rich:panelMenu id="panelMenu" style="width: 250px;"
+            <rich:panelMenu id="panelMenu" style="width: 300px;"
                             itemChangeListener="#{richPanelMenuBean.itemChangeListener}">
 
                 <rich:panelMenuGroup id="group1" name="group1" label="Group 1">
@@ -53,6 +53,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                 	action="#{richBean.dummyAction}"
                 	actionListener="#{richBean.dummyActionListener}"
                 	changeExpandListener="#{richPanelMenuGroupBean.changeExpandListener}"
+                	expanded="#{richPanelMenuGroupBean.expanded['group2']}"
                 	
                 	bubbleSelection="#{richPanelMenuGroupBean.attributes['bubbleSelection'].value}"
                 	bypassUpdates="#{richPanelMenuGroupBean.attributes['bypassUpdates'].value}"
@@ -63,17 +64,14 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                 	execute="#{richPanelMenuGroupBean.attributes['execute'].value}"
                 	expandEvent="#{richPanelMenuGroupBean.attributes['expandEvent'].value}"
                 	expandSingle="#{richPanelMenuGroupBean.attributes['expandSingle'].value}"
-                	expanded="#{richPanelMenuGroupBean.attributes['expanded'].value}"
                 	hoverClass="#{richPanelMenuGroupBean.attributes['hoverClass'].value}"
                 	iconLeftClass="#{richPanelMenuGroupBean.attributes['iconLeftClass'].value}"
-                	leftIcon="#{richPanelMenuGroupBean.attributes['leftIcon'].value}"
-                	leftIconCollapsed="#{richPanelMenuGroupBean.attributes['leftIconCollapsed'].value}"
-                	leftIconDisabled="#{richPanelMenuGroupBean.attributes['leftIconDisabled'].value}"
-                	leftIconExpanded="#{richPanelMenuGroupBean.attributes['leftIconExpanded'].value}"
-                	rightIcon="#{richPanelMenuGroupBean.attributes['rightIcon'].value}"
-                	rightIconCollapsed="#{richPanelMenuGroupBean.attributes['rightIconCollapsed'].value}"
-                	rightIconDisabled="#{richPanelMenuGroupBean.attributes['rightIconDisabled'].value}"
-                	rightIconExpanded="#{richPanelMenuGroupBean.attributes['rightIconExpanded'].value}"
+                	leftCollapsedIcon="#{richPanelMenuGroupBean.attributes['leftCollapsedIcon'].value}"
+                	leftDisabledIcon="#{richPanelMenuGroupBean.attributes['leftDisabledIcon'].value}"
+                	leftExpandedIcon="#{richPanelMenuGroupBean.attributes['leftExpandedIcon'].value}"
+                	rightCollapsedIcon="#{richPanelMenuGroupBean.attributes['rightCollapsedIcon'].value}"
+                	rightDisabledIcon="#{richPanelMenuGroupBean.attributes['rightDisabledIcon'].value}"
+                	rightExpandedIcon="#{richPanelMenuGroupBean.attributes['rightExpandedIcon'].value}"
                 	immediate="#{richPanelMenuGroupBean.attributes['immediate'].value}"
                 	limitRender="#{richPanelMenuGroupBean.attributes['limitRender'].value}"
                 	mode="#{richPanelMenuGroupBean.attributes['mode'].value}"
@@ -104,7 +102,64 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                 >
                     <rich:panelMenuItem id="item21" name="item21" label="Item 2.1"/>
                     <rich:panelMenuItem id="item22" name="item22" label="Item 2.2" />
-                    <rich:panelMenuItem id="item23" name="item23" label="Item 2.3"/>
+                    
+                    <rich:panelMenuGroup id="group23" name="group23" label="Group 2.3 (influenced by attributes)"
+                    	action="#{richBean.dummyAction}"
+	                	actionListener="#{richBean.dummyActionListener}"
+	                	changeExpandListener="#{richPanelMenuGroupBean.changeExpandListener}"
+                		expanded="#{richPanelMenuGroupBean.expanded['group23']}"
+	                	
+	                	bubbleSelection="#{richPanelMenuGroupBean.attributes['bubbleSelection'].value}"
+	                	bypassUpdates="#{richPanelMenuGroupBean.attributes['bypassUpdates'].value}"
+	                	collapseEvent="#{richPanelMenuGroupBean.attributes['collapseEvent'].value}"
+	                	data="#{richPanelMenuGroupBean.attributes['data'].value}"
+	                	disabled="#{richPanelMenuGroupBean.attributes['disabled'].value}"
+	                	disabledClass="#{richPanelMenuGroupBean.attributes['disabledClass'].value}"
+	                	execute="#{richPanelMenuGroupBean.attributes['execute'].value}"
+	                	expandEvent="#{richPanelMenuGroupBean.attributes['expandEvent'].value}"
+	                	expandSingle="#{richPanelMenuGroupBean.attributes['expandSingle'].value}"
+	                	hoverClass="#{richPanelMenuGroupBean.attributes['hoverClass'].value}"
+	                	iconLeftClass="#{richPanelMenuGroupBean.attributes['iconLeftClass'].value}"
+	                	leftCollapsedIcon="#{richPanelMenuGroupBean.attributes['leftCollapsedIcon'].value}"
+	                	leftDisabledIcon="#{richPanelMenuGroupBean.attributes['leftDisabledIcon'].value}"
+	                	leftExpandedIcon="#{richPanelMenuGroupBean.attributes['leftExpandedIcon'].value}"
+	                	rightCollapsedIcon="#{richPanelMenuGroupBean.attributes['rightCollapsedIcon'].value}"
+	                	rightDisabledIcon="#{richPanelMenuGroupBean.attributes['rightDisabledIcon'].value}"
+	                	rightExpandedIcon="#{richPanelMenuGroupBean.attributes['rightExpandedIcon'].value}"
+	                	immediate="#{richPanelMenuGroupBean.attributes['immediate'].value}"
+	                	limitRender="#{richPanelMenuGroupBean.attributes['limitRender'].value}"
+	                	mode="#{richPanelMenuGroupBean.attributes['mode'].value}"
+	                	onbeforecollapse="#{richPanelMenuGroupBean.attributes['onbeforecollapse'].value}"
+	                	onbeforedomupdate="#{richPanelMenuGroupBean.attributes['onbeforedomupdate'].value}"
+	                	onbeforeexpand="#{richPanelMenuGroupBean.attributes['onbeforeexpand'].value}"
+	                	onbeforeselect="#{richPanelMenuGroupBean.attributes['onbeforeselect'].value}"
+	                	onbeforeswitch="#{richPanelMenuGroupBean.attributes['onbeforeswitch'].value}"
+	                	onclick="#{richPanelMenuGroupBean.attributes['onclick'].value}"
+	                	oncollapse="#{richPanelMenuGroupBean.attributes['oncollapse'].value}"
+	                	oncomplete="#{richPanelMenuGroupBean.attributes['oncomplete'].value}"
+	                	ondblclick="#{richPanelMenuGroupBean.attributes['ondblclick'].value}"
+	                	onexpand="#{richPanelMenuGroupBean.attributes['onexpand'].value}"
+	                	onmousedown="#{richPanelMenuGroupBean.attributes['onmousedown'].value}"
+	                	onmousemove="#{richPanelMenuGroupBean.attributes['onmousemove'].value}"
+	                	onmouseout="#{richPanelMenuGroupBean.attributes['onmouseout'].value}"
+	                	onmouseover="#{richPanelMenuGroupBean.attributes['onmouseover'].value}"
+	                	onmouseup="#{richPanelMenuGroupBean.attributes['onmouseup'].value}"
+	                	onselect="#{richPanelMenuGroupBean.attributes['onselect'].value}"
+	                	onswitch="#{richPanelMenuGroupBean.attributes['onswitch'].value}"
+	                	onunselect="#{richPanelMenuGroupBean.attributes['onunselect'].value}"
+	                	render="#{richPanelMenuGroupBean.attributes['render'].value}"
+	                	rendered="#{richPanelMenuGroupBean.attributes['rendered'].value}"
+	                	selectable="#{richPanelMenuGroupBean.attributes['selectable'].value}"
+	                	status="#{richPanelMenuGroupBean.attributes['status'].value}"
+	                	style="#{richPanelMenuGroupBean.attributes['style'].value}"
+	                	styleClass="#{richPanelMenuGroupBean.attributes['styleClass'].value}"
+                    >
+                    	<rich:panelMenuItem id="item231" name="item231" label="Item 2.3.1"/>
+                    	<rich:panelMenuItem id="item232" name="item232" label="Item 2.3.2"/>
+                    	<rich:panelMenuItem id="item233" name="item233" label="Item 2.3.3"/>
+                    </rich:panelMenuGroup>
+                    
+                    <rich:panelMenuItem id="item24" name="item24" label="Item 2.4"/>
                 </rich:panelMenuGroup>
                 
                 <rich:panelMenuGroup id="group3" name="group3" label="Group 3">

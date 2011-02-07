@@ -34,6 +34,7 @@ import static org.testng.Assert.assertTrue;
 import static org.jboss.test.selenium.locator.reference.ReferencedLocator.ref;
 
 import java.net.URL;
+import java.util.Arrays;
 import java.util.Locale;
 
 import javax.faces.event.PhaseId;
@@ -260,15 +261,15 @@ public abstract class AbstractMetamerTest extends AbstractTestCase {
         }
 
         selenium.getEval(new JavaScript("window.metamerEvents = \"\";"));
-
-        retrieveRequestTime.initializeValue();
     }
 
     public void testRequestEventsAfter(String... events) {
-        waitGui.failWith("Page was not updated").waitForChange(retrieveRequestTime);
-
         String[] actualEvents = selenium.getEval(new JavaScript("window.metamerEvents")).split(" ");
-        assertEquals(actualEvents, events, "The events don't came in right order");
+        assertEquals(
+            actualEvents,
+            events,
+            format("The events ({0}) don't came in right order ({1})", Arrays.deepToString(actualEvents),
+                Arrays.deepToString(events)));
     }
 
     /**
