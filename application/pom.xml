@@ -19,7 +19,7 @@
     <parent>
         <groupId>org.richfaces.tests</groupId>
         <artifactId>metamer-root</artifactId>
-        <version>4.0.0.20110207-M6</version>
+        <version>4.0.0-SNAPSHOT</version>
     </parent>
 
     <groupId>org.richfaces.tests</groupId>
