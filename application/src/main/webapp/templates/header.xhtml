@@ -40,8 +40,8 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                                         style="width: 36px;" alt="Go to List of Pages"/>
                     </h:link>
                     <h:commandLink>
-                    	<h:graphicImage id="fullPageRefreshImage" library="images" name="recycle.png" title="Full Page Refresh"
-                                    style="width: 36px;" alt="Full Page Refresh" />
+                        <h:graphicImage id="fullPageRefreshImage" library="images" name="recycle.png" title="Full Page Refresh"
+                                        style="width: 36px;" alt="Full Page Refresh" />
                     </h:commandLink>
                     <h:graphicImage id="reRenderAllImage" library="images" name="refresh.png" title="Rerender All"
                                     style="width: 36px;" alt="Rerender All">
@@ -63,39 +63,39 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                         </f:facet>
                     </a4j:status>
                 </a4j:outputPanel>
-				
-				<h:outputLabel value="Locale" />
-        		<h:outputText id="locale" value="#{facesContext.viewRoot.locale}" />
-        
+
+                <h:outputLabel value="Locale" />
+                <h:outputText id="locale" value="#{facesContext.viewRoot.locale}" />
+
                 <h:outputText id="showUiDebugLabel" value="Show ui:debug" />
                 <h:outputText id="showUiDebug" value="Ctrl+Shift+L" />
-                
+
                 <h:outputLabel value="Render Checker" />
                 <a4j:outputPanel id="renderChecker">
-                	<h:outputText value="#{phasesBean.date}">
-                		<f:convertDateTime pattern="HH:MM:ss.SSS" />
-                	</h:outputText>
+                    <h:outputText value="#{phasesBean.date}">
+                        <f:convertDateTime pattern="HH:MM:ss.SSS" />
+                    </h:outputText>
                 </a4j:outputPanel>
-                
+
                 <h:outputLabel value="Status Checker" />
                 <a4j:outputPanel id="statusCheckerPanel">
-                    <a4j:status name="statusChecker" onstop="updateStatusChecker()" />
+                    <a4j:status id="statusChecker" name="statusChecker" onstop="updateStatusChecker()" />
                     <h:outputText id="statusCheckerOutput" value="" />
-                    
-		        	<h:outputScript target="head" library="script" name="date-format.js" />
-		            <h:outputScript target="head"  library="script" name="clientTime-refresh.js" />
-                    <script>
-                    	function updateStatusChecker() {
-                    		Metamer.ClientTime.refresh(#{rich:element('statusCheckerOutput')});
-                    	}
-                    	updateStatusChecker();
+
+                    <h:outputScript target="head" library="script" name="date-format.js" />
+                    <h:outputScript target="head" library="script" name="clientTime-refresh.js" />
+                    <script type="text/javascript">
+                        function updateStatusChecker() {
+                            Metamer.ClientTime.refresh(#{rich:element('statusCheckerOutput')});
+                        }
+                        updateStatusChecker();
                     </script>
                 </a4j:outputPanel>
-                
+
                 <ui:debug hotkey="L" />
             </h:panelGrid>
-            
-            
+
+
 
             <h:form id="displayControlsForm">
                 <h:panelGrid columns="2">
@@ -165,8 +165,8 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 
 
         </h:panelGrid>
-        
-        
+
+
 
     </ui:composition>
 

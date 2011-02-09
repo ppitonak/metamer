@@ -97,27 +97,27 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                 <legend>JavaScript API of rich:accordion</legend>
 
                 <h:commandButton id="switchButton1" value="switch to item1">
-                    <rich:componentControl id="componentControl1" event="click" operation="switchToItem" target="accordion" >
+                    <rich:componentControl event="click" operation="switchToItem" target="accordion" >
                         <f:param value="item1" />
                     </rich:componentControl>
                 </h:commandButton>
                 <h:commandButton id="switchButton2" value="switch to item2">
-                    <rich:componentControl id="componentControl2" event="click" operation="switchToItem" target="accordion" >
+                    <rich:componentControl event="click" operation="switchToItem" target="accordion" >
                         <f:param value="item2" />
                     </rich:componentControl>
                 </h:commandButton>
                 <h:commandButton id="switchButton3" value="switch to item3">
-                    <rich:componentControl id="componentControl1" event="click" operation="switchToItem" target="accordion" >
+                    <rich:componentControl event="click" operation="switchToItem" target="accordion" >
                         <f:param value="item3" />
                     </rich:componentControl>
                 </h:commandButton>
                 <h:commandButton id="switchButton4" value="switch to item4">
-                    <rich:componentControl id="componentControl1" event="click" operation="switchToItem" target="accordion" >
+                    <rich:componentControl event="click" operation="switchToItem" target="accordion" >
                         <f:param value="item4" />
                     </rich:componentControl>
                 </h:commandButton>
                 <h:commandButton id="switchButtonCustom" value="switch to item with custom name (#{richAccordionItemBean.attributes['name'].value})">
-                    <rich:componentControl id="componentControlCustom" event="click" operation="switchToItem" target="accordion" >
+                    <rich:componentControl event="click" operation="switchToItem" target="accordion" >
                         <f:param value="#{richAccordionItemBean.attributes['name'].value}" />
                     </rich:componentControl>
                 </h:commandButton>
