@@ -77,15 +77,26 @@ public abstract class AbstractCalendarTest extends AbstractMetamerTest {
     protected JQueryLocator todayButton = pjq("td.rf-cal-tl-ftr:eq(4) > div");
     protected JQueryLocator applyButton = pjq("td.rf-cal-tl-ftr:eq(5) > div");
     // time panel
-    protected JQueryLocator timePanel = pjq("table[id$=calendarEditor]");
+    protected JQueryLocator timeEditor = pjq("table[id$=calendarTimeEditorLayout]");
+    protected JQueryLocator timeEditorOk = pjq("div[id$=calendarTimeEditorButtonOk]");
+    protected JQueryLocator timeEditorCancel = pjq("div[id$=calendarTimeEditorButtonCancel]");
     protected JQueryLocator hoursInput = pjq("input[id$=calendarTimeHours]");
     protected JQueryLocator hoursInputUp = pjq("div[id$=calendarTimeHoursBtnUp]");
     protected JQueryLocator hoursInputDown = pjq("div[id$=calendarTimeHoursBtnDown]");
     protected JQueryLocator minutesInput = pjq("input[id$=calendarTimeMinutes]");
     protected JQueryLocator minutesInputUp = pjq("div[id$=calendarTimeMinutesBtnUp]");
     protected JQueryLocator minutesInputDown = pjq("div[id$=calendarTimeMinutesBtnDown]");
-    protected JQueryLocator okButton = pjq("td.rf-cal-time-layout-ok > div");
-    protected JQueryLocator cancelButton = pjq("td.rf-cal-time-layout-cancel > div");
-
+    protected JQueryLocator secondsInput = pjq("input[id$=calendarTimeSeconds]");
+    protected JQueryLocator secondsInputUp = pjq("div[id$=calendarTimeSecondsBtnUp]");
+    protected JQueryLocator secondsInputDown = pjq("div[id$=calendarTimeSecondsBtnDown]");
+    // date panel
+    protected JQueryLocator dateEditor = pjq("table[id$=calendarDateEditorLayout]");
+    protected JQueryLocator dateEditorOk = pjq("div[id$=calendarDateEditorButtonOk]");
+    protected JQueryLocator dateEditorCancel = pjq("div[id$=calendarDateEditorButtonCancel]");
+    protected JQueryLocator dateEditorLeftArrow = pjq("tr[id$=calendarDateEditorLayoutTR] div:eq(2)");
+    protected JQueryLocator dateEditorRightArrow = pjq("tr[id$=calendarDateEditorLayoutTR] div:eq(3)");
+    protected JQueryLocator dateEditorMonths = pjq("div[id$=calendarDateEditorLayoutM{0}]");
+    protected JQueryLocator dateEditorYears = pjq("div[id$=calendarDateEditorLayoutY{0}]");
+    // other
     protected JQueryLocator output = pjq("span[id$=output]");
 }
