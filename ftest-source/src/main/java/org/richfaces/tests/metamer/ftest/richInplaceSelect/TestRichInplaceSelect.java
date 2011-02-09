@@ -30,6 +30,7 @@ import static org.testng.Assert.assertFalse;
 import static org.testng.Assert.assertTrue;
 
 import java.net.URL;
+
 import javax.faces.event.PhaseId;
 
 import org.jboss.test.selenium.css.CssProperty;
@@ -144,7 +145,7 @@ public class TestRichInplaceSelect extends AbstractMetamerTest {
 
         assertTrue(selenium.isElementPresent(select), "Inplace input is not on the page.");
         assertTrue(selenium.isElementPresent(label), "Default label should be present on the page.");
-        assertEquals(selenium.getText(label), "Hawaii", "Default label");
+        assertEquals(selenium.getText(label), "Hawaii", "Label");
         assertFalse(selenium.isElementPresent(input), "Input should not be present on the page.");
         assertFalse(selenium.isElementPresent(okButton), "OK button should not be present on the page.");
         assertFalse(selenium.isElementPresent(cancelButton), "Cancel button should not be present on the page.");
@@ -555,7 +556,7 @@ public class TestRichInplaceSelect extends AbstractMetamerTest {
 
         guardNoRequest(selenium).fireEvent(input, Event.BLUR);
         assertFalse(selenium.isDisplayed(popup), "Popup should not be displayed.");
-        assertEquals(selenium.getValue(input), "Click here to edit", "Input should contain default label.");
+        assertEquals(selenium.getText(label), "Click here to edit", "Label should contain default value.");
     }
 
     @Test

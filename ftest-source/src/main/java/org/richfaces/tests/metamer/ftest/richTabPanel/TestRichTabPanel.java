@@ -199,6 +199,7 @@ public class TestRichTabPanel extends AbstractMetamerTest {
     }
 
     @Test
+    @IssueTracking("https://issues.jboss.org/browse/RF-10443")
     public void testExecute() {
         selenium.type(pjq("input[type=text][id$=executeInput]"), "@this executeChecker");
         selenium.waitForPageToLoad();
@@ -363,6 +364,7 @@ public class TestRichTabPanel extends AbstractMetamerTest {
     }
 
     @Test
+    @IssueTracking("https://issues.jboss.org/browse/RF-10441")
     public void testRender() {
         selenium.type(pjq("input[type=text][id$=renderInput]"), "renderChecker");
         selenium.waitForPageToLoad();
