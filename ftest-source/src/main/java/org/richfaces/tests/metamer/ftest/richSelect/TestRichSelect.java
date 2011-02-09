@@ -30,6 +30,7 @@ import static org.testng.Assert.assertFalse;
 import static org.testng.Assert.assertTrue;
 
 import java.net.URL;
+import javax.faces.event.PhaseId;
 
 import org.jboss.test.selenium.css.CssProperty;
 import org.jboss.test.selenium.dom.Event;
@@ -140,6 +141,21 @@ public class TestRichSelect extends AbstractMetamerTest {
     }
 
     @Test
+    @IssueTracking("https://issues.jboss.org/browse/RF-10479")
+    public void testChangedStateClass() {
+        selenium.type(pjq("input[id$=changedStateClassInput]"), "metamer-ftest-class");
+        selenium.waitForPageToLoad();
+
+        selenium.mouseDown(button);
+        selenium.mouseUp(button);
+        selenium.click(options.format(10));
+        guardXhr(selenium).fireEvent(input, Event.BLUR);
+        waitGui.failWith("Bean was not updated").until(textEquals.locator(output).text("Hawaii"));
+
+        assertTrue(selenium.belongsClass(select, "metamer-ftest-class"), "Attribute changedStateClass doesn't work.");
+    }
+
+    @Test
     public void testDefaultLabel() {
         selenium.type(pjq("input[type=text][id$=defaultLabelInput]"), "new label");
         selenium.waitForPageToLoad();
@@ -154,6 +170,40 @@ public class TestRichSelect extends AbstractMetamerTest {
         if (selenium.isAttributePresent(inputValue)) {
             assertEquals(selenium.getAttribute(inputValue), "", "Default value should be empty");
         }
+    }
+
+    @Test
+    public void testDisabled() {
+        selenium.click(pjq("input[type=radio][name$=disabledInput][value=true]"));
+        selenium.waitForPageToLoad();
+
+        selenium.type(pjq("input[type=text][id$=valueInput]"), "Hawaii");
+        selenium.waitForPageToLoad();
+
+        assertTrue(selenium.isElementPresent(select), "Inplace input is not on the page.");
+        assertTrue(selenium.isElementPresent(button), "Button should be present on the page.");
+        assertTrue(selenium.isElementPresent(input), "Input should be present on the page.");
+        assertEquals(selenium.getValue(input), "Hawaii", "Value of input");
+        assertFalse(selenium.isVisible(popup), "Popup should not be visible on the page.");
+        assertTrue(selenium.belongsClass(button, "rf-sel-btn-dis"), "Button should contain class rf-sel-btn-dis.");
+        AttributeLocator disabledAttr = input.getAttribute(new Attribute("disabled"));
+        assertTrue(selenium.isAttributePresent(disabledAttr), "Input should be disabled.");
+        assertEquals(selenium.getAttribute(disabledAttr), "disabled", "Input should be disabled.");
+    }
+
+    @Test
+    @IssueTracking("https://issues.jboss.org/browse/RF-10479")
+    public void testDisabledStateClass() {
+        selenium.click(pjq("input[type=radio][name$=disabledInput][value=true]"));
+        selenium.waitForPageToLoad();
+
+        testStyleClass(select, "disabledStateClass");
+    }
+
+    @Test
+    @IssueTracking("https://issues.jboss.org/browse/RF-10479")
+    public void testEditStateClass() {
+        testStyleClass(select, "editStateClass");
     }
 
     @Test
@@ -174,6 +224,23 @@ public class TestRichSelect extends AbstractMetamerTest {
         assertTrue(selenium.belongsClass(options.format(10), "rf-sel-sel"));
 
         waitGui.failWith("Bean was not updated").until(textEquals.locator(output).text("Hawaii"));
+    }
+
+    @Test
+    public void testImmediate() {
+        selenium.click(pjq("input[type=radio][name$=immediateInput][value=true]"));
+        selenium.waitForPageToLoad();
+
+        String reqTime = selenium.getText(time);
+        selenium.mouseDown(button);
+        selenium.mouseUp(button);
+        selenium.click(options.format(10));
+        guardXhr(selenium).fireEvent(input, Event.BLUR);
+        waitGui.failWith("Page was not updated").waitForChange(reqTime, retrieveText.locator(time));
+
+        phaseInfo.assertPhases(PhaseId.RESTORE_VIEW, PhaseId.APPLY_REQUEST_VALUES, PhaseId.PROCESS_VALIDATIONS,
+                PhaseId.UPDATE_MODEL_VALUES, PhaseId.INVOKE_APPLICATION, PhaseId.RENDER_RESPONSE);
+        phaseInfo.assertListener(PhaseId.APPLY_REQUEST_VALUES, "value changed: -> Hawaii");
     }
 
     @Test
@@ -229,6 +296,42 @@ public class TestRichSelect extends AbstractMetamerTest {
         selenium.mouseUp(button);
         width = selenium.getStyle(jq("div.rf-sel-lst-scrl"), CssProperty.WIDTH);
         assertEquals(width, "200px", "Width of list did not change");
+    }
+
+    @Test
+    public void testMaxListHeight() {
+        selenium.type(pjq("input[type=text][id$=maxListHeightInput]"), "300px");
+        selenium.waitForPageToLoad();
+
+        String height = selenium.getStyle(jq("div.rf-sel-lst-scrl"), new CssProperty("max-height"));
+        assertEquals(height, "300px", "Height of list did not change");
+
+        selenium.type(pjq("input[type=text][id$=maxListHeightInput]"), "");
+        selenium.waitForPageToLoad();
+
+        selenium.mouseDown(button);
+        selenium.mouseUp(button);
+        assertTrue(selenium.isVisible(popup), "Popup should be displayed.");
+
+        assertEquals(selenium.getElementHeight(jq("div.rf-sel-lst-scrl")), 100, "Height of list did not change");
+    }
+
+    @Test
+    public void testMinListHeight() {
+        selenium.type(pjq("input[type=text][id$=minListHeightInput]"), "300px");
+        selenium.waitForPageToLoad();
+
+        String height = selenium.getStyle(jq("div.rf-sel-lst-scrl"), new CssProperty("min-height"));
+        assertEquals(height, "300px", "Height of list did not change");
+
+        selenium.type(pjq("input[type=text][id$=minListHeightInput]"), "");
+        selenium.waitForPageToLoad();
+
+        selenium.mouseDown(button);
+        selenium.mouseUp(button);
+        assertTrue(selenium.isVisible(popup), "Popup should be displayed.");
+
+        assertEquals(selenium.getElementHeight(jq("div.rf-sel-lst-scrl")), 100, "Height of list did not change");
     }
 
     @Test
@@ -367,6 +470,12 @@ public class TestRichSelect extends AbstractMetamerTest {
     }
 
     @Test
+    @IssueTracking("https://issues.jboss.org/browse/RF-10479")
+    public void testReadyStateClass() {
+        testStyleClass(select, "readyStateClass");
+    }
+
+    @Test
     public void testRendered() {
         selenium.click(pjq("input[type=radio][name$=renderedInput][value=false]"));
         selenium.waitForPageToLoad();
@@ -473,5 +582,13 @@ public class TestRichSelect extends AbstractMetamerTest {
         assertTrue(selenium.belongsClass(options.format(10), "rf-sel-sel"));
 
         waitGui.failWith("Bean was not updated").until(textEquals.locator(output).text("Hawaii"));
+    }
+
+    @Test
+    public void testValue() {
+        selenium.type(pjq("input[type=text][id$=valueInput]"), "North Carolina");
+        selenium.waitForPageToLoad();
+
+        assertEquals(selenium.getValue(input), "North Carolina", "Input should contain selected value.");
     }
 }

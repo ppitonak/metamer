@@ -77,7 +77,11 @@ public class RichSelectBean implements Serializable {
 
         // TODO has to be tested in another way
         attributes.remove("converter");
+        attributes.remove("converterMessage");
+        attributes.remove("required");
+        attributes.remove("requiredMessage");
         attributes.remove("validator");
+        attributes.remove("validatorMessage");
 
         attributes.remove("valueChangeListener");
     }

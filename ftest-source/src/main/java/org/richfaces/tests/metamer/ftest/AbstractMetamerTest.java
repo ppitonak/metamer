@@ -81,17 +81,15 @@ public abstract class AbstractMetamerTest extends AbstractTestCase {
     protected TextRetriever retrieveRenderChecker = retrieveText.locator(jq("#renderChecker"));
     protected TextRetriever retrieveStatusChecker = retrieveText.locator(jq("#statusCheckerOutput"));
     protected PhaseInfo phaseInfo = new PhaseInfo();
-
     protected LocatorReference<JQueryLocator> attributesRoot = new LocatorReference<JQueryLocator>(
-        pjq("span[id$=:attributes:panel]"));
-
+            pjq("span[id$=:attributes:panel]"));
     /**
      * timeout in miliseconds
      */
     public static final long TIMEOUT = 5000;
     @Inject
-    @Templates({ "plain", "richDataTable1,redDiv", "richDataTable2,redDiv", "a4jRepeat1", "a4jRepeat2", "hDataTable1",
-        "hDataTable2", "uiRepeat1", "uiRepeat2" })
+    @Templates({"plain", "richDataTable1,redDiv", "richDataTable2,redDiv", "a4jRepeat1", "a4jRepeat2", "hDataTable1",
+        "hDataTable2", "uiRepeat1", "uiRepeat2"})
     private TemplatesList template;
 
     /**
@@ -201,7 +199,7 @@ public abstract class AbstractMetamerTest extends AbstractTestCase {
         selenium.fireEvent(element, event);
 
         waitGui.failWith("Attribute on" + attributeName + " does not work correctly").until(
-            new EventFiredCondition(event));
+                new EventFiredCondition(event));
     }
 
     /**
@@ -244,10 +242,8 @@ public abstract class AbstractMetamerTest extends AbstractTestCase {
      *            name of the attribute that will be set (e.g. styleClass, headerClass, itemContentClass)
      */
     protected void testStyleClass(ExtendedLocator<JQueryLocator> element, String attribute) {
-        ElementLocator<?> classInput = ref(attributesRoot, "input[id$=" + attribute + "Input]");
         final String styleClass = "metamer-ftest-class";
-
-        selenium.type(classInput, styleClass);
+        selenium.type(ref(attributesRoot, "input[id$=" + attribute + "Input]"), styleClass);
         selenium.waitForPageToLoad();
 
         JQueryLocator elementWhichHasntThatClass = jq(element.getRawLocator() + ":not(.{0})").format(styleClass);
@@ -269,9 +265,9 @@ public abstract class AbstractMetamerTest extends AbstractTestCase {
     public void testRequestEventsAfter(String... events) {
         String[] actualEvents = selenium.getEval(new JavaScript("window.metamerEvents")).split(" ");
         assertEquals(
-            actualEvents,
-            events,
-            format("The events ({0}) don't came in right order ({1})", Arrays.deepToString(actualEvents),
+                actualEvents,
+                events,
+                format("The events ({0}) don't came in right order ({1})", Arrays.deepToString(actualEvents),
                 Arrays.deepToString(events)));
     }
 
@@ -370,7 +366,7 @@ public abstract class AbstractMetamerTest extends AbstractTestCase {
         selenium.waitForPageToLoad();
 
         assertTrue(selenium.getAttribute(attr).contains(value), "Attribute " + attribute + " should contain \"" + value
-            + "\".");
+                + "\".");
     }
 
     /**

@@ -40,10 +40,12 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
         </ui:define>
 
         <ui:define name="component">
+            <h:selectOneMenu immediate="true" value=""
             <rich:select id="select"
                          changedStateClass="#{richSelectBean.attributes['changedStateClass'].value}"
                          converterMessage="#{richSelectBean.attributes['converterMessage'].value}"
                          defaultLabel="#{richSelectBean.attributes['defaultLabel'].value}"
+                         disabled="#{richSelectBean.attributes['disabled'].value}"
                          disabledStateClass="#{richSelectBean.attributes['disabledStateClass'].value}"
                          editStateClass="#{richSelectBean.attributes['editStateClass'].value}"
                          enableManualInput="#{richSelectBean.attributes['enableManualInput'].value}"
@@ -52,6 +54,8 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                          listClass="#{richSelectBean.attributes['listClass'].value}"
                          listHeight="#{richSelectBean.attributes['listHeight'].value}"
                          listWidth="#{richSelectBean.attributes['listWidth'].value}"
+                         maxListHeight="#{richSelectBean.attributes['maxListHeight'].value}"
+                         minListHeight="#{richSelectBean.attributes['minListHeight'].value}"
                          onblur="#{richSelectBean.attributes['onblur'].value}"
                          onchange="#{richSelectBean.attributes['onchange'].value}"
                          onclick="#{richSelectBean.attributes['onclick'].value}"
