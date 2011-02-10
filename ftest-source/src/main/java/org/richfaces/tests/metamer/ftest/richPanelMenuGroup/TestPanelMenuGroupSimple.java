@@ -6,6 +6,8 @@ import static org.testng.Assert.assertTrue;
 
 import org.jboss.test.selenium.GuardRequest;
 import org.jboss.test.selenium.request.RequestType;
+import org.richfaces.PanelMenuMode;
+import org.richfaces.tests.metamer.ftest.annotations.IssueTracking;
 import org.testng.annotations.Test;
 
 /**
@@ -32,6 +34,7 @@ public class TestPanelMenuGroupSimple extends AbstractPanelMenuGroupTest {
 
     @Test
     public void testDisabled() {
+        menu.setGroupMode(null);
         assertFalse(topGroup.isDisabled());
 
         attributes.setDisabled(true);
@@ -152,24 +155,14 @@ public class TestPanelMenuGroupSimple extends AbstractPanelMenuGroupTest {
 
     @Test
     public void testSelectable() {
+        menu.setGroupMode(PanelMenuMode.ajax);
+
         attributes.setSelectable(false);
-
-        new GuardRequest(RequestType.XHR) {
-            public void command() {
-                topGroup.toggle();
-            }
-        }.waitRequest();
-
+        topGroup.toggle();
         assertFalse(topGroup.isSelected());
 
         attributes.setSelectable(true);
-
-        new GuardRequest(RequestType.XHR) {
-            public void command() {
-                topGroup.toggle();
-            }
-        }.waitRequest();
-
+        topGroup.toggle();
         assertTrue(topGroup.isSelected());
     }
 
@@ -183,6 +176,7 @@ public class TestPanelMenuGroupSimple extends AbstractPanelMenuGroupTest {
     }
 
     @Test
+    @IssueTracking("https://issues.jboss.org/browse/RF-10485")
     public void testStyle() {
         super.testStyle(topGroup, "style");
     }

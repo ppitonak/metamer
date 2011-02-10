@@ -28,10 +28,9 @@ import static org.richfaces.PanelMenuMode.server;
 
 import java.net.URL;
 
-import org.jboss.test.selenium.GuardRequest;
-import org.jboss.test.selenium.request.RequestType;
 import org.richfaces.tests.metamer.ftest.AbstractMetamerTest;
 import org.richfaces.tests.metamer.ftest.annotations.Inject;
+import org.richfaces.tests.metamer.ftest.annotations.IssueTracking;
 import org.richfaces.tests.metamer.ftest.annotations.Use;
 import org.richfaces.tests.metamer.ftest.model.PanelMenu;
 import org.testng.annotations.Test;
@@ -59,6 +58,7 @@ public class TestPanelMenuItemClientSideHandlers extends AbstractMetamerTest {
     }
 
     @Test
+    @IssueTracking("https://issues.jboss.org/browse/RF-10486")
     @Use(field = "event", value = "ajaxEvents")
     public void testClientSideEvent() {
         attributes.setMode(ajax);
@@ -69,6 +69,7 @@ public class TestPanelMenuItemClientSideHandlers extends AbstractMetamerTest {
     }
 
     @Test
+    @IssueTracking("https://issues.jboss.org/browse/RF-10486")
     public void testClientSideEventsOrderClient() {
         attributes.setMode(client);
         menu.setItemMode(client);
@@ -78,6 +79,7 @@ public class TestPanelMenuItemClientSideHandlers extends AbstractMetamerTest {
     }
 
     @Test
+    @IssueTracking("https://issues.jboss.org/browse/RF-10486")
     public void testClientSideEventsOrderAjax() {
         attributes.setMode(ajax);
         menu.setItemMode(ajax);

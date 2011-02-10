@@ -28,6 +28,7 @@ import static org.testng.Assert.assertTrue;
 import org.jboss.test.selenium.css.CssProperty;
 import org.richfaces.PanelMenuMode;
 import org.richfaces.tests.metamer.ftest.annotations.Inject;
+import org.richfaces.tests.metamer.ftest.annotations.IssueTracking;
 import org.richfaces.tests.metamer.ftest.annotations.Use;
 import org.testng.annotations.Test;
 
@@ -42,6 +43,7 @@ public class TestPanelMenuSimple extends AbstractPanelMenuTest {
     Boolean expandSingle;
 
     @Test
+    @IssueTracking("https://issues.jboss.org/browse/RF-10158")
     public void testDisabled() {
         attributes.setGroupMode(PanelMenuMode.client);
         attributes.setDisabled(false);
@@ -118,8 +120,9 @@ public class TestPanelMenuSimple extends AbstractPanelMenuTest {
     public void testTopItemClass() {
         super.testStyleClass(item3, "topItemClass");
     }
-    
+
     @Test
+    @IssueTracking("https://issues.jboss.org/browse/RF-10302")
     public void testWidth() {
         attributes.setWidth("300px");
         assertEquals(selenium.getStyle(menu, CssProperty.WIDTH), "300px");
