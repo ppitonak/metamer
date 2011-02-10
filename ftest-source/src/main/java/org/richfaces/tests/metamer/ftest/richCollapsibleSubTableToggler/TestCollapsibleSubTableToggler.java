@@ -41,7 +41,6 @@ import org.jboss.test.selenium.dom.Event;
 import org.jboss.test.selenium.locator.JQueryLocator;
 import org.richfaces.tests.metamer.ftest.AbstractMetamerTest;
 import org.richfaces.tests.metamer.ftest.annotations.Inject;
-import org.richfaces.tests.metamer.ftest.annotations.IssueTracking;
 import org.richfaces.tests.metamer.ftest.annotations.Use;
 import org.richfaces.tests.metamer.ftest.model.CollapsibleSubTable;
 import org.richfaces.tests.metamer.ftest.model.CollapsibleSubTableToggler;
@@ -89,50 +88,18 @@ public class TestCollapsibleSubTableToggler extends AbstractMetamerTest {
 
     @Test
     public void testCollapsedLabel() {
-        attributes.setCollapseLabel(LABEL);
-
-        new TogglerTester(link, image) {
-
-            @Override
-            public void verifyBefore() {
-                assertEquals(selenium.getText(togglerExpanded), LABEL);
-            }
-
-            @Override
-            public void verifyMiddle() {
-                assertFalse(selenium.isVisible(togglerExpanded));
-                assertTrue(selenium.isVisible(togglerCollapsed));
-            }
-
-            @Override
-            public void verifyAfter() {
-                assertTrue(selenium.isVisible(togglerExpanded));
-                assertFalse(selenium.isVisible(togglerCollapsed));
-                assertEquals(selenium.getText(togglerExpanded), LABEL);
-            }
-        }.testToggler();
-    }
-
-    @Test
-    public void testExpandedLabel() {
-        attributes.setExpandLabel(LABEL);
+        attributes.setCollapsedIcon("none");
+        attributes.setCollapsedLabel(LABEL);
 
         new TogglerTester(image, link) {
-            String imageUrl;
+            String expandedImageUrl;
 
             @Override
             public void verifyBefore() {
-                selenium.getAttribute(togglerExpanded.getAttribute(SRC));
                 assertTrue(selenium.isVisible(togglerExpanded));
                 assertFalse(selenium.isVisible(togglerCollapsed));
-                imageUrl = selenium.getAttribute(togglerExpanded.getAttribute(SRC));
-            }
+                expandedImageUrl = selenium.getAttribute(togglerExpanded.getAttribute(SRC));
 
-            @Override
-            public void verifyAfter() {
-                assertTrue(selenium.isVisible(togglerExpanded));
-                assertFalse(selenium.isVisible(togglerCollapsed));
-                assertEquals(selenium.getAttribute(togglerExpanded.getAttribute(SRC)), imageUrl);
             }
 
             @Override
@@ -141,13 +108,47 @@ public class TestCollapsibleSubTableToggler extends AbstractMetamerTest {
                 assertTrue(selenium.isVisible(togglerCollapsed));
                 assertEquals(selenium.getText(togglerCollapsed), LABEL);
             }
+
+            @Override
+            public void verifyAfter() {
+                assertTrue(selenium.isVisible(togglerExpanded));
+                assertFalse(selenium.isVisible(togglerCollapsed));
+                assertEquals(selenium.getAttribute(togglerExpanded.getAttribute(SRC)), expandedImageUrl);
+            }
         }.testToggler();
     }
 
-    @IssueTracking("https://issues.jboss.org/browse/RF-9725")
+    @Test
+    public void testExpandedLabel() {
+        attributes.setExpandedLabel(LABEL);
+
+        new TogglerTester(link, image) {
+
+            @Override
+            public void verifyBefore() {
+                assertTrue(selenium.isVisible(togglerExpanded));
+                assertFalse(selenium.isVisible(togglerCollapsed));
+                assertEquals(selenium.getText(togglerExpanded), LABEL);
+            }
+
+            @Override
+            public void verifyMiddle() {
+                assertFalse(selenium.isVisible(togglerExpanded));
+                assertTrue(selenium.isVisible(togglerCollapsed));
+            }
+
+            @Override
+            public void verifyAfter() {
+                assertTrue(selenium.isVisible(togglerExpanded));
+                assertFalse(selenium.isVisible(togglerCollapsed));
+                assertEquals(selenium.getText(togglerExpanded), LABEL);
+            }
+        }.testToggler();
+    }
+
     @Test
     public void testExpandedIcon() {
-        attributes.setExpandIcon(IMAGE_URL);
+        attributes.setExpandedIcon(IMAGE_URL);
 
         new TogglerTester(image, image) {
 
@@ -155,40 +156,37 @@ public class TestCollapsibleSubTableToggler extends AbstractMetamerTest {
             public void verifyBefore() {
                 assertTrue(selenium.isVisible(togglerExpanded));
                 assertFalse(selenium.isVisible(togglerCollapsed));
-                assertTrue(selenium.getAttribute(togglerCollapsed.getAttribute(SRC)).contains(IMAGE_URL));
-
+                assertTrue(selenium.getAttribute(togglerExpanded.getAttribute(SRC)).contains(IMAGE_URL));
             }
 
             @Override
             public void verifyMiddle() {
                 assertFalse(selenium.isVisible(togglerExpanded));
                 assertTrue(selenium.isVisible(togglerCollapsed));
-                assertFalse(selenium.getAttribute(togglerCollapsed.getAttribute(SRC)).contains(IMAGE_URL));
             }
 
             @Override
             public void verifyAfter() {
                 assertTrue(selenium.isVisible(togglerExpanded));
                 assertFalse(selenium.isVisible(togglerCollapsed));
-                assertTrue(selenium.getAttribute(togglerCollapsed.getAttribute(SRC)).contains(IMAGE_URL));
+                assertTrue(selenium.getAttribute(togglerExpanded.getAttribute(SRC)).contains(IMAGE_URL));
             }
         }.testToggler();
     }
 
-    @IssueTracking("https://issues.jboss.org/browse/RF-9725")
     @Test
     public void testCollapsedIcon() {
-        attributes.setCollapseIcon(IMAGE_URL);
+        attributes.setCollapsedIcon(IMAGE_URL);
 
         new TogglerTester(image, image) {
 
-            String imageUrl;
+            String expandedImageUrl;
 
             @Override
             public void verifyBefore() {
                 assertTrue(selenium.isVisible(togglerExpanded));
                 assertFalse(selenium.isVisible(togglerCollapsed));
-                imageUrl = selenium.getAttribute(togglerExpanded.getAttribute(SRC));
+                expandedImageUrl = selenium.getAttribute(togglerExpanded.getAttribute(SRC));
             }
 
             @Override
@@ -202,7 +200,7 @@ public class TestCollapsibleSubTableToggler extends AbstractMetamerTest {
             public void verifyAfter() {
                 assertTrue(selenium.isVisible(togglerExpanded));
                 assertFalse(selenium.isVisible(togglerCollapsed));
-                assertEquals(selenium.getAttribute(togglerExpanded.getAttribute(SRC)), imageUrl);
+                assertEquals(selenium.getAttribute(togglerExpanded.getAttribute(SRC)), expandedImageUrl);
             }
         }.testToggler();
     }

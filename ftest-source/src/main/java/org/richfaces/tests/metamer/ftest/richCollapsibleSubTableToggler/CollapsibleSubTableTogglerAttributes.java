@@ -29,24 +29,24 @@ import org.richfaces.tests.metamer.ftest.AbstractComponentAttributes;
  * @version $Revision$
  */
 public class CollapsibleSubTableTogglerAttributes extends AbstractComponentAttributes {
-    public void setCollapseIcon(String collapseIcon) {
-        setProperty("collapseIcon", collapseIcon);
+    public void setCollapsedIcon(String collapsedIcon) {
+        setProperty("collapsedIcon", collapsedIcon);
     }
 
-    public void setCollapseLabel(String collapseLabel) {
-        setProperty("collapseLabel", collapseLabel);
+    public void setCollapsedLabel(String collapsedLabel) {
+        setProperty("collapsedLabel", collapsedLabel);
     }
 
     public void setEvent(Event event) {
         setProperty("event", event);
     }
 
-    public void setExpandIcon(String expandIcon) {
-        setProperty("expandIcon", expandIcon);
+    public void setExpandedIcon(String expandedIcon) {
+        setProperty("expandedIcon", expandedIcon);
     }
 
-    public void setExpandLabel(String expandLabel) {
-        setProperty("expandLabel", expandLabel);
+    public void setExpandedLabel(String expandedLabel) {
+        setProperty("expandedLabel", expandedLabel);
     }
 
     public void setRendered(Boolean rendered) {
