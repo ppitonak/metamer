@@ -32,6 +32,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.richfaces.tests.metamer.ftest.annotations.Inject;
+import org.richfaces.tests.metamer.ftest.annotations.IssueTracking;
 import org.richfaces.tests.metamer.ftest.annotations.Use;
 import org.richfaces.tests.metamer.ftest.annotations.Uses;
 import org.richfaces.tests.metamer.ftest.richTree.TestTreeSelection;
@@ -93,6 +94,7 @@ public class TestTreeModelAdaptorSelection extends TestTreeSelection {
     @Test
     @Override
     @Use(field = "paths", value = "paths*")
+    @IssueTracking("https://issues.jboss.org/browse/RF-10038")
     public void testSubNodesSelection() {
         super.testSubNodesSelection();
     }
@@ -101,6 +103,7 @@ public class TestTreeModelAdaptorSelection extends TestTreeSelection {
     @Override
     @Uses({ @Use(field = "paths", value = "paths*"),
         @Use(field = "selectionType", value = "eventEnabledSelectionTypes") })
+    @IssueTracking("https://issues.jboss.org/browse/RF-10038")
     public void testSubNodesSelectionEvents() {
         super.testSubNodesSelectionEvents();
     }
