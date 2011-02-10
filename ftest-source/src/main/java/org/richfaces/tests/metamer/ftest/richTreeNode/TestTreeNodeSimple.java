@@ -53,6 +53,7 @@ import org.jboss.test.selenium.waiting.retrievers.AttributeRetriever;
 import org.richfaces.component.SwitchType;
 import org.richfaces.tests.metamer.ftest.AbstractMetamerTest;
 import org.richfaces.tests.metamer.ftest.annotations.Inject;
+import org.richfaces.tests.metamer.ftest.annotations.IssueTracking;
 import org.richfaces.tests.metamer.ftest.annotations.Use;
 import org.richfaces.tests.metamer.ftest.richTree.TreeAttributes;
 import org.richfaces.tests.metamer.ftest.richTree.TreeModel;
@@ -224,6 +225,7 @@ public class TestTreeNodeSimple extends AbstractMetamerTest {
 
     @Test
     @Use(field = "event", value = "events")
+    @IssueTracking("https://issues.jboss.org/browse/RF-10483")
     public void testClientEvents() {
         String attributeName = event.getEventName();
         ElementLocator<?> eventInput = pjq("span[id$=treeNode1Attributes:panel] input[id$=on" + attributeName
