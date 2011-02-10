@@ -65,7 +65,6 @@ public class RichTooltipBean implements Serializable {
         attributes.setAttribute("attached", true);
         attributes.setAttribute("rendered", true);
         attributes.setAttribute("followMouse", true);
-        attributes.setAttribute("disabled", false);
         attributes.setAttribute("layout", "inline");
         attributes.setAttribute("mode", "client");
         attributes.setAttribute("showEvent", "mouseenter");

@@ -28,8 +28,11 @@ import org.jboss.test.selenium.framework.AjaxSeleniumProxy;
 import org.jboss.test.selenium.geometry.Point;
 import org.jboss.test.selenium.locator.JQueryLocator;
 import org.jboss.test.selenium.request.RequestType;
+import org.jboss.test.selenium.waiting.conditions.IsDisplayed;
 import org.richfaces.TooltipMode;
 import org.richfaces.tests.metamer.ftest.model.AbstractModel;
+
+import static org.jboss.test.selenium.waiting.Wait.waitAjax;
 
 /**
  * @author <a href="mailto:lfryc@redhat.com">Lukas Fryc</a>
@@ -69,6 +72,7 @@ public class TooltipModel extends AbstractModel<JQueryLocator> {
         } else {
             guard(selenium, getRequestType()).mouseOverAt(target, new Point(x, y));
         }
+        waitAjax().dontFail().interval(50).timeout(2000).until(IsDisplayed.getInstance().locator(this));
     }
 
     public void hide() {

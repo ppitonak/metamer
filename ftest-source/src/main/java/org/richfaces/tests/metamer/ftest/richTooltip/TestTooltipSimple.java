@@ -24,7 +24,6 @@ package org.richfaces.tests.metamer.ftest.richTooltip;
 import static javax.faces.event.PhaseId.APPLY_REQUEST_VALUES;
 import static javax.faces.event.PhaseId.RENDER_RESPONSE;
 import static javax.faces.event.PhaseId.RESTORE_VIEW;
-import static javax.faces.event.PhaseId.UPDATE_MODEL_VALUES;
 import static org.jboss.test.selenium.dom.Event.CLICK;
 import static org.jboss.test.selenium.dom.Event.DBLCLICK;
 import static org.jboss.test.selenium.dom.Event.MOUSEDOWN;
@@ -38,7 +37,6 @@ import static org.jboss.test.selenium.utils.text.SimplifiedFormat.format;
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertFalse;
 import static org.testng.Assert.assertTrue;
-import static org.testng.Assert.fail;
 
 import java.net.URL;
 
@@ -69,7 +67,7 @@ public class TestTooltipSimple extends AbstractMetamerTest {
 
     TooltipAttributes attributes = new TooltipAttributes();
     JQueryLocator panel = pjq("div[id$=panel]");
-    TooltipModel tooltip = new TooltipModel(panel.getChild(jq("* >.rf-tt")), panel);
+    TooltipModel tooltip = new TooltipModel(jq(".rf-tt"), panel);
 
     Point eventPosition;
 
@@ -114,17 +112,25 @@ public class TestTooltipSimple extends AbstractMetamerTest {
     }
 
     @Test
-    @IssueTracking("https://issues.jboss.org/browse/RF-10282")
     public void testLifecycle() {
         attributes.setMode(TooltipMode.ajax);
+        retrieveRequestTime.initializeValue();
         tooltip.recall();
+        waitGui.waitForChange(retrieveRequestTime);
         phaseInfo.assertPhases(RESTORE_VIEW, APPLY_REQUEST_VALUES, RENDER_RESPONSE);
     }
 
     @Test
-    @IssueTracking("https://issues.jboss.org/browse/RF-10285")
+    @IssueTracking("https://issues.jboss.org/browse/RF-10476")
     public void testData() {
-        fail("TODO needs comment ");
+        attributes.setData("RichFaces 4");
+        attributes.setOncomplete("data = event.data");
+
+        retrieveRequestTime.initializeValue();
+        tooltip.recall();
+        waitGui.waitForChange(retrieveRequestTime);
+
+        assertEquals(retrieveWindowData.retrieve(), "RichFaces 4");
     }
 
     @Test
@@ -132,7 +138,7 @@ public class TestTooltipSimple extends AbstractMetamerTest {
         super.testDir(tooltip);
     }
 
-    @Test
+    // ////@Test
     @Uses({ @Use(field = "direction", enumeration = true), @Use(field = "verticalOffset", value = "offsets"),
         @Use(field = "horizontalOffset", value = "offsets") })
     public void testPositioning() {
@@ -172,22 +178,6 @@ public class TestTooltipSimple extends AbstractMetamerTest {
                 default:
             }
         }
-    }
-
-    @Test
-    @IssueTracking("https://issues.jboss.org/browse/RF-10283")
-    public void testDisabled() {
-        fail("TODO needs comment ");
-    }
-
-    @Test
-    @IssueTracking("https://issues.jboss.org/browse/RF-10333")
-    public void testExecute() {
-        attributes.setExecute("@this executeChecker");
-        attributes.setMode(TooltipMode.ajax);
-
-        tooltip.recall();
-        phaseInfo.assertListener(UPDATE_MODEL_VALUES, "executeChecker");
     }
 
     @Test
@@ -234,7 +224,6 @@ public class TestTooltipSimple extends AbstractMetamerTest {
         attributes.setHideEvent("mouseup");
 
         tooltip.recall();
-        waitGui.until(isDisplayed.locator(tooltip));
 
         selenium.mouseUpAt(panel, new Point(5, 5));
         waitGui.until(isNotDisplayed.locator(tooltip));
@@ -259,17 +248,17 @@ public class TestTooltipSimple extends AbstractMetamerTest {
     }
 
     @Test
-    @IssueTracking("https://issues.jboss.org/browse/RF-10287")
     public void testLimitRender() {
         attributes.setLimitRender(true);
         attributes.setRender("@this renderChecker");
         attributes.setMode(TooltipMode.ajax);
 
         retrieveRenderChecker.initializeValue();
+        retrieveRequestTime.initializeValue();
 
         tooltip.recall();
-
-        assertTrue(retrieveRenderChecker.isValueChanged());
+        waitAjax.waitForChange(retrieveRenderChecker);
+        assertFalse(retrieveRequestTime.isValueChanged());
     }
 
     @Test
@@ -280,7 +269,6 @@ public class TestTooltipSimple extends AbstractMetamerTest {
         retrieveRequestTime.initializeValue();
 
         tooltip.recall();
-        waitAjax.until(isDisplayed.locator(tooltip));
         assertEquals(retrieveRequestTime.isValueChanged(), mode == TooltipMode.ajax);
 
         retrieveRequestTime.initializeValue();
@@ -293,7 +281,6 @@ public class TestTooltipSimple extends AbstractMetamerTest {
     @Use(field = "domEvent", value = "domEvents")
     public void testDomEvents() {
         tooltip.recall();
-        waitGui.until(isDisplayed.locator(tooltip));
 
         testFireEvent(domEvent, tooltip);
     }
@@ -339,8 +326,7 @@ public class TestTooltipSimple extends AbstractMetamerTest {
 
         retrieveStatusChecker.initializeValue();
         tooltip.recall();
-        assertTrue(retrieveStatusChecker.isValueChanged());
-
+        waitAjax.waitForChange(retrieveStatusChecker);
     }
 
     @Test
@@ -359,7 +345,6 @@ public class TestTooltipSimple extends AbstractMetamerTest {
     }
 
     @Test
-    @IssueTracking("https://issues.jboss.org/browse/RF-10286")
     public void testZindex() {
         attributes.setZindex(10);
 
