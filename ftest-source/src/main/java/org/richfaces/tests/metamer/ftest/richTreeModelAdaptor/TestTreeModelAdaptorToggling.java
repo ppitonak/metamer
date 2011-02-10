@@ -50,8 +50,9 @@ public class TestTreeModelAdaptorToggling extends TestTreeToggling {
     public boolean recursiveLeafChildrenNullable;
 
     @BeforeClass
-    public void initTreeAttributes() {
+    public void setupTreeModelTesting() {
         treeAttributes = new TreeAttributes(jq("span[id*=treeAttributes]"));
+        paths = new int[][] { { 3, 2, 1, 2 }, { 2, 4, 6 } };
     }
 
     @BeforeMethod

@@ -45,7 +45,7 @@ public class TestTreeToggling extends AbstractMetamerTest {
 
     private static final int TOP_LEVEL_NODES = 4;
 
-    int[][] PATHS = new int[][] { { 3, 2, 1, 2 }, { 2, 4, 6 } };
+    protected int[][] paths = new int[][] { { 3, 2, 1 }, { 2, 4, 1 } };
 
     protected TreeAttributes treeAttributes = new TreeAttributes(jq("span[id*=attributes]"));
     private TreeModel tree = new TreeModel(pjq("div.rf-tr[id$=richTree]"));
@@ -93,7 +93,7 @@ public class TestTreeToggling extends AbstractMetamerTest {
 
     @Test
     public void testDeepExpansion() {
-        for (int[] path : PATHS) {
+        for (int[] path : paths) {
             int depth = path.length;
 
             for (int d = 1; d <= path.length; d++) {
