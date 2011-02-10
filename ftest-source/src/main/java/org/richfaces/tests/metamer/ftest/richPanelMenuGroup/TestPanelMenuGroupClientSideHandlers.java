@@ -29,6 +29,7 @@ import static org.richfaces.PanelMenuMode.server;
 import java.net.URL;
 
 import org.richfaces.tests.metamer.ftest.annotations.Inject;
+import org.richfaces.tests.metamer.ftest.annotations.IssueTracking;
 import org.richfaces.tests.metamer.ftest.annotations.Use;
 import org.testng.annotations.Test;
 
@@ -36,6 +37,7 @@ import org.testng.annotations.Test;
  * @author <a href="mailto:lfryc@redhat.com">Lukas Fryc</a>
  * @version $Revision$
  */
+@IssueTracking("https://issues.jboss.org/browse/RF-10317")
 public class TestPanelMenuGroupClientSideHandlers extends AbstractPanelMenuGroupTest {
 
     @Inject

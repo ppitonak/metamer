@@ -21,19 +21,24 @@
  *******************************************************************************/
 package org.richfaces.tests.metamer.ftest;
 
-import static org.jboss.test.selenium.dom.Event.*;
+import static org.jboss.test.selenium.dom.Event.CLICK;
+import static org.jboss.test.selenium.dom.Event.DBLCLICK;
+import static org.jboss.test.selenium.dom.Event.MOUSEDOWN;
+import static org.jboss.test.selenium.dom.Event.MOUSEMOVE;
+import static org.jboss.test.selenium.dom.Event.MOUSEOUT;
+import static org.jboss.test.selenium.dom.Event.MOUSEOVER;
+import static org.jboss.test.selenium.dom.Event.MOUSEUP;
 import static org.jboss.test.selenium.encapsulated.JavaScript.js;
-import static org.jboss.test.selenium.guard.request.RequestTypeGuardFactory.guard;
 import static org.jboss.test.selenium.guard.request.RequestTypeGuardFactory.guardHttp;
 import static org.jboss.test.selenium.guard.request.RequestTypeGuardFactory.guardXhr;
 import static org.jboss.test.selenium.locator.LocatorFactory.id;
 import static org.jboss.test.selenium.locator.LocatorFactory.jq;
+import static org.jboss.test.selenium.locator.reference.ReferencedLocator.ref;
 import static org.jboss.test.selenium.utils.URLUtils.buildUrl;
 import static org.jboss.test.selenium.utils.text.SimplifiedFormat.format;
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertFalse;
 import static org.testng.Assert.assertTrue;
-import static org.jboss.test.selenium.locator.reference.ReferencedLocator.ref;
 
 import java.net.URL;
 import java.util.Arrays;

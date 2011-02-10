@@ -34,6 +34,7 @@ import javax.faces.event.PhaseId;
 
 import org.richfaces.PanelMenuMode;
 import org.richfaces.tests.metamer.ftest.annotations.Inject;
+import org.richfaces.tests.metamer.ftest.annotations.IssueTracking;
 import org.richfaces.tests.metamer.ftest.annotations.Use;
 import org.richfaces.tests.metamer.ftest.annotations.Uses;
 import org.testng.annotations.Test;
@@ -42,6 +43,7 @@ import org.testng.annotations.Test;
  * @author <a href="mailto:lfryc@redhat.com">Lukas Fryc</a>
  * @version $Revision$
  */
+@IssueTracking({ "https://issues.jboss.org/browse/RF-10314", "https://issues.jboss.org/browse/RF-10480" })
 public class TestPanelMenuGroupMode extends AbstractPanelMenuGroupTest {
 
     @Inject

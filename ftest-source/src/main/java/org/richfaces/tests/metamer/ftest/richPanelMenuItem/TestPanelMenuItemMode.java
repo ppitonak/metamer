@@ -37,6 +37,7 @@ import javax.faces.event.PhaseId;
 import org.richfaces.PanelMenuMode;
 import org.richfaces.tests.metamer.ftest.AbstractMetamerTest;
 import org.richfaces.tests.metamer.ftest.annotations.Inject;
+import org.richfaces.tests.metamer.ftest.annotations.IssueTracking;
 import org.richfaces.tests.metamer.ftest.annotations.Use;
 import org.richfaces.tests.metamer.ftest.model.PanelMenu;
 import org.testng.annotations.Test;
@@ -45,6 +46,7 @@ import org.testng.annotations.Test;
  * @author <a href="mailto:lfryc@redhat.com">Lukas Fryc</a>
  * @version $Revision$
  */
+@IssueTracking({ "https://issues.jboss.org/browse/RF-10436", "https://issues.jboss.org/browse/RF-10314" })
 public class TestPanelMenuItemMode extends AbstractMetamerTest {
 
     PanelMenuItemAttributes attributes = new PanelMenuItemAttributes();
@@ -61,7 +63,7 @@ public class TestPanelMenuItemMode extends AbstractMetamerTest {
 
     @Inject
     @Use(enumeration = true)
-    PanelMenuMode mode = PanelMenuMode.ajax;
+    PanelMenuMode mode;
 
     @Inject
     @Use("listeners")
@@ -89,7 +91,12 @@ public class TestPanelMenuItemMode extends AbstractMetamerTest {
             if ("phases".equals(listener)) {
                 phaseInfo.assertPhases(getExpectedPhases());
             } else {
-                phaseInfo.assertListener(getExecutionPhase(), listener);
+                PhaseId listenerInvocationPhase = getListenerInvocationPhase();
+                if (listenerInvocationPhase == null) {
+                    phaseInfo.assertNoListener(listener);
+                } else {
+                    phaseInfo.assertListener(listenerInvocationPhase, listener);
+                }
             }
         }
     }
@@ -109,8 +116,18 @@ public class TestPanelMenuItemMode extends AbstractMetamerTest {
         return list.toArray(new PhaseId[list.size()]);
     }
 
-    private PhaseId getExecutionPhase() {
+    private PhaseId getListenerInvocationPhase() {
         PhaseId[] phases = getExpectedPhases();
-        return phases[phases.length - 2];
+        PhaseId phase = phases[phases.length - 2];
+
+        if ("executeChecker".equals(listener)) {
+            if (phase.compareTo(UPDATE_MODEL_VALUES) < 0 || mode == PanelMenuMode.server) {
+                return null;
+            } else {
+                return UPDATE_MODEL_VALUES;
+            }
+        }
+
+        return phase;
     }
 }

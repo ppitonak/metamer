@@ -38,6 +38,7 @@ import org.jboss.test.selenium.waiting.selenium.SeleniumCondition;
 import org.jboss.test.selenium.waiting.selenium.SeleniumWaiting;
 import org.richfaces.PanelMenuMode;
 import org.richfaces.tests.metamer.ftest.annotations.Inject;
+import org.richfaces.tests.metamer.ftest.annotations.IssueTracking;
 import org.richfaces.tests.metamer.ftest.annotations.Use;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -95,6 +96,7 @@ public class TestPanelMenuDOMEvents extends AbstractPanelMenuTest {
     }
 
     @Test
+    @IssueTracking("https://issues.jboss.org/browse/RF-10481")
     @Use(field = "mode", enumeration = true)
     public void testCollapseEvent() {
         attributes.setCollapseEvent(event.getEventName());

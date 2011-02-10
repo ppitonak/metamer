@@ -28,6 +28,7 @@ import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Set;
 
 import javax.faces.event.PhaseId;
@@ -84,6 +85,26 @@ public class PhaseInfo {
             }
         }
         throw new AssertionError("The '" + message + "' wasn't found across messages in phase " + phaseId);
+    }
+
+    /**
+     * Asserts that there is no specified message in phases list.
+     * 
+     * @param message
+     *            the part of the message which it should be looked up
+     */
+    public void assertNoListener(String message) {
+        initialize();
+        for (Entry<PhaseId, Set<String>> entry : map.entrySet()) {
+            PhaseId phaseId = entry.getKey();
+            Set<String> descriptions = entry.getValue();
+
+            for (String description : descriptions) {
+                if (description.contains(message)) {
+                    throw new AssertionError("The '" + message + "' was found across messages in phase " + phaseId);
+                }
+            }
+        }
     }
 
     private void initialize() {
