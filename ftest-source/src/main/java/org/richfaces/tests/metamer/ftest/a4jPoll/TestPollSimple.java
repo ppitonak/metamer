@@ -177,9 +177,8 @@ public class TestPollSimple extends AbstractMetamerTest {
     private void testClientSideEventHandlers(String... events) {
         attributes.setEnabled(false);
         super.testRequestEventsBefore(events);
-        retrieveRequestTime.initializeValue();
         attributes.setEnabled(true);
-
+        retrieveRequestTime.initializeValue();
         waitAjax.waitForChange(retrieveRequestTime);
 
         super.testRequestEventsAfter(events);
