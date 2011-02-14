@@ -141,21 +141,6 @@ public class TestRichSelect extends AbstractMetamerTest {
     }
 
     @Test
-    @IssueTracking("https://issues.jboss.org/browse/RF-10479")
-    public void testChangedStateClass() {
-        selenium.type(pjq("input[id$=changedStateClassInput]"), "metamer-ftest-class");
-        selenium.waitForPageToLoad();
-
-        selenium.mouseDown(button);
-        selenium.mouseUp(button);
-        selenium.click(options.format(10));
-        guardXhr(selenium).fireEvent(input, Event.BLUR);
-        waitGui.failWith("Bean was not updated").until(textEquals.locator(output).text("Hawaii"));
-
-        assertTrue(selenium.belongsClass(select, "metamer-ftest-class"), "Attribute changedStateClass doesn't work.");
-    }
-
-    @Test
     public void testDefaultLabel() {
         selenium.type(pjq("input[type=text][id$=defaultLabelInput]"), "new label");
         selenium.waitForPageToLoad();
@@ -189,21 +174,6 @@ public class TestRichSelect extends AbstractMetamerTest {
         AttributeLocator disabledAttr = input.getAttribute(new Attribute("disabled"));
         assertTrue(selenium.isAttributePresent(disabledAttr), "Input should be disabled.");
         assertEquals(selenium.getAttribute(disabledAttr), "disabled", "Input should be disabled.");
-    }
-
-    @Test
-    @IssueTracking("https://issues.jboss.org/browse/RF-10479")
-    public void testDisabledStateClass() {
-        selenium.click(pjq("input[type=radio][name$=disabledInput][value=true]"));
-        selenium.waitForPageToLoad();
-
-        testStyleClass(select, "disabledStateClass");
-    }
-
-    @Test
-    @IssueTracking("https://issues.jboss.org/browse/RF-10479")
-    public void testEditStateClass() {
-        testStyleClass(select, "editStateClass");
     }
 
     @Test
@@ -467,12 +437,6 @@ public class TestRichSelect extends AbstractMetamerTest {
 
         waitGui.failWith("Attribute onchange does not work correctly").until(
                 new EventFiredCondition(new Event("selectitem")));
-    }
-
-    @Test
-    @IssueTracking("https://issues.jboss.org/browse/RF-10479")
-    public void testReadyStateClass() {
-        testStyleClass(select, "readyStateClass");
     }
 
     @Test
