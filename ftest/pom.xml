@@ -88,27 +88,27 @@
     </properties>
 
     <repositories>
-    	<repository>
+        <repository>
             <id>jboss-qa-releases-repository</id>
             <url>http://nexus.qa.jboss.com:8081/nexus/content/repositories/releases</url>
             <releases>
-            	<updatePolicy>never</updatePolicy>
-            	<enabled>true</enabled>
+                <updatePolicy>never</updatePolicy>
+                <enabled>true</enabled>
             </releases>
             <snapshots>
-            	<enabled>false</enabled>
-           	</snapshots>
+                <enabled>false</enabled>
+            </snapshots>
         </repository>
         <repository>
             <id>jboss-qa-snapshots-repository</id>
             <url>http://nexus.qa.jboss.com:8081/nexus/content/repositories/snapshots</url>
             <releases>
-            	<enabled>false</enabled>
+                <enabled>false</enabled>
             </releases>
             <snapshots>
-            	<updatePolicy>daily</updatePolicy>
-            	<enabled>true</enabled>
-           	</snapshots>
+                <updatePolicy>daily</updatePolicy>
+                <enabled>true</enabled>
+            </snapshots>
         </repository>
         <repository>
             <id>jboss-public-repository-group</id>
@@ -187,6 +187,42 @@
                 <property>
                     <name>containerId</name>
                     <value>tomcat6x</value>
+                </property>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <artifactId>maven-clean-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>clean-tomcat-exploded-war</id>
+                                <phase>initialize</phase>
+                                <goals>
+                                    <goal>clean</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                        <configuration>
+                            <excludeDefaultDirectories>true</excludeDefaultDirectories>
+                            <filesets>
+                                <fileset>
+                                    <directory>${container.home}/webapps/${context.deploy.path}</directory>
+                                    <includes>
+                                        <include>**</include>
+                                    </includes>
+                                </fileset>
+                            </filesets>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+        <profile>
+            <id>clean-tomcat7-exploded-war</id>
+            <activation>
+                <property>
+                    <name>containerId</name>
+                    <value>tomcat7x</value>
                 </property>
             </activation>
             <build>
@@ -362,6 +398,30 @@
         </profile>
         <profile>
             <id>tomcat6x-mojarra-snapshot</id>
+            <properties>
+                <deployable.classifier>mojarra-snapshot</deployable.classifier>
+            </properties>
+        </profile>
+        <profile>
+            <id>tomcat7x-mojarra</id>
+            <properties>
+                <deployable.classifier>mojarra</deployable.classifier>
+            </properties>
+        </profile>
+        <profile>
+            <id>tomcat7x-mojarra_2_1_0</id>
+            <properties>
+                <deployable.classifier>mojarra_2_1_0</deployable.classifier>
+            </properties>
+        </profile>
+        <profile>
+            <id>tomcat7x-myfaces</id>
+            <properties>
+                <deployable.classifier>myfaces</deployable.classifier>
+            </properties>
+        </profile>
+        <profile>
+            <id>tomcat7x-mojarra-snapshot</id>
             <properties>
                 <deployable.classifier>mojarra-snapshot</deployable.classifier>
             </properties>
