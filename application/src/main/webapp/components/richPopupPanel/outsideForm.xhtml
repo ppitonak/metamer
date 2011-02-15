@@ -28,6 +28,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
     -->
 
     <ui:composition template="/templates/template.xhtml">
+    	<ui:param name="dontRenderForm" value="true" />
 
         <ui:define name="head">
             <f:metadata>
@@ -35,7 +36,6 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                     <f:converter converterId="templatesListConverter" />
                 </f:viewParam>
             </f:metadata>
-            <c:set var="dontRenderForm" value="#{true}"/>
         </ui:define>
 
         <ui:define name="outOfTemplateBefore">
