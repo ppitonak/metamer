@@ -225,7 +225,7 @@ public class TestTreeNodeSimple extends AbstractMetamerTest {
 
     @Test
     @Use(field = "event", value = "events")
-    @IssueTracking("https://issues.jboss.org/browse/RF-10483")
+    @IssueTracking("https://issues.jboss.org/browse/RFPL-1124")
     public void testClientEvents() {
         String attributeName = event.getEventName();
         ElementLocator<?> eventInput = pjq("span[id$=treeNode1Attributes:panel] input[id$=on" + attributeName
