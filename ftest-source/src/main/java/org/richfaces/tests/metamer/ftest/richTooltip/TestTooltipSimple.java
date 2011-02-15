@@ -120,16 +120,27 @@ public class TestTooltipSimple extends AbstractMetamerTest {
     }
 
     @Test
-    @IssueTracking("https://issues.jboss.org/browse/RF-10476")
     public void testData() {
         attributes.setData("RichFaces 4");
         attributes.setOncomplete("data = event.data");
+        attributes.setMode(TooltipMode.ajax);
 
         retrieveRequestTime.initializeValue();
         tooltip.recall();
         waitGui.waitForChange(retrieveRequestTime);
 
         assertEquals(retrieveWindowData.retrieve(), "RichFaces 4");
+    }
+
+    @Test
+    public void testRequestEventHandlers() {
+        attributes.setMode(TooltipMode.ajax);
+
+        super.testRequestEventsBefore("begin", "beforedomupdate", "complete");
+        retrieveRequestTime.initializeValue();
+        tooltip.recall();
+        waitGui.waitForChange(retrieveRequestTime);
+        super.testRequestEventsAfter("begin", "beforedomupdate", "complete");
     }
 
     @Test
