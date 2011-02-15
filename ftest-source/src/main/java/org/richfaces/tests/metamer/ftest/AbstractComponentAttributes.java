@@ -30,6 +30,9 @@ import static org.richfaces.tests.metamer.ftest.AbstractMetamerTest.pjq;
 import org.jboss.test.selenium.dom.Event;
 import org.jboss.test.selenium.framework.AjaxSelenium;
 import org.jboss.test.selenium.framework.AjaxSeleniumProxy;
+import org.jboss.test.selenium.interception.CommandContext;
+import org.jboss.test.selenium.interception.CommandInterceptionException;
+import org.jboss.test.selenium.interception.CommandInterceptor;
 import org.jboss.test.selenium.locator.Attribute;
 import org.jboss.test.selenium.locator.AttributeLocator;
 import org.jboss.test.selenium.locator.ElementLocator;
@@ -39,6 +42,9 @@ import org.jboss.test.selenium.locator.option.OptionValueLocator;
 import org.jboss.test.selenium.locator.reference.LocatorReference;
 import org.jboss.test.selenium.locator.reference.ReferencedLocator;
 import org.jboss.test.selenium.request.RequestType;
+import org.jboss.test.selenium.waiting.Wait;
+
+import com.thoughtworks.selenium.SeleniumException;
 
 /**
  * @author <a href="mailto:lfryc@redhat.com">Lukas Fryc</a>
@@ -59,11 +65,11 @@ public class AbstractComponentAttributes {
     public <T extends ExtendedLocator<JQueryLocator>> AbstractComponentAttributes(T root) {
         this.root.setLocator(root);
     }
-    
+
     public ExtendedLocator<JQueryLocator> getRoot() {
         return root.getLocator();
     }
-    
+
     public void setRoot(ExtendedLocator<JQueryLocator> root) {
         this.root.setLocator(root);
     }
@@ -77,6 +83,8 @@ public class AbstractComponentAttributes {
     }
 
     protected void setProperty(String propertyName, Object value) {
+        selenium.getInterceptionProxy().registerInterceptor(new RepeatForElementNotFound());
+
         ExtendedLocator<JQueryLocator> locator = propertyLocator.format(propertyName, "");
         final AttributeLocator<?> typeLocator = locator.getAttribute(Attribute.TYPE);
         final ExtendedLocator<JQueryLocator> optionLocator = locator.getChild(jq("option"));
@@ -115,6 +123,8 @@ public class AbstractComponentAttributes {
             }
             applySelect(locator, valueAsString);
         }
+
+        selenium.getInterceptionProxy().unregisterInterceptorType(RepeatForElementNotFound.class);
     }
 
     public void setRequestType(RequestType requestType) {
@@ -145,5 +155,26 @@ public class AbstractComponentAttributes {
 
     public void setOncomplete(String oncomplete) {
         setProperty("oncomplete", oncomplete);
+    }
+
+    private class RepeatForElementNotFound implements CommandInterceptor {
+        @Override
+        public void intercept(CommandContext ctx) throws CommandInterceptionException {
+            for (int i = 1; i <= 3; i++) {
+                try {
+                    ctx.invoke();
+                    break;
+                } catch (SeleniumException e) {
+                    if (i == 3) {
+                        throw e;
+                    }
+                    if (e.getMessage().matches("ERROR: Element .* not found")) {
+                        Wait.waitAjax().timeout(500).interval(100).waitForTimeout();
+                        continue;
+                    }
+                    throw e;
+                }
+            }
+        }
     }
 }
