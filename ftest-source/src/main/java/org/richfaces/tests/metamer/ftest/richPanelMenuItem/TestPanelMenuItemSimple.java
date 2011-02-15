@@ -11,6 +11,7 @@ import org.jboss.test.selenium.GuardRequest;
 import org.jboss.test.selenium.request.RequestType;
 import org.richfaces.PanelMenuMode;
 import org.richfaces.tests.metamer.ftest.AbstractMetamerTest;
+import org.richfaces.tests.metamer.ftest.annotations.IssueTracking;
 import org.richfaces.tests.metamer.ftest.model.PanelMenu;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -35,7 +36,7 @@ public class TestPanelMenuItemSimple extends AbstractMetamerTest {
     public URL getTestUrl() {
         return buildUrl(contextPath, "faces/components/richPanelMenuItem/simple.xhtml");
     }
-    
+
     @BeforeMethod
     public void setupMode() {
         attributes.setMode(PanelMenuMode.ajax);
@@ -144,6 +145,7 @@ public class TestPanelMenuItemSimple extends AbstractMetamerTest {
     }
 
     @Test
+    @IssueTracking("https://issues.jboss.org/browse/RF-10519")
     public void testRightIcon() {
         attributes.setRightIcon(CHEVRON_DOWN);
 
@@ -155,6 +157,7 @@ public class TestPanelMenuItemSimple extends AbstractMetamerTest {
     }
 
     @Test
+    @IssueTracking("https://issues.jboss.org/browse/RF-10519")
     public void testRightIconClass() {
         super.testStyleClass(rightIcon, "rightIconClass");
     }
