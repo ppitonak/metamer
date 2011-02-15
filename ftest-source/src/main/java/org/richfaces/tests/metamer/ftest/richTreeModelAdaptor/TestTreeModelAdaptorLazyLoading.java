@@ -38,6 +38,7 @@ import java.util.regex.Pattern;
 import org.apache.commons.lang.StringUtils;
 import org.jboss.test.selenium.locator.JQueryLocator;
 import org.richfaces.tests.metamer.ftest.AbstractMetamerTest;
+import org.richfaces.tests.metamer.ftest.annotations.IssueTracking;
 import org.richfaces.tests.metamer.ftest.richTree.TreeAttributes;
 import org.richfaces.tests.metamer.ftest.richTree.TreeModel;
 import org.richfaces.tests.metamer.ftest.richTree.TreeNodeModel;
@@ -47,6 +48,7 @@ import org.testng.annotations.Test;
  * @author <a href="mailto:lfryc@redhat.com">Lukas Fryc</a>
  * @version $Revision$
  */
+@IssueTracking("https://issues.jboss.org/browse/RF-10497")
 public class TestTreeModelAdaptorLazyLoading extends AbstractMetamerTest {
     @Override
     public URL getTestUrl() {

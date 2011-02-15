@@ -45,6 +45,7 @@ import org.testng.annotations.Test;
  * @author <a href="mailto:lfryc@redhat.com">Lukas Fryc</a>
  * @version $Revision$
  */
+@IssueTracking("https://issues.jboss.org/browse/RF-10497")
 public class TestTreeModelAdaptorSelection extends TestTreeSelection {
 
     @Inject
