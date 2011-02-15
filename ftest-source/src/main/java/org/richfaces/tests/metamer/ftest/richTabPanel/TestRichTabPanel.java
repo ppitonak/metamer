@@ -178,7 +178,7 @@ public class TestRichTabPanel extends AbstractMetamerTest {
     }
 
     @Test
-    @IssueTracking("https://issues.jboss.org/browse/RF-10061")
+    @IssueTracking("https://issues.jboss.org/browse/RF-10061 https://issues.jboss.org/browse/RF-10521")
     public void testData() {
         selenium.type(pjq("input[type=text][id$=dataInput]"), "RichFaces 4");
         selenium.waitForPageToLoad();
@@ -231,6 +231,7 @@ public class TestRichTabPanel extends AbstractMetamerTest {
     }
 
     @Test
+    @IssueTracking("https://issues.jboss.org/browse/RF-10523")
     public void testItemChangeListener() {
         selenium.click(inactiveHeaders[2]);
         waitGui.failWith("Item 3 is not displayed.").until(isDisplayed.locator(itemContents[2]));
@@ -263,7 +264,7 @@ public class TestRichTabPanel extends AbstractMetamerTest {
     }
 
     @Test
-    @IssueTracking("https://issues.jboss.org/browse/RF-10310")
+    @IssueTracking("https://issues.jboss.org/browse/RF-10310 https://issues.jboss.org/browse/RF-10521")
     public void testAjaxEvents() {
         selenium.type(pjq("input[type=text][id$=onbeginInput]"), "metamerEvents += \"begin \"");
         selenium.waitForPageToLoad();
