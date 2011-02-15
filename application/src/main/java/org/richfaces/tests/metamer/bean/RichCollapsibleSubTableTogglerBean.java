@@ -27,7 +27,6 @@ import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 
 import org.richfaces.component.UICollapsibleSubTableToggleControl;
@@ -45,13 +44,13 @@ import org.slf4j.LoggerFactory;
  */
 @ManagedBean(name="richSubTableTogglerBean")
 @ViewScoped
-public class RichCollapsibleSubTableTogglerlBean implements Serializable {
+public class RichCollapsibleSubTableTogglerBean implements Serializable {
 
     private static final long serialVersionUID = -1L;
     private static Logger logger;
     private Attributes attributes;
-    @ManagedProperty(value = "#{model.employees}")
-    private List<Employee> employees;
+    // FIXME: @ManagedProperty(value = "#{model.employees}")
+    private List<Employee> employees = Model.unmarshallEmployees();
     private List<List<Employee>> lists;
     // true = model, false = empty table
     private boolean state;

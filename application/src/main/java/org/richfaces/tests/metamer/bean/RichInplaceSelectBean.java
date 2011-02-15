@@ -27,7 +27,6 @@ import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 import javax.faces.event.ValueChangeEvent;
 import javax.faces.model.SelectItem;
@@ -51,8 +50,8 @@ public class RichInplaceSelectBean implements Serializable {
     private static final long serialVersionUID = -1L;
     private static Logger logger;
     private Attributes attributes;
-    @ManagedProperty(value = "#{model.capitals}")
-    private List<Capital> capitals;
+    // FIXME: @ManagedProperty(value = "#{model.capitals}")
+    private List<Capital> capitals = Model.unmarshallCapitals();
     private List<SelectItem> capitalsOptions = null;
 
     /**

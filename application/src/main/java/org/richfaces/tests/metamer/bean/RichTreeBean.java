@@ -31,7 +31,6 @@ import java.util.Map.Entry;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 import javax.faces.event.ComponentSystemEvent;
 import javax.swing.tree.TreeNode;
@@ -59,8 +58,8 @@ public class RichTreeBean implements Serializable {
     private List<TreeNode> root = new ArrayList<TreeNode>();
     private Collection<Object> selection;
 
-    @ManagedProperty(value = "#{model}")
-    private Model model;
+    // FIXME: @ManagedProperty(value = "#{model}")
+    // private Model model;
 
     private Map<String, Country> countriesCache = new HashMap<String, Country>();
     private Map<String, Company> companiesCache = new HashMap<String, Company>();
@@ -92,7 +91,7 @@ public class RichTreeBean implements Serializable {
         attributes.remove("stateVar");
         attributes.remove("nodeType");
 
-        for (CompactDiscXmlDescriptor descriptor : model.getCompactDiscs()) {
+        for (CompactDiscXmlDescriptor descriptor : Model.unmarshallCompactDiscs()) {
             createCompactDisc(descriptor);
         }
     }
@@ -142,10 +141,6 @@ public class RichTreeBean implements Serializable {
             root.add(country);
         }
         return country;
-    }
-
-    public void setModel(Model model) {
-        this.model = model;
     }
 
     public List<TreeNode> getRoot() {

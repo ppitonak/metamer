@@ -29,7 +29,6 @@ import java.util.Map;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 
 import org.richfaces.component.UICollapsibleSubTable;
@@ -54,8 +53,8 @@ public class RichCollapsibleSubTableBean implements Serializable {
     private static final long serialVersionUID = -1L;
     private static Logger logger;
     private Attributes attributes;
-    @ManagedProperty(value = "#{model.employees}")
-    private List<Employee> employees;
+    // FIXME: @ManagedProperty(value = "#{model.employees}")
+    private List<Employee> employees = Model.unmarshallEmployees();
     private List<List<Employee>> lists;
     private UICollapsibleSubTable binding;
     // true = model, false = empty table
