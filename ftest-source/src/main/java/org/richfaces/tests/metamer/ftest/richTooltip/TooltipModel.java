@@ -71,6 +71,7 @@ public class TooltipModel extends AbstractModel<JQueryLocator> {
             guard(selenium, getRequestType()).mouseMoveAt(target, new Point(x, y));
         } else {
             guard(selenium, getRequestType()).mouseOverAt(target, new Point(x, y));
+            selenium.mouseMoveAt(target, new Point(x, y));
         }
         waitAjax().dontFail().interval(50).timeout(2000).until(IsDisplayed.getInstance().locator(this));
     }

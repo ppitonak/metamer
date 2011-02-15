@@ -33,10 +33,8 @@ import static org.jboss.test.selenium.dom.Event.MOUSEOVER;
 import static org.jboss.test.selenium.dom.Event.MOUSEUP;
 import static org.jboss.test.selenium.locator.LocatorFactory.jq;
 import static org.jboss.test.selenium.utils.URLUtils.buildUrl;
-import static org.jboss.test.selenium.utils.text.SimplifiedFormat.format;
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertFalse;
-import static org.testng.Assert.assertTrue;
 
 import java.net.URL;
 
@@ -50,6 +48,7 @@ import org.richfaces.TooltipLayout;
 import org.richfaces.TooltipMode;
 import org.richfaces.component.Positioning;
 import org.richfaces.tests.metamer.ftest.AbstractMetamerTest;
+import org.richfaces.tests.metamer.ftest.DelayTester;
 import org.richfaces.tests.metamer.ftest.annotations.Inject;
 import org.richfaces.tests.metamer.ftest.annotations.IssueTracking;
 import org.richfaces.tests.metamer.ftest.annotations.Use;
@@ -138,7 +137,7 @@ public class TestTooltipSimple extends AbstractMetamerTest {
         super.testDir(tooltip);
     }
 
-    // ////@Test
+    @Test
     @Uses({ @Use(field = "direction", enumeration = true), @Use(field = "verticalOffset", value = "offsets"),
         @Use(field = "horizontalOffset", value = "offsets") })
     public void testPositioning() {
@@ -206,17 +205,16 @@ public class TestTooltipSimple extends AbstractMetamerTest {
         attributes.setMode(TooltipMode.ajax);
         attributes.setHideDelay(presetDelay);
 
-        tooltip.recall();
-        long delay = System.currentTimeMillis();
-        tooltip.hide();
-        waitGui.timeout(6000).until(isNotDisplayed.locator(tooltip));
-        delay = System.currentTimeMillis() - delay;
+        new DelayTester(presetDelay) {
+            public void beforeAction() {
+                tooltip.recall();
+            }
 
-        long deviation = Math.abs(presetDelay - delay);
-        long maxDeviation = Math.max(250, presetDelay / 2);
-
-        assertTrue(deviation < maxDeviation,
-            format("deviation '{0}' is greater than maxDeviation '{1}'", deviation, maxDeviation));
+            public void action() {
+                tooltip.hide();
+                waitGui.timeout(presetDelay + 2000).until(isNotDisplayed.locator(tooltip));
+            }
+        }.run();
     }
 
     @Test
@@ -294,21 +292,22 @@ public class TestTooltipSimple extends AbstractMetamerTest {
 
     @Test
     @Use(field = "presetDelay", ints = { 0, 1000, 5000 })
+    @IssueTracking("https://issues.jboss.org/browse/RF-10522")
     public void testShowDelay() {
 
         attributes.setMode(TooltipMode.client);
         attributes.setShowDelay(presetDelay);
 
-        long delay = System.currentTimeMillis();
-        tooltip.recall();
-        waitGui.timeout(6000).until(isDisplayed.locator(tooltip));
-        delay = System.currentTimeMillis() - delay;
+        new DelayTester(presetDelay) {
+            public void action() {
+                tooltip.recall();
+                waitGui.timeout(presetDelay + 2000).until(isDisplayed.locator(tooltip));
+            }
 
-        long deviation = Math.abs(presetDelay - delay);
-        long maxDeviation = Math.max(200, presetDelay / 2);
-
-        assertTrue(deviation < maxDeviation,
-            format("deviation '{0}' is greater than maxDeviation '{1}'", deviation, maxDeviation));
+            public void afterAction() {
+                tooltip.hide();
+            }
+        }.run();
     }
 
     @Test
