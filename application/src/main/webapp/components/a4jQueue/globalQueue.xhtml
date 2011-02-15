@@ -76,7 +76,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                     </h:inputText> 
                     
                     <h:outputText value="Click here:" />
-                    <h:commandButton id="actionButton" value="Action" action="#{a4jQueueBean.increment}"
+                    <h:commandButton id="actionButton" value="Action" action="#{richBean.dummyAction}"
                     			onclick="add(#{rich:element('events1')}); #{rich:element('timeWatcher:grid')}.event();">
                     	<a4j:ajax onbegin="add(#{rich:element('requests')}); #{rich:element('timeWatcher:grid')}.begin(); "
                     			oncomplete="#{rich:element('timeWatcher:grid')}.complete(); #{rich:element('timeWatcher:grid')}.difference(); "
