@@ -6,7 +6,7 @@
 
     <!--
 JBoss, Home of Professional Open Source
-Copyright 2010, Red Hat, Inc. and individual contributors
+Copyright 2010-2011, Red Hat, Inc. and individual contributors
 by the @authors tag. See the copyright.txt in the distribution for a
 full listing of individual contributors.
 
@@ -38,20 +38,19 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
         </ui:define>
 
         <ui:define name="component">
-        	<h:panelGroup layout="div">
-	        	<h:outputText value="Show data in table: " />
-	            <h:selectBooleanCheckbox id="noDataCheckbox" value="#{richDataGridBean.state}">
-	                <a4j:ajax render="richDataGrid"/>
-	            </h:selectBooleanCheckbox>
+            <h:panelGroup layout="div">
+                <h:outputText value="Show data in table: " />
+                <h:selectBooleanCheckbox id="noDataCheckbox" value="#{richDataGridBean.state}">
+                    <a4j:ajax render="richDataGrid"/>
+                </h:selectBooleanCheckbox>
             </h:panelGroup>
-            
+
             <rich:dataGrid id="richDataGrid"
                            columns="#{richDataGridBean.attributes['columns'].value}"
                            first="#{richDataGridBean.attributes['first'].value}"
                            elements="#{richDataGridBean.attributes['elements'].value}"
                            keepSaved="#{richDataGridBean.attributes['keepSaved'].value}"
                            rendered="#{richDataGridBean.attributes['rendered'].value}"
-                           rows="#{richDataGridBean.attributes['rows'].value}"
                            value="#{richDataGridBean.state ? model.capitals : null}"
                            var="record">
 
