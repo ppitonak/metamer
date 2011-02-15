@@ -28,6 +28,7 @@ import static org.testng.Assert.assertNotSame;
 import java.net.URL;
 import org.jboss.test.selenium.locator.JQueryLocator;
 import org.richfaces.tests.metamer.ftest.AbstractMetamerTest;
+import org.richfaces.tests.metamer.ftest.annotations.IssueTracking;
 import org.testng.annotations.Test;
 
 /**
@@ -54,6 +55,7 @@ public class TestClientFunctions extends AbstractMetamerTest {
     }
 
     @Test
+    @IssueTracking("https://issues.jboss.org/browse/RF-10465")
     public void testFunctions() {
         String clientId = selenium.getText(clientIdOutput);
         assertNotNull(clientId, "Function clientId() doesn't work.");
