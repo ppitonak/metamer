@@ -63,9 +63,6 @@ public class RichCollapsiblePanelBean implements Serializable {
 
         // will be tested in another way
         attributes.remove("converter");
-
-        // TODO remove as soon as it is added to taglib RF-10310
-        attributes.setAttribute("onbegin", null);
     }
 
     public Attributes getAttributes() {

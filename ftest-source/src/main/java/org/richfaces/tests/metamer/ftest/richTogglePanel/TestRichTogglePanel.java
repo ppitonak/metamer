@@ -210,42 +210,8 @@ public class TestRichTogglePanel extends AbstractMetamerTest {
     }
 
     @Test
-    @RegressionTest("https://issues.jboss.org/browse/RF-10061")
-    public void testData() {
-        selenium.type(pjq("input[type=text][id$=dataInput]"), "RichFaces 4");
-        selenium.waitForPageToLoad();
-
-        selenium.type(pjq("input[type=text][id$=oncompleteInput]"), "data = event.data");
-        selenium.waitForPageToLoad();
-
-        guardXhr(selenium).click(tc3);
-        waitGui.failWith("Item 3 is not displayed.").until(isDisplayed.locator(item3));
-
-        String data = selenium.getEval(new JavaScript("window.data"));
-        assertEquals(data, "RichFaces 4", "Data sent with ajax request");
-    }
-
-    @Test
     public void testDir() {
         super.testDir(panel);
-    }
-
-    @Test
-    public void testExecute() {
-        selenium.type(pjq("input[type=text][id$=executeInput]"), "@this executeChecker");
-        selenium.waitForPageToLoad();
-
-        guardXhr(selenium).click(tc3);
-        waitGui.failWith("Item 3 is not displayed.").until(isDisplayed.locator(item3));
-
-        JQueryLocator logItems = jq("ul.phases-list li:eq({0})");
-        for (int i = 0; i < 6; i++) {
-            if ("* executeChecker".equals(selenium.getText(logItems.format(i)))) {
-                return;
-            }
-        }
-
-        fail("Attribute execute does not work");
     }
 
     @Test
@@ -275,21 +241,6 @@ public class TestRichTogglePanel extends AbstractMetamerTest {
     }
 
     @Test
-    @IssueTracking("https://issues.jboss.org/browse/RF-9881")
-    public void testLimitRender() {
-        selenium.click(pjq("input[type=radio][name$=limitRenderInput][value=true]"));
-        selenium.waitForPageToLoad();
-
-        String timeValue = selenium.getText(time);
-
-        guardXhr(selenium).click(tc2);
-        waitGui.failWith("Item 2 is not displayed.").until(isDisplayed.locator(item2));
-
-        String newTimeValue = selenium.getText(time);
-        assertEquals(newTimeValue, timeValue, "Panel with ajaxRendered=true should not be rerendered.");
-    }
-
-    @Test
     public void testOnbeforeitemchange() {
         selenium.type(pjq("input[id$=onbeforeitemchangeInput]"), "metamerEvents += \"onbeforeitemchange \"");
         selenium.waitForPageToLoad();
@@ -298,29 +249,6 @@ public class TestRichTogglePanel extends AbstractMetamerTest {
         waitGui.failWith("Item 2 is not displayed.").until(isDisplayed.locator(item2));
 
         waitGui.failWith("onbeforeitemchange attribute does not work correctly").until(new EventFiredCondition(new Event("beforeitemchange")));
-    }
-
-    @Test
-    public void testAjaxEvents() {
-        selenium.type(pjq("input[type=text][id$=onbeginInput]"), "metamerEvents += \"begin \"");
-        selenium.waitForPageToLoad();
-        selenium.type(pjq("input[type=text][id$=onbeforedomupdateInput]"), "metamerEvents += \"beforedomupdate \"");
-        selenium.waitForPageToLoad();
-        selenium.type(pjq("input[type=text][id$=oncompleteInput]"), "metamerEvents += \"complete \"");
-        selenium.waitForPageToLoad();
-
-        selenium.getEval(new JavaScript("window.metamerEvents = \"\";"));
-
-        String reqTime = selenium.getText(time);
-        guardXhr(selenium).click(tc2);
-        waitGui.failWith("Page was not updated").waitForChange(reqTime, retrieveText.locator(time));
-
-        String[] events = selenium.getEval(new JavaScript("window.metamerEvents")).split(" ");
-
-        assertEquals(events.length, 3, "3 events should be fired.");
-        assertEquals(events[0], "begin", "Attribute onbegin doesn't work");
-        assertEquals(events[1], "beforedomupdate", "Attribute onbeforedomupdate doesn't work");
-        assertEquals(events[2], "complete", "Attribute oncomplete doesn't work");
     }
 
     @Test
@@ -389,31 +317,11 @@ public class TestRichTogglePanel extends AbstractMetamerTest {
     }
 
     @Test
-    public void testRender() {
-        selenium.type(pjq("input[type=text][id$=renderInput]"), "renderChecker");
-        selenium.waitForPageToLoad();
-
-        String renderCheckerTime = selenium.getText(renderChecker);
-        guardXhr(selenium).click(tc2);
-        waitGui.failWith("Attribute render doesn't work").waitForChange(renderCheckerTime, retrieveText.locator(renderChecker));
-    }
-
-    @Test
     public void testRendered() {
         selenium.click(pjq("input[type=radio][name$=renderedInput][value=false]"));
         selenium.waitForPageToLoad();
 
         assertFalse(selenium.isElementPresent(panel), "Toggle panel should not be rendered when rendered=false.");
-    }
-
-    @Test
-    public void testStatus() {
-        selenium.type(pjq("input[type=text][id$=statusInput]"), "statusChecker");
-        selenium.waitForPageToLoad();
-
-        String statusCheckerTime = selenium.getText(statusChecker);
-        guardXhr(selenium).click(tc2);
-        waitGui.failWith("Attribute status doesn't work").waitForChange(statusCheckerTime, retrieveText.locator(statusChecker));
     }
 
     @Test
