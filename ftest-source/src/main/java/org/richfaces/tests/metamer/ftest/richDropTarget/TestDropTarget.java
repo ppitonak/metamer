@@ -138,18 +138,6 @@ public class TestDropTarget extends AbstractDragNDropTest {
     }
 
     @Test
-    @IssueTracking("https://issues.jboss.org/browse/RF-10336")
-    public void testAction() {
-        fail("not working currently");
-    }
-
-    @Test
-    @IssueTracking("https://issues.jboss.org/browse/RF-10336")
-    public void testActionListener() {
-        fail("not working currently");
-    }
-
-    @Test
     @IssueTracking("https://issues.jboss.org/browse/RF-10334")
     public void testExecute() {
         fail("not working currently");
