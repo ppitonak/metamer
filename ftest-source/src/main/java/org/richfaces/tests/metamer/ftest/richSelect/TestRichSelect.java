@@ -94,6 +94,7 @@ public class TestRichSelect extends AbstractMetamerTest {
         assertTrue(selenium.belongsClass(options.format(10), "rf-sel-sel"));
 
         waitGui.failWith("Bean was not updated").until(textEquals.locator(output).text("Hawaii"));
+        phaseInfo.assertListener(PhaseId.PROCESS_VALIDATIONS, "value changed: null -> Hawaii");
     }
 
     @Test
@@ -120,6 +121,7 @@ public class TestRichSelect extends AbstractMetamerTest {
 //        assertTrue(selenium.belongsClass(options.format(10), "rf-sel-sel"));
 //
 //        waitGui.failWith("Bean was not updated").until(textEquals.locator(output).text("Hawaii"));
+//        phaseInfo.assertListener(PhaseId.PROCESS_VALIDATIONS, "value changed: null -> Hawaii");
     }
 
     @Test
