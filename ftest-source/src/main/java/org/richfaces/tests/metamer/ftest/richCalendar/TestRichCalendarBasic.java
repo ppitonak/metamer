@@ -1,6 +1,6 @@
 /*******************************************************************************
  * JBoss, Home of Professional Open Source
- * Copyright 2010, Red Hat, Inc. and individual contributors
+ * Copyright 2010-2011, Red Hat, Inc. and individual contributors
  * by the @authors tag. See the copyright.txt in the distribution for a
  * full listing of individual contributors.
  *
@@ -33,6 +33,7 @@ import static org.testng.Assert.fail;
 import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import org.richfaces.tests.metamer.ftest.annotations.IssueTracking;
 
 import org.testng.annotations.Test;
 
@@ -68,45 +69,21 @@ public class TestRichCalendarBasic extends AbstractCalendarTest {
     }
 
     @Test
+    @Override
     public void testOpenPopupClickOnInput() {
-        guardNoRequest(selenium).click(input);
-        assertTrue(selenium.isDisplayed(popup), "Popup should be visible.");
+        super.testOpenPopupClickOnInput();
     }
 
     @Test
+    @Override
     public void testOpenPopupClickOnImage() {
-        guardNoRequest(selenium).click(image);
-        assertTrue(selenium.isDisplayed(popup), "Popup should be visible.");
+        super.testOpenPopupClickOnImage();
     }
 
     @Test
+    @Override
     public void testHeaderButtons() {
-        selenium.click(input);
-
-        boolean displayed = selenium.isDisplayed(prevYearButton);
-        assertTrue(displayed, "Previous year button should be visible.");
-        String buttonText = selenium.getText(prevYearButton);
-        assertEquals(buttonText, "<<", "Previous year button");
-
-        displayed = selenium.isDisplayed(prevMonthButton);
-        assertTrue(displayed, "Previous month button should be visible.");
-        buttonText = selenium.getText(prevMonthButton);
-        assertEquals(buttonText, "<", "Previous month button");
-
-        displayed = selenium.isDisplayed(nextMonthButton);
-        assertTrue(displayed, "Next month button should be visible.");
-        buttonText = selenium.getText(nextMonthButton);
-        assertEquals(buttonText, ">", "Next month button");
-
-        displayed = selenium.isDisplayed(nextYearButton);
-        assertTrue(displayed, "Next year button should be visible.");
-        buttonText = selenium.getText(nextYearButton);
-        assertEquals(buttonText, ">>", "Next year button");
-
-        displayed = selenium.isDisplayed(closeButton);
-        assertTrue(displayed, "Close button should be visible.");
-        buttonText = selenium.getText(closeButton);
-        assertEquals(buttonText, "x", "Close button");
+        super.testHeaderButtons();
     }
 
     @Test
@@ -119,36 +96,9 @@ public class TestRichCalendarBasic extends AbstractCalendarTest {
     }
 
     @Test
+    @Override
     public void testFooterButtons() {
-        selenium.click(input);
-
-        boolean displayed = selenium.isDisplayed(todayButton);
-        assertTrue(displayed, "Today button should be visible.");
-        String buttonText = selenium.getText(todayButton);
-        assertEquals(buttonText, "Today", "Button's text");
-
-        displayed = selenium.isDisplayed(applyButton);
-        assertTrue(displayed, "Apply button should be visible.");
-        buttonText = selenium.getText(applyButton);
-        assertEquals(buttonText, "Apply", "Button's text");
-
-        displayed = selenium.isElementPresent(cleanButton);
-        assertFalse(displayed, "Clean button should not be visible.");
-
-        displayed = selenium.isElementPresent(timeButton);
-        assertFalse(displayed, "Time button should not be visible.");
-
-        selenium.click(cellWeekDay.format(3, 3));
-
-        displayed = selenium.isDisplayed(cleanButton);
-        assertTrue(displayed, "Clean button should be visible.");
-        buttonText = selenium.getText(cleanButton);
-        assertEquals(buttonText, "Clean", "Button's text");
-
-        displayed = selenium.isDisplayed(timeButton);
-        assertTrue(displayed, "Time button should be visible.");
-        buttonText = selenium.getText(timeButton);
-        assertEquals(buttonText, "12:00", "Button's text");
+        super.testFooterButtons();
     }
 
     @Test
@@ -310,25 +260,8 @@ public class TestRichCalendarBasic extends AbstractCalendarTest {
     }
 
     @Test
+    @Override
     public void testApplyButton() {
-        selenium.click(input);
-
-        selenium.click(cellDay.format(6));
-        String day = selenium.getText(cellDay.format(6));
-        String month = selenium.getText(monthLabel);
-
-        String selectedDate = null;
-        try {
-            Date date = new SimpleDateFormat("d MMMM, yyyy hh:mm").parse(day + " " + month + " 12:00");
-            selectedDate = new SimpleDateFormat("MMM d, yyyy hh:mm").format(date);
-        } catch (ParseException ex) {
-            fail(ex.getMessage());
-        }
-
-        guardXhr(selenium).click(applyButton);
-        assertFalse(selenium.isDisplayed(popup), "Popup should not be displayed.");
-
-        String inputDate = selenium.getValue(input);
-        assertEquals(inputDate, selectedDate, "Input doesn't contain selected date.");
+        super.testApplyButton();
     }
 }
