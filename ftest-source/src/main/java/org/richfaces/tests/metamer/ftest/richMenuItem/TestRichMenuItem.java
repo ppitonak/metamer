@@ -286,13 +286,13 @@ public class TestRichMenuItem extends AbstractMetamerTest {
         listenerOutput = selenium.getText(jq("div#phasesPanel li:eq(6)"));
         assertEquals(listenerOutput, "* action invoked", "Action's output");
 
-        selenium.type(pjq("input[id$=modeInput]"), "server");
+        selenium.click(pjq("input[name$=modeInput][value=server]"));
         selenium.waitForPageToLoad();
 
         selenium.mouseOver(fileMenu);
         guardHttp(selenium).click(menuItem1);
 
-        assertPhases(PhaseId.RESTORE_VIEW, PhaseId.APPLY_REQUEST_VALUES, PhaseId.PROCESS_VALIDATIONS,
+        phaseInfo.assertPhases(PhaseId.RESTORE_VIEW, PhaseId.APPLY_REQUEST_VALUES, PhaseId.PROCESS_VALIDATIONS,
                 PhaseId.UPDATE_MODEL_VALUES, PhaseId.INVOKE_APPLICATION, PhaseId.RENDER_RESPONSE);
 
         listenerOutput = selenium.getText(jq("div#phasesPanel li:eq(5)"));
