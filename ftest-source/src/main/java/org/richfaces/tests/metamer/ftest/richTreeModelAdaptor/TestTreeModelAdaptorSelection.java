@@ -95,7 +95,7 @@ public class TestTreeModelAdaptorSelection extends TestTreeSelection {
     @Test
     @Override
     @Use(field = "paths", value = "paths*")
-    @IssueTracking("https://issues.jboss.org/browse/RF-10038")
+    @IssueTracking("https://issues.jboss.org/browse/RFPL-1133")
     public void testSubNodesSelection() {
         super.testSubNodesSelection();
     }
@@ -104,7 +104,7 @@ public class TestTreeModelAdaptorSelection extends TestTreeSelection {
     @Override
     @Uses({ @Use(field = "paths", value = "paths*"),
         @Use(field = "selectionType", value = "eventEnabledSelectionTypes") })
-    @IssueTracking("https://issues.jboss.org/browse/RF-10038")
+    @IssueTracking("https://issues.jboss.org/browse/RFPL-1133")
     public void testSubNodesSelectionEvents() {
         super.testSubNodesSelectionEvents();
     }
