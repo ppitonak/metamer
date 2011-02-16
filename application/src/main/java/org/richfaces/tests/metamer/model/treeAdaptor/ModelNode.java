@@ -21,6 +21,7 @@
  *******************************************************************************/
 package org.richfaces.tests.metamer.model.treeAdaptor;
 
+import java.io.Serializable;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -32,6 +33,7 @@ import java.util.concurrent.atomic.AtomicReference;
  * @version $Revision$
  */
 public class ModelNode extends Node {
+    private static final long serialVersionUID = 1L;
 
     private static final int BS = 3;
     private static final int KS = 4;
@@ -54,7 +56,7 @@ public class ModelNode extends Node {
     }
 
     public String getLabel() {
-        return isRoot() ? "M" : parent.getLabel() + "-M";
+        return isRoot() ? "M" : getParent().getLabel() + "-M";
     }
 
     public A getValue() {
@@ -83,18 +85,22 @@ public class ModelNode extends Node {
 
     public List<RecursiveNode> getRecursive() {
         if (rs == null) {
-            rs = RecursiveNode.createChildren(this, nullable, null);
+            rs = RecursiveNode.createChildren(this, getNullable(), null);
         }
         return rs;
     }
 
-    public class A {
+    public class A implements Serializable {
+        private static final long serialVersionUID = 1L;
+
         public String getLabel() {
             return ModelNode.this.getLabel() + "-A";
         }
     }
 
-    public class B {
+    public class B implements Serializable {
+        private static final long serialVersionUID = 1L;
+
         int number;
 
         public B(int number) {
@@ -106,7 +112,9 @@ public class ModelNode extends Node {
         }
     }
 
-    public class K {
+    public class K implements Serializable {
+        private static final long serialVersionUID = 1L;
+
         int number;
 
         public K(int number) {
@@ -118,7 +126,9 @@ public class ModelNode extends Node {
         }
     }
 
-    public class V {
+    public class V implements Serializable {
+        private static final long serialVersionUID = 1L;
+
         int number;
 
         public V(int number) {

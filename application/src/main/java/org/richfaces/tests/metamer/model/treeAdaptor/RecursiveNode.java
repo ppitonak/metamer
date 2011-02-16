@@ -21,6 +21,7 @@
  *******************************************************************************/
 package org.richfaces.tests.metamer.model.treeAdaptor;
 
+import java.io.Serializable;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -35,6 +36,8 @@ import java.util.concurrent.atomic.AtomicReference;
  * @version $Revision$
  */
 public class RecursiveNode extends Node {
+    private static final long serialVersionUID = 1L;
+    
     private static final int CHILDREN = 4;
     private static final int LEVELS = 2;
     private static final List<RecursiveNode> EMPTY_LIST = new LinkedList<RecursiveNode>();
@@ -73,7 +76,7 @@ public class RecursiveNode extends Node {
             return getEmptyList();
         }
         if (children == null) {
-            children = createChildren(this, nullable, null);
+            children = createChildren(this, getNullable(), null);
         }
         return children;
     }
@@ -86,23 +89,23 @@ public class RecursiveNode extends Node {
     }
 
     private List<RecursiveNode> getEmptyList() {
-        return nullable.get() ? null : EMPTY_LIST;
+        return getNullable().get() ? null : EMPTY_LIST;
     }
 
     private Map<Integer, RecursiveNode> getEmptyMap() {
-        return nullable.get() ? null : EMPTY_MAP;
+        return getNullable().get() ? null : EMPTY_MAP;
     }
 
     public String getLabel() {
-        String parentLabel = (isRoot() ? "" : parent.getLabel() + "-") + "R-";
-        String recursionLabel = (isRecursionRoot() ? parentLabel : parent.getLabel() + ".") + number;
+        String parentLabel = (isRoot() ? "" : getParent().getLabel() + "-") + "R-";
+        String recursionLabel = (isRecursionRoot() ? parentLabel : getParent().getLabel() + ".") + number;
         return recursionLabel;
     }
 
     public ModelNode getModel() {
         if (isLeaf() && !isPreceededByModel()) {
             if (model == null) {
-                model = ModelNode.getInstance(this, nullable, null);
+                model = ModelNode.getInstance(this, getNullable(), null);
             }
             return model;
         }
@@ -117,7 +120,7 @@ public class RecursiveNode extends Node {
         if (isRoot()) {
             return true;
         } else {
-            return !(parent instanceof RecursiveNode);
+            return !(getParent() instanceof RecursiveNode);
         }
     }
 
@@ -154,7 +157,9 @@ public class RecursiveNode extends Node {
         return getLabel();
     }
 
-    public class NodeMap implements Map<Integer, RecursiveNode> {
+    public class NodeMap implements Map<Integer, RecursiveNode>, Serializable {
+        
+        private static final long serialVersionUID = 1L;
 
         @Override
         public int size() {

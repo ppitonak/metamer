@@ -2,6 +2,7 @@ package org.richfaces.tests.metamer.model.treeAdaptor;
 
 import static java.lang.reflect.Modifier.isStatic;
 
+import java.io.Serializable;
 import java.lang.reflect.Method;
 
 import javassist.util.proxy.MethodHandler;
@@ -10,8 +11,9 @@ import javassist.util.proxy.ProxyObject;
 
 import org.apache.commons.lang.Validate;
 
-public final class LazyLoadingChecker<T> implements MethodHandler {
-
+public final class LazyLoadingChecker<T> implements MethodHandler, Serializable {
+    private static final long serialVersionUID = 1L;
+    
     T instance;
     Reference<LazyLoadingListener<T>> listenerReference = null;
 

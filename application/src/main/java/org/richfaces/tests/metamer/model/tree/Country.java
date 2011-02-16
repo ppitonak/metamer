@@ -1,6 +1,5 @@
 package org.richfaces.tests.metamer.model.tree;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
@@ -9,7 +8,7 @@ import javax.swing.tree.TreeNode;
 
 import com.google.common.collect.Iterators;
 
-public class Country extends NamedNode implements TreeNode, Serializable {
+public class Country extends NamedNode {
 
     private static final long serialVersionUID = 1L;
 

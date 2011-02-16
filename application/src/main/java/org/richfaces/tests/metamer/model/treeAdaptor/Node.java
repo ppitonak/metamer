@@ -21,6 +21,7 @@
  *******************************************************************************/
 package org.richfaces.tests.metamer.model.treeAdaptor;
 
+import java.io.Serializable;
 import java.util.Deque;
 import java.util.LinkedList;
 import java.util.concurrent.atomic.AtomicReference;
@@ -29,11 +30,13 @@ import java.util.concurrent.atomic.AtomicReference;
  * @author <a href="mailto:lfryc@redhat.com">Lukas Fryc</a>
  * @version $Revision$
  */
-public abstract class Node {
-    Node parent;
-    AtomicReference<Boolean> nullable;
-
-    Reference<LazyLoadingListener<Node>> lazyLoadingListenerReference = new NodeReference();
+public abstract class Node implements Serializable {
+    
+    private static final long serialVersionUID = 1L;
+    
+    private Node parent;
+    private AtomicReference<Boolean> nullable;
+    private Reference<LazyLoadingListener<Node>> lazyLoadingListenerReference = new NodeReference();
 
     protected Node(Node parent, AtomicReference<Boolean> nullable,
         Reference<LazyLoadingListener<Node>> lazyLoadingListenerReference) {
@@ -54,6 +57,10 @@ public abstract class Node {
 
     public boolean isRoot() {
         return parent == null;
+    }
+    
+    public AtomicReference<Boolean> getNullable() {
+        return nullable;
     }
 
     public int getLevel() {

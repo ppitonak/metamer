@@ -64,6 +64,8 @@ public class RichTreeModelRecursiveAdaptorBean implements Serializable {
     private Set<Node> lazyInitializedNodes = new LinkedHashSet<Node>();
 
     private LazyLoadingListener<Node> nodeLazyLoadingListener = new LazyLoadingListener<Node>() {
+        private static final long serialVersionUID = 1L;
+
         public void notify(Node node) {
             lazyInitializedNodes.add(node);
         };
@@ -98,6 +100,8 @@ public class RichTreeModelRecursiveAdaptorBean implements Serializable {
         if (rootNodes == null) {
             rootNodes = RecursiveNode.createChildren(null, leafChildrenNullable,
                 new Reference<LazyLoadingListener<Node>>() {
+                    private static final long serialVersionUID = 1L;
+
                     @Override
                     public LazyLoadingListener<Node> get() {
                         return nodeLazyLoadingListener;

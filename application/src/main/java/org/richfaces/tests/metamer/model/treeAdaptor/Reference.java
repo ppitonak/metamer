@@ -1,6 +1,8 @@
 package org.richfaces.tests.metamer.model.treeAdaptor;
 
-public interface Reference<T> {
+import java.io.Serializable;
+
+public interface Reference<T> extends Serializable {
     
     public T get();
 }

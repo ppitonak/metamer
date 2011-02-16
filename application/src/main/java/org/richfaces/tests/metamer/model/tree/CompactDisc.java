@@ -1,11 +1,10 @@
 package org.richfaces.tests.metamer.model.tree;
 
-import java.io.Serializable;
 import java.util.Enumeration;
 
 import javax.swing.tree.TreeNode;
 
-public class CompactDisc extends NamedNode implements TreeNode, Serializable {
+public class CompactDisc extends NamedNode {
 
     private static final long serialVersionUID = 1L;
 

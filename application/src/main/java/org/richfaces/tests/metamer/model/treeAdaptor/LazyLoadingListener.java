@@ -1,5 +1,7 @@
 package org.richfaces.tests.metamer.model.treeAdaptor;
 
-public interface LazyLoadingListener<T> {
+import java.io.Serializable;
+
+public interface LazyLoadingListener<T> extends Serializable {
     void notify(T instance);
 }
