@@ -85,6 +85,7 @@
         <testng.suite.xml>src/test/resources/testng.xml</testng.suite.xml>
         <container.home>target/installs/${container.dir.deflatted}/${container.dir.unflatted}</container.home>
         <jsf.config>Mojarra-2.0</jsf.config>
+        <testng.listeners>org.richfaces.tests.metamer.ftest.MatrixConfigurator,org.richfaces.tests.metamer.ftest.MetamerSeleniumLoggingTestListener,org.richfaces.tests.metamer.ftest.MetamerFailureLoggingTestListener,org.richfaces.tests.metamer.ftest.MetamerConsoleStatusTestListener</testng.listeners>
     </properties>
 
     <repositories>
@@ -556,7 +557,7 @@
                             <properties>
                                 <property>
                                     <name>listener</name>
-                                    <value>org.richfaces.tests.metamer.ftest.MatrixConfigurator,org.richfaces.tests.metamer.ftest.MetamerSeleniumLoggingTestListener,org.richfaces.tests.metamer.ftest.MetamerFailureLoggingTestListener,org.richfaces.tests.metamer.ftest.MetamerConsoleStatusTestListener</value>
+                                    <value>${testng.listeners}</value>
                                 </property>
                             </properties>
                         </configuration>
