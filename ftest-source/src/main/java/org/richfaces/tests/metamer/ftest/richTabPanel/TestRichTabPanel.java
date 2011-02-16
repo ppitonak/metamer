@@ -300,7 +300,7 @@ public class TestRichTabPanel extends AbstractMetamerTest {
     }
 
     @Test
-    @IssueTracking("https://issues.jboss.org/browse/RF-10165")
+    @RegressionTest("https://issues.jboss.org/browse/RF-10165")
     public void testItemchangeEvents() {
         selenium.type(pjq("input[type=text][id$=onbeforeitemchangeInput]"), "metamerEvents += \"beforeitemchange \"");
         selenium.waitForPageToLoad();

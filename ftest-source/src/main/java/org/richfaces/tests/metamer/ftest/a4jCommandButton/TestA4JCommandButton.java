@@ -41,6 +41,7 @@ import org.jboss.test.selenium.locator.AttributeLocator;
 import org.jboss.test.selenium.locator.JQueryLocator;
 import org.richfaces.tests.metamer.ftest.AbstractMetamerTest;
 import org.richfaces.tests.metamer.ftest.annotations.IssueTracking;
+import org.richfaces.tests.metamer.ftest.annotations.RegressionTest;
 import org.testng.annotations.Test;
 
 /**
@@ -394,7 +395,7 @@ public class TestA4JCommandButton extends AbstractMetamerTest {
     }
 
     @Test
-    @IssueTracking("https://issues.jboss.org/browse/RF-10115")
+    @RegressionTest("https://issues.jboss.org/browse/RF-10115")
     public void testType() {
         AttributeLocator attr = button.getAttribute(Attribute.TYPE);
         JQueryLocator typeInput = pjq("select[id$=typeInput]");

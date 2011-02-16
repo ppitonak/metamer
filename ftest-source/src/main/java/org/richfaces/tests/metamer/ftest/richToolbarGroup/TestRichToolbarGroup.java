@@ -36,7 +36,7 @@ import org.jboss.test.selenium.locator.AttributeLocator;
 import org.jboss.test.selenium.locator.JQueryLocator;
 import org.richfaces.tests.metamer.ftest.AbstractMetamerTest;
 import org.richfaces.tests.metamer.ftest.annotations.Inject;
-import org.richfaces.tests.metamer.ftest.annotations.IssueTracking;
+import org.richfaces.tests.metamer.ftest.annotations.RegressionTest;
 import org.richfaces.tests.metamer.ftest.annotations.Use;
 import org.testng.annotations.Test;
 
@@ -87,7 +87,7 @@ public class TestRichToolbarGroup extends AbstractMetamerTest {
 
     @Test
     @Use(field = "item", value = "items")
-    @IssueTracking("https://issues.jboss.org/browse/RF-9976")
+    @RegressionTest("https://issues.jboss.org/browse/RF-9976")
     public void testItemClass() {
         testStyleClass(item, "itemClass");
     }
@@ -156,7 +156,7 @@ public class TestRichToolbarGroup extends AbstractMetamerTest {
 
     @Test
     @Use(field = "item", value = "items")
-    @IssueTracking("https://issues.jboss.org/browse/RF-9976")
+    @RegressionTest("https://issues.jboss.org/browse/RF-9976")
     public void testItemStyle() {
         testStyle(item, "itemStyle");
     }
