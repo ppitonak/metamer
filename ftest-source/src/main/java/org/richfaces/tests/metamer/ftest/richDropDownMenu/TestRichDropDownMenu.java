@@ -139,8 +139,8 @@ public class TestRichDropDownMenu extends AbstractMetamerTest {
     }
 
     @Test
-    public void testModeNone() {
-        selenium.type(pjq("input[id$=modeInput]"), "");
+    public void testModeNull() {
+        selenium.click(pjq("input[name$=modeInput][value=]"));
         selenium.waitForPageToLoad();
 
         testModeServer();
@@ -148,7 +148,7 @@ public class TestRichDropDownMenu extends AbstractMetamerTest {
 
     @Test
     public void testModeServer() {
-        selenium.type(pjq("input[id$=modeInput]"), "server");
+        selenium.click(pjq("input[name$=modeInput][value=server]"));
         selenium.waitForPageToLoad();
 
         selenium.mouseOver(fileMenuLabel);
@@ -158,7 +158,7 @@ public class TestRichDropDownMenu extends AbstractMetamerTest {
 
     @Test
     public void testModeClient() {
-        selenium.type(pjq("input[id$=modeInput]"), "client");
+        selenium.click(pjq("input[name$=modeInput][value=client]"));
         selenium.waitForPageToLoad();
 
         selenium.mouseOver(fileMenuLabel);
