@@ -100,8 +100,7 @@ public class TestRichInplaceSelect extends AbstractMetamerTest {
 
         assertEquals(selenium.getText(label), "Hawaii", "Label should contain selected value.");
 
-        String listenerText = selenium.getText(jq("div#phasesPanel li:eq(3)"));
-        assertEquals(listenerText, "* value changed: null -> Hawaii", "Value change listener was not invoked.");
+        phaseInfo.assertListener(PhaseId.PROCESS_VALIDATIONS, "value changed: null -> Hawaii");
     }
 
     @Test
