@@ -43,6 +43,8 @@ public class RichDropListenerBean {
     private RichDropTargetBean richDropTargetBean;
 
     public void processDragging(DropEvent dropEvent) {
+        RichBean.logToPage("* dropListener");
+        
         DragValue dragValue = (DragValue) dropEvent.getDragValue();
         DropValue dropValue = (DropValue) dropEvent.getDropValue();
 

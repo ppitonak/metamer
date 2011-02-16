@@ -39,4 +39,16 @@ public class DropTargetAttributes extends AbstractComponentAttributes {
     public void setRendered(Boolean rendered) {
         setProperty("rendered", rendered);
     }
+    
+    public void setExecute(String execute) {
+        setProperty("execute", execute);
+    }
+    
+    public void setImmediate(Boolean immediate) {
+        setProperty("immediate", immediate);
+    }
+    
+    public void setBypassUpdates(Boolean bypassUpdates) {
+        setProperty("bypassUpdates", bypassUpdates);
+    }
 }
