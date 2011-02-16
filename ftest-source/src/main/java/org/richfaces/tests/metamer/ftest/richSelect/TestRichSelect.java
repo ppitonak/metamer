@@ -21,15 +21,16 @@
  *******************************************************************************/
 package org.richfaces.tests.metamer.ftest.richSelect;
 
-import static org.jboss.test.selenium.locator.LocatorFactory.jq;
 import static org.jboss.test.selenium.guard.request.RequestTypeGuardFactory.guardNoRequest;
 import static org.jboss.test.selenium.guard.request.RequestTypeGuardFactory.guardXhr;
+import static org.jboss.test.selenium.locator.LocatorFactory.jq;
 import static org.jboss.test.selenium.utils.URLUtils.buildUrl;
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertFalse;
 import static org.testng.Assert.assertTrue;
 
 import java.net.URL;
+
 import javax.faces.event.PhaseId;
 
 import org.jboss.test.selenium.css.CssProperty;
@@ -40,6 +41,7 @@ import org.jboss.test.selenium.locator.JQueryLocator;
 import org.jboss.test.selenium.waiting.EventFiredCondition;
 import org.richfaces.tests.metamer.ftest.AbstractMetamerTest;
 import org.richfaces.tests.metamer.ftest.annotations.IssueTracking;
+import org.richfaces.tests.metamer.ftest.annotations.RegressionTest;
 import org.testng.annotations.Test;
 
 /**
@@ -232,7 +234,7 @@ public class TestRichSelect extends AbstractMetamerTest {
     }
 
     @Test
-    @IssueTracking("https://issues.jboss.org/browse/RF-9737")
+    @RegressionTest("https://issues.jboss.org/browse/RF-9737")
     public void testListHeight() {
         selenium.type(pjq("input[type=text][id$=listHeightInput]"), "300px");
         selenium.waitForPageToLoad();
@@ -251,7 +253,7 @@ public class TestRichSelect extends AbstractMetamerTest {
     }
 
     @Test
-    @IssueTracking("https://issues.jboss.org/browse/RF-9737")
+    @RegressionTest("https://issues.jboss.org/browse/RF-9737")
     public void testListWidth() {
         selenium.type(pjq("input[type=text][id$=listWidthInput]"), "300px");
         selenium.waitForPageToLoad();

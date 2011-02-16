@@ -43,6 +43,7 @@ import org.jboss.test.selenium.locator.Attribute;
 import org.jboss.test.selenium.locator.JQueryLocator;
 import org.richfaces.tests.metamer.ftest.AbstractMetamerTest;
 import org.richfaces.tests.metamer.ftest.annotations.IssueTracking;
+import org.richfaces.tests.metamer.ftest.annotations.RegressionTest;
 import org.testng.annotations.Test;
 
 /**
@@ -95,7 +96,7 @@ public class TestRichCollapsiblePanel extends AbstractMetamerTest {
     }
 
     @Test
-    @IssueTracking("https://issues.jboss.org/browse/RF-10061")
+    @RegressionTest("https://issues.jboss.org/browse/RF-10061")
     public void testData() {
         selenium.type(pjq("input[type=text][id$=dataInput]"), "RichFaces 4");
         selenium.waitForPageToLoad();

@@ -41,6 +41,7 @@ import org.jboss.test.selenium.locator.Attribute;
 import org.jboss.test.selenium.locator.AttributeLocator;
 import org.jboss.test.selenium.waiting.EventFiredCondition;
 import org.richfaces.tests.metamer.ftest.annotations.IssueTracking;
+import org.richfaces.tests.metamer.ftest.annotations.RegressionTest;
 import org.testng.annotations.Test;
 
 /**
@@ -190,7 +191,7 @@ public class TestRichCalendarAttributes extends AbstractCalendarTest {
     }
 
     @Test
-    @IssueTracking("https://issues.jboss.org/browse/RF-10255")
+    @RegressionTest("https://issues.jboss.org/browse/RF-10255")
     public void testButtonDisabledIcon() {
         selenium.click(pjq("input[name$=disabledInput][value=true]"));
         selenium.waitForPageToLoad();
@@ -263,7 +264,8 @@ public class TestRichCalendarAttributes extends AbstractCalendarTest {
 
         for (int i = 2; i < 42; i += 7) {
             if (!selenium.belongsClass(cellDay.format(i), "rf-cal-boundary-day")) {
-                assertTrue(selenium.belongsClass(cellDay.format(i), "yellowDay"), "Cell nr. " + i + " should be yellow.");
+                assertTrue(selenium.belongsClass(cellDay.format(i), "yellowDay"), "Cell nr. " + i
+                    + " should be yellow.");
             }
         }
 
@@ -273,12 +275,13 @@ public class TestRichCalendarAttributes extends AbstractCalendarTest {
         selenium.click(input);
 
         for (int i = 0; i < 42; i++) {
-            assertFalse(selenium.belongsClass(cellDay.format(i), "yellowDay"), "Cell nr. " + i + " should not be yellow.");
+            assertFalse(selenium.belongsClass(cellDay.format(i), "yellowDay"), "Cell nr. " + i
+                + " should not be yellow.");
         }
     }
 
     @Test
-    @IssueTracking("https://issues.jboss.org/browse/RF-9837 https://issues.jboss.org/browse/RF-10085")
+    @RegressionTest({ "https://issues.jboss.org/browse/RF-9837", "https://issues.jboss.org/browse/RF-10085" })
     public void testDefaultTime() {
         selenium.type(pjq("input[type=text][id$=defaultTimeInput]"), "21:24");
         selenium.waitForPageToLoad();
@@ -328,7 +331,7 @@ public class TestRichCalendarAttributes extends AbstractCalendarTest {
 
         selenium.click(input);
 
-        String[] labels = {"", "Sat", "Sun", "Mon", "Tue", "Wed", "Thu", "Fri"};
+        String[] labels = { "", "Sat", "Sun", "Mon", "Tue", "Wed", "Thu", "Fri" };
 
         for (int i = 0; i < 8; i++) {
             String label = selenium.getText(weekDayLabel.format(i));
@@ -344,8 +347,8 @@ public class TestRichCalendarAttributes extends AbstractCalendarTest {
         // labels = new String[]{"", "Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"};
         //
         // for (int i = 0; i < 8; i++) {
-        //     String label = selenium.getText(weekDayLabel.format(i));
-        //     assertEquals(label, labels[i], "Week day label " + i);
+        // String label = selenium.getText(weekDayLabel.format(i));
+        // assertEquals(label, labels[i], "Week day label " + i);
         // }
     }
 
@@ -376,7 +379,7 @@ public class TestRichCalendarAttributes extends AbstractCalendarTest {
 
         selenium.click(input);
 
-        String[] labels = {"", "Вс", "Пн", "Вт", "Ср", "Чт", "Пт", "Сб"};
+        String[] labels = { "", "Вс", "Пн", "Вт", "Ср", "Чт", "Пт", "Сб" };
 
         for (int i = 0; i < 8; i++) {
             String label = selenium.getText(weekDayLabel.format(i));
@@ -389,7 +392,8 @@ public class TestRichCalendarAttributes extends AbstractCalendarTest {
 
         String selectedDate = null;
         try {
-            Date date = new SimpleDateFormat("d MMMM, yyyy hh:mm", new Locale("ru")).parse(day + " " + month + " 12:00");
+            Date date = new SimpleDateFormat("d MMMM, yyyy hh:mm", new Locale("ru"))
+                .parse(day + " " + month + " 12:00");
             selectedDate = new SimpleDateFormat("MMM d, yyyy hh:mm", new Locale("ru")).format(date);
         } catch (ParseException ex) {
             fail(ex.getMessage());
@@ -417,7 +421,7 @@ public class TestRichCalendarAttributes extends AbstractCalendarTest {
         selenium.type(input, "Dec 23, 2010 19:27");
 
         waitGui.failWith("Attribute oninputchange does not work correctly").until(
-                new EventFiredCondition(new Event("inputchange")));
+            new EventFiredCondition(new Event("inputchange")));
     }
 
     @Test
@@ -675,13 +679,16 @@ public class TestRichCalendarAttributes extends AbstractCalendarTest {
      */
     private void assertNoDateSelected() {
         for (int i = 0; i < 42; i++) {
-            assertFalse(selenium.belongsClass(cellDay.format(i), "rf-cal-sel"), "Cell nr. " + i + " should not be selected.");
+            assertFalse(selenium.belongsClass(cellDay.format(i), "rf-cal-sel"), "Cell nr. " + i
+                + " should not be selected.");
         }
     }
 
     /**
      * Checks that no date in the open month is selected except of one passed as argument.
-     * @param exceptOfDate date that should be selected (e.g. "13")
+     * 
+     * @param exceptOfDate
+     *            date that should be selected (e.g. "13")
      */
     private void assertSelected(String exceptOfDate) {
         int lowerBoundary = 0;
@@ -696,9 +703,11 @@ public class TestRichCalendarAttributes extends AbstractCalendarTest {
         // check 3 lines of cells that contain selected date
         for (int i = lowerBoundary; i < upperBoundary; i++) {
             if (exceptOfDate.equals(selenium.getText(cellDay.format(i)))) {
-                assertTrue(selenium.belongsClass(cellDay.format(i), "rf-cal-sel"), "Cell nr. " + i + " should not be selected.");
+                assertTrue(selenium.belongsClass(cellDay.format(i), "rf-cal-sel"), "Cell nr. " + i
+                    + " should not be selected.");
             } else {
-                assertFalse(selenium.belongsClass(cellDay.format(i), "rf-cal-sel"), "Cell nr. " + i + " should not be selected.");
+                assertFalse(selenium.belongsClass(cellDay.format(i), "rf-cal-sel"), "Cell nr. " + i
+                    + " should not be selected.");
             }
         }
 
@@ -707,7 +716,8 @@ public class TestRichCalendarAttributes extends AbstractCalendarTest {
 
         // check other 3 lines of cells
         for (int i = lowerBoundary; i < upperBoundary; i++) {
-            assertFalse(selenium.belongsClass(cellDay.format(i), "rf-cal-sel"), "Cell nr. " + i + " should not be selected.");
+            assertFalse(selenium.belongsClass(cellDay.format(i), "rf-cal-sel"), "Cell nr. " + i
+                + " should not be selected.");
         }
     }
 }

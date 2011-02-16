@@ -46,6 +46,7 @@ import org.jboss.test.selenium.locator.JQueryLocator;
 import org.jboss.test.selenium.waiting.EventFiredCondition;
 import org.richfaces.tests.metamer.ftest.AbstractMetamerTest;
 import org.richfaces.tests.metamer.ftest.annotations.IssueTracking;
+import org.richfaces.tests.metamer.ftest.annotations.RegressionTest;
 import org.testng.annotations.Test;
 
 /**
@@ -172,7 +173,7 @@ public class TestRichAccordion extends AbstractMetamerTest {
     }
 
     @Test
-    @IssueTracking("https://issues.jboss.org/browse/RF-10061")
+    @RegressionTest("https://issues.jboss.org/browse/RF-10061")
     public void testData() {
         selenium.type(pjq("input[type=text][id$=dataInput]"), "RichFaces 4");
         selenium.waitForPageToLoad();
@@ -524,7 +525,7 @@ public class TestRichAccordion extends AbstractMetamerTest {
     }
 
     @Test
-    @IssueTracking("https://issues.jboss.org/browse/RF-10040")
+    @RegressionTest("https://issues.jboss.org/browse/RF-10040")
     public void testSwitchTypeServer() {
         selenium.click(pjq("input[type=radio][name$=switchTypeInput][value=server]"));
         selenium.waitForPageToLoad();
