@@ -1,5 +1,6 @@
 package org.richfaces.tests.metamer;
 
+import java.io.Serializable;
 import java.util.Collection;
 import java.util.TreeMap;
 
@@ -23,7 +24,9 @@ public abstract class ColumnSortingMap extends TreeMap<String, ColumnSortingMap.
 
     protected abstract Attributes getAttributes();
 
-    public class ColumnSorting {
+    public class ColumnSorting implements Serializable {
+        private static final long serialVersionUID = 1L;
+        
         private String columnName;
         private SortOrder order = SortOrder.unsorted;
 

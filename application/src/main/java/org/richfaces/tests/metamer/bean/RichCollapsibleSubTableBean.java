@@ -56,7 +56,7 @@ public class RichCollapsibleSubTableBean implements Serializable {
     // FIXME: @ManagedProperty(value = "#{model.employees}")
     private List<Employee> employees = Model.unmarshallEmployees();
     private List<List<Employee>> lists;
-    private UICollapsibleSubTable binding;
+    private transient UICollapsibleSubTable binding;
     // true = model, false = empty table
     private boolean state;
 

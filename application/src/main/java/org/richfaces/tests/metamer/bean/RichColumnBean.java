@@ -60,13 +60,7 @@ public class RichColumnBean implements Serializable {
     private String stateNameToFilter;
     private SortOrder sortOrder = SortOrder.ascending;
 
-    private final Filter<Capital> stateFilter = new Filter<Capital>() {
-
-        @Override
-        public boolean accept(Capital c) {
-            return c.getState().toLowerCase().contains(stateNameToFilter == null ? "" : stateNameToFilter.toLowerCase());
-        }
-    };
+    private Filter<Capital> stateFilter = new StateFilter();
 
     /**
      * Initializes the managed bean.
@@ -106,24 +100,33 @@ public class RichColumnBean implements Serializable {
     public Filter<Capital> getStateNameFilter() {
         return stateFilter;
     }
-    
+
     public String getStateNameToFilter() {
         return stateNameToFilter;
     }
-    
+
     public void setStateNameToFilter(String stateNameToFilter) {
         this.stateNameToFilter = stateNameToFilter;
     }
-    
+
     public SortOrder[] getSortOrders() {
         return SortOrder.values();
     }
-    
+
     public void setSortOrder(SortOrder sortOrder) {
         this.sortOrder = sortOrder;
     }
-    
+
     public SortOrder getSortOrder() {
         return sortOrder;
+    }
+    
+    private class StateFilter implements Filter<Capital>, Serializable {
+        private static final long serialVersionUID = 1L;
+
+        public boolean accept(Capital c) {
+            return c.getState().toLowerCase()
+                .contains(stateNameToFilter == null ? "" : stateNameToFilter.toLowerCase());
+        }
     }
 }

@@ -50,28 +50,20 @@ import org.slf4j.LoggerFactory;
 @ViewScoped
 public class RichDataTableBean implements Serializable {
 
-    private static final long serialVersionUID = 4814439475400649809L;
+    private static final long serialVersionUID = -1L;
     private static Logger logger;
     private Attributes attributes;
-    private UIDataTable binding;
+    
+    private transient UIDataTable binding;
     private DataComponentState dataTableState;
     private Map<Object, Integer> stateMap = new HashMap<Object, Integer>();
+    
     private int page = 1;
     // true = model, false = empty table
     private boolean state = true;
 
     // sorting
-    private ColumnSortingMap sorting = new ColumnSortingMap() {
-        private static final long serialVersionUID = 1L;
-
-        protected UIDataTableBase getBinding() {
-            return binding;
-        }
-
-        protected Attributes getAttributes() {
-            return attributes;
-        }
-    };
+    private ColumnSortingMap sorting = new CustomColumnSortingMap();
 
     // filtering
     private Map<String, Object> filtering = new HashMap<String, Object>();
@@ -189,5 +181,16 @@ public class RichDataTableBean implements Serializable {
             }
         };
     }
+    
+    private class CustomColumnSortingMap extends ColumnSortingMap {
+        private static final long serialVersionUID = 1L;
 
+        protected UIDataTableBase getBinding() {
+            return binding;
+        }
+
+        protected Attributes getAttributes() {
+            return attributes;
+        }
+    }
 }

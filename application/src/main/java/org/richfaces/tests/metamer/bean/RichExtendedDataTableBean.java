@@ -49,11 +49,11 @@ import org.slf4j.LoggerFactory;
 @ManagedBean(name = "richExtendedDataTableBean")
 @ViewScoped
 public class RichExtendedDataTableBean implements Serializable {
-
-    private static final long serialVersionUID = 481478880649809L;
+    
+    private static final long serialVersionUID = 1L;
     private static Logger logger;
     private Attributes attributes;
-    private DataComponentState dataTableState;
+    private transient DataComponentState dataTableState;
     private Map<Object, Integer> stateMap = new HashMap<Object, Integer>();
     private int page = 1;
     // true = model, false = empty table
@@ -75,7 +75,7 @@ public class RichExtendedDataTableBean implements Serializable {
     private Map<String, Object> filtering = new HashMap<String, Object>();
     // facets
     private Map<String, String> facets = new HashMap<String, String>();
-    private UIExtendedDataTable binding;
+    private transient UIExtendedDataTable binding;
 
     /**
      * Initializes the managed bean.
