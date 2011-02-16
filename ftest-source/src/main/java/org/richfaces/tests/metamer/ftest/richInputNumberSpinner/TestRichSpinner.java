@@ -21,7 +21,6 @@
  *******************************************************************************/
 package org.richfaces.tests.metamer.ftest.richInputNumberSpinner;
 
-import static org.jboss.test.selenium.guard.request.RequestTypeGuardFactory.guardNoRequest;
 import static org.jboss.test.selenium.guard.request.RequestTypeGuardFactory.guardXhr;
 import static org.jboss.test.selenium.utils.URLUtils.buildUrl;
 import static org.testng.Assert.assertEquals;
@@ -36,10 +35,7 @@ import org.jboss.test.selenium.dom.Event;
 import org.jboss.test.selenium.encapsulated.JavaScript;
 import org.jboss.test.selenium.locator.Attribute;
 import org.jboss.test.selenium.locator.AttributeLocator;
-import org.jboss.test.selenium.locator.ElementLocator;
 import org.jboss.test.selenium.locator.JQueryLocator;
-import org.richfaces.tests.metamer.ftest.AbstractMetamerTest;
-import org.richfaces.tests.metamer.ftest.annotations.Inject;
 import org.richfaces.tests.metamer.ftest.annotations.IssueTracking;
 import org.richfaces.tests.metamer.ftest.annotations.Use;
 import org.testng.annotations.Test;
@@ -50,20 +46,7 @@ import org.testng.annotations.Test;
  * @author <a href="mailto:ppitonak@redhat.com">Pavol Pitonak</a>
  * @version $Revision$
  */
-public class TestRichSpinner extends AbstractMetamerTest {
-
-    private JQueryLocator spinner = pjq("span[id$=spinner]");
-    private JQueryLocator input = pjq("span[id$=spinner] input.rf-insp-inp");
-    private JQueryLocator up = pjq("span[id$=spinner] span.rf-insp-inc");
-    private JQueryLocator down = pjq("span[id$=spinner] span.rf-insp-dec");
-    private JQueryLocator output = pjq("span[id$=output]");
-    private String[] correctNumbers = {"-10", "-5", "-1", "0", "1", "5", "10"};
-    private String[] smallNumbers = {"-11", "-15", "-100"};
-    private String[] bigNumbers = {"11", "15", "100"};
-    private String[] decimalNumbers = {"1.4999", "5.6", "7.0001", "-5.50001", "-9.9", "1.222e0", "0e0", "-5.50001e0"};
-    @Inject
-    @Use(empty = true)
-    private String number;
+public class TestRichSpinner extends AbstractSpinnerTest {
 
     @Override
     public URL getTestUrl() {
@@ -81,82 +64,48 @@ public class TestRichSpinner extends AbstractMetamerTest {
 
     @Test
     @Use(field = "number", value = "correctNumbers")
+    @Override
     public void testTypeIntoInputCorrect() {
-        String reqTime = selenium.getText(time);
-        guardXhr(selenium).type(input, number);
-        waitGui.failWith("Page was not updated").waitForChange(reqTime, retrieveText.locator(time));
-
-        assertEquals(selenium.getText(output), number, "Output was not updated.");
+        super.testTypeIntoInputCorrect();
     }
 
     @Test
     @Use(field = "number", value = "smallNumbers")
+    @Override
     public void testTypeIntoInputSmall() {
-        String reqTime = selenium.getText(time);
-        guardXhr(selenium).type(input, number);
-        waitGui.failWith("Page was not updated").waitForChange(reqTime, retrieveText.locator(time));
-
-        assertEquals(selenium.getText(output), "-10", "Output was not updated.");
-        assertEquals(getInputValue(), "-10", "Input was not updated.");
+        super.testTypeIntoInputSmall();
     }
 
     @Test
     @Use(field = "number", value = "bigNumbers")
+    @Override
     public void testTypeIntoInputBig() {
-        String reqTime = selenium.getText(time);
-        guardXhr(selenium).type(input, number);
-        waitGui.failWith("Page was not updated").waitForChange(reqTime, retrieveText.locator(time));
-
-        assertEquals(selenium.getText(output), "10", "Output was not updated.");
-        assertEquals(getInputValue(), "10", "Input was not updated.");
+        super.testTypeIntoInputBig();
     }
 
     @Test
     @Use(field = "number", value = "decimalNumbers")
+    @Override
     public void testTypeIntoInputDecimal() {
-        String reqTime = selenium.getText(time);
-        guardXhr(selenium).type(input, number);
-        waitGui.failWith("Page was not updated").waitForChange(reqTime, retrieveText.locator(time));
-
-        Double newNumber = new Double(number);
-
-        assertEquals(selenium.getText(output), newNumber == 0 ? "0" : newNumber.toString(), "Output was not updated.");
-        assertEquals(selenium.getValue(input), newNumber == 0 ? "0" : newNumber.toString(), "Input was not updated.");
+        super.testTypeIntoInputDecimal();
     }
 
     @Test
+    @Override
     public void testTypeIntoInputNotNumber() {
-        guardNoRequest(selenium).type(input, "aaa");
-        assertEquals(selenium.getText(output), "2", "Output should not be updated.");
-        assertEquals(getInputValue(), "2", "Input should not be updated.");
+        super.testTypeIntoInputNotNumber();
     }
 
     @Test
+    @Override
     public void testClickUp() {
-        clickArrow(up, 4);
-        assertEquals(selenium.getText(output), "6", "Output was not updated.");
-
-        clickArrow(up, 4);
-        assertEquals(selenium.getText(output), "10", "Output was not updated.");
-
-        selenium.mouseDown(up);
-        guardNoRequest(selenium).mouseUp(up);
-
-        assertEquals(selenium.getText(output), "10", "Output was not updated.");
+        super.testClickUp();
     }
 
     @Test
+    @Override
     public void testClickDown() {
-        clickArrow(down, 4);
-        assertEquals(selenium.getText(output), "-2", "Output was not updated.");
-
-        clickArrow(down, 8);
-        assertEquals(selenium.getText(output), "-10", "Output was not updated.");
-
-        selenium.mouseDown(down);
-        guardNoRequest(selenium).mouseUp(down);
-
-        assertEquals(selenium.getText(output), "-10", "Output was not updated.");
+        super.testClickDown();
     }
 
     @Test
@@ -538,29 +487,5 @@ public class TestRichSpinner extends AbstractMetamerTest {
 
         assertEquals(selenium.getText(output), number, "Output was not updated.");
         assertEquals(getInputValue(), "10", "Input was not updated.");
-    }
-
-    /**
-     * Getter for value that is displayed in spinner input.
-     * @return spinner input value
-     */
-    private String getInputValue() {
-        return selenium.getValue(input);
-    }
-
-    /**
-     * Clicks on spinner's arrow.
-     * @param arrow spinner's up or down arrow locator
-     * @param clicks how many times should it be clicked
-     */
-    private void clickArrow(ElementLocator<?> arrow, int clicks) {
-        String reqTime = null;
-
-        for (int i = 0; i < clicks; i++) {
-            reqTime = selenium.getText(time);
-            guardXhr(selenium).runScript(new JavaScript("jQuery(\"" + arrow.getRawLocator() + "\").mousedown().mouseup()"));
-
-            waitGui.failWith("Page was not updated").waitForChange(reqTime, retrieveText.locator(time));
-        }
     }
 }
