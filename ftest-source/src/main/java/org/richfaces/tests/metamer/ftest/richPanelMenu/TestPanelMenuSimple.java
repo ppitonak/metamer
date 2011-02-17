@@ -28,7 +28,6 @@ import static org.testng.Assert.assertTrue;
 import org.jboss.test.selenium.css.CssProperty;
 import org.richfaces.PanelMenuMode;
 import org.richfaces.tests.metamer.ftest.annotations.Inject;
-import org.richfaces.tests.metamer.ftest.annotations.IssueTracking;
 import org.richfaces.tests.metamer.ftest.annotations.RegressionTest;
 import org.richfaces.tests.metamer.ftest.annotations.Use;
 import org.testng.annotations.Test;
@@ -123,8 +122,9 @@ public class TestPanelMenuSimple extends AbstractPanelMenuTest {
     }
 
     @Test
-    @IssueTracking("https://issues.jboss.org/browse/RF-10302")
+    @RegressionTest("https://issues.jboss.org/browse/RF-10302")
     public void testWidth() {
+        attributes.setStyle("");
         attributes.setWidth("300px");
         assertEquals(selenium.getStyle(menu, CssProperty.WIDTH), "300px");
     }
