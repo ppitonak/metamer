@@ -29,13 +29,16 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 
     <ui:composition template="/templates/template.xhtml">
     	<ui:param name="dontRenderForm" value="true" />
-
-        <ui:define name="head">
-            <f:metadata>
+		
+		<ui:define name="view">
+			<f:metadata>
                 <f:viewParam name="templates" value="#{templateBean.templates}">
                     <f:converter converterId="templatesListConverter" />
                 </f:viewParam>
             </f:metadata>
+        </ui:define>
+
+        <ui:define name="head">
             <h:outputStylesheet library="css" name="a4jQueue.css" />
             <script type="text/javascript">
                     function add(element) {
@@ -44,12 +47,8 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
             </script>
         </ui:define>
 
-        <ui:define name="outOfTemplateBefore">
-        </ui:define>
-
         <ui:define name="component">
-
-
+        
             <a4j:queue id="a4jQueue"
             		   ignoreDupResponses="#{a4jQueueBean.attributes['ignoreDupResponses'].value}"
                        name="#{a4jQueueBean.attributes['name'].value}"

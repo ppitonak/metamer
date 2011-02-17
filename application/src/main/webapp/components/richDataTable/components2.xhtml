@@ -28,13 +28,16 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 
     <ui:composition template="/templates/template.xhtml">
     	<ui:param name="componentId" value="richDataTable" />
-    	
-        <ui:define name="head">
-            <f:metadata>
+		
+		<ui:define name="view">
+			<f:metadata>
                 <f:viewParam name="templates" value="#{templateBean.templates}">
                     <f:converter converterId="templatesListConverter" />
                 </f:viewParam>
             </f:metadata>
+        </ui:define>
+    	
+        <ui:define name="head">
             <h:outputStylesheet library="css" name="richDataTable.css"/>
         </ui:define>
 
