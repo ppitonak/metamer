@@ -35,6 +35,7 @@ import org.testng.annotations.Test;
  * @author <a href="mailto:ppitonak@redhat.com">Pavol Pitonak</a>
  * @version $Revision$
  */
+@IssueTracking("https://issues.jboss.org/browse/RF-10482")
 public class TestHCommandButton extends AbstractTestCommand {
 
     private JQueryLocator button = pjq("input[type=submit][id$=commandButton]");
