@@ -29,6 +29,7 @@ import org.jboss.test.selenium.css.CssProperty;
 import org.richfaces.PanelMenuMode;
 import org.richfaces.tests.metamer.ftest.annotations.Inject;
 import org.richfaces.tests.metamer.ftest.annotations.IssueTracking;
+import org.richfaces.tests.metamer.ftest.annotations.RegressionTest;
 import org.richfaces.tests.metamer.ftest.annotations.Use;
 import org.testng.annotations.Test;
 
@@ -43,7 +44,7 @@ public class TestPanelMenuSimple extends AbstractPanelMenuTest {
     Boolean expandSingle;
 
     @Test
-    @IssueTracking("https://issues.jboss.org/browse/RF-10158")
+    @RegressionTest("https://issues.jboss.org/browse/RF-10158")
     public void testDisabled() {
         attributes.setGroupMode(PanelMenuMode.client);
         attributes.setDisabled(false);
@@ -53,8 +54,8 @@ public class TestPanelMenuSimple extends AbstractPanelMenuTest {
 
         attributes.setDisabled(true);
 
-        assertEquals(selenium.getCount(menu.getAnyDisabledGroup()), 5);
-        assertEquals(selenium.getCount(menu.getAnyDisabledItem()), 18);
+        assertEquals(selenium.getCount(menu.getAnyDisabledGroup()), 6);
+        assertEquals(selenium.getCount(menu.getAnyDisabledItem()), 24);
     }
 
     @Test
