@@ -81,6 +81,7 @@ public class TestRichTogglePanelItem extends AbstractMetamerTest {
     }
 
     @Test
+    @IssueTracking("https://issues.jboss.org/browse/RF-10488")
     public void testName() {
         selenium.type(pjq("input[type=text][id$=nameInput]"), "metamer");
         selenium.waitForPageToLoad();
@@ -103,7 +104,7 @@ public class TestRichTogglePanelItem extends AbstractMetamerTest {
     }
 
     @Test
-    @IssueTracking("https://issues.jboss.org/browse/RF-9895")
+    @IssueTracking("https://issues.jboss.org/browse/RF-9895 https://issues.jboss.org/browse/RF-10488")
     public void testOnenter() {
         selenium.type(pjq("input[type=text][id$=onenterInput]"), "metamerEvents += \"enter \"");
         selenium.waitForPageToLoad();
@@ -192,6 +193,7 @@ public class TestRichTogglePanelItem extends AbstractMetamerTest {
     }
 
     @Test
+    @IssueTracking("https://issues.jboss.org/browse/RF-10488")
     public void testSwitchTypeNull() {
         guardXhr(selenium).click(link2);
         waitGui.failWith("Item 2 is not displayed.").until(isDisplayed.locator(item2));

@@ -219,6 +219,7 @@ public class TestRichTab extends AbstractMetamerTest {
     }
 
     @Test
+    @IssueTracking("https://issues.jboss.org/browse/RF-10488")
     public void testName() {
         selenium.type(pjq("input[type=text][id$=nameInput]"), "metamer");
         selenium.waitForPageToLoad();
@@ -241,7 +242,7 @@ public class TestRichTab extends AbstractMetamerTest {
     }
 
     @Test
-    @IssueTracking("https://issues.jboss.org/browse/RF-9537")
+    @IssueTracking("https://issues.jboss.org/browse/RF-9537 https://issues.jboss.org/browse/RF-10488")
     public void testOnenter() {
         selenium.type(pjq("input[type=text][id$=onenterInput]"), "metamerEvents += \"enter \"");
         selenium.waitForPageToLoad();
@@ -349,6 +350,7 @@ public class TestRichTab extends AbstractMetamerTest {
     }
 
     @Test
+    @IssueTracking("https://issues.jboss.org/browse/RF-10488")
     public void testSwitchTypeNull() {
         guardXhr(selenium).click(inactiveHeaders[1]);
         waitGui.failWith("Tab 2 is not displayed.").until(isDisplayed.locator(itemContents[1]));

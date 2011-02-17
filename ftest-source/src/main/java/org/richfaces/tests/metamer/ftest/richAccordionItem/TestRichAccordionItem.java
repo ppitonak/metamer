@@ -164,6 +164,7 @@ public class TestRichAccordionItem extends AbstractMetamerTest {
     }
 
     @Test
+    @IssueTracking("https://issues.jboss.org/browse/RF-10488")
     public void testLeftActiveIcon() {
         JQueryLocator icon = leftIcon.format(1).getDescendant(jq("div.rf-ac-itm-ico-act"));
         JQueryLocator input = pjq("select[id$=leftActiveIconInput]");
@@ -212,6 +213,7 @@ public class TestRichAccordionItem extends AbstractMetamerTest {
     }
 
     @Test
+    @IssueTracking("https://issues.jboss.org/browse/RF-10488")
     public void testName() {
         selenium.type(pjq("input[id$=nameInput]"), "new name");
         selenium.waitForPageToLoad();
@@ -231,7 +233,7 @@ public class TestRichAccordionItem extends AbstractMetamerTest {
     }
 
     @Test
-    @IssueTracking("https://issues.jboss.org/browse/RF-9821")
+    @IssueTracking("https://issues.jboss.org/browse/RF-9821 https://issues.jboss.org/browse/RF-10488")
     public void testOnenter() {
         testFireEvent(Event.CLICK, itemHeaders[0], "enter");
     }
@@ -262,7 +264,7 @@ public class TestRichAccordionItem extends AbstractMetamerTest {
     }
 
     @Test
-    @IssueTracking("https://issues.jboss.org/browse/RF-9821")
+    @IssueTracking("https://issues.jboss.org/browse/RF-9821 https://issues.jboss.org/browse/RF-10488")
     public void testOnleave() {
         selenium.type(pjq("input[type=text][id$=onleaveInput]"), "metamerEvents += \"leave \"");
         selenium.waitForPageToLoad();
@@ -315,6 +317,7 @@ public class TestRichAccordionItem extends AbstractMetamerTest {
     }
 
     @Test
+    @IssueTracking("https://issues.jboss.org/browse/RF-10488")
     public void testRightActiveIcon() {
         JQueryLocator icon = rightIcon.format(1).getDescendant(jq("div.rf-ac-itm-ico-act"));
         JQueryLocator input = pjq("select[id$=rightActiveIconInput]");
@@ -373,6 +376,7 @@ public class TestRichAccordionItem extends AbstractMetamerTest {
     }
 
     @Test
+    @IssueTracking("https://issues.jboss.org/browse/RF-10488")
     public void testSwitchTypeNull() {
         guardXhr(selenium).click(itemHeaders[0]);
         waitGui.failWith("Item 1 is not displayed.").until(isDisplayed.locator(itemContents[0]));
