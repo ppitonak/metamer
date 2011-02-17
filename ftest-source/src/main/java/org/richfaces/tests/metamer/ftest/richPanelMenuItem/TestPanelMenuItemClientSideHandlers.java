@@ -58,7 +58,7 @@ public class TestPanelMenuItemClientSideHandlers extends AbstractMetamerTest {
     }
 
     @Test
-    @IssueTracking("https://issues.jboss.org/browse/RF-10486")
+    @IssueTracking("https://issues.jboss.org/browse/RF-10320")
     @Use(field = "event", value = "ajaxEvents")
     public void testClientSideEvent() {
         attributes.setMode(ajax);
@@ -69,7 +69,7 @@ public class TestPanelMenuItemClientSideHandlers extends AbstractMetamerTest {
     }
 
     @Test
-    @IssueTracking("https://issues.jboss.org/browse/RF-10486")
+    @IssueTracking("https://issues.jboss.org/browse/RF-10320")
     public void testClientSideEventsOrderClient() {
         attributes.setMode(client);
         menu.setItemMode(client);
@@ -79,7 +79,7 @@ public class TestPanelMenuItemClientSideHandlers extends AbstractMetamerTest {
     }
 
     @Test
-    @IssueTracking("https://issues.jboss.org/browse/RF-10486")
+    @IssueTracking("https://issues.jboss.org/browse/RF-10320")
     public void testClientSideEventsOrderAjax() {
         attributes.setMode(ajax);
         menu.setItemMode(ajax);
