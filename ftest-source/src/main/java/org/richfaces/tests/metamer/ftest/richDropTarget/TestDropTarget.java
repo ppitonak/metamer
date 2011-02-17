@@ -25,6 +25,7 @@ import static javax.faces.event.PhaseId.ANY_PHASE;
 import static javax.faces.event.PhaseId.APPLY_REQUEST_VALUES;
 import static javax.faces.event.PhaseId.INVOKE_APPLICATION;
 import static javax.faces.event.PhaseId.PROCESS_VALIDATIONS;
+import static javax.faces.event.PhaseId.RENDER_RESPONSE;
 import static javax.faces.event.PhaseId.RESTORE_VIEW;
 import static javax.faces.event.PhaseId.UPDATE_MODEL_VALUES;
 import static org.jboss.test.selenium.locator.LocatorFactory.jq;
@@ -38,11 +39,12 @@ import static org.testng.Assert.assertTrue;
 
 import java.net.URL;
 
+import org.jboss.test.selenium.GuardRequest;
 import org.jboss.test.selenium.actions.Drag;
 import org.jboss.test.selenium.locator.JQueryLocator;
 import org.jboss.test.selenium.request.RequestType;
 import org.jboss.test.selenium.waiting.retrievers.TextRetriever;
-import org.richfaces.tests.metamer.ftest.annotations.IssueTracking;
+import org.richfaces.tests.metamer.ftest.annotations.RegressionTest;
 import org.richfaces.tests.metamer.ftest.richDragIndicator.AbstractDragNDropTest;
 import org.richfaces.tests.metamer.ftest.richDragIndicator.Draggable;
 import org.richfaces.tests.metamer.ftest.richDragIndicator.Indicator.IndicatorState;
@@ -147,7 +149,7 @@ public class TestDropTarget extends AbstractDragNDropTest {
         attributes.setExecute("executeChecker");
 
         testAcception(drg1, ACCEPTING);
-        drag.drop();
+        guardedDrop(RequestType.XHR);
 
         phaseInfo.assertListener(UPDATE_MODEL_VALUES, "executeChecker");
         phaseInfo.assertListener(INVOKE_APPLICATION, "dropListener");
@@ -155,27 +157,35 @@ public class TestDropTarget extends AbstractDragNDropTest {
     }
 
     @Test
-    @IssueTracking("https://issues.jboss.org/browse/RF-10535")
+    @RegressionTest("https://issues.jboss.org/browse/RF-10535")
     public void testImmediate() {
         attributes.setImmediate(true);
 
         testAcception(drg1, ACCEPTING);
-        drag.drop();
+        guardedDrop(RequestType.XHR);
 
         phaseInfo.assertListener(APPLY_REQUEST_VALUES, "dropListener");
-        phaseInfo.assertPhases(RESTORE_VIEW, APPLY_REQUEST_VALUES);
+        phaseInfo.assertPhases(RESTORE_VIEW, APPLY_REQUEST_VALUES, RENDER_RESPONSE);
+    }
+
+    private void guardedDrop(RequestType type) {
+        new GuardRequest(type) {
+            public void command() {
+                drag.drop();
+            }
+        }.waitRequest();
     }
 
     @Test
-    @IssueTracking("https://issues.jboss.org/browse/RF-10535")
+    @RegressionTest("https://issues.jboss.org/browse/RF-10535")
     public void testBypassUpdates() {
         attributes.setBypassUpdates(true);
 
         testAcception(drg1, ACCEPTING);
-        drag.drop();
+        guardedDrop(RequestType.XHR);
 
         phaseInfo.assertListener(PROCESS_VALIDATIONS, "dropListener");
-        phaseInfo.assertPhases(RESTORE_VIEW, APPLY_REQUEST_VALUES, PROCESS_VALIDATIONS);
+        phaseInfo.assertPhases(RESTORE_VIEW, APPLY_REQUEST_VALUES, PROCESS_VALIDATIONS, RENDER_RESPONSE);
     }
 
     private void testAcceptedDropping(Draggable draggable) {
