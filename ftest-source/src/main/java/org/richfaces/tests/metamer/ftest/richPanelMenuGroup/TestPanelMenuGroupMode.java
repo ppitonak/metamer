@@ -27,6 +27,7 @@ import static javax.faces.event.PhaseId.PROCESS_VALIDATIONS;
 import static javax.faces.event.PhaseId.RENDER_RESPONSE;
 import static javax.faces.event.PhaseId.RESTORE_VIEW;
 import static javax.faces.event.PhaseId.UPDATE_MODEL_VALUES;
+import static org.testng.Assert.assertTrue;
 
 import java.util.LinkedList;
 
@@ -43,7 +44,7 @@ import org.testng.annotations.Test;
  * @author <a href="mailto:lfryc@redhat.com">Lukas Fryc</a>
  * @version $Revision$
  */
-@IssueTracking({ "https://issues.jboss.org/browse/RF-10314", "https://issues.jboss.org/browse/RF-10480" })
+@IssueTracking({ "https://issues.jboss.org/browse/RF-10550" })
 public class TestPanelMenuGroupMode extends AbstractPanelMenuGroupTest {
 
     @Inject
@@ -56,7 +57,7 @@ public class TestPanelMenuGroupMode extends AbstractPanelMenuGroupTest {
 
     @Inject
     @Use("requestModes")
-    PanelMenuMode mode = PanelMenuMode.ajax;
+    PanelMenuMode mode;
     PanelMenuMode[] requestModes = new PanelMenuMode[] { PanelMenuMode.ajax, PanelMenuMode.server };
 
     @Inject
@@ -66,7 +67,7 @@ public class TestPanelMenuGroupMode extends AbstractPanelMenuGroupTest {
         "item changed" };
 
     @Test
-    public void testMode() {
+    public void testRequestMode() {
         attributes.setImmediate(immediate);
         attributes.setBypassUpdates(bypassUpdates);
         attributes.setMode(mode);
@@ -74,7 +75,9 @@ public class TestPanelMenuGroupMode extends AbstractPanelMenuGroupTest {
 
         attributes.setExecute("@this executeChecker");
 
+        assertTrue(topGroup.isExpanded());
         topGroup.toggle();
+        assertTrue(topGroup.isCollapsed());
 
         if (mode != PanelMenuMode.client) {
             if ("phases".equals(listener)) {
@@ -88,8 +91,14 @@ public class TestPanelMenuGroupMode extends AbstractPanelMenuGroupTest {
     @Test
     @Uses({ @Use(field = "immediate", empty = true), @Use(field = "bypassUpdates", empty = true),
         @Use(field = "mode", empty = true), @Use(field = "listener", empty = true) })
+    @IssueTracking("https://issues.jboss.org/browse/RF-10551")
     public void testClientMode() {
+        attributes.setMode(PanelMenuMode.client);
+        menu.setGroupMode(PanelMenuMode.client);
+
+        assertTrue(topGroup.isExpanded());
         topGroup.toggle();
+        assertTrue(topGroup.isCollapsed());
     }
 
     private PhaseId[] getExpectedPhases() {
