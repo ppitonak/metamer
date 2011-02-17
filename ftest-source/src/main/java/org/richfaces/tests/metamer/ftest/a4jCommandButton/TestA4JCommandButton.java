@@ -332,6 +332,7 @@ public class TestA4JCommandButton extends AbstractMetamerTest {
     }
 
     @Test
+    @IssueTracking("https://issues.jboss.org/browse/RF-10555")
     public void testRender() {
         JQueryLocator renderInput = pjq("input[name$=renderInput]");
 
