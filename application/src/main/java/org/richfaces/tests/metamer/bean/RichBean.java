@@ -405,7 +405,7 @@ public class RichBean implements Serializable {
      *            an event representing the activation of a user interface component
      */
     public void itemChangeListener(ItemChangeEvent event) {
-        logToPage("* item changed: " + event.getOldItem() + " -> " + event.getNewItem());
+        logToPage("* item changed: " + event.getOldItem().getId() + " -> " + event.getNewItem().getId());
     }
 
     /**
