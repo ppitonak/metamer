@@ -43,14 +43,16 @@ public class TestPanelMenuGroupClientSideHandlers extends AbstractPanelMenuGroup
     @Inject
     @Use(empty = true)
     String event;
-    String[] ajaxExpansionEvents = new String[] { "begin", "beforedomupdate", "beforeexpand", "beforeselect",
-        "beforeswitch", "switch", "expand", "select", "complete" };
-    String[] ajaxCollapsionEvents = new String[] { "begin", "beforedomupdate", "beforecollapse", "beforeswitch",
-        "switch", "collapse", "complete" };
-    String[] clientExpansionEvents = new String[] { "beforeexpand", "beforeselect", "beforeswitch", "switch", "expand" };
-    String[] clientCollapsionEvents = new String[] { "beforecollapse", "beforeswitch", "switch", "collapse" };
-    String[] serverExpansionEvents = new String[] { "switch", "expand" };
-    String[] serverCollapsionEvents = new String[] { "switch", "collapse" };
+    String[] ajaxExpansionEvents = new String[] { "beforeswitch", "beforeexpand", "beforeselect", "begin",
+        "beforedomupdate", "select", "expand", "switch", "complete" };
+    String[] ajaxCollapsionEvents = new String[] { "beforeswitch", "beforecollapse", "beforeselect", "begin",
+        "beforedomupdate", "select", "collapse", "switch", "complete" };
+    String[] clientExpansionEvents = new String[] { "beforeswitch", "beforeexpand", "beforeselect", "select", "expand",
+        "switch" };
+    String[] clientCollapsionEvents = new String[] { "beforeswitch", "beforecollapse", "beforeselect", "select",
+        "collapse", "switch" };
+    String[] serverExpansionEvents = new String[] { "beforeswitch", "beforeexpand" };
+    String[] serverCollapsionEvents = new String[] { "beforeswitch", "beforecollapse" };
 
     @Override
     public URL getTestUrl() {
@@ -62,7 +64,7 @@ public class TestPanelMenuGroupClientSideHandlers extends AbstractPanelMenuGroup
     public void testClientSideCollapsionEvent() {
         attributes.setMode(ajax);
         menu.setGroupMode(ajax);
-        
+
         super.testRequestEventsBefore(event);
         topGroup.toggle();
         super.testRequestEventsAfter(event);
