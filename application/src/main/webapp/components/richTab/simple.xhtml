@@ -38,9 +38,15 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 
         <ui:define name="component">
 
-            <rich:tabPanel id="tabPanel">
+            <rich:tabPanel id="tabPanel"
+                           itemChangeListener="#{richBean.itemChangeListener}">
+                           
                 <rich:tab id="tab1"
+                          action="#{richBean.dummyAction}"
+                          actionListener="#{richBean.dummyActionListener}"
+            			   
                           contentClass="#{richTabBean.attributes['contentClass'].value}"
+                          bypassUpdates="#{richTabBean.attributes['bypassUpdates'].value}"
                           dir="#{richTabBean.attributes['dir'].value}"
                           disabled="#{richTabBean.attributes['disabled'].value}"
                           header="#{richTabBean.attributes['header'].value}"
@@ -49,6 +55,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                           headerDisabledClass="#{richTabBean.attributes['headerDisabledClass'].value}"
                           headerInactiveClass="#{richTabBean.attributes['headerInactiveClass'].value}"
                           headerStyle="#{richTabBean.attributes['headerStyle'].value}"
+                          immediate="#{richTabBean.attributes['immediate'].value}"
                           lang="#{richTabBean.attributes['lang'].value}"
                           name="#{richTabBean.attributes['name'].value}"
                           onclick="#{richTabBean.attributes['onclick'].value}"
