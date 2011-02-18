@@ -64,7 +64,6 @@ public class TestPanelMenuGroupClientSideHandlers extends AbstractPanelMenuGroup
     public void testClientSideCollapsionEvent() {
         attributes.setMode(ajax);
         menu.setGroupMode(ajax);
-
         super.testRequestEventsBefore(event);
         topGroup.toggle();
         super.testRequestEventsAfter(event);
@@ -75,6 +74,7 @@ public class TestPanelMenuGroupClientSideHandlers extends AbstractPanelMenuGroup
     public void testClientSideExpansionEvent() {
         attributes.setMode(ajax);
         menu.setGroupMode(ajax);
+        topGroup.toggle();
         super.testRequestEventsBefore(event);
         topGroup.toggle();
         super.testRequestEventsAfter(event);
