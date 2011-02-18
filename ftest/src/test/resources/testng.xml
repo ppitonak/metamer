@@ -77,7 +77,7 @@
             <package name="org.richfaces.tests.metamer.ftest.richTogglePanelItem" />
             <package name="org.richfaces.tests.metamer.ftest.richToolbar" />
             <package name="org.richfaces.tests.metamer.ftest.richToolbarGroup" />
-            <!-- FIXME temporary disabled RF-10544  <package name="org.richfaces.tests.metamer.ftest.richTooltip" /> -->
+            <package name="org.richfaces.tests.metamer.ftest.richTooltip" />
             <package name="org.richfaces.tests.metamer.ftest.richPanelMenu" />
             <package name="org.richfaces.tests.metamer.ftest.richPanelMenuGroup" />
             <package name="org.richfaces.tests.metamer.ftest.richPanelMenuItem" />
