@@ -80,8 +80,14 @@ public class TestPanelMenuGroupMode extends AbstractPanelMenuGroupTest {
         if (mode != PanelMenuMode.client) {
             if ("phases".equals(listener)) {
                 phaseInfo.assertPhases(getExpectedPhases());
+            } else if ("executeChecker".equals(listener)) {
+                if (immediate || bypassUpdates) {
+                    phaseInfo.assertNoListener("executeChecker");
+                } else {
+                    phaseInfo.assertListener(UPDATE_MODEL_VALUES, "executeChecker");
+                }
             } else {
-                phaseInfo.assertListener(getExecutionPhase(), listener);
+                phaseInfo.assertListener(getListenerProcessingPhase(), listener);
             }
         }
     }
@@ -113,7 +119,7 @@ public class TestPanelMenuGroupMode extends AbstractPanelMenuGroupTest {
         return list.toArray(new PhaseId[list.size()]);
     }
 
-    private PhaseId getExecutionPhase() {
+    private PhaseId getListenerProcessingPhase() {
         PhaseId[] phases = getExpectedPhases();
         return phases[phases.length - 2];
     }
