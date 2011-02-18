@@ -30,7 +30,6 @@ import static org.jboss.test.selenium.utils.URLUtils.buildUrl;
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertFalse;
 import static org.testng.Assert.assertTrue;
-import static org.testng.Assert.fail;
 
 import java.net.URL;
 
@@ -81,7 +80,7 @@ public class TestRichCollapsiblePanel extends AbstractMetamerTest {
     }
 
     @Test
-    @IssueTracking("https://issues.jboss.org/browse/RF-10054")
+    @RegressionTest("https://issues.jboss.org/browse/RF-10054")
     public void testBypassUpdates() {
         selenium.click(pjq("input[type=radio][name$=bypassUpdatesInput][value=true]"));
         selenium.waitForPageToLoad();
@@ -91,8 +90,8 @@ public class TestRichCollapsiblePanel extends AbstractMetamerTest {
         waitGui.failWith("Page was not updated").waitForChange(reqTime, retrieveText.locator(time));
 
         phaseInfo.assertPhases(PhaseId.RESTORE_VIEW, PhaseId.APPLY_REQUEST_VALUES, PhaseId.PROCESS_VALIDATIONS,
-                PhaseId.RENDER_RESPONSE);
-        phaseInfo.assertListener(PhaseId.APPLY_REQUEST_VALUES, "panel collapsed");
+            PhaseId.RENDER_RESPONSE);
+        phaseInfo.assertListener(PhaseId.PROCESS_VALIDATIONS, "panel collapsed");
     }
 
     @Test
@@ -155,8 +154,10 @@ public class TestRichCollapsiblePanel extends AbstractMetamerTest {
         JQueryLocator image = leftIcon.getChild(jq("img:nth-child(1)"));
 
         // icon=null
-        assertTrue(selenium.belongsClass(icon, "rf-ico-chevron-up-hdr"), "Div should have set class rf-ico-chevron-up-hdr.");
-        assertTrue(selenium.getStyle(icon, CssProperty.BACKGROUND_IMAGE).contains("ChevronUp.png"), "Icon should contain a chevron up.");
+        assertTrue(selenium.belongsClass(icon, "rf-ico-chevron-up-hdr"),
+            "Div should have set class rf-ico-chevron-up-hdr.");
+        assertTrue(selenium.getStyle(icon, CssProperty.BACKGROUND_IMAGE).contains("ChevronUp.png"),
+            "Icon should contain a chevron up.");
 
         verifyStandardIcons(input, icon, image);
     }
@@ -168,8 +169,10 @@ public class TestRichCollapsiblePanel extends AbstractMetamerTest {
         JQueryLocator image = leftIcon.getChild(jq("img:nth-child(2)"));
 
         // icon=null
-        assertTrue(selenium.belongsClass(icon, "rf-ico-chevron-down-hdr"), "Div should have set class rf-ico-chevron-down-hdr.");
-        assertTrue(selenium.getStyle(icon, CssProperty.BACKGROUND_IMAGE).contains("ChevronDown.png"), "Icon should contain a chevron down.");
+        assertTrue(selenium.belongsClass(icon, "rf-ico-chevron-down-hdr"),
+            "Div should have set class rf-ico-chevron-down-hdr.");
+        assertTrue(selenium.getStyle(icon, CssProperty.BACKGROUND_IMAGE).contains("ChevronDown.png"),
+            "Icon should contain a chevron down.");
 
         verifyStandardIcons(input, icon, image);
     }
@@ -384,38 +387,49 @@ public class TestRichCollapsiblePanel extends AbstractMetamerTest {
     private void verifyStandardIcons(JQueryLocator input, JQueryLocator icon, JQueryLocator image) {
         selenium.select(input, optionLabel("chevronDown"));
         selenium.waitForPageToLoad();
-        assertTrue(selenium.belongsClass(icon, "rf-ico-chevron-down-hdr"), "Div should have set class rf-ico-chevron-down-hdr.");
-        assertTrue(selenium.getStyle(icon, CssProperty.BACKGROUND_IMAGE).contains("ChevronDown.png"), "Icon should contain a chevron down.");
+        assertTrue(selenium.belongsClass(icon, "rf-ico-chevron-down-hdr"),
+            "Div should have set class rf-ico-chevron-down-hdr.");
+        assertTrue(selenium.getStyle(icon, CssProperty.BACKGROUND_IMAGE).contains("ChevronDown.png"),
+            "Icon should contain a chevron down.");
 
         selenium.select(input, optionLabel("chevronUp"));
         selenium.waitForPageToLoad();
-        assertTrue(selenium.belongsClass(icon, "rf-ico-chevron-up-hdr"), "Div should have set class rf-ico-chevron-up-hdr.");
-        assertTrue(selenium.getStyle(icon, CssProperty.BACKGROUND_IMAGE).contains("ChevronUp.png"), "Icon should contain a chevron up.");
+        assertTrue(selenium.belongsClass(icon, "rf-ico-chevron-up-hdr"),
+            "Div should have set class rf-ico-chevron-up-hdr.");
+        assertTrue(selenium.getStyle(icon, CssProperty.BACKGROUND_IMAGE).contains("ChevronUp.png"),
+            "Icon should contain a chevron up.");
 
         selenium.select(input, optionLabel("disc"));
         selenium.waitForPageToLoad();
         assertTrue(selenium.belongsClass(icon, "rf-ico-disc-hdr"), "Div should have set class rf-ico-disc-hdr.");
-        assertTrue(selenium.getStyle(icon, CssProperty.BACKGROUND_IMAGE).contains("Disc.png"), "Icon should contain a disc.");
+        assertTrue(selenium.getStyle(icon, CssProperty.BACKGROUND_IMAGE).contains("Disc.png"),
+            "Icon should contain a disc.");
 
         selenium.select(input, optionLabel("grid"));
         selenium.waitForPageToLoad();
         assertTrue(selenium.belongsClass(icon, "rf-ico-grid-hdr"), "Div should have set class rf-ico-grid-hdr.");
-        assertTrue(selenium.getStyle(icon, CssProperty.BACKGROUND_IMAGE).contains("Grid.png"), "Icon should contain a grid.");
+        assertTrue(selenium.getStyle(icon, CssProperty.BACKGROUND_IMAGE).contains("Grid.png"),
+            "Icon should contain a grid.");
 
         selenium.select(input, optionLabel("triangle"));
         selenium.waitForPageToLoad();
         assertTrue(selenium.belongsClass(icon, "rf-ico-triangle-hdr"), "Div should have set class rf-ico-triangle-hdr.");
-        assertTrue(selenium.getStyle(icon, CssProperty.BACKGROUND_IMAGE).contains("Triangle.png"), "Icon should contain a triangle.");
+        assertTrue(selenium.getStyle(icon, CssProperty.BACKGROUND_IMAGE).contains("Triangle.png"),
+            "Icon should contain a triangle.");
 
         selenium.select(input, optionLabel("triangleDown"));
         selenium.waitForPageToLoad();
-        assertTrue(selenium.belongsClass(icon, "rf-ico-triangle-down-hdr"), "Div should have set class rf-ico-triangle-down-hdr.");
-        assertTrue(selenium.getStyle(icon, CssProperty.BACKGROUND_IMAGE).contains("TriangleDown.png"), "Icon should contain a triangle down.");
+        assertTrue(selenium.belongsClass(icon, "rf-ico-triangle-down-hdr"),
+            "Div should have set class rf-ico-triangle-down-hdr.");
+        assertTrue(selenium.getStyle(icon, CssProperty.BACKGROUND_IMAGE).contains("TriangleDown.png"),
+            "Icon should contain a triangle down.");
 
         selenium.select(input, optionLabel("triangleUp"));
         selenium.waitForPageToLoad();
-        assertTrue(selenium.belongsClass(icon, "rf-ico-triangle-up-hdr"), "Div should have set class rf-ico-triangle-up-hdr.");
-        assertTrue(selenium.getStyle(icon, CssProperty.BACKGROUND_IMAGE).contains("TriangleUp.png"), "Icon should contain a triangle up.");
+        assertTrue(selenium.belongsClass(icon, "rf-ico-triangle-up-hdr"),
+            "Div should have set class rf-ico-triangle-up-hdr.");
+        assertTrue(selenium.getStyle(icon, CssProperty.BACKGROUND_IMAGE).contains("TriangleUp.png"),
+            "Icon should contain a triangle up.");
 
         selenium.select(input, optionLabel("none"));
         selenium.waitForPageToLoad();
@@ -425,12 +439,14 @@ public class TestRichCollapsiblePanel extends AbstractMetamerTest {
         selenium.waitForPageToLoad();
         assertFalse(selenium.isElementPresent(icon), "Icon's div should not be present when icon=star.");
         assertTrue(selenium.isElementPresent(image), "Icon's image should be rendered.");
-        assertTrue(selenium.getAttribute(image.getAttribute(Attribute.SRC)).contains("star.png"), "Icon's src attribute should contain star.png.");
+        assertTrue(selenium.getAttribute(image.getAttribute(Attribute.SRC)).contains("star.png"),
+            "Icon's src attribute should contain star.png.");
 
         selenium.select(input, optionLabel("nonexisting"));
         selenium.waitForPageToLoad();
         assertFalse(selenium.isElementPresent(icon), "Icon's div should not be present when icon=nonexisting.");
         assertTrue(selenium.isElementPresent(image), "Icon's image should be rendered.");
-        assertTrue(selenium.getAttribute(image.getAttribute(Attribute.SRC)).contains("nonexisting"), "Icon's src attribute should contain nonexisting.");
+        assertTrue(selenium.getAttribute(image.getAttribute(Attribute.SRC)).contains("nonexisting"),
+            "Icon's src attribute should contain nonexisting.");
     }
 }
