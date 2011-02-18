@@ -46,7 +46,7 @@ public class RichPanelMenuBean implements Serializable {
     private static final long serialVersionUID = -1L;
     private static Logger logger;
     private Attributes attributes;
-    
+
     private Object activeItem;
 
     /**
@@ -56,9 +56,9 @@ public class RichPanelMenuBean implements Serializable {
     public void init() {
         logger = LoggerFactory.getLogger(getClass());
         logger.debug("initializing bean " + getClass().getName());
-        
+
         attributes = Attributes.getComponentAttributesFromFacesConfig(UIPanelMenu.class, getClass());
-        
+
         attributes.setAttribute("rendered", true);
         attributes.setAttribute("style", "width: 200px;");
 
@@ -83,13 +83,14 @@ public class RichPanelMenuBean implements Serializable {
      */
     public void itemChangeListener(ItemChangeEvent event) {
         activeItem = event.getNewItem();
-        RichBean.logToPage("* item changed: " + event.getOldItem() + " -> " + event.getNewItem());
+        RichBean.logToPage("* item changed: " + (event.getOldItem() == null ? null : event.getOldItem().getId())
+            + " -> " + event.getNewItem().getId());
     }
-    
+
     public void setActiveItem(Object activeItem) {
         this.activeItem = activeItem;
     }
-    
+
     public Object getActiveItem() {
         return activeItem;
     }

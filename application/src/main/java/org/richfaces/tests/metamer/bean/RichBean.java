@@ -371,6 +371,7 @@ public class RichBean implements Serializable {
 
     /**
      * An action that does nothing.
+     * 
      * @return null
      */
     public String dummyAction() {
@@ -380,7 +381,7 @@ public class RichBean implements Serializable {
 
     /**
      * An action listener that does nothing.
-     *
+     * 
      * @param event
      *            an event representing the activation of a user interface component (not used)
      */
@@ -390,7 +391,7 @@ public class RichBean implements Serializable {
 
     /**
      * An action listener that does nothing.
-     *
+     * 
      * @param event
      *            an event representing the activation of a user interface component (not used)
      */
@@ -400,28 +401,29 @@ public class RichBean implements Serializable {
 
     /**
      * An item change listener that logs to the page old and new value.
-     *
+     * 
      * @param event
      *            an event representing the activation of a user interface component
      */
     public void itemChangeListener(ItemChangeEvent event) {
-        logToPage("* item changed: " + event.getOldItem().getId() + " -> " + event.getNewItem().getId());
+        logToPage("* item changed: " + (event.getOldItem() == null ? null : event.getOldItem().getId()) + " -> "
+            + event.getNewItem().getId());
     }
 
     /**
      * A value change listener that logs to the page old and new value.
-     *
+     * 
      * @param event
      *            an event representing the activation of a user interface component
      */
     public void valueChangeListener(ValueChangeEvent event) {
         logToPage("* value changed: " + event.getOldValue() + " -> " + event.getNewValue());
     }
-    
+
     public boolean getExecuteChecker() {
         return true;
     }
-    
+
     public void setExecuteChecker(boolean executeChecker) {
         logToPage("* executeChecker");
     }
