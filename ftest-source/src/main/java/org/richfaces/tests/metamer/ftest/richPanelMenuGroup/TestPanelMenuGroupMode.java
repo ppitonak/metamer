@@ -35,7 +35,6 @@ import javax.faces.event.PhaseId;
 
 import org.richfaces.PanelMenuMode;
 import org.richfaces.tests.metamer.ftest.annotations.Inject;
-import org.richfaces.tests.metamer.ftest.annotations.IssueTracking;
 import org.richfaces.tests.metamer.ftest.annotations.Use;
 import org.richfaces.tests.metamer.ftest.annotations.Uses;
 import org.testng.annotations.Test;
@@ -44,7 +43,6 @@ import org.testng.annotations.Test;
  * @author <a href="mailto:lfryc@redhat.com">Lukas Fryc</a>
  * @version $Revision$
  */
-@IssueTracking({ "https://issues.jboss.org/browse/RF-10550" })
 public class TestPanelMenuGroupMode extends AbstractPanelMenuGroupTest {
 
     @Inject
@@ -91,7 +89,6 @@ public class TestPanelMenuGroupMode extends AbstractPanelMenuGroupTest {
     @Test
     @Uses({ @Use(field = "immediate", empty = true), @Use(field = "bypassUpdates", empty = true),
         @Use(field = "mode", empty = true), @Use(field = "listener", empty = true) })
-    @IssueTracking("https://issues.jboss.org/browse/RF-10551")
     public void testClientMode() {
         attributes.setMode(PanelMenuMode.client);
         menu.setGroupMode(PanelMenuMode.client);
