@@ -442,8 +442,7 @@
         <profile>
             <id>jboss6x-myfaces</id>
             <properties>
-                <deployable.classifier>jee6</deployable.classifier>
-                <jsf.config>MyFaces-2.0</jsf.config>
+                <deployable.classifier>jee6-bundled-myfaces</deployable.classifier>
             </properties>
         </profile>
         <profile>
