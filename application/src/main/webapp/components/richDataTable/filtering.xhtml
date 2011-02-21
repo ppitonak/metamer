@@ -143,7 +143,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                         <h:outputText id="columnHeaderNumberOfKidsType" value="(expression &gt;=)" />
                         <br/>
                         <rich:inputNumberSpinner id="spinnerFilter" minValue="0" maxValue="6" cycled="false" value="#{richDataTableBean.filtering['numberOfKids1']}">
-                        	<a4j:ajax render="commonGrid" />
+                        	<a4j:ajax event="change" render="commonGrid" />
                         </rich:inputNumberSpinner>
                     </f:facet>
 
