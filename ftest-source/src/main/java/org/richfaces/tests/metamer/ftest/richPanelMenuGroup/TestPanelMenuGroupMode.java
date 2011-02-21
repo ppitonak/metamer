@@ -81,7 +81,7 @@ public class TestPanelMenuGroupMode extends AbstractPanelMenuGroupTest {
             if ("phases".equals(listener)) {
                 phaseInfo.assertPhases(getExpectedPhases());
             } else if ("executeChecker".equals(listener)) {
-                if (immediate || bypassUpdates) {
+                if (immediate || bypassUpdates || mode == PanelMenuMode.server) {
                     phaseInfo.assertNoListener("executeChecker");
                 } else {
                     phaseInfo.assertListener(UPDATE_MODEL_VALUES, "executeChecker");
