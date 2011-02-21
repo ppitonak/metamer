@@ -432,11 +432,11 @@ public class TestRichPopupPanel extends AbstractMetamerTest {
         waitGui.failWith("Panel was not opened.").until(isDisplayed.locator(panel));
         int panelPos = selenium.getElementPositionLeft(panelContainer);
         int shadowPos = selenium.getElementPositionLeft(shadow);
-        assertEquals(shadowPos - panelPos, 6, "Depth of the shadow (left-right).");
+        assertEquals(shadowPos - panelPos, 15, "Depth of the shadow (left-right).");
 
         panelPos = selenium.getElementPositionTop(panelContainer);
         shadowPos = selenium.getElementPositionTop(shadow);
-        assertEquals(shadowPos - panelPos, 6, "Depth of the shadow (top-bottom).");
+        assertEquals(shadowPos - panelPos, 15, "Depth of the shadow (top-bottom).");
 
         selenium.type(pjq("input[id$=shadowDepthInput]"), "0");
         selenium.waitForPageToLoad();
