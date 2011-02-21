@@ -25,7 +25,7 @@
     <parent>
         <artifactId>functional-test-jboss-ci-template</artifactId>
         <groupId>org.jboss.test.richfaces-selenium</groupId>
-        <version>1.5.2.SP5</version>
+        <version>1.5.3-SNAPSHOT</version>
     </parent>
 
     <groupId>org.richfaces.tests</groupId>
@@ -80,8 +80,8 @@
     <properties>
         <context.path>/metamer/</context.path>
         <deployable.classifier>mojarra</deployable.classifier>
-        <deployable.version>4.0.0.20110221-CR1</deployable.version>
-        <ftest.source.version>4.0.0.20110221-CR1</ftest.source.version>
+        <deployable.version>4.0.0-SNAPSHOT</deployable.version>
+        <ftest.source.version>4.0.0-SNAPSHOT</ftest.source.version>
         <testng.suite.xml>src/test/resources/testng.xml</testng.suite.xml>
         <container.home>target/installs/${container.dir.deflatted}/${container.dir.unflatted}</container.home>
         <jsf.config>Mojarra-2.0</jsf.config>
