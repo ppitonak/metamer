@@ -1,7 +1,7 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite name="seleniumTest">
 
-    <test name="Core Components">
+    <test name="All Components">
         <packages>
             <package name="org.richfaces.tests.metamer.ftest.a4jActionListener" />
             <package name="org.richfaces.tests.metamer.ftest.a4jAjax" />
@@ -18,11 +18,6 @@
             <package name="org.richfaces.tests.metamer.ftest.a4jRegion" />
             <package name="org.richfaces.tests.metamer.ftest.a4jRepeat" />
             <package name="org.richfaces.tests.metamer.ftest.a4jStatus" />
-        </packages>
-    </test>
-    
-    <test name="Input Components">
-        <packages>
             <package name="org.richfaces.tests.metamer.ftest.richAutocomplete" />
             <package name="org.richfaces.tests.metamer.ftest.richCalendar" />
             <package name="org.richfaces.tests.metamer.ftest.richInplaceInput" />
@@ -30,11 +25,6 @@
             <package name="org.richfaces.tests.metamer.ftest.richInputNumberSlider" />
             <package name="org.richfaces.tests.metamer.ftest.richInputNumberSpinner" />
             <package name="org.richfaces.tests.metamer.ftest.richSelect" />
-        </packages>
-    </test>
-    
-    <test name="Iteration Components">
-        <packages>
             <package name="org.richfaces.tests.metamer.ftest.richCollapsibleSubTable" />
             <package name="org.richfaces.tests.metamer.ftest.richCollapsibleSubTableToggler" />
             <package name="org.richfaces.tests.metamer.ftest.richColumn" />
@@ -46,11 +36,6 @@
             <package name="org.richfaces.tests.metamer.ftest.richTree" />
             <package name="org.richfaces.tests.metamer.ftest.richTreeNode" />
             <package name="org.richfaces.tests.metamer.ftest.richTreeModelAdaptor" />
-        </packages>
-    </test>
-    
-    <test name="Miscellaneous Components">
-        <packages>
             <package name="org.richfaces.tests.metamer.ftest.hCommandButton" />
             <package name="org.richfaces.tests.metamer.ftest.richComponentControl" />
             <package name="org.richfaces.tests.metamer.ftest.richDropDownMenu" />
@@ -60,11 +45,6 @@
             <package name="org.richfaces.tests.metamer.ftest.richMenuItem" />
             <package name="org.richfaces.tests.metamer.ftest.richMenuSeparator" />
             <package name="org.richfaces.tests.metamer.ftest.richToggleControl" />
-        </packages>
-    </test>
-    
-    <test name="Output Components">
-        <packages>
             <package name="org.richfaces.tests.metamer.ftest.richAccordion" />
             <package name="org.richfaces.tests.metamer.ftest.richAccordionItem" />
             <package name="org.richfaces.tests.metamer.ftest.richCollapsiblePanel" />
