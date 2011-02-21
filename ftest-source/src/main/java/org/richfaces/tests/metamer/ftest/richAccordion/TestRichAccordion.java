@@ -56,19 +56,19 @@ import org.testng.annotations.Test;
 public class TestRichAccordion extends AbstractMetamerTest {
 
     private JQueryLocator accordion = pjq("div[id$=accordion]");
-    private JQueryLocator[] itemHeaders = { pjq("div[id$=item1:header]"), pjq("div[id$=item2:header]"),
-        pjq("div[id$=item3:header]"), pjq("div[id$=item4:header]"), pjq("div[id$=item5:header]") };
-    private JQueryLocator[] itemContents = { pjq("div[id$=item1:content]"), pjq("div[id$=item2:content]"),
-        pjq("div[id$=item3:content]"), pjq("div[id$=item4:content]"), pjq("div[id$=item5:content]") };
-    private JQueryLocator[] activeHeaders = { pjq("div[id$=item1:header] div.rf-ac-itm-lbl-act"),
+    private JQueryLocator[] itemHeaders = {pjq("div[id$=item1:header]"), pjq("div[id$=item2:header]"),
+        pjq("div[id$=item3:header]"), pjq("div[id$=item4:header]"), pjq("div[id$=item5:header]")};
+    private JQueryLocator[] itemContents = {pjq("div[id$=item1:content]"), pjq("div[id$=item2:content]"),
+        pjq("div[id$=item3:content]"), pjq("div[id$=item4:content]"), pjq("div[id$=item5:content]")};
+    private JQueryLocator[] activeHeaders = {pjq("div[id$=item1:header] div.rf-ac-itm-lbl-act"),
         pjq("div[id$=item2:header] div.rf-ac-itm-lbl-act"), pjq("div[id$=item3:header] div.rf-ac-itm-lbl-act"),
-        pjq("div[id$=item4:header] div.rf-ac-itm-lbl-act"), pjq("div[id$=item5:header] div.rf-ac-itm-lbl-act") };
-    private JQueryLocator[] inactiveHeaders = { pjq("div[id$=item1:header] div.rf-ac-itm-lbl-inact"),
+        pjq("div[id$=item4:header] div.rf-ac-itm-lbl-act"), pjq("div[id$=item5:header] div.rf-ac-itm-lbl-act")};
+    private JQueryLocator[] inactiveHeaders = {pjq("div[id$=item1:header] div.rf-ac-itm-lbl-inact"),
         pjq("div[id$=item2:header] div.rf-ac-itm-lbl-inact"), pjq("div[id$=item3:header] div.rf-ac-itm-lbl-inact"),
-        pjq("div[id$=item4:header] div.rf-ac-itm-lbl-inact"), pjq("div[id$=item5:header] div.rf-ac-itm-lbl-inact") };
-    private JQueryLocator[] disabledHeaders = { pjq("div[id$=item1:header] div.rf-ac-itm-lbl-dis"),
+        pjq("div[id$=item4:header] div.rf-ac-itm-lbl-inact"), pjq("div[id$=item5:header] div.rf-ac-itm-lbl-inact")};
+    private JQueryLocator[] disabledHeaders = {pjq("div[id$=item1:header] div.rf-ac-itm-lbl-dis"),
         pjq("div[id$=item2:header] div.rf-ac-itm-lbl-dis"), pjq("div[id$=item3:header] div.rf-ac-itm-lbl-dis"),
-        pjq("div[id$=item4:header] div.rf-ac-itm-lbl-dis"), pjq("div[id$=item5:header] div.rf-ac-itm-lbl-dis") };
+        pjq("div[id$=item4:header] div.rf-ac-itm-lbl-dis"), pjq("div[id$=item5:header] div.rf-ac-itm-lbl-dis")};
     private JQueryLocator leftIcon = pjq("div[id$=item{0}] td.rf-ac-itm-ico");
     private JQueryLocator rightIcon = pjq("div[id$=item{0}] td.rf-ac-itm-exp-ico");
 
@@ -141,7 +141,7 @@ public class TestRichAccordion extends AbstractMetamerTest {
         waitGui.failWith("Item 3 is not displayed.").until(isDisplayed.locator(itemContents[2]));
 
         phaseInfo.assertPhases(PhaseId.RESTORE_VIEW, PhaseId.APPLY_REQUEST_VALUES, PhaseId.PROCESS_VALIDATIONS,
-            PhaseId.RENDER_RESPONSE);
+                PhaseId.RENDER_RESPONSE);
         phaseInfo.assertListener(PhaseId.PROCESS_VALIDATIONS, "item changed: item1 -> item3");
     }
 
@@ -227,7 +227,7 @@ public class TestRichAccordion extends AbstractMetamerTest {
         // icon=null
         for (int i = 1; i < 6; i++) {
             assertFalse(selenium.isElementPresent(leftIcon.format(i)), "Left icon of item" + i
-                + " should not be present on the page.");
+                    + " should not be present on the page.");
         }
 
         verifyStandardIcons(input, icon, image, "-hdr");
@@ -242,7 +242,7 @@ public class TestRichAccordion extends AbstractMetamerTest {
         // icon=null
         for (int i = 1; i < 6; i++) {
             assertFalse(selenium.isElementPresent(rightIcon.format(i)), "Right icon of item" + i
-                + " should not be present on the page.");
+                    + " should not be present on the page.");
         }
 
         verifyStandardIcons(input, icon, image, "-hdr");
@@ -338,7 +338,7 @@ public class TestRichAccordion extends AbstractMetamerTest {
         waitGui.failWith("Item 2 is not displayed.").until(isDisplayed.locator(itemContents[1]));
 
         waitGui.failWith("onbeforeitemchange attribute does not work correctly").until(
-            new EventFiredCondition(new Event("beforeitemchange")));
+                new EventFiredCondition(new Event("beforeitemchange")));
     }
 
     @Test
@@ -360,7 +360,7 @@ public class TestRichAccordion extends AbstractMetamerTest {
         waitGui.failWith("Item 2 is not displayed.").until(isDisplayed.locator(itemContents[1]));
 
         waitGui.failWith("onitemchange attribute does not work correctly").until(
-            new EventFiredCondition(new Event("itemchange")));
+                new EventFiredCondition(new Event("itemchange")));
     }
 
     @Test
@@ -478,55 +478,54 @@ public class TestRichAccordion extends AbstractMetamerTest {
         selenium.select(input, optionLabel("chevronDown"));
         selenium.waitForPageToLoad();
         assertTrue(selenium.belongsClass(icon, "rf-ico-chevron-down" + classSuffix),
-            "Div should have set class rf-ico-chevron-down" + classSuffix + ".");
+                "Div should have set class rf-ico-chevron-down" + classSuffix + ".");
         assertTrue(
-            selenium.getStyle(icon, CssProperty.BACKGROUND_IMAGE).contains("ChevronDown" + imageNameSuffix + ".png"),
-            "Icon should contain a chevron down.");
+                selenium.getStyle(icon, CssProperty.BACKGROUND_IMAGE).contains("chevronDown" + imageNameSuffix + ".png"),
+                "Icon should contain a chevron down.");
 
         selenium.select(input, optionLabel("chevronUp"));
         selenium.waitForPageToLoad();
         assertTrue(selenium.belongsClass(icon, "rf-ico-chevron-up" + classSuffix),
-            "Div should have set class rf-ico-chevron-up" + classSuffix + ".");
+                "Div should have set class rf-ico-chevron-up" + classSuffix + ".");
         assertTrue(
-            selenium.getStyle(icon, CssProperty.BACKGROUND_IMAGE).contains("ChevronUp" + imageNameSuffix + ".png"),
-            "Icon should contain a chevron up.");
+                selenium.getStyle(icon, CssProperty.BACKGROUND_IMAGE).contains("chevronUp" + imageNameSuffix + ".png"),
+                "Icon should contain a chevron up.");
 
         selenium.select(input, optionLabel("disc"));
         selenium.waitForPageToLoad();
         assertTrue(selenium.belongsClass(icon, "rf-ico-disc" + classSuffix), "Div should have set class rf-ico-disc"
-            + classSuffix + ".");
-        assertTrue(selenium.getStyle(icon, CssProperty.BACKGROUND_IMAGE).contains("Disc" + imageNameSuffix + ".png"),
-            "Icon should contain a disc.");
+                + classSuffix + ".");
+        assertTrue(selenium.getStyle(icon, CssProperty.BACKGROUND_IMAGE).contains("disc" + imageNameSuffix + ".png"),
+                "Icon should contain a disc.");
 
         selenium.select(input, optionLabel("grid"));
         selenium.waitForPageToLoad();
         assertTrue(selenium.belongsClass(icon, "rf-ico-grid" + classSuffix), "Div should have set class rf-ico-grid"
-            + classSuffix + ".");
-        assertTrue(selenium.getStyle(icon, CssProperty.BACKGROUND_IMAGE).contains("Grid" + imageNameSuffix + ".png"),
-            "Icon should contain a grid.");
+                + classSuffix + ".");
+        assertTrue(selenium.getStyle(icon, CssProperty.BACKGROUND_IMAGE).contains("grid" + imageNameSuffix + ".png"),
+                "Icon should contain a grid.");
 
         selenium.select(input, optionLabel("triangle"));
         selenium.waitForPageToLoad();
         assertTrue(selenium.belongsClass(icon, "rf-ico-triangle" + classSuffix),
-            "Div should have set class rf-ico-triangle" + classSuffix + ".");
-        assertTrue(selenium.getStyle(icon, CssProperty.BACKGROUND_IMAGE)
-            .contains("Triangle" + imageNameSuffix + ".png"), "Icon should contain a triangle.");
+                "Div should have set class rf-ico-triangle" + classSuffix + ".");
+        assertTrue(selenium.getStyle(icon, CssProperty.BACKGROUND_IMAGE).contains("triangle" + imageNameSuffix + ".png"), "Icon should contain a triangle.");
 
         selenium.select(input, optionLabel("triangleDown"));
         selenium.waitForPageToLoad();
         assertTrue(selenium.belongsClass(icon, "rf-ico-triangle-down" + classSuffix),
-            "Div should have set class rf-ico-triangle-down" + classSuffix + ".");
+                "Div should have set class rf-ico-triangle-down" + classSuffix + ".");
         assertTrue(
-            selenium.getStyle(icon, CssProperty.BACKGROUND_IMAGE).contains("TriangleDown" + imageNameSuffix + ".png"),
-            "Icon should contain a triangle down.");
+                selenium.getStyle(icon, CssProperty.BACKGROUND_IMAGE).contains("triangleDown" + imageNameSuffix + ".png"),
+                "Icon should contain a triangle down.");
 
         selenium.select(input, optionLabel("triangleUp"));
         selenium.waitForPageToLoad();
         assertTrue(selenium.belongsClass(icon, "rf-ico-triangle-up" + classSuffix),
-            "Div should have set class rf-ico-triangle-up" + classSuffix + ".");
+                "Div should have set class rf-ico-triangle-up" + classSuffix + ".");
         assertTrue(
-            selenium.getStyle(icon, CssProperty.BACKGROUND_IMAGE).contains("TriangleUp" + imageNameSuffix + ".png"),
-            "Icon should contain a triangle up.");
+                selenium.getStyle(icon, CssProperty.BACKGROUND_IMAGE).contains("triangleUp" + imageNameSuffix + ".png"),
+                "Icon should contain a triangle up.");
 
         selenium.select(input, optionLabel("none"));
         selenium.waitForPageToLoad();
@@ -537,13 +536,13 @@ public class TestRichAccordion extends AbstractMetamerTest {
         assertFalse(selenium.isElementPresent(icon), "Icon's div should not be present when icon=star.");
         assertTrue(selenium.isElementPresent(image), "Icon's image should be rendered.");
         assertTrue(selenium.getAttribute(image.getAttribute(Attribute.SRC)).contains("star.png"),
-            "Icon's src attribute should contain star.png.");
+                "Icon's src attribute should contain star.png.");
 
         selenium.select(input, optionLabel("nonexisting"));
         selenium.waitForPageToLoad();
         assertFalse(selenium.isElementPresent(icon), "Icon's div should not be present when icon=nonexisting.");
         assertTrue(selenium.isElementPresent(image), "Icon's image should be rendered.");
         assertTrue(selenium.getAttribute(image.getAttribute(Attribute.SRC)).contains("nonexisting"),
-            "Icon's src attribute should contain nonexisting.");
+                "Icon's src attribute should contain nonexisting.");
     }
 }

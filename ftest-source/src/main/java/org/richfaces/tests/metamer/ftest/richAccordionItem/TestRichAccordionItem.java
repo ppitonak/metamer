@@ -422,17 +422,17 @@ public class TestRichAccordionItem extends AbstractMetamerTest {
         selenium.select(input, optionLabel("chevronDown"));
         selenium.waitForPageToLoad();
         assertTrue(selenium.belongsClass(icon, "rf-ico-chevron-down-hdr" + classSuffix), "Div should have set class rf-ico-chevron-down" + classSuffix + ".");
-        assertTrue(selenium.getStyle(icon, CssProperty.BACKGROUND_IMAGE).contains("ChevronDown" + imageNameSuffix + ".png"), "Icon should contain a chevron down.");
+        assertTrue(selenium.getStyle(icon, CssProperty.BACKGROUND_IMAGE).contains("chevronDown" + imageNameSuffix + ".png"), "Icon should contain a chevron down.");
 
         selenium.select(input, optionLabel("chevronUp"));
         selenium.waitForPageToLoad();
         assertTrue(selenium.belongsClass(icon, "rf-ico-chevron-up-hdr" + classSuffix), "Div should have set class rf-ico-chevron-up" + classSuffix + ".");
-        assertTrue(selenium.getStyle(icon, CssProperty.BACKGROUND_IMAGE).contains("ChevronUp" + imageNameSuffix + ".png"), "Icon should contain a chevron up.");
+        assertTrue(selenium.getStyle(icon, CssProperty.BACKGROUND_IMAGE).contains("chevronUp" + imageNameSuffix + ".png"), "Icon should contain a chevron up.");
 
         selenium.select(input, optionLabel("disc"));
         selenium.waitForPageToLoad();
         assertTrue(selenium.belongsClass(icon, "rf-ico-disc-hdr" + classSuffix), "Div should have set class rf-ico-disc" + classSuffix + ".");
-        assertTrue(selenium.getStyle(icon, CssProperty.BACKGROUND_IMAGE).contains("Disc" + imageNameSuffix + ".png"), "Icon should contain a disc.");
+        assertTrue(selenium.getStyle(icon, CssProperty.BACKGROUND_IMAGE).contains("disc" + imageNameSuffix + ".png"), "Icon should contain a disc.");
 
         for (int i = 2; i < 6; i++) {
             assertFalse(selenium.isElementPresent(leftIcon.format(i)), "Left icon of item" + i + " should not be present on the page.");
@@ -441,22 +441,22 @@ public class TestRichAccordionItem extends AbstractMetamerTest {
         selenium.select(input, optionLabel("grid"));
         selenium.waitForPageToLoad();
         assertTrue(selenium.belongsClass(icon, "rf-ico-grid-hdr" + classSuffix), "Div should have set class rf-ico-grid" + classSuffix + ".");
-        assertTrue(selenium.getStyle(icon, CssProperty.BACKGROUND_IMAGE).contains("Grid" + imageNameSuffix + ".png"), "Icon should contain a grid.");
+        assertTrue(selenium.getStyle(icon, CssProperty.BACKGROUND_IMAGE).contains("grid" + imageNameSuffix + ".png"), "Icon should contain a grid.");
 
         selenium.select(input, optionLabel("triangle"));
         selenium.waitForPageToLoad();
         assertTrue(selenium.belongsClass(icon, "rf-ico-triangle-hdr" + classSuffix), "Div should have set class rf-ico-triangle" + classSuffix + ".");
-        assertTrue(selenium.getStyle(icon, CssProperty.BACKGROUND_IMAGE).contains("Triangle" + imageNameSuffix + ".png"), "Icon should contain a triangle.");
+        assertTrue(selenium.getStyle(icon, CssProperty.BACKGROUND_IMAGE).contains("triangle" + imageNameSuffix + ".png"), "Icon should contain a triangle.");
 
         selenium.select(input, optionLabel("triangleDown"));
         selenium.waitForPageToLoad();
         assertTrue(selenium.belongsClass(icon, "rf-ico-triangle-down-hdr" + classSuffix), "Div should have set class rf-ico-triangle-down" + classSuffix + ".");
-        assertTrue(selenium.getStyle(icon, CssProperty.BACKGROUND_IMAGE).contains("TriangleDown" + imageNameSuffix + ".png"), "Icon should contain a triangle down.");
+        assertTrue(selenium.getStyle(icon, CssProperty.BACKGROUND_IMAGE).contains("triangleDown" + imageNameSuffix + ".png"), "Icon should contain a triangle down.");
 
         selenium.select(input, optionLabel("triangleUp"));
         selenium.waitForPageToLoad();
         assertTrue(selenium.belongsClass(icon, "rf-ico-triangle-up-hdr" + classSuffix), "Div should have set class rf-ico-triangle-up" + classSuffix + ".");
-        assertTrue(selenium.getStyle(icon, CssProperty.BACKGROUND_IMAGE).contains("TriangleUp" + imageNameSuffix + ".png"), "Icon should contain a triangle up.");
+        assertTrue(selenium.getStyle(icon, CssProperty.BACKGROUND_IMAGE).contains("triangleUp" + imageNameSuffix + ".png"), "Icon should contain a triangle up.");
 
         selenium.select(input, optionLabel("none"));
         selenium.waitForPageToLoad();
