@@ -96,7 +96,7 @@ public class TestAutocompleteByKeys extends AbstractMetamerTest {
         typePrefix("ala");
         assertCompletionVisible(true);
         deleteAll();
-        assertCompletionVisible(true);
+        assertCompletionVisible(false);
         typePrefix("ala");
         assertCompletionVisible(true);
     }
