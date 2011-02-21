@@ -47,7 +47,7 @@ public class TestPanelMenuItemClientSideHandlers extends AbstractMetamerTest {
     @Inject
     @Use(empty = true)
     String event;
-    String[] ajaxEvents = new String[] { "begin", "beforedomupdate", "beforeselect", "select", "complete" };
+    String[] ajaxEvents = new String[] { "beforeselect", "begin", "beforedomupdate", "select", "complete" };
     String[] clientEvents = new String[] { "beforeselect", "select" };
     String[] serverEvents = new String[] { "select" };
 
