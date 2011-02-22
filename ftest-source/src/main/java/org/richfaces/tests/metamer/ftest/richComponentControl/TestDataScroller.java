@@ -66,7 +66,7 @@ public class TestDataScroller extends AbstractMetamerTest {
     }
 
     @Test
-    @IssueTracking("https://issues.jboss.org/browse/RF-9306")
+    @IssueTracking({ "https://issues.jboss.org/browse/RF-9306", "https://issues.jboss.org/browse/RFPL-1187" })
     public void testScrollerPagination() {
         paginationTester.testNumberedPages();
     }
