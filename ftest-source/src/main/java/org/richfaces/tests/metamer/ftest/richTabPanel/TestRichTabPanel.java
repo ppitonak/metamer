@@ -29,8 +29,6 @@ import static org.jboss.test.selenium.utils.URLUtils.buildUrl;
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertFalse;
 import static org.testng.Assert.assertTrue;
-import static org.testng.Assert.assertNotSame;
-import static org.testng.Assert.fail;
 
 import java.net.URL;
 
@@ -150,7 +148,7 @@ public class TestRichTabPanel extends AbstractMetamerTest {
 
         phaseInfo.assertPhases(PhaseId.RESTORE_VIEW, PhaseId.APPLY_REQUEST_VALUES, PhaseId.PROCESS_VALIDATIONS,
                 PhaseId.RENDER_RESPONSE);
-        phaseInfo.assertListener(PhaseId.APPLY_REQUEST_VALUES, "item changed: tab1 -> tab3");
+        phaseInfo.assertListener(PhaseId.PROCESS_VALIDATIONS, "item changed: tab1 -> tab3");
     }
 
     @Test
