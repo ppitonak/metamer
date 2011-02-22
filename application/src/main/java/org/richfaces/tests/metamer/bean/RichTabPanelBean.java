@@ -61,6 +61,10 @@ public class RichTabPanelBean implements Serializable {
         // will be tested in another way
         attributes.remove("converter");
         attributes.remove("itemChangeListener");
+
+        // remove as soon as https://issues.jboss.org/browse/RF-10588 is fixed
+        attributes.setAttribute("bypassUpdates", null);
+        attributes.get("bypassUpdates").setType(Boolean.class);
     }
 
     public Attributes getAttributes() {
