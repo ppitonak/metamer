@@ -28,7 +28,7 @@
                     	<c:if test="#{not fn:contains(cc.attrs.exclude, entry.key)}">
 	                        <h:panelGroup layout="block">
 	                            <h:outputLabel id="#{entry.key}Label" value="#{entry.key}" style="margin-right: 5px;" for="#{entry.key}Input"/>
-	                            <h:graphicImage value="/resources/images/help.png" title="#{entry.value.help}"
+                                    <h:graphicImage value="/resources/images/help.png" title="#{entry.value.help}" alt="help for attribute #{entry.key}"
 	                                            rendered="#{entry.value.help != null}" height="18px;"
 	                                            style="vertical-align: middle;" styleClass="attribute-help" >
 	                            </h:graphicImage>
