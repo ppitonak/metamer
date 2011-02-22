@@ -318,6 +318,7 @@ public class TestRichSpinner extends AbstractSpinnerTest {
     }
 
     @Test
+    @IssueTracking("https://issues.jboss.org/browse/RF-10581")
     public void testOndownclick() {
         testFireEvent(Event.CLICK, down, "downclick");
     }
