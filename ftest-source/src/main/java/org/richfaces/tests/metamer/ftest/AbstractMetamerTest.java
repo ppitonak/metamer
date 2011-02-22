@@ -198,8 +198,7 @@ public abstract class AbstractMetamerTest extends AbstractTestCase {
         ElementLocator<?> eventInput = pjq("input[id$=on" + attributeName + "Input]");
         String value = "metamerEvents += \"" + event.getEventName() + " \"";
 
-        selenium.type(eventInput, value);
-        selenium.waitForPageToLoad(TIMEOUT);
+        guardHttp(selenium).type(eventInput, value);
 
         selenium.fireEvent(element, event);
 

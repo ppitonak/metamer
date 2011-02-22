@@ -22,10 +22,12 @@
 package org.richfaces.tests.metamer.ftest.a4jAttachQueue;
 
 import static org.jboss.test.selenium.utils.URLUtils.buildUrl;
+import static org.testng.Assert.assertFalse;
 
 import java.net.URL;
 
 import org.jboss.cheiron.halt.XHRHalter;
+import org.jboss.test.selenium.encapsulated.JavaScript;
 import org.richfaces.tests.metamer.ftest.AbstractMetamerTest;
 import org.richfaces.tests.metamer.ftest.a4jQueue.QueueAttributes;
 import org.richfaces.tests.metamer.ftest.a4jQueue.QueueModel;
@@ -72,6 +74,7 @@ public class TestNestedAttachQueue extends AbstractMetamerTest {
     }
 
     @Test
+    @IssueTracking("https://issues.jboss.org/browse/RFPL-1186")
     public void testNoDelay() {
         attributesAttachQueue1.setRequestDelay(0);
 
@@ -96,6 +99,7 @@ public class TestNestedAttachQueue extends AbstractMetamerTest {
     }
 
     @Test
+    @IssueTracking("https://issues.jboss.org/browse/RFPL-1186")
     public void testTimingOneQueueTwoEvents() {
         queue.initializeTimes();
 
@@ -114,9 +118,10 @@ public class TestNestedAttachQueue extends AbstractMetamerTest {
     }
 
     @Test
-    @IssueTracking("https://issues.jboss.org/browse/RF-9328")
     public void testRendered() {
         attributesAttachQueue1.setRequestDelay(1500);
+        attributesAttachQueue1.setOnRequestQueue(JavaScript.js("alert('requestQueued')"));
+        attributesAttachQueue1.setOnRequestDequeue(JavaScript.js("alert('requestDequeued')"));
         attributesAttachQueue1.setRendered(false);
 
         queue.initializeTimes();
@@ -124,6 +129,6 @@ public class TestNestedAttachQueue extends AbstractMetamerTest {
 
         // check that no requestDelay is applied while renderer=false
         queue.checkTimes(0);
-        // TODO should check that no attributes is applied with renderes=false
+        assertFalse(selenium.isAlertPresent());
     }
 }

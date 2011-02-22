@@ -29,6 +29,7 @@ import java.net.URL;
 import org.jboss.test.selenium.locator.JQueryLocator;
 import org.jboss.test.selenium.waiting.selenium.SeleniumCondition;
 import org.richfaces.tests.metamer.ftest.AbstractMetamerTest;
+import org.richfaces.tests.metamer.ftest.annotations.IssueTracking;
 import org.testng.annotations.Test;
 
 /**
@@ -111,6 +112,7 @@ public class TestA4JActionListener extends AbstractMetamerTest {
     }
 
     @Test
+    @IssueTracking("https://issues.jboss.org/browse/RF-10585")
     public void testInvokeListenerMethodCC() {
         final String msg = "Method expression listener called from composite component";
 
