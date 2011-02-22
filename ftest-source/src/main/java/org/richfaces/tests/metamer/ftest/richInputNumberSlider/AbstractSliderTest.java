@@ -146,25 +146,25 @@ public abstract class AbstractSliderTest extends AbstractMetamerTest {
     public void testClick() {
         String reqTime = selenium.getText(time);
         guardXhr(selenium).mouseDownAt(track, new Point(0, 0));
+
         waitGui.failWith("Page was not updated").waitForChange(reqTime, retrieveText.locator(time));
         assertEquals(selenium.getText(output), "-10", "Output was not updated.");
-        String margin = selenium.getStyle(handle, CssProperty.MARGIN_LEFT).replace("px", "").trim();
-        assertEquals(Double.parseDouble(margin), 0d, "Left margin of handle.");
+        int margin = selenium.getElementPositionLeft(handle) - selenium.getElementPositionLeft(track);
+        assertTrue(margin <= 3, "Left margin of handle should be 0 (was " + margin + ").");
 
         reqTime = selenium.getText(time);
         guardXhr(selenium).mouseDownAt(track, new Point(30, 0));
         waitGui.failWith("Page was not updated").waitForChange(reqTime, retrieveText.locator(time));
+
         assertEquals(selenium.getText(output), "-7", "Output was not updated.");
-        margin = selenium.getStyle(handle, CssProperty.MARGIN_LEFT).replace("px", "").trim();
-        double marginD = Double.parseDouble(margin);
-        assertTrue(marginD > 25 && marginD < 30, "Left margin of handle should be between 25 and 30.");
+        margin = selenium.getElementPositionLeft(handle) - selenium.getElementPositionLeft(track);
+        assertTrue(margin >= 27 && margin <= 33, "Left margin of handle should be between 27 and 33 (was " + margin + ").");
 
         reqTime = selenium.getText(time);
         guardXhr(selenium).mouseDownAt(track, new Point(195, 0));
         waitGui.failWith("Page was not updated").waitForChange(reqTime, retrieveText.locator(time));
         assertEquals(selenium.getText(output), "10", "Output was not updated.");
-        margin = selenium.getStyle(handle, CssProperty.MARGIN_LEFT).replace("px", "").trim();
-        marginD = Double.parseDouble(margin);
-        assertTrue(marginD > 190 && marginD < 200, "Left margin of handle should be between 190 and 200.");
+        margin = selenium.getElementPositionLeft(handle) - selenium.getElementPositionLeft(track);
+        assertTrue(margin >= 192 && margin <= 198, "Left margin of handle should be between 192 and 198 (was " + margin + ").");
     }
 }

@@ -328,25 +328,23 @@ public class TestRichSlider extends AbstractSliderTest {
 
     @Test
     public void testMaxValueClick() {
-        JQueryLocator selectOption = pjq("input[type=text][id$=maxValueInput]");
-        selenium.type(selectOption, "20");
+        selenium.type(pjq("input[type=text][id$=maxValueInput]"), "20");
         selenium.waitForPageToLoad();
 
         String reqTime = selenium.getText(time);
+        reqTime = selenium.getText(time);
         guardXhr(selenium).mouseDownAt(track, new Point(170, 0));
         waitGui.failWith("Page was not updated").waitForChange(reqTime, retrieveText.locator(time));
         assertEquals(selenium.getText(output), "17", "Output was not updated.");
-        String margin = selenium.getStyle(handle, CssProperty.MARGIN_LEFT).replace("px", "").trim();
-        double marginD = Double.parseDouble(margin);
-        assertTrue(marginD > 165 && marginD < 175, "Left margin of handle should be between 165 and 175.");
+        int margin = selenium.getElementPositionLeft(handle) - selenium.getElementPositionLeft(track);
+        assertTrue(margin >= 167 && margin <= 173, "Left margin of handle should be between 167 and 173 (was " + margin + ").");
 
         reqTime = selenium.getText(time);
         guardXhr(selenium).mouseDownAt(track, new Point(195, 0));
         waitGui.failWith("Page was not updated").waitForChange(reqTime, retrieveText.locator(time));
         assertEquals(selenium.getText(output), "20", "Output was not updated.");
-        margin = selenium.getStyle(handle, CssProperty.MARGIN_LEFT).replace("px", "").trim();
-        marginD = Double.parseDouble(margin);
-        assertTrue(marginD > 190 && marginD < 200, "Left margin of handle should be between 190 and 200.");
+        margin = selenium.getElementPositionLeft(handle) - selenium.getElementPositionLeft(track);
+        assertTrue(margin >= 192 && margin <= 198, "Left margin of handle should be between 192 and 198 (was " + margin + ").");
     }
 
     @Test
@@ -383,25 +381,23 @@ public class TestRichSlider extends AbstractSliderTest {
 
     @Test
     public void testMinValueClick() {
-        JQueryLocator selectOption = pjq("input[type=text][id$=minValueInput]");
-        selenium.type(selectOption, "-20");
+        selenium.type(pjq("input[type=text][id$=minValueInput]"), "-20");
         selenium.waitForPageToLoad();
 
         String reqTime = selenium.getText(time);
-        guardXhr(selenium).mouseDownAt(track, new Point(30, 0));
+        reqTime = selenium.getText(time);
+        guardXhr(selenium).mouseDownAt(track, new Point(28, 0));
         waitGui.failWith("Page was not updated").waitForChange(reqTime, retrieveText.locator(time));
         assertEquals(selenium.getText(output), "-16", "Output was not updated.");
-        String margin = selenium.getStyle(handle, CssProperty.MARGIN_LEFT).replace("px", "").trim();
-        double marginD = Double.parseDouble(margin);
-        assertTrue(marginD > 25 && marginD < 35, "Left margin of handle should be between 25 and 35.");
+        int margin = selenium.getElementPositionLeft(handle) - selenium.getElementPositionLeft(track);
+        assertTrue(margin >= 25 && margin <= 31, "Left margin of handle should be between 25 and 31 (was " + margin + ").");
 
         reqTime = selenium.getText(time);
         guardXhr(selenium).mouseDownAt(track, new Point(0, 0));
         waitGui.failWith("Page was not updated").waitForChange(reqTime, retrieveText.locator(time));
         assertEquals(selenium.getText(output), "-20", "Output was not updated.");
-        margin = selenium.getStyle(handle, CssProperty.MARGIN_LEFT).replace("px", "").trim();
-        marginD = Double.parseDouble(margin);
-        assertTrue(marginD >= 0 && marginD < 10, "Left margin of handle should be between 190 and 200.");
+        margin = selenium.getElementPositionLeft(handle) - selenium.getElementPositionLeft(track);
+        assertTrue(margin <= 3, "Left margin of handle should be between 0 and 3 (was " + margin + ").");
     }
 
     @Test
