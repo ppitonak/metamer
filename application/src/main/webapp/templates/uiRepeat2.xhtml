@@ -28,11 +28,11 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
     <ui:composition>
 
         <ol>
-            <ui:repeat value="#{templateBean.dataTableModel}" var="uiRepeatTemplateItem" id="containerUiRepeat2">
-                <li><h:panelGroup columns="1" rendered="#{uiRepeatTemplateItem == 'row 2'}">
+            <ui:repeat value="#{templateBean.dataTableModel}" var="containerUiRepeatItem" id="containerUiRepeat2">
+                <li><h:panelGroup columns="1" rendered="#{containerUiRepeatItem == 'row 2'}">
                         <ui:decorate template="#{templateBean.nextTemplate}.xhtml" />
                     </h:panelGroup>
-                    <h:outputText value="#{uiRepeatTemplateItem}" rendered="#{uiRepeatTemplateItem != 'row 2'}" /></li>
+                    <h:outputText value="#{containerUiRepeatItem}" rendered="#{containerUiRepeatItem != 'row 2'}" /></li>
             </ui:repeat>
         </ol>
 

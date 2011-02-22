@@ -27,15 +27,15 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 
     <ui:composition>
 
-        <h:dataTable value="#{templateBean.dataTableModel}" var="item" id="containerHDataTable1">
+        <h:dataTable value="#{templateBean.dataTableModel}" var="containerHDataTableItem" id="containerHDataTable1">
             <h:column>
                 <f:facet name="header">
                     <h:outputText value="JSF Data Table" />
                 </f:facet>
-                <h:panelGroup columns="1" rendered="#{item == 'row 2'}">
+                <h:panelGroup columns="1" rendered="#{containerHDataTableItem == 'row 2'}">
                     <ui:decorate template="#{templateBean.nextTemplate}.xhtml" />
                 </h:panelGroup>
-                <h:outputText value="#{item}" rendered="#{item != 'row 2'}" />
+                <h:outputText value="#{containerHDataTableItem}" rendered="#{containerHDataTableItem != 'row 2'}" />
             </h:column>
         </h:dataTable>
 
