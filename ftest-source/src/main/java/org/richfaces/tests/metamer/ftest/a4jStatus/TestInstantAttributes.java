@@ -38,6 +38,7 @@ import org.testng.annotations.Test;
  * @author <a href="mailto:lfryc@redhat.com">Lukas Fryc</a>
  * @version $Revision$
  */
+@IssueTracking("https://issues.jboss.org/browse/RFPL-1186")
 public class TestInstantAttributes extends AbstracStatusTest {
 
     StatusAttributes attributes = new StatusAttributes() {

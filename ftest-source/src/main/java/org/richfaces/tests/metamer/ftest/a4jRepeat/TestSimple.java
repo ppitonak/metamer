@@ -30,6 +30,7 @@ import java.net.URL;
 
 import org.richfaces.tests.metamer.ftest.AbstractMetamerTest;
 import org.richfaces.tests.metamer.ftest.annotations.Inject;
+import org.richfaces.tests.metamer.ftest.annotations.IssueTracking;
 import org.richfaces.tests.metamer.ftest.annotations.Use;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -81,12 +82,14 @@ public class TestSimple extends AbstractMetamerTest {
     }
 
     @Test
+    @IssueTracking("https://issues.jboss.org/browse/RF-10589")
     @Use(field = "first", ints = { -1, 0, 1, ELEMENTS_TOTAL / 2, ELEMENTS_TOTAL - 1, ELEMENTS_TOTAL, ELEMENTS_TOTAL + 1 })
     public void testFirstAttribute() {
         verifyRepeat();
     }
 
     @Test
+    @IssueTracking("https://issues.jboss.org/browse/RF-10589")
     @Use(field = "rows", ints = { -2, -1, 0, 1, ELEMENTS_TOTAL / 2, ELEMENTS_TOTAL - 1, ELEMENTS_TOTAL,
         ELEMENTS_TOTAL + 1 })
     public void testRowsAttribute() {

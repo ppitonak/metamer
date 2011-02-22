@@ -32,12 +32,14 @@ import java.net.URL;
 import org.jboss.cheiron.halt.XHRHalter;
 import org.jboss.test.selenium.locator.JQueryLocator;
 import org.jboss.test.selenium.waiting.retrievers.TextRetriever;
+import org.richfaces.tests.metamer.ftest.annotations.IssueTracking;
 import org.testng.annotations.Test;
 
 /**
  * @author <a href="mailto:lfryc@redhat.com">Lukas Fryc</a>
  * @version $Revision$
  */
+@IssueTracking("https://issues.jboss.org/browse/RFPL-1186")
 public class TestSimple extends AbstracStatusTest {
 
     StatusAttributes attributes = new StatusAttributes();

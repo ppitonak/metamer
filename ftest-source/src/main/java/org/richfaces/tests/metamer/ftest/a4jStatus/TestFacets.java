@@ -26,6 +26,7 @@ import static org.jboss.test.selenium.utils.URLUtils.buildUrl;
 import java.net.URL;
 
 import org.jboss.test.selenium.locator.ElementLocator;
+import org.richfaces.tests.metamer.ftest.annotations.IssueTracking;
 import org.testng.annotations.Test;
 
 /**
@@ -41,6 +42,7 @@ public class TestFacets extends AbstracStatusTest {
     }
 
     @Test
+    @IssueTracking("https://issues.jboss.org/browse/RFPL-1186")
     public void testInterleavedChangingOfFacets() {
         for (int i = 0; i < 13; i++) {
             ElementLocator<?> button = (i % 2 == 0) ? button2 : buttonError;
