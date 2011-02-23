@@ -23,7 +23,6 @@ package org.richfaces.tests.metamer.ftest.richCalendar;
 
 import java.text.ParseException;
 import static org.jboss.test.selenium.guard.request.RequestTypeGuardFactory.guardNoRequest;
-import static org.jboss.test.selenium.guard.request.RequestTypeGuardFactory.guardXhr;
 import static org.jboss.test.selenium.utils.URLUtils.buildUrl;
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertFalse;
@@ -33,7 +32,6 @@ import static org.testng.Assert.fail;
 import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import org.richfaces.tests.metamer.ftest.annotations.IssueTracking;
 
 import org.testng.annotations.Test;
 

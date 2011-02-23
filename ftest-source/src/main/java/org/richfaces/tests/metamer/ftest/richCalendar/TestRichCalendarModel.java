@@ -31,7 +31,6 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-
 import org.testng.annotations.Test;
 
 /**
@@ -50,7 +49,9 @@ public class TestRichCalendarModel extends AbstractCalendarTest {
     @Test
     public void testClasses() {
         selenium.click(input);
+        String month = selenium.getText(monthLabel);
         selenium.click(nextMonthButton);
+        waitGui.failWith("Month did not change.").waitForChange(month, retrieveText.locator(monthLabel));
 
         for (int i = 7; i < 28; i++) {
             switch (i % 7) {
@@ -75,11 +76,13 @@ public class TestRichCalendarModel extends AbstractCalendarTest {
     @Override
     public void testApplyButton() {
         selenium.click(input);
+        String month = selenium.getText(monthLabel);
         selenium.click(nextMonthButton);
+        waitGui.failWith("Month did not change.").waitForChange(month, retrieveText.locator(monthLabel));
 
         selenium.click(cellDay.format(17));
         String day = selenium.getText(cellDay.format(17));
-        String month = selenium.getText(monthLabel);
+        month = selenium.getText(monthLabel);
 
         String selectedDate = null;
         try {
