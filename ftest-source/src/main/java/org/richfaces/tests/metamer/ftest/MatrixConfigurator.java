@@ -78,13 +78,18 @@ public class MatrixConfigurator extends TestMethodSelector implements IInvokedMe
     }
 
     public List<IMethodInstance> intercept(List<IMethodInstance> methodInstances, ITestContext context) {
+        List<IMethodInstance> result = new LinkedList<IMethodInstance>();
         for (IMethodInstance methodInstance : methodInstances) {
 
             for (int i = 0; i < methodInstance.getMethod().getInvocationCount(); i++) {
                 methods.add(methodInstance.getMethod().getMethod());
             }
+            
+            if (methodInstance.getMethod().getInvocationCount() > 0) {
+                result.add(methodInstance);
+            }
         }
-        return methodInstances;
+        return result;
     }
 
     public void beforeInvocation(IInvokedMethod invokedMethod, ITestResult testResult) {
@@ -229,7 +234,11 @@ public class MatrixConfigurator extends TestMethodSelector implements IInvokedMe
 
         getClassConfigurations(realClass).put(realMethod, configuration);
 
-        return Math.max(1, count);
+        if (parameters.size() == 0) {
+            return 1;
+        }
+        
+        return count;
     }
 
     private void fulfillParametersFromAnnotations(Class<?> testClass, Map<Field, List<? extends Object>> parameters,
