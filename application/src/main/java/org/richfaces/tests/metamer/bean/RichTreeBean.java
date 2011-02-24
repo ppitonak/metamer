@@ -57,7 +57,7 @@ public class RichTreeBean implements Serializable {
     private static Logger logger;
     private Attributes attributes;
     private List<NamedNode> root = new ArrayList<NamedNode>();
-    private transient Collection<Object> selection;
+    private Collection<? extends Serializable> selection;
 
     // FIXME: @ManagedProperty(value = "#{model}")
     // private Model model;
@@ -149,11 +149,11 @@ public class RichTreeBean implements Serializable {
         return root;
     }
 
-    public Collection<Object> getSelection() {
+    public Collection<? extends Serializable> getSelection() {
         return selection;
     }
 
-    public void setSelection(Collection<Object> selection) {
+    public void setSelection(Collection<? extends Serializable> selection) {
         this.selection = selection;
     }
 
