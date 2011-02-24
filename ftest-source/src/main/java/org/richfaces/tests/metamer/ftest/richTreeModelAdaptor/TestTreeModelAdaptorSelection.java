@@ -140,15 +140,21 @@ public class TestTreeModelAdaptorSelection extends TestTreeSelection {
     }
 
     private Integer fixShiftWhenModelPresent(List<Integer> list, int integer) {
-        if (paths.toString().equals(pathsForRecursiveModel.toString())) {
-            if (!list.isEmpty()) {
-                if (list.get(0) % 2 == 0) {
-                    if (list.size() == 2) {
+        if (!list.isEmpty()) {
+            if (list.get(0) % 2 == 0) {
+                if (list.size() == 2) {
+                    if (paths.toString().equals(pathsForRecursiveModel.toString())) {
                         return integer + 7;
+                    } else if (paths.toString().equals(pathsForMapModel.toString())) {
+                        return integer + 3;
                     }
-                } else {
-                    if (list.size() == 3) {
+                }
+            } else {
+                if (list.size() == 3) {
+                    if (paths.toString().equals(pathsForRecursiveModel.toString())) {
                         return integer + 7;
+                    } else if (paths.toString().equals(pathsForMapModel.toString())) {
+                        return integer + 3;
                     }
                 }
             }

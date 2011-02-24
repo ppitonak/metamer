@@ -129,6 +129,11 @@ public class ModelNode extends Node {
         public int compareTo(K o) {
             return this.number - o.number;
         }
+        
+        @Override
+        public String toString() {
+            return Integer.toString(number);
+        }
     }
 
     public class V implements Serializable {
