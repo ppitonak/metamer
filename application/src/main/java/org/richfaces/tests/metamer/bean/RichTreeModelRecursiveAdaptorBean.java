@@ -50,13 +50,16 @@ import org.slf4j.LoggerFactory;
 @ViewScoped
 public class RichTreeModelRecursiveAdaptorBean implements Serializable {
 
+    
     private static final long serialVersionUID = 4008175400649809L;
     private static Logger logger;
+    private static List<RecursiveNode> rootNodes;
+    
     private Attributes attributes;
     private AtomicReference<Boolean> leafChildrenNullable = new AtomicReference<Boolean>(true);
     private boolean useMapModel;
-    private transient List<RecursiveNode> rootNodes;
     private Map<String, Boolean> expanded = new TreeMap<String, Boolean>();
+    private boolean rootNodesInitialized = false;
 
     /*
      * Nodes which was loaded lazily in the current request
@@ -97,7 +100,7 @@ public class RichTreeModelRecursiveAdaptorBean implements Serializable {
     }
 
     public List<RecursiveNode> getRootNodes() {
-        if (rootNodes == null) {
+        if (!rootNodesInitialized) {
             rootNodes = RecursiveNode.createChildren(null, leafChildrenNullable,
                 new Reference<LazyLoadingListener<Node>>() {
                     private static final long serialVersionUID = 1L;
@@ -107,6 +110,7 @@ public class RichTreeModelRecursiveAdaptorBean implements Serializable {
                         return nodeLazyLoadingListener;
                     }
                 });
+            rootNodesInitialized = true;
         }
         return rootNodes;
     }
@@ -129,5 +133,9 @@ public class RichTreeModelRecursiveAdaptorBean implements Serializable {
     
     public Map<String, Boolean> getExpanded() {
         return expanded;
+    }
+    
+    public static List<RecursiveNode> getRootNodesStatically() {
+        return rootNodes;
     }
 }

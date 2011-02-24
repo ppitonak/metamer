@@ -112,7 +112,7 @@ public class ModelNode extends Node {
         }
     }
 
-    public class K implements Serializable {
+    public class K implements Serializable, Comparable<K> {
         private static final long serialVersionUID = 1L;
 
         int number;
@@ -123,6 +123,11 @@ public class ModelNode extends Node {
 
         public String getLabel() {
             return ModelNode.this.getLabel() + "-K-" + number;
+        }
+        
+        @Override
+        public int compareTo(K o) {
+            return this.number - o.number;
         }
     }
 

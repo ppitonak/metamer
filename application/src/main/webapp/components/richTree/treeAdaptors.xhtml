@@ -125,7 +125,8 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
            			
            			<rich:treeModelAdaptor
            				nodes="#{node.model.map}"
-           				rendered="#{richTreeModelAdaptorBean.attributes['rendered'].value}">
+           				rendered="#{richTreeModelAdaptorBean.attributes['rendered'].value}"
+           				rowKeyConverter="treeAdaptorKeyConverter">
 	           			<rich:treeNode>
 	           				#{node.label}
            				</rich:treeNode>
