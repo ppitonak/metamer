@@ -1,4 +1,14 @@
 /**
+ * MyFaces configuration
+ */
+window.myfaces = window.myfaces || {};
+myfaces.config = myfaces.config || {};
+/**
+ * enables updating javax.faces.ViewState across all forms (Mojarra compatibility - https://issues.jboss.org/browse/RFPL-1187)
+ */
+myfaces.config.no_portlet_env = true;
+
+/**
  * Variable used in Selenium tests for testing JavaScript events. Each event adds its name to this
  * variable. E.g. if onbegin, onbeforedomupdate and oncomplete is set, successful result will be
  * "begin beforedomupdate complete ".
