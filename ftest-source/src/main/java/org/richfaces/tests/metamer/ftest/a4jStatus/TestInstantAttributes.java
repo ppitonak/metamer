@@ -21,17 +21,17 @@
  *******************************************************************************/
 package org.richfaces.tests.metamer.ftest.a4jStatus;
 
-import static org.jboss.test.selenium.utils.URLUtils.buildUrl;
-import static org.jboss.test.selenium.guard.request.RequestTypeGuardFactory.guardXhr;
 import static org.jboss.test.selenium.encapsulated.JavaScript.js;
+import static org.jboss.test.selenium.utils.URLUtils.buildUrl;
 import static org.testng.Assert.assertEquals;
 
 import java.net.URL;
 
 import org.jboss.cheiron.halt.XHRHalter;
 import org.jboss.test.selenium.encapsulated.JavaScript;
-import org.jboss.test.selenium.locator.ElementLocator;
+import org.jboss.test.selenium.request.RequestType;
 import org.richfaces.tests.metamer.ftest.annotations.IssueTracking;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 /**
@@ -41,12 +41,7 @@ import org.testng.annotations.Test;
 @IssueTracking("https://issues.jboss.org/browse/RFPL-1186")
 public class TestInstantAttributes extends AbstracStatusTest {
 
-    StatusAttributes attributes = new StatusAttributes() {
-        protected void applyText(ElementLocator<?> locator, String value) {
-            guardXhr(selenium).type(locator, value);
-
-        };
-    };
+    StatusAttributes attributes = new StatusAttributes();
 
     JavaScript alert = js("alert('{0}')");
 
@@ -55,18 +50,28 @@ public class TestInstantAttributes extends AbstracStatusTest {
         return buildUrl(contextPath, "faces/components/a4jStatus/instantAttributes.xhtml");
     }
 
+    @BeforeMethod
+    public void setupAttributes() {
+        attributes.setRequestType(RequestType.XHR);
+    }
+
     @Test
     public void testOnStart() {
-        for (int i = 0; i < 2; i++) {
-            attributes.setOnStart(alert.parametrize("start" + 1));
+        attributes.setRequestType(null);
 
-            XHRHalter.enable();
-            selenium.click(button1);
-            selenium.waitForCondition(js("selenium.isAlertPresent()"));
-            assertEquals(selenium.getAlert(), "start" + 1);
+        XHRHalter.enable();
+        for (int i = 0; i < 2; i++) {
+            final int ii = i;
+            retrieveRequestTime.initializeValue();
+            attributes.setOnStart(js("window.metamer = " + ii));
             getCurrentXHRHalter().complete();
-            XHRHalter.disable();
+            waitGui.waitForChange(retrieveRequestTime);
+
+            selenium.click(button1);
+            selenium.waitForCondition(js("window.metamer == " + i));
+            getCurrentXHRHalter().complete();
         }
+        XHRHalter.disable();
     }
 
     @Test

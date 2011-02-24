@@ -63,6 +63,7 @@ public abstract class AbstracStatusTest extends AbstractMetamerTest {
     void testRequestButton(ElementLocator<?> button, String startStatusText, String stopStatusText) {
         XHRHalter.enable();
         selenium.click(button);
+        
         XHRHalter halt = getCurrentXHRHalter();
         assertEquals(retrieveStatus.retrieve(), startStatusText);
         retrieveStatus.initializeValue();
