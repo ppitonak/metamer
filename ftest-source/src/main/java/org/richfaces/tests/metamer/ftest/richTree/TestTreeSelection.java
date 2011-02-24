@@ -29,11 +29,13 @@ import static org.testng.Assert.assertFalse;
 import static org.testng.Assert.assertTrue;
 
 import java.net.URL;
+import java.util.Arrays;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.apache.commons.lang.StringUtils;
 import org.jboss.test.selenium.locator.JQueryLocator;
+import org.jboss.test.selenium.utils.text.SimplifiedFormat;
 import org.richfaces.component.SwitchType;
 import org.richfaces.tests.metamer.ftest.AbstractMetamerTest;
 import org.richfaces.tests.metamer.ftest.annotations.Inject;
@@ -62,7 +64,7 @@ public class TestTreeSelection extends AbstractMetamerTest {
 
     @Inject
     @Use(value = "selectionTypes")
-    SwitchType selectionType = SwitchType.client;
+    SwitchType selectionType;
     SwitchType[] selectionTypes = new SwitchType[] { SwitchType.ajax, SwitchType.client };
     SwitchType[] eventEnabledSelectionTypes = new SwitchType[] { SwitchType.ajax };
 
@@ -122,10 +124,22 @@ public class TestTreeSelection extends AbstractMetamerTest {
             }
             treeNode.select();
             assertEquals(getClientId(), "richTree");
-            assertEquals(getSelection(), path);
-            assertEquals(getNewSelection(), path);
+            assertEquals(
+                getSelection(),
+                path,
+                SimplifiedFormat.format("Actual Selection ({0}) doesn't correspond to expected ({1})",
+                    Arrays.deepToString(getSelection()), Arrays.deepToString(path)));
+            assertEquals(
+                getNewSelection(),
+                path,
+                SimplifiedFormat.format("Actual New selection ({0}) doesn't correspond to expected ({1})",
+                    Arrays.deepToString(getNewSelection()), Arrays.deepToString(path)));
             if (old != null) {
-                assertEquals(getOldSelection(), old);
+                assertEquals(
+                    getOldSelection(),
+                    old,
+                    SimplifiedFormat.format("Actual Old selection ({0}) doesn't correspond to expected ({1})",
+                        Arrays.deepToString(getOldSelection()), Arrays.deepToString(old)));
             } else {
                 assertEquals(selenium.getText(oldSelection), "[]");
             }

@@ -57,7 +57,7 @@ public class TestTreeModelAdaptorSelection extends TestTreeSelection {
 
     @Inject
     @Use(enumeration = true)
-    public RecursiveModelRepresentation representation = RecursiveModelRepresentation.LIST;
+    public RecursiveModelRepresentation representation;
 
     @Inject
     @Use(booleans = { true, false })
@@ -134,7 +134,7 @@ public class TestTreeModelAdaptorSelection extends TestTreeSelection {
             list.add(integer);
         }
         if (list.isEmpty()) {
-            throw new IllegalStateException("pattern does not match");
+            throw new IllegalStateException("selection string does not match pattern: " + string);
         }
         return list.toArray(new Integer[list.size()]);
     }
