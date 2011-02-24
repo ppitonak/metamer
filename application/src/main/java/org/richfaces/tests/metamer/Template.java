@@ -40,7 +40,8 @@ public enum Template {
     UIREPEAT1 ("uiRepeat1", "UI Repeat Row 1", "containerUiRepeat1:0:"),
     UIREPEAT2 ("uiRepeat2", "UI Repeat Row 2", "containerUiRepeat2:1:"),
     A4JREPEAT1 ("a4jRepeat1", "A4J Repeat Row 1", "containerA4JRepeat1:0:"),
-    A4JREPEAT2 ("a4jRepeat2", "A4J Repeat Row 2", "containerA4JRepeat2:1:");
+    A4JREPEAT2 ("a4jRepeat2", "A4J Repeat Row 2", "containerA4JRepeat2:1:"),
+    PACCORDIONPANEL ("pAccordionPanel", "Prime Accordion Panel", "");
 
     /**
      * identifier of a template
