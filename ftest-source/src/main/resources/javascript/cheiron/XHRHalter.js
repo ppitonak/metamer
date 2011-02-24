@@ -176,6 +176,8 @@ RichFacesSelenium.XHRWrapper.prototype.send = function(content) {
 	if (XHRHalter.isEnabled()) {
 		var halter = XHRHalter._associations[this];
 		halter.sendParams['content'] = content;
+		halter.saveXhrParams();
+		halter.wait();
 	} else {
 		return XHRHalter.XHRWrapperInjection.send.call(this, content);
 	}
