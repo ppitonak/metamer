@@ -110,6 +110,7 @@ public class TestGlobalQueue extends AbstractMetamerTest {
      * </p>
      */
     @Test
+    @IssueTracking("https://issues.jboss.org/browse/RFPL-1194")
     public void testMultipleRequestsWithNoDelay() {
         attributes.setRequestDelay(0);
 
@@ -188,6 +189,7 @@ public class TestGlobalQueue extends AbstractMetamerTest {
     }
 
     @Test
+    @IssueTracking("https://issues.jboss.org/browse/RFPL-1194")
     public void testIgnoreDuplicatedResponses() {
         attributes.setIgnoreDupResponses(false);
 
