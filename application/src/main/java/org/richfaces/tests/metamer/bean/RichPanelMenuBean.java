@@ -47,7 +47,7 @@ public class RichPanelMenuBean implements Serializable {
     private static Logger logger;
     private Attributes attributes;
 
-    private Object activeItem;
+    private String activeItem;
 
     /**
      * Initializes the managed bean.
@@ -82,16 +82,12 @@ public class RichPanelMenuBean implements Serializable {
      *            an event representing the activation of a user interface component
      */
     public void itemChangeListener(ItemChangeEvent event) {
-        activeItem = event.getNewItem();
+        activeItem = event.getNewItemName();
         RichBean.logToPage("* item changed: " + (event.getOldItem() == null ? null : event.getOldItem().getId())
             + " -> " + event.getNewItem().getId());
     }
 
-    public void setActiveItem(Object activeItem) {
-        this.activeItem = activeItem;
-    }
-
-    public Object getActiveItem() {
+    public String getActiveItem() {
         return activeItem;
     }
 }
