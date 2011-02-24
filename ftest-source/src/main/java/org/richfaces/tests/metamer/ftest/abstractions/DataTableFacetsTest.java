@@ -22,7 +22,6 @@
 package org.richfaces.tests.metamer.ftest.abstractions;
 
 import static org.testng.Assert.assertEquals;
-import static org.testng.Assert.assertFalse;
 
 /**
  * @author <a href="mailto:lfryc@redhat.com">Lukas Fryc</a>
@@ -59,7 +58,13 @@ public abstract class DataTableFacetsTest extends AbstractDataTableTest {
 
     public void testHeaderEmpty() {
         facets.setHeader(EMPTY_STRING);
-        assertEquals(selenium.getText(model.getHeader()), EMPTY_STRING);
+
+        if (selenium.isElementPresent(model.getHeader())) {
+            assertEquals(selenium.getText(model.getHeader()), EMPTY_STRING);
+        } else {
+            facets.setHeader(SAMPLE_STRING);
+            assertEquals(selenium.getText(model.getHeader()), SAMPLE_STRING);
+        }
     }
 
     public void testStateHeaderInstantChange() {

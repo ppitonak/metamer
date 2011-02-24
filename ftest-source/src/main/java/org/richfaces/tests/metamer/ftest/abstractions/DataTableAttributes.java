@@ -21,7 +21,6 @@
  *******************************************************************************/
 package org.richfaces.tests.metamer.ftest.abstractions;
 
-import static org.jboss.test.selenium.guard.request.RequestTypeGuardFactory.guardXhr;
 import static org.richfaces.tests.metamer.ftest.AbstractMetamerTest.pjq;
 
 import java.util.Arrays;
@@ -29,8 +28,10 @@ import java.util.Collection;
 import java.util.LinkedList;
 
 import org.apache.commons.lang.StringUtils;
+import org.jboss.test.selenium.GuardRequest;
 import org.jboss.test.selenium.dom.Event;
 import org.jboss.test.selenium.locator.JQueryLocator;
+import org.jboss.test.selenium.request.RequestType;
 import org.richfaces.model.SortMode;
 import org.richfaces.tests.metamer.ftest.AbstractComponentAttributes;
 
@@ -42,9 +43,14 @@ public class DataTableAttributes extends AbstractComponentAttributes {
 
     JQueryLocator showDataLocator = pjq("input[id$=noDataCheckbox]");
 
-    public void setShowData(boolean showData) {
-        selenium.check(showDataLocator, showData);
-        guardXhr(selenium).fireEvent(showDataLocator, Event.CLICK);
+    public void setShowData(final boolean showData) {
+        new GuardRequest(RequestType.XHR) {
+            public void command() {
+                selenium.check(showDataLocator, showData);
+                selenium.fireEvent(showDataLocator, Event.CLICK);
+                selenium.fireEvent(showDataLocator, Event.CHANGE);
+            }
+        }.waitRequest();
     }
 
     public void setFirst(Integer first) {
