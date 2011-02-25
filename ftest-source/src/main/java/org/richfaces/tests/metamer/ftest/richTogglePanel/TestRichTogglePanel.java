@@ -24,12 +24,10 @@ package org.richfaces.tests.metamer.ftest.richTogglePanel;
 import static org.jboss.test.selenium.guard.request.RequestTypeGuardFactory.guardHttp;
 import static org.jboss.test.selenium.guard.request.RequestTypeGuardFactory.guardNoRequest;
 import static org.jboss.test.selenium.guard.request.RequestTypeGuardFactory.guardXhr;
-import static org.jboss.test.selenium.locator.LocatorFactory.jq;
 import static org.jboss.test.selenium.utils.URLUtils.buildUrl;
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertFalse;
 import static org.testng.Assert.assertTrue;
-import static org.testng.Assert.fail;
 
 import java.net.URL;
 
@@ -40,7 +38,6 @@ import org.jboss.test.selenium.encapsulated.JavaScript;
 import org.jboss.test.selenium.locator.JQueryLocator;
 import org.jboss.test.selenium.waiting.EventFiredCondition;
 import org.richfaces.tests.metamer.ftest.AbstractMetamerTest;
-import org.richfaces.tests.metamer.ftest.annotations.IssueTracking;
 import org.richfaces.tests.metamer.ftest.annotations.RegressionTest;
 import org.testng.annotations.Test;
 
@@ -182,20 +179,6 @@ public class TestRichTogglePanel extends AbstractMetamerTest {
 
         displayed = selenium.isDisplayed(item3);
         assertTrue(displayed, "Content of item3 should be visible.");
-    }
-
-    @Test
-    @RegressionTest("https://issues.jboss.org/browse/RF-10054")
-    public void testBypassUpdates() {
-        selenium.click(pjq("input[type=radio][name$=bypassUpdatesInput][value=true]"));
-        selenium.waitForPageToLoad();
-
-        selenium.click(tc3);
-        waitGui.failWith("Item 3 is not displayed.").until(isDisplayed.locator(item3));
-
-        phaseInfo.assertPhases(PhaseId.RESTORE_VIEW, PhaseId.APPLY_REQUEST_VALUES, PhaseId.PROCESS_VALIDATIONS,
-                PhaseId.RENDER_RESPONSE);
-        phaseInfo.assertListener(PhaseId.PROCESS_VALIDATIONS, "item changed: item1 -> item3");
     }
 
     @Test

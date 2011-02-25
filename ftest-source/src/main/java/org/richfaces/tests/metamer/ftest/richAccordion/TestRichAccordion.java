@@ -132,20 +132,6 @@ public class TestRichAccordion extends AbstractMetamerTest {
     }
 
     @Test
-    @RegressionTest("https://issues.jboss.org/browse/RF-10054")
-    public void testBypassUpdates() {
-        selenium.click(pjq("input[type=radio][name$=bypassUpdatesInput][value=true]"));
-        selenium.waitForPageToLoad();
-
-        selenium.click(itemHeaders[2]);
-        waitGui.failWith("Item 3 is not displayed.").until(isDisplayed.locator(itemContents[2]));
-
-        phaseInfo.assertPhases(PhaseId.RESTORE_VIEW, PhaseId.APPLY_REQUEST_VALUES, PhaseId.PROCESS_VALIDATIONS,
-                PhaseId.RENDER_RESPONSE);
-        phaseInfo.assertListener(PhaseId.PROCESS_VALIDATIONS, "item changed: item1 -> item3");
-    }
-
-    @Test
     public void testCycledSwitching() {
         String accordionId = selenium.getEval(new JavaScript("window.testedComponentId"));
         String result = null;

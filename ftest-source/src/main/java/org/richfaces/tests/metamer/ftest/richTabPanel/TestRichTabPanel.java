@@ -138,20 +138,6 @@ public class TestRichTabPanel extends AbstractMetamerTest {
     }
 
     @Test
-    @RegressionTest("https://issues.jboss.org/browse/RF-10054")
-    public void testBypassUpdates() {
-        selenium.click(pjq("input[type=radio][name$=bypassUpdatesInput][value=true]"));
-        selenium.waitForPageToLoad();
-
-        selenium.click(inactiveHeaders[2]);
-        waitGui.failWith("Tab 3 is not displayed.").until(isDisplayed.locator(itemContents[2]));
-
-        phaseInfo.assertPhases(PhaseId.RESTORE_VIEW, PhaseId.APPLY_REQUEST_VALUES, PhaseId.PROCESS_VALIDATIONS,
-                PhaseId.RENDER_RESPONSE);
-        phaseInfo.assertListener(PhaseId.PROCESS_VALIDATIONS, "item changed: tab1 -> tab3");
-    }
-
-    @Test
     public void testCycledSwitching() {
         String panelId = selenium.getEval(new JavaScript("window.testedComponentId"));
         String result = null;

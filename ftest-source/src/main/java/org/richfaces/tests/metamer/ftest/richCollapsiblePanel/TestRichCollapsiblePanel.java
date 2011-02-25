@@ -80,21 +80,6 @@ public class TestRichCollapsiblePanel extends AbstractMetamerTest {
     }
 
     @Test
-    @RegressionTest("https://issues.jboss.org/browse/RF-10054")
-    public void testBypassUpdates() {
-        selenium.click(pjq("input[type=radio][name$=bypassUpdatesInput][value=true]"));
-        selenium.waitForPageToLoad();
-
-        String reqTime = selenium.getText(time);
-        guardXhr(selenium).click(header);
-        waitGui.failWith("Page was not updated").waitForChange(reqTime, retrieveText.locator(time));
-
-        phaseInfo.assertPhases(PhaseId.RESTORE_VIEW, PhaseId.APPLY_REQUEST_VALUES, PhaseId.PROCESS_VALIDATIONS,
-                PhaseId.RENDER_RESPONSE);
-        phaseInfo.assertListener(PhaseId.PROCESS_VALIDATIONS, "panel collapsed");
-    }
-
-    @Test
     public void testDir() {
         testDir(panel);
     }
