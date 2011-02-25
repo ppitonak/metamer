@@ -25,6 +25,8 @@ import static org.jboss.test.selenium.guard.request.RequestTypeGuardFactory.guar
 import static org.jboss.test.selenium.locator.LocatorFactory.jq;
 import static org.jboss.test.selenium.utils.URLUtils.buildUrl;
 import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.assertFalse;
+import static org.testng.Assert.assertTrue;
 
 import java.net.URL;
 import java.util.List;
@@ -106,7 +108,11 @@ public class TestCollapsibleSubTableScroller extends AbstractCollapsibleSubTable
             if (expandMode != ExpandMode.none) {
                 final RequestType requestType = getRequestTypeForExpandMode();
                 guard(selenium, requestType).click(toggler);
+                assertFalse(subtable.isVisible());
+                assertTrue(secondSubtable.isVisible());
                 guard(selenium, requestType).click(toggler);
+                assertTrue(subtable.isVisible());
+                assertTrue(secondSubtable.isVisible());
             }
 
             assertEquals(secondDataScroller.getCurrentPage(), secondScrollerPage);
