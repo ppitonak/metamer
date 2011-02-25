@@ -5,7 +5,6 @@ import static org.jboss.test.selenium.locator.reference.ReferencedLocator.ref;
 
 import org.jboss.test.selenium.framework.AjaxSelenium;
 import org.jboss.test.selenium.framework.AjaxSeleniumProxy;
-import org.jboss.test.selenium.locator.ElementLocator;
 import org.jboss.test.selenium.locator.ExtendedLocator;
 import org.jboss.test.selenium.locator.JQueryLocator;
 import org.jboss.test.selenium.locator.reference.ReferencedLocator;
@@ -63,6 +62,10 @@ public class CollapsibleSubTable extends AbstractModel<JQueryLocator> {
 
     public boolean isNoData() {
         return selenium.isElementPresent(noData) && selenium.isVisible(noData);
+    }
+    
+    public boolean isVisible() {
+        return selenium.isElementPresent(root.getLocator()) && selenium.isVisible(root.getLocator());
     }
 
     public ExtendedLocator<JQueryLocator> getHeader() {
