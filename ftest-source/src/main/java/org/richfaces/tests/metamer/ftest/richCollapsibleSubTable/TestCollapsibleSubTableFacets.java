@@ -72,7 +72,12 @@ public class TestCollapsibleSubTableFacets extends AbstractCollapsibleSubTableTe
         assertEquals(selenium.getText(subtable.getHeader()), SAMPLE_STRING);
 
         facets.setHeader(EMPTY_STRING);
-        assertEquals(selenium.getText(subtable.getHeader()), EMPTY_STRING);
+        if (selenium.isElementPresent(subtable.getHeader())) {
+            assertEquals(selenium.getText(subtable.getHeader()), EMPTY_STRING);
+        }
+
+        facets.setHeader(SAMPLE_STRING);
+        assertEquals(selenium.getText(subtable.getHeader()), SAMPLE_STRING);
     }
 
     @Test
@@ -81,6 +86,11 @@ public class TestCollapsibleSubTableFacets extends AbstractCollapsibleSubTableTe
         assertEquals(selenium.getText(subtable.getFooter()), SAMPLE_STRING);
 
         facets.setFooter(EMPTY_STRING);
-        assertEquals(selenium.getText(subtable.getFooter()), EMPTY_STRING);
+        if (selenium.isElementPresent(subtable.getFooter())) {
+            assertEquals(selenium.getText(subtable.getFooter()), EMPTY_STRING);
+        }
+
+        facets.setFooter(SAMPLE_STRING);
+        assertEquals(selenium.getText(subtable.getFooter()), SAMPLE_STRING);
     }
 }
