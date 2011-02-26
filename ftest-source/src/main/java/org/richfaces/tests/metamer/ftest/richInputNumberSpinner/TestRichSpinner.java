@@ -165,7 +165,6 @@ public class TestRichSpinner extends AbstractSpinnerTest {
     }
 
     @Test
-    @IssueTracking("https://issues.jboss.org/browse/RF-10048")
     public void testImmediate() {
         JQueryLocator immediateInput = pjq("input[type=radio][name$=immediateInput][value=true]");
         selenium.click(immediateInput);

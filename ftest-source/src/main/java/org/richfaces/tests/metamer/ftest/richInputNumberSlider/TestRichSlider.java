@@ -215,7 +215,6 @@ public class TestRichSlider extends AbstractSliderTest {
     }
 
     @Test
-    @IssueTracking("https://issues.jboss.org/browse/RF-10048")
     public void testImmediate() {
         selenium.click(pjq("input[type=radio][name$=immediateInput][value=true]"));
         selenium.waitForPageToLoad();
