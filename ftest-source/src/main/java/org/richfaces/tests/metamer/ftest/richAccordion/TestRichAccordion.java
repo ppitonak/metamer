@@ -181,7 +181,7 @@ public class TestRichAccordion extends AbstractMetamerTest {
     }
 
     @Test
-    @IssueTracking("https://issues.jboss.org/browse/RF-10054")
+    @RegressionTest("https://issues.jboss.org/browse/RF-10054")
     public void testImmediate() {
         selenium.click(pjq("input[type=radio][name$=immediateInput][value=true]"));
         selenium.waitForPageToLoad();
