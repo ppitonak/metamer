@@ -116,6 +116,7 @@ public class RichBean implements Serializable {
         components.put("hDataTable", "JSF Data Table");
         components.put("uiRepeat", "UI Repeat");
         components.put("pAccordionPanel", "Prime Accordion Panel");
+        components.put("pAjaxStatus", "Prime Ajax Status");
         components.put("pEditor", "Prime Editor");
         components.put("richAccordion", "Rich Accordion");
         components.put("richAccordionItem", "Rich Accordion Item");
