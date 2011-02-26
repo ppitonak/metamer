@@ -21,7 +21,6 @@
  *******************************************************************************/
 package org.richfaces.tests.metamer.ftest.richInputNumberSlider;
 
-import java.text.ParseException;
 import static org.jboss.test.selenium.guard.request.RequestTypeGuardFactory.guardXhr;
 import static org.jboss.test.selenium.locator.option.OptionLocatorFactory.optionLabel;
 import static org.jboss.test.selenium.utils.URLUtils.buildUrl;
@@ -31,6 +30,7 @@ import static org.testng.Assert.assertTrue;
 import static org.testng.Assert.fail;
 
 import java.net.URL;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -40,7 +40,6 @@ import java.util.TreeSet;
 
 import javax.faces.event.PhaseId;
 
-import org.jboss.test.selenium.css.CssProperty;
 import org.jboss.test.selenium.encapsulated.JavaScript;
 import org.jboss.test.selenium.geometry.Point;
 import org.jboss.test.selenium.locator.Attribute;
@@ -442,7 +441,6 @@ public class TestRichSlider extends AbstractSliderTest {
     }
 
     @Test
-    @IssueTracking("https://issues.jboss.org/browse/RF-9947")
     public void testRendered() {
         selenium.click(pjq("input[type=radio][name$=renderedInput][value=false]"));
         selenium.waitForPageToLoad();
