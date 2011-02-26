@@ -33,7 +33,6 @@ import org.jboss.test.selenium.locator.ExtendedLocator;
 import org.jboss.test.selenium.locator.JQueryLocator;
 import org.richfaces.tests.metamer.ftest.AbstractComponentAttributes;
 import org.richfaces.tests.metamer.ftest.AbstractMetamerTest;
-import org.richfaces.tests.metamer.ftest.annotations.IssueTracking;
 import org.richfaces.tests.metamer.ftest.richTree.TreeAttributes;
 import org.richfaces.tests.metamer.ftest.richTree.TreeModel;
 import org.richfaces.tests.metamer.ftest.richTree.TreeNodeModel;
@@ -43,7 +42,6 @@ import org.testng.annotations.Test;
  * @author <a href="mailto:lfryc@redhat.com">Lukas Fryc</a>
  * @version $Revision$
  */
-@IssueTracking("https://issues.jboss.org/browse/RF-10497")
 public class TestTreeModelAdaptorSimple extends AbstractMetamerTest {
 
     protected TreeAttributes treeAttributes = new TreeAttributes(jq("span[id*=treeAttributes]"));

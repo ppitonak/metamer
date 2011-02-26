@@ -28,7 +28,6 @@ import static org.jboss.test.selenium.utils.URLUtils.buildUrl;
 import java.net.URL;
 
 import org.richfaces.tests.metamer.ftest.annotations.Inject;
-import org.richfaces.tests.metamer.ftest.annotations.IssueTracking;
 import org.richfaces.tests.metamer.ftest.annotations.Use;
 import org.richfaces.tests.metamer.ftest.richTree.TestTreeToggling;
 import org.richfaces.tests.metamer.ftest.richTree.TreeAttributes;
@@ -40,7 +39,6 @@ import org.testng.annotations.Test;
  * @author <a href="mailto:lfryc@redhat.com">Lukas Fryc</a>
  * @version $Revision$
  */
-@IssueTracking("https://issues.jboss.org/browse/RF-10497")
 public class TestTreeModelAdaptorToggling extends TestTreeToggling {
 
     @Inject
