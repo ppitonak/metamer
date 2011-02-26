@@ -124,8 +124,11 @@ public class TestRichAccordion extends AbstractMetamerTest {
             accordionDisplayed = selenium.isDisplayed(itemHeaders[i]);
             assertTrue(accordionDisplayed, "Item" + (i + 1) + "'s header should be visible.");
         }
+        
+        accordionDisplayed = selenium.isDisplayed(itemContents[0]);
+        assertTrue(accordionDisplayed, "Content of item1 should be visible.");
 
-        for (int i = 0; i < 5; i++) {
+        for (int i = 1; i < 5; i++) {
             accordionDisplayed = selenium.isDisplayed(itemContents[i]);
             assertFalse(accordionDisplayed, "Item" + (i + 1) + "'s content should not be visible.");
         }
