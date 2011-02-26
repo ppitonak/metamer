@@ -60,7 +60,7 @@ public class TestExtendedDataTableFacets extends DataTableFacetsTest {
     }
 
     @Test
-    @IssueTracking("https://issues.jboss.org/browse/RFPL-1193")
+    @IssueTracking({ "https://issues.jboss.org/browse/RFPL-1193", "https://issues.jboss.org/browse/RF-10627" })
     public void testNoDataLabelWithEmptyNoDataFacet() {
         super.testNoDataLabelWithEmptyNoDataFacet();
     }
