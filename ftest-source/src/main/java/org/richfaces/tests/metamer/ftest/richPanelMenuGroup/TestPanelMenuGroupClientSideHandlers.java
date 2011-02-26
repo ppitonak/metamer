@@ -37,7 +37,7 @@ import org.testng.annotations.Test;
  * @author <a href="mailto:lfryc@redhat.com">Lukas Fryc</a>
  * @version $Revision$
  */
-@IssueTracking("https://issues.jboss.org/browse/RF-10317")
+@IssueTracking({ "https://issues.jboss.org/browse/RF-10564", "https://issues.jboss.org/browse/RF-10563" })
 public class TestPanelMenuGroupClientSideHandlers extends AbstractPanelMenuGroupTest {
 
     @Inject
@@ -119,6 +119,7 @@ public class TestPanelMenuGroupClientSideHandlers extends AbstractPanelMenuGroup
     }
 
     @Test
+    @IssueTracking("https://issues.jboss.org/browse/RFPL-1223")
     public void testClientSideExpansionEventsOrderServer() {
         attributes.setMode(server);
         menu.setGroupMode(server);
@@ -129,6 +130,7 @@ public class TestPanelMenuGroupClientSideHandlers extends AbstractPanelMenuGroup
     }
 
     @Test
+    @IssueTracking("https://issues.jboss.org/browse/RFPL-1223")
     public void testClientSideCollapsionEventsOrderServer() {
         attributes.setMode(server);
         menu.setGroupMode(server);
