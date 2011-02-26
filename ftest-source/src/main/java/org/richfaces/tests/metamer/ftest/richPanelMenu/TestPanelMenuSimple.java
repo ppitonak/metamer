@@ -28,6 +28,7 @@ import static org.testng.Assert.assertTrue;
 import org.jboss.test.selenium.css.CssProperty;
 import org.richfaces.PanelMenuMode;
 import org.richfaces.tests.metamer.ftest.annotations.Inject;
+import org.richfaces.tests.metamer.ftest.annotations.IssueTracking;
 import org.richfaces.tests.metamer.ftest.annotations.RegressionTest;
 import org.richfaces.tests.metamer.ftest.annotations.Use;
 import org.testng.annotations.Test;
@@ -40,7 +41,7 @@ public class TestPanelMenuSimple extends AbstractPanelMenuTest {
 
     @Inject
     @Use(empty = true)
-    Boolean expandSingle;
+    Boolean expandSingle = true;
 
     @Test
     @RegressionTest("https://issues.jboss.org/browse/RF-10158")
@@ -59,6 +60,7 @@ public class TestPanelMenuSimple extends AbstractPanelMenuTest {
 
     @Test
     @Use(field = "expandSingle", booleans = { true, false })
+    @IssueTracking("https://issues.jboss.org/browse/RF-10626")
     public void testExpandSingle() {
         attributes.setExpandSingle(expandSingle);
 
