@@ -153,7 +153,7 @@ public class QueueModel {
         long beginTime = waitAjax.waitForChangeAndReturn(retrieveBeginTime);
         long actualDelay = beginTime - eventTime;
         long deviation = Math.abs(actualDelay - requestDelay);
-        long maxDeviation = Math.max(100, requestDelay / 2);
+        long maxDeviation = Math.max(300, requestDelay / 2);
 
         checkDeviation(deviation, maxDeviation);
 

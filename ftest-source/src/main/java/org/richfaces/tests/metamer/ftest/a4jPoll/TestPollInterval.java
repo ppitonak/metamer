@@ -151,7 +151,7 @@ public class TestPollInterval extends AbstractMetamerTest {
     }
 
     private void validateAverageDeviation() {
-        long maximumAvgDeviation = Math.min(interval / 3, 1000);
+        long maximumAvgDeviation = Math.max(300, Math.min(interval / 3, 1000));
         long averageDeviation = deviationTotal / deviationCount;
 
         if (seleniumDebug) {
