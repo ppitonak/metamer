@@ -32,7 +32,6 @@ import org.richfaces.tests.metamer.ftest.AbstractMetamerTest;
 import org.richfaces.tests.metamer.ftest.a4jQueue.QueueAttributes;
 import org.richfaces.tests.metamer.ftest.a4jQueue.QueueModel;
 import org.richfaces.tests.metamer.ftest.a4jQueue.QueueModel.Input;
-import org.richfaces.tests.metamer.ftest.annotations.IssueTracking;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
@@ -74,7 +73,6 @@ public class TestNestedAttachQueue extends AbstractMetamerTest {
     }
 
     @Test
-    @IssueTracking("https://issues.jboss.org/browse/RFPL-1186")
     public void testNoDelay() {
         attributesAttachQueue1.setRequestDelay(0);
 
@@ -99,7 +97,6 @@ public class TestNestedAttachQueue extends AbstractMetamerTest {
     }
 
     @Test
-    @IssueTracking("https://issues.jboss.org/browse/RFPL-1186")
     public void testTimingOneQueueTwoEvents() {
         queue.initializeTimes();
 
