@@ -31,6 +31,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import org.richfaces.tests.metamer.ftest.annotations.IssueTracking;
 import org.testng.annotations.Test;
 
 /**
@@ -47,6 +48,7 @@ public class TestRichCalendarModel extends AbstractCalendarTest {
     }
 
     @Test
+    @IssueTracking("https://issues.jboss.org/browse/RFPL-1222")
     public void testClasses() {
         selenium.click(input);
         String month = selenium.getText(monthLabel);
@@ -74,6 +76,7 @@ public class TestRichCalendarModel extends AbstractCalendarTest {
 
     @Test
     @Override
+    @IssueTracking("https://issues.jboss.org/browse/RFPL-1222")
     public void testApplyButton() {
         selenium.click(input);
         String month = selenium.getText(monthLabel);
@@ -84,6 +87,7 @@ public class TestRichCalendarModel extends AbstractCalendarTest {
         String day = selenium.getText(cellDay.format(17));
         month = selenium.getText(monthLabel);
 
+        @SuppressWarnings("unused")
         String selectedDate = null;
         try {
             Date date = new SimpleDateFormat("d MMMM, yyyy hh:mm").parse(day + " " + month + " 12:00");
