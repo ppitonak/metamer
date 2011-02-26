@@ -2,6 +2,13 @@
 <suite name="seleniumTest">
 
     <test name="Input Components">
+    	<groups>
+			<run>
+				<exclude name="4.0.0.Final" />
+				<exclude name="4.Future" />
+			</run>
+		</groups>
+		
         <packages>
             <package name="org.richfaces.tests.metamer.ftest.richAutocomplete" />
             <package name="org.richfaces.tests.metamer.ftest.richCalendar" />

@@ -2,6 +2,13 @@
 <suite name="seleniumTest">
 
     <test name="Core Components">
+    	<groups>
+			<run>
+				<exclude name="4.0.0.Final" />
+				<exclude name="4.Future" />
+			</run>
+		</groups>
+		
         <packages>
             <package name="org.richfaces.tests.metamer.ftest.a4jActionListener" />
             <package name="org.richfaces.tests.metamer.ftest.a4jAjax" />
