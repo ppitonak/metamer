@@ -224,7 +224,7 @@ public class TestTreeSimple extends AbstractMetamerTest {
         testRequestEventsAfter(events);
     }
 
-    @Test
+    @Test(groups = "4.Future")
     @IssueTracking("https://issues.jboss.org/browse/RF-10265")
     public void testToggleClientSideEvents() {
         String[] events = new String[] { "beforenodetoggle", "begin", "beforedomupdate", "complete", "nodetoggle" };

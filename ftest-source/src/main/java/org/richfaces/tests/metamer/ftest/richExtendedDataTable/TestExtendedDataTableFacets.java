@@ -47,19 +47,19 @@ public class TestExtendedDataTableFacets extends DataTableFacetsTest {
         model = new ExtendedDataTable(pjq("div.rf-edt[id$=richEDT]"));
     }
 
-    @Test
+    @Test(groups = "4.0.0.Final")
     @IssueTracking("https://issues.jboss.org/browse/RFPL-1193")
     public void testNoDataInstantChange() {
         super.testNoDataInstantChange();
     }
 
-    @Test
+    @Test(groups = "4.0.0.Final")
     @IssueTracking("https://issues.jboss.org/browse/RFPL-1193")
     public void testNoDataEmpty() {
         super.testNoDataEmpty();
     }
 
-    @Test
+    @Test(groups = "4.0.0.Final")
     @IssueTracking({ "https://issues.jboss.org/browse/RFPL-1193", "https://issues.jboss.org/browse/RF-10627" })
     public void testNoDataLabelWithEmptyNoDataFacet() {
         super.testNoDataLabelWithEmptyNoDataFacet();

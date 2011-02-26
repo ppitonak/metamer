@@ -223,7 +223,7 @@ public class TestTreeNodeSimple extends AbstractMetamerTest {
         assertEquals(selenium.getCount(not(tree.getAnyNode(), "[lang=cs]")), 4);
     }
 
-    @Test
+    @Test(groups = "4.0.0.Final")
     @Use(field = "event", value = "events")
     @IssueTracking("https://issues.jboss.org/browse/RFPL-1124")
     public void testClientEvents() {

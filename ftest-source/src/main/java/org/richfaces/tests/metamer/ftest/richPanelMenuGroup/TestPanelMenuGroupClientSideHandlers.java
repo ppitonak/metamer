@@ -118,7 +118,7 @@ public class TestPanelMenuGroupClientSideHandlers extends AbstractPanelMenuGroup
         super.testRequestEventsAfter(ajaxCollapsionEvents);
     }
 
-    @Test
+    @Test(groups = "4.0.0.Final")
     @IssueTracking("https://issues.jboss.org/browse/RFPL-1223")
     public void testClientSideExpansionEventsOrderServer() {
         attributes.setMode(server);
@@ -129,7 +129,7 @@ public class TestPanelMenuGroupClientSideHandlers extends AbstractPanelMenuGroup
         super.testRequestEventsAfter(serverExpansionEvents);
     }
 
-    @Test
+    @Test(groups = "4.0.0.Final")
     @IssueTracking("https://issues.jboss.org/browse/RFPL-1223")
     public void testClientSideCollapsionEventsOrderServer() {
         attributes.setMode(server);
