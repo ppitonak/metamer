@@ -24,8 +24,8 @@ public class PanelMenu extends AbstractModel<JQueryLocator> implements Model {
 
     private ReferencedLocator<JQueryLocator> topItems = ref(root, "> .rf-pm-top-itm");
     private ReferencedLocator<JQueryLocator> topGroups = ref(root, "> .rf-pm-top-gr");
-    private ReferencedLocator<JQueryLocator> anySelectedItem = ref(root, ".rf-pm-itm-sel");
-    private ReferencedLocator<JQueryLocator> anySelectedGroup = ref(root, ".rf-pm-gr-sel");
+    private ReferencedLocator<JQueryLocator> anySelectedItem = ref(root, "div[class*=rf-pm][class*=-itm-sel]");
+    private ReferencedLocator<JQueryLocator> anySelectedGroup = ref(root, "div[class*=rf-pm][class*=-gr-sel]");
     private ReferencedLocator<JQueryLocator> anyDisabledItem = ref(root, "div[class*=rf-pm-][class*=-itm-dis]");
     private ReferencedLocator<JQueryLocator> anyDisabledGroup = ref(root, "div[class*=rf-pm-][class*=-gr-dis]");
 
@@ -84,16 +84,16 @@ public class PanelMenu extends AbstractModel<JQueryLocator> implements Model {
         return new Group(topGroups.getReferenced());
     }
 
-    public Group getAnySelectedItem() {
-        return new Group(anySelectedItem.getReferenced());
+    public Item getAnySelectedItem() {
+        return new Item(anySelectedItem.getReferenced());
     }
 
     public Group getAnySelectedGroup() {
         return new Group(anySelectedGroup.getReferenced());
     }
 
-    public Group getAnyDisabledItem() {
-        return new Group(anyDisabledItem.getReferenced());
+    public Item getAnyDisabledItem() {
+        return new Item(anyDisabledItem.getReferenced());
     }
 
     public Group getAnyDisabledGroup() {
