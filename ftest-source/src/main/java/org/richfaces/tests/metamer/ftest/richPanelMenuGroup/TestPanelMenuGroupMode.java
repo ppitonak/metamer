@@ -80,14 +80,13 @@ public class TestPanelMenuGroupMode extends AbstractPanelMenuGroupTest {
         if (mode != PanelMenuMode.client) {
             if ("phases".equals(listener)) {
                 phaseInfo.assertPhases(getExpectedPhases());
-            } else if ("executeChecker".equals(listener)) {
-                if (immediate || bypassUpdates || mode == PanelMenuMode.server) {
-                    phaseInfo.assertNoListener("executeChecker");
-                } else {
-                    phaseInfo.assertListener(UPDATE_MODEL_VALUES, "executeChecker");
-                }
             } else {
-                phaseInfo.assertListener(getListenerProcessingPhase(), listener);
+                PhaseId listenerInvocationPhase = getListenerInvocationPhase();
+                if (listenerInvocationPhase == null) {
+                    phaseInfo.assertNoListener(listener);
+                } else {
+                    phaseInfo.assertListener(listenerInvocationPhase, listener);
+                }
             }
         }
     }
@@ -119,8 +118,24 @@ public class TestPanelMenuGroupMode extends AbstractPanelMenuGroupTest {
         return list.toArray(new PhaseId[list.size()]);
     }
 
-    private PhaseId getListenerProcessingPhase() {
+    private PhaseId getListenerInvocationPhase() {
         PhaseId[] phases = getExpectedPhases();
-        return phases[phases.length - 2];
+        PhaseId phase = phases[phases.length - 2];
+
+        if ("executeChecker".equals(listener)) {
+            if (phase.compareTo(UPDATE_MODEL_VALUES) < 0 || mode == PanelMenuMode.server) {
+                return null;
+            } else {
+                return UPDATE_MODEL_VALUES;
+            }
+        }
+        
+        if ("item changed".equals(listener)) {
+            if (phases.length == 6) {
+                return UPDATE_MODEL_VALUES;
+            }
+        }
+
+        return phase;
     }
 }

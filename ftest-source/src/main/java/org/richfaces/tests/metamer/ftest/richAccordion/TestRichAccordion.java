@@ -198,7 +198,7 @@ public class TestRichAccordion extends AbstractMetamerTest {
         selenium.click(itemHeaders[2]);
         waitGui.failWith("Item 3 is not displayed.").until(isDisplayed.locator(itemContents[2]));
 
-        phaseInfo.assertListener(PhaseId.INVOKE_APPLICATION, "item changed: item1 -> item3");
+        phaseInfo.assertListener(PhaseId.UPDATE_MODEL_VALUES, "item changed: item1 -> item3");
     }
 
     @Test

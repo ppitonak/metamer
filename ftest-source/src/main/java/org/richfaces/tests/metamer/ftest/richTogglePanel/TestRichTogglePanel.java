@@ -215,7 +215,7 @@ public class TestRichTogglePanel extends AbstractMetamerTest {
         selenium.click(tc3);
         waitGui.failWith("Item 3 is not displayed.").until(isDisplayed.locator(item3));
 
-        phaseInfo.assertListener(PhaseId.INVOKE_APPLICATION, "item changed: item1 -> item3");
+        phaseInfo.assertListener(PhaseId.UPDATE_MODEL_VALUES, "item changed: item1 -> item3");
     }
 
     @Test
