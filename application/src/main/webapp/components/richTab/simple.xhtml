@@ -27,9 +27,9 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
     -->
 
     <ui:composition template="/templates/template.xhtml">
-		
-		<ui:define name="view">
-			<f:metadata>
+
+        <ui:define name="view">
+            <f:metadata>
                 <f:viewParam name="templates" value="#{templateBean.templates}">
                     <f:converter converterId="templatesListConverter" />
                 </f:viewParam>
@@ -40,11 +40,11 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 
             <rich:tabPanel id="tabPanel"
                            itemChangeListener="#{richBean.itemChangeListener}">
-                           
+
                 <rich:tab id="tab1"
                           action="#{richBean.dummyAction}"
                           actionListener="#{richBean.dummyActionListener}"
-            			   
+
                           contentClass="#{richTabBean.attributes['contentClass'].value}"
                           bypassUpdates="#{richTabBean.attributes['bypassUpdates'].value}"
                           dir="#{richTabBean.attributes['dir'].value}"

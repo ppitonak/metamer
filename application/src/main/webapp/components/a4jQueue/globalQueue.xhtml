@@ -2,12 +2,11 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
       xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:a4j="http://richfaces.org/a4j"
-      xmlns:metamer="http://java.sun.com/jsf/composite/metamer" xmlns:rich="http://richfaces.org/rich"
-      xmlns:c="http://java.sun.com/jsp/jstl/core">
+      xmlns:metamer="http://java.sun.com/jsf/composite/metamer" xmlns:rich="http://richfaces.org/rich">
 
     <!--
 JBoss, Home of Professional Open Source
-Copyright 2010, Red Hat, Inc. and individual contributors
+Copyright 2010-2011, Red Hat, Inc. and individual contributors
 by the @authors tag. See the copyright.txt in the distribution for a
 full listing of individual contributors.
 
@@ -28,10 +27,10 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
     -->
 
     <ui:composition template="/templates/template.xhtml">
-    	<ui:param name="dontRenderForm" value="true" />
-		
-		<ui:define name="view">
-			<f:metadata>
+        <ui:param name="dontRenderForm" value="true" />
+
+        <ui:define name="view">
+            <f:metadata>
                 <f:viewParam name="templates" value="#{templateBean.templates}">
                     <f:converter converterId="templatesListConverter" />
                 </f:viewParam>
@@ -48,9 +47,9 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
         </ui:define>
 
         <ui:define name="component">
-        
+
             <a4j:queue id="a4jQueue"
-            		   ignoreDupResponses="#{a4jQueueBean.attributes['ignoreDupResponses'].value}"
+                       ignoreDupResponses="#{a4jQueueBean.attributes['ignoreDupResponses'].value}"
                        name="#{a4jQueueBean.attributes['name'].value}"
                        onbeforedomupdate="#{a4jQueueBean.attributes['onbeforedomupdate'].value}"
                        oncomplete="#{a4jQueueBean.attributes['oncomplete'].value}"
@@ -73,13 +72,13 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                         <a4j:ajax event="keypress" onbegin="add(#{rich:element('requests')}); #{rich:element('timeWatcher:grid')}.begin(); " render="outtext" oncomplete="#{rich:element('timeWatcher:grid')}.complete(); #{rich:element('timeWatcher:grid')}.difference(); "
                                   onbeforedomupdate="add(#{rich:element('updates')});"/>
                     </h:inputText> 
-                    
+
                     <h:outputText value="Click here:" />
                     <h:commandButton id="actionButton" value="Action" action="#{richBean.dummyAction}"
-                    			onclick="add(#{rich:element('events1')}); #{rich:element('timeWatcher:grid')}.event();">
-                    	<a4j:ajax onbegin="add(#{rich:element('requests')}); #{rich:element('timeWatcher:grid')}.begin(); "
-                    			oncomplete="#{rich:element('timeWatcher:grid')}.complete(); #{rich:element('timeWatcher:grid')}.difference(); "
-                                onbeforedomupdate="add(#{rich:element('updates')});" />
+                                     onclick="add(#{rich:element('events1')}); #{rich:element('timeWatcher:grid')}.event();">
+                        <a4j:ajax onbegin="add(#{rich:element('requests')}); #{rich:element('timeWatcher:grid')}.begin(); "
+                                  oncomplete="#{rich:element('timeWatcher:grid')}.complete(); #{rich:element('timeWatcher:grid')}.difference(); "
+                                  onbeforedomupdate="add(#{rich:element('updates')});" />
                     </h:commandButton>
 
                     <h:outputText value="Repeated text:" />

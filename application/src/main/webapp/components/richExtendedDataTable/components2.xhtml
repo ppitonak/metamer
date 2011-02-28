@@ -27,10 +27,10 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
     -->
 
     <ui:composition template="/templates/template.xhtml">
-    	<ui:param name="componentId" value="richEDT" />
-		
-		<ui:define name="view">
-			<f:metadata>
+        <ui:param name="componentId" value="richEDT" />
+
+        <ui:define name="view">
+            <f:metadata>
                 <f:viewParam name="templates" value="#{templateBean.templates}">
                     <f:converter converterId="templatesListConverter" />
                 </f:viewParam>
@@ -96,7 +96,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
             <rich:extendedDataTable id="richEDT"
                                     value="#{richExtendedDataTableBean.state ? model.employees : null}"
                                     var="record"
-                                    
+
                                     columnClasses="#{richExtendedDataTableBean.attributes['columnClasses'].value}"
                                     columns="#{richExtendedDataTableBean.attributes['columns'].value}"
                                     first="#{richExtendedDataTableBean.attributes['first'].value}"
@@ -186,7 +186,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                     <rich:calendar id="birthdate" value="#{record.birthdate}">
                         <a4j:ajax event="change" render="@this"/>
                     </rich:calendar>
-                    
+
                     <f:facet name="footer">
                         <h:outputText id="columnFooterBirthdate" value="Birthdate" />
                     </f:facet>

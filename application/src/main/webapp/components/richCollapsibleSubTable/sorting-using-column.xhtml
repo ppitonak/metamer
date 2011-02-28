@@ -27,9 +27,9 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
     -->
 
     <ui:composition template="/templates/template.xhtml">
-		
-		<ui:define name="view">
-			<f:metadata>
+
+        <ui:define name="view">
+            <f:metadata>
                 <f:viewParam name="templates" value="#{templateBean.templates}">
                     <f:converter converterId="templatesListConverter" />
                 </f:viewParam>
@@ -54,7 +54,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                             <h:outputText id="columnHeaderEmployeesText" value="Employees" />
                         </rich:column>
                         <rich:column id="columnHeaderName" breakRowBefore="true">
-                        	<a4j:commandLink id="sortByName" value="Name" render="richDataTable" action="#{richSubTableBean.sorting['columnName'].reverseOrder}" />
+                            <a4j:commandLink id="sortByName" value="Name" render="richDataTable" action="#{richSubTableBean.sorting['columnName'].reverseOrder}" />
                         </rich:column>
                         <rich:column id="columnHeaderTitle">
                             <a4j:commandLink id="sortByTitle" value="Title" render="richDataTable" action="#{richSubTableBean.sorting['columnTitle'].reverseOrder}" />
@@ -71,7 +71,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                 </rich:column>
 
                 <rich:collapsibleSubTable id="richSubTable"
-                						  binding="#{richSubTableBean.binding}"
+                                          binding="#{richSubTableBean.binding}"
                                           breakBefore="#{richSubTableBean.attributes['breakBefore'].value}"
                                           expandMode="#{richSubTableBean.attributes['expandMode'].value}"
                                           filterVar="#{richSubTableBean.attributes['filterVar'].value}"
@@ -119,7 +119,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                             <f:convertDateTime pattern="d MMM yyyy"/>
                         </h:outputText>
                     </rich:column>
-                    
+
                 </rich:collapsibleSubTable>
             </rich:dataTable>
 

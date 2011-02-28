@@ -27,10 +27,10 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
     -->
 
     <ui:composition template="/templates/template.xhtml">
-    	<ui:param name="componentId" value="richEDT" />
-		
-		<ui:define name="view">
-			<f:metadata>
+        <ui:param name="componentId" value="richEDT" />
+
+        <ui:define name="view">
+            <f:metadata>
                 <f:viewParam name="templates" value="#{templateBean.templates}">
                     <f:converter converterId="templatesListConverter" />
                 </f:viewParam>
@@ -60,7 +60,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
             <rich:extendedDataTable id="richEDT"
                                     value="#{richExtendedDataTableBean.state ? model.capitals : null}"
                                     var="record"
-                                    
+
                                     columnClasses="#{richExtendedDataTableBean.attributes['columnClasses'].value}"
                                     columns="#{richExtendedDataTableBean.attributes['columns'].value}"
                                     first="#{richExtendedDataTableBean.attributes['first'].value}"
@@ -81,10 +81,10 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                                     sortPriority="#{richExtendedDataTableBean.attributes['sortPriority'].value}"
                                     style="#{richExtendedDataTableBean.attributes['style'].value}"
                                     styleClass="#{richExtendedDataTableBean.attributes['styleClass'].value}"
-                                    
+
                                     >
 
-                
+
 
                 <rich:column id="columnState" sortBy="#{record.state}">
                     <h:outputText value="#{record.state}" />

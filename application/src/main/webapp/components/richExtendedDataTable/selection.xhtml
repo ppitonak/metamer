@@ -27,10 +27,10 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
     -->
 
     <ui:composition template="/templates/template.xhtml">
-    	<ui:param name="componentId" value="richEDT" />
-		
-		<ui:define name="view">
-			<f:metadata>
+        <ui:param name="componentId" value="richEDT" />
+
+        <ui:define name="view">
+            <f:metadata>
                 <f:viewParam name="templates" value="#{templateBean.templates}">
                     <f:converter converterId="templatesListConverter" />
                 </f:viewParam>
@@ -44,12 +44,12 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                     height: 300px !important;
                 }
                 .currentSelection {
-					font-weight: bold;
-				}
-				
-				.previousSelection {
-					color: gray;
-				}
+                    font-weight: bold;
+                }
+
+                .previousSelection {
+                    color: gray;
+                }
             </style>
         </ui:define>
 
@@ -68,7 +68,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
             <rich:extendedDataTable id="richEDT"
                                     value="#{richExtendedDataTableBean.state ? model.capitals : null}"
                                     var="record"
-                                    
+
                                     columnClasses="#{richExtendedDataTableBean.attributes['columnClasses'].value}"
                                     columns="#{richExtendedDataTableBean.attributes['columns'].value}"
                                     first="#{richExtendedDataTableBean.attributes['first'].value}"
@@ -90,11 +90,11 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                                     style="#{richExtendedDataTableBean.attributes['style'].value}"
                                     styleClass="#{richExtendedDataTableBean.attributes['styleClass'].value}"
                                     >
-                           
-                                    
-				<a4j:ajax execute="@this" event="beforeselectionchange" render="previousSelection" />
-				<a4j:ajax execute="@this" event="selectionchange" render="currentSelection" />
-					
+
+
+                <a4j:ajax execute="@this" event="beforeselectionchange" render="previousSelection" />
+                <a4j:ajax execute="@this" event="selectionchange" render="currentSelection" />
+
                 <f:facet name="noData">
                     <h:outputText value="There is no data." style="color: red;"/>
                 </f:facet>
@@ -135,20 +135,20 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 
             </rich:extendedDataTable>
         </ui:define>
-		
+
         <ui:define name="outOfTemplateAfter">
-        	<h:panelGrid columns="2">
-            	<h:outputLabel ajaxRendered="true" value="CurrentSelection:" styleClass="currentSelection" />
-            	<a4j:outputPanel ajaxRendered="true">
-            		<h:outputText id="currentSelection" value="#{richExtendedDataTableBean.attributes['selection'].value}" styleClass="currentSelection" />
-            	</a4j:outputPanel>
-            	
-            	<h:outputLabel value="Previous Selection:" styleClass="previousSelection" />
-            	<h:outputText id="previousSelection" value="#{richExtendedDataTableBean.attributes['selection'].value}" styleClass="previousSelection" />
+            <h:panelGrid columns="2">
+                <h:outputLabel ajaxRendered="true" value="CurrentSelection:" styleClass="currentSelection" />
+                <a4j:outputPanel ajaxRendered="true">
+                    <h:outputText id="currentSelection" value="#{richExtendedDataTableBean.attributes['selection'].value}" styleClass="currentSelection" />
+                </a4j:outputPanel>
+
+                <h:outputLabel value="Previous Selection:" styleClass="previousSelection" />
+                <h:outputText id="previousSelection" value="#{richExtendedDataTableBean.attributes['selection'].value}" styleClass="previousSelection" />
             </h:panelGrid>
-            
+
             <br /><br />
-            
+
             <metamer:attributes value="#{richExtendedDataTableBean.attributes}" id="attributes" />
         </ui:define>
 

@@ -28,10 +28,10 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
     -->
 
     <ui:composition template="/templates/template.xhtml">
-    	<ui:param name="componentId" value="richEDT" />
-		
-		<ui:define name="view">
-			<f:metadata>
+        <ui:param name="componentId" value="richEDT" />
+
+        <ui:define name="view">
+            <f:metadata>
                 <f:viewParam name="templates" value="#{templateBean.templates}">
                     <f:converter converterId="templatesListConverter" />
                 </f:viewParam>
@@ -62,7 +62,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
             <rich:extendedDataTable id="richEDT"
                                     value="#{richExtendedDataTableBean.state ? model.capitals : null}"
                                     var="record"
-                                    
+
                                     columnClasses="#{richExtendedDataTableBean.attributes['columnClasses'].value}"
                                     columns="#{richExtendedDataTableBean.attributes['columns'].value}"
                                     first="#{richExtendedDataTableBean.attributes['first'].value}"
@@ -128,52 +128,52 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 
         <ui:define name="outOfTemplateAfter">
             <fieldset>
-            	<legend>scroller1</legend>
-            	
-	            <h:commandButton id="buttonFirst1" value="&lt;&lt; first">
-	                <rich:componentControl event="click" target="#{rich:clientId('scroller1')}" operation="switchToPage">
-	                    <f:param value="first" />
-	                </rich:componentControl>
-	            </h:commandButton>
-	
-	            <h:commandButton id="buttonPrev1" value="&lt; previous">
-	                <rich:componentControl event="click" target="#{rich:clientId('scroller1')}" operation="previous" />
-	            </h:commandButton>
-	
-	            <h:commandButton id="buttonNext1" value="next &gt;">
-	                <rich:componentControl event="click" target="#{rich:clientId('scroller1')}" operation="next" />
-	            </h:commandButton>
-	
-	            <h:commandButton id="buttonLast1" value="last &gt;&gt;">
-	                <rich:componentControl event="click" target="#{rich:clientId('scroller1')}" operation="switchToPage">
-	                    <f:param value="last" />
-	                </rich:componentControl>
-	            </h:commandButton>
+                <legend>scroller1</legend>
+
+                <h:commandButton id="buttonFirst1" value="&lt;&lt; first">
+                    <rich:componentControl event="click" target="#{rich:clientId('scroller1')}" operation="switchToPage">
+                        <f:param value="first" />
+                    </rich:componentControl>
+                </h:commandButton>
+
+                <h:commandButton id="buttonPrev1" value="&lt; previous">
+                    <rich:componentControl event="click" target="#{rich:clientId('scroller1')}" operation="previous" />
+                </h:commandButton>
+
+                <h:commandButton id="buttonNext1" value="next &gt;">
+                    <rich:componentControl event="click" target="#{rich:clientId('scroller1')}" operation="next" />
+                </h:commandButton>
+
+                <h:commandButton id="buttonLast1" value="last &gt;&gt;">
+                    <rich:componentControl event="click" target="#{rich:clientId('scroller1')}" operation="switchToPage">
+                        <f:param value="last" />
+                    </rich:componentControl>
+                </h:commandButton>
             </fieldset>
 
-			<c:set var="nestedScrollerId" value="#{nestedComponentId}:scroller2" />
-			
-			<fieldset>
-            	<legend>scroller2</legend>
-	            <h:commandButton id="buttonFirst2" value="&lt;&lt; first">
-	                <rich:componentControl event="click" target="#{nestedScrollerId}" operation="switchToPage">
-	                    <f:param value="first" />
-	                </rich:componentControl>
-	            </h:commandButton>
-	
-	            <h:commandButton id="buttonPrev2" value="&lt; previous">
-	                <rich:componentControl event="click" target="#{nestedScrollerId}" operation="previous" />
-	            </h:commandButton>
-	
-	            <h:commandButton id="buttonNext2" value="next &gt;">
-	                <rich:componentControl event="click" target="#{nestedScrollerId}" operation="next" />
-	            </h:commandButton>
-	
-	            <h:commandButton id="buttonLast2" value="last &gt;&gt;">
-	                <rich:componentControl event="click" target="#{nestedScrollerId}" operation="switchToPage">
-	                    <f:param value="last" />
-	                </rich:componentControl>
-	            </h:commandButton>
+            <c:set var="nestedScrollerId" value="#{nestedComponentId}:scroller2" />
+
+            <fieldset>
+                <legend>scroller2</legend>
+                <h:commandButton id="buttonFirst2" value="&lt;&lt; first">
+                    <rich:componentControl event="click" target="#{nestedScrollerId}" operation="switchToPage">
+                        <f:param value="first" />
+                    </rich:componentControl>
+                </h:commandButton>
+
+                <h:commandButton id="buttonPrev2" value="&lt; previous">
+                    <rich:componentControl event="click" target="#{nestedScrollerId}" operation="previous" />
+                </h:commandButton>
+
+                <h:commandButton id="buttonNext2" value="next &gt;">
+                    <rich:componentControl event="click" target="#{nestedScrollerId}" operation="next" />
+                </h:commandButton>
+
+                <h:commandButton id="buttonLast2" value="last &gt;&gt;">
+                    <rich:componentControl event="click" target="#{nestedScrollerId}" operation="switchToPage">
+                        <f:param value="last" />
+                    </rich:componentControl>
+                </h:commandButton>
             </fieldset>
 
             <metamer:attributes value="#{richExtendedDataTableBean.attributes}" id="attributes" />

@@ -27,9 +27,9 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
     -->
 
     <ui:composition template="/templates/template.xhtml">
-		
-		<ui:define name="view">
-			<f:metadata>
+
+        <ui:define name="view">
+            <f:metadata>
                 <f:viewParam name="templates" value="#{templateBean.templates}">
                     <f:converter converterId="templatesListConverter" />
                 </f:viewParam>
@@ -44,27 +44,27 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                 var intervalID;
 
                 function updateProgress(i) {
-                    #{rich:component('progressBar')}.setValue(counter*2);
+                #{rich:component('progressBar')}.setValue(counter*2);
                     if ((counter++)>50){
                         clearInterval(intervalID);
-                        #{rich:element('startButton')}.disabled=false;
-                        #{rich:element('pauseButton')}.disabled=true;
+                #{rich:element('startButton')}.disabled=false;
+                #{rich:element('pauseButton')}.disabled=true;
                         counter=1;
                     }
                 }
 
                 function startProgress(){
-                    #{rich:element('startButton')}.disabled=true;
-                    #{rich:element('pauseButton')}.disabled=false;
-                    #{rich:component('progressBar')}.enable();
-                    #{rich:component('progressBar')}.setValue(counter*2);
+                #{rich:element('startButton')}.disabled=true;
+                #{rich:element('pauseButton')}.disabled=false;
+                #{rich:component('progressBar')}.enable();
+                #{rich:component('progressBar')}.setValue(counter*2);
                     intervalID = setInterval(updateProgress,1000);
                 }
 
                 function pauseProgress(){
-                    #{rich:element('startButton')}.disabled=false;
-                    #{rich:element('pauseButton')}.disabled=true;
-                    #{rich:component('progressBar')}.disable();
+                #{rich:element('startButton')}.disabled=false;
+                #{rich:element('pauseButton')}.disabled=true;
+                #{rich:component('progressBar')}.disable();
                     clearInterval(intervalID);
                 }
                 //]]>

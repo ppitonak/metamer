@@ -27,9 +27,9 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
     -->
 
     <ui:composition template="/templates/template.xhtml">
-		
-		<ui:define name="view">
-			<f:metadata>
+
+        <ui:define name="view">
+            <f:metadata>
                 <f:viewParam name="templates" value="#{templateBean.templates}">
                     <f:converter converterId="templatesListConverter" />
                 </f:viewParam>
@@ -43,7 +43,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                             actionListener="#{richBean.dummyActionListener}"
                             itemChangeListener="#{richPanelMenuBean.itemChangeListener}"
                             activeItem="#{richPanelMenuBean.activeItem}"
-                            
+
                             bubbleSelection="#{richPanelMenuBean.attributes['bubbleSelection'].value}"
                             bypassUpdates="#{richPanelMenuBean.attributes['bypassUpdates'].value}"
                             collapseEvent="#{richPanelMenuBean.attributes['collapseEvent'].value}"
@@ -106,27 +106,27 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                 </rich:panelMenuGroup>
 
                 <rich:panelMenuItem id="item1" name="item1" label="Item 1"/>
-                
+
                 <rich:panelMenuGroup id="group2" name="group2" label="Group 2">
                     <rich:panelMenuItem id="item21" name="item21" label="Item 2.1"/>
                     <rich:panelMenuItem id="item22" name="item22" label="Item 2.2"/>
                     <rich:panelMenuItem id="item23" name="item23" label="Item 2.3"/>
-                    
+
                     <rich:panelMenuGroup id="group24" name="group24" label="Group 2.4">
                         <rich:panelMenuItem id="item241" name="item241" label="Item 2.4.1"/>
                         <rich:panelMenuItem id="item242" name="item242" label="Item 2.4.2"/>
                         <rich:panelMenuItem id="item243" name="item243" label="Item 2.4.3"/>
                     </rich:panelMenuGroup>
-                    
+
                     <rich:panelMenuItem id="item25" name="item25" disabled="true" label="Item 2.5"/>
-                    
+
                     <rich:panelMenuGroup id="group26" name="group26" label="Group 2.6" disabled="true">
                         <rich:panelMenuItem id="item261" name="item261" label="Item 2.6.1"/>
                         <rich:panelMenuItem id="item262" name="item262" label="Item 2.6.2"/>
                         <rich:panelMenuItem id="item263" name="item263" label="Item 2.6.3"/>
                     </rich:panelMenuGroup>
                 </rich:panelMenuGroup>
-                
+
                 <rich:panelMenuItem id="item2" name="item2" label="Item 2" disabled="true" />
 
                 <rich:panelMenuGroup id="group3" name="group3" label="Group 3">
@@ -140,7 +140,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                     <rich:panelMenuItem id="item42" name="item42" label="Item 4.2"/>
                     <rich:panelMenuItem id="item43" name="item43" label="Item 4.3"/>
                 </rich:panelMenuGroup>
-                
+
                 <rich:panelMenuItem id="item3" name="item3" label="Item 3" />
                 <rich:panelMenuItem id="item4" name="item4" label="Item 4" disabled="true" />
                 <rich:panelMenuItem id="item5" name="item5" label="Item 5" />

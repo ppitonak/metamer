@@ -27,10 +27,10 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
     -->
 
     <ui:composition template="/templates/template.xhtml">
-    	<ui:param name="componentId" value="richDataTable" />
-		
-		<ui:define name="view">
-			<f:metadata>
+        <ui:param name="componentId" value="richDataTable" />
+
+        <ui:define name="view">
+            <f:metadata>
                 <f:viewParam name="templates" value="#{templateBean.templates}">
                     <f:converter converterId="templatesListConverter" />
                 </f:viewParam>
@@ -110,17 +110,17 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 
                     <f:facet name="noData">
                         <h:outputText id="noData" value="#{richSubTableBean.facets['noData']}" style="color: red;"
-                    				rendered="#{not empty richSubTableBean.facets['noData']}"/>
+                                      rendered="#{not empty richSubTableBean.facets['noData']}"/>
                     </f:facet>
 
                     <f:facet name="header">
                         <h:outputText 	id="header" value="#{richSubTableBean.facets['header']}"
-                    				rendered="#{not empty richSubTableBean.facets['header']}" />
+                                       rendered="#{not empty richSubTableBean.facets['header']}" />
                     </f:facet>
 
                     <f:facet name="footer">
                         <h:outputText 	id="footer" value="#{richSubTableBean.facets['footer']}"
-                    				rendered="#{not empty richSubTableBean.facets['footer']}" />
+                                       rendered="#{not empty richSubTableBean.facets['footer']}" />
                     </f:facet>
 
                     <rich:column id="columnName">
@@ -141,19 +141,19 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
         </ui:define>
 
         <ui:define name="outOfTemplateAfter">
-        	<a4j:ajax render="#{nestedComponentId}">
-	        	<h:panelGrid columns="2">
-		        	<h:outputLabel value="No Data Facet: " />
-	        		<h:inputText id="noDataInput" value="#{richSubTableBean.facets['noData']}" />
-	        		
-	        		<h:outputLabel value="Header Facet:" />
-	        		<h:inputText id="headerInput" value="#{richSubTableBean.facets['header']}" />
-	        		
-	        		<h:outputLabel value="Footer Facet:" />
-	        		<h:inputText id="footerInput" value="#{richSubTableBean.facets['footer']}" />
-	        	</h:panelGrid>
-        	</a4j:ajax>
-        	
+            <a4j:ajax render="#{nestedComponentId}">
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="No Data Facet: " />
+                    <h:inputText id="noDataInput" value="#{richSubTableBean.facets['noData']}" />
+
+                    <h:outputLabel value="Header Facet:" />
+                    <h:inputText id="headerInput" value="#{richSubTableBean.facets['header']}" />
+
+                    <h:outputLabel value="Footer Facet:" />
+                    <h:inputText id="footerInput" value="#{richSubTableBean.facets['footer']}" />
+                </h:panelGrid>
+            </a4j:ajax>
+
             <metamer:attributes value="#{richSubTableBean.attributes}" id="attributes" />
         </ui:define>
 

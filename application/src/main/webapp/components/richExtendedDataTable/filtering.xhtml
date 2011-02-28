@@ -28,10 +28,10 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
     -->
 
     <ui:composition template="/templates/template.xhtml">
-    	<ui:param name="componentId" value="richEDT" />
-		
-		<ui:define name="view">
-			<f:metadata>
+        <ui:param name="componentId" value="richEDT" />
+
+        <ui:define name="view">
+            <f:metadata>
                 <f:viewParam name="templates" value="#{templateBean.templates}">
                     <f:converter converterId="templatesListConverter" />
                 </f:viewParam>
@@ -93,7 +93,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
             <rich:extendedDataTable id="richEDT"
                                     value="#{richExtendedDataTableBean.state ? model.employees : null}"
                                     var="record"
-                                    
+
                                     columnClasses="#{richExtendedDataTableBean.attributes['columnClasses'].value}"
                                     columns="#{richExtendedDataTableBean.attributes['columns'].value}"
                                     first="#{richExtendedDataTableBean.attributes['first'].value}"
@@ -185,7 +185,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                         <h:outputText id="columnHeaderNumberOfKidsType" value="(expression &gt;=)" />
                         <br/>
                         <rich:inputNumberSpinner id="spinnerFilter" minValue="0" maxValue="6" cycled="false" value="#{richExtendedDataTableBean.filtering['numberOfKids1']}">
-                        	<a4j:ajax event="change" render="commonGrid" />
+                            <a4j:ajax event="change" render="commonGrid" />
                         </rich:inputNumberSpinner>
                     </f:facet>
 
@@ -202,7 +202,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                         <h:outputText id="columnHeaderNumberOfKids2Type" value="(expression &lt;)" />
                         <br/>
                         <rich:inputNumberSlider id="sliderFilter" minValue="0" maxValue="6" value="#{richExtendedDataTableBean.filtering['numberOfKids2']}">
-                        	<!-- <a4j:ajax render="commonGrid" /> -->
+                            <!-- <a4j:ajax render="commonGrid" /> -->
                         </rich:inputNumberSlider>
                         <br />
                         (a4j:ajax disabled - RF-9900)

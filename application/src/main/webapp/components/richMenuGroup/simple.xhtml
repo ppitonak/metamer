@@ -27,9 +27,9 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
     -->
 
     <ui:composition template="/templates/template.xhtml">
-		
-		<ui:define name="view">
-			<f:metadata>
+
+        <ui:define name="view">
+            <f:metadata>
                 <f:viewParam name="templates" value="#{templateBean.templates}">
                     <f:converter converterId="templatesListConverter" />
                 </f:viewParam>
@@ -54,7 +54,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 
         <ui:define name="component">
             <rich:toolbar id="toolbar" height="26px" width="500px;">
-                <rich:dropDownMenu id="menu1" menu="ajax">
+                <rich:dropDownMenu id="menu1" mode="ajax">
                     <f:facet name="label">
                         <h:panelGroup>
                             <h:graphicImage library="images/icons" name="copy.gif" styleClass="pic" />
