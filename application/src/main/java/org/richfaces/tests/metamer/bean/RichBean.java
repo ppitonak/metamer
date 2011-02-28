@@ -119,6 +119,7 @@ public class RichBean implements Serializable {
         components.put("pAjaxStatus", "Prime Ajax Status");
         components.put("pAutoComplete", "Prime AutoComplete");
         components.put("pBreadCrumb", "Prime BreadCrumb");
+        components.put("pCalendar", "Prime Calendar");
         components.put("pEditor", "Prime Editor");
         components.put("richAccordion", "Rich Accordion");
         components.put("richAccordionItem", "Rich Accordion Item");
