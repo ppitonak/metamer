@@ -27,10 +27,10 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
     -->
 
     <ui:composition template="/templates/template.xhtml">
-    	<ui:param name="componentId" value="richEDT" />
-		
-		<ui:define name="view">
-			<f:metadata>
+        <ui:param name="componentId" value="richEDT" />
+
+        <ui:define name="view">
+            <f:metadata>
                 <f:viewParam name="templates" value="#{templateBean.templates}">
                     <f:converter converterId="templatesListConverter" />
                 </f:viewParam>
@@ -89,12 +89,12 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
         </ui:define>
 
         <ui:define name="component">
-				
+
             <rich:extendedDataTable id="richEDT"
-            						binding="#{richExtendedDataTableBean.binding}"
+                                    binding="#{richExtendedDataTableBean.binding}"
                                     value="#{richExtendedDataTableBean.state ? model.employees : null}"
                                     var="record"
-                                    
+
                                     columnClasses="#{richExtendedDataTableBean.attributes['columnClasses'].value}"
                                     columns="#{richExtendedDataTableBean.attributes['columns'].value}"
                                     first="#{richExtendedDataTableBean.attributes['first'].value}"
@@ -120,7 +120,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                 <f:facet name="noData">
                     <h:outputText value="There is no data." style="color: red;"/>
                 </f:facet>
-                
+
                 <rich:column id="columnSex" sortBy="#{record.sex}" sortOrder="#{richExtendedDataTableBean.sorting['columnSex'].order}">
                     <f:facet name="header">
                         <a4j:commandLink id="sortBySex" value="Sex" render="richEDT" action="#{richExtendedDataTableBean.sorting['columnSex'].reverseOrder}" />
@@ -131,21 +131,21 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 
                 <rich:column id="columnName" sortBy="#{record.name}" sortOrder="#{richExtendedDataTableBean.sorting['columnName'].order}">
                     <f:facet name="header">
-			            <a4j:commandLink id="sortByName" value="Name" render="richEDT" action="#{richExtendedDataTableBean.sorting['columnName'].reverseOrder}" />
+                        <a4j:commandLink id="sortByName" value="Name" render="richEDT" action="#{richExtendedDataTableBean.sorting['columnName'].reverseOrder}" />
                     </f:facet>
                     <h:outputText value="#{record.name}" />
                 </rich:column>
 
                 <rich:column id="columnTitle" sortBy="#{record.title}" sortOrder="#{richExtendedDataTableBean.sorting['columnTitle'].order}">
                     <f:facet name="header">
-			            <a4j:commandLink id="sortByTitle" value="Title" render="richEDT" action="#{richExtendedDataTableBean.sorting['columnTitle'].reverseOrder}" />
+                        <a4j:commandLink id="sortByTitle" value="Title" render="richEDT" action="#{richExtendedDataTableBean.sorting['columnTitle'].reverseOrder}" />
                     </f:facet>
                     <h:outputText value="#{record.title}" />
                 </rich:column>
 
                 <rich:column id="columnNumberOfKids" sortBy="#{record.numberOfKids}" sortOrder="#{richExtendedDataTableBean.sorting['columnNumberOfKids'].order}">
                     <f:facet name="header">
-			            <a4j:commandLink id="sortByNumberOfKids" value="# of Kids" render="richEDT" action="#{richExtendedDataTableBean.sorting['columnNumberOfKids'].reverseOrder}" />
+                        <a4j:commandLink id="sortByNumberOfKids" value="# of Kids" render="richEDT" action="#{richExtendedDataTableBean.sorting['columnNumberOfKids'].reverseOrder}" />
                     </f:facet>
                     <h:outputText value="#{record.numberOfKids}" />
                 </rich:column>
@@ -158,7 +158,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
         </ui:define>
 
         <ui:define name="outOfTemplateAfter">
-            
+
             <a4j:commandButton id="sortReset" value="Reset Sorting" action="#{richExtendedDataTableBean.sorting.clear}" render="richEDT scroller1" />
 
             <br/><br/>

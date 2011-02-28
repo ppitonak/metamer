@@ -47,7 +47,7 @@ public class TestRichCalendarModel extends AbstractCalendarTest {
         return buildUrl(contextPath, "faces/components/richCalendar/dataModel.xhtml");
     }
 
-    @Test
+    @Test(groups = "4.0.0.Final")
     @IssueTracking("https://issues.jboss.org/browse/RFPL-1222")
     public void testClasses() {
         selenium.click(input);
@@ -74,7 +74,7 @@ public class TestRichCalendarModel extends AbstractCalendarTest {
         }
     }
 
-    @Test
+    @Test(groups = "4.0.0.Final")
     @Override
     @IssueTracking("https://issues.jboss.org/browse/RFPL-1222")
     public void testApplyButton() {

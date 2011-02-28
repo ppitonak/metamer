@@ -27,16 +27,16 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
     -->
 
     <ui:composition template="/templates/template.xhtml">
-		<ui:param name="componentId" value="richDataTable" />
-		
-		<ui:define name="view">
-			<f:metadata>
+        <ui:param name="componentId" value="richDataTable" />
+
+        <ui:define name="view">
+            <f:metadata>
                 <f:viewParam name="templates" value="#{templateBean.templates}">
                     <f:converter converterId="templatesListConverter" />
                 </f:viewParam>
             </f:metadata>
         </ui:define>
-		
+
         <ui:define name="head">
             <h:outputStylesheet library="css" name="richDataTable.css"/>
         </ui:define>
@@ -51,11 +51,11 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
         </ui:define>
 
         <ui:define name="component">
-			
+
             <rich:dataTable id="richDataTable"
                             value="#{richDataTableBean.state ? model.capitals : null}"
                             var="record"
-                            
+
                             captionClass="#{richDataTableBean.attributes['captionClass'].value}"
                             columnClasses="#{richDataTableBean.attributes['columnClasses'].value}"
                             columns="#{richDataTableBean.attributes['columns'].value}"

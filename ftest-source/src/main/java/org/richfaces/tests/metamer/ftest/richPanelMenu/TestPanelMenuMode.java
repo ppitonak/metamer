@@ -83,7 +83,7 @@ public class TestPanelMenuMode extends AbstractPanelMenuTest {
 
         if (mode != PanelMenuMode.client) {
             phaseInfo.assertPhases(expectedPhases);
-            phaseInfo.assertListener(INVOKE_APPLICATION, "item changed");
+            phaseInfo.assertListener(UPDATE_MODEL_VALUES, "item changed");
         }
     }
 }

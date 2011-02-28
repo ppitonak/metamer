@@ -27,9 +27,9 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
     -->
 
     <ui:composition template="/templates/template.xhtml">
-		
-		<ui:define name="view">
-			<f:metadata>
+
+        <ui:define name="view">
+            <f:metadata>
                 <f:viewParam name="templates" value="#{templateBean.templates}">
                     <f:converter converterId="templatesListConverter" />
                 </f:viewParam>
@@ -41,49 +41,49 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
             <rich:panelMenu id="panelMenu" style="width: 250px; "
                             action="#{richBean.dummyAction}"
                             actionListener="#{richBean.dummyActionListener}"
-          			activeItem="#{richPanelMenuBean.attributes['activeItem'].value}"
+                            activeItem="#{richPanelMenuBean.attributes['activeItem'].value}"
                             itemChangeListener="#{richPanelMenuBean.itemChangeListener}">
 
                 <rich:panelMenuGroup id="group1" name="group1" label="Group 1" expanded="true">
                     <rich:panelMenuItem id="item11" name="item11" label="Item 1.1"/>
                     <rich:panelMenuItem id="item12" name="item12" label="Item 1.2 (influenced by attributes)"
-                    	action="#{richBean.dummyAction}"
-                    	actionListener="#{richBean.dummyActionListener}"
-                    	bypassUpdates="#{richPanelMenuItemBean.attributes['bypassUpdates'].value}"
-                    	data="#{richPanelMenuItemBean.attributes['data'].value}"
-                    	disabled="#{richPanelMenuItemBean.attributes['disabled'].value}"
-                    	disabledClass="#{richPanelMenuItemBean.attributes['disabledClass'].value}"
-                    	execute="#{richPanelMenuItemBean.attributes['execute'].value}"
-                    	hoverClass="#{richPanelMenuItemBean.attributes['hoverClass'].value}"
-                    	leftIcon="#{richPanelMenuItemBean.attributes['leftIcon'].value}"
-                    	leftIconClass="#{richPanelMenuItemBean.attributes['leftIconClass'].value}"
-                    	leftDisabledIcon="#{richPanelMenuItemBean.attributes['leftDisabledIcon'].value}"
-                    	rightIcon="#{richPanelMenuItemBean.attributes['rightIcon'].value}"
-                    	rightIconClass="#{richPanelMenuItemBean.attributes['rightIconClass'].value}"
-                    	rightDisabledIcon="#{richPanelMenuItemBean.attributes['rightDisabledIcon'].value}"
-                    	immediate="#{richPanelMenuItemBean.attributes['immediate'].value}"
-                    	limitRender="#{richPanelMenuItemBean.attributes['limitRender'].value}"
-                    	mode="#{richPanelMenuItemBean.attributes['mode'].value}"
-                    	onbeforedomupdate="#{richPanelMenuItemBean.attributes['onbeforedomupdate'].value}"
-                    	onbeforeselect="#{richPanelMenuItemBean.attributes['onbeforeselect'].value}"
-                    	onbegin="#{richPanelMenuItemBean.attributes['onbegin'].value}"
-                    	onclick="#{richPanelMenuItemBean.attributes['onclick'].value}"
-                    	oncomplete="#{richPanelMenuItemBean.attributes['oncomplete'].value}"
-                    	ondblclick="#{richPanelMenuItemBean.attributes['ondblclick'].value}"
-                    	onmousedown="#{richPanelMenuItemBean.attributes['onmousedown'].value}"
-                    	onmousemove="#{richPanelMenuItemBean.attributes['onmousemove'].value}"
-                    	onmouseout="#{richPanelMenuItemBean.attributes['onmouseout'].value}"
-                    	onmouseover="#{richPanelMenuItemBean.attributes['onmouseover'].value}"
-                    	onmouseup="#{richPanelMenuItemBean.attributes['onmouseup'].value}"
-                    	onselect="#{richPanelMenuItemBean.attributes['onselect'].value}"
-                    	onunselect="#{richPanelMenuItemBean.attributes['onunselect'].value}"
-                    	render="#{richPanelMenuItemBean.attributes['render'].value}"
-                    	rendered="#{richPanelMenuItemBean.attributes['rendered'].value}"
-                    	selectable="#{richPanelMenuItemBean.attributes['selectable'].value}"
-                    	status="#{richPanelMenuItemBean.attributes['status'].value}"
-                    	style="#{richPanelMenuItemBean.attributes['style'].value}"
-                    	styleClass="#{richPanelMenuItemBean.attributes['styleClass'].value}"
-                    />
+                                        action="#{richBean.dummyAction}"
+                                        actionListener="#{richBean.dummyActionListener}"
+                                        bypassUpdates="#{richPanelMenuItemBean.attributes['bypassUpdates'].value}"
+                                        data="#{richPanelMenuItemBean.attributes['data'].value}"
+                                        disabled="#{richPanelMenuItemBean.attributes['disabled'].value}"
+                                        disabledClass="#{richPanelMenuItemBean.attributes['disabledClass'].value}"
+                                        execute="#{richPanelMenuItemBean.attributes['execute'].value}"
+                                        hoverClass="#{richPanelMenuItemBean.attributes['hoverClass'].value}"
+                                        leftIcon="#{richPanelMenuItemBean.attributes['leftIcon'].value}"
+                                        leftIconClass="#{richPanelMenuItemBean.attributes['leftIconClass'].value}"
+                                        leftDisabledIcon="#{richPanelMenuItemBean.attributes['leftDisabledIcon'].value}"
+                                        rightIcon="#{richPanelMenuItemBean.attributes['rightIcon'].value}"
+                                        rightIconClass="#{richPanelMenuItemBean.attributes['rightIconClass'].value}"
+                                        rightDisabledIcon="#{richPanelMenuItemBean.attributes['rightDisabledIcon'].value}"
+                                        immediate="#{richPanelMenuItemBean.attributes['immediate'].value}"
+                                        limitRender="#{richPanelMenuItemBean.attributes['limitRender'].value}"
+                                        mode="#{richPanelMenuItemBean.attributes['mode'].value}"
+                                        onbeforedomupdate="#{richPanelMenuItemBean.attributes['onbeforedomupdate'].value}"
+                                        onbeforeselect="#{richPanelMenuItemBean.attributes['onbeforeselect'].value}"
+                                        onbegin="#{richPanelMenuItemBean.attributes['onbegin'].value}"
+                                        onclick="#{richPanelMenuItemBean.attributes['onclick'].value}"
+                                        oncomplete="#{richPanelMenuItemBean.attributes['oncomplete'].value}"
+                                        ondblclick="#{richPanelMenuItemBean.attributes['ondblclick'].value}"
+                                        onmousedown="#{richPanelMenuItemBean.attributes['onmousedown'].value}"
+                                        onmousemove="#{richPanelMenuItemBean.attributes['onmousemove'].value}"
+                                        onmouseout="#{richPanelMenuItemBean.attributes['onmouseout'].value}"
+                                        onmouseover="#{richPanelMenuItemBean.attributes['onmouseover'].value}"
+                                        onmouseup="#{richPanelMenuItemBean.attributes['onmouseup'].value}"
+                                        onselect="#{richPanelMenuItemBean.attributes['onselect'].value}"
+                                        onunselect="#{richPanelMenuItemBean.attributes['onunselect'].value}"
+                                        render="#{richPanelMenuItemBean.attributes['render'].value}"
+                                        rendered="#{richPanelMenuItemBean.attributes['rendered'].value}"
+                                        selectable="#{richPanelMenuItemBean.attributes['selectable'].value}"
+                                        status="#{richPanelMenuItemBean.attributes['status'].value}"
+                                        style="#{richPanelMenuItemBean.attributes['style'].value}"
+                                        styleClass="#{richPanelMenuItemBean.attributes['styleClass'].value}"
+                                        />
                     <rich:panelMenuItem id="item13" name="item13" label="Item 1.3"/>
                 </rich:panelMenuGroup>
             </rich:panelMenu>

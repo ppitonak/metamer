@@ -27,10 +27,10 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
     -->
 
     <ui:composition template="/templates/template.xhtml">
-    	<ui:param name="componentId" value="richDataTable" />
-		
-		<ui:define name="view">
-			<f:metadata>
+        <ui:param name="componentId" value="richDataTable" />
+
+        <ui:define name="view">
+            <f:metadata>
                 <f:viewParam name="templates" value="#{templateBean.templates}">
                     <f:converter converterId="templatesListConverter" />
                 </f:viewParam>
@@ -56,7 +56,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
             <rich:dataTable id="richDataTable"
                             value="#{richDataTableBean.state ? model.employees : null}"
                             var="record"
-                            
+
                             captionClass="#{richDataTableBean.attributes['captionClass'].value}"
                             columnClasses="#{richDataTableBean.attributes['columnClasses'].value}"
                             columns="#{richDataTableBean.attributes['columns'].value}"
@@ -81,10 +81,10 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                 <rich:column id="columnSex" sortBy="#{record.sex}">
                     <f:facet name="header">
                         <h:commandLink id="sortSexes" value="Sex">
-			                <rich:componentControl event="click" target="richDataTable" operation="sort">
-			                	<f:param value="columnSex" />
-			                </rich:componentControl>
-			            </h:commandLink>
+                            <rich:componentControl event="click" target="richDataTable" operation="sort">
+                                <f:param value="columnSex" />
+                            </rich:componentControl>
+                        </h:commandLink>
                     </f:facet>
                     <h:graphicImage library="images" name="#{record.sex == 'MALE' ? 'male.png' : 'female.png'}" alt="#{record.sex}" />
                 </rich:column>
@@ -93,10 +93,10 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                 <rich:column id="columnName" sortBy="#{record.name}">
                     <f:facet name="header">
                         <h:commandLink id="sortByName" value="Name">
-			                <rich:componentControl event="click" target="richDataTable" operation="sort">
-			                	<f:param value="columnName" />
-			                </rich:componentControl>
-			            </h:commandLink>
+                            <rich:componentControl event="click" target="richDataTable" operation="sort">
+                                <f:param value="columnName" />
+                            </rich:componentControl>
+                        </h:commandLink>
                     </f:facet>
                     <h:outputText value="#{record.name}" />
                 </rich:column>
@@ -104,10 +104,10 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                 <rich:column id="columnTitle" sortBy="#{record.title}">
                     <f:facet name="header">
                         <h:commandLink id="sortByTitle" value="Title">
-			                <rich:componentControl event="click" target="richDataTable" operation="sort">
-			                	<f:param value="columnTitle" />
-			                </rich:componentControl>
-			            </h:commandLink>
+                            <rich:componentControl event="click" target="richDataTable" operation="sort">
+                                <f:param value="columnTitle" />
+                            </rich:componentControl>
+                        </h:commandLink>
                     </f:facet>
                     <h:outputText value="#{record.title}" />
                 </rich:column>
@@ -115,10 +115,10 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                 <rich:column id="columnNumberOfKids" sortBy="#{record.numberOfKids}">
                     <f:facet name="header">
                         <h:commandLink id="sortByNumberOfKids" value="Number of Kids">
-			                <rich:componentControl event="click" target="richDataTable" operation="sort">
-			                	<f:param value="columnNumberOfKids" />
-			                </rich:componentControl>
-			            </h:commandLink>
+                            <rich:componentControl event="click" target="richDataTable" operation="sort">
+                                <f:param value="columnNumberOfKids" />
+                            </rich:componentControl>
+                        </h:commandLink>
                     </f:facet>
                     <h:outputText value="#{record.numberOfKids}" />
                 </rich:column>
@@ -128,17 +128,17 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                 </f:facet>
 
             </rich:dataTable>
-            
-            
+
+
         </ui:define>
 
         <ui:define name="outOfTemplateAfter">
-        	<h:commandButton id="sortReset" value="Reset Sorting">
+            <h:commandButton id="sortReset" value="Reset Sorting">
                 <rich:componentControl event="click" target="#{nestedComponentId}" operation="sort" />
             </h:commandButton>
-            
+
             <br /><br />
-            
+
             <metamer:attributes value="#{richDataTableBean.attributes}" id="attributes" />
         </ui:define>
 

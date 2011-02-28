@@ -2,8 +2,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
       xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:metamer="http://java.sun.com/jsf/composite/metamer"
-      xmlns:rich="http://richfaces.org/rich" xmlns:a4j="http://richfaces.org/a4j"
-      xmlns:fn="http://java.sun.com/jsp/jstl/functions">
+      xmlns:rich="http://richfaces.org/rich" xmlns:a4j="http://richfaces.org/a4j" xmlns:fn="http://java.sun.com/jsp/jstl/functions">
 
     <!--
 JBoss, Home of Professional Open Source
@@ -28,9 +27,9 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
     -->
 
     <ui:composition template="/templates/template.xhtml">
-		
-		<ui:define name="view">
-			<f:metadata>
+
+        <ui:define name="view">
+            <f:metadata>
                 <f:viewParam name="templates" value="#{templateBean.templates}">
                     <f:converter converterId="templatesListConverter" />
                 </f:viewParam>
@@ -56,21 +55,21 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                         </rich:column>
                         <rich:column id="columnHeaderName" breakRowBefore="true">
                             <h:outputText id="columnHeaderNameText" value="Name" />
-	                        <br/>
-	                        <h:outputText id="columnHeaderNameType" value="(expression contains ignore case)" />
-	                        <br/>
-	                        <h:inputText id="columnHeaderNameInput" value="#{richSubTableBean.filtering['name']}">
-	                            <a4j:ajax render="commonGrid" event="change"/>
-	                        </h:inputText> 	
+                            <br/>
+                            <h:outputText id="columnHeaderNameType" value="(expression contains ignore case)" />
+                            <br/>
+                            <h:inputText id="columnHeaderNameInput" value="#{richSubTableBean.filtering['name']}">
+                                <a4j:ajax render="commonGrid" event="change"/>
+                            </h:inputText>
                         </rich:column>
                         <rich:column id="columnHeaderTitle">
                             <h:outputText id="columnHeaderTitleText" value="Title" />
-	                        <br/>
-	                        <h:outputText id="columnHeaderTitleType" value="(expression equals)" />
-	                        <br/>
-	                        <h:inputText id="columnHeaderTitleInput" value="#{richSubTableBean.filtering['title']}">
-	                            <a4j:ajax render="commonGrid" event="change"/>
-	                        </h:inputText>
+                            <br/>
+                            <h:outputText id="columnHeaderTitleType" value="(expression equals)" />
+                            <br/>
+                            <h:inputText id="columnHeaderTitleInput" value="#{richSubTableBean.filtering['title']}">
+                                <a4j:ajax render="commonGrid" event="change"/>
+                            </h:inputText>
                         </rich:column>
                         <rich:column id="columnHeaderBirthdate">
                             <h:outputText id="columnHeaderBirthdateText" value="Birthdate" />

@@ -1,68 +1,75 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite name="seleniumTest">
 
-    <test name="All Components">
-        <packages>
-            <package name="org.richfaces.tests.metamer.ftest.a4jActionListener" />
-            <package name="org.richfaces.tests.metamer.ftest.a4jAjax" />
-            <package name="org.richfaces.tests.metamer.ftest.a4jAttachQueue" />
-            <package name="org.richfaces.tests.metamer.ftest.a4jCommandButton" />
-            <package name="org.richfaces.tests.metamer.ftest.a4jCommandLink" />
-            <package name="org.richfaces.tests.metamer.ftest.a4jJSFunction" />
-            <package name="org.richfaces.tests.metamer.ftest.a4jLog" />
-            <package name="org.richfaces.tests.metamer.ftest.a4jMediaOutput" />
-            <package name="org.richfaces.tests.metamer.ftest.a4jOutputPanel" />
-            <package name="org.richfaces.tests.metamer.ftest.a4jParam" />
-            <package name="org.richfaces.tests.metamer.ftest.a4jPoll" />
-            <package name="org.richfaces.tests.metamer.ftest.a4jQueue" />
-            <package name="org.richfaces.tests.metamer.ftest.a4jRegion" />
-            <package name="org.richfaces.tests.metamer.ftest.a4jRepeat" />
-            <package name="org.richfaces.tests.metamer.ftest.a4jStatus" />
-            <package name="org.richfaces.tests.metamer.ftest.richAutocomplete" />
-            <package name="org.richfaces.tests.metamer.ftest.richCalendar" />
-            <package name="org.richfaces.tests.metamer.ftest.richInplaceInput" />
-            <package name="org.richfaces.tests.metamer.ftest.richInplaceSelect" />
-            <package name="org.richfaces.tests.metamer.ftest.richInputNumberSlider" />
-            <package name="org.richfaces.tests.metamer.ftest.richInputNumberSpinner" />
-            <package name="org.richfaces.tests.metamer.ftest.richSelect" />
-            <package name="org.richfaces.tests.metamer.ftest.richCollapsibleSubTable" />
-            <package name="org.richfaces.tests.metamer.ftest.richCollapsibleSubTableToggler" />
-            <package name="org.richfaces.tests.metamer.ftest.richColumn" />
-            <package name="org.richfaces.tests.metamer.ftest.richColumnGroup" />
-            <package name="org.richfaces.tests.metamer.ftest.richDataGrid" />
-            <package name="org.richfaces.tests.metamer.ftest.richDataTable" />
-            <package name="org.richfaces.tests.metamer.ftest.richDataScroller" />
-            <package name="org.richfaces.tests.metamer.ftest.richExtendedDataTable" />
-            <package name="org.richfaces.tests.metamer.ftest.richTree" />
-            <package name="org.richfaces.tests.metamer.ftest.richTreeNode" />
-            <package name="org.richfaces.tests.metamer.ftest.richTreeModelAdaptor" />
-            <package name="org.richfaces.tests.metamer.ftest.hCommandButton" />
-            <package name="org.richfaces.tests.metamer.ftest.richComponentControl" />
-            <package name="org.richfaces.tests.metamer.ftest.richDropDownMenu" />
-            <package name="org.richfaces.tests.metamer.ftest.richFunctions" />
-            <package name="org.richfaces.tests.metamer.ftest.richJQuery" />
-            <package name="org.richfaces.tests.metamer.ftest.richMenuGroup" />
-            <package name="org.richfaces.tests.metamer.ftest.richMenuItem" />
-            <package name="org.richfaces.tests.metamer.ftest.richMenuSeparator" />
-            <package name="org.richfaces.tests.metamer.ftest.richToggleControl" />
-            <package name="org.richfaces.tests.metamer.ftest.richAccordion" />
-            <package name="org.richfaces.tests.metamer.ftest.richAccordionItem" />
-            <package name="org.richfaces.tests.metamer.ftest.richCollapsiblePanel" />
-            <package name="org.richfaces.tests.metamer.ftest.richPanel" />
-            <package name="org.richfaces.tests.metamer.ftest.richPopupPanel" />
-            <package name="org.richfaces.tests.metamer.ftest.richProgressBar" />
-            <package name="org.richfaces.tests.metamer.ftest.richTab" />
-            <package name="org.richfaces.tests.metamer.ftest.richTabPanel" />
-            <package name="org.richfaces.tests.metamer.ftest.richTogglePanel" />
-            <package name="org.richfaces.tests.metamer.ftest.richTogglePanelItem" />
-            <package name="org.richfaces.tests.metamer.ftest.richToolbar" />
-            <package name="org.richfaces.tests.metamer.ftest.richToolbarGroup" />
-            <package name="org.richfaces.tests.metamer.ftest.richTooltip" />
-            <package name="org.richfaces.tests.metamer.ftest.richPanelMenu" />
-            <package name="org.richfaces.tests.metamer.ftest.richPanelMenuGroup" />
-            <package name="org.richfaces.tests.metamer.ftest.richPanelMenuItem" />
-        </packages>
-    </test>
+	<test name="All Components">
+		<groups>
+			<run>
+				<exclude name="4.0.0.Final" />
+				<exclude name="4.Future" />
+			</run>
+		</groups>
+
+		<packages>
+			<package name="org.richfaces.tests.metamer.ftest.a4jActionListener" />
+			<package name="org.richfaces.tests.metamer.ftest.a4jAjax" />
+			<package name="org.richfaces.tests.metamer.ftest.a4jAttachQueue" />
+			<package name="org.richfaces.tests.metamer.ftest.a4jCommandButton" />
+			<package name="org.richfaces.tests.metamer.ftest.a4jCommandLink" />
+			<package name="org.richfaces.tests.metamer.ftest.a4jJSFunction" />
+			<package name="org.richfaces.tests.metamer.ftest.a4jLog" />
+			<package name="org.richfaces.tests.metamer.ftest.a4jMediaOutput" />
+			<package name="org.richfaces.tests.metamer.ftest.a4jOutputPanel" />
+			<package name="org.richfaces.tests.metamer.ftest.a4jParam" />
+			<package name="org.richfaces.tests.metamer.ftest.a4jPoll" />
+			<package name="org.richfaces.tests.metamer.ftest.a4jQueue" />
+			<package name="org.richfaces.tests.metamer.ftest.a4jRegion" />
+			<package name="org.richfaces.tests.metamer.ftest.a4jRepeat" />
+			<package name="org.richfaces.tests.metamer.ftest.a4jStatus" />
+			<package name="org.richfaces.tests.metamer.ftest.richAutocomplete" />
+			<package name="org.richfaces.tests.metamer.ftest.richCalendar" />
+			<package name="org.richfaces.tests.metamer.ftest.richInplaceInput" />
+			<package name="org.richfaces.tests.metamer.ftest.richInplaceSelect" />
+			<package name="org.richfaces.tests.metamer.ftest.richInputNumberSlider" />
+			<package name="org.richfaces.tests.metamer.ftest.richInputNumberSpinner" />
+			<package name="org.richfaces.tests.metamer.ftest.richSelect" />
+			<package name="org.richfaces.tests.metamer.ftest.richCollapsibleSubTable" />
+			<package name="org.richfaces.tests.metamer.ftest.richCollapsibleSubTableToggler" />
+			<package name="org.richfaces.tests.metamer.ftest.richColumn" />
+			<package name="org.richfaces.tests.metamer.ftest.richColumnGroup" />
+			<package name="org.richfaces.tests.metamer.ftest.richDataGrid" />
+			<package name="org.richfaces.tests.metamer.ftest.richDataTable" />
+			<package name="org.richfaces.tests.metamer.ftest.richDataScroller" />
+			<package name="org.richfaces.tests.metamer.ftest.richExtendedDataTable" />
+			<package name="org.richfaces.tests.metamer.ftest.richTree" />
+			<package name="org.richfaces.tests.metamer.ftest.richTreeNode" />
+			<package name="org.richfaces.tests.metamer.ftest.richTreeModelAdaptor" />
+			<package name="org.richfaces.tests.metamer.ftest.hCommandButton" />
+			<package name="org.richfaces.tests.metamer.ftest.richComponentControl" />
+			<package name="org.richfaces.tests.metamer.ftest.richDropDownMenu" />
+			<package name="org.richfaces.tests.metamer.ftest.richFunctions" />
+			<package name="org.richfaces.tests.metamer.ftest.richJQuery" />
+			<package name="org.richfaces.tests.metamer.ftest.richMenuGroup" />
+			<package name="org.richfaces.tests.metamer.ftest.richMenuItem" />
+			<package name="org.richfaces.tests.metamer.ftest.richMenuSeparator" />
+			<package name="org.richfaces.tests.metamer.ftest.richToggleControl" />
+			<package name="org.richfaces.tests.metamer.ftest.richAccordion" />
+			<package name="org.richfaces.tests.metamer.ftest.richAccordionItem" />
+			<package name="org.richfaces.tests.metamer.ftest.richCollapsiblePanel" />
+			<package name="org.richfaces.tests.metamer.ftest.richPanel" />
+			<package name="org.richfaces.tests.metamer.ftest.richPopupPanel" />
+			<package name="org.richfaces.tests.metamer.ftest.richProgressBar" />
+			<package name="org.richfaces.tests.metamer.ftest.richTab" />
+			<package name="org.richfaces.tests.metamer.ftest.richTabPanel" />
+			<package name="org.richfaces.tests.metamer.ftest.richTogglePanel" />
+			<package name="org.richfaces.tests.metamer.ftest.richTogglePanelItem" />
+			<package name="org.richfaces.tests.metamer.ftest.richToolbar" />
+			<package name="org.richfaces.tests.metamer.ftest.richToolbarGroup" />
+			<package name="org.richfaces.tests.metamer.ftest.richTooltip" />
+			<package name="org.richfaces.tests.metamer.ftest.richPanelMenu" />
+			<package name="org.richfaces.tests.metamer.ftest.richPanelMenuGroup" />
+			<package name="org.richfaces.tests.metamer.ftest.richPanelMenuItem" />
+		</packages>
+	</test>
 
 </suite>
 

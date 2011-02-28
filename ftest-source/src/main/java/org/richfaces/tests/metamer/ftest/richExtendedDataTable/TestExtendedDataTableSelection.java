@@ -119,7 +119,7 @@ public class TestExtendedDataTableSelection extends AbstractDataTableTest {
         assertEquals(selection.getCurrent(), selection(range));
     }
 
-    @Test
+    @Test(groups = "4.Future")
     @IssueTracking("https://issues.jboss.org/browse/RF-9977")
     public void testMultiSelectionUsingCtrlAndShiftCombinations() {
         IntRange range1 = new IntRange(2, 14);

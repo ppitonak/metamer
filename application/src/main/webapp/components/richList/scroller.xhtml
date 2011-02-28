@@ -6,7 +6,7 @@
 
     <!--
 JBoss, Home of Professional Open Source
-Copyright 2010, Red Hat, Inc. and individual contributors
+Copyright 2010-2011, Red Hat, Inc. and individual contributors
 by the @authors tag. See the copyright.txt in the distribution for a
 full listing of individual contributors.
 
@@ -27,10 +27,10 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
     -->
 
     <ui:composition template="/templates/template.xhtml">
-    	<ui:param name="componentId" value="richList" />
-		
-		<ui:define name="view">
-			<f:metadata>
+        <ui:param name="componentId" value="richList" />
+
+        <ui:define name="view">
+            <f:metadata>
                 <f:viewParam name="templates" value="#{templateBean.templates}">
                     <f:converter converterId="templatesListConverter" />
                 </f:viewParam>
@@ -42,7 +42,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
         </ui:define>
 
         <ui:define name="outOfTemplateBefore">
-        	<rich:dataScroller id="scroller1" for="richList" maxPages="7" render="#{nestedComponentId}" />
+            <rich:dataScroller id="scroller1" for="richList" maxPages="7" render="#{nestedComponentId}" />
         </ui:define>
 
         <ui:define name="component">

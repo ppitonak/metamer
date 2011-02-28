@@ -6,7 +6,7 @@
 
     <!--
 JBoss, Home of Professional Open Source
-Copyright 2010, Red Hat, Inc. and individual contributors
+Copyright 2010-2011, Red Hat, Inc. and individual contributors
 by the @authors tag. See the copyright.txt in the distribution for a
 full listing of individual contributors.
 
@@ -27,10 +27,10 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
     -->
 
     <ui:composition template="/templates/template.xhtml">
-    	<ui:param name="componentId" value="status" />
-		
-		<ui:define name="view">
-			<f:metadata>
+        <ui:param name="componentId" value="status" />
+
+        <ui:define name="view">
+            <f:metadata>
                 <f:viewParam name="templates" value="#{templateBean.templates}">
                     <f:converter converterId="templatesListConverter" />
                 </f:viewParam>
@@ -50,13 +50,13 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                     <h:outputText value="Facet Error: " />
                     <h:inputText id="facetErrorTextInput" value="#{a4jStatusBean.facetErrorValue}" />
                 </h:panelGrid>
-                
+
                 <a4j:commandButton id="applyFacets" value="ApplyFacets" render="#{nestedComponentId}" execute="facetsSettings" />
             </fieldset>
         </ui:define>
 
         <ui:define name="component">
-            
+
 
             <fieldset style="height: 3em">
                 <legend>status (inside form)</legend>
