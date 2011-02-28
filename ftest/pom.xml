@@ -80,8 +80,8 @@
     <properties>
         <context.path>/metamer/</context.path>
         <deployable.classifier>mojarra</deployable.classifier>
-        <deployable.version>4.0.0.20110227-CR1</deployable.version>
-        <ftest.source.version>4.0.0.20110227-CR1</ftest.source.version>
+        <deployable.version>4.0.0-SNAPSHOT</deployable.version>
+        <ftest.source.version>4.0.0-SNAPSHOT</ftest.source.version>
         <testng.suite.xml>src/test/resources/testng.xml</testng.suite.xml>
         <container.home>target/installs/${container.dir.deflatted}/${container.dir.unflatted}</container.home>
         <jsf.config>Mojarra-2.0</jsf.config>
