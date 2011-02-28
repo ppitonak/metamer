@@ -31,7 +31,7 @@
 
     <groupId>org.richfaces.tests</groupId>
     <artifactId>metamer-root</artifactId>
-    <version>4.0.0.20110227-CR1</version>
+    <version>4.0.0-SNAPSHOT</version>
     <packaging>pom</packaging>
     <name>Metamer: RichFaces Testing Application - Project Root</name>
 
@@ -50,9 +50,9 @@
     </licenses>
 
     <scm>
-        <connection>scm:svn:http://anonsvn.jboss.org/repos/richfaces/modules/tests/metamer/tags/metamer-4.0.0.20110227-CR1</connection>
-        <developerConnection>scm:svn:https://svn.jboss.org/repos/richfaces/modules/tests/metamer/tags/metamer-4.0.0.20110227-CR1</developerConnection>
-        <url>http://fisheye.jboss.org/browse/RichFaces/modules/tests/metamer/tags/metamer-4.0.0.20110227-CR1</url>
+        <connection>scm:svn:http://anonsvn.jboss.org/repos/richfaces/modules/tests/metamer/trunk</connection>
+        <developerConnection>scm:svn:https://svn.jboss.org/repos/richfaces/modules/tests/metamer/trunk</developerConnection>
+        <url>http://fisheye.jboss.org/browse/RichFaces/modules/tests/metamer/trunk</url>
     </scm>
 
     <distributionManagement>
