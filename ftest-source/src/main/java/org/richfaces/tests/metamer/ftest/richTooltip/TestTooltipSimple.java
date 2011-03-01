@@ -50,7 +50,7 @@ import org.richfaces.component.Positioning;
 import org.richfaces.tests.metamer.ftest.AbstractMetamerTest;
 import org.richfaces.tests.metamer.ftest.DelayTester;
 import org.richfaces.tests.metamer.ftest.annotations.Inject;
-import org.richfaces.tests.metamer.ftest.annotations.IssueTracking;
+import org.richfaces.tests.metamer.ftest.annotations.RegressionTest;
 import org.richfaces.tests.metamer.ftest.annotations.Use;
 import org.richfaces.tests.metamer.ftest.annotations.Uses;
 import org.testng.annotations.Test;
@@ -303,7 +303,7 @@ public class TestTooltipSimple extends AbstractMetamerTest {
 
     @Test
     @Use(field = "presetDelay", ints = { 0, 1000, 5000 })
-    @IssueTracking("https://issues.jboss.org/browse/RF-10522")
+    @RegressionTest("https://issues.jboss.org/browse/RF-10522")
     public void testShowDelay() {
 
         attributes.setMode(TooltipMode.client);
