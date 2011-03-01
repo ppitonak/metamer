@@ -82,7 +82,7 @@ public abstract class DelayTester {
     }
 
     protected long getMaximumDeviationMedian() {
-        return getMinMax(200, expectedDelay / 4, 500);
+        return getMinMax(300, expectedDelay / 4, 500);
     }
 
     private void validateOnePass() {

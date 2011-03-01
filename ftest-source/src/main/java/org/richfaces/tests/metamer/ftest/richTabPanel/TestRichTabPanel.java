@@ -24,7 +24,6 @@ package org.richfaces.tests.metamer.ftest.richTabPanel;
 import static org.jboss.test.selenium.guard.request.RequestTypeGuardFactory.guardHttp;
 import static org.jboss.test.selenium.guard.request.RequestTypeGuardFactory.guardNoRequest;
 import static org.jboss.test.selenium.guard.request.RequestTypeGuardFactory.guardXhr;
-import static org.jboss.test.selenium.locator.LocatorFactory.jq;
 import static org.jboss.test.selenium.utils.URLUtils.buildUrl;
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertFalse;
@@ -181,13 +180,11 @@ public class TestRichTabPanel extends AbstractMetamerTest {
     }
 
     @Test
-    @IssueTracking("https://issues.jboss.org/browse/RF-10523")
+    @RegressionTest("https://issues.jboss.org/browse/RF-10523")
     public void testItemChangeListener() {
         selenium.click(inactiveHeaders[2]);
         waitGui.failWith("Item 3 is not displayed.").until(isDisplayed.locator(itemContents[2]));
-
-        String listenerOutput = selenium.getText(jq("div#phasesPanel li:eq(5)"));
-        assertEquals(listenerOutput, "* item changed: tab1 -> tab3", "Item change listener's output");
+        phaseInfo.assertListener(PhaseId.UPDATE_MODEL_VALUES, "item changed: tab1 -> tab3");
     }
 
     @Test

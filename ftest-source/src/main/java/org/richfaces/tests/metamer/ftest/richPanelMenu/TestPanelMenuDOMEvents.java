@@ -38,7 +38,6 @@ import org.jboss.test.selenium.waiting.selenium.SeleniumCondition;
 import org.jboss.test.selenium.waiting.selenium.SeleniumWaiting;
 import org.richfaces.PanelMenuMode;
 import org.richfaces.tests.metamer.ftest.annotations.Inject;
-import org.richfaces.tests.metamer.ftest.annotations.IssueTracking;
 import org.richfaces.tests.metamer.ftest.annotations.Use;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -61,13 +60,13 @@ public class TestPanelMenuDOMEvents extends AbstractPanelMenuTest {
 
     SeleniumCondition isGroup2Expanded = new SeleniumCondition() {
         public boolean isTrue() {
-            return group2.isExpanded();
+            return selenium.isElementPresent(group2) && group2.isExpanded();
         }
     };
 
     SeleniumCondition isGroup2Collapsed = new SeleniumCondition() {
         public boolean isTrue() {
-            return group2.isCollapsed();
+            return selenium.isElementPresent(group2) && group2.isCollapsed();
         }
     };
 
@@ -96,7 +95,6 @@ public class TestPanelMenuDOMEvents extends AbstractPanelMenuTest {
     }
 
     @Test
-    @IssueTracking("https://issues.jboss.org/browse/RF-10481")
     @Use(field = "mode", enumeration = true)
     public void testCollapseEvent() {
         attributes.setCollapseEvent(event.getEventName());
