@@ -27,7 +27,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
     -->
 
     <ui:composition template="/templates/template.xhtml">
-    	<ui:param name="componentId" value="richDataGrid" />
+        <ui:param name="componentId" value="richDataGrid" />
 
         <ui:define name="view">
             <f:metadata>
@@ -60,6 +60,9 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                            keepSaved="#{richDataGridBean.attributes['keepSaved'].value}"
                            rendered="#{richDataGridBean.attributes['rendered'].value}"
                            rowKeyConverter="#{richDataGridBean.attributes['rowKeyConverter'].value}"
+                           style="#{richDataGridBean.attributes['style'].value}"
+                           styleClass="#{richDataGridBean.attributes['styleClass'].value}"
+                           title="#{richDataGridBean.attributes['title'].value}"
                            value="#{richDataGridBean.state ? model.capitals : null}"
                            var="record">
 
