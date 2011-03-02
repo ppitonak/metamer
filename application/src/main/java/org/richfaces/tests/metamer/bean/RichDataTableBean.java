@@ -53,21 +53,16 @@ public class RichDataTableBean implements Serializable {
     private static final long serialVersionUID = -1L;
     private static Logger logger;
     private Attributes attributes;
-    
     private transient UIDataTable binding;
     private DataComponentState dataTableState;
     private Map<Object, Integer> stateMap = new HashMap<Object, Integer>();
-    
     private int page = 1;
     // true = model, false = empty table
     private boolean state = true;
-
     // sorting
     private ColumnSortingMap sorting = new CustomColumnSortingMap();
-
     // filtering
     private Map<String, Object> filtering = new HashMap<String, Object>();
-
     // facets
     private Map<String, String> facets = new HashMap<String, String>();
 
@@ -88,26 +83,27 @@ public class RichDataTableBean implements Serializable {
         facets.put("noData", "There is no data.");
         facets.put("caption", "Caption");
         facets.put("header", "Header");
+        facets.put("footer", "Footer");
         facets.put("columnStateHeader", "State Header");
         facets.put("columnStateFooter", "State Footer");
         facets.put("columnCapitalHeader", "Capital Header");
         facets.put("columnCapitalFooter", "Capital Footer");
-        
+
         // attributes already in page
         attributes.remove("value");
         attributes.remove("var");
-        
+
         // TODO needs to be tested another way
         attributes.remove("filterVar");
         attributes.remove("iterationStatusVar");
         attributes.remove("rowKeyVar");
         attributes.remove("stateVar");
     }
-    
+
     public void setBinding(UIDataTable binding) {
         this.binding = binding;
     }
-    
+
     public UIDataTable getBinding() {
         return binding;
     }
@@ -174,15 +170,16 @@ public class RichDataTableBean implements Serializable {
             public boolean accept(Employee e) {
                 String sex = (String) getFiltering().get("sex");
                 if (sex == null || sex.length() == 0 || sex.equalsIgnoreCase("all")
-                    || sex.equalsIgnoreCase(e.getSex().toString())) {
+                        || sex.equalsIgnoreCase(e.getSex().toString())) {
                     return true;
                 }
                 return false;
             }
         };
     }
-    
+
     private class CustomColumnSortingMap extends ColumnSortingMap {
+
         private static final long serialVersionUID = 1L;
 
         protected UIDataTableBase getBinding() {

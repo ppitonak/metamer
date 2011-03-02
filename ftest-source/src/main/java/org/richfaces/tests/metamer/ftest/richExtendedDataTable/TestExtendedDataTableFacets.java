@@ -59,12 +59,6 @@ public class TestExtendedDataTableFacets extends DataTableFacetsTest {
         super.testNoDataEmpty();
     }
 
-    @Test(groups = "4.0.0.Final")
-    @IssueTracking({ "https://issues.jboss.org/browse/RFPL-1193", "https://issues.jboss.org/browse/RF-10627" })
-    public void testNoDataLabelWithEmptyNoDataFacet() {
-        super.testNoDataLabelWithEmptyNoDataFacet();
-    }
-
     @Test
     public void testHeaderInstantChange() {
         super.testHeaderInstantChange();
