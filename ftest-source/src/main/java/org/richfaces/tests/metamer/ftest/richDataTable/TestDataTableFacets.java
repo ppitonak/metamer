@@ -57,11 +57,6 @@ public class TestDataTableFacets extends DataTableFacetsTest {
     }
 
     @Test
-    public void testNoDataLabelWithEmptyNoDataFacet() {
-        super.testNoDataLabelWithEmptyNoDataFacet();
-    }
-
-    @Test
     public void testHeaderInstantChange() {
         super.testHeaderInstantChange();
     }
