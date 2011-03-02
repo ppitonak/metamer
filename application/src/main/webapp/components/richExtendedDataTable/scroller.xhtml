@@ -60,11 +60,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
         <ui:define name="component">
 
             <rich:extendedDataTable id="richEDT"
-                                    value="#{richExtendedDataTableBean.state ? model.capitals : null}"
-                                    var="record"
-
                                     columnClasses="#{richExtendedDataTableBean.attributes['columnClasses'].value}"
-                                    columns="#{richExtendedDataTableBean.attributes['columns'].value}"
                                     first="#{richExtendedDataTableBean.attributes['first'].value}"
                                     footerClass="#{richExtendedDataTableBean.attributes['footerClass'].value}"
                                     frozenColumns="#{richExtendedDataTableBean.attributes['frozenColumns'].value}"
@@ -72,6 +68,16 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                                     keepSaved="#{richExtendedDataTableBean.attributes['keepSaved'].value}"
                                     noDataLabel="#{richExtendedDataTableBean.attributes['noDataLabel'].value}"
                                     onbeforeselectionchange="#{richExtendedDataTableBean.attributes['onbeforeselectionchange'].value}"
+                                    onrowclick="#{richExtendedDataTableBean.attributes['onrowclick'].value}"
+                                    onrowdblclick="#{richExtendedDataTableBean.attributes['onrowdblclick'].value}"
+                                    onrowkeydown="#{richExtendedDataTableBean.attributes['onrowkeydown'].value}"
+                                    onrowkeypress="#{richExtendedDataTableBean.attributes['onrowkeypress'].value}"
+                                    onrowkeyup="#{richExtendedDataTableBean.attributes['onrowkeyup'].value}"
+                                    onrowmousedown="#{richExtendedDataTableBean.attributes['onrowmousedown'].value}"
+                                    onrowmousemove="#{richExtendedDataTableBean.attributes['onrowmousemove'].value}"
+                                    onrowmouseout="#{richExtendedDataTableBean.attributes['onrowmouseout'].value}"
+                                    onrowmouseover="#{richExtendedDataTableBean.attributes['onrowmouseover'].value}"
+                                    onrowmouseup="#{richExtendedDataTableBean.attributes['onrowmouseup'].value}"
                                     onselectionchange="#{richExtendedDataTableBean.attributes['onselectionchange'].value}"
                                     rendered="#{richExtendedDataTableBean.attributes['rendered'].value}"
                                     rowClass="#{richExtendedDataTableBean.attributes['rowClass'].value}"
@@ -83,6 +89,8 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                                     sortPriority="#{richExtendedDataTableBean.attributes['sortPriority'].value}"
                                     style="#{richExtendedDataTableBean.attributes['style'].value}"
                                     styleClass="#{richExtendedDataTableBean.attributes['styleClass'].value}"
+                                    value="#{richExtendedDataTableBean.state ? model.capitals : null}"
+                                    var="record"
                                     >
 
                 <f:facet name="noData">
