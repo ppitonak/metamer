@@ -86,7 +86,8 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                                     sortMode="#{richExtendedDataTableBean.attributes['sortMode'].value}"
                                     sortPriority="#{richExtendedDataTableBean.attributes['sortPriority'].value}"
                                     style="#{richExtendedDataTableBean.attributes['style'].value}"
-                                    styleClass="#{richExtendedDataTableBean.attributes['styleClass'].value}"value="#{richExtendedDataTableBean.state ? model.capitals : null}"
+                                    styleClass="#{richExtendedDataTableBean.attributes['styleClass'].value}"
+                                    value="#{richExtendedDataTableBean.state ? model.capitals : null}"
                                     var="record"
                                     >
 
@@ -124,6 +125,11 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                     </f:facet>
                 </rich:column>
 
+                <f:facet name="footer">
+                    <h:outputText id="footer" value="#{richExtendedDataTableBean.facets['footer']}"
+                                  rendered="#{not empty richExtendedDataTableBean.facets['footer']}"/>
+                </f:facet>
+
             </rich:extendedDataTable>
         </ui:define>
 
@@ -135,6 +141,9 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 
                     <h:outputLabel value="Header Facet:" />
                     <h:inputText id="headerInput" value="#{richExtendedDataTableBean.facets['header']}" />
+
+                    <h:outputLabel value="Footer Facet:" />
+                    <h:inputText id="footerInput" value="#{richExtendedDataTableBean.facets['footer']}" />
 
                     <h:outputLabel value="State Column Header:" />
                     <h:inputText id="stateHeaderInput" value="#{richExtendedDataTableBean.facets['columnStateHeader']}" />

@@ -123,6 +123,11 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                     </f:facet>
                 </rich:column>
 
+                <f:facet name="footer">
+                    <h:outputText id="footer" value="#{richDataTableBean.facets['footer']}"
+                                  rendered="#{not empty richDataTableBean.facets['footer']}" />
+                </f:facet>
+
             </rich:dataTable>
         </ui:define>
 
@@ -138,6 +143,9 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 
                     <h:outputLabel value="Header Facet:" />
                     <h:inputText id="headerInput" value="#{richDataTableBean.facets['header']}" />
+
+                    <h:outputLabel value="Footer Facet:" />
+                    <h:inputText id="footerInput" value="#{richDataTableBean.facets['footer']}" />
 
                     <h:outputLabel value="State Column Header:" />
                     <h:inputText id="stateHeaderInput" value="#{richDataTableBean.facets['columnStateHeader']}" />
