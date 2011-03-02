@@ -49,7 +49,7 @@ import org.slf4j.LoggerFactory;
 @ManagedBean(name = "richExtendedDataTableBean")
 @ViewScoped
 public class RichExtendedDataTableBean implements Serializable {
-    
+
     private static final long serialVersionUID = 1L;
     private static Logger logger;
     private Attributes attributes;
@@ -99,7 +99,7 @@ public class RichExtendedDataTableBean implements Serializable {
         // attributes which are already in page
         attributes.remove("value");
         attributes.remove("var");
-        
+
         // TODO attributes which needs to be tested another way
         attributes.remove("filterVar");
         attributes.remove("iterationStatusVar");
@@ -109,6 +109,7 @@ public class RichExtendedDataTableBean implements Serializable {
         // facets initial values
         facets.put("noData", "There is no data.");
         facets.put("header", "Header");
+        facets.put("footer", "Footer");
         facets.put("columnStateHeader", "State Header");
         facets.put("columnStateFooter", "State Footer");
         facets.put("columnCapitalHeader", "Capital Header");

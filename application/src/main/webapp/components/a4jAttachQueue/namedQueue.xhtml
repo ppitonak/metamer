@@ -56,8 +56,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                        onsubmit="#{a4jQueueBean.attributes['onsubmit'].value}"
                        rendered="#{a4jQueueBean.attributes['rendered'].value}"
                        requestDelay="#{a4jQueueBean.attributes['requestDelay'].value}"
-                       status="#{a4jQueueBean.attributes['status'].value}"
-                       timeout="#{a4jQueueBean.attributes['timeout'].value}" />
+                       />
 
             <h:inputText id="input1" value="#{a4jAttachQueueBean.text1}" onkeypress="add(#{rich:element('events1')}); #{rich:element('timeWatcher:grid')}.event(1); ">
                 <a4j:ajax event="keypress" render="output1" execute="@form" onbegin="add(#{rich:element('requests')}); #{rich:element('timeWatcher:grid')}.begin(); "
@@ -68,10 +67,9 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                                      name="namedQueue"
                                      onrequestdequeue="#{a4jAttachQueueBean.attributes['onrequestdequeue'].value}"
                                      onrequestqueue="#{a4jAttachQueueBean.attributes['onrequestqueue'].value}"
-                                     queueId="#{a4jAttachQueueBean.attributes['queueId'].value}"
                                      rendered="#{a4jAttachQueueBean.attributes['rendered'].value}"
                                      requestGroupingId="#{a4jAttachQueueBean.attributes['requestGroupingId'].value}"
-                                     timeout="#{a4jAttachQueueBean.attributes['timeout'].value}"/>
+                                     />
                 </a4j:ajax>
             </h:inputText>
 
@@ -83,10 +81,9 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                                  name="namedQueue"
                                  onrequestdequeue="#{a4jAttachQueueBean.attributes['onrequestdequeue'].value}"
                                  onrequestqueue="#{a4jAttachQueueBean.attributes['onrequestqueue'].value}"
-                                 queueId="#{a4jAttachQueueBean.attributes['queueId'].value}"
                                  rendered="#{a4jAttachQueueBean.attributes['rendered'].value}"
                                  requestGroupingId="#{a4jAttachQueueBean.attributes['requestGroupingId'].value}"
-                                 timeout="#{a4jAttachQueueBean.attributes['timeout'].value}"/>
+                                 />
 
                 <h:inputText id="input2" value="#{a4jAttachQueueBean.text1}" onkeypress="add(#{rich:element('events2')}); #{rich:element('timeWatcher:grid')}.event(2); " />
             </a4j:ajax>

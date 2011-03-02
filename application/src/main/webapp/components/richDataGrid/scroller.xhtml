@@ -27,6 +27,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
     -->
 
     <ui:composition template="/templates/template.xhtml">
+        <ui:param name="componentId" value="richDataGrid" />
 
         <ui:define name="view">
             <f:metadata>
@@ -44,10 +45,10 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
             <br/>
             <h:outputText value="Show data in table: " />
             <h:selectBooleanCheckbox id="noDataCheckbox" value="#{richDataGridBean.state}">
-                <a4j:ajax render="richDataGrid scroller1"/>
+                <a4j:ajax render="#{nestedComponentId} scroller1"/>
             </h:selectBooleanCheckbox>
             <br/><br/>
-            <rich:dataScroller id="scroller1" for="richDataGrid" page="#{richDataGridBean.page}" maxPages="7" render="richDataGrid"/>
+            <rich:dataScroller id="scroller1" for="richDataGrid" page="#{richDataGridBean.page}" maxPages="7" render="#{nestedComponentId}"/>
         </ui:define>
 
         <ui:define name="component">
@@ -58,12 +59,10 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                            iterationStatusVar="#{richDataGridBean.attributes['iterationStatusVar'].value}"
                            keepSaved="#{richDataGridBean.attributes['keepSaved'].value}"
                            rendered="#{richDataGridBean.attributes['rendered'].value}"
-                           rowAvailable="#{richDataGridBean.attributes['rowAvailable'].value}"
-                           rowCount="#{richDataGridBean.attributes['rowCount'].value}"
-                           rowData="#{richDataGridBean.attributes['rowData'].value}"
-                           rowIndex="#{richDataGridBean.attributes['rowIndex'].value}"
-                           rowKey="#{richDataGridBean.attributes['rowKey'].value}"
                            rowKeyConverter="#{richDataGridBean.attributes['rowKeyConverter'].value}"
+                           style="#{richDataGridBean.attributes['style'].value}"
+                           styleClass="#{richDataGridBean.attributes['styleClass'].value}"
+                           title="#{richDataGridBean.attributes['title'].value}"
                            value="#{richDataGridBean.state ? model.capitals : null}"
                            var="record">
 
@@ -84,7 +83,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                 <h:outputText value="#{record.name}" />
 
                 <f:facet name="footer">
-                    <rich:dataScroller id="scroller2" for="richDataGrid" page="#{richDataGridBean.page}" maxPages="7" render="richDataGrid" />
+                    <rich:dataScroller id="scroller2" for="richDataGrid" page="#{richDataGridBean.page}" maxPages="7" render="richDataGrid scroller1" />
                 </f:facet>
             </rich:dataGrid>
 

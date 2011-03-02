@@ -44,13 +44,6 @@ public abstract class DataTableFacetsTest extends AbstractDataTableTest {
         assertEquals(selenium.getText(model.getNoData()), EMPTY_STRING);
     }
 
-    public void testNoDataLabelWithEmptyNoDataFacet() {
-        attributes.setShowData(false);
-        facets.setNoData(EMPTY_STRING);
-        attributes.setNoDataLabel(SAMPLE_STRING);
-        assertEquals(selenium.getText(model.getNoData()), SAMPLE_STRING);
-    }
-
     public void testHeaderInstantChange() {
         facets.setHeader(SAMPLE_STRING);
         assertEquals(selenium.getText(model.getHeader()), SAMPLE_STRING);

@@ -53,24 +53,33 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
         <ui:define name="component">
 
             <rich:dataTable id="richDataTable"
-                            value="#{richDataTableBean.state ? model.capitals : null}"
-                            var="record"
-
                             captionClass="#{richDataTableBean.attributes['captionClass'].value}"
                             columnClasses="#{richDataTableBean.attributes['columnClasses'].value}"
-                            columns="#{richDataTableBean.attributes['columns'].value}"
                             first="#{richDataTableBean.attributes['first'].value}"
+                            footerClass="#{richDataTableBean.attributes['footerClass'].value}"
+                            headerClass="#{richDataTableBean.attributes['headerClass'].value}"
                             keepSaved="#{richDataTableBean.attributes['keepSaved'].value}"
                             noDataLabel="#{richDataTableBean.attributes['noDataLabel'].value}"
+                            onrowclick="#{richDataTableBean.attributes['onrowclick'].value}"
+                            onrowdblclick="#{richDataTableBean.attributes['onrowdblclick'].value}"
+                            onrowkeydown="#{richDataTableBean.attributes['onrowkeydown'].value}"
+                            onrowkeypress="#{richDataTableBean.attributes['onrowkeypress'].value}"
+                            onrowkeyup="#{richDataTableBean.attributes['onrowkeyup'].value}"
+                            onrowmousedown="#{richDataTableBean.attributes['onrowmousedown'].value}"
+                            onrowmousemove="#{richDataTableBean.attributes['onrowmousemove'].value}"
+                            onrowmouseout="#{richDataTableBean.attributes['onrowmouseout'].value}"
+                            onrowmouseover="#{ricDataTableBean.attributes['onrowmouseover'].value}"
+                            onrowmouseup="#{richDataTableBean.attributes['onrowmouseup'].value}"
                             rendered="#{richDataTableBean.attributes['rendered'].value}"
                             rowClass="#{richDataTableBean.attributes['rowClass'].value}"
                             rowClasses="#{richDataTableBean.attributes['rowClasses'].value}"
                             rows="#{richDataTableBean.attributes['rows'].value}"
-                            selection="#{richDataTableBean.attributes['selection'].value}"
                             sortMode="#{richDataTableBean.attributes['sortMode'].value}"
                             sortPriority="#{richDataTableBean.attributes['sortPriority'].value}"
                             style="#{richDataTableBean.attributes['style'].value}"
                             styleClass="#{richDataTableBean.attributes['styleClass'].value}"
+                            value="#{richDataTableBean.state ? model.capitals : null}"
+                            var="record"
                             >
 
                 <f:facet name="noData">
@@ -114,6 +123,11 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                     </f:facet>
                 </rich:column>
 
+                <f:facet name="footer">
+                    <h:outputText id="footer" value="#{richDataTableBean.facets['footer']}"
+                                  rendered="#{not empty richDataTableBean.facets['footer']}" />
+                </f:facet>
+
             </rich:dataTable>
         </ui:define>
 
@@ -129,6 +143,9 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 
                     <h:outputLabel value="Header Facet:" />
                     <h:inputText id="headerInput" value="#{richDataTableBean.facets['header']}" />
+
+                    <h:outputLabel value="Footer Facet:" />
+                    <h:inputText id="footerInput" value="#{richDataTableBean.facets['footer']}" />
 
                     <h:outputLabel value="State Column Header:" />
                     <h:inputText id="stateHeaderInput" value="#{richDataTableBean.facets['columnStateHeader']}" />
