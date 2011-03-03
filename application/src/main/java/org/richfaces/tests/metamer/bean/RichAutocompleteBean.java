@@ -81,7 +81,7 @@ public class RichAutocompleteBean implements Serializable {
 
     public List<String> autocomplete(String prefix) {
         ArrayList<String> result = new ArrayList<String>();
-        if (prefix.length() > 0) {
+        if (prefix != null && prefix.length() > 0) {
             Iterator<Capital> iterator = capitals.iterator();
             while (iterator.hasNext()) {
                 Capital elem = ((Capital) iterator.next());
