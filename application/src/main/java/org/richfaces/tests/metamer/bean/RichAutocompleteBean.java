@@ -91,8 +91,8 @@ public class RichAutocompleteBean implements Serializable {
                 }
             }
         } else {
-            for (int i = 0; i < capitals.size(); i++) {
-                result.add(capitals.get(i).getState());
+            for (Capital capital : capitals) {
+                result.add(capital.getState());
             }
         }
         return result;
