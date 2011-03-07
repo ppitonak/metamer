@@ -32,6 +32,7 @@ import static org.testng.Assert.assertTrue;
 import java.net.URL;
 
 import org.jboss.test.selenium.dom.Event;
+import org.jboss.test.selenium.encapsulated.JavaScript;
 import org.jboss.test.selenium.locator.Attribute;
 import org.jboss.test.selenium.locator.AttributeLocator;
 import org.jboss.test.selenium.locator.JQueryLocator;
@@ -82,7 +83,7 @@ public class TestRichMenuGroup extends AbstractMetamerTest {
         assertFalse(selenium.isVisible(menuItem41), "Menu item \"Save\" should not be visible on the page.");
 
         assertFalse(selenium.isDisplayed(groupList), "Submenu should not be expanded.");
-        guardNoRequest(selenium).mouseOver(group);
+        guardNoRequest(selenium).getEval(new JavaScript("window.jQuery('" + group.getRawLocator() + "').mouseenter()"));
         assertTrue(selenium.isDisplayed(groupList), "Submenu should be expanded.");
 
         assertTrue(selenium.isElementPresent(menuItem41), "Menu item \"Save\" should be present on the page.");
@@ -196,9 +197,9 @@ public class TestRichMenuGroup extends AbstractMetamerTest {
 
         selenium.mouseOver(fileMenuLabel);
         waitGui.failWith("Menu was not open.").until(isDisplayed.locator(fileMenuList));
-        selenium.mouseOver(group);
+        selenium.getEval(new JavaScript("window.jQuery('" + group.getRawLocator() + "').mouseenter()"));
         waitGui.failWith("Submenu was not open").until(isDisplayed.locator(groupList));
-        selenium.mouseOut(group);
+        selenium.getEval(new JavaScript("window.jQuery('" + group.getRawLocator() + "').mouseleave()"));
 
         waitGui.failWith("Attribute onhide does not work correctly").until(new EventFiredCondition(new Event("hide")));
     }
@@ -250,7 +251,7 @@ public class TestRichMenuGroup extends AbstractMetamerTest {
 
         selenium.mouseOver(fileMenuLabel);
         waitGui.failWith("Menu was not open.").until(isDisplayed.locator(fileMenuList));
-        selenium.mouseOver(group);
+        selenium.getEval(new JavaScript("window.jQuery('" + group.getRawLocator() + "').mouseenter()"));
         waitGui.failWith("Submenu was not open").until(isDisplayed.locator(groupList));
 
         waitGui.failWith("Attribute onhide does not work correctly").until(new EventFiredCondition(new Event("show")));
