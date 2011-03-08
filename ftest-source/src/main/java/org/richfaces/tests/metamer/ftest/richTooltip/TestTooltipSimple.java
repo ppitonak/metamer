@@ -53,6 +53,7 @@ import org.richfaces.tests.metamer.ftest.annotations.Inject;
 import org.richfaces.tests.metamer.ftest.annotations.RegressionTest;
 import org.richfaces.tests.metamer.ftest.annotations.Use;
 import org.richfaces.tests.metamer.ftest.annotations.Uses;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 /**
@@ -108,6 +109,12 @@ public class TestTooltipSimple extends AbstractMetamerTest {
     @Override
     public URL getTestUrl() {
         return buildUrl(contextPath, "faces/components/richTooltip/simple.xhtml");
+    }
+
+    @BeforeMethod
+    public void setupAttributes() {
+        attributes.setShowEvent("mouseover");
+        attributes.setHideEvent("mouseout");
     }
 
     @Test

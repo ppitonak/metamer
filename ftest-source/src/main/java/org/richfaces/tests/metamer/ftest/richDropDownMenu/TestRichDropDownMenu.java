@@ -34,6 +34,7 @@ import java.net.URL;
 
 import org.jboss.test.selenium.css.CssProperty;
 import org.jboss.test.selenium.dom.Event;
+import org.jboss.test.selenium.encapsulated.JavaScript;
 import org.jboss.test.selenium.locator.JQueryLocator;
 import org.jboss.test.selenium.waiting.EventFiredCondition;
 import org.richfaces.tests.metamer.ftest.AbstractMetamerTest;
@@ -82,7 +83,7 @@ public class TestRichDropDownMenu extends AbstractMetamerTest {
         assertFalse(selenium.isVisible(menuItem41), "Menu item \"Save\" should not be visible on the page.");
 
         assertFalse(selenium.isDisplayed(groupList), "Submenu should not be expanded.");
-        guardNoRequest(selenium).mouseOver(group);
+        guardNoRequest(selenium).getEval(new JavaScript("window.jQuery('" + group.getRawLocator() + "').mouseenter()"));
         assertTrue(selenium.isDisplayed(groupList), "Submenu should be expanded.");
 
         assertTrue(selenium.isElementPresent(menuItem41), "Menu item \"Save\" should be present on the page.");
@@ -119,7 +120,7 @@ public class TestRichDropDownMenu extends AbstractMetamerTest {
         selenium.waitForPageToLoad();
 
         selenium.mouseOver(fileMenuLabel);
-        selenium.mouseOut(fileMenuLabel);
+        selenium.getEval(new JavaScript("window.jQuery('" + fileMenuLabel.getRawLocator() + "').mouseleave()"));
         assertTrue(selenium.isDisplayed(fileMenuList), "Menu should be expanded.");
         waitFor(3000);
         assertFalse(selenium.isDisplayed(fileMenuList), "Menu should not be expanded.");
@@ -181,9 +182,9 @@ public class TestRichDropDownMenu extends AbstractMetamerTest {
         selenium.waitForPageToLoad();
 
         selenium.mouseOver(fileMenuLabel);
-        selenium.mouseOver(group);
+        selenium.getEval(new JavaScript("window.jQuery('" + group.getRawLocator() + "').mouseenter()"));
         waitGui.interval(2000).withDelay(true).failWith("Menu group was not opened.").until(isDisplayed.locator(groupList));
-        selenium.mouseOut(group);
+        selenium.getEval(new JavaScript("window.jQuery('" + group.getRawLocator() + "').mouseleave()"));
 
         waitGui.failWith("Attribute ongrouphide does not work correctly").until(new EventFiredCondition(new Event("grouphide")));
     }
@@ -194,7 +195,7 @@ public class TestRichDropDownMenu extends AbstractMetamerTest {
         selenium.waitForPageToLoad();
 
         selenium.mouseOver(fileMenuLabel);
-        selenium.mouseOver(group);
+        selenium.getEval(new JavaScript("window.jQuery('" + group.getRawLocator() + "').mouseenter()"));
         waitGui.interval(2000).withDelay(true).failWith("Menu group was not opened.").until(isDisplayed.locator(group));
 
         waitGui.failWith("Attribute ongroupshow does not work correctly").until(new EventFiredCondition(new Event("groupshow")));
@@ -206,7 +207,7 @@ public class TestRichDropDownMenu extends AbstractMetamerTest {
         selenium.waitForPageToLoad();
 
         selenium.mouseOver(fileMenuLabel);
-        selenium.mouseOut(fileMenuLabel);
+        selenium.getEval(new JavaScript("window.jQuery('" + fileMenuLabel.getRawLocator() + "').mouseleave()"));
 
         waitGui.failWith("Attribute onhide does not work correctly").until(new EventFiredCondition(new Event("hide")));
     }

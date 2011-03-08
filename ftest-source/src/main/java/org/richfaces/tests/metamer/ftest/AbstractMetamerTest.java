@@ -42,6 +42,8 @@ import static org.testng.Assert.assertTrue;
 
 import java.net.URL;
 import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Locale;
 
 import javax.faces.event.PhaseId;
@@ -264,9 +266,36 @@ public abstract class AbstractMetamerTest extends AbstractTestCase {
 
         selenium.getEval(new JavaScript("window.metamerEvents = \"\";"));
     }
+    
+    public void testRequestEventsBeforeByAlert(String... events) {
+        for (String event : events) {
+            ReferencedLocator<JQueryLocator> input = ref(attributesRoot, "input[type=text][id$=on{0}Input]");
+            input = input.format(event);
+            selenium.type(input, format("alert('{0}')", event));
+            selenium.waitForPageToLoad();
+        }
+    }
 
     public void testRequestEventsAfter(String... events) {
         String[] actualEvents = selenium.getEval(new JavaScript("window.metamerEvents")).split(" ");
+        assertEquals(
+                actualEvents,
+                events,
+                format("The events ({0}) don't came in right order ({1})", Arrays.deepToString(actualEvents),
+                Arrays.deepToString(events)));
+    }
+    
+    public void testRequestEventsAfterByAlert(String... events) {
+        List<String> list = new LinkedList<String>();
+        
+        for (int i = 0; i < events.length; i++) {
+            waitGui.dontFail().until(alertPresent);
+            if (selenium.isAlertPresent()) {
+                list.add(selenium.getAlert());
+            }
+        }
+        
+        String[] actualEvents = list.toArray(new String[list.size()]);
         assertEquals(
                 actualEvents,
                 events,

@@ -54,13 +54,16 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                 </f:facet>
 
                 <rich:column id="columnState"
-                             comparator="#{richColumnBean.attributes['comparator'].value}"
-                             filter="#{richColumnBean.attributes['filter'].value}"
-                             filterValue="#{richColumnBean.attributes['filterValue'].value}"
-                             rendered="#{richColumnBean.attributes['rendered'].value}"
-                             sortOrder="#{richColumnBean.attributes['sortOrder'].value}"
-                             >   
+                			footerClass="#{richColumnBean.attributes['footerClass'].value}"
+                			headerClass="#{richColumnBean.attributes['headerClass'].value}"
+                			rendered="#{richColumnBean.attributes['rendered'].value}"
+                			style="#{richColumnBean.attributes['style'].value}"
+                			styleClass="#{richColumnBean.attributes['styleClass'].value}"
+                			width="#{richColumnBean.attributes['width'].value}"
+                             >
+                   	<f:facet name="header">Header</f:facet>
                     <h:outputText id="state" value="#{record.state}" />
+                    <f:facet name="footer">Footer</f:facet>
                 </rich:column>
 
                 <rich:column id="columnCapital">

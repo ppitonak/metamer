@@ -40,19 +40,6 @@
             <url>http://nexus.qa.jboss.com:8081/nexus/content/repositories/releases</url>
         </repository>
     </distributionManagement>
-    
-    <repositories>
-        <repository>
-            <id>maven-repository2.dev.java.net</id>
-            <name>Java.net Repository for Maven 2</name>
-            <url>http://download.java.net/maven/2</url>
-        </repository>
-        <repository>
-            <id>icefaces-repository</id>
-            <name>ICEfaces Repository for Maven 2</name>
-            <url>http://anonsvn.icefaces.org/repo/maven2/releases</url>
-        </repository>
-    </repositories>
 
     <properties>
         <jetty.port>8080</jetty.port>

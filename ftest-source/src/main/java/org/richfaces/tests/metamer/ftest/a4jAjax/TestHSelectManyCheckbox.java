@@ -21,6 +21,7 @@
  *******************************************************************************/
 package org.richfaces.tests.metamer.ftest.a4jAjax;
 
+import static org.jboss.test.selenium.guard.request.RequestTypeGuardFactory.guardNoRequest;
 import static org.jboss.test.selenium.guard.request.RequestTypeGuardFactory.guardXhr;
 import static org.jboss.test.selenium.locator.LocatorFactory.jq;
 import static org.jboss.test.selenium.locator.option.OptionLocatorFactory.optionLabel;
@@ -104,12 +105,7 @@ public class TestHSelectManyCheckbox extends AbstractMetamerTest {
         selenium.click(pjq("input[type=radio][name$=disabledInput][value=true]"));
         selenium.waitForPageToLoad();
 
-        String reqTime = selenium.getText(time);
-        guardXhr(selenium).click(input);
-        waitGui.failWith("Page was not updated").waitForChange(reqTime, retrieveText.locator(time));
-
-        assertEquals(selenium.getText(output1), "[Ferrari, Lexus]", "Output1 should not change");
-        assertEquals(selenium.getText(output2), "[Ferrari, Lexus]", "Output2 should not change");
+        guardNoRequest(selenium).click(input);
     }
 
     @Test

@@ -28,28 +28,29 @@ import static org.richfaces.PanelMenuMode.server;
 
 import java.net.URL;
 
+import org.jboss.test.selenium.encapsulated.JavaScript;
 import org.richfaces.tests.metamer.ftest.annotations.Inject;
 import org.richfaces.tests.metamer.ftest.annotations.IssueTracking;
 import org.richfaces.tests.metamer.ftest.annotations.Use;
+import org.richfaces.tests.metamer.ftest.model.PanelMenu;
 import org.testng.annotations.Test;
 
 /**
  * @author <a href="mailto:lfryc@redhat.com">Lukas Fryc</a>
  * @version $Revision$
  */
-@IssueTracking({ "https://issues.jboss.org/browse/RF-10564", "https://issues.jboss.org/browse/RF-10563" })
 public class TestPanelMenuGroupClientSideHandlers extends AbstractPanelMenuGroupTest {
 
     @Inject
     @Use(empty = true)
     String event;
-    String[] ajaxExpansionEvents = new String[] { "beforeswitch", "beforeexpand", "beforeselect", "begin",
+    String[] ajaxExpansionEvents = new String[] { "beforeselect", "beforeswitch", "beforeexpand", "begin",
         "beforedomupdate", "select", "expand", "switch", "complete" };
-    String[] ajaxCollapsionEvents = new String[] { "beforeswitch", "beforecollapse", "beforeselect", "begin",
+    String[] ajaxCollapsionEvents = new String[] { "beforeselect", "beforeswitch", "beforecollapse", "begin",
         "beforedomupdate", "select", "collapse", "switch", "complete" };
-    String[] clientExpansionEvents = new String[] { "beforeswitch", "beforeexpand", "beforeselect", "select", "expand",
+    String[] clientExpansionEvents = new String[] { "beforeselect", "beforeswitch", "beforeexpand", "select", "expand",
         "switch" };
-    String[] clientCollapsionEvents = new String[] { "beforeswitch", "beforecollapse", "beforeselect", "select",
+    String[] clientCollapsionEvents = new String[] { "beforeselect", "beforeswitch", "beforecollapse", "select",
         "collapse", "switch" };
     String[] serverExpansionEvents = new String[] { "beforeswitch", "beforeexpand" };
     String[] serverCollapsionEvents = new String[] { "beforeswitch", "beforecollapse" };
@@ -58,6 +59,8 @@ public class TestPanelMenuGroupClientSideHandlers extends AbstractPanelMenuGroup
     public URL getTestUrl() {
         return buildUrl(contextPath, "faces/components/richPanelMenuGroup/simple.xhtml");
     }
+
+    PanelMenu.Group group1 = menu.getGroupContains("Group 1");
 
     @Test
     @Use(field = "event", value = "ajaxCollapsionEvents")
@@ -84,12 +87,16 @@ public class TestPanelMenuGroupClientSideHandlers extends AbstractPanelMenuGroup
     public void testClientSideExpansionEventsOrderClient() {
         attributes.setMode(client);
         menu.setGroupMode(client);
-        super.testRequestEventsBefore(serverExpansionEvents);
+        super.testRequestEventsBefore(clientExpansionEvents);
         topGroup.toggle();
-        super.testRequestEventsAfter(serverExpansionEvents);
+        group1.toggle();
+        selenium.getEval(new JavaScript("window.metamerEvents = \"\";"));
+        topGroup.toggle();
+        super.testRequestEventsAfter(clientExpansionEvents);
     }
 
     @Test
+    @IssueTracking("https://issues.jboss.org/browse/RF-10564")
     public void testClientSideCollapsionEventsOrderClient() {
         attributes.setMode(client);
         menu.setGroupMode(client);
@@ -103,7 +110,9 @@ public class TestPanelMenuGroupClientSideHandlers extends AbstractPanelMenuGroup
     public void testClientSideExpansionEventsOrderAjax() {
         attributes.setMode(ajax);
         menu.setGroupMode(ajax);
+        topGroup.toggle();
         super.testRequestEventsBefore(ajaxExpansionEvents);
+        selenium.getEval(new JavaScript("window.metamerEvents = \"\";"));
         topGroup.toggle();
         super.testRequestEventsAfter(ajaxExpansionEvents);
     }
@@ -112,31 +121,30 @@ public class TestPanelMenuGroupClientSideHandlers extends AbstractPanelMenuGroup
     public void testClientSideCollapsionEventsOrderAjax() {
         attributes.setMode(ajax);
         menu.setGroupMode(ajax);
-        topGroup.toggle();
         super.testRequestEventsBefore(ajaxCollapsionEvents);
         topGroup.toggle();
         super.testRequestEventsAfter(ajaxCollapsionEvents);
     }
 
-    @Test(groups = "4.0.0.Final")
-    @IssueTracking("https://issues.jboss.org/browse/RFPL-1223")
-    public void testClientSideExpansionEventsOrderServer() {
+    @Test
+    @Use(field = "event", value = "serverExpansionEvents")
+    public void testClientSideExpansionEventsServer() {
         attributes.setMode(server);
         menu.setGroupMode(server);
         topGroup.toggle();
-        super.testRequestEventsBefore(serverExpansionEvents);
+        menu.setGroupMode(null);
+        testRequestEventsBeforeByAlert(event);
         topGroup.toggle();
-        super.testRequestEventsAfter(serverExpansionEvents);
+        testRequestEventsAfterByAlert(event);
     }
 
-    @Test(groups = "4.0.0.Final")
-    @IssueTracking("https://issues.jboss.org/browse/RFPL-1223")
-    public void testClientSideCollapsionEventsOrderServer() {
+    @Test
+    @Use(field = "event", value = "serverCollapsionEvents")
+    public void testClientSideCollapsionEventsServer() {
         attributes.setMode(server);
-        menu.setGroupMode(server);
+        menu.setGroupMode(null);
+        testRequestEventsBeforeByAlert(event);
         topGroup.toggle();
-        super.testRequestEventsBefore(serverCollapsionEvents);
-        topGroup.toggle();
-        super.testRequestEventsAfter(serverCollapsionEvents);
+        testRequestEventsAfterByAlert(event);
     }
 }
