@@ -61,7 +61,14 @@ public class CollapsibleSubTable extends AbstractModel<JQueryLocator> {
     }
 
     public boolean isNoData() {
-        return selenium.isElementPresent(noData) && selenium.isVisible(noData);
+        if (!selenium.isElementPresent(noData)) {
+            return false;
+        }
+        if (selenium.isVisible(noData)) {
+            return !selenium.getText(noData).isEmpty();
+        } else {
+            return selenium.getText(noData).isEmpty();
+        }
     }
     
     public boolean isVisible() {
