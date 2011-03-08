@@ -21,6 +21,7 @@
  *******************************************************************************/
 package org.richfaces.tests.metamer.ftest.a4jAjax;
 
+import static org.jboss.test.selenium.guard.request.RequestTypeGuardFactory.guardNoRequest;
 import static org.jboss.test.selenium.utils.URLUtils.buildUrl;
 
 import java.net.URL;
@@ -67,7 +68,10 @@ public class TestHGraphicImage extends AbstractTestCommand {
 
     @Test
     public void testDisabled() {
-        testDisabled(button);
+        selenium.click(pjq("input[type=radio][name$=disabledInput][value=true]"));
+        selenium.waitForPageToLoad();
+
+        guardNoRequest(selenium).click(button);
     }
 
     @Test

@@ -4,7 +4,6 @@
     <test name="Output Components">
     	<groups>
 			<run>
-				<exclude name="4.0.0.Final" />
 				<exclude name="4.Future" />
 			</run>
 		</groups>

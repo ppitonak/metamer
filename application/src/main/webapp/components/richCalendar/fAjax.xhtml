@@ -94,6 +94,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                                datePattern="#{richCalendarBean.attributes['datePattern'].value}"
                                dayClassFunction="#{richCalendarBean.attributes['dayClassFunction'].value}"
                                dayDisableFunction="#{richCalendarBean.attributes['dayDisableFunction'].value}"
+                               defaultLabel="#{richCalendarBean.attributes['defaultLabel'].value}"
                                defaultTime="#{richCalendarBean.attributes['defaultTime'].value}"
                                direction="#{richCalendarBean.attributes['direction'].value}"
                                disabled="#{richCalendarBean.attributes['disabled'].value}"
@@ -109,6 +110,8 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                                locale="#{richCalendarBean.attributes['locale'].value}"
                                minDaysInFirstWeek="#{richCalendarBean.attributes['minDaysInFirstWeek'].value}"
                                mode="#{richCalendarBean.attributes['mode'].value}"
+                               monthLabels="#{richCalendarBean.attributes['monthLabels'].value}"
+                               monthLabelsShort="#{richCalendarBean.attributes['monthLabelsShort'].value}"
                                onbeforecurrentdateselect="#{richCalendarBean.attributes['onbeforecurrentdateselect'].value}"
                                onbeforedateselect="#{richCalendarBean.attributes['onbeforedateselect'].value}"
                                onbeforetimeselect="#{richCalendarBean.attributes['onbeforetimeselect'].value}"
@@ -157,6 +160,8 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                                value="#{richCalendarBean.attributes['value'].value}"
                                valueChangeListener="#{richCalendarBean.valueChangeListener}"
                                verticalOffset="#{richCalendarBean.attributes['verticalOffset'].value}"
+                               weekDayLabels="#{richCalendarBean.attributes['weekDayLabels'].value}"
+                               weekDayLabelsShort="#{richCalendarBean.attributes['weekDayLabelsShort'].value}"
                                zindex="#{richCalendarBean.attributes['zindex'].value}"
                                >
                     <f:ajax event="change" render="output :phasesPanel" />
