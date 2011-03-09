@@ -161,6 +161,7 @@ public class RichBean implements Serializable {
         components.put("richToolbarGroup", "Rich Toolbar Group");
         components.put("richTooltip", "Rich Tooltip");
         components.put("richTree", "Rich Tree");
+        components.put("richValidator", "Rich Validator");
     }
 
     private void createSkinList() {
