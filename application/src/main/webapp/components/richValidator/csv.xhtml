@@ -57,6 +57,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                 $('input[id$=notEmpty]').val('RichFaces 4');
                 $('input[id$=notNull]').val('RichFaces 4');
                 $('input[id$=pattern]').val('richFaces 4');
+                $('input[id$=custom]').val('RichFaces');
                 $('input[id$=past]').val(inPast.format("d mmm yyyy"));
                 $('input[id$=future]').val(inFuture.format("d mmm yyyy"));
                 $('input[value=A]')[0].checked=true
@@ -82,6 +83,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                 $('input[id$=notEmpty]').val('');
                 $('input[id$=notNull]').val('');
                 $('input[id$=pattern]').val('@@@');
+                $('input[id$=custom]').val('@@@');
                 $('input[id$=past]').val(inFuture.format("d mmm yyyy"));
                 $('input[id$=future]').val(inPast.format("d mmm yyyy"));
                 $('input[value=A]')[0].checked=false
@@ -100,177 +102,194 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 
                 <h:outputLabel for="assertTrue" value="#{assertTrueBean.description}" />
                 <h:selectBooleanCheckbox id="assertTrue" value="#{assertTrueBean.value}" label="#{assertTrueBean.label}">
-                    <rich:validator data="#{richValidator.attributes['data'].value}"
-                                    disabled="#{richValidator.attributes['disabled'].value}"
-                                    immediate="#{richValidator.attributes['immediate'].value}"
-                                    onbeforedomupdate="#{richValidator.attributes['onbeforedomupdate'].value}"
-                                    onbeforesubmit="#{richValidator.attributes['onbeforesubmit'].value}"
-                                    onbegin="#{richValidator.attributes['onbegin'].value}"
-                                    oncomplete="#{richValidator.attributes['oncomplete'].value}"
-                                    onerror="#{richValidator.attributes['onerror'].value}"
-                                    queueId="#{richValidator.attributes['queueId'].value}"
-                                    status="#{richValidator.attributes['status'].value}"
+                    <rich:validator data="#{richValidatorBean.attributes['data'].value}"
+                                    disabled="#{richValidatorBean.attributes['disabled'].value}"
+                                    immediate="#{richValidatorBean.attributes['immediate'].value}"
+                                    onbeforedomupdate="#{richValidatorBean.attributes['onbeforedomupdate'].value}"
+                                    onbeforesubmit="#{richValidatorBean.attributes['onbeforesubmit'].value}"
+                                    onbegin="#{richValidatorBean.attributes['onbegin'].value}"
+                                    oncomplete="#{richValidatorBean.attributes['oncomplete'].value}"
+                                    onerror="#{richValidatorBean.attributes['onerror'].value}"
+                                    queueId="#{richValidatorBean.attributes['queueId'].value}"
+                                    status="#{richValidatorBean.attributes['status'].value}"
                                     />
                 </h:selectBooleanCheckbox>
                 <rich:message id="assertTrueMsg" for="assertTrue" />
 
                 <h:outputLabel for="assertFalse" value="#{assertFalseBean.description}" />
                 <h:selectBooleanCheckbox id="assertFalse" value="#{assertFalseBean.value}" label="#{assertFalseBean.label}">
-                    <rich:validator data="#{richValidator.attributes['data'].value}"
-                                    disabled="#{richValidator.attributes['disabled'].value}"
-                                    immediate="#{richValidator.attributes['immediate'].value}"
-                                    onbeforedomupdate="#{richValidator.attributes['onbeforedomupdate'].value}"
-                                    onbeforesubmit="#{richValidator.attributes['onbeforesubmit'].value}"
-                                    onbegin="#{richValidator.attributes['onbegin'].value}"
-                                    oncomplete="#{richValidator.attributes['oncomplete'].value}"
-                                    onerror="#{richValidator.attributes['onerror'].value}"
-                                    queueId="#{richValidator.attributes['queueId'].value}"
-                                    status="#{richValidator.attributes['status'].value}"
+                    <rich:validator data="#{richValidatorBean.attributes['data'].value}"
+                                    disabled="#{richValidatorBean.attributes['disabled'].value}"
+                                    immediate="#{richValidatorBean.attributes['immediate'].value}"
+                                    onbeforedomupdate="#{richValidatorBean.attributes['onbeforedomupdate'].value}"
+                                    onbeforesubmit="#{richValidatorBean.attributes['onbeforesubmit'].value}"
+                                    onbegin="#{richValidatorBean.attributes['onbegin'].value}"
+                                    oncomplete="#{richValidatorBean.attributes['oncomplete'].value}"
+                                    onerror="#{richValidatorBean.attributes['onerror'].value}"
+                                    queueId="#{richValidatorBean.attributes['queueId'].value}"
+                                    status="#{richValidatorBean.attributes['status'].value}"
                                     />
                 </h:selectBooleanCheckbox>
                 <rich:message id="assertFalseMsg" for="assertFalse" />
 
                 <h:outputLabel for="decimalMinMax" value="#{decimalMinMaxBean.description}" />
                 <h:inputText id="decimalMinMax" value="#{decimalMinMaxBean.value}" label="#{decimalMinMaxBean.label}" converter="#{decimalMinMaxBean.converter}">
-                    <rich:validator data="#{richValidator.attributes['data'].value}"
-                                    disabled="#{richValidator.attributes['disabled'].value}"
-                                    immediate="#{richValidator.attributes['immediate'].value}"
-                                    onbeforedomupdate="#{richValidator.attributes['onbeforedomupdate'].value}"
-                                    onbeforesubmit="#{richValidator.attributes['onbeforesubmit'].value}"
-                                    onbegin="#{richValidator.attributes['onbegin'].value}"
-                                    oncomplete="#{richValidator.attributes['oncomplete'].value}"
-                                    onerror="#{richValidator.attributes['onerror'].value}"
-                                    queueId="#{richValidator.attributes['queueId'].value}"
-                                    status="#{richValidator.attributes['status'].value}"
+                    <rich:validator data="#{richValidatorBean.attributes['data'].value}"
+                                    disabled="#{richValidatorBean.attributes['disabled'].value}"
+                                    immediate="#{richValidatorBean.attributes['immediate'].value}"
+                                    onbeforedomupdate="#{richValidatorBean.attributes['onbeforedomupdate'].value}"
+                                    onbeforesubmit="#{richValidatorBean.attributes['onbeforesubmit'].value}"
+                                    onbegin="#{richValidatorBean.attributes['onbegin'].value}"
+                                    oncomplete="#{richValidatorBean.attributes['oncomplete'].value}"
+                                    onerror="#{richValidatorBean.attributes['onerror'].value}"
+                                    queueId="#{richValidatorBean.attributes['queueId'].value}"
+                                    status="#{richValidatorBean.attributes['status'].value}"
                                     />
                 </h:inputText>
                 <rich:message id="decimalMinMaxMsg" for="decimalMinMax" />
 
                 <h:outputLabel for="digits" value="#{digitsBean.description}" />
                 <h:inputText id="digits" value="#{digitsBean.value}" label="#{digitsBean.label}" converter="#{digitsBean.converter}">
-                    <rich:validator data="#{richValidator.attributes['data'].value}"
-                                    disabled="#{richValidator.attributes['disabled'].value}"
-                                    immediate="#{richValidator.attributes['immediate'].value}"
-                                    onbeforedomupdate="#{richValidator.attributes['onbeforedomupdate'].value}"
-                                    onbeforesubmit="#{richValidator.attributes['onbeforesubmit'].value}"
-                                    onbegin="#{richValidator.attributes['onbegin'].value}"
-                                    oncomplete="#{richValidator.attributes['oncomplete'].value}"
-                                    onerror="#{richValidator.attributes['onerror'].value}"
-                                    queueId="#{richValidator.attributes['queueId'].value}"
-                                    status="#{richValidator.attributes['status'].value}"
+                    <rich:validator data="#{richValidatorBean.attributes['data'].value}"
+                                    disabled="#{richValidatorBean.attributes['disabled'].value}"
+                                    immediate="#{richValidatorBean.attributes['immediate'].value}"
+                                    onbeforedomupdate="#{richValidatorBean.attributes['onbeforedomupdate'].value}"
+                                    onbeforesubmit="#{richValidatorBean.attributes['onbeforesubmit'].value}"
+                                    onbegin="#{richValidatorBean.attributes['onbegin'].value}"
+                                    oncomplete="#{richValidatorBean.attributes['oncomplete'].value}"
+                                    onerror="#{richValidatorBean.attributes['onerror'].value}"
+                                    queueId="#{richValidatorBean.attributes['queueId'].value}"
+                                    status="#{richValidatorBean.attributes['status'].value}"
                                     />
                 </h:inputText>
                 <rich:message id="digitsMsg" for="digits" />
 
                 <h:outputLabel for="max" value="#{maxBean.description}" />
                 <h:inputText id="max" value="#{maxBean.value}" label="#{maxBean.label}" converter="#{maxBean.converter}">
-                    <rich:validator data="#{richValidator.attributes['data'].value}"
-                                    disabled="#{richValidator.attributes['disabled'].value}"
-                                    immediate="#{richValidator.attributes['immediate'].value}"
-                                    onbeforedomupdate="#{richValidator.attributes['onbeforedomupdate'].value}"
-                                    onbeforesubmit="#{richValidator.attributes['onbeforesubmit'].value}"
-                                    onbegin="#{richValidator.attributes['onbegin'].value}"
-                                    oncomplete="#{richValidator.attributes['oncomplete'].value}"
-                                    onerror="#{richValidator.attributes['onerror'].value}"
-                                    queueId="#{richValidator.attributes['queueId'].value}"
-                                    status="#{richValidator.attributes['status'].value}"
+                    <rich:validator data="#{richValidatorBean.attributes['data'].value}"
+                                    disabled="#{richValidatorBean.attributes['disabled'].value}"
+                                    immediate="#{richValidatorBean.attributes['immediate'].value}"
+                                    onbeforedomupdate="#{richValidatorBean.attributes['onbeforedomupdate'].value}"
+                                    onbeforesubmit="#{richValidatorBean.attributes['onbeforesubmit'].value}"
+                                    onbegin="#{richValidatorBean.attributes['onbegin'].value}"
+                                    oncomplete="#{richValidatorBean.attributes['oncomplete'].value}"
+                                    onerror="#{richValidatorBean.attributes['onerror'].value}"
+                                    queueId="#{richValidatorBean.attributes['queueId'].value}"
+                                    status="#{richValidatorBean.attributes['status'].value}"
                                     />
                 </h:inputText>
                 <rich:message id="maxMsg" for="max" />
 
                 <h:outputLabel for="min" value="#{minBean.description}" />
                 <h:inputText id="min" value="#{minBean.value}" label="#{minBean.label}" converter="#{minBean.converter}">
-                    <rich:validator data="#{richValidator.attributes['data'].value}"
-                                    disabled="#{richValidator.attributes['disabled'].value}"
-                                    immediate="#{richValidator.attributes['immediate'].value}"
-                                    onbeforedomupdate="#{richValidator.attributes['onbeforedomupdate'].value}"
-                                    onbeforesubmit="#{richValidator.attributes['onbeforesubmit'].value}"
-                                    onbegin="#{richValidator.attributes['onbegin'].value}"
-                                    oncomplete="#{richValidator.attributes['oncomplete'].value}"
-                                    onerror="#{richValidator.attributes['onerror'].value}"
-                                    queueId="#{richValidator.attributes['queueId'].value}"
-                                    status="#{richValidator.attributes['status'].value}"
+                    <rich:validator data="#{richValidatorBean.attributes['data'].value}"
+                                    disabled="#{richValidatorBean.attributes['disabled'].value}"
+                                    immediate="#{richValidatorBean.attributes['immediate'].value}"
+                                    onbeforedomupdate="#{richValidatorBean.attributes['onbeforedomupdate'].value}"
+                                    onbeforesubmit="#{richValidatorBean.attributes['onbeforesubmit'].value}"
+                                    onbegin="#{richValidatorBean.attributes['onbegin'].value}"
+                                    oncomplete="#{richValidatorBean.attributes['oncomplete'].value}"
+                                    onerror="#{richValidatorBean.attributes['onerror'].value}"
+                                    queueId="#{richValidatorBean.attributes['queueId'].value}"
+                                    status="#{richValidatorBean.attributes['status'].value}"
                                     />
                 </h:inputText>
                 <rich:message id="minMsg" for="min" />
 
                 <h:outputLabel for="minMax" value="#{minMaxBean.description}" />
                 <h:inputText id="minMax" value="#{minMaxBean.value}" label="#{minMaxBean.label}" converter="#{minMaxBean.converter}">
-                    <rich:validator data="#{richValidator.attributes['data'].value}"
-                                    disabled="#{richValidator.attributes['disabled'].value}"
-                                    immediate="#{richValidator.attributes['immediate'].value}"
-                                    onbeforedomupdate="#{richValidator.attributes['onbeforedomupdate'].value}"
-                                    onbeforesubmit="#{richValidator.attributes['onbeforesubmit'].value}"
-                                    onbegin="#{richValidator.attributes['onbegin'].value}"
-                                    oncomplete="#{richValidator.attributes['oncomplete'].value}"
-                                    onerror="#{richValidator.attributes['onerror'].value}"
-                                    queueId="#{richValidator.attributes['queueId'].value}"
-                                    status="#{richValidator.attributes['status'].value}"
+                    <rich:validator data="#{richValidatorBean.attributes['data'].value}"
+                                    disabled="#{richValidatorBean.attributes['disabled'].value}"
+                                    immediate="#{richValidatorBean.attributes['immediate'].value}"
+                                    onbeforedomupdate="#{richValidatorBean.attributes['onbeforedomupdate'].value}"
+                                    onbeforesubmit="#{richValidatorBean.attributes['onbeforesubmit'].value}"
+                                    onbegin="#{richValidatorBean.attributes['onbegin'].value}"
+                                    oncomplete="#{richValidatorBean.attributes['oncomplete'].value}"
+                                    onerror="#{richValidatorBean.attributes['onerror'].value}"
+                                    queueId="#{richValidatorBean.attributes['queueId'].value}"
+                                    status="#{richValidatorBean.attributes['status'].value}"
                                     />
                 </h:inputText>
                 <rich:message id="minMaxMsg" for="minMax" />
 
                 <h:outputLabel for="notEmpty" value="#{notEmptyBean.description}" />
                 <h:inputText id="notEmpty" value="#{notEmptyBean.value}" label="#{notEmptyBean.label}" converter="#{notEmptyBean.converter}">
-                    <rich:validator data="#{richValidator.attributes['data'].value}"
-                                    disabled="#{richValidator.attributes['disabled'].value}"
-                                    immediate="#{richValidator.attributes['immediate'].value}"
-                                    onbeforedomupdate="#{richValidator.attributes['onbeforedomupdate'].value}"
-                                    onbeforesubmit="#{richValidator.attributes['onbeforesubmit'].value}"
-                                    onbegin="#{richValidator.attributes['onbegin'].value}"
-                                    oncomplete="#{richValidator.attributes['oncomplete'].value}"
-                                    onerror="#{richValidator.attributes['onerror'].value}"
-                                    queueId="#{richValidator.attributes['queueId'].value}"
-                                    status="#{richValidator.attributes['status'].value}"
+                    <rich:validator data="#{richValidatorBean.attributes['data'].value}"
+                                    disabled="#{richValidatorBean.attributes['disabled'].value}"
+                                    immediate="#{richValidatorBean.attributes['immediate'].value}"
+                                    onbeforedomupdate="#{richValidatorBean.attributes['onbeforedomupdate'].value}"
+                                    onbeforesubmit="#{richValidatorBean.attributes['onbeforesubmit'].value}"
+                                    onbegin="#{richValidatorBean.attributes['onbegin'].value}"
+                                    oncomplete="#{richValidatorBean.attributes['oncomplete'].value}"
+                                    onerror="#{richValidatorBean.attributes['onerror'].value}"
+                                    queueId="#{richValidatorBean.attributes['queueId'].value}"
+                                    status="#{richValidatorBean.attributes['status'].value}"
                                     />
                 </h:inputText>
                 <rich:message id="notEmptyMsg" for="notEmpty" />
 
                 <h:outputLabel for="notNull" value="#{notNullBean.description}" />
                 <h:inputText id="notNull" value="#{notNullBean.value}" label="#{notNullBean.label}" converter="emptyStringToNullConverter">
-                    <rich:validator data="#{richValidator.attributes['data'].value}"
-                                    disabled="#{richValidator.attributes['disabled'].value}"
-                                    immediate="#{richValidator.attributes['immediate'].value}"
-                                    onbeforedomupdate="#{richValidator.attributes['onbeforedomupdate'].value}"
-                                    onbeforesubmit="#{richValidator.attributes['onbeforesubmit'].value}"
-                                    onbegin="#{richValidator.attributes['onbegin'].value}"
-                                    oncomplete="#{richValidator.attributes['oncomplete'].value}"
-                                    onerror="#{richValidator.attributes['onerror'].value}"
-                                    queueId="#{richValidator.attributes['queueId'].value}"
-                                    status="#{richValidator.attributes['status'].value}"
+                    <rich:validator data="#{richValidatorBean.attributes['data'].value}"
+                                    disabled="#{richValidatorBean.attributes['disabled'].value}"
+                                    immediate="#{richValidatorBean.attributes['immediate'].value}"
+                                    onbeforedomupdate="#{richValidatorBean.attributes['onbeforedomupdate'].value}"
+                                    onbeforesubmit="#{richValidatorBean.attributes['onbeforesubmit'].value}"
+                                    onbegin="#{richValidatorBean.attributes['onbegin'].value}"
+                                    oncomplete="#{richValidatorBean.attributes['oncomplete'].value}"
+                                    onerror="#{richValidatorBean.attributes['onerror'].value}"
+                                    queueId="#{richValidatorBean.attributes['queueId'].value}"
+                                    status="#{richValidatorBean.attributes['status'].value}"
                                     />
                 </h:inputText>
                 <rich:message id="notNullMsg" for="notNull" />
 
                 <h:outputLabel for="pattern" value="#{patternBean.description}" />
                 <h:inputText id="pattern" value="#{patternBean.value}" label="#{patternBean.label}" converter="#{patternBean.converter}">
-                    <rich:validator data="#{richValidator.attributes['data'].value}"
-                                    disabled="#{richValidator.attributes['disabled'].value}"
-                                    immediate="#{richValidator.attributes['immediate'].value}"
-                                    onbeforedomupdate="#{richValidator.attributes['onbeforedomupdate'].value}"
-                                    onbeforesubmit="#{richValidator.attributes['onbeforesubmit'].value}"
-                                    onbegin="#{richValidator.attributes['onbegin'].value}"
-                                    oncomplete="#{richValidator.attributes['oncomplete'].value}"
-                                    onerror="#{richValidator.attributes['onerror'].value}"
-                                    queueId="#{richValidator.attributes['queueId'].value}"
-                                    status="#{richValidator.attributes['status'].value}"
+                    <rich:validator data="#{richValidatorBean.attributes['data'].value}"
+                                    disabled="#{richValidatorBean.attributes['disabled'].value}"
+                                    immediate="#{richValidatorBean.attributes['immediate'].value}"
+                                    onbeforedomupdate="#{richValidatorBean.attributes['onbeforedomupdate'].value}"
+                                    onbeforesubmit="#{richValidatorBean.attributes['onbeforesubmit'].value}"
+                                    onbegin="#{richValidatorBean.attributes['onbegin'].value}"
+                                    oncomplete="#{richValidatorBean.attributes['oncomplete'].value}"
+                                    onerror="#{richValidatorBean.attributes['onerror'].value}"
+                                    queueId="#{richValidatorBean.attributes['queueId'].value}"
+                                    status="#{richValidatorBean.attributes['status'].value}"
                                     />
                 </h:inputText>
                 <rich:message id="patternMsg" for="pattern" />
 
+                <h:outputLabel for="custom" value="custom validator, RichFaces" />
+                <h:inputText id="custom" value="#{richValidatorBean.stringValue}" label="custom">
+                    <f:validator validatorId="org.richfaces.StringRichFacesValidator"/>
+                    <rich:validator data="#{richValidatorBean.attributes['data'].value}"
+                                    disabled="#{richValidatorBean.attributes['disabled'].value}"
+                                    immediate="#{richValidatorBean.attributes['immediate'].value}"
+                                    onbeforedomupdate="#{richValidatorBean.attributes['onbeforedomupdate'].value}"
+                                    onbeforesubmit="#{richValidatorBean.attributes['onbeforesubmit'].value}"
+                                    onbegin="#{richValidatorBean.attributes['onbegin'].value}"
+                                    oncomplete="#{richValidatorBean.attributes['oncomplete'].value}"
+                                    onerror="#{richValidatorBean.attributes['onerror'].value}"
+                                    queueId="#{richValidatorBean.attributes['queueId'].value}"
+                                    status="#{richValidatorBean.attributes['status'].value}"
+                                    />
+                </h:inputText>
+                <rich:message id="customMsg" for="custom" />
+
                 <h:outputLabel for="past" value="#{pastBean.description}" />
                 <h:inputText id="past" value="#{pastBean.value}" label="#{pastBean.label}" >
                     <f:convertDateTime pattern="d MMM yyyy"/>
-                    <rich:validator data="#{richValidator.attributes['data'].value}"
-                                    disabled="#{richValidator.attributes['disabled'].value}"
-                                    immediate="#{richValidator.attributes['immediate'].value}"
-                                    onbeforedomupdate="#{richValidator.attributes['onbeforedomupdate'].value}"
-                                    onbeforesubmit="#{richValidator.attributes['onbeforesubmit'].value}"
-                                    onbegin="#{richValidator.attributes['onbegin'].value}"
-                                    oncomplete="#{richValidator.attributes['oncomplete'].value}"
-                                    onerror="#{richValidator.attributes['onerror'].value}"
-                                    queueId="#{richValidator.attributes['queueId'].value}"
-                                    status="#{richValidator.attributes['status'].value}"
+                    <rich:validator data="#{richValidatorBean.attributes['data'].value}"
+                                    disabled="#{richValidatorBean.attributes['disabled'].value}"
+                                    immediate="#{richValidatorBean.attributes['immediate'].value}"
+                                    onbeforedomupdate="#{richValidatorBean.attributes['onbeforedomupdate'].value}"
+                                    onbeforesubmit="#{richValidatorBean.attributes['onbeforesubmit'].value}"
+                                    onbegin="#{richValidatorBean.attributes['onbegin'].value}"
+                                    oncomplete="#{richValidatorBean.attributes['oncomplete'].value}"
+                                    onerror="#{richValidatorBean.attributes['onerror'].value}"
+                                    queueId="#{richValidatorBean.attributes['queueId'].value}"
+                                    status="#{richValidatorBean.attributes['status'].value}"
                                     />
                 </h:inputText>
                 <rich:message id="pastMsg" for="past" />
@@ -278,16 +297,16 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                 <h:outputLabel for="future" value="#{futureBean.description}" />
                 <h:inputText id="future" value="#{futureBean.value}" label="#{futureBean.label}" >
                     <f:convertDateTime pattern="d MMM yyyy"/>
-                    <rich:validator data="#{richValidator.attributes['data'].value}"
-                                    disabled="#{richValidator.attributes['disabled'].value}"
-                                    immediate="#{richValidator.attributes['immediate'].value}"
-                                    onbeforedomupdate="#{richValidator.attributes['onbeforedomupdate'].value}"
-                                    onbeforesubmit="#{richValidator.attributes['onbeforesubmit'].value}"
-                                    onbegin="#{richValidator.attributes['onbegin'].value}"
-                                    oncomplete="#{richValidator.attributes['oncomplete'].value}"
-                                    onerror="#{richValidator.attributes['onerror'].value}"
-                                    queueId="#{richValidator.attributes['queueId'].value}"
-                                    status="#{richValidator.attributes['status'].value}"
+                    <rich:validator data="#{richValidatorBean.attributes['data'].value}"
+                                    disabled="#{richValidatorBean.attributes['disabled'].value}"
+                                    immediate="#{richValidatorBean.attributes['immediate'].value}"
+                                    onbeforedomupdate="#{richValidatorBean.attributes['onbeforedomupdate'].value}"
+                                    onbeforesubmit="#{richValidatorBean.attributes['onbeforesubmit'].value}"
+                                    onbegin="#{richValidatorBean.attributes['onbegin'].value}"
+                                    oncomplete="#{richValidatorBean.attributes['oncomplete'].value}"
+                                    onerror="#{richValidatorBean.attributes['onerror'].value}"
+                                    queueId="#{richValidatorBean.attributes['queueId'].value}"
+                                    status="#{richValidatorBean.attributes['status'].value}"
                                     />
                 </h:inputText>
                 <rich:message id="futureMsg" for="future" />

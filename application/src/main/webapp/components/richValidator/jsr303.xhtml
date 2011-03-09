@@ -56,6 +56,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                 $('input[id$=minMax]').val('4');
                 $('input[id$=notEmpty]').val('RichFaces 4');
                 $('input[id$=notNull]').val('RichFaces 4');
+                $('input[id$=custom]').val('RichFaces');
                 $('input[id$=pattern]').val('richFaces 4');
                 $('input[id$=past]').val(inPast.format("d mmm yyyy"));
                 $('input[id$=future]').val(inFuture.format("d mmm yyyy"));
@@ -82,6 +83,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                 $('input[id$=notEmpty]').val('');
                 $('input[id$=notNull]').val('');
                 $('input[id$=pattern]').val('@@@');
+                $('input[id$=custom]').val('@@@');
                 $('input[id$=past]').val(inFuture.format("d mmm yyyy"));
                 $('input[id$=future]').val(inPast.format("d mmm yyyy"));
                 $('input[value=A]')[0].checked=false
@@ -137,6 +139,12 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                 <h:outputLabel for="pattern" value="#{patternBean.description}" />
                 <h:inputText id="pattern" value="#{patternBean.value}" label="#{patternBean.label}" converter="#{patternBean.converter}"/>
                 <rich:message id="patternMsg" for="pattern" />
+
+                <h:outputLabel for="custom" value="custom validator, RichFaces" />
+                <h:inputText id="custom" value="#{richValidatorBean.stringValue}" label="custom">
+                    <f:validator validatorId="org.richfaces.StringRichFacesValidator"/>
+                </h:inputText>
+                <rich:message id="customMsg" for="custom" />
 
                 <h:outputLabel for="past" value="#{pastBean.description}" />
                 <h:inputText id="past" value="#{pastBean.value}" label="#{pastBean.label}" >

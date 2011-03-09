@@ -45,6 +45,7 @@ public class RichValidatorBean implements Serializable {
     private static final long serialVersionUID = -1L;
     private static Logger logger;
     private Attributes attributes;
+    private String stringValue = "RichFaces";
 
     /**
      * Initializes the managed bean.
@@ -65,4 +66,11 @@ public class RichValidatorBean implements Serializable {
         this.attributes = attributes;
     }
 
+    public String getStringValue() {
+        return stringValue;
+    }
+
+    public void setStringValue(String stringValue) {
+        this.stringValue = stringValue;
+    }
 }
