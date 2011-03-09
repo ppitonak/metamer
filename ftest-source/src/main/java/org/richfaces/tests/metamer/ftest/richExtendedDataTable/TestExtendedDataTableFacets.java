@@ -56,52 +56,52 @@ public class TestExtendedDataTableFacets extends DataTableFacetsTest {
         super.testNoDataEmpty();
     }
 
-    //@Test
+    @Test
     public void testHeaderInstantChange() {
         super.testHeaderInstantChange();
     }
 
-    //@Test
+    @Test
     public void testHeaderEmpty() {
         super.testHeaderEmpty();
     }
 
-    //@Test
+    @Test
     public void testStateHeaderInstantChange() {
         super.testStateHeaderInstantChange();
     }
 
-    //@Test
+    @Test
     public void testStateHeaderEmpty() {
         super.testStateHeaderEmpty();
     }
 
-    //@Test
+    @Test
     public void testStateFooterInstantChange() {
         super.testStateFooterInstantChange();
     }
 
-    //@Test
+    @Test
     public void testStateFooterEmpty() {
         super.testStateFooterEmpty();
     }
 
-    //@Test
+    @Test
     public void testCapitalHeaderInstantChange() {
         super.testCapitalHeaderInstantChange();
     }
 
-    //@Test
+    @Test
     public void testCapitalHeaderEmpty() {
         super.testCapitalHeaderEmpty();
     }
 
-    //@Test
+    @Test
     public void testCapitalFooterInstantChange() {
         super.testCapitalFooterInstantChange();
     }
 
-    //@Test
+    @Test
     public void testCapitalFooterEmpty() {
         super.testCapitalFooterEmpty();
     }
