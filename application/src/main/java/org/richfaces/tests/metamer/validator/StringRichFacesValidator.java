@@ -40,7 +40,7 @@ public class StringRichFacesValidator implements Validator {
     @Override
     public void validate(FacesContext context, UIComponent component, Object value) throws ValidatorException {
         if (value == null || !value.toString().equals("RichFaces")) {
-            throw new ValidatorException(new FacesMessage(FacesMessage.SEVERITY_ERROR, "string is not \"RichFaces\"", ""));
+            throw new ValidatorException(new FacesMessage(FacesMessage.SEVERITY_ERROR, "string is not \"RichFaces\"", "string is not \"RichFaces\""));
         }
     }
 }
