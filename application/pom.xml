@@ -537,6 +537,21 @@
 			</dependencies>
 		</profile>
 		<profile>
+			<id>mojarra_2_1-development</id>
+			<dependencies>
+				<dependency>
+					<groupId>com.sun.faces</groupId>
+					<artifactId>jsf-api</artifactId>
+					<version>2.1.0-b11</version>
+				</dependency>
+				<dependency>
+					<groupId>com.sun.faces</groupId>
+					<artifactId>jsf-impl</artifactId>
+					<version>2.1.0-b11</version>
+				</dependency>
+			</dependencies>
+		</profile>
+		<profile>
 			<id>jee-development</id>
 			<dependencies>
 				<dependency>
