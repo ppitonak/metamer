@@ -26,7 +26,6 @@ import static org.jboss.test.selenium.utils.URLUtils.buildUrl;
 import java.net.URL;
 
 import org.richfaces.tests.metamer.ftest.abstractions.DataTableFacetsTest;
-import org.richfaces.tests.metamer.ftest.annotations.IssueTracking;
 import org.richfaces.tests.metamer.ftest.model.ExtendedDataTable;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
@@ -47,64 +46,62 @@ public class TestExtendedDataTableFacets extends DataTableFacetsTest {
         model = new ExtendedDataTable(pjq("div.rf-edt[id$=richEDT]"));
     }
 
-    @Test(groups = "4.0.0.Final")
-    @IssueTracking("https://issues.jboss.org/browse/RFPL-1193")
+    @Test
     public void testNoDataInstantChange() {
         super.testNoDataInstantChange();
     }
 
-    @Test(groups = "4.0.0.Final")
-    @IssueTracking("https://issues.jboss.org/browse/RFPL-1193")
+    @Test
     public void testNoDataEmpty() {
         super.testNoDataEmpty();
     }
 
-    @Test
+    //@Test
     public void testHeaderInstantChange() {
         super.testHeaderInstantChange();
     }
 
-    @Test
+    //@Test
     public void testHeaderEmpty() {
         super.testHeaderEmpty();
     }
 
-    @Test
+    //@Test
     public void testStateHeaderInstantChange() {
         super.testStateHeaderInstantChange();
     }
 
-    @Test
+    //@Test
     public void testStateHeaderEmpty() {
         super.testStateHeaderEmpty();
     }
 
-    @Test
+    //@Test
     public void testStateFooterInstantChange() {
         super.testStateFooterInstantChange();
     }
 
-    @Test
+    //@Test
     public void testStateFooterEmpty() {
         super.testStateFooterEmpty();
     }
 
-    @Test
+    //@Test
     public void testCapitalHeaderInstantChange() {
         super.testCapitalHeaderInstantChange();
     }
 
-    @Test
+    //@Test
     public void testCapitalHeaderEmpty() {
         super.testCapitalHeaderEmpty();
     }
 
-    @Test
+    //@Test
     public void testCapitalFooterInstantChange() {
         super.testCapitalFooterInstantChange();
     }
 
-    @Test
+    //@Test
     public void testCapitalFooterEmpty() {
         super.testCapitalFooterEmpty();
     }
