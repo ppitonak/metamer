@@ -25,9 +25,6 @@ import static org.jboss.test.selenium.JQuerySelectors.append;
 import static org.jboss.test.selenium.JQuerySelectors.not;
 import static org.jboss.test.selenium.dom.Event.CLICK;
 import static org.jboss.test.selenium.dom.Event.DBLCLICK;
-import static org.jboss.test.selenium.dom.Event.KEYDOWN;
-import static org.jboss.test.selenium.dom.Event.KEYPRESS;
-import static org.jboss.test.selenium.dom.Event.KEYUP;
 import static org.jboss.test.selenium.dom.Event.MOUSEDOWN;
 import static org.jboss.test.selenium.dom.Event.MOUSEMOVE;
 import static org.jboss.test.selenium.dom.Event.MOUSEOUT;
@@ -53,7 +50,6 @@ import org.jboss.test.selenium.waiting.retrievers.AttributeRetriever;
 import org.richfaces.component.SwitchType;
 import org.richfaces.tests.metamer.ftest.AbstractMetamerTest;
 import org.richfaces.tests.metamer.ftest.annotations.Inject;
-import org.richfaces.tests.metamer.ftest.annotations.IssueTracking;
 import org.richfaces.tests.metamer.ftest.annotations.Use;
 import org.richfaces.tests.metamer.ftest.richTree.TreeAttributes;
 import org.richfaces.tests.metamer.ftest.richTree.TreeModel;
@@ -83,7 +79,7 @@ public class TestTreeNodeSimple extends AbstractMetamerTest {
     @Inject
     @Use(empty = true)
     Event event = CLICK;
-    Event[] events = new Event[] { CLICK, DBLCLICK, KEYDOWN, KEYPRESS, KEYUP, MOUSEDOWN, MOUSEMOVE, MOUSEOUT,
+    Event[] events = new Event[] { CLICK, DBLCLICK, MOUSEDOWN, MOUSEMOVE, MOUSEOUT,
         MOUSEOVER, MOUSEUP };
 
     @Inject
@@ -223,9 +219,8 @@ public class TestTreeNodeSimple extends AbstractMetamerTest {
         assertEquals(selenium.getCount(not(tree.getAnyNode(), "[lang=cs]")), 4);
     }
 
-    @Test(groups = "4.0.0.Final")
+    @Test
     @Use(field = "event", value = "events")
-    @IssueTracking("https://issues.jboss.org/browse/RFPL-1124")
     public void testClientEvents() {
         String attributeName = event.getEventName();
         ElementLocator<?> eventInput = pjq("span[id$=treeNode1Attributes:panel] input[id$=on" + attributeName
