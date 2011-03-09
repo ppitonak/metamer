@@ -21,85 +21,18 @@
  *******************************************************************************/
 package org.richfaces.tests.metamer.model.treeAdaptor;
 
-import java.io.Serializable;
-import java.util.Deque;
-import java.util.LinkedList;
-import java.util.concurrent.atomic.AtomicReference;
-
 /**
  * @author <a href="mailto:lfryc@redhat.com">Lukas Fryc</a>
  * @version $Revision$
  */
-public abstract class Node implements Serializable {
-    
-    private static final long serialVersionUID = 1L;
-    
-    private Node parent;
-    private AtomicReference<Boolean> nullable;
-    private Reference<LazyLoadingListener<Node>> lazyLoadingListenerReference = new NodeReference();
+public interface Node {
 
-    protected Node(Node parent, AtomicReference<Boolean> nullable,
-        Reference<LazyLoadingListener<Node>> lazyLoadingListenerReference) {
-        this.parent = parent;
-        this.nullable = nullable;
-        if (lazyLoadingListenerReference != null) {
-            this.lazyLoadingListenerReference = lazyLoadingListenerReference;
-        }
-    }
+    public abstract boolean isRoot();
 
-    public static <T extends Node> T lazyLoadingChecker(T node) {
-        return (T) LazyLoadingChecker.wrapInstance(node, node.getLazyLoadingListenerReference());
-    }
+    public abstract int getNumber();
 
-    public Node getParent() {
-        return parent;
-    }
-
-    public boolean isRoot() {
-        return parent == null;
-    }
-    
-    public AtomicReference<Boolean> getNullable() {
-        return nullable;
-    }
-
-    public int getLevel() {
-        return isRoot() ? 1 : parent.getLevel() + 1;
-    }
-
-    public Node getRoot() {
-        return isRoot() ? this : parent.getRoot();
-    }
-
-    public Iterable<Node> getPredecessorsFromRoot() {
-        Deque<Node> list = new LinkedList<Node>();
-        list.addFirst(this);
-
-        while (list.getFirst().parent != null) {
-            list.addFirst(list.getFirst().parent);
-        }
-
-        return list;
-    }
+    public abstract String getParentLabel();
 
     public abstract String getLabel();
 
-    public Reference<LazyLoadingListener<Node>> getLazyLoadingListenerReference() {
-        return lazyLoadingListenerReference;
-    }
-
-    public void setLazyLoadingListener(Reference<LazyLoadingListener<Node>> lazyLoadingListener) {
-        this.lazyLoadingListenerReference = lazyLoadingListener;
-    }
-
-    public class NodeReference implements Reference<LazyLoadingListener<Node>> {
-        @Override
-        public LazyLoadingListener<Node> get() {
-            Node root = getRoot();
-            if (root == Node.this) {
-                return null;
-            }
-            return getRoot().getLazyLoadingListenerReference().get();
-        }
-    }
 }

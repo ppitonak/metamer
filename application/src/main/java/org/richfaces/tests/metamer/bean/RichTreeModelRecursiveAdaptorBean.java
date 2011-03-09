@@ -30,15 +30,15 @@ import java.util.TreeMap;
 import java.util.concurrent.atomic.AtomicReference;
 
 import javax.annotation.PostConstruct;
+import javax.el.ELContext;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
 
 import org.richfaces.component.UITreeModelRecursiveAdaptor;
 import org.richfaces.tests.metamer.Attributes;
-import org.richfaces.tests.metamer.model.treeAdaptor.LazyLoadingListener;
-import org.richfaces.tests.metamer.model.treeAdaptor.Node;
 import org.richfaces.tests.metamer.model.treeAdaptor.RecursiveNode;
-import org.richfaces.tests.metamer.model.treeAdaptor.Reference;
+import org.richfaces.tests.metamer.model.treeAdaptor.RecursiveNodeImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -51,7 +51,7 @@ import org.slf4j.LoggerFactory;
 public class RichTreeModelRecursiveAdaptorBean implements Serializable {
 
     
-    private static final long serialVersionUID = 4008175400649809L;
+    private static final long serialVersionUID = 1L;
     private static Logger logger;
     private static List<RecursiveNode> rootNodes;
     
@@ -64,17 +64,9 @@ public class RichTreeModelRecursiveAdaptorBean implements Serializable {
     /*
      * Nodes which was loaded lazily in the current request
      */
-    private Set<Node> lazyInitializedNodes = new LinkedHashSet<Node>();
+    private Set<String> lazyInitializedNodes = new LinkedHashSet<String>();
 
-    private LazyLoadingListener<Node> nodeLazyLoadingListener = new LazyLoadingListener<Node>() {
-        private static final long serialVersionUID = 1L;
-
-        public void notify(Node node) {
-            lazyInitializedNodes.add(node);
-        };
-    };
-
-    public Set<Node> getLazyInitializedNodes() {
+    public Set<String> getLazyInitializedNodes() {
         return lazyInitializedNodes;
     }
 
@@ -101,16 +93,7 @@ public class RichTreeModelRecursiveAdaptorBean implements Serializable {
 
     public List<RecursiveNode> getRootNodes() {
         if (!rootNodesInitialized) {
-            rootNodes = RecursiveNode.createChildren(null, leafChildrenNullable,
-                new Reference<LazyLoadingListener<Node>>() {
-                    private static final long serialVersionUID = 1L;
-
-                    @Override
-                    public LazyLoadingListener<Node> get() {
-                        return nodeLazyLoadingListener;
-                    }
-                });
-            rootNodesInitialized = true;
+            rootNodes = RecursiveNodeImpl.createChildren(true, "", 1, false);
         }
         return rootNodes;
     }
@@ -137,5 +120,10 @@ public class RichTreeModelRecursiveAdaptorBean implements Serializable {
     
     public static List<RecursiveNode> getRootNodesStatically() {
         return rootNodes;
+    }
+    
+    public static RichTreeModelRecursiveAdaptorBean getFacesContext() {
+        ELContext elContext = FacesContext.getCurrentInstance().getELContext();
+        return (RichTreeModelRecursiveAdaptorBean) elContext.getELResolver().getValue(elContext, null, "richTreeModelRecursiveAdaptorBean");
     }
 }

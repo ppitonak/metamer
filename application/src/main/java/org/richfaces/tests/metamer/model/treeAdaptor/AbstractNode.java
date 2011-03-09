@@ -21,43 +21,61 @@
  *******************************************************************************/
 package org.richfaces.tests.metamer.model.treeAdaptor;
 
-import static java.lang.reflect.Modifier.isStatic;
-
 import java.io.Serializable;
-import java.lang.reflect.InvocationHandler;
-import java.lang.reflect.Method;
-import java.lang.reflect.Proxy;
+
+import org.richfaces.tests.metamer.bean.RichTreeModelRecursiveAdaptorBean;
 
 /**
- * <p>
- * Wraps {@link LazyLoadable} entity with proxy which performs notification by {@link LazyLoadable#notifyLoaded()} to
- * let know about accessing methods of that wrapped instance.
- * </p>
- * 
  * @author <a href="mailto:lfryc@redhat.com">Lukas Fryc</a>
  * @version $Revision$
  */
-public final class LazyLoadingChecker<T extends Serializable & LazyLoadable> implements InvocationHandler, Serializable {
+public abstract class AbstractNode implements Serializable, LazyLoadable, Node {
+
     private static final long serialVersionUID = 1L;
 
-    T instance;
+    private boolean isRoot;
+    private int number;
+    private String parentLabel;
 
-    private LazyLoadingChecker(T instance) {
-        this.instance = instance;
+    protected AbstractNode(boolean isRoot, int number, String parentLabel) {
+        this.number = number;
+        this.parentLabel = parentLabel;
+        this.isRoot = isRoot;
     }
 
-    @SuppressWarnings("unchecked")
-    public static <T extends Serializable & LazyLoadable> T wrapInstance(T instance) {
-        return (T) Proxy.newProxyInstance(instance.getClass().getClassLoader(), instance.getClass().getInterfaces(),
-            new LazyLoadingChecker<T>(instance));
-    }
-
+    /* (non-Javadoc)
+     * @see org.richfaces.tests.metamer.model.treeAdaptor.INode#isRoot()
+     */
     @Override
-    public Object invoke(Object proxy, Method m, Object[] args) throws Throwable {
-        if (!isStatic(m.getModifiers())) {
-            instance.notifyLoaded();
-        }
-        Object result = m.invoke(instance, args);
-        return result;
+    public boolean isRoot() {
+        return isRoot;
+    }
+
+    /* (non-Javadoc)
+     * @see org.richfaces.tests.metamer.model.treeAdaptor.INode#getNumber()
+     */
+    @Override
+    public int getNumber() {
+        return number;
+    }
+    
+    /* (non-Javadoc)
+     * @see org.richfaces.tests.metamer.model.treeAdaptor.INode#getParentLabel()
+     */
+    @Override
+    public String getParentLabel() {
+        return parentLabel;
+    }
+
+    /* (non-Javadoc)
+     * @see org.richfaces.tests.metamer.model.treeAdaptor.INode#getLabel()
+     */
+    @Override
+    public abstract String getLabel();
+    
+    @Override
+    public void notifyLoaded() {
+        RichTreeModelRecursiveAdaptorBean bean = RichTreeModelRecursiveAdaptorBean.getFacesContext();
+        bean.getLazyInitializedNodes().add(this.getLabel());
     }
 }
