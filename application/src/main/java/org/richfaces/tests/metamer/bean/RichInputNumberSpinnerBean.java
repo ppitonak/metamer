@@ -26,6 +26,8 @@ import java.io.Serializable;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 
 import org.richfaces.component.html.HtmlInputNumberSpinner;
 import org.richfaces.tests.metamer.Attributes;
@@ -45,6 +47,9 @@ public class RichInputNumberSpinnerBean implements Serializable {
     private static final long serialVersionUID = -1L;
     private static Logger logger;
     private Attributes attributes;
+    private int value1;
+    private int value2;
+    private int value3;
 
     /**
      * Initializes the managed bean.
@@ -73,5 +78,31 @@ public class RichInputNumberSpinnerBean implements Serializable {
 
     public void setAttributes(Attributes attributes) {
         this.attributes = attributes;
+    }
+
+    @Min(2)
+    public int getValue1() {
+        return value1;
+    }
+
+    public void setValue1(int value1) {
+        this.value1 = value1;
+    }
+
+    @Max(2)
+    public int getValue2() {
+        return value2;
+    }
+
+    public void setValue2(int value2) {
+        this.value2 = value2;
+    }
+
+    public int getValue3() {
+        return value3;
+    }
+
+    public void setValue3(int value3) {
+        this.value3 = value3;
     }
 }

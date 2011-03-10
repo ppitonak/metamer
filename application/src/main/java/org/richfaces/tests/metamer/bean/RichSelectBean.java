@@ -31,6 +31,9 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 import javax.faces.event.ValueChangeEvent;
 import javax.faces.model.SelectItem;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
+import org.hibernate.validator.constraints.NotEmpty;
 
 import org.richfaces.component.UISelect;
 import org.richfaces.tests.metamer.Attributes;
@@ -54,6 +57,11 @@ public class RichSelectBean implements Serializable {
     @ManagedProperty(value = "#{model.capitals}")
     private List<Capital> capitals;
     private List<SelectItem> capitalsOptions = null;
+    private List<SelectItem> validationOptions = null;
+    private String value1;
+    private String value2;
+    private String value3;
+    private String value4;
 
     /**
      * Initializes the managed bean.
@@ -64,9 +72,15 @@ public class RichSelectBean implements Serializable {
         logger.debug("initializing bean " + getClass().getName());
 
         capitalsOptions = new ArrayList<SelectItem>();
+        validationOptions = new ArrayList<SelectItem>();
         for (Capital capital : capitals) {
             capitalsOptions.add(new SelectItem(capital.getState(), capital.getState()));
+            validationOptions.add(new SelectItem(capital.getState(), capital.getState()));
         }
+        validationOptions.add(new SelectItem("@@", "@@"));
+        validationOptions.add(new SelectItem("", ""));
+        validationOptions.add(new SelectItem("RichFaces", "RichFaces"));
+        validationOptions.add(new SelectItem("richfaces", "richfaces"));
 
         attributes = Attributes.getComponentAttributesFromFacesConfig(UISelect.class, getClass());
 
@@ -104,6 +118,49 @@ public class RichSelectBean implements Serializable {
 
     public void setCapitalsOptions(List<SelectItem> capitalsOptions) {
         this.capitalsOptions = capitalsOptions;
+    }
+
+    public List<SelectItem> getValidationOptions() {
+        return validationOptions;
+    }
+
+    public void setValidationOptions(List<SelectItem> validationOptions) {
+        this.validationOptions = validationOptions;
+    }
+
+    @NotEmpty
+    public String getValue1() {
+        return value1;
+    }
+
+    public void setValue1(String value1) {
+        this.value1 = value1;
+    }
+
+    @Pattern(regexp = "[a-z].*")
+    public String getValue2() {
+        return value2;
+    }
+
+    public void setValue2(String value2) {
+        this.value2 = value2;
+    }
+
+    @Size(min = 3, max = 6)
+    public String getValue3() {
+        return value3;
+    }
+
+    public void setValue3(String value3) {
+        this.value3 = value3;
+    }
+
+    public String getValue4() {
+        return value4;
+    }
+
+    public void setValue4(String value4) {
+        this.value4 = value4;
     }
 
     public void listener(ValueChangeEvent event) {
