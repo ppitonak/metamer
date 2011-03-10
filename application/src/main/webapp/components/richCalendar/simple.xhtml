@@ -166,8 +166,12 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                                >
                     <a4j:ajax event="change" render="output, phasesPanel" />
                 </rich:calendar>
+                <rich:message id="calendarMsg" for="calendar"/>
             </div>
 
+            <br/><br/>
+            <h:commandButton id="hButton" value="h:commandButton" style="margin-right: 10px;"/>
+            <a4j:commandButton id="a4jButton" value="a4j:commandButton"/>
             <br/><br/>
 
             output:

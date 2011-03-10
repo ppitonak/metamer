@@ -2,7 +2,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"  xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:metamer="http://java.sun.com/jsf/composite/metamer" xmlns:rich="http://richfaces.org/rich"
-      xmlns:h="http://java.sun.com/jsf/html">
+      xmlns:a4j="http://richfaces.org/a4j" xmlns:h="http://java.sun.com/jsf/html">
 
     <!--
 JBoss, Home of Professional Open Source
@@ -100,7 +100,6 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                                disabled="#{richCalendarBean.attributes['disabled'].value}"
                                enableManualInput="#{richCalendarBean.attributes['enableManualInput'].value}"
                                firstWeekDay="#{richCalendarBean.attributes['firstWeekDay'].value}"
-                               hidePopupOnScroll="#{richCalendarBean.attributes['hidePopupOnScroll'].value}"
                                horizontalOffset="#{richCalendarBean.attributes['horizontalOffset'].value}"
                                immediate="#{richCalendarBean.attributes['immediate'].value}"
                                inputClass="#{richCalendarBean.attributes['inputClass'].value}"
@@ -153,6 +152,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                                showWeekDaysBar="#{richCalendarBean.attributes['showWeekDaysBar'].value}"
                                showWeeksBar="#{richCalendarBean.attributes['showWeeksBar'].value}"
                                style="#{richCalendarBean.attributes['style'].value}"
+                               styleClass="#{richCalendarBean.attributes['styleClass'].value}"
                                tabindex="#{richCalendarBean.attributes['tabindex'].value}"
                                timeZone="#{richCalendarBean.timeZone}"
                                todayControlMode="#{richCalendarBean.attributes['todayControlMode'].value}"
@@ -166,8 +166,12 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                                >
                     <f:ajax event="change" render="output :phasesPanel" />
                 </rich:calendar>
+                <rich:message id="calendarMsg" for="calendar"/>
             </div>
 
+            <br/><br/>
+            <h:commandButton id="hButton" value="h:commandButton" style="margin-right: 10px;"/>
+            <a4j:commandButton id="a4jButton" value="a4j:commandButton"/>
             <br/><br/>
 
             output:
