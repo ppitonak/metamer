@@ -39,7 +39,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
         <ui:define name="component">
             <rich:inputNumberSlider id="slider"
                                     valueChangeListener="#{richBean.valueChangeListener}"
-                                    
+
                                     accesskey="#{richInputNumberSliderBean.attributes['accesskey'].value}"
                                     decreaseClass="#{richInputNumberSliderBean.attributes['decreaseClass'].value}"
                                     decreaseSelectedClass="#{richInputNumberSliderBean.attributes['decreaseSelectedClass'].value}"
@@ -95,7 +95,11 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                 <a4j:ajax event="change" render="output"/>
 
             </rich:inputNumberSlider>
+            <rich:message id="msg" for="slider"/>
 
+            <br/><br/>
+            <h:commandButton id="hButton" value="h:commandButton" style="margin-right: 10px;"/>
+            <a4j:commandButton id="a4jButton" value="a4j:commandButton"/>
             <br/><br/>
 
             output: <h:outputText id="output" value="#{richInputNumberSliderBean.attributes['value'].value}"/>

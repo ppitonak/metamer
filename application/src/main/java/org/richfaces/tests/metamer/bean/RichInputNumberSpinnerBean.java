@@ -65,6 +65,7 @@ public class RichInputNumberSpinnerBean implements Serializable {
         attributes.setAttribute("maxValue", 10);
         attributes.setAttribute("minValue", -10);
         attributes.setAttribute("rendered", true);
+        attributes.setAttribute("requiredMessage", "value is required");
         attributes.setAttribute("step", 1);
         attributes.setAttribute("value", 2);
 

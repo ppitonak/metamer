@@ -44,7 +44,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
         <ui:define name="component">
             <rich:inputNumberSpinner id="spinner"
                                      valueChangeListener="#{richBean.valueChangeListener}"
-                                     
+
                                      accesskey="#{richInputNumberSpinnerBean.attributes['accesskey'].value}"
                                      cycled="#{richInputNumberSpinnerBean.attributes['cycled'].value}"
                                      dir="#{richInputNumberSpinnerBean.attributes['dir'].value}"
@@ -93,7 +93,11 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                 <f:ajax event="change" render="output :phasesPanel" />
 
             </rich:inputNumberSpinner>
+            <rich:message id="msg" for="spinner"/>
 
+            <br/><br/>
+            <h:commandButton id="hButton" value="h:commandButton" style="margin-right: 10px;"/>
+            <a4j:commandButton id="a4jButton" value="a4j:commandButton"/>
             <br/><br/>
 
             output: <h:outputText id="output" value="#{richInputNumberSpinnerBean.attributes['value'].value}"/>

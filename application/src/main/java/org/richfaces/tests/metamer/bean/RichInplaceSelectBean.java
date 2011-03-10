@@ -76,6 +76,7 @@ public class RichInplaceSelectBean implements Serializable {
             capitalsOptions.add(new SelectItem(capital.getState(), capital.getState()));
             validationOptions.add(new SelectItem(capital.getState(), capital.getState()));
         }
+        capitalsOptions.add(new SelectItem("", ""));
         validationOptions.add(new SelectItem("@@", "@@"));
         validationOptions.add(new SelectItem("", ""));
         validationOptions.add(new SelectItem("RichFaces", "RichFaces"));
@@ -89,14 +90,13 @@ public class RichInplaceSelectBean implements Serializable {
         attributes.setAttribute("listWidth", "200px");
         attributes.setAttribute("openOnEdit", true);
         attributes.setAttribute("rendered", true);
+        attributes.setAttribute("requiredMessage", "value is required");
         attributes.setAttribute("saveOnBlur", true);
         attributes.setAttribute("saveOnSelect", true);
 
         // TODO has to be tested in another way
         attributes.remove("converter");
         attributes.remove("converterMessage");
-        attributes.remove("required");
-        attributes.remove("requiredMessage");
         attributes.remove("validator");
         attributes.remove("validatorMessage");
         attributes.remove("valueChangeListener");
