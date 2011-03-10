@@ -8,8 +8,11 @@
 			</run>
 		</groups>
 		
+		<classes>
+            <class name="org.richfaces.tests.metamer.ftest.richPanel.TestRichPanel" />
+        </classes>
+        
         <packages>
-            <package name="org.richfaces.tests.metamer.ftest.richPanel" />
             <package name="org.richfaces.tests.metamer.ftest.richPopupPanel" />
             <package name="org.richfaces.tests.metamer.ftest.richProgressBar" />
             <package name="org.richfaces.tests.metamer.ftest.richToolbar" />
