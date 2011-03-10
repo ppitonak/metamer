@@ -73,6 +73,7 @@ public class RichCalendarBean implements Serializable {
         attributes.setAttribute("jointPoint", "bottomLeft");
         attributes.setAttribute("popup", true);
         attributes.setAttribute("rendered", true);
+        attributes.setAttribute("requiredMessage", "value is required");
         attributes.setAttribute("showApplyButton", true);
         attributes.setAttribute("showHeader", true);
         attributes.setAttribute("showFooter", true);
