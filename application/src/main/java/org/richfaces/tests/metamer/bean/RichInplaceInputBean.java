@@ -66,14 +66,13 @@ public class RichInplaceInputBean implements Serializable {
         attributes.setAttribute("defaultLabel", "Click here to edit");
         attributes.setAttribute("editEvent", "click");
         attributes.setAttribute("rendered", true);
+        attributes.setAttribute("requiredMessage", "value is required");
         attributes.setAttribute("saveOnBlur", true);
         attributes.setAttribute("value", "RichFaces 4");
 
         // TODO has to be tested in another way
         attributes.remove("converter");
         attributes.remove("converterMessage");
-        attributes.remove("required");
-        attributes.remove("requiredMessage");
         attributes.remove("validator");
         attributes.remove("validatorMessage");
         attributes.remove("valueChangeListener");
