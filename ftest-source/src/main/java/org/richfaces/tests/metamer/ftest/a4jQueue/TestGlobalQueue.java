@@ -228,7 +228,7 @@ public class TestGlobalQueue extends AbstractMetamerTest {
         assertEquals(queue.getRepeatedText(), "");
         handle.waitForOpen();
         handle.complete();
-        waitGui.dontFail().waitForChange("b", retrieveText.locator(queue.repeatedText));
+        waitGui.dontFail().waitForChange("", retrieveText.locator(queue.repeatedText));
         assertEquals(queue.getRepeatedText(), "d");
     }
 }
