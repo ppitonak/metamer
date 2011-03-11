@@ -55,7 +55,7 @@ public class TestRichInplaceSelect extends AbstractMetamerTest {
     private JQueryLocator label = pjq("span.rf-is-lbl");
     private JQueryLocator input = pjq("input[id$=inplaceSelectInput]");
     private JQueryLocator popup = pjq("span.rf-is-lst-cord");
-    private JQueryLocator edit = pjq("span.rf-is-edit");
+    private JQueryLocator edit = pjq("span.rf-is-fld-cntr");
     private JQueryLocator options = jq("span.rf-is-opt:eq({0})"); // 00..49
     private JQueryLocator okButton = jq("input.rf-is-btn[id$=Okbtn]");
     private JQueryLocator cancelButton = jq("input.rf-is-btn[id$=Cancelbtn]");
@@ -95,7 +95,7 @@ public class TestRichInplaceSelect extends AbstractMetamerTest {
         guardXhr(selenium).fireEvent(input, Event.BLUR);
         waitGui.failWith("Output did not change.").until(textEquals.locator(output).text("Hawaii"));
 
-        assertTrue(selenium.belongsClass(select, "rf-is-c-s"), "New class should be added to inplace select.");
+        assertTrue(selenium.belongsClass(select, "rf-is-chng"), "New class should be added to inplace select.");
         assertTrue(selenium.belongsClass(edit, "rf-is-none"), "Edit should contain class rf-is-none when popup is closed.");
 
         assertEquals(selenium.getText(label), "Hawaii", "Label should contain selected value.");
@@ -119,6 +119,7 @@ public class TestRichInplaceSelect extends AbstractMetamerTest {
     }
 
     @Test
+    @IssueTracking("https://issues.jboss.org/browse/RF-10739")
     public void testDefaultLabel() {
         selenium.type(pjq("input[type=text][id$=defaultLabelInput]"), "new label");
         selenium.waitForPageToLoad();
@@ -541,6 +542,7 @@ public class TestRichInplaceSelect extends AbstractMetamerTest {
     }
 
     @Test
+    @IssueTracking("https://issues.jboss.org/browse/RF-10739")
     public void testSaveOnBlurSelectFalseFalse() {
         selenium.click(pjq("input[type=radio][name$=saveOnBlurInput][value=false]"));
         selenium.waitForPageToLoad();
