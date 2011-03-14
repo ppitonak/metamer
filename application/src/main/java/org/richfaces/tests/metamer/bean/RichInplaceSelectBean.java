@@ -61,6 +61,8 @@ public class RichInplaceSelectBean implements Serializable {
     private String value2;
     private String value3;
     private String value4;
+    private String value5;
+    private String requiredMessage = "value is required";
 
     /**
      * Initializes the managed bean.
@@ -76,7 +78,6 @@ public class RichInplaceSelectBean implements Serializable {
             capitalsOptions.add(new SelectItem(capital.getState(), capital.getState()));
             validationOptions.add(new SelectItem(capital.getState(), capital.getState()));
         }
-        capitalsOptions.add(new SelectItem("", ""));
         validationOptions.add(new SelectItem("@@", "@@"));
         validationOptions.add(new SelectItem("", ""));
         validationOptions.add(new SelectItem("RichFaces", "RichFaces"));
@@ -90,13 +91,14 @@ public class RichInplaceSelectBean implements Serializable {
         attributes.setAttribute("listWidth", "200px");
         attributes.setAttribute("openOnEdit", true);
         attributes.setAttribute("rendered", true);
-        attributes.setAttribute("requiredMessage", "value is required");
         attributes.setAttribute("saveOnBlur", true);
         attributes.setAttribute("saveOnSelect", true);
 
         // TODO has to be tested in another way
         attributes.remove("converter");
         attributes.remove("converterMessage");
+        attributes.remove("required");
+        attributes.remove("requiredMessage");
         attributes.remove("validator");
         attributes.remove("validatorMessage");
         attributes.remove("valueChangeListener");
@@ -171,6 +173,22 @@ public class RichInplaceSelectBean implements Serializable {
         this.value4 = value4;
     }
 
+    public String getValue5() {
+        return value5;
+    }
+
+    public void setValue5(String value5) {
+        this.value5 = value5;
+    }
+
+    public String getRequiredMessage() {
+        return requiredMessage;
+    }
+
+    public void setRequiredMessage(String requiredMessage) {
+        this.requiredMessage = requiredMessage;
+    }
+    
     public void listener(ValueChangeEvent event) {
         RichBean.logToPage("* value changed: " + event.getOldValue() + " -> " + event.getNewValue());
     }
