@@ -104,8 +104,8 @@ public class TestRichInplaceSelect extends AbstractMetamerTest {
     }
 
     @Test
-    public void testChangedStateClass() {
-        selenium.type(pjq("input[id$=changedStateClassInput]"), "metamer-ftest-class");
+    public void testChangedClass() {
+        selenium.type(pjq("input[id$=changedClassInput]"), "metamer-ftest-class");
         selenium.waitForPageToLoad();
 
         selenium.click(select);
@@ -153,11 +153,11 @@ public class TestRichInplaceSelect extends AbstractMetamerTest {
     }
 
     @Test
-    public void testDisabledStateClass() {
+    public void testDisabledClass() {
         selenium.click(pjq("input[type=radio][name$=disabledInput][value=true]"));
         selenium.waitForPageToLoad();
 
-        testStyleClass(select, "disabledStateClass");
+        testStyleClass(select, "disabledClass");
     }
 
     @Test
@@ -172,8 +172,8 @@ public class TestRichInplaceSelect extends AbstractMetamerTest {
     }
 
     @Test
-    public void testEditStateClass() {
-        selenium.type(pjq("input[id$=editStateClassInput]"), "metamer-ftest-class");
+    public void testActiveClass() {
+        selenium.type(pjq("input[id$=activeClassInput]"), "metamer-ftest-class");
         selenium.waitForPageToLoad();
 
         assertFalse(selenium.belongsClass(select, "metamer-ftest-class"), "Inplace input should not have class metamer-ftest-class.");
@@ -487,11 +487,6 @@ public class TestRichInplaceSelect extends AbstractMetamerTest {
 
         selenium.click(input);
         assertTrue(selenium.isDisplayed(popup), "Popup should be displayed.");
-    }
-
-    @Test
-    public void testReadyStateClass() {
-        testStyleClass(select, "readyStateClass");
     }
 
     @Test
