@@ -37,6 +37,17 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
         </ui:define>
 
         <ui:define name="component">
+            domElementAttachment:
+            <h:selectOneRadio id="attachmentInput" value="#{richPopupPanelBean.attributes['domElementAttachment'].value}">
+                <f:selectItem itemValue="" itemLabel="null"/>
+                <f:selectItem itemValue="body" itemLabel="body"/>
+                <f:selectItem itemValue="form" itemLabel="form"/>
+                <f:selectItem itemValue="parent" itemLabel="parent"/>
+                <a4j:ajax event="change" render="popupPanel"/>
+            </h:selectOneRadio>
+
+            <br/><br/>
+
             input1 <h:inputText id="input1" value="#{richPopupPanelBean.value1}"/>
 
             <br/><br/>
@@ -45,7 +56,8 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                 <rich:componentControl target="popupPanel" operation="show" />
             </h:commandButton>
 
-            <rich:popupPanel id="popupPanel" modal="true" header="header">
+            <rich:popupPanel id="popupPanel"  header="header"
+                             domElementAttachment="#{richPopupPanelBean.attributes['domElementAttachment'].value}">
                 <f:facet name="controls">
                     <h:outputLink value="#" onclick="#{rich:component('popupPanel')}.hide(); return false;">X</h:outputLink>
                 </f:facet>
@@ -55,7 +67,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                     input3 <h:inputText id="input3" value="#{richPopupPanelBean.value3}"/>
                 </h:panelGrid>
 
-                <a4j:commandButton action="#{richPopupPanelBean.save}" value="Save" 
+                <a4j:commandButton action="#{richPopupPanelBean.save}" value="Save"
                                    render="output1 output2 output3" execute="input1 input2 input3"/>
             </rich:popupPanel>
 
