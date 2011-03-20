@@ -37,46 +37,27 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 
         <ui:define name="component">
             <h:panelGrid columns="3">
-                not empty
-                <rich:inplaceInput id="input1"
-                                   defaultLabel="#{richInplaceInputBean.attributes['defaultLabel'].value}"
-                                   value="#{richInplaceInputBean.value1}"
-                                   >
+                min 2
+                <rich:inputNumberSlider id="slider1" maxValue="10" minValue="-10" value="#{richInputNumberSliderBean.value1}">
                     <rich:validator event="change"/>
                     <a4j:ajax event="change" render="output1"/>
-                </rich:inplaceInput>
-                <rich:message id="inputMsg1" for="input1"/>
+                </rich:inputNumberSlider>
+                <rich:message id="inputMsg1" for="slider1"/>
 
-                pattern [a-z].*
-                <rich:inplaceInput id="input2"
-                                   defaultLabel="#{richInplaceInputBean.attributes['defaultLabel'].value}"
-                                   value="#{richInplaceInputBean.value2}"
-                                   >
+                max 2
+                <rich:inputNumberSlider id="slider2" maxValue="10" minValue="-10" value="#{richInputNumberSliderBean.value2}">
                     <rich:validator event="change"/>
                     <a4j:ajax event="change" render="output2"/>
-                </rich:inplaceInput>
-                <rich:message id="inputMsg2" for="input2"/>
+                </rich:inputNumberSlider>
+                <rich:message id="inputMsg2" for="slider2"/>
 
-                size 3-6
-                <rich:inplaceInput id="input3"
-                                   defaultLabel="#{richInplaceInputBean.attributes['defaultLabel'].value}"
-                                   value="#{richInplaceInputBean.value3}"
-                                   >
+                custom (positive)
+                <rich:inputNumberSlider id="slider3" maxValue="10" minValue="-10" value="#{richInputNumberSliderBean.value3}">
+                    <f:validator validatorId="org.richfaces.PositiveNumberValidator"/>
                     <rich:validator event="change"/>
                     <a4j:ajax event="change" render="output3"/>
-                </rich:inplaceInput>
-                <rich:message id="inputMsg3" for="input3"/>
-
-                custom (RichFaces)
-                <rich:inplaceInput id="input4"
-                                   defaultLabel="#{richInplaceInputBean.attributes['defaultLabel'].value}"
-                                   value="#{richInplaceInputBean.value4}"
-                                   >
-                    <f:validator validatorId="org.richfaces.StringRichFacesValidator"/>
-                    <rich:validator event="change"/>
-                    <a4j:ajax event="change" render="output4"/>
-                </rich:inplaceInput>
-                <rich:message id="inputMsg4" for="input4"/>
+                </rich:inputNumberSlider>
+                <rich:message id="inputMsg3" for="slider3"/>
 
             </h:panelGrid>
             <br/><br/>
@@ -88,8 +69,6 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                 <h:outputText id="output2" value="#{richInplaceInputBean.value2}"/>
                 output3
                 <h:outputText id="output3" value="#{richInplaceInputBean.value3}"/>
-                output4
-                <h:outputText id="output4" value="#{richInplaceInputBean.value4}"/>
             </h:panelGrid>
         </ui:define>
 

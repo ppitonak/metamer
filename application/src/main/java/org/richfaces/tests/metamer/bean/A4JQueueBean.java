@@ -49,6 +49,7 @@ public class A4JQueueBean implements Serializable {
     private A4JQueueBean globalQueue;
     private A4JQueueBean formQueue1;
     private A4JQueueBean formQueue2;
+    private boolean introduceDelay;
 
     /**
      * Initializes the managed bean.
@@ -108,6 +109,21 @@ public class A4JQueueBean implements Serializable {
     }
 
     public void setText(String text) {
+        if (introduceDelay) {
+            try {
+                Thread.sleep(5000);
+            } catch (InterruptedException e) {
+                throw new IllegalStateException(e);
+            }
+        }
         this.text = text;
+    }
+    
+    public boolean isIntroduceDelay() {
+        return introduceDelay;
+    }
+    
+    public void setIntroduceDelay(boolean introduceDelay) {
+        this.introduceDelay = introduceDelay;
     }
 }

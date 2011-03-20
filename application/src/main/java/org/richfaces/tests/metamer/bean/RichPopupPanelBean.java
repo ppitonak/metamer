@@ -45,6 +45,9 @@ public class RichPopupPanelBean implements Serializable {
     private static final long serialVersionUID = -1L;
     private static Logger logger;
     private Attributes attributes;
+    private String value1;
+    private String value2;
+    private String value3;
 
     /**
      * Initializes the managed bean.
@@ -77,5 +80,36 @@ public class RichPopupPanelBean implements Serializable {
 
     public void setAttributes(Attributes attributes) {
         this.attributes = attributes;
+    }
+
+    public String getValue1() {
+        return value1;
+    }
+
+    public void setValue1(String value1) {
+        this.value1 = value1;
+    }
+
+    public String getValue2() {
+        return value2;
+    }
+
+    public void setValue2(String value2) {
+        this.value2 = value2;
+    }
+
+    public String getValue3() {
+        return value3;
+    }
+
+    public void setValue3(String value3) {
+        this.value3 = value3;
+    }
+
+    public String save() {
+        logger.warn("1:  " + value1);
+        logger.warn("2:  " + value2);
+        logger.warn("3:  " + value3);
+        return null;
     }
 }

@@ -22,7 +22,6 @@
 package org.richfaces.tests.metamer.ftest.richInplaceInput;
 
 import static org.jboss.test.selenium.guard.request.RequestTypeGuardFactory.guardNoRequest;
-import static org.jboss.test.selenium.guard.request.RequestTypeGuardFactory.guardXhr;
 import static org.jboss.test.selenium.locator.LocatorFactory.jq;
 import static org.jboss.test.selenium.utils.URLUtils.buildUrl;
 import static org.testng.Assert.assertEquals;
@@ -33,15 +32,9 @@ import java.net.URL;
 
 import javax.faces.event.PhaseId;
 
-import org.jboss.test.selenium.css.CssProperty;
 import org.jboss.test.selenium.dom.Event;
-import org.jboss.test.selenium.locator.Attribute;
-import org.jboss.test.selenium.locator.AttributeLocator;
 import org.jboss.test.selenium.locator.JQueryLocator;
-import org.jboss.test.selenium.waiting.EventFiredCondition;
 import org.richfaces.tests.metamer.ftest.AbstractMetamerTest;
-import org.richfaces.tests.metamer.ftest.annotations.IssueTracking;
-import org.richfaces.tests.metamer.ftest.annotations.RegressionTest;
 import org.testng.annotations.Test;
 
 /**
@@ -55,7 +48,7 @@ public class TestRichInplaceInputFAjax extends AbstractMetamerTest {
     private JQueryLocator inplaceInput = pjq("span[id$=inplaceInput]");
     private JQueryLocator label = pjq("span.rf-ii-lbl");
     private JQueryLocator input = pjq("input[id$=inplaceInputInput]");
-    private JQueryLocator edit = pjq("span.rf-ii-edit");
+    private JQueryLocator edit = pjq("span.rf-ii-fld-cntr");
     private JQueryLocator okButton = pjq("input.rf-ii-btn[id$=Okbtn]");
     private JQueryLocator cancelButton = pjq("input.rf-ii-btn[id$=Cancelbtn]");
     private JQueryLocator output = pjq("span[id$=output]");
@@ -68,13 +61,13 @@ public class TestRichInplaceInputFAjax extends AbstractMetamerTest {
     @Test
     public void testClick() {
         guardNoRequest(selenium).click(inplaceInput);
-        assertFalse(selenium.belongsClass(edit, "rf-ii-none"), "Edit should not contain class rf-is-none when popup is open.");
+        assertFalse(selenium.belongsClass(edit, "rf-ii-none"), "Edit should not contain class rf-ii-none when popup is open.");
         assertTrue(selenium.isDisplayed(input), "Input should be displayed.");
 
         selenium.type(input, "new value");
         selenium.fireEvent(input, Event.BLUR);
-        assertTrue(selenium.belongsClass(inplaceInput, "rf-ii-c-s"), "New class should be added to inplace input.");
-        assertTrue(selenium.belongsClass(edit, "rf-ii-none"), "Edit should contain class rf-is-none when popup is closed.");
+        assertTrue(selenium.belongsClass(inplaceInput, "rf-ii-chng"), "New class should be added to inplace input.");
+        assertTrue(selenium.belongsClass(edit, "rf-ii-none"), "Edit should contain class rf-ii-none when popup is closed.");
 
         assertEquals(selenium.getText(label), "new value", "Label should contain selected value.");
         assertEquals(selenium.getText(output), "new value", "Output did not change.");

@@ -89,13 +89,13 @@ public abstract class AbstractMetamerTest extends AbstractTestCase {
     protected TextRetriever retrieveStatusChecker = retrieveText.locator(jq("#statusCheckerOutput"));
     protected PhaseInfo phaseInfo = new PhaseInfo();
     protected LocatorReference<JQueryLocator> attributesRoot = new LocatorReference<JQueryLocator>(
-            pjq("span[id$=:attributes:panel]"));
+        pjq("span[id$=:attributes:panel]"));
     /**
      * timeout in miliseconds
      */
     public static final long TIMEOUT = 5000;
     @Inject
-    @Templates({"plain", "richDataTable1", "a4jRepeat2", "hDataTable1", "uiRepeat2"})
+    @Templates({ "plain", "richDataTable1", "a4jRepeat2", "hDataTable1", "uiRepeat2" })
     private TemplatesList template;
 
     /**
@@ -204,7 +204,7 @@ public abstract class AbstractMetamerTest extends AbstractTestCase {
         selenium.fireEvent(element, event);
 
         waitGui.failWith("Attribute on" + attributeName + " does not work correctly").until(
-                new EventFiredCondition(event));
+            new EventFiredCondition(event));
     }
 
     /**
@@ -266,7 +266,7 @@ public abstract class AbstractMetamerTest extends AbstractTestCase {
 
         selenium.getEval(new JavaScript("window.metamerEvents = \"\";"));
     }
-    
+
     public void testRequestEventsBeforeByAlert(String... events) {
         for (String event : events) {
             ReferencedLocator<JQueryLocator> input = ref(attributesRoot, "input[type=text][id$=on{0}Input]");
@@ -279,27 +279,27 @@ public abstract class AbstractMetamerTest extends AbstractTestCase {
     public void testRequestEventsAfter(String... events) {
         String[] actualEvents = selenium.getEval(new JavaScript("window.metamerEvents")).split(" ");
         assertEquals(
-                actualEvents,
-                events,
-                format("The events ({0}) don't came in right order ({1})", Arrays.deepToString(actualEvents),
+            actualEvents,
+            events,
+            format("The events ({0}) don't came in right order ({1})", Arrays.deepToString(actualEvents),
                 Arrays.deepToString(events)));
     }
-    
+
     public void testRequestEventsAfterByAlert(String... events) {
         List<String> list = new LinkedList<String>();
-        
+
         for (int i = 0; i < events.length; i++) {
             waitGui.dontFail().until(alertPresent);
             if (selenium.isAlertPresent()) {
                 list.add(selenium.getAlert());
             }
         }
-        
+
         String[] actualEvents = list.toArray(new String[list.size()]);
         assertEquals(
-                actualEvents,
-                events,
-                format("The events ({0}) don't came in right order ({1})", Arrays.deepToString(actualEvents),
+            actualEvents,
+            events,
+            format("The events ({0}) don't came in right order ({1})", Arrays.deepToString(actualEvents),
                 Arrays.deepToString(events)));
     }
 
@@ -398,7 +398,7 @@ public abstract class AbstractMetamerTest extends AbstractTestCase {
         selenium.waitForPageToLoad();
 
         assertTrue(selenium.getAttribute(attr).contains(value), "Attribute " + attribute + " should contain \"" + value
-                + "\".");
+            + "\".");
     }
 
     /**
@@ -443,6 +443,39 @@ public abstract class AbstractMetamerTest extends AbstractTestCase {
             selenium.mouseOut(target);
         } else {
             selenium.fireEvent(target, event);
+        }
+    }
+
+    /**
+     * Abstract ReloadTester for testing
+     * 
+     * @param <T>
+     *            the type of input values which will be set, sent and then verified
+     */
+    public abstract class ReloadTester<T> {
+
+        public abstract void doRequest(T inputValue);
+
+        public abstract void verifyResponse(T inputValue);
+
+        public abstract T[] getInputValues();
+
+        public void testRerenderAll() {
+            for (T inputValue : getInputValues()) {
+                doRequest(inputValue);
+                verifyResponse(inputValue);
+                AbstractMetamerTest.this.rerenderAll();
+                verifyResponse(inputValue);
+            }
+        }
+
+        public void testFullPageRefresh() {
+            for (T inputValue : getInputValues()) {
+                doRequest(inputValue);
+                verifyResponse(inputValue);
+                AbstractMetamerTest.this.fullPageRefresh();
+                verifyResponse(inputValue);
+            }
         }
     }
 }

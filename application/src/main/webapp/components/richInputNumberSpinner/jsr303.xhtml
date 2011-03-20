@@ -36,60 +36,40 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
         </ui:define>
 
         <ui:define name="component">
+            <h:commandButton id="hButton" value="h:commandButton" style="margin-right: 10px;"/>
+            <a4j:commandButton id="a4jButton" value="a4j:commandButton"/>
+            <br/><br/>
+
             <h:panelGrid columns="3">
-                not empty
-                <rich:inplaceInput id="input1"
-                                   defaultLabel="#{richInplaceInputBean.attributes['defaultLabel'].value}"
-                                   value="#{richInplaceInputBean.value1}"
-                                   >
-                    <rich:validator event="change"/>
+                min 2
+                <rich:inputNumberSpinner id="input1" maxValue="10" minValue="-10" value="#{richInputNumberSpinnerBean.value1}">
                     <a4j:ajax event="change" render="output1"/>
-                </rich:inplaceInput>
+                </rich:inputNumberSpinner>
                 <rich:message id="inputMsg1" for="input1"/>
 
-                pattern [a-z].*
-                <rich:inplaceInput id="input2"
-                                   defaultLabel="#{richInplaceInputBean.attributes['defaultLabel'].value}"
-                                   value="#{richInplaceInputBean.value2}"
-                                   >
-                    <rich:validator event="change"/>
+                max 2
+                <rich:inputNumberSpinner id="input2" maxValue="10" minValue="-10" value="#{richInputNumberSpinnerBean.value2}">
                     <a4j:ajax event="change" render="output2"/>
-                </rich:inplaceInput>
+                </rich:inputNumberSpinner>
                 <rich:message id="inputMsg2" for="input2"/>
 
-                size 3-6
-                <rich:inplaceInput id="input3"
-                                   defaultLabel="#{richInplaceInputBean.attributes['defaultLabel'].value}"
-                                   value="#{richInplaceInputBean.value3}"
-                                   >
-                    <rich:validator event="change"/>
+                custom (positive)
+                <rich:inputNumberSpinner id="input3" maxValue="10" minValue="-10" value="#{richInputNumberSpinnerBean.value3}">
+                    <f:validator validatorId="org.richfaces.PositiveNumberValidator"/>
                     <a4j:ajax event="change" render="output3"/>
-                </rich:inplaceInput>
+                </rich:inputNumberSpinner>
                 <rich:message id="inputMsg3" for="input3"/>
-
-                custom (RichFaces)
-                <rich:inplaceInput id="input4"
-                                   defaultLabel="#{richInplaceInputBean.attributes['defaultLabel'].value}"
-                                   value="#{richInplaceInputBean.value4}"
-                                   >
-                    <f:validator validatorId="org.richfaces.StringRichFacesValidator"/>
-                    <rich:validator event="change"/>
-                    <a4j:ajax event="change" render="output4"/>
-                </rich:inplaceInput>
-                <rich:message id="inputMsg4" for="input4"/>
 
             </h:panelGrid>
             <br/><br/>
 
             <h:panelGrid columns="2">
                 output1
-                <h:outputText id="output1" value="#{richInplaceInputBean.value1}"/>
+                <h:outputText id="output1" value="#{richInputNumberSpinnerBean.value1}"/>
                 output2
-                <h:outputText id="output2" value="#{richInplaceInputBean.value2}"/>
+                <h:outputText id="output2" value="#{richInputNumberSpinnerBean.value2}"/>
                 output3
-                <h:outputText id="output3" value="#{richInplaceInputBean.value3}"/>
-                output4
-                <h:outputText id="output4" value="#{richInplaceInputBean.value4}"/>
+                <h:outputText id="output3" value="#{richInputNumberSpinnerBean.value3}"/>
             </h:panelGrid>
         </ui:define>
 

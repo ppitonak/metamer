@@ -35,6 +35,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
+import org.jboss.test.selenium.css.CssProperty;
 
 import org.jboss.test.selenium.dom.Event;
 import org.jboss.test.selenium.locator.Attribute;
@@ -265,7 +266,7 @@ public class TestRichCalendarAttributes extends AbstractCalendarTest {
         for (int i = 2; i < 42; i += 7) {
             if (!selenium.belongsClass(cellDay.format(i), "rf-cal-boundary-day")) {
                 assertTrue(selenium.belongsClass(cellDay.format(i), "yellowDay"), "Cell nr. " + i
-                    + " should be yellow.");
+                        + " should be yellow.");
             }
         }
 
@@ -276,12 +277,12 @@ public class TestRichCalendarAttributes extends AbstractCalendarTest {
 
         for (int i = 0; i < 42; i++) {
             assertFalse(selenium.belongsClass(cellDay.format(i), "yellowDay"), "Cell nr. " + i
-                + " should not be yellow.");
+                    + " should not be yellow.");
         }
     }
 
     @Test
-    @RegressionTest({ "https://issues.jboss.org/browse/RF-9837", "https://issues.jboss.org/browse/RF-10085" })
+    @RegressionTest({"https://issues.jboss.org/browse/RF-9837", "https://issues.jboss.org/browse/RF-10085"})
     public void testDefaultTime() {
         selenium.type(pjq("input[type=text][id$=defaultTimeInput]"), "21:24");
         selenium.waitForPageToLoad();
@@ -331,7 +332,7 @@ public class TestRichCalendarAttributes extends AbstractCalendarTest {
 
         selenium.click(input);
 
-        String[] labels = { "", "Sat", "Sun", "Mon", "Tue", "Wed", "Thu", "Fri" };
+        String[] labels = {"", "Sat", "Sun", "Mon", "Tue", "Wed", "Thu", "Fri"};
 
         for (int i = 0; i < 8; i++) {
             String label = selenium.getText(weekDayLabel.format(i));
@@ -379,7 +380,7 @@ public class TestRichCalendarAttributes extends AbstractCalendarTest {
 
         selenium.click(input);
 
-        String[] labels = { "", "Вс", "Пн", "Вт", "Ср", "Чт", "Пт", "Сб" };
+        String[] labels = {"", "Вс", "Пн", "Вт", "Ср", "Чт", "Пт", "Сб"};
 
         for (int i = 0; i < 8; i++) {
             String label = selenium.getText(weekDayLabel.format(i));
@@ -392,8 +393,7 @@ public class TestRichCalendarAttributes extends AbstractCalendarTest {
 
         String selectedDate = null;
         try {
-            Date date = new SimpleDateFormat("d MMMM, yyyy hh:mm", new Locale("ru"))
-                .parse(day + " " + month + " 12:00");
+            Date date = new SimpleDateFormat("d MMMM, yyyy hh:mm", new Locale("ru")).parse(day + " " + month + " 12:00");
             selectedDate = new SimpleDateFormat("MMM d, yyyy hh:mm", new Locale("ru")).format(date);
         } catch (ParseException ex) {
             fail(ex.getMessage());
@@ -421,7 +421,7 @@ public class TestRichCalendarAttributes extends AbstractCalendarTest {
         selenium.type(input, "Dec 23, 2010 19:27");
 
         waitGui.failWith("Attribute oninputchange does not work correctly").until(
-            new EventFiredCondition(new Event("inputchange")));
+                new EventFiredCondition(new Event("inputchange")));
     }
 
     @Test
@@ -659,6 +659,27 @@ public class TestRichCalendarAttributes extends AbstractCalendarTest {
     }
 
     @Test
+    @IssueTracking("https://issues.jboss.org/browse/RF-9655")
+    public void testStyle() {
+        testStyle(calendar, "style");
+    }
+
+    @Test
+    public void testStyleClass() {
+        testStyleClass(calendar, "styleClass");
+    }
+
+    @Test
+    public void testTabindexInput() {
+        testHtmlAttribute(input, "tabindex", "99");
+    }
+
+    @Test
+    public void testTabindexButton() {
+        testHtmlAttribute(image, "tabindex", "99");
+    }
+
+    @Test
     public void testValueChangeListener() {
         String time1Value = selenium.getText(time);
         selenium.click(input);
@@ -674,13 +695,21 @@ public class TestRichCalendarAttributes extends AbstractCalendarTest {
         assertEquals(listenerOutput, "* value changed: null -> " + selectedDate1);
     }
 
+    @Test
+    public void testZindex() {
+        selenium.type(pjq("input[id$=zindexInput]"), "30");
+        selenium.waitForPageToLoad();
+
+        assertEquals(selenium.getStyle(popup, new CssProperty("z-index")), "30", "Z-index of the popup");
+    }
+
     /**
      * Checks that no date in the open month is selected.
      */
     private void assertNoDateSelected() {
         for (int i = 0; i < 42; i++) {
             assertFalse(selenium.belongsClass(cellDay.format(i), "rf-cal-sel"), "Cell nr. " + i
-                + " should not be selected.");
+                    + " should not be selected.");
         }
     }
 
@@ -704,10 +733,10 @@ public class TestRichCalendarAttributes extends AbstractCalendarTest {
         for (int i = lowerBoundary; i < upperBoundary; i++) {
             if (exceptOfDate.equals(selenium.getText(cellDay.format(i)))) {
                 assertTrue(selenium.belongsClass(cellDay.format(i), "rf-cal-sel"), "Cell nr. " + i
-                    + " should not be selected.");
+                        + " should not be selected.");
             } else {
                 assertFalse(selenium.belongsClass(cellDay.format(i), "rf-cal-sel"), "Cell nr. " + i
-                    + " should not be selected.");
+                        + " should not be selected.");
             }
         }
 
@@ -717,7 +746,7 @@ public class TestRichCalendarAttributes extends AbstractCalendarTest {
         // check other 3 lines of cells
         for (int i = lowerBoundary; i < upperBoundary; i++) {
             assertFalse(selenium.belongsClass(cellDay.format(i), "rf-cal-sel"), "Cell nr. " + i
-                + " should not be selected.");
+                    + " should not be selected.");
         }
     }
 }

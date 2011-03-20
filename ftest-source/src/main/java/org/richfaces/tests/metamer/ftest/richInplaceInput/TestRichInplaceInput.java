@@ -55,7 +55,7 @@ public class TestRichInplaceInput extends AbstractMetamerTest {
     private JQueryLocator inplaceInput = pjq("span[id$=inplaceInput]");
     private JQueryLocator label = pjq("span.rf-ii-lbl");
     private JQueryLocator input = pjq("input[id$=inplaceInputInput]");
-    private JQueryLocator edit = pjq("span.rf-ii-edit");
+    private JQueryLocator edit = pjq("span.rf-ii-fld-cntr");
     private JQueryLocator okButton = pjq("input.rf-ii-btn[id$=Okbtn]");
     private JQueryLocator cancelButton = pjq("input.rf-ii-btn[id$=Cancelbtn]");
     private JQueryLocator output = pjq("span[id$=output]");
@@ -79,13 +79,13 @@ public class TestRichInplaceInput extends AbstractMetamerTest {
     @Test
     public void testClick() {
         guardNoRequest(selenium).click(inplaceInput);
-        assertFalse(selenium.belongsClass(edit, "rf-ii-none"), "Edit should not contain class rf-is-none when popup is open.");
+        assertFalse(selenium.belongsClass(edit, "rf-ii-none"), "Edit should not contain class rf-ii-none when popup is open.");
         assertTrue(selenium.isDisplayed(input), "Input should be displayed.");
 
         selenium.type(input, "new value");
         selenium.fireEvent(input, Event.BLUR);
-        assertTrue(selenium.belongsClass(inplaceInput, "rf-ii-c-s"), "New class should be added to inplace input.");
-        assertTrue(selenium.belongsClass(edit, "rf-ii-none"), "Edit should contain class rf-is-none when popup is closed.");
+        assertTrue(selenium.belongsClass(inplaceInput, "rf-ii-chng"), "New class should be added to inplace input.");
+        assertTrue(selenium.belongsClass(edit, "rf-ii-none"), "Edit should contain class rf-ii-none when popup is closed.");
 
         assertEquals(selenium.getText(label), "new value", "Label should contain selected value.");
         assertEquals(selenium.getText(output), "new value", "Output did not change.");
@@ -99,8 +99,8 @@ public class TestRichInplaceInput extends AbstractMetamerTest {
     }
 
     @Test
-    public void testChangedStateClass() {
-        selenium.type(pjq("input[id$=changedStateClassInput]"), "metamer-ftest-class");
+    public void testChangedClass() {
+        selenium.type(pjq("input[id$=changedClassInput]"), "metamer-ftest-class");
         selenium.waitForPageToLoad();
 
         selenium.click(inplaceInput);
@@ -142,16 +142,11 @@ public class TestRichInplaceInput extends AbstractMetamerTest {
     }
 
     @Test
-    public void testDisabledStateClass() {
+    public void testDisabledClass() {
         selenium.click(pjq("input[type=radio][name$=disabledInput][value=true]"));
         selenium.waitForPageToLoad();
 
-        testStyleClass(inplaceInput, "disabledStateClass");
-    }
-
-    @Test
-    public void testEditClass() {
-        testStyleClass(edit, "editClass");
+        testStyleClass(inplaceInput, "disabledClass");
     }
 
     @Test
@@ -166,8 +161,8 @@ public class TestRichInplaceInput extends AbstractMetamerTest {
     }
 
     @Test
-    public void testEditStateClass() {
-        selenium.type(pjq("input[id$=editStateClassInput]"), "metamer-ftest-class");
+    public void testActiveClass() {
+        selenium.type(pjq("input[id$=activeClassInput]"), "metamer-ftest-class");
         selenium.waitForPageToLoad();
 
         assertFalse(selenium.belongsClass(inplaceInput, "metamer-ftest-class"), "Inplace input should not have class metamer-ftest-class.");
@@ -212,14 +207,6 @@ public class TestRichInplaceInput extends AbstractMetamerTest {
         assertTrue(selenium.isAttributePresent(input.getAttribute(Attribute.STYLE)), "Input doesn't have attribute style.");
         width = selenium.getAttribute(input.getAttribute(Attribute.STYLE));
         assertTrue(!width.contains("width: ;"), "Default width of input was not set (was " + width + ").");
-    }
-
-    @Test
-    public void testNoneClass() {
-        selenium.type(pjq("input[type=text][id$=valueInput]"), "");
-        selenium.waitForPageToLoad();
-
-        testStyleClass(edit, "noneClass");
     }
 
     @Test
@@ -365,11 +352,6 @@ public class TestRichInplaceInput extends AbstractMetamerTest {
     @Test
     public void testOnmouseup() {
         testFireEvent(Event.MOUSEUP, inplaceInput);
-    }
-
-    @Test
-    public void testReadyStateClass() {
-        testStyleClass(inplaceInput, "readyStateClass");
     }
 
     @Test

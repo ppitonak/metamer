@@ -46,11 +46,13 @@ public abstract class AbstractTestCommand extends AbstractMetamerTest {
     private JQueryLocator output1 = pjq("div[id$=output1]");
     private JQueryLocator output2 = pjq("div[id$=output2]");
 
+    private LocalReloadTester reloadTester = new LocalReloadTester();
+
     public void testClick(JQueryLocator command, String text) {
         selenium.type(input, text);
         guardXhr(selenium).click(command);
         String outputValue = waitGui.failWith("Page was not updated").waitForChangeAndReturn("",
-                retrieveText.locator(output1));
+            retrieveText.locator(output1));
 
         assertEquals(outputValue, text, "Wrong output1");
         assertEquals(selenium.getText(output2), text, "Wrong output2");
@@ -70,7 +72,7 @@ public abstract class AbstractTestCommand extends AbstractMetamerTest {
 
         assertEquals(selenium.getText(output1), "", "Output should not change");
         phaseInfo.assertPhases(PhaseId.RESTORE_VIEW, PhaseId.APPLY_REQUEST_VALUES, PhaseId.PROCESS_VALIDATIONS,
-                PhaseId.RENDER_RESPONSE);
+            PhaseId.RENDER_RESPONSE);
         phaseInfo.assertListener(PhaseId.PROCESS_VALIDATIONS, "listener invoked");
     }
 
@@ -97,7 +99,7 @@ public abstract class AbstractTestCommand extends AbstractMetamerTest {
 
         selenium.type(input, "RichFaces 4");
         guardHttp(selenium).click(command);
-        
+
         assertEquals(selenium.getText(output1), "RichFaces 4", "Output1 should not change");
         assertEquals(selenium.getText(output2), "RichFaces 4", "Output2 should not change");
     }
@@ -134,7 +136,7 @@ public abstract class AbstractTestCommand extends AbstractMetamerTest {
 
         assertEquals(selenium.getText(output1), "RichFaces 4", "Output should change");
         phaseInfo.assertPhases(PhaseId.RESTORE_VIEW, PhaseId.APPLY_REQUEST_VALUES, PhaseId.PROCESS_VALIDATIONS,
-                PhaseId.UPDATE_MODEL_VALUES, PhaseId.INVOKE_APPLICATION, PhaseId.RENDER_RESPONSE);
+            PhaseId.UPDATE_MODEL_VALUES, PhaseId.INVOKE_APPLICATION, PhaseId.RENDER_RESPONSE);
         phaseInfo.assertListener(PhaseId.APPLY_REQUEST_VALUES, "listener invoked");
     }
 
@@ -154,7 +156,7 @@ public abstract class AbstractTestCommand extends AbstractMetamerTest {
 
         assertEquals(selenium.getText(output1), "", "Output should not change");
         phaseInfo.assertPhases(PhaseId.RESTORE_VIEW, PhaseId.APPLY_REQUEST_VALUES, PhaseId.PROCESS_VALIDATIONS,
-                PhaseId.RENDER_RESPONSE);
+            PhaseId.RENDER_RESPONSE);
         phaseInfo.assertListener(PhaseId.APPLY_REQUEST_VALUES, "listener invoked");
     }
 
@@ -203,7 +205,7 @@ public abstract class AbstractTestCommand extends AbstractMetamerTest {
         selenium.type(input, "RichFaces 4");
         guardXhr(selenium).click(command);
         String outputValue = waitGui.failWith("Page was not updated").waitForChangeAndReturn("",
-                retrieveText.locator(output1));
+            retrieveText.locator(output1));
 
         assertEquals(outputValue, "RichFaces 4", "Wrong output1");
         assertEquals(selenium.getText(output2), "", "Wrong output2");
@@ -215,6 +217,38 @@ public abstract class AbstractTestCommand extends AbstractMetamerTest {
 
         String statusCheckerTime = selenium.getText(statusChecker);
         guardXhr(selenium).click(command);
-        waitGui.failWith("Attribute status doesn't work").waitForChange(statusCheckerTime, retrieveText.locator(statusChecker));
+        waitGui.failWith("Attribute status doesn't work").waitForChange(statusCheckerTime,
+            retrieveText.locator(statusChecker));
     }
+
+    public void testRerenderAll(JQueryLocator command) {
+        reloadTester.command = command;
+        reloadTester.testRerenderAll();
+    }
+
+    public void testFullPageRefresh(JQueryLocator command) {
+        reloadTester.command = command;
+        reloadTester.testFullPageRefresh();
+    }
+
+    private class LocalReloadTester extends ReloadTester<String> {
+        JQueryLocator command;
+
+        @Override
+        public void doRequest(String inputValue) {
+            selenium.type(input, inputValue);
+            guardXhr(selenium).click(command);
+        }
+
+        @Override
+        public void verifyResponse(String inputValue) {
+            assertEquals(selenium.getText(output1), inputValue, "Wrong output1");
+            assertEquals(selenium.getText(output2), inputValue, "Wrong output2");
+        }
+
+        @Override
+        public String[] getInputValues() {
+            return new String[] { "RichFaces 3", "RichFaces 4" };
+        }
+    };
 }

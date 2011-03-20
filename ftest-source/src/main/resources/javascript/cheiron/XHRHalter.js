@@ -26,6 +26,7 @@ var XHRHalter = function(xhr) {
 		this.id = XHRHalter._instances.length - 1;
 	}
 	this.currentState = XHRHalter.STATE_OPEN;
+	this.lastAvailableState = XHRHalter.STATE_OPEN;
 	this.availableStates = new Array();
 	this.continueToState = XHRHalter.STATE_OPEN;
 	this.xhr = xhr;
@@ -108,14 +109,20 @@ XHRHalter.prototype.tryProcessStates = function() {
 };
 
 XHRHalter.prototype.processState = function(state) {
+	if (this.currentState > 0 && this.availableStates[state] === undefined) {
+		return;
+	}
 	this.loadXhrParams(state);
 	switch (state) {
 		case XHRHalter.STATE_SEND :
 			XHRHalter.XHRWrapperInjection.send.call(this.xhr, this.sendParams['content']);
 			break;
+		case XHRHalter.STATE_UNITIALIZED :
+			break;
 		default :
 			this.callback(this.xhr);
 	}
+	this.loadXhrParams(this.lastAvailableState);
 };
 
 XHRHalter.prototype.loadXhrParams = function(state) {
@@ -130,6 +137,7 @@ XHRHalter.prototype.loadXhrParams = function(state) {
 };
 
 XHRHalter.prototype.saveXhrParams = function() {
+	this.lastAvailableState = Math.max(this.lastAvailableState, this.xhr.readyState);
 	this.availableStates[this.xhr.readyState] = {};
 	var holder = this.availableStates[this.xhr.readyState];
 	holder.responseText = this.xhr.responseText;
@@ -151,7 +159,6 @@ RichFacesSelenium.XHRWrapper.prototype.onreadystatechangeCallback = function() {
 	if (XHRHalter.isEnabled()) {
 		var halter = XHRHalter._associations[this];
 		halter.saveXhrParams();
-		halter.loadXhrParams(halter.currentState);
 	} else {
 		XHRHalter.XHRWrapperInjection.onreadystatechangeCallback.call(this);
 	}
