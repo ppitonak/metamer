@@ -189,8 +189,7 @@ public class TestGlobalQueue extends AbstractMetamerTest {
     }
 
     @Test
-    @IssueTracking("https://issues.jboss.org/browse/RFPL-1194")
-    public void testIgnoreDuplicatedResponses() {
+    public void testIgnoreDuplicatedResponsesFalse() {
         attributes.setIgnoreDupResponses(false);
 
         XHRHalter.enable();
@@ -207,26 +206,29 @@ public class TestGlobalQueue extends AbstractMetamerTest {
         handle.complete();
         waitGui.dontFail().waitForChange("a", retrieveText.locator(queue.repeatedText));
         assertEquals(queue.getRepeatedText(), "b");
+    }
 
+    @Test
+    public void testIgnoreDuplicatedResponsesTrue() {
         attributes.setIgnoreDupResponses(true);
 
         XHRHalter.enable();
         queue.type("c");
         queue.fireEvent(1);
-        handle = XHRHalter.getHandleBlocking();
+        XHRHalter handle = XHRHalter.getHandleBlocking();
         handle.send();
         queue.type("d");
         queue.fireEvent(1);
         handle.complete();
         try {
-            waitGui.dontFail().waitForChange("b", retrieveText.locator(queue.repeatedText));
+            waitGui.dontFail().waitForChange("", retrieveText.locator(queue.repeatedText));
         } catch (SeleniumException e) {
             // expected timeout
         }
-        assertEquals(queue.getRepeatedText(), "b");
+        assertEquals(queue.getRepeatedText(), "");
         handle.waitForOpen();
         handle.complete();
-        waitGui.dontFail().waitForChange("b", retrieveText.locator(queue.repeatedText));
+        waitGui.dontFail().waitForChange("", retrieveText.locator(queue.repeatedText));
         assertEquals(queue.getRepeatedText(), "d");
     }
 }

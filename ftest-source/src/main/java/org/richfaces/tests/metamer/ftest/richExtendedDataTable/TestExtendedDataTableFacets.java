@@ -26,7 +26,6 @@ import static org.jboss.test.selenium.utils.URLUtils.buildUrl;
 import java.net.URL;
 
 import org.richfaces.tests.metamer.ftest.abstractions.DataTableFacetsTest;
-import org.richfaces.tests.metamer.ftest.annotations.IssueTracking;
 import org.richfaces.tests.metamer.ftest.model.ExtendedDataTable;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
@@ -47,14 +46,12 @@ public class TestExtendedDataTableFacets extends DataTableFacetsTest {
         model = new ExtendedDataTable(pjq("div.rf-edt[id$=richEDT]"));
     }
 
-    @Test(groups = "4.0.0.Final")
-    @IssueTracking("https://issues.jboss.org/browse/RFPL-1193")
+    @Test
     public void testNoDataInstantChange() {
         super.testNoDataInstantChange();
     }
 
-    @Test(groups = "4.0.0.Final")
-    @IssueTracking("https://issues.jboss.org/browse/RFPL-1193")
+    @Test
     public void testNoDataEmpty() {
         super.testNoDataEmpty();
     }

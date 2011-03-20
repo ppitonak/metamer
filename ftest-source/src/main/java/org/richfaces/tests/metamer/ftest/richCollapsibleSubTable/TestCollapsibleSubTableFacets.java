@@ -52,7 +52,6 @@ public class TestCollapsibleSubTableFacets extends AbstractCollapsibleSubTableTe
         assertFalse(subtable.hasVisibleRows());
 
         assertTrue(subtable.isNoData());
-        assertEquals(selenium.getText(subtable.getNoData()), EMPTY_STRING);
 
         facets.setNoData(SAMPLE_STRING);
 
@@ -63,7 +62,6 @@ public class TestCollapsibleSubTableFacets extends AbstractCollapsibleSubTableTe
         assertFalse(subtable.hasVisibleRows());
 
         assertTrue(subtable.isNoData());
-        assertEquals(selenium.getText(subtable.getNoData()), SAMPLE_STRING);
     }
 
     @Test

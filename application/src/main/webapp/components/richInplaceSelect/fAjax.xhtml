@@ -2,7 +2,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
       xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:metamer="http://java.sun.com/jsf/composite/metamer"
-      xmlns:rich="http://richfaces.org/rich" >
+      xmlns:rich="http://richfaces.org/rich" xmlns:a4j="http://richfaces.org/a4j">
 
     <!--
 JBoss, Home of Professional Open Source
@@ -38,13 +38,13 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 
         <ui:define name="component">
             <rich:inplaceSelect id="inplaceSelect"
-                                changedStateClass="#{richInplaceSelectBean.attributes['changedStateClass'].value}"
+                                activeClass="#{richInplaceSelectBean.attributes['activeClass'].value}"
+                                changedClass="#{richInplaceSelectBean.attributes['changedClass'].value}"
                                 converterMessage="#{richInplaceSelectBean.attributes['converterMessage'].value}"
                                 defaultLabel="#{richInplaceSelectBean.attributes['defaultLabel'].value}"
                                 disabled="#{richInplaceSelectBean.attributes['disabled'].value}"
-                                disabledStateClass="#{richInplaceSelectBean.attributes['disabledStateClass'].value}"
+                                disabledClass="#{richInplaceSelectBean.attributes['disabledClass'].value}"
                                 editEvent="#{richInplaceSelectBean.attributes['editEvent'].value}"
-                                editStateClass="#{richInplaceSelectBean.attributes['editStateClass'].value}"
                                 immediate="#{richInplaceSelectBean.attributes['immediate'].value}"
                                 inputWidth="#{richInplaceSelectBean.attributes['inputWidth'].value}"
                                 itemClass="#{richInplaceSelectBean.attributes['itemClass'].value}"
@@ -87,16 +87,15 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                                 onmouseup="#{richInplaceSelectBean.attributes['onmouseup'].value}"
                                 onselectitem="#{richInplaceSelectBean.attributes['onselectitem'].value}"
                                 openOnEdit="#{richInplaceSelectBean.attributes['openOnEdit'].value}"
-                                readyStateClass="#{richInplaceSelectBean.attributes['readyStateClass'].value}"
                                 rendered="#{richInplaceSelectBean.attributes['rendered'].value}"
-                                required="#{richInplaceSelectBean.attributes['required'].value}"
-                                requiredMessage="#{richInplaceSelectBean.attributes['requiredMessage'].value}"
                                 saveOnBlur="#{richInplaceSelectBean.attributes['saveOnBlur'].value}"
                                 saveOnSelect="#{richInplaceSelectBean.attributes['saveOnSelect'].value}"
                                 selectItemClass="#{richInplaceSelectBean.attributes['selectItemClass'].value}"
                                 showControls="#{richInplaceSelectBean.attributes['showControls'].value}"
                                 style="#{richInplaceSelectBean.attributes['style'].value}"
+                                styleClass="#{richInplaceSelectBean.attributes['styleClass'].value}"
                                 tabindex="#{richInplaceSelectBean.attributes['tabindex'].value}"
+                                title="#{richInplaceSelectBean.attributes['title'].value}"
                                 validatorMessage="#{richInplaceSelectBean.attributes['validatorMessage'].value}"
                                 value="#{richInplaceSelectBean.attributes['value'].value}"
                                 valueChangeListener="#{richInplaceSelectBean.listener}"
@@ -107,7 +106,11 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                 <f:ajax event="change" render="output :phasesPanel"/>
 
             </rich:inplaceSelect>
+            <rich:message id="msg" for="inplaceSelect"/>
 
+            <br/><br/>
+            <h:commandButton id="hButton" value="h:commandButton" style="margin-right: 10px;"/>
+            <a4j:commandButton id="a4jButton" value="a4j:commandButton"/>
             <br/><br/>
 
             output: <h:outputText id="output" value="#{richInplaceSelectBean.attributes['value'].value}"/>

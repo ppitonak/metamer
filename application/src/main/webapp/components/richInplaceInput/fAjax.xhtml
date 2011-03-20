@@ -2,7 +2,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
       xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:metamer="http://java.sun.com/jsf/composite/metamer"
-      xmlns:rich="http://richfaces.org/rich" >
+      xmlns:rich="http://richfaces.org/rich" xmlns:a4j="http://richfaces.org/a4j">
 
     <!--
 JBoss, Home of Professional Open Source
@@ -38,18 +38,16 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 
         <ui:define name="component">
             <rich:inplaceInput id="inplaceInput"
-                               changedStateClass="#{richInplaceInputBean.attributes['changedStateClass'].value}"
+                               activeClass="#{richInplaceInputBean.attributes['activeClass'].value}"
+                               changedClass="#{richInplaceInputBean.attributes['changedClass'].value}"
                                converter="#{richInplaceInputBean.attributes['converter'].value}"
                                converterMessage="#{richInplaceInputBean.attributes['converterMessage'].value}"
                                defaultLabel="#{richInplaceInputBean.attributes['defaultLabel'].value}"
                                disabled="#{richInplaceInputBean.attributes['disabled'].value}"
-                               disabledStateClass="#{richInplaceInputBean.attributes['disabledStateClass'].value}"
-                               editClass="#{richInplaceInputBean.attributes['editClass'].value}"
+                               disabledClass="#{richInplaceInputBean.attributes['disabledClass'].value}"
                                editEvent="#{richInplaceInputBean.attributes['editEvent'].value}"
-                               editStateClass="#{richInplaceInputBean.attributes['editStateClass'].value}"
                                immediate="#{richInplaceInputBean.attributes['immediate'].value}"
                                inputWidth="#{richInplaceInputBean.attributes['inputWidth'].value}"
-                               noneClass="#{richInplaceInputBean.attributes['noneClass'].value}"
                                onblur="#{richInplaceInputBean.attributes['onblur'].value}"
                                onclick="#{richInplaceInputBean.attributes['onclick'].value}"
                                onchange="#{richInplaceInputBean.attributes['onchange'].value}"
@@ -74,14 +72,15 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                                onmouseout="#{richInplaceInputBean.attributes['onmouseout'].value}"
                                onmouseover="#{richInplaceInputBean.attributes['onmouseover'].value}"
                                onmouseup="#{richInplaceInputBean.attributes['onmouseup'].value}"
-                               readyStateClass="#{richInplaceInputBean.attributes['readyStateClass'].value}"
                                rendered="#{richInplaceInputBean.attributes['rendered'].value}"
                                required="#{richInplaceInputBean.attributes['required'].value}"
                                requiredMessage="#{richInplaceInputBean.attributes['requiredMessage'].value}"
                                saveOnBlur="#{richInplaceInputBean.attributes['saveOnBlur'].value}"
                                showControls="#{richInplaceInputBean.attributes['showControls'].value}"
                                style="#{richInplaceInputBean.attributes['style'].value}"
+                               styleClass="#{richInplaceInputBean.attributes['styleClass'].value}"
                                tabindex="#{richInplaceInputBean.attributes['tabindex'].value}"
+                               title="#{richInplaceInputBean.attributes['title'].value}"
                                validatorMessage="#{richInplaceInputBean.attributes['validatorMessage'].value}"
                                value="#{richInplaceInputBean.attributes['value'].value}"
                                valueChangeListener="#{richBean.valueChangeListener}"
@@ -90,7 +89,11 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                 <f:ajax event="change" render="output :phasesPanel"/>
 
             </rich:inplaceInput>
+            <rich:message id="msg" for="inplaceInput"/>
 
+            <br/><br/>
+            <h:commandButton id="hButton" value="h:commandButton" style="margin-right: 10px;"/>
+            <a4j:commandButton id="a4jButton" value="a4j:commandButton"/>
             <br/><br/>
 
             output: <h:outputText id="output" value="#{richInplaceInputBean.attributes['value'].value}"/>

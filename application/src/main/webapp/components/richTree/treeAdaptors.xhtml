@@ -162,22 +162,22 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 
             <a4j:outputPanel ajaxRendered="true">
                 <h:panelGrid id="selectionOutput" columns="2">
-                    <h:outputLabel value="Test Loading Facet:" />
+                    <h:outputLabel for="loadingFacet" value="Test Loading Facet:" />
                     <h:selectBooleanCheckbox id="loadingFacet" value="#{richTreeBean.testLoadingFacet}">
                         <a4j:ajax render="#{nestedComponentId}" />
                     </h:selectBooleanCheckbox>
 
-                    <h:outputLabel value="Delayed Render (1sec):" />
-                    <h:selectBooleanCheckbox value="#{richTreeBean.delayedRender}">
+                    <h:outputLabel for="delayedRender" value="Delayed Render (1sec):" />
+                    <h:selectBooleanCheckbox id="delayedRender" value="#{richTreeBean.delayedRender}">
                         <a4j:ajax />
                     </h:selectBooleanCheckbox>
 
-                    <h:outputLabel value="Recursive Leaf Children Nullable:" />
+                    <h:outputLabel for="recursiveLeafChildrenNullable" value="Recursive Leaf Children Nullable:" />
                     <h:selectBooleanCheckbox id="recursiveLeafChildrenNullable" value="#{richTreeModelRecursiveAdaptorBean.leafChildrenNullable}">
                         <a4j:ajax render="#{nestedComponentId}" />
                     </h:selectBooleanCheckbox>
 
-                    <h:outputLabel value="Recursive Model Representation:" />
+                    <h:outputLabel for="recursiveModelRepresentation" value="Recursive Model Representation:" />
                     <h:selectOneRadio id="recursiveModelRepresentation" value="#{richTreeModelRecursiveAdaptorBean.useMapModel}">
                         <f:selectItem itemLabel="List&lt;RecursiveNode&gt;" itemValue="false" />
                         <f:selectItem itemLabel="Map&lt;Integer, RecursiveNode&gt;" itemValue="true" />
@@ -185,33 +185,33 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                         <a4j:ajax render="#{nestedComponentId}" />
                     </h:selectOneRadio>
 
-                    <h:outputLabel value="Selection:" />
+                    <h:outputLabel for="selection" value="Selection:" />
                     <h:outputText id="selection" value="#{richTreeBean.selection}" />
 
-                    <h:outputLabel value="Lazy Initialized:" />
+                    <h:outputLabel for="lazyInitialized" value="Lazy Initialized:" />
                     <h:outputText id="lazyInitialized" value="#{richTreeModelRecursiveAdaptorBean.lazyInitializedNodes}" />
 
-                    <h:outputLabel value="Selection Change Event:" rendered="#{not empty richTreeListenerBean.treeSelectionChangeEvent}" />
-                    <h:panelGrid columns="2" rendered="#{not empty richTreeListenerBean.treeSelectionChangeEvent}">
-                        <h:outputLabel value="Client ID:" />
+                    <h:outputLabel for="selectionChangeEventDetails" value="Selection Change Event:" rendered="#{not empty richTreeListenerBean.treeSelectionChangeEvent}" />
+                    <h:panelGrid id="selectionChangeEventDetails" columns="2" rendered="#{not empty richTreeListenerBean.treeSelectionChangeEvent}">
+                        <h:outputLabel for="selectionEventClientId" value="Client ID:" />
                         <h:outputText id="selectionEventClientId" value="#{richTreeListenerBean.treeSelectionChangeEvent.component.id}" />
 
-                        <h:outputLabel value="New Selection:" />
+                        <h:outputLabel for="selectionEventNewSelection" value="New Selection:" />
                         <h:outputText id="selectionEventNewSelection" value="#{richTreeListenerBean.treeSelectionChangeEvent.newSelection}" />
 
-                        <h:outputLabel value="Old Selection:" />
+                        <h:outputLabel for="selectionEventOldSelection" value="Old Selection:" />
                         <h:outputText id="selectionEventOldSelection" value="#{richTreeListenerBean.treeSelectionChangeEvent.oldSelection}" />
                     </h:panelGrid>
 
-                    <h:outputLabel value="Tree Toggle Event:" rendered="#{not empty richTreeListenerBean.treeToggleEvent}" />
-                    <h:panelGrid columns="2" rendered="#{not empty richTreeListenerBean.treeToggleEvent}">
-                        <h:outputLabel value="Client ID:" />
+                    <h:outputLabel for="treeToggleEventDetails" value="Tree Toggle Event:" rendered="#{not empty richTreeListenerBean.treeToggleEvent}" />
+                    <h:panelGrid id="treeToggleEventDetails" columns="2" rendered="#{not empty richTreeListenerBean.treeToggleEvent}">
+                        <h:outputLabel for="toggleEventClientId" value="Client ID:" />
                         <h:outputText id="toggleEventClientId" value="#{richTreeListenerBean.treeToggleEvent.component.id}" />
 
-                        <h:outputLabel value="Collapsed:" />
+                        <h:outputLabel for="toggleEventCollapsed" value="Collapsed:" />
                         <h:outputText id="toggleEventCollapsed" value="#{richTreeListenerBean.treeToggleEvent.collapsed}" />
 
-                        <h:outputLabel value="Expanded:" />
+                        <h:outputLabel for="toggleEventExpanded" value="Expanded:" />
                         <h:outputText id="toggleEventExpanded" value="#{richTreeListenerBean.treeToggleEvent.expanded}" />
                     </h:panelGrid>
                 </h:panelGrid>

@@ -51,7 +51,7 @@ public class TestTreeModelAdaptorSelection extends TestTreeSelection {
     PathsCrate pathsForListModel = new PathsCrate("listModel", new Integer[][] { { 2, 1, 3 }, { 3, 3, 2, 2 } });
     PathsCrate pathsForMapModel = new PathsCrate("mapModel", new Integer[][] { { 2, 1, 5 }, { 3, 3, 2, 6 } });
     PathsCrate pathsForRecursiveModel = new PathsCrate("recursiveModel", new Integer[][] { { 4, 1, 10, 2 },
-        { 1, 4, 3, 11, 4, 1 } });
+        { 1, 4, 3, 11, 4 } });
 
     @Inject
     @Use(enumeration = true)

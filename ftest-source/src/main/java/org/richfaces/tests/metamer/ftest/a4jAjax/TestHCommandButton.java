@@ -105,4 +105,14 @@ public class TestHCommandButton extends AbstractTestCommand {
     public void testStatus() {
         testStatus(button);
     }
+
+    @Test
+    public void testFullPageRefresh() {
+        testFullPageRefresh(button);
+    }
+
+    @Test
+    public void testRerenderAll() {
+        testRerenderAll(button);
+    }
 }

@@ -66,7 +66,7 @@ public class KeyConverter implements Converter {
                         break;
 
                     case 'K':
-                        for (ModelNode.K key : model.getMap().keySet()) {
+                        for (ModelNodeImpl.K key : model.getMap().keySet()) {
                             if (key.number == num) {
                                 return key;
                             }
@@ -85,8 +85,8 @@ public class KeyConverter implements Converter {
     }
 
     public String getAsString(FacesContext context, UIComponent component, Object value) {
-        if (value instanceof ModelNode.K) {
-            ModelNode.K k = (ModelNode.K) value;
+        if (value instanceof ModelNodeImpl.K) {
+            ModelNodeImpl.K k = (ModelNodeImpl.K) value;
             return k.getLabel();
         }
 

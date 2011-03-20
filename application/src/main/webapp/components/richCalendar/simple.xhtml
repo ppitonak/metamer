@@ -100,7 +100,6 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                                disabled="#{richCalendarBean.attributes['disabled'].value}"
                                enableManualInput="#{richCalendarBean.attributes['enableManualInput'].value}"
                                firstWeekDay="#{richCalendarBean.attributes['firstWeekDay'].value}"
-                               hidePopupOnScroll="#{richCalendarBean.attributes['hidePopupOnScroll'].value}"
                                horizontalOffset="#{richCalendarBean.attributes['horizontalOffset'].value}"
                                immediate="#{richCalendarBean.attributes['immediate'].value}"
                                inputClass="#{richCalendarBean.attributes['inputClass'].value}"
@@ -140,6 +139,8 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                                onshow="#{richCalendarBean.attributes['onshow'].value}"
                                ontimeselect="#{richCalendarBean.attributes['ontimeselect'].value}"
                                popup="#{richCalendarBean.attributes['popup'].value}"
+                               popupClass="#{richCalendarBean.attributes['popupClass'].value}"
+                               popupStyle="#{richCalendarBean.attributes['popupStyle'].value}"
                                preloadDateRangeBegin="#{richCalendarBean.attributes['preloadDateRangeBegin'].value}"
                                preloadDateRangeEnd="#{richCalendarBean.attributes['preloadDateRangeEnd'].value}"
                                rendered="#{richCalendarBean.attributes['rendered'].value}"
@@ -153,6 +154,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                                showWeekDaysBar="#{richCalendarBean.attributes['showWeekDaysBar'].value}"
                                showWeeksBar="#{richCalendarBean.attributes['showWeeksBar'].value}"
                                style="#{richCalendarBean.attributes['style'].value}"
+                               styleClass="#{richCalendarBean.attributes['styleClass'].value}"
                                tabindex="#{richCalendarBean.attributes['tabindex'].value}"
                                timeZone="#{richCalendarBean.timeZone}"
                                todayControlMode="#{richCalendarBean.attributes['todayControlMode'].value}"
@@ -166,8 +168,12 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                                >
                     <a4j:ajax event="change" render="output, phasesPanel" />
                 </rich:calendar>
+                <rich:message id="msg" for="calendar"/>
             </div>
 
+            <br/><br/>
+            <h:commandButton id="hButton" value="h:commandButton" style="margin-right: 10px;"/>
+            <a4j:commandButton id="a4jButton" value="a4j:commandButton"/>
             <br/><br/>
 
             output:

@@ -30,6 +30,9 @@ import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.event.ValueChangeEvent;
+import javax.validation.constraints.Future;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Past;
 
 import org.richfaces.component.UICalendar;
 import org.richfaces.tests.metamer.Attributes;
@@ -51,6 +54,9 @@ public class RichCalendarBean implements Serializable {
     private Attributes attributes;
     private Date date = new Date();
     private TimeZone timeZone = TimeZone.getTimeZone("UTC");
+    private Date date1;
+    private Date date2;
+    private Date date3;
 
     /**
      * Initializes the managed bean.
@@ -67,6 +73,7 @@ public class RichCalendarBean implements Serializable {
         attributes.setAttribute("jointPoint", "bottomLeft");
         attributes.setAttribute("popup", true);
         attributes.setAttribute("rendered", true);
+        attributes.setAttribute("requiredMessage", "value is required");
         attributes.setAttribute("showApplyButton", true);
         attributes.setAttribute("showHeader", true);
         attributes.setAttribute("showFooter", true);
@@ -104,6 +111,34 @@ public class RichCalendarBean implements Serializable {
 
     public void setTimeZone(TimeZone timeZone) {
         this.timeZone = timeZone;
+    }
+
+    @Past
+    @NotNull
+    public Date getDate1() {
+        return date1;
+    }
+
+    public void setDate1(Date date1) {
+        this.date1 = date1;
+    }
+
+    @Future
+    @NotNull
+    public Date getDate2() {
+        return date2;
+    }
+
+    public void setDate2(Date date2) {
+        this.date2 = date2;
+    }
+
+    public Date getDate3() {
+        return date3;
+    }
+
+    public void setDate3(Date date3) {
+        this.date3 = date3;
     }
 
     /**
