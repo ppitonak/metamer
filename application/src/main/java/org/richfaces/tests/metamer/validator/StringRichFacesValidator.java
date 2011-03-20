@@ -19,25 +19,28 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  *******************************************************************************/
-package org.richfaces.tests.metamer.model.treeAdaptor;
+package org.richfaces.tests.metamer.validator;
 
-import java.util.List;
-import java.util.Map;
+import javax.faces.application.FacesMessage;
+import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
+import javax.faces.validator.FacesValidator;
+import javax.faces.validator.Validator;
+import javax.faces.validator.ValidatorException;
 
 /**
- * @author <a href="mailto:lfryc@redhat.com">Lukas Fryc</a>
+ * Custom string validator that accepts only string "RichFaces".
+ *
+ * @author <a href="mailto:ppitonak@redhat.com">Pavol Pitonak</a>
  * @version $Revision$
  */
-public interface RecursiveNode extends Node {
+@FacesValidator("org.richfaces.StringRichFacesValidator")
+public class StringRichFacesValidator implements Validator {
 
-    public abstract ModelNode getModel();
-
-    public abstract boolean isLeaf();
-
-    public abstract List<RecursiveNode> getRecursiveList();
-
-    public abstract Map<Integer, RecursiveNode> getRecursiveMap();
-
-    public abstract int getRecursionLevel();
-
+    @Override
+    public void validate(FacesContext context, UIComponent component, Object value) throws ValidatorException {
+        if (value == null || !value.toString().equals("RichFaces")) {
+            throw new ValidatorException(new FacesMessage(FacesMessage.SEVERITY_ERROR, "string is not \"RichFaces\"", "string is not \"RichFaces\""));
+        }
+    }
 }

@@ -27,24 +27,16 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 
     <ui:composition template="/templates/list.xhtml">
 
-        <ui:define name="pageTitle">Rich Inplace Input</ui:define>
+        <ui:define name="pageTitle">Rich Validator</ui:define>
 
         <ui:define name="links">
 
-            <metamer:testPageLink id="simple" outcome="simple" value="Simple">
-                Simple page that contains <b>rich:inplaceInput</b> with a4j:ajax and input boxes for all its attributes.
-            </metamer:testPageLink>
-
-            <metamer:testPageLink id="fAjax" outcome="fAjax" value="f:ajax">
-                Simple page that contains <b>rich:inplaceInput</b> with f:ajax and input boxes for all its attributes.
-            </metamer:testPageLink>
-
             <metamer:testPageLink id="csv" outcome="csv" value="Client Side Validation">
-                Simple page that contains 4 <b>rich:inplaceInput</b>s testing client-side validation.
+                Simple page that contains <b>rich:validator</b> testing the support for JSR-303 and input boxes for all validator's attributes.
             </metamer:testPageLink>
 
             <metamer:testPageLink id="jsr303" outcome="jsr303" value="JSR-303 Bean Validation">
-                Page containing 4 <b>rich:inplaceInput</b>s with various JSR-303 validators.
+                Page containing input with various JSR-303 validators.
             </metamer:testPageLink>
 
         </ui:define>

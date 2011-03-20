@@ -21,43 +21,18 @@
  *******************************************************************************/
 package org.richfaces.tests.metamer.model.treeAdaptor;
 
-import static java.lang.reflect.Modifier.isStatic;
-
-import java.io.Serializable;
-import java.lang.reflect.InvocationHandler;
-import java.lang.reflect.Method;
-import java.lang.reflect.Proxy;
-
 /**
  * <p>
- * Wraps {@link LazyLoadable} entity with proxy which performs notification by {@link LazyLoadable#notifyLoaded()} to
- * let know about accessing methods of that wrapped instance.
+ * Marks that given object can be checked for lazy loading.
+ * </p>
+ * 
+ * <p>
+ * Needs to implement {@link #notifyLoaded()} which performs notification about accessing object by external entity.
  * </p>
  * 
  * @author <a href="mailto:lfryc@redhat.com">Lukas Fryc</a>
  * @version $Revision$
  */
-public final class LazyLoadingChecker<T extends Serializable & LazyLoadable> implements InvocationHandler, Serializable {
-    private static final long serialVersionUID = 1L;
-
-    T instance;
-
-    private LazyLoadingChecker(T instance) {
-        this.instance = instance;
-    }
-
-    @SuppressWarnings("unchecked")
-    public static <T extends Serializable & LazyLoadable> T wrapInstance(T instance) {
-        return (T) Proxy.newProxyInstance(instance.getClass().getClassLoader(), instance.getClass().getInterfaces(),
-            new LazyLoadingChecker<T>(instance));
-    }
-
-    @Override
-    public Object invoke(Object proxy, Method m, Object[] args) throws Throwable {
-        if (!isStatic(m.getModifiers())) {
-            instance.notifyLoaded();
-        }
-        Object result = m.invoke(instance, args);
-        return result;
-    }
+public interface LazyLoadable {
+    void notifyLoaded();
 }

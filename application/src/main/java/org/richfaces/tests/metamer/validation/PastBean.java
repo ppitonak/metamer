@@ -19,25 +19,44 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  *******************************************************************************/
-package org.richfaces.tests.metamer.model.treeAdaptor;
+package org.richfaces.tests.metamer.validation;
 
-import java.util.List;
-import java.util.Map;
+import java.util.Date;
+
+import javax.faces.bean.ManagedBean;
+import javax.validation.constraints.Past;
 
 /**
- * @author <a href="mailto:lfryc@redhat.com">Lukas Fryc</a>
+ * Helper bean for testing JSR-303.
+ *
+ * @author <a href="mailto:ppitonak@redhat.com">Pavol Pitonak</a>
  * @version $Revision$
  */
-public interface RecursiveNode extends Node {
+@ManagedBean
+public class PastBean extends Validable<Date> {
 
-    public abstract ModelNode getModel();
+    public PastBean() {
+        value = new Date(System.currentTimeMillis() - 4 * 24 * 3600 * 1000);
+    }
 
-    public abstract boolean isLeaf();
+    @Past
+    @Override
+    public Date getValue() {
+        return value;
+    }
 
-    public abstract List<RecursiveNode> getRecursiveList();
+    @Override
+    public void setValue(Date intValue) {
+        this.value = intValue;
+    }
 
-    public abstract Map<Integer, RecursiveNode> getRecursiveMap();
+    @Override
+    public String getDescription() {
+        return "Date, past";
+    }
 
-    public abstract int getRecursionLevel();
-
+    @Override
+    public String getLabel() {
+        return "past";
+    }
 }

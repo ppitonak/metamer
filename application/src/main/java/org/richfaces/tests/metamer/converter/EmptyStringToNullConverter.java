@@ -19,25 +19,41 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  *******************************************************************************/
-package org.richfaces.tests.metamer.model.treeAdaptor;
+package org.richfaces.tests.metamer.converter;
 
-import java.util.List;
-import java.util.Map;
+import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
+import javax.faces.convert.Converter;
+import javax.faces.convert.FacesConverter;
 
 /**
- * @author <a href="mailto:lfryc@redhat.com">Lukas Fryc</a>
+ * Converter used for converting empty strings to null.
+ * 
+ * @author <a href="mailto:ppitonak@redhat.com">Pavol Pitonak</a>
  * @version $Revision$
  */
-public interface RecursiveNode extends Node {
+@FacesConverter(value = "emptyStringToNullConverter")
+public class EmptyStringToNullConverter implements Converter {
 
-    public abstract ModelNode getModel();
+    /**
+     * {@inheritDoc}
+     */
+    public Object getAsObject(FacesContext context, UIComponent component, String value) {
+        if (value.isEmpty()) {
+            return null;
+        } else {
+            return value;
+        }
+    }
 
-    public abstract boolean isLeaf();
+    /**
+     * {@inheritDoc}
+     */
+    public String getAsString(FacesContext context, UIComponent component, Object value) {
+        if (value == null) {
+            return "";
+        }
 
-    public abstract List<RecursiveNode> getRecursiveList();
-
-    public abstract Map<Integer, RecursiveNode> getRecursiveMap();
-
-    public abstract int getRecursionLevel();
-
+        return value.toString();
+    }
 }

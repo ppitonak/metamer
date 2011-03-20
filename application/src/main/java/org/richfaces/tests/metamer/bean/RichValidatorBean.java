@@ -26,32 +26,26 @@ import java.io.Serializable;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
-import javax.validation.constraints.Pattern;
-import javax.validation.constraints.Size;
-import org.hibernate.validator.constraints.NotEmpty;
 
-import org.richfaces.component.UIInplaceInput;
+import org.richfaces.component.behavior.ClientValidatorImpl;
 import org.richfaces.tests.metamer.Attributes;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * Managed bean for rich:inplaceInput.
+ * Managed bean for rich:validator.
  *
  * @author <a href="mailto:ppitonak@redhat.com">Pavol Pitonak</a>
  * @version $Revision$
  */
-@ManagedBean(name = "richInplaceInputBean")
+@ManagedBean(name = "richValidatorBean")
 @ViewScoped
-public class RichInplaceInputBean implements Serializable {
+public class RichValidatorBean implements Serializable {
 
     private static final long serialVersionUID = -1L;
     private static Logger logger;
     private Attributes attributes;
-    private String value1;
-    private String value2;
-    private String value3;
-    private String value4;
+    private String stringValue = "RichFaces";
 
     /**
      * Initializes the managed bean.
@@ -61,25 +55,7 @@ public class RichInplaceInputBean implements Serializable {
         logger = LoggerFactory.getLogger(getClass());
         logger.debug("initializing bean " + getClass().getName());
 
-        attributes = Attributes.getComponentAttributesFromFacesConfig(UIInplaceInput.class, getClass());
-
-        attributes.setAttribute("defaultLabel", "Click here to edit");
-        attributes.setAttribute("editEvent", "click");
-        attributes.setAttribute("rendered", true);
-        attributes.setAttribute("saveOnBlur", true);
-        attributes.setAttribute("value", "RichFaces 4");
-
-        // TODO has to be tested in another way
-        attributes.remove("converter");
-        attributes.remove("converterMessage");
-        attributes.remove("required");
-        attributes.remove("requiredMessage");
-        attributes.remove("validator");
-        attributes.remove("validatorMessage");
-        attributes.remove("valueChangeListener");
-
-        // TODO remove as soon as RF-10411 is fixed
-        attributes.setAttribute("style", null);
+        attributes = Attributes.getBehaviorAttributesFromFacesConfig(ClientValidatorImpl.class, getClass());
     }
 
     public Attributes getAttributes() {
@@ -90,38 +66,11 @@ public class RichInplaceInputBean implements Serializable {
         this.attributes = attributes;
     }
 
-    @NotEmpty
-    public String getValue1() {
-        return value1;
+    public String getStringValue() {
+        return stringValue;
     }
 
-    public void setValue1(String value1) {
-        this.value1 = value1;
-    }
-
-    @Pattern(regexp = "[a-z].*")
-    public String getValue2() {
-        return value2;
-    }
-
-    public void setValue2(String value2) {
-        this.value2 = value2;
-    }
-
-    @Size(min = 3, max = 6)
-    public String getValue3() {
-        return value3;
-    }
-
-    public void setValue3(String value3) {
-        this.value3 = value3;
-    }
-
-    public String getValue4() {
-        return value4;
-    }
-
-    public void setValue4(String value4) {
-        this.value4 = value4;
+    public void setStringValue(String stringValue) {
+        this.stringValue = stringValue;
     }
 }

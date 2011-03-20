@@ -30,8 +30,10 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.commons.lang.builder.EqualsBuilder;
+import org.apache.commons.lang.builder.HashCodeBuilder;
+import org.apache.commons.lang.builder.ToStringBuilder;
+import org.apache.commons.lang.builder.ToStringStyle;
 
 /**
  * Representation an attribute of a JSF component.
@@ -41,9 +43,9 @@ import org.slf4j.LoggerFactory;
  */
 @XmlRootElement(name = "property", namespace = "http://java.sun.com/xml/ns/javaee")
 public class Attribute implements Serializable {
-
-    private static final long serialVersionUID = -6716974687380275186L;
-    private Logger logger;
+    
+    private static final long serialVersionUID = 6142493504360646686L;
+    
     private String name;
     private Object value;
     private Class<?> type;
@@ -53,11 +55,9 @@ public class Attribute implements Serializable {
     private Extensions extensions;
 
     public Attribute() {
-        logger = LoggerFactory.getLogger(getClass());
     }
 
     public Attribute(String name) {
-        logger = LoggerFactory.getLogger(getClass());
         this.name = name;
     }
 
@@ -175,5 +175,20 @@ public class Attribute implements Serializable {
 
     public boolean isRequired() {
         return extensions.getRequired();
+    }
+    
+    @Override
+    public boolean equals(Object obj) {
+        return EqualsBuilder.reflectionEquals(this, obj);
+    }
+    
+    @Override
+    public int hashCode() {
+        return HashCodeBuilder.reflectionHashCode(this, true);
+    }
+    
+    @Override
+    public String toString() {
+        return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);
     }
 }

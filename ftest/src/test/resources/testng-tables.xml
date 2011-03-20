@@ -1,7 +1,7 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite name="seleniumTest">
 
-    <test name="Iteration Components">
+    <test name="Table Components">
     	<groups>
 			<run>
 				<exclude name="4.Future" />
@@ -17,9 +17,6 @@
             <package name="org.richfaces.tests.metamer.ftest.richDataTable" />
             <package name="org.richfaces.tests.metamer.ftest.richDataScroller" />
             <package name="org.richfaces.tests.metamer.ftest.richExtendedDataTable" />
-            <package name="org.richfaces.tests.metamer.ftest.richTree" />
-            <package name="org.richfaces.tests.metamer.ftest.richTreeNode" />
-            <package name="org.richfaces.tests.metamer.ftest.richTreeModelAdaptor" />
         </packages>
     </test>
 

@@ -21,137 +21,24 @@
  *******************************************************************************/
 package org.richfaces.tests.metamer.model.treeAdaptor;
 
-import java.io.Serializable;
-import java.util.LinkedHashMap;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.atomic.AtomicReference;
+
+import org.richfaces.tests.metamer.model.treeAdaptor.ModelNodeImpl.A;
+import org.richfaces.tests.metamer.model.treeAdaptor.ModelNodeImpl.B;
+import org.richfaces.tests.metamer.model.treeAdaptor.ModelNodeImpl.K;
+import org.richfaces.tests.metamer.model.treeAdaptor.ModelNodeImpl.V;
 
 /**
  * @author <a href="mailto:lfryc@redhat.com">Lukas Fryc</a>
  * @version $Revision$
  */
-public class ModelNode extends Node {
-    private static final long serialVersionUID = 1L;
+public interface ModelNode extends Node {
+    A getValue();
 
-    private static final int BS = 3;
-    private static final int KS = 4;
-    List<B> bs;
-    Map<K, V> map;
-    List<RecursiveNode> rs;
+    List<B> getList();
 
-    public ModelNode() {
-        super(null, null, null);
-    }
+    Map<K, V> getMap();
 
-    protected ModelNode(Node parent, AtomicReference<Boolean> nullable,
-        Reference<LazyLoadingListener<Node>> lazyLoadingListenerReference) {
-        super(parent, nullable, lazyLoadingListenerReference);
-    }
-
-    public static ModelNode getInstance(Node parent, AtomicReference<Boolean> nullable,
-        Reference<LazyLoadingListener<Node>> lazyLoadingListenerReference) {
-        return lazyLoadingChecker(new ModelNode(parent, nullable, lazyLoadingListenerReference));
-    }
-
-    public String getLabel() {
-        return isRoot() ? "M" : getParent().getLabel() + "-M";
-    }
-
-    public A getValue() {
-        return new A();
-    }
-
-    public List<B> getList() {
-        if (bs == null) {
-            bs = new LinkedList<B>();
-            for (int i = 0; i < BS; i++) {
-                bs.add(new B(i));
-            }
-        }
-        return bs;
-    }
-
-    public Map<K, V> getMap() {
-        if (map == null) {
-            map = new LinkedHashMap<K, V>();
-            for (int i = 0; i < KS; i++) {
-                map.put(new K(i), new V(i));
-            }
-        }
-        return map;
-    }
-
-    public List<RecursiveNode> getRecursive() {
-        if (rs == null) {
-            rs = RecursiveNode.createChildren(this, getNullable(), null);
-        }
-        return rs;
-    }
-
-    public class A implements Serializable {
-        private static final long serialVersionUID = 1L;
-
-        public String getLabel() {
-            return ModelNode.this.getLabel() + "-A";
-        }
-    }
-
-    public class B implements Serializable {
-        private static final long serialVersionUID = 1L;
-
-        int number;
-
-        public B(int number) {
-            this.number = number;
-        }
-
-        public String getLabel() {
-            return ModelNode.this.getLabel() + "-B-" + number;
-        }
-    }
-
-    public class K implements Serializable, Comparable<K> {
-        private static final long serialVersionUID = 1L;
-
-        int number;
-
-        public K(int number) {
-            this.number = number;
-        }
-
-        public String getLabel() {
-            return ModelNode.this.getLabel() + "-K-" + number;
-        }
-        
-        @Override
-        public int compareTo(K o) {
-            return this.number - o.number;
-        }
-        
-        @Override
-        public String toString() {
-            return Integer.toString(number);
-        }
-    }
-
-    public class V implements Serializable {
-        private static final long serialVersionUID = 1L;
-
-        int number;
-
-        public V(int number) {
-            this.number = number;
-        }
-
-        public String getLabel() {
-            return ModelNode.this.getLabel() + "-V-" + number;
-        }
-    }
-
-    @Override
-    public String toString() {
-        return getLabel();
-    }
+    List<RecursiveNode> getRecursive();
 }

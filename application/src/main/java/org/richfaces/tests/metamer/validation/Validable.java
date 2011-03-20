@@ -19,25 +19,37 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  *******************************************************************************/
-package org.richfaces.tests.metamer.model.treeAdaptor;
+package org.richfaces.tests.metamer.validation;
 
-import java.util.List;
-import java.util.Map;
+import java.lang.reflect.ParameterizedType;
+
+import javax.faces.context.FacesContext;
+import javax.faces.convert.Converter;
 
 /**
- * @author <a href="mailto:lfryc@redhat.com">Lukas Fryc</a>
+ * Helper abstract class for testing JSR-303.
+ *
+ * @author asmirnov, <a href="mailto:ppitonak@redhat.com">Pavol Pitonak</a>
  * @version $Revision$
  */
-public interface RecursiveNode extends Node {
+public abstract class Validable<T> {
 
-    public abstract ModelNode getModel();
+    T value;
 
-    public abstract boolean isLeaf();
+    public T getValue() {
+        return value;
+    }
 
-    public abstract List<RecursiveNode> getRecursiveList();
+    public void setValue(T value) {
+        this.value = value;
+    }
 
-    public abstract Map<Integer, RecursiveNode> getRecursiveMap();
+    public Converter getConverter() {
+        Class<T> parameterType = (Class<T>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
+        return FacesContext.getCurrentInstance().getApplication().createConverter(parameterType);
+    }
 
-    public abstract int getRecursionLevel();
+    public abstract String getDescription();
 
+    public abstract String getLabel();
 }

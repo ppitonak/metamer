@@ -19,25 +19,44 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  *******************************************************************************/
-package org.richfaces.tests.metamer.model.treeAdaptor;
+package org.richfaces.tests.metamer.validation;
 
-import java.util.List;
-import java.util.Map;
+import java.math.BigDecimal;
+
+import javax.faces.bean.ManagedBean;
+import javax.validation.constraints.Digits;
 
 /**
- * @author <a href="mailto:lfryc@redhat.com">Lukas Fryc</a>
+ * Helper bean for testing JSR-303.
+ *
+ * @author <a href="mailto:ppitonak@redhat.com">Pavol Pitonak</a>
  * @version $Revision$
  */
-public interface RecursiveNode extends Node {
+@ManagedBean
+public class DigitsBean extends Validable<BigDecimal> {
 
-    public abstract ModelNode getModel();
+    public DigitsBean() {
+        value = new BigDecimal("2.567");
+    }
 
-    public abstract boolean isLeaf();
+    @Digits(integer = 3, fraction = 4)
+    @Override
+    public BigDecimal getValue() {
+        return value;
+    }
 
-    public abstract List<RecursiveNode> getRecursiveList();
+    @Override
+    public void setValue(BigDecimal intValue) {
+        this.value = intValue;
+    }
 
-    public abstract Map<Integer, RecursiveNode> getRecursiveMap();
+    @Override
+    public String getDescription() {
+        return "Decimal, 3 digits integer and 4 fraction";
+    }
 
-    public abstract int getRecursionLevel();
-
+    @Override
+    public String getLabel() {
+        return "digits";
+    }
 }

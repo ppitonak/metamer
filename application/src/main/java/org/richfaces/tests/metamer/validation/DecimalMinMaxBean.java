@@ -19,25 +19,45 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  *******************************************************************************/
-package org.richfaces.tests.metamer.model.treeAdaptor;
+package org.richfaces.tests.metamer.validation;
 
-import java.util.List;
-import java.util.Map;
+import java.math.BigDecimal;
+import javax.faces.bean.ManagedBean;
+import javax.validation.constraints.DecimalMax;
+import javax.validation.constraints.DecimalMin;
 
 /**
- * @author <a href="mailto:lfryc@redhat.com">Lukas Fryc</a>
+ * Helper bean for testing JSR-303.
+ *
+ * @author <a href="mailto:ppitonak@redhat.com">Pavol Pitonak</a>
  * @version $Revision$
  */
-public interface RecursiveNode extends Node {
+@ManagedBean
+public class DecimalMinMaxBean extends Validable<BigDecimal> {
 
-    public abstract ModelNode getModel();
+    public DecimalMinMaxBean() {
+        value = new BigDecimal(3);
+    }
 
-    public abstract boolean isLeaf();
+    @DecimalMin("2.5")
+    @DecimalMax("9.688")
+    @Override
+    public BigDecimal getValue() {
+        return value;
+    }
 
-    public abstract List<RecursiveNode> getRecursiveList();
+    @Override
+    public void setValue(BigDecimal intValue) {
+        this.value = intValue;
+    }
 
-    public abstract Map<Integer, RecursiveNode> getRecursiveMap();
+    @Override
+    public String getDescription() {
+        return "Decimal, from 2.5 to 9.688";
+    }
 
-    public abstract int getRecursionLevel();
-
+    @Override
+    public String getLabel() {
+        return "decimalMinMax";
+    }
 }

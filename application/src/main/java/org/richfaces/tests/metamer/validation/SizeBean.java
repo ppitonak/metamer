@@ -19,25 +19,46 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  *******************************************************************************/
-package org.richfaces.tests.metamer.model.treeAdaptor;
+package org.richfaces.tests.metamer.validation;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
+import javax.faces.bean.ManagedBean;
+import javax.validation.constraints.Size;
 
 /**
- * @author <a href="mailto:lfryc@redhat.com">Lukas Fryc</a>
+ * Helper bean for testing JSR-303.
+ *
+ * @author <a href="mailto:ppitonak@redhat.com">Pavol Pitonak</a>
  * @version $Revision$
  */
-public interface RecursiveNode extends Node {
+@ManagedBean
+public class SizeBean extends Validable<List<String>> {
 
-    public abstract ModelNode getModel();
+    public SizeBean() {
+        value = new ArrayList<String>();
+        value.add("A");
+        value.add("B");
+    }
 
-    public abstract boolean isLeaf();
+    @Size(min = 2, max = 4)
+    @Override
+    public List<String> getValue() {
+        return value;
+    }
 
-    public abstract List<RecursiveNode> getRecursiveList();
+    @Override
+    public void setValue(List<String> intValue) {
+        this.value = intValue;
+    }
 
-    public abstract Map<Integer, RecursiveNode> getRecursiveMap();
+    @Override
+    public String getDescription() {
+        return "Selection size, from 2 to 4";
+    }
 
-    public abstract int getRecursionLevel();
-
+    @Override
+    public String getLabel() {
+        return "size";
+    }
 }

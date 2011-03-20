@@ -46,7 +46,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 
             <h:outputText value="Show data in table: " />
             <h:selectBooleanCheckbox id="noDataCheckbox" value="#{richDataScrollerBean.state}">
-                <a4j:ajax render="richDataTable scroller1"/>
+                <a4j:ajax render="scroller1 #{nestedComponentId}"/>
             </h:selectBooleanCheckbox>
             <br/><br/>
             <rich:dataScroller id="scroller1"

@@ -19,25 +19,42 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  *******************************************************************************/
-package org.richfaces.tests.metamer.model.treeAdaptor;
+package org.richfaces.tests.metamer.validation;
 
-import java.util.List;
-import java.util.Map;
+import javax.faces.bean.ManagedBean;
+import javax.validation.constraints.Max;
 
 /**
- * @author <a href="mailto:lfryc@redhat.com">Lukas Fryc</a>
+ * Helper bean for testing JSR-303.
+ *
+ * @author asmirnov, <a href="mailto:ppitonak@redhat.com">Pavol Pitonak</a>
  * @version $Revision$
  */
-public interface RecursiveNode extends Node {
+@ManagedBean
+public class MaxBean extends Validable<Integer> {
 
-    public abstract ModelNode getModel();
+    public MaxBean() {
+        value = 9;
+    }
 
-    public abstract boolean isLeaf();
+    @Max(10)
+    @Override
+    public Integer getValue() {
+        return value;
+    }
 
-    public abstract List<RecursiveNode> getRecursiveList();
+    @Override
+    public void setValue(Integer intValue) {
+        this.value = intValue;
+    }
 
-    public abstract Map<Integer, RecursiveNode> getRecursiveMap();
+    @Override
+    public String getDescription() {
+        return "Integer, max 10";
+    }
 
-    public abstract int getRecursionLevel();
-
+    @Override
+    public String getLabel() {
+        return "max";
+    }
 }
