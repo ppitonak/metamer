@@ -27,7 +27,6 @@ import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 import javax.faces.event.ValueChangeEvent;
 import javax.faces.model.SelectItem;
@@ -54,7 +53,8 @@ public class RichSelectBean implements Serializable {
     private static final long serialVersionUID = -1L;
     private static Logger logger;
     private Attributes attributes;
-    @ManagedProperty(value = "#{model.capitals}")
+//    temporary fix because of a bug in MyFaces
+//    @ManagedProperty(value = "#{model.capitals}")
     private List<Capital> capitals;
     private List<SelectItem> capitalsOptions = null;
     private List<SelectItem> validationOptions = null;
@@ -73,7 +73,9 @@ public class RichSelectBean implements Serializable {
 
         capitalsOptions = new ArrayList<SelectItem>();
         validationOptions = new ArrayList<SelectItem>();
-        for (Capital capital : capitals) {
+//        temporary fix because of a bug in MyFaces
+//        for (Capital capital : capitals) {
+        for (Capital capital : Model.unmarshallCapitals()) {
             capitalsOptions.add(new SelectItem(capital.getState(), capital.getState()));
             validationOptions.add(new SelectItem(capital.getState(), capital.getState()));
         }
