@@ -20,13 +20,15 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  *******************************************************************************/
 
-package org.richfaces.tests.metamer;
+package org.richfaces.tests.metamer.converter;
 
 import javax.faces.FacesException;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import org.richfaces.tests.metamer.Template;
+import org.richfaces.tests.metamer.TemplatesList;
 
 /**
  * Converter used for view parameter "template".
@@ -34,17 +36,23 @@ import javax.faces.convert.FacesConverter;
  * @author <a href="mailto:ppitonak@redhat.com">Pavol Pitonak</a>
  * @version $Revision$
  */
-@FacesConverter(value = "templateNameConverter")
-public class TemplateNameConverter implements Converter {
+@FacesConverter(value = "templatesListConverter")
+public class TemplatesListConverter implements Converter {
 
     /**
      * {@inheritDoc}
      */
     public Object getAsObject(FacesContext context, UIComponent component, String value) {
         try {
-            return Template.valueOf(value.toUpperCase());
+            TemplatesList list = new TemplatesList();
+
+            for (String template : value.split(",")) {
+                list.add(Template.valueOf(template.toUpperCase()));
+            }
+
+            return list;
         } catch (IllegalArgumentException iae) {
-            throw new FacesException("Cannot convert parameter \"" + value + "\" to the name of template.", iae);
+            throw new FacesException("Cannot convert parameter \"" + value + "\" to the list of templates.", iae);
         }
     }
 
@@ -56,10 +64,10 @@ public class TemplateNameConverter implements Converter {
             return (String) value;
         }
 
-        if (value instanceof Template) {
-            return ((Template) value).toString();
+        if (value instanceof TemplatesList) {
+            return value.toString();
         }
 
-        throw new FacesException("Cannot convert parameter \"" + value + "\" to the name of template.");
+        throw new FacesException("Cannot convert parameter \"" + value + "\" to the list of templates.");
     }
 }
