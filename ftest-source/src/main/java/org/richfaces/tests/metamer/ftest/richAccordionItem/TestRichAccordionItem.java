@@ -419,6 +419,11 @@ public class TestRichAccordionItem extends AbstractMetamerTest {
             imageNameSuffix = "Disabled";
         }
 
+        selenium.select(input, optionLabel("chevron"));
+        selenium.waitForPageToLoad();
+        assertTrue(selenium.belongsClass(icon, "rf-ico-chevron-hdr" + classSuffix), "Div should have set class rf-ico-chevron" + classSuffix + ".");
+        assertTrue(selenium.getStyle(icon, CssProperty.BACKGROUND_IMAGE).contains("chevron" + imageNameSuffix + ".png"), "Icon should contain a chevron.");
+
         selenium.select(input, optionLabel("chevronDown"));
         selenium.waitForPageToLoad();
         assertTrue(selenium.belongsClass(icon, "rf-ico-chevron-down-hdr" + classSuffix), "Div should have set class rf-ico-chevron-down" + classSuffix + ".");
