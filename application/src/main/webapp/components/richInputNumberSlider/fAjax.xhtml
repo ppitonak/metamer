@@ -38,8 +38,6 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 
         <ui:define name="component">
             <rich:inputNumberSlider id="slider"
-                                    valueChangeListener="#{richBean.valueChangeListener}"
-
                                     accesskey="#{richInputNumberSliderBean.attributes['accesskey'].value}"
                                     decreaseClass="#{richInputNumberSliderBean.attributes['decreaseClass'].value}"
                                     decreaseSelectedClass="#{richInputNumberSliderBean.attributes['decreaseSelectedClass'].value}"
@@ -74,7 +72,6 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                                     onmouseover="#{richInputNumberSliderBean.attributes['onmouseover'].value}"
                                     onmouseup="#{richInputNumberSliderBean.attributes['onmouseup'].value}"
                                     onselect="#{richInputNumberSliderBean.attributes['onselect'].value}"
-                                    readonly="#{richInputNumberSliderBean.attributes['readonly'].value}"
                                     rendered="#{richInputNumberSliderBean.attributes['rendered'].value}"
                                     required="#{richInputNumberSliderBean.attributes['required'].value}"
                                     requiredMessage="#{richInputNumberSliderBean.attributes['requiredMessage'].value}"
@@ -90,6 +87,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                                     tooltipClass="#{richInputNumberSliderBean.attributes['tooltipClass'].value}"
                                     trackClass="#{richInputNumberSliderBean.attributes['trackClass'].value}"
                                     value="#{richInputNumberSliderBean.attributes['value'].value}"
+                                    valueChangeListener="#{richBean.valueChangeListener}"
                                     >
 
                 <f:ajax event="change" render="output :phasesPanel"/>

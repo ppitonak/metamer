@@ -39,6 +39,7 @@ import java.util.Set;
 import java.util.TreeSet;
 
 import javax.faces.event.PhaseId;
+import org.jboss.test.selenium.dom.Event;
 
 import org.jboss.test.selenium.encapsulated.JavaScript;
 import org.jboss.test.selenium.geometry.Point;
@@ -168,6 +169,11 @@ public class TestRichSlider extends AbstractSliderTest {
         } catch (ParseException ex) {
             fail(ex.getMessage());
         }
+    }
+
+    @Test
+    public void testDir() {
+        testDir(slider);
     }
 
     @Test
@@ -308,6 +314,11 @@ public class TestRichSlider extends AbstractSliderTest {
     }
 
     @Test
+    public void testLang() {
+        testLang(slider);
+    }
+
+    @Test
     public void testMaxValueType() {
         JQueryLocator selectOption = pjq("input[type=text][id$=maxValueInput]");
         selenium.type(selectOption, "13");
@@ -399,6 +410,11 @@ public class TestRichSlider extends AbstractSliderTest {
     }
 
     @Test
+    public void testOnblur() {
+        testFireEvent(Event.BLUR, slider);
+    }
+
+    @Test
     public void testOnchangeType() {
         String value = "metamerEvents += \"change \"";
         selenium.type(pjq("input[id$=onchangeInput]"), value);
@@ -438,6 +454,66 @@ public class TestRichSlider extends AbstractSliderTest {
         assertEquals(events[1], "change", "Attribute onchange doesn't work.");
         assertEquals(events[1], "change", "Attribute onchange doesn't work.");
         assertEquals(events.length, 3, "Three events should be fired.");
+    }
+
+    @Test
+    public void testOnclick() {
+        testFireEvent(Event.CLICK, slider);
+    }
+
+    @Test
+    public void testOndblclick() {
+        testFireEvent(Event.DBLCLICK, slider);
+    }
+
+    @Test
+    public void testOnfocus() {
+        testFireEvent(Event.FOCUS, slider);
+    }
+
+    @Test
+    public void testOnkeydown() {
+        testFireEvent(Event.KEYDOWN, slider);
+    }
+
+    @Test
+    public void testOnkeypress() {
+        testFireEvent(Event.KEYPRESS, slider);
+    }
+
+    @Test
+    public void testOnkeyup() {
+        testFireEvent(Event.KEYUP, slider);
+    }
+
+    @Test
+    public void testOnmousedown() {
+        testFireEvent(Event.MOUSEDOWN, slider);
+    }
+
+    @Test
+    public void testOnmousemove() {
+        testFireEvent(Event.MOUSEMOVE, slider);
+    }
+
+    @Test
+    public void testOnmouseout() {
+        testFireEvent(Event.MOUSEOUT, slider);
+    }
+
+    @Test
+    public void testOnmouseover() {
+        testFireEvent(Event.MOUSEOVER, slider);
+    }
+
+    @Test
+    public void testOnmouseup() {
+        testFireEvent(Event.MOUSEUP, slider);
+    }
+
+    @Test
+    public void testOnselect() {
+        testFireEvent(Event.SELECT, slider);
     }
 
     @Test
