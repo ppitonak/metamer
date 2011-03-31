@@ -133,6 +133,11 @@ public class TestRichSpinner extends AbstractSpinnerTest {
     }
 
     @Test
+    public void testDir() {
+        testDir(spinner);
+    }
+
+    @Test
     public void testDisabled() {
         JQueryLocator selectOption = pjq("input[type=radio][name$=disabledInput][value=true]");
         selenium.click(selectOption);
@@ -376,6 +381,21 @@ public class TestRichSpinner extends AbstractSpinnerTest {
     @Test
     public void testOninputmouseup() {
         testFireEvent(Event.MOUSEUP, input, "inputmouseup");
+    }
+
+    @Test
+    public void testOnkeydown() {
+        testFireEvent(Event.KEYDOWN, spinner);
+    }
+
+    @Test
+    public void testOnkeypress() {
+        testFireEvent(Event.KEYPRESS, spinner);
+    }
+
+    @Test
+    public void testOnkeyup() {
+        testFireEvent(Event.KEYUP, spinner);
     }
 
     @Test

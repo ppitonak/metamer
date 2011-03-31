@@ -44,8 +44,6 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 
         <ui:define name="component">
             <rich:inputNumberSpinner id="spinner"
-                                     valueChangeListener="#{richBean.valueChangeListener}"
-
                                      accesskey="#{richInputNumberSpinnerBean.attributes['accesskey'].value}"
                                      cycled="#{richInputNumberSpinnerBean.attributes['cycled'].value}"
                                      dir="#{richInputNumberSpinnerBean.attributes['dir'].value}"
@@ -74,6 +72,9 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                                      oninputmouseout="#{richInputNumberSpinnerBean.attributes['oninputmouseout'].value}"
                                      oninputmouseover="#{richInputNumberSpinnerBean.attributes['oninputmouseover'].value}"
                                      oninputmouseup="#{richInputNumberSpinnerBean.attributes['oninputmouseup'].value}"
+                                     onkeydown="#{richInputNumberSpinnerBean.attributes['onkeydown'].value}"
+                                     onkeypress="#{richInputNumberSpinnerBean.attributes['onkeypress'].value}"
+                                     onkeyup="#{richInputNumberSpinnerBean.attributes['onkeyup'].value}"
                                      onmousedown="#{richInputNumberSpinnerBean.attributes['onmousedown'].value}"
                                      onmousemove="#{richInputNumberSpinnerBean.attributes['onmousemove'].value}"
                                      onmouseout="#{richInputNumberSpinnerBean.attributes['onmouseout'].value}"
@@ -81,14 +82,16 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                                      onmouseup="#{richInputNumberSpinnerBean.attributes['onmouseup'].value}"
                                      onselect="#{richInputNumberSpinnerBean.attributes['onselect'].value}"
                                      onupclick="#{richInputNumberSpinnerBean.attributes['onupclick'].value}"
-                                     readonly="#{richInputNumberSpinnerBean.attributes['readonly'].value}"
                                      rendered="#{richInputNumberSpinnerBean.attributes['rendered'].value}"
+                                     required="#{richInputNumberSpinnerBean.attributes['required'].value}"
+                                     requiredMessage="#{richInputNumberSpinnerBean.attributes['requiredMessage'].value}"
                                      step="#{richInputNumberSpinnerBean.attributes['step'].value}"
                                      style="#{richInputNumberSpinnerBean.attributes['style'].value}"
                                      styleClass="#{richInputNumberSpinnerBean.attributes['styleClass'].value}"
                                      tabindex="#{richInputNumberSpinnerBean.attributes['tabindex'].value}"
                                      title="#{richInputNumberSpinnerBean.attributes['title'].value}"
                                      value="#{richInputNumberSpinnerBean.attributes['value'].value}"
+                                     valueChangeListener="#{richBean.valueChangeListener}"
                                      >
 
                 <a4j:ajax event="change" render="output" />
