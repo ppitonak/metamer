@@ -64,44 +64,33 @@ public class TestTooltipSimple extends AbstractMetamerTest {
 
     private static final int EVENT_OFFSET = 10;
     private static final int PRESET_OFFSET = 5;
-
     TooltipAttributes attributes = new TooltipAttributes();
     JQueryLocator panel = pjq("div[id$=panel]");
     TooltipModel tooltip = new TooltipModel(jq(".rf-tt"), panel);
-
     Point eventPosition;
-
     @Inject
     @Use(empty = true)
     Positioning direction;
-
-    Integer[] offsets = new Integer[] { 0, PRESET_OFFSET, -PRESET_OFFSET };
-
+    Integer[] offsets = new Integer[]{0, PRESET_OFFSET, -PRESET_OFFSET};
     @Inject
     @Use(ints = 0)
     Integer verticalOffset;
-
     @Inject
     @Use(ints = 0)
     Integer horizontalOffset;
-
     @Inject
     @Use(empty = true)
     Event domEvent;
-    Event[] domEvents = { CLICK, DBLCLICK, MOUSEDOWN, MOUSEMOVE, MOUSEOUT, MOUSEOVER, MOUSEUP };
-
+    Event[] domEvents = {CLICK, DBLCLICK, MOUSEDOWN, MOUSEMOVE, MOUSEOUT, MOUSEOVER, MOUSEUP};
     @Inject
     @Use(empty = true)
     Boolean followMouse = true;
-
     @Inject
     @Use(empty = true)
     Integer presetDelay;
-
     @Inject
     @Use(empty = true)
     TooltipLayout layout;
-
     @Inject
     @Use(empty = true)
     TooltipMode mode;
@@ -156,8 +145,10 @@ public class TestTooltipSimple extends AbstractMetamerTest {
     }
 
     @Test
-    @Uses({ @Use(field = "direction", enumeration = true), @Use(field = "verticalOffset", value = "offsets"),
-        @Use(field = "horizontalOffset", value = "offsets") })
+    @Uses({
+        @Use(field = "direction", enumeration = true),
+        @Use(field = "verticalOffset", value = "offsets"),
+        @Use(field = "horizontalOffset", value = "offsets")})
     public void testPositioning() {
         attributes.setDirection(direction);
         attributes.setHorizontalOffset(horizontalOffset);
@@ -179,7 +170,7 @@ public class TestTooltipSimple extends AbstractMetamerTest {
                     break;
                 case LEFT:
                     assertEquals(tooltipPosition.getX() + tooltipDimension.getWidth(), eventPosition.getX()
-                        - horizontalOffset);
+                            - horizontalOffset);
                 default:
             }
         }
@@ -191,14 +182,14 @@ public class TestTooltipSimple extends AbstractMetamerTest {
                     break;
                 case TOP:
                     assertEquals(tooltipPosition.getY() + tooltipDimension.getHeight(), eventPosition.getY()
-                        - verticalOffset);
+                            - verticalOffset);
                 default:
             }
         }
     }
 
     @Test
-    @Use(field = "followMouse", booleans = { true, false })
+    @Use(field = "followMouse", booleans = {true, false})
     public void testFollowMouse() {
         attributes.setFollowMouse(followMouse);
 
@@ -217,13 +208,14 @@ public class TestTooltipSimple extends AbstractMetamerTest {
     }
 
     @Test
-    @Use(field = "presetDelay", ints = { 0, 1000, 5000 })
+    @Use(field = "presetDelay", ints = {0, 1000, 5000})
     public void testHideDelay() {
 
         attributes.setMode(TooltipMode.ajax);
         attributes.setHideDelay(presetDelay);
 
         new DelayTester(presetDelay) {
+
             public void beforeAction() {
                 tooltip.recall();
             }
@@ -285,7 +277,9 @@ public class TestTooltipSimple extends AbstractMetamerTest {
         retrieveRequestTime.initializeValue();
 
         tooltip.recall();
-        assertEquals(retrieveRequestTime.isValueChanged(), mode == TooltipMode.ajax);
+        if (mode == TooltipMode.ajax) {
+            waitGui.waitForChange(retrieveRequestTime);
+        }
 
         retrieveRequestTime.initializeValue();
         tooltip.hide();
@@ -309,7 +303,7 @@ public class TestTooltipSimple extends AbstractMetamerTest {
     }
 
     @Test
-    @Use(field = "presetDelay", ints = { 0, 1000, 5000 })
+    @Use(field = "presetDelay", ints = {0, 1000, 5000})
     @RegressionTest("https://issues.jboss.org/browse/RF-10522")
     public void testShowDelay() {
 
@@ -317,6 +311,7 @@ public class TestTooltipSimple extends AbstractMetamerTest {
         attributes.setShowDelay(presetDelay);
 
         new DelayTester(presetDelay) {
+
             public void action() {
                 tooltip.recall();
                 waitGui.timeout(presetDelay + 2000).until(isDisplayed.locator(tooltip));
@@ -374,10 +369,10 @@ public class TestTooltipSimple extends AbstractMetamerTest {
         final Dimension panelDimension = selenium.getElementDimension(panel);
 
         eventPosition = new Point(panelPosition.getX() + panelDimension.getWidth() - EVENT_OFFSET, panelPosition.getY()
-            + panelDimension.getHeight() - EVENT_OFFSET);
+                + panelDimension.getHeight() - EVENT_OFFSET);
 
         tooltip.recall(panelDimension.getWidth() - EVENT_OFFSET + offsetX, panelDimension.getHeight() - EVENT_OFFSET
-            + offsetY);
+                + offsetY);
     }
 
     private HorizontalAlignment getHorizontalAlignment() {
@@ -405,11 +400,12 @@ public class TestTooltipSimple extends AbstractMetamerTest {
     }
 
     private enum HorizontalAlignment {
+
         LEFT, RIGHT
     }
 
     private enum VerticalAlignment {
+
         TOP, BOTTOM
     }
-
 }

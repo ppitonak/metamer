@@ -24,6 +24,8 @@ package org.richfaces.tests.metamer.ftest.a4jQueue;
 import static org.jboss.test.selenium.utils.URLUtils.buildUrl;
 import static org.testng.Assert.assertEquals;
 
+import com.thoughtworks.selenium.SeleniumException;
+
 import java.net.URL;
 
 import org.jboss.cheiron.halt.XHRHalter;
@@ -31,10 +33,9 @@ import org.jboss.cheiron.halt.XHRState;
 import org.richfaces.tests.metamer.ftest.AbstractMetamerTest;
 import org.richfaces.tests.metamer.ftest.annotations.Inject;
 import org.richfaces.tests.metamer.ftest.annotations.IssueTracking;
+import org.richfaces.tests.metamer.ftest.annotations.RegressionTest;
 import org.richfaces.tests.metamer.ftest.annotations.Use;
 import org.testng.annotations.Test;
-
-import com.thoughtworks.selenium.SeleniumException;
 
 /**
  * @author <a href="mailto:lfryc@redhat.com">Lukas Fryc</a>
@@ -110,7 +111,7 @@ public class TestGlobalQueue extends AbstractMetamerTest {
      * </p>
      */
     @Test
-    @IssueTracking("https://issues.jboss.org/browse/RFPL-1194")
+    @RegressionTest("https://issues.jboss.org/browse/RFPL-1194")
     public void testMultipleRequestsWithNoDelay() {
         attributes.setRequestDelay(0);
 
