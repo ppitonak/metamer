@@ -30,7 +30,7 @@ import java.net.URL;
 
 import org.jboss.test.selenium.encapsulated.JavaScript;
 import org.richfaces.tests.metamer.ftest.annotations.Inject;
-import org.richfaces.tests.metamer.ftest.annotations.IssueTracking;
+import org.richfaces.tests.metamer.ftest.annotations.RegressionTest;
 import org.richfaces.tests.metamer.ftest.annotations.Use;
 import org.richfaces.tests.metamer.ftest.model.PanelMenu;
 import org.testng.annotations.Test;
@@ -44,22 +44,21 @@ public class TestPanelMenuGroupClientSideHandlers extends AbstractPanelMenuGroup
     @Inject
     @Use(empty = true)
     String event;
-    String[] ajaxExpansionEvents = new String[] { "beforeselect", "beforeswitch", "beforeexpand", "begin",
-        "beforedomupdate", "select", "expand", "switch", "complete" };
-    String[] ajaxCollapsionEvents = new String[] { "beforeselect", "beforeswitch", "beforecollapse", "begin",
-        "beforedomupdate", "select", "collapse", "switch", "complete" };
-    String[] clientExpansionEvents = new String[] { "beforeselect", "beforeswitch", "beforeexpand", "select", "expand",
-        "switch" };
-    String[] clientCollapsionEvents = new String[] { "beforeselect", "beforeswitch", "beforecollapse", "select",
-        "collapse", "switch" };
-    String[] serverExpansionEvents = new String[] { "beforeswitch", "beforeexpand" };
-    String[] serverCollapsionEvents = new String[] { "beforeswitch", "beforecollapse" };
+    String[] ajaxExpansionEvents = new String[]{"beforeselect", "beforeswitch", "beforeexpand", "begin",
+        "beforedomupdate", "select", "expand", "switch", "complete"};
+    String[] ajaxCollapsionEvents = new String[]{"beforeselect", "beforeswitch", "beforecollapse", "begin",
+        "beforedomupdate", "select", "collapse", "switch", "complete"};
+    String[] clientExpansionEvents = new String[]{"beforeselect", "beforeswitch", "beforeexpand", "select", "expand",
+        "switch"};
+    String[] clientCollapsionEvents = new String[]{"beforeselect", "beforeswitch", "beforecollapse", "select",
+        "collapse", "collapse", "switch"};
+    String[] serverExpansionEvents = new String[]{"beforeswitch", "beforeexpand"};
+    String[] serverCollapsionEvents = new String[]{"beforeswitch", "beforecollapse"};
 
     @Override
     public URL getTestUrl() {
         return buildUrl(contextPath, "faces/components/richPanelMenuGroup/simple.xhtml");
     }
-
     PanelMenu.Group group1 = menu.getGroupContains("Group 1");
 
     @Test
@@ -96,7 +95,7 @@ public class TestPanelMenuGroupClientSideHandlers extends AbstractPanelMenuGroup
     }
 
     @Test
-    @IssueTracking("https://issues.jboss.org/browse/RF-10564")
+    @RegressionTest("https://issues.jboss.org/browse/RF-10564")
     public void testClientSideCollapsionEventsOrderClient() {
         attributes.setMode(client);
         menu.setGroupMode(client);
