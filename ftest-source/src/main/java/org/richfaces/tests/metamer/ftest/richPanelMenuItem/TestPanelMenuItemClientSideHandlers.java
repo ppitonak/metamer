@@ -30,6 +30,7 @@ import java.net.URL;
 
 import org.richfaces.tests.metamer.ftest.AbstractMetamerTest;
 import org.richfaces.tests.metamer.ftest.annotations.Inject;
+import org.richfaces.tests.metamer.ftest.annotations.IssueTracking;
 import org.richfaces.tests.metamer.ftest.annotations.RegressionTest;
 import org.richfaces.tests.metamer.ftest.annotations.Use;
 import org.richfaces.tests.metamer.ftest.model.PanelMenu;
@@ -87,6 +88,7 @@ public class TestPanelMenuItemClientSideHandlers extends AbstractMetamerTest {
     }
 
     @Test
+    @IssueTracking("https://issues.jboss.org/browse/RF-10844")
     public void testClientSideEventsOrderServer() {
         attributes.setMode(server);
         menu.setItemMode(server);
