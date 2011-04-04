@@ -410,6 +410,7 @@ public class TestRichSlider extends AbstractSliderTest {
     }
 
     @Test
+    @IssueTracking("https://issues.jboss.org/browse/RF-10829")
     public void testOnblur() {
         testFireEvent(Event.BLUR, slider);
     }
@@ -467,6 +468,7 @@ public class TestRichSlider extends AbstractSliderTest {
     }
 
     @Test
+    @IssueTracking("https://issues.jboss.org/browse/RF-10829")
     public void testOnfocus() {
         testFireEvent(Event.FOCUS, slider);
     }
@@ -512,6 +514,7 @@ public class TestRichSlider extends AbstractSliderTest {
     }
 
     @Test
+    @IssueTracking("https://issues.jboss.org/browse/RF-10829")
     public void testOnselect() {
         testFireEvent(Event.SELECT, slider);
     }

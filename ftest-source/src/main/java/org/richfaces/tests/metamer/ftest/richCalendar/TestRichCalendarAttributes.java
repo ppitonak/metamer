@@ -108,7 +108,7 @@ public class TestRichCalendarAttributes extends AbstractCalendarTest {
         assertNoDateSelected();
 
         // the most top-left column might be 1st day of month
-        while (selenium.getText(cellWeekDay.format(1, 0)).equals("1")) {
+        while (selenium.getText(cellWeekDay.format(1, 1)).equals("1")) {
             selenium.click(prevMonthButton);
         }
 
@@ -142,7 +142,7 @@ public class TestRichCalendarAttributes extends AbstractCalendarTest {
         assertSelected(selectedDate);
 
         // the most top-left column might be 1st day of month
-        while (selenium.getText(cellWeekDay.format(1, 0)).equals("1")) {
+        while (selenium.getText(cellWeekDay.format(1, 1)).equals("1")) {
             selenium.click(prevMonthButton);
         }
 
@@ -375,6 +375,7 @@ public class TestRichCalendarAttributes extends AbstractCalendarTest {
     }
 
     @Test
+    @IssueTracking("https://issues.jboss.org/browse/RF-10821")
     public void testImmediate() {
         selenium.click(pjq("input[name$=immediateInput][value=true]"));
         selenium.waitForPageToLoad();
