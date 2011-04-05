@@ -65,6 +65,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                 $('input[id$=custom]').val('RichFaces');
                 $('input[id$=past]').val(inPast.format("d mmm yyyy"));
                 $('input[id$=future]').val(inFuture.format("d mmm yyyy"));
+                $('input[id$=stringSize]').val('JSF');
                 $('input[value=A]')[0].checked=true
                 $('input[value=B]')[0].checked=true
                 $('input[value=C]')[0].checked=false
@@ -91,6 +92,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                 $('input[id$=custom]').val('@@@');
                 $('input[id$=past]').val(inFuture.format("d mmm yyyy"));
                 $('input[id$=future]').val(inPast.format("d mmm yyyy"));
+                $('input[id$=stringSize]').val('JSF 2');
                 $('input[value=A]')[0].checked=false
                 $('input[value=B]')[0].checked=false
                 $('input[value=C]')[0].checked=false
@@ -316,6 +318,22 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                 </h:inputText>
                 <rich:message id="futureMsg" for="future" />
 
+                <h:outputLabel for="stringSize" value="#{stringSizeBean.description}" />
+                <h:inputText id="stringSize" value="#{stringSizeBean.value}" label="#{stringSizeBean.label}" >
+                    <rich:validator data="#{richValidatorBean.attributes['data'].value}"
+                                    disabled="#{richValidatorBean.attributes['disabled'].value}"
+                                    immediate="#{richValidatorBean.attributes['immediate'].value}"
+                                    onbeforedomupdate="#{richValidatorBean.attributes['onbeforedomupdate'].value}"
+                                    onbeforesubmit="#{richValidatorBean.attributes['onbeforesubmit'].value}"
+                                    onbegin="#{richValidatorBean.attributes['onbegin'].value}"
+                                    oncomplete="#{richValidatorBean.attributes['oncomplete'].value}"
+                                    onerror="#{richValidatorBean.attributes['onerror'].value}"
+                                    queueId="#{richValidatorBean.attributes['queueId'].value}"
+                                    status="#{richValidatorBean.attributes['status'].value}"
+                                    />
+                </h:inputText>
+                <rich:message id="stringSizeMsg" for="stringSize" />
+
                 <h:outputLabel for="size" value="#{sizeBean.description}" />
                 <h:selectManyCheckbox id="size" value="#{sizeBean.value}" label="#{sizeBean.label}" >
                     <f:selectItem itemValue="A" itemLabel="A"/>
@@ -324,6 +342,17 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                     <f:selectItem itemValue="D" itemLabel="D"/>
                     <f:selectItem itemValue="E" itemLabel="E"/>
                     <f:selectItem itemValue="F" itemLabel="F"/>
+                    <rich:validator data="#{richValidatorBean.attributes['data'].value}"
+                                    disabled="#{richValidatorBean.attributes['disabled'].value}"
+                                    immediate="#{richValidatorBean.attributes['immediate'].value}"
+                                    onbeforedomupdate="#{richValidatorBean.attributes['onbeforedomupdate'].value}"
+                                    onbeforesubmit="#{richValidatorBean.attributes['onbeforesubmit'].value}"
+                                    onbegin="#{richValidatorBean.attributes['onbegin'].value}"
+                                    oncomplete="#{richValidatorBean.attributes['oncomplete'].value}"
+                                    onerror="#{richValidatorBean.attributes['onerror'].value}"
+                                    queueId="#{richValidatorBean.attributes['queueId'].value}"
+                                    status="#{richValidatorBean.attributes['status'].value}"
+                                    />
                 </h:selectManyCheckbox>
                 <rich:message id="sizeMsg" for="size" />
             </h:panelGrid>

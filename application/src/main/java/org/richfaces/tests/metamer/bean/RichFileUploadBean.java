@@ -62,8 +62,13 @@ public class RichFileUploadBean implements Serializable {
 
         attributes = Attributes.getComponentAttributesFromFacesConfig(UIFileUpload.class, getClass());
 
+        attributes.setAttribute("addLabel", "Add ...");
+        attributes.setAttribute("clearAllLabel", "Clear All");
+        attributes.setAttribute("clearLabel", "Clear");
+        attributes.setAttribute("deleteLabel", "Delete");
         attributes.setAttribute("noDuplicate", false);
         attributes.setAttribute("rendered", true);
+        attributes.setAttribute("uploadLabel", "Upload");
 
         // will be tested in another way
         attributes.remove("validator");

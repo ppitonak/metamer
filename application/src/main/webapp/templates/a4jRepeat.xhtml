@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:rich="http://richfaces.org/rich">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" 
+      xmlns:ui="http://java.sun.com/jsf/facelets"  xmlns:a4j="http://richfaces.org/a4j">
 
     <!--
 JBoss, Home of Professional Open Source
@@ -27,17 +27,14 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 
     <ui:composition>
 
-        <rich:dataTable value="#{templateBean.dataTableModel}" var="containerRichDataTableItem" id="containerRichDataTable1" rowKeyVar="row">
-            <rich:column>
-                <f:facet name="header">
-                    <h:outputText value="Rich Data Table" />
-                </f:facet>
-                <h:panelGroup columns="1" rendered="#{containerRichDataTableItem == 'row 1'}">
-                    <ui:decorate template="#{templateBean.nextTemplate}.xhtml" />
-                </h:panelGroup>
-                <h:outputText value="#{containerRichDataTableItem}" rendered="#{containerRichDataTableItem != 'row 1'}" />
-            </rich:column>
-        </rich:dataTable>
+        <ul>
+            <a4j:repeat value="#{model.simple}" var="containerA4JRepeatItem" id="containerA4JRepeat2">
+                <li><h:panelGroup rendered="#{containerA4JRepeatItem == 'row 2'}">
+                        <ui:decorate template="#{templateBean.nextTemplate}.xhtml" />
+                    </h:panelGroup>
+                    <h:outputText value="#{containerA4JRepeatItem}" rendered="#{containerA4JRepeatItem != 'row 2'}" /></li>
+            </a4j:repeat>
+        </ul>
 
     </ui:composition>
 </html>

@@ -19,7 +19,6 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  *******************************************************************************/
-
 package org.richfaces.tests.metamer.bean;
 
 import java.io.Serializable;
@@ -29,6 +28,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import javax.annotation.PostConstruct;
 import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
 import javax.faces.model.SelectItem;
@@ -54,12 +54,20 @@ import org.richfaces.tests.metamer.model.tree.CompactDiscXmlDescriptor;
 public class Model implements Serializable {
 
     private static final long serialVersionUID = 1L;
-
     private List<Capital> capitalsList;
     private List<Employee> employeesList;
     private Set<String> jobTitles;
     private List<SelectItem> jobTitlesSelectItems;
     private List<CompactDiscXmlDescriptor> compactDiscList;
+    private List<String> simple = new ArrayList<String>();
+
+    @PostConstruct
+    public void init() {
+        simple.add("row 1");
+        simple.add("row 2");
+        simple.add("row 3");
+        simple.add("row 4");
+    }
 
     /**
      * Model containing US states, their capitals and timezones.
@@ -132,8 +140,7 @@ public class Model implements Serializable {
     }
 
     @SuppressWarnings("unchecked")
-    static final <R, T extends ListHolder<R>> List<R> unmarshall(Class<T> rootElementType, String resourceURL)
-        throws JAXBException {
+    static <R, T extends ListHolder<R>> List<R> unmarshall(Class<T> rootElementType, String resourceURL) throws JAXBException {
         ClassLoader ccl = Thread.currentThread().getContextClassLoader();
         URL resource = ccl.getResource(resourceURL);
         JAXBContext context = JAXBContext.newInstance(rootElementType);
@@ -224,5 +231,9 @@ public class Model implements Serializable {
         }
 
         return jobTitlesSelectItems;
+    }
+
+    public List<String> getSimple() {
+        return simple;
     }
 }

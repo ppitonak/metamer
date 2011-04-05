@@ -26,7 +26,7 @@ import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
 import org.richfaces.tests.metamer.TemplatesList;
-import org.richfaces.tests.metamer.TemplatesListConverter;
+import org.richfaces.tests.metamer.converter.TemplatesListConverter;
 
 /**
  * @author <a href="mailto:ppitonak@redhat.com">Lukas Fryc</a>

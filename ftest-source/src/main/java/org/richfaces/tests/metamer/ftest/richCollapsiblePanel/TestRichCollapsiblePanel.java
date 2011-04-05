@@ -370,6 +370,13 @@ public class TestRichCollapsiblePanel extends AbstractMetamerTest {
     }
 
     private void verifyStandardIcons(JQueryLocator input, JQueryLocator icon, JQueryLocator image) {
+        selenium.select(input, optionLabel("chevron"));
+        selenium.waitForPageToLoad();
+        assertTrue(selenium.belongsClass(icon, "rf-ico-chevron-hdr"),
+                "Div should have set class rf-ico-chevron-hdr.");
+        assertTrue(selenium.getStyle(icon, CssProperty.BACKGROUND_IMAGE).contains("chevron.png"),
+                "Icon should contain a chevron.");
+
         selenium.select(input, optionLabel("chevronDown"));
         selenium.waitForPageToLoad();
         assertTrue(selenium.belongsClass(icon, "rf-ico-chevron-down-hdr"),

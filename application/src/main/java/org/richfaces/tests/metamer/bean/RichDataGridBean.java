@@ -22,6 +22,8 @@
 package org.richfaces.tests.metamer.bean;
 
 import java.io.Serializable;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
@@ -48,6 +50,7 @@ public class RichDataGridBean implements Serializable {
     // true = model, false = empty table
     private boolean state = true;
     private int page = 1;
+    private Map<String, String> facets = new HashMap<String, String>();
 
     /**
      * Initializes the managed bean.
@@ -70,6 +73,12 @@ public class RichDataGridBean implements Serializable {
         attributes.remove("iterationStatusVar");
         attributes.remove("rowKeyVar");
         attributes.remove("stateVar");
+
+        // facets initial values
+        facets.put("noData", "There is no data.");
+        facets.put("caption", "Caption");
+        facets.put("header", "Header");
+        facets.put("footer", "Footer");
     }
 
     public Attributes getAttributes() {
@@ -94,5 +103,13 @@ public class RichDataGridBean implements Serializable {
 
     public void setPage(int page) {
         this.page = page;
+    }
+
+    public Map<String, String> getFacets() {
+        return facets;
+    }
+
+    public void setFacets(Map<String, String> facets) {
+        this.facets = facets;
     }
 }

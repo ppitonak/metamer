@@ -27,6 +27,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
     -->
 
     <ui:composition template="/templates/template.xhtml">
+        <ui:param name="componentId" value="richDataGrid" />
 
         <ui:define name="view">
             <f:metadata>
@@ -38,58 +39,72 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 
         <ui:define name="head"/>
 
-        <ui:define name="outOfTemplateBefore">
-            <br/>
-            <h:outputText value="Show data in table: " />
-            <h:selectBooleanCheckbox id="noDataCheckbox" value="#{richDataGridBean.state}">
-                <a4j:ajax render="richDataGrid scroller1"/>
-            </h:selectBooleanCheckbox>
-            <br/><br/>
-            <rich:dataScroller id="scroller1" for="richDataGrid" page="#{richDataGridBean.page}" maxPages="7" render="richDataGrid"/>
-        </ui:define>
-
         <ui:define name="component">
+            <h:panelGroup layout="div">
+                <h:outputText value="Show data in table: " />
+                <h:selectBooleanCheckbox id="noDataCheckbox" value="#{richDataGridBean.state}">
+                    <a4j:ajax render="#{nestedComponentId}"/>
+                </h:selectBooleanCheckbox>
+            </h:panelGroup>
+
             <rich:dataGrid id="richDataGrid"
                            columns="#{richDataGridBean.attributes['columns'].value}"
-                           elements="#{richDataGridBean.attributes['elements'].value}"
                            first="#{richDataGridBean.attributes['first'].value}"
-                           iterationStatusVar="#{richDataGridBean.attributes['iterationStatusVar'].value}"
+                           elements="#{richDataGridBean.attributes['elements'].value}"
                            keepSaved="#{richDataGridBean.attributes['keepSaved'].value}"
                            rendered="#{richDataGridBean.attributes['rendered'].value}"
-                           rowKeyConverter="#{richDataGridBean.attributes['rowKeyConverter'].value}"
                            style="#{richDataGridBean.attributes['style'].value}"
                            styleClass="#{richDataGridBean.attributes['styleClass'].value}"
                            title="#{richDataGridBean.attributes['title'].value}"
-                           value="#{richDataGridBean.state ? model.employees : null}"
+                           value="#{richDataGridBean.state ? model.capitals : null}"
                            var="record">
 
                 <f:facet name="noData">
-                    <h:outputText value="There is no data." style="color: red;"/>
+                    <h:outputText id="noData" value="#{richDataGridBean.facets['noData']}" style="color: red;"
+                                  rendered="#{not empty richDataGridBean.facets['noData']}"/>
+                </f:facet>
+
+                <f:facet name="caption">
+                    <h:outputText 	id="caption" value="#{richDataGridBean.facets['caption']}"
+                                   rendered="#{not empty richDataGridBean.facets['caption']}"/>
                 </f:facet>
 
                 <f:facet name="header">
-                    <h:outputText value="header" />
+                    <h:outputText 	id="header" value="#{richDataGridBean.facets['header']}"
+                                   rendered="#{not empty richDataGridBean.facets['header']}" />
                 </f:facet>
-
-                <f:facet name="сaption">
-                    <h:outputText value="caption" />
-                </f:facet>
-
-                <h:outputText value="#{record.name}" />
-                <ul>
-                    <a4j:repeat value="#{record.companies}" var="company">
-                        <li>#{company.name}</li>
-                    </a4j:repeat>
-                </ul>
 
                 <f:facet name="footer">
-                    <rich:dataScroller id="scroller2" for="richDataGrid" page="#{richDataGridBean.page}" maxPages="7" render="richDataGrid" />
+                    <h:outputText id="footer" value="#{richDataGridBean.facets['footer']}"
+                                  rendered="#{not empty richDataGridBean.facets['footer']}" />
                 </f:facet>
-            </rich:dataGrid>
 
+                <h:outputText value="#{record.state}" style="font-weight: bold;" />
+                <br />
+                <h:outputText value="#{record.name}" />
+
+            </rich:dataGrid>
         </ui:define>
 
         <ui:define name="outOfTemplateAfter">
+            <a4j:ajax render="#{nestedComponentId}">
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="No Data Facet: " />
+                    <h:inputText id="noDataInput" value="#{richDataGridBean.facets['noData']}" />
+
+                    <h:outputLabel value="Caption Facet: " />
+                    <h:inputText id="captionInput" value="#{richDataGridBean.facets['caption']}" />
+
+                    <h:outputLabel value="Header Facet:" />
+                    <h:inputText id="headerInput" value="#{richDataGridBean.facets['header']}" />
+
+                    <h:outputLabel value="Footer Facet:" />
+                    <h:inputText id="footerInput" value="#{richDataGridBean.facets['footer']}" />
+                </h:panelGrid>
+            </a4j:ajax>
+
+            <br/><br/>
+
             <metamer:attributes value="#{richDataGridBean.attributes}" id="attributes" />
         </ui:define>
 

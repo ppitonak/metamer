@@ -19,47 +19,42 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  *******************************************************************************/
+package org.richfaces.tests.metamer.validation;
 
-package org.richfaces.tests.metamer;
-
-import javax.faces.FacesException;
-import javax.faces.component.UIComponent;
-import javax.faces.context.FacesContext;
-import javax.faces.convert.Converter;
-import javax.faces.convert.FacesConverter;
+import javax.faces.bean.ManagedBean;
+import javax.validation.constraints.Size;
 
 /**
- * Converter used for view parameter "template".
- * 
+ * Helper bean for testing JSR-303.
+ *
  * @author <a href="mailto:ppitonak@redhat.com">Pavol Pitonak</a>
  * @version $Revision$
  */
-@FacesConverter(value = "templateNameConverter")
-public class TemplateNameConverter implements Converter {
+@ManagedBean
+public class StringSizeBean extends Validable<String> {
 
-    /**
-     * {@inheritDoc}
-     */
-    public Object getAsObject(FacesContext context, UIComponent component, String value) {
-        try {
-            return Template.valueOf(value.toUpperCase());
-        } catch (IllegalArgumentException iae) {
-            throw new FacesException("Cannot convert parameter \"" + value + "\" to the name of template.", iae);
-        }
+    public StringSizeBean() {
+        value = "JSF";
     }
 
-    /**
-     * {@inheritDoc}
-     */
-    public String getAsString(FacesContext context, UIComponent component, Object value) {
-        if (value instanceof String) {
-            return (String) value;
-        }
+    @Size(min = 2, max = 4)
+    @Override
+    public String getValue() {
+        return value;
+    }
 
-        if (value instanceof Template) {
-            return ((Template) value).toString();
-        }
+    @Override
+    public void setValue(String value) {
+        this.value = value;
+    }
 
-        throw new FacesException("Cannot convert parameter \"" + value + "\" to the name of template.");
+    @Override
+    public String getDescription() {
+        return "String size, from 2 to 4";
+    }
+
+    @Override
+    public String getLabel() {
+        return "stringSize";
     }
 }
