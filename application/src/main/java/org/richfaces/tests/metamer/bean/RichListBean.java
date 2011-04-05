@@ -61,7 +61,6 @@ public class RichListBean implements Serializable {
         attributes.setAttribute("rows", 20);
 
         // TODO has to be tested in other way
-        attributes.remove("keepSaved");
         attributes.remove("iterationStatusVar");
         attributes.remove("rowKeyVar");
         attributes.remove("stateVar");
