@@ -64,6 +64,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                 $('input[id$=pattern]').val('richFaces 4');
                 $('input[id$=past]').val(inPast.format("d mmm yyyy"));
                 $('input[id$=future]').val(inFuture.format("d mmm yyyy"));
+                $('input[id$=stringSize]').val('JSF');
                 $('input[value=A]')[0].checked=true
                 $('input[value=B]')[0].checked=true
                 $('input[value=C]')[0].checked=false
@@ -90,6 +91,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                 $('input[id$=custom]').val('@@@');
                 $('input[id$=past]').val(inFuture.format("d mmm yyyy"));
                 $('input[id$=future]').val(inPast.format("d mmm yyyy"));
+                $('input[id$=stringSize]').val('JSF 2');
                 $('input[value=A]')[0].checked=false
                 $('input[value=B]')[0].checked=false
                 $('input[value=C]')[0].checked=false
@@ -161,6 +163,10 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                     <f:convertDateTime pattern="d MMM yyyy"/>
                 </h:inputText>
                 <rich:message id="futureMsg" for="future" />
+
+                <h:outputLabel for="stringSize" value="#{stringSizeBean.description}" />
+                <h:inputText id="stringSize" value="#{stringSizeBean.value}" label="#{stringSizeBean.label}" />
+                <rich:message id="stringSizeMsg" for="stringSize" />
 
                 <h:outputLabel for="size" value="#{sizeBean.description}" />
                 <h:selectManyCheckbox id="size" value="#{sizeBean.value}" label="#{sizeBean.label}" >

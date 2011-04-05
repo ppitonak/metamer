@@ -149,7 +149,6 @@ public class A4JRepeatBean implements Serializable {
         attributes.remove("componentState");
         attributes.remove("iterationState");
         attributes.remove("iterationStatusVar");
-        attributes.remove("keepSaved");
         attributes.remove("rowKeyVar");
         attributes.remove("rowKeyConverter");
         attributes.remove("value");

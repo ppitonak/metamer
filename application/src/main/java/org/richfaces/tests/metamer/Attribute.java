@@ -34,6 +34,7 @@ import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
+import org.richfaces.tests.metamer.converter.CollectionConverter;
 
 /**
  * Representation an attribute of a JSF component.

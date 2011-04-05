@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:a4j="http://richfaces.org/a4j" 
-      xmlns:metamer="http://java.sun.com/jsf/composite/metamer">
+      xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:rich="http://richfaces.org/rich">
 
     <!--
 JBoss, Home of Professional Open Source
@@ -27,6 +26,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
     -->
 
     <ui:composition template="/templates/template.xhtml">
+        <ui:param name="componentId" value="richDataTable" />
 
         <ui:define name="view">
             <f:metadata>
@@ -38,32 +38,31 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 
         <ui:define name="head"/>
 
+        <ui:define name="outOfTemplateBefore">
+            <h:panelGrid columns="2">
+                keepSaved
+                <h:selectOneRadio id="keepSavedInput" value="#{richListBean.attributes['keepSaved'].value}" onchange="submit()">
+                    <f:selectItem itemValue="" itemLabel="null"/>
+                    <f:selectItem itemValue="true" itemLabel="true"/>
+                    <f:selectItem itemValue="false" itemLabel="false"/>
+                </h:selectOneRadio>
+            </h:panelGrid>
+        </ui:define>
+
         <ui:define name="component">
-            <h:outputScript library="script" name="swfobject.js"/>
 
-            <a4j:outputPanel id="flashPanelDynamic">
-                <a4j:mediaOutput element="a" id="swfLink" style="display: none;" cacheable="false"
-                                 createContent="#{a4jMediaOutputBean.paintFlash}" value="#{mediaData}" />
+            <rich:list id="richList" keepSaved="#{richListBean.attributes['keepSaved'].value}"
+                       value="#{model.simple}" type="unordered">
 
-                <a4j:outputPanel layout="block" id="myFlashContent" style="width: 200px; height: 200px">
-                    <a href="http://www.adobe.com/go/getflashplayer">
-                        <img src="http://www.adobe.com/images/shared/download_buttons/get_flash_player.gif" alt="Get Adobe Flash player" />
-                    </a>
-                </a4j:outputPanel>
+                <h:inputText id="input" value="#{maxBean.value}"/>
 
-                <script type="text/javascript">
-                        var flashvars = {};
-                        var params = {};
-                        var attributes = {};
-                        swfobject.embedSWF(document.getElementById('form:swfLink').href, document.getElementById('myFlashContent'), "200", "200", "9.0.0", false, flashvars, params, attributes);
-                </script>
+            </rich:list>
 
-            </a4j:outputPanel>
+            <br/>
+            <h:commandButton id="submitButton" value="Submit"/>
         </ui:define>
 
-        <ui:define name="outOfTemplateAfter">
-            <metamer:attributes value="#{a4jMediaOutputBean.attributes}" id="attributes" render="panel"/>
-        </ui:define>
+        <ui:define name="outOfTemplateAfter"/>
 
     </ui:composition>
 </html>

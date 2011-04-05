@@ -27,9 +27,9 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
     -->
 
     <ui:composition template="/templates/template.xhtml">
-		
-		<ui:define name="view">
-			<f:metadata>
+
+        <ui:define name="view">
+            <f:metadata>
                 <f:viewParam name="templates" value="#{templateBean.templates}">
                     <f:converter converterId="templatesListConverter" />
                 </f:viewParam>
@@ -40,12 +40,23 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 
             <rich:fileUpload id="fileUpload"
                              acceptedTypes="#{richFileUploadBean.attributes['acceptedTypes'].value}"
+                             addLabel="#{richFileUploadBean.attributes['addLabel'].value}"
+                             clearAllLabel="#{richFileUploadBean.attributes['clearAllLabel'].value}"
+                             clearLabel="#{richFileUploadBean.attributes['clearLabel'].value}"
+                             data="#{richFileUploadBean.attributes['data'].value}"
+                             deleteLabel="#{richFileUploadBean.attributes['deleteLabel'].value}"
                              dir="#{richFileUploadBean.attributes['dir'].value}"
                              disabled="#{richFileUploadBean.attributes['disabled'].value}"
+                             doneLabel="#{richFileUploadBean.attributes['doneLabel'].value}"
+                             execute="#{richFileUploadBean.attributes['execute'].value}"
                              fileUploadListener="#{richFileUploadBean.listener}"
                              lang="#{richFileUploadBean.attributes['lang'].value}"
+                             limitRender="#{richFileUploadBean.attributes['limitRender'].value}"
                              noDuplicate="#{richFileUploadBean.attributes['noDuplicate'].value}"
+                             onbeforedomupdate="#{richFileUploadBean.attributes['onbeforedomupdate'].value}"
+                             onbegin="#{richFileUploadBean.attributes['onbegin'].value}"
                              onclick="#{richFileUploadBean.attributes['onclick'].value}"
+                             oncomplete="#{richFileUploadBean.attributes['oncomplete'].value}"
                              ondblclick="#{richFileUploadBean.attributes['ondblclick'].value}"
                              onfilesubmit="#{richFileUploadBean.attributes['onfilesubmit'].value}"
                              onkeydown="#{richFileUploadBean.attributes['onkeydown'].value}"
@@ -57,10 +68,15 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                              onmouseover="#{richFileUploadBean.attributes['onmouseover'].value}"
                              onmouseup="#{richFileUploadBean.attributes['onmouseup'].value}"
                              onuploadcomplete="#{richFileUploadBean.attributes['onuploadcomplete'].value}"
+                             render="#{richFileUploadBean.attributes['render'].value}"
                              rendered="#{richFileUploadBean.attributes['rendered'].value}"
+                             serverErrorLabel="#{richFileUploadBean.attributes['serverErrorLabel'].value}"
+                             sizeExceededLabel="#{richFileUploadBean.attributes['sizeExceededLabel'].value}"
+                             status="#{richFileUploadBean.attributes['status'].value}"
                              style="#{richFileUploadBean.attributes['style'].value}"
                              styleClass="#{richFileUploadBean.attributes['styleClass'].value}"
                              title="#{richFileUploadBean.attributes['title'].value}"
+                             uploadLabel="#{richFileUploadBean.attributes['uploadLabel'].value}"
                              />
 
             <br/>

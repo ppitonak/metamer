@@ -104,7 +104,8 @@ public class TestProgressBarAjax extends AbstractMetamerTest {
         assertTrue(selenium.isVisible(progress), "Progress bar should not show progress.");
         assertFalse(selenium.isElementPresent(complete), "Progress bar should not show progress.");
 
-        assertEquals(selenium.getText(label), "1 %", "Progress bar's label after start");
+        String labelValue = selenium.getText(label);
+        assertTrue("1 %".equals(labelValue) || "2 %".equals(labelValue), "Progress bar's label after start should be \"1 %\" or \"2 %\".");
     }
 
     @Test

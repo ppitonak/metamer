@@ -1,7 +1,7 @@
 /*******************************************************************************
  * JBoss, Home of Professional Open Source
  * Copyright 2007, Exadel, Inc.,
- *           2010, Red Hat, Inc. and individual contributors
+ *           2010-2011, Red Hat, Inc. and individual contributors
  * by the @authors tag. See the copyright.txt in the distribution for a
  * full listing of individual contributors.
  *
@@ -20,7 +20,6 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  *******************************************************************************/
-
 package org.richfaces.tests.metamer.bean;
 
 import java.io.Serializable;
@@ -43,7 +42,6 @@ public class TemplateBean implements Serializable {
 
     private static final long serialVersionUID = 5078700314562231363L;
     private static Logger logger = LoggerFactory.getLogger(TemplateBean.class);
-    private List<String> dataTableModel = new ArrayList<String>();
     private TemplatesList templates;
     private int templateIndex = 0;
     private boolean renderForm;
@@ -51,11 +49,6 @@ public class TemplateBean implements Serializable {
     @PostConstruct
     public void init() {
         templates = new TemplatesList();
-        dataTableModel.add("row 1");
-        dataTableModel.add("row 2");
-        dataTableModel.add("row 3");
-        dataTableModel.add("row 4");
-
         renderForm = true;
     }
 
@@ -77,9 +70,9 @@ public class TemplateBean implements Serializable {
             this.templates.add(t);
         }
     }
-    
+
     public String getComponentPrefix() {
-        StringBuffer prefix = new StringBuffer("form:");
+        StringBuilder prefix = new StringBuilder("form:");
         for (Template template : templates) {
             prefix.append(template.getNestedComponentPrefix());
         }
@@ -93,13 +86,6 @@ public class TemplateBean implements Serializable {
         }
 
         return retVal;
-    }
-
-    /**
-     * @return the dataTableModel
-     */
-    public List<String> getDataTableModel() {
-        return dataTableModel;
     }
 
     public String getFirstTemplate() {
@@ -118,5 +104,4 @@ public class TemplateBean implements Serializable {
     public void setRenderForm(boolean renderForm) {
         this.renderForm = renderForm;
     }
-    
 }

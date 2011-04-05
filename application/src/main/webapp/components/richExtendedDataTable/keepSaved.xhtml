@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:metamer="http://java.sun.com/jsf/composite/metamer"
-      xmlns:rich="http://richfaces.org/rich">
+      xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:rich="http://richfaces.org/rich">
 
     <!--
 JBoss, Home of Professional Open Source
@@ -27,6 +26,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
     -->
 
     <ui:composition template="/templates/template.xhtml">
+        <ui:param name="componentId" value="richDataTable" />
 
         <ui:define name="view">
             <f:metadata>
@@ -36,46 +36,49 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
             </f:metadata>
         </ui:define>
 
-        <ui:define name="head"/>
+        <ui:define name="head">
+            <style type="text/css">
+                .rf-edt {
+                    width: 151px !important;
+                    height:
+                }
+                .rf-edt-c-columnInput {
+                    width: 150px !important;
+                    text-align: center;
+                }
+                .rf-edt-c  {
+                    height: 2em !important;
+                }
+            </style>
+        </ui:define>
+
+        <ui:define name="outOfTemplateBefore">
+            <h:panelGrid columns="2">
+                keepSaved
+                <h:selectOneRadio id="keepSavedInput" value="#{richExtendedDataTableBean.attributes['keepSaved'].value}" onchange="submit()">
+                    <f:selectItem itemValue="" itemLabel="null"/>
+                    <f:selectItem itemValue="true" itemLabel="true"/>
+                    <f:selectItem itemValue="false" itemLabel="false"/>
+                </h:selectOneRadio>
+            </h:panelGrid>
+        </ui:define>
 
         <ui:define name="component">
 
-            <rich:dataTable id="richDataTable"
-                            rows="10"
-                            value="#{model.employees}"
-                            var="record"
-                            >
+            <rich:extendedDataTable id="richEDT" keepSaved="#{richExtendedDataTableBean.attributes['keepSaved'].value}"
+                                    value="#{model.simple}" >
 
-                <rich:column id="columnName">
-                    <f:facet name="header">
-                        <h:outputText id="columnHeaderName" value="Name" />
-                    </f:facet>
-
-                    <h:outputText value="#{record.name}" />
+                <rich:column id="columnInput">
+                    <h:inputText id="input" value="#{maxBean.value}"/>
                 </rich:column>
 
-                <f:facet name="footer">
-                    <rich:dataScroller id="scroller" for="richDataTable" page="3"/>
-                </f:facet>
-
-            </rich:dataTable>
+            </rich:extendedDataTable>
 
             <br/>
-
-            <h:commandButton id="button" value="button">
-                <rich:componentControl event="click"
-                                       operation="#{richComponentControlBean.attributes['operation'].value}"
-                                       selector="#{richComponentControlBean.attributes['selector'].value}"
-                                       target="#{richComponentControlBean.attributes['target'].value}"
-                                       />
-            </h:commandButton>
-
+            <h:commandButton id="submitButton" value="Submit"/>
         </ui:define>
 
-        <ui:define name="outOfTemplateAfter">
-            <br/>
-            <metamer:attributes value="#{richComponentControlBean.attributes}" id="attributes" />
-        </ui:define>
+        <ui:define name="outOfTemplateAfter"/>
 
     </ui:composition>
 </html>

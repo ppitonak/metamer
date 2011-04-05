@@ -33,13 +33,18 @@ import static org.testng.Assert.fail;
 import java.net.URL;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
-import org.jboss.test.selenium.css.CssProperty;
 
+import javax.faces.event.PhaseId;
+
+import org.jboss.test.selenium.css.CssProperty;
 import org.jboss.test.selenium.dom.Event;
+import org.jboss.test.selenium.encapsulated.JavaScript;
 import org.jboss.test.selenium.locator.Attribute;
 import org.jboss.test.selenium.locator.AttributeLocator;
+import org.jboss.test.selenium.locator.JQueryLocator;
 import org.jboss.test.selenium.waiting.EventFiredCondition;
 import org.richfaces.tests.metamer.ftest.annotations.IssueTracking;
 import org.richfaces.tests.metamer.ftest.annotations.RegressionTest;
@@ -103,7 +108,7 @@ public class TestRichCalendarAttributes extends AbstractCalendarTest {
         assertNoDateSelected();
 
         // the most top-left column might be 1st day of month
-        while (selenium.getText(cellWeekDay.format(1, 0)).equals("1")) {
+        while (selenium.getText(cellWeekDay.format(1, 1)).equals("1")) {
             selenium.click(prevMonthButton);
         }
 
@@ -137,7 +142,7 @@ public class TestRichCalendarAttributes extends AbstractCalendarTest {
         assertSelected(selectedDate);
 
         // the most top-left column might be 1st day of month
-        while (selenium.getText(cellWeekDay.format(1, 0)).equals("1")) {
+        while (selenium.getText(cellWeekDay.format(1, 1)).equals("1")) {
             selenium.click(prevMonthButton);
         }
 
@@ -169,7 +174,7 @@ public class TestRichCalendarAttributes extends AbstractCalendarTest {
 
     @Test
     public void testButtonClassIcon() {
-        selenium.click(pjq("td:has(label:contains(heart)) > input[name$=buttonIconInput]"));
+        selenium.click(pjq("input[name$=buttonIconInput][value*=heart]"));
         selenium.waitForPageToLoad();
 
         testStyleClass(image, "buttonClass");
@@ -177,7 +182,7 @@ public class TestRichCalendarAttributes extends AbstractCalendarTest {
 
     @Test
     public void testButtonIcon() {
-        selenium.click(pjq("td:has(label:contains(star)) > input[name$=buttonIconInput]"));
+        selenium.click(pjq("input[name$=buttonIconInput][value*=star]"));
         selenium.waitForPageToLoad();
 
         AttributeLocator attr = image.getAttribute(Attribute.SRC);
@@ -197,14 +202,14 @@ public class TestRichCalendarAttributes extends AbstractCalendarTest {
         selenium.click(pjq("input[name$=disabledInput][value=true]"));
         selenium.waitForPageToLoad();
 
-        selenium.click(pjq("td:has(label:contains(heart)) > input[name$=buttonDisabledIconInput]"));
+        selenium.click(pjq("input[name$=buttonDisabledIconInput][value*=heart]"));
         selenium.waitForPageToLoad();
 
         AttributeLocator attr = image.getAttribute(Attribute.SRC);
         String src = selenium.getAttribute(attr);
         assertTrue(src.contains("heart.png"), "Calendar's icon was not updated.");
 
-        selenium.click(pjq("td:has(label:contains(null)) > input[name$=buttonDisabledIconInput]"));
+        selenium.click(pjq("input[name$=buttonDisabledIconInput][value=]"));
         selenium.waitForPageToLoad();
 
         src = selenium.getAttribute(attr);
@@ -222,12 +227,28 @@ public class TestRichCalendarAttributes extends AbstractCalendarTest {
             assertFalse(selenium.isDisplayed(image), "Image should not be displayed.");
         }
 
-        selenium.click(pjq("td:has(label:contains(star)) > input[name$=buttonIconInput]"));
+        selenium.click(pjq("input[name$=buttonIconInput][value*=star]"));
         selenium.waitForPageToLoad();
 
         if (selenium.isElementPresent(image)) {
             assertFalse(selenium.isDisplayed(image), "Image should not be displayed.");
         }
+    }
+
+    @Test
+    public void testConverterMessage() {
+        JQueryLocator message = pjq("span[id$=msg] .rf-msg-det");
+
+        selenium.click(pjq("input[name$=enableManualInputInput][value=true]"));
+        selenium.waitForPageToLoad();
+        selenium.type(pjq("input[type=text][id$=converterMessageInput]"), "conversion error");
+        selenium.waitForPageToLoad();
+
+        selenium.type(input, "xxx");
+        guardXhr(selenium).click(pjq("input[id$=a4jButton]"));
+        waitGui.until(isDisplayed.locator(message));
+
+        assertEquals(selenium.getText(message), "conversion error");
     }
 
     @Test
@@ -354,6 +375,36 @@ public class TestRichCalendarAttributes extends AbstractCalendarTest {
     }
 
     @Test
+    @IssueTracking("https://issues.jboss.org/browse/RF-10821")
+    public void testImmediate() {
+        selenium.click(pjq("input[name$=immediateInput][value=true]"));
+        selenium.waitForPageToLoad();
+
+        selenium.click(input);
+
+        selenium.click(cellDay.format(6));
+        String day = selenium.getText(cellDay.format(6));
+        String month = selenium.getText(monthLabel);
+
+        String selectedDate = null;
+        try {
+            Date date = new SimpleDateFormat("d MMMM, yyyy hh:mm").parse(day + " " + month + " 12:00");
+            selectedDate = new SimpleDateFormat("MMM d, yyyy hh:mm").format(date);
+        } catch (ParseException ex) {
+            fail(ex.getMessage());
+        }
+
+        guardXhr(selenium).click(applyButton);
+        assertFalse(selenium.isDisplayed(popup), "Popup should not be displayed.");
+
+        String inputDate = selenium.getValue(input);
+        assertEquals(inputDate, selectedDate, "Input doesn't contain selected date.");
+        assertEquals(selenium.getText(output), selectedDate, "Input doesn't contain selected date.");
+
+        phaseInfo.assertListener(PhaseId.APPLY_REQUEST_VALUES, "value changed: null -> " + selectedDate);
+    }
+
+    @Test
     public void testInputClass() {
         testStyleClass(input, "inputClass");
     }
@@ -405,6 +456,146 @@ public class TestRichCalendarAttributes extends AbstractCalendarTest {
     }
 
     @Test
+    public void testMonthLabels() {
+        String[] labels = {"január", "február", "marec", "apríl", "máj", "jún", "júl", "august", "september", "október", "november", "december"};
+        String labelsString = "január,február,marec,apríl,máj,jún,   júl,august,september,október,november,december";
+
+        selenium.type(pjq("input[id$=monthLabelsInput]"), labelsString);
+        selenium.waitForPageToLoad();
+
+        int currentMonth = Calendar.getInstance().get(Calendar.MONTH);
+        String month = null;
+
+        selenium.click(input);
+
+        for (int i = 0; i < 12; i++) {
+            month = selenium.getText(monthLabel);
+            month = month.substring(0, month.indexOf(","));
+            assertEquals(month, labels[(currentMonth + i) % 12], "Month label in calendar");
+            selenium.click(nextMonthButton);
+        }
+    }
+
+    @Test
+    public void testMonthLabelsShort() {
+        String[] labels = {"jan", "feb", "mar", "apr", "máj", "jún", "júl", "aug", "sep", "okt", "nov", "dec"};
+        String labelsString = "jan,feb,mar,apr,máj,jún,   júl,aug,sep,okt,nov,dec";
+
+        selenium.type(pjq("input[id$=monthLabelsShortInput]"), labelsString);
+        selenium.waitForPageToLoad();
+
+        String month = null;
+
+        selenium.click(input);
+        selenium.click(monthLabel);
+
+        for (int i = 0; i < 12; i++) {
+            assertEquals(selenium.getText(dateEditorMonths.format(i)), labels[i], "Short month label in calendar");
+        }
+    }
+
+    @Test
+    public void testOnbeforetimeselectOntimeselect() {
+        selenium.type(pjq("input[id$=onbeforetimeselectInput]"), "metamerEvents += \"beforetimeselect \"");
+        selenium.waitForPageToLoad();
+        selenium.type(pjq("input[id$=ontimeselectInput]"), "metamerEvents += \"timeselect \"");
+        selenium.waitForPageToLoad();
+
+        selenium.click(input);
+        selenium.click(cellDay.format(18));
+        selenium.click(timeButton);
+        selenium.runScript(new JavaScript("jQuery(\"" + hoursInputUp.getRawLocator() + "\").mousedown().mouseup()"));
+        selenium.click(timeEditorOk);
+
+        String[] events = selenium.getEval(new JavaScript("window.metamerEvents")).split(" ");
+
+        assertEquals(events.length, 2, "2 events should be fired.");
+        assertEquals(events[0], "beforetimeselect", "Attribute onbeforetimeselect doesn't work");
+        assertEquals(events[1], "timeselect", "Attribute ontimeselect doesn't work");
+    }
+
+    @Test
+    public void testOnchange() {
+        selenium.type(pjq("input[id$=onchangeInput]"), "metamerEvents += \"change \"");
+        selenium.waitForPageToLoad();
+
+        selenium.click(input);
+        selenium.click(cellDay.format(18));
+        selenium.click(applyButton);
+
+        waitGui.failWith("Attribute onchange does not work correctly").until(new EventFiredCondition(new Event("change")));
+    }
+
+    @Test
+    public void testOnclean() {
+        selenium.type(pjq("input[id$=oncleanInput]"), "metamerEvents += \"clean \"");
+        selenium.waitForPageToLoad();
+
+        selenium.click(input);
+        selenium.click(cellDay.format(18));
+        selenium.click(cleanButton);
+
+        waitGui.failWith("Attribute onclean does not work correctly").until(new EventFiredCondition(new Event("clean")));
+    }
+
+    @Test
+    public void testOncomplete() {
+        selenium.click(pjq("input[name$=modeInput][value=ajax]"));
+        selenium.waitForPageToLoad();
+
+        selenium.type(pjq("input[id$=oncompleteInput]"), "metamerEvents += \"complete \"");
+        selenium.waitForPageToLoad();
+
+        selenium.click(input);
+        guardXhr(selenium).click(nextMonthButton);
+        waitGui.failWith("Attribute oncomplete does not work correctly").until(new EventFiredCondition(new Event("complete")));
+    }
+
+    @Test
+    public void testOndatemouseout() {
+        selenium.type(pjq("input[id$=ondatemouseoutInput]"), "metamerEvents += \"datemouseout \"");
+        selenium.waitForPageToLoad();
+
+        selenium.click(input);
+        selenium.fireEvent(cellDay.format(18), Event.MOUSEOUT);
+
+        waitGui.failWith("Attribute ondatemouseout does not work correctly").until(new EventFiredCondition(new Event("datemouseout")));
+    }
+
+    @Test
+    public void testOndatemouseover() {
+        selenium.type(pjq("input[id$=ondatemouseoverInput]"), "metamerEvents += \"datemouseover \"");
+        selenium.waitForPageToLoad();
+
+        selenium.click(input);
+        selenium.fireEvent(cellDay.format(18), Event.MOUSEOVER);
+
+        waitGui.failWith("Attribute ondatemouseover does not work correctly").until(new EventFiredCondition(new Event("datemouseover")));
+    }
+
+    @Test
+    public void testOndateselect() {
+        selenium.type(pjq("input[id$=ondateselectInput]"), "metamerEvents += \"dateselect \"");
+        selenium.waitForPageToLoad();
+
+        selenium.click(input);
+        selenium.click(cellDay.format(18));
+
+        waitGui.failWith("Attribute ondateselect does not work correctly").until(new EventFiredCondition(new Event("dateselect")));
+    }
+
+    @Test
+    public void testOnhide() {
+        selenium.type(pjq("input[id$=onhideInput]"), "metamerEvents += \"hide \"");
+        selenium.waitForPageToLoad();
+
+        selenium.click(input);
+        selenium.click(input);
+
+        waitGui.failWith("Attribute onhide does not work correctly").until(new EventFiredCondition(new Event("hide")));
+    }
+
+    @Test
     public void testOninputblur() {
         testFireEvent(Event.BLUR, input, "inputblur");
     }
@@ -416,7 +607,7 @@ public class TestRichCalendarAttributes extends AbstractCalendarTest {
         selenium.waitForPageToLoad();
 
         selenium.type(pjq("input[id$=oninputchangeInput]"), "metamerEvents += \"inputchange \"");
-        selenium.waitForPageToLoad(TIMEOUT);
+        selenium.waitForPageToLoad();
 
         selenium.type(input, "Dec 23, 2010 19:27");
 
@@ -482,6 +673,17 @@ public class TestRichCalendarAttributes extends AbstractCalendarTest {
     @Test
     public void testOninputselect() {
         testFireEvent(Event.SELECT, input, "inputselect");
+    }
+
+    @Test
+    public void testOnshow() {
+        selenium.type(pjq("input[id$=onshowInput]"), "metamerEvents += \"show \"");
+        selenium.waitForPageToLoad();
+
+        selenium.click(input);
+        selenium.click(input);
+
+        waitGui.failWith("Attribute onshow does not work correctly").until(new EventFiredCondition(new Event("show")));
     }
 
     @Test

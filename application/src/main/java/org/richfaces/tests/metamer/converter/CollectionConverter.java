@@ -19,7 +19,7 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  *******************************************************************************/
-package org.richfaces.tests.metamer;
+package org.richfaces.tests.metamer.converter;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -31,7 +31,7 @@ import java.util.TreeSet;
 import org.apache.commons.lang.StringUtils;
 
 /**
- * @author <a href="mailto:lfryc@redhat.com">Pavol Pitonak</a>
+ * @author <a href="mailto:lfryc@redhat.com">Lukas Fryc</a>
  * @version $Revision$
  */
 public final class CollectionConverter<E, C extends Collection<E>> {

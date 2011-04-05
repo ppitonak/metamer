@@ -59,12 +59,11 @@ public class RichCollapsibleSubTableBean implements Serializable {
     private transient UICollapsibleSubTable binding;
     // true = model, false = empty table
     private boolean state;
-
     // facets
     private Map<String, String> facets = new HashMap<String, String>();
-
     // sorting
     private ColumnSortingMap sorting = new ColumnSortingMap() {
+
         private static final long serialVersionUID = 1L;
 
         protected UIDataTableBase getBinding() {
@@ -75,10 +74,8 @@ public class RichCollapsibleSubTableBean implements Serializable {
             return attributes;
         }
     };
-
     // filtering
     private Map<String, Object> filtering = new HashMap<String, Object>();
-    
     // expanded
     private Map<List<Employee>, Boolean> expanded = new HashMap<List<Employee>, Boolean>();
 
@@ -91,7 +88,7 @@ public class RichCollapsibleSubTableBean implements Serializable {
         logger.debug("initializing bean " + getClass().getName());
 
         attributes = Attributes.getComponentAttributesFromFacesConfig(UICollapsibleSubTable.class, getClass());
-        
+
         attributes.setAttribute("rendered", true);
         attributes.setAttribute("rows", 5);
 
@@ -100,7 +97,6 @@ public class RichCollapsibleSubTableBean implements Serializable {
         attributes.remove("columns");
         attributes.remove("selection");
         attributes.remove("filterVar");
-        attributes.remove("keepSaved");
         attributes.remove("iterationStatusVar");
         attributes.remove("componentState");
         attributes.remove("rowKeyVar");
@@ -122,7 +118,7 @@ public class RichCollapsibleSubTableBean implements Serializable {
         lists = new ArrayList<List<Employee>>();
         lists.add(men);
         lists.add(women);
-        
+
         expanded.put(men, true);
         expanded.put(women, true);
 
@@ -164,23 +160,23 @@ public class RichCollapsibleSubTableBean implements Serializable {
     public Map<String, String> getFacets() {
         return facets;
     }
-    
+
     public UICollapsibleSubTable getBinding() {
         return binding;
     }
-    
+
     public void setBinding(UICollapsibleSubTable binding) {
         this.binding = binding;
     }
-    
+
     public ColumnSortingMap getSorting() {
         return sorting;
     }
-    
+
     public Map<String, Object> getFiltering() {
         return filtering;
     }
-    
+
     public Map<List<Employee>, Boolean> getExpanded() {
         return expanded;
     }

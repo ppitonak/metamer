@@ -25,75 +25,75 @@ License along with this software; if not, write to the Free
 Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 02110-1301 USA, or see the FSF site: http://www.fsf.org.
     -->
-            
+
     <f:view>
-    
-    <ui:insert name="view"/>
-    
-    <h:head>
-        <title><ui:insert name="pageTitle">Metamer</ui:insert></title>
-        <meta http-equiv="Content-Type" content="text/xhtml; charset=UTF-8" />
-        <!-- WORKAROUND for RF-9355 ( https://javaserverfaces.dev.java.net/issues/show_bug.cgi?id=1810 ) -->
-        <h:outputScript name="jsf.js" library="javax.faces" target="head"/>
-        <!-- WORKAROUND END -->
-        <h:outputStylesheet library="css" name="common.ecss" />
-        <h:outputScript library="script" name="common.js" />
-        <ui:insert name="head"/>
-        
-    </h:head>
 
-    <h:body>
-            
-        <h:form id="executeCheckerForm">
-            <h:selectBooleanCheckbox id="executeChecker" value="#{richBean.executeChecker}" style="display: none" />
-        </h:form>
+        <ui:insert name="view"/>
 
-        <div class="header"><ui:decorate template="/templates/header.xhtml" /></div>
+        <h:head>
+            <title><ui:insert name="pageTitle">Metamer</ui:insert></title>
+            <meta http-equiv="Content-Type" content="text/xhtml; charset=UTF-8" />
+            <!-- WORKAROUND for RF-9355 ( https://javaserverfaces.dev.java.net/issues/show_bug.cgi?id=1810 ) -->
+            <h:outputScript name="jsf.js" library="javax.faces" target="head"/>
+            <!-- WORKAROUND END -->
+            <h:outputStylesheet library="css" name="common.ecss" />
+            <h:outputScript library="script" name="common.js" />
+            <ui:insert name="head"/>
 
-        <div class="content">
-            <div class="messages"><h:messages /></div>
+        </h:head>
 
-            <h:panelGroup id="commonGrid" layout="block" rendered="#{richBean.reComponent}">
+        <h:body>
 
-                <c:set var="nestedPrefix" value="#{templateBean.componentPrefix}" />
-                <c:set var="nestedComponentId" value="#{templateBean.componentPrefix}#{componentId}" />
+            <h:form id="executeCheckerForm">
+                <h:selectBooleanCheckbox id="executeChecker" value="#{richBean.executeChecker}" style="display: none" />
+            </h:form>
 
-                <c:choose>
-                    <c:when test="#{dontRenderForm}">
-                        <div style="margin-bottom: 20px;"><ui:insert name="outOfTemplateBefore" /></div>
-                        <ui:decorate template="/templates/#{templateBean.firstTemplate}.xhtml" />
-                        <div style="margin-top: 20px;"><ui:insert name="outOfTemplateAfter" /></div>
-                    </c:when>
+            <div class="header"><ui:decorate template="/templates/header.xhtml" /></div>
 
-                    <c:otherwise>
-                        <h:form id="beforeForm">
+            <div class="content">
+                <div class="messages"><h:messages /></div>
+
+                <h:panelGroup id="commonGrid" layout="block" rendered="#{richBean.reComponent}">
+
+                    <c:set var="nestedPrefix" value="#{templateBean.componentPrefix}" />
+                    <c:set var="nestedComponentId" value="#{templateBean.componentPrefix}#{componentId}" />
+
+                    <c:choose>
+                        <c:when test="#{dontRenderForm}">
                             <div style="margin-bottom: 20px;"><ui:insert name="outOfTemplateBefore" /></div>
-                        </h:form>
-                        <h:form id="form">
                             <ui:decorate template="/templates/#{templateBean.firstTemplate}.xhtml" />
-                        </h:form>
-                        <h:form id="afterForm">
                             <div style="margin-top: 20px;"><ui:insert name="outOfTemplateAfter" /></div>
-                        </h:form>
-                    </c:otherwise>
-                </c:choose>
-            </h:panelGroup> <br />
+                        </c:when>
 
-        </div>
+                        <c:otherwise>
+                            <h:form id="beforeForm">
+                                <div style="margin-bottom: 20px;"><ui:insert name="outOfTemplateBefore" /></div>
+                            </h:form>
+                            <h:form id="form">
+                                <ui:decorate template="/templates/#{templateBean.firstTemplate}.xhtml" />
+                            </h:form>
+                            <h:form id="afterForm">
+                                <div style="margin-top: 20px;"><ui:insert name="outOfTemplateAfter" /></div>
+                            </h:form>
+                        </c:otherwise>
+                    </c:choose>
+                </h:panelGroup> <br />
 
-        <ui:insert name="beforeFooter">
-            <h:panelGroup  id="a4jLogPanel" styleClass="log-panel" layout="block">
-                <a4j:log id="a4jLog" height="300px" level="debug"/>
-            </h:panelGroup>
-        </ui:insert>
+            </div>
 
-        <div class="footer">
-            <ui:insert name="footer">
-                <ui:decorate template="/templates/footer.xhtml" />
+            <ui:insert name="beforeFooter">
+                <h:panelGroup  id="a4jLogPanel" styleClass="log-panel" layout="block">
+                    <a4j:log id="a4jLog" level="debug"/>
+                </h:panelGroup>
             </ui:insert>
-        </div>
 
-    </h:body>
-    
+            <div class="footer">
+                <ui:insert name="footer">
+                    <ui:decorate template="/templates/footer.xhtml" />
+                </ui:insert>
+            </div>
+
+        </h:body>
+
     </f:view>
 </html>
