@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:ui="http://java.sun.com/jsf/facelets" >
+      xmlns:ui="http://java.sun.com/jsf/facelets">
 
     <!--
 JBoss, Home of Professional Open Source
@@ -28,15 +28,28 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
     <ui:composition>
 
         <h:dataTable value="#{model.simple}" var="containerHDataTableItem" id="containerHDataTable1">
+
+            <f:facet name="header">
+                JSF Data Table
+            </f:facet>
+
             <h:column>
                 <f:facet name="header">
-                    <h:outputText value="JSF Data Table" />
+                    Column 1
                 </f:facet>
-                <h:panelGroup columns="1" rendered="#{containerHDataTableItem == 'row 2'}">
+                #{containerHDataTableItem}
+            </h:column>
+
+            <h:column>
+                <f:facet name="header">
+                    Column 2
+                </f:facet>
+                <h:panelGroup rendered="#{containerHDataTableItem == 'row 3'}">
                     <ui:decorate template="#{templateBean.nextTemplate}.xhtml" />
                 </h:panelGroup>
-                <h:outputText value="#{containerHDataTableItem}" rendered="#{containerHDataTableItem != 'row 2'}" />
+                <h:outputText value="#{containerHDataTableItem}" rendered="#{containerHDataTableItem != 'row 3'}" />
             </h:column>
+
         </h:dataTable>
 
     </ui:composition>
