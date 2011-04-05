@@ -36,15 +36,13 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
             </f:metadata>
         </ui:define>
 
-        <ui:define name="head">
-            <h:outputStylesheet library="css" name="a4jMediaOutput.css"/>
-        </ui:define>
+        <ui:define name="head"/>
 
         <ui:define name="component">
             <h:outputScript library="script" name="swfobject.js"/>
 
             <a4j:outputPanel id="flashPanelDynamic">
-                <a4j:mediaOutput element="a" id="swfLink" style="display: none;" cacheable="false" session="true"
+                <a4j:mediaOutput element="a" id="swfLink" style="display: none;" cacheable="false"
                                  createContent="#{a4jMediaOutputBean.paintFlash}" value="#{mediaData}" />
 
                 <a4j:outputPanel layout="block" id="myFlashContent" style="width: 200px; height: 200px">
