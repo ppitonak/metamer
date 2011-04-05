@@ -52,7 +52,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
         <ui:define name="component">
 
             <rich:dataGrid id="richDataGrid" keepSaved="#{richDataGridBean.attributes['keepSaved'].value}"
-                           value="#{templateBean.dataTableModel}" columns="2">
+                           value="#{model.simple}" columns="2">
 
                 <rich:column id="columnInput">
                     <h:inputText id="input" value="#{maxBean.value}"/>

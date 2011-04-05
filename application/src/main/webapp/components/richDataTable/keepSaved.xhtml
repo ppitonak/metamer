@@ -54,7 +54,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
         <ui:define name="component">
 
             <rich:dataTable id="richDataTable" keepSaved="#{richDataTableBean.attributes['keepSaved'].value}"
-                            value="#{templateBean.dataTableModel}" >
+                            value="#{model.simple}" >
 
                 <rich:column id="columnInput">
                     <h:inputText id="input" value="#{maxBean.value}"/>

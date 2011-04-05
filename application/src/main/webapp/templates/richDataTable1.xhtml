@@ -27,7 +27,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 
     <ui:composition>
 
-        <rich:dataTable value="#{templateBean.dataTableModel}" var="containerRichDataTableItem" id="containerRichDataTable1" rowKeyVar="row">
+        <rich:dataTable value="#{model.simple}" var="containerRichDataTableItem" id="containerRichDataTable1" rowKeyVar="row">
             <rich:column>
                 <f:facet name="header">
                     <h:outputText value="Rich Data Table" />
