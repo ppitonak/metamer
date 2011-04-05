@@ -56,7 +56,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
             <a4j:repeat id="richList" keepSaved="#{a4jRepeatBean.attributes['keepSaved'].value}"
                         value="#{templateBean.dataTableModel}">
 
-                <h:inputText />
+                <h:inputText id="input" value="#{maxBean.value}"/>
 
             </a4j:repeat>
 
