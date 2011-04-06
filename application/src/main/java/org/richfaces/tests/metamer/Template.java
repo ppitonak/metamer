@@ -33,9 +33,11 @@ public enum Template {
     PLAIN("plain", "Plain", ""),
     REDDIV("redDiv", "Red div", ""),
     BLUEDIV("blueDiv", "Blue div", ""),
+    RICHCOLLAPSIBLESUBTABLE("richCollapsibleSubTable", "Rich Collapsible Sub Table", "containerRichCollapsibleSubTable:2:"),
     RICHDATATABLE("richDataTable", "Rich Data Table", "containerRichDataTable:2:"),
     RICHDATAGRID("richDataGrid", "Rich Data Grid", "containerRichDataGrid:1:"),
     RICHEXTENDEDDATATABLE("richExtendedDataTable", "Rich Extended Data Table", "containerRichExtendedDataTable:2:"),
+    RICHLIST("richList", "Rich List", "containerRichList:2:"),
     HDATATABLE("hDataTable", "JSF Data Table", "containerHDataTable:2:"),
     UIREPEAT("uiRepeat", "UI Repeat", "containerUiRepeat:1:"),
     A4JREPEAT("a4jRepeat", "A4J Repeat", "containerA4JRepeat:1:");
