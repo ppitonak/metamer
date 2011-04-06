@@ -33,6 +33,7 @@ public enum Template {
     PLAIN("plain", "Plain", ""),
     REDDIV("redDiv", "Red div", ""),
     BLUEDIV("blueDiv", "Blue div", ""),
+    RICHACCORDION("richAccordion", "Rich Accordion", ""),
     RICHCOLLAPSIBLESUBTABLE("richCollapsibleSubTable", "Rich Collapsible Sub Table", "containerRichCollapsibleSubTable:2:"),
     RICHDATATABLE("richDataTable", "Rich Data Table", "containerRichDataTable:2:"),
     RICHDATAGRID("richDataGrid", "Rich Data Grid", "containerRichDataGrid:1:"),
