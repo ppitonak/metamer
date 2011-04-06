@@ -42,8 +42,7 @@ public abstract class DataTableScrollerTest extends AbstractDataTableTest {
         testRowCount(dataScroller2);
     }
 
-    @Templates(exclude = { "a4jRepeat1", "a4jRepeat2", "hDataTable1", "hDataTable2", "richDataTable1,redDiv",
-        "richDataTable2,redDiv", "uiRepeat1", "uiRepeat2" })
+    @Templates(exclude = {"a4jRepeat", "hDataTable", "richDataTable", "uiRepeat"})
     public void testRowCountOutsideTable() {
         testRowCount(dataScroller1);
     }
