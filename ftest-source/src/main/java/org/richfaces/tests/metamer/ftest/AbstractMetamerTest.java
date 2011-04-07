@@ -95,8 +95,9 @@ public abstract class AbstractMetamerTest extends AbstractTestCase {
      */
     public static final long TIMEOUT = 5000;
     @Inject
-    @Templates({"plain", "richAccordion", "richDataTable", "richCollapsibleSubTable", "richExtendedDataTable", "richDataGrid", "richList",
-        "a4jRepeat", "hDataTable", "hPanelGrid", "uiRepeat"})
+    @Templates({"plain", "richAccordion", "richDataTable", "richCollapsibleSubTable", "richExtendedDataTable",
+        "richDataGrid", "richList", "richCollapsiblePanel", "richPanel", "richTabPanel", "richTogglePanel",
+        "richPopupPanel", "a4jRepeat", "hDataTable", "hPanelGrid", "uiRepeat"})
     private TemplatesList template;
 
     /**
