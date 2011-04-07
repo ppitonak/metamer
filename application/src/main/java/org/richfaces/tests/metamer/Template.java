@@ -40,6 +40,7 @@ public enum Template {
     RICHEXTENDEDDATATABLE("richExtendedDataTable", "Rich Extended Data Table", "containerRichExtendedDataTable:2:"),
     RICHLIST("richList", "Rich List", "containerRichList:2:"),
     HDATATABLE("hDataTable", "JSF Data Table", "containerHDataTable:2:"),
+    HPANELGRID ("hPanelGrid", "JSF Panel Grid", "containerHPanelGrid:"),
     UIREPEAT("uiRepeat", "UI Repeat", "containerUiRepeat:1:"),
     A4JREPEAT("a4jRepeat", "A4J Repeat", "containerA4JRepeat:1:");
     /**
