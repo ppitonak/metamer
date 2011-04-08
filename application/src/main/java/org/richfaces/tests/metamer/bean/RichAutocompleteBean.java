@@ -52,6 +52,7 @@ public class RichAutocompleteBean implements Serializable {
     private static final long serialVersionUID = -1L;
     private static Logger logger;
     private Attributes attributes;
+    private Attributes ajaxAttributes;
     @ManagedProperty(value = "#{model.capitals}")
     private List<Capital> capitals;
 
@@ -69,6 +70,10 @@ public class RichAutocompleteBean implements Serializable {
         attributes.setAttribute("rendered", true);
         attributes.setAttribute("tokens", ", ");
         attributes.setAttribute("validatorMessage", "validator message");
+        
+        ajaxAttributes = Attributes.getEmptyAttributes(getClass());
+        ajaxAttributes.setAttribute("render", "output");
+        ajaxAttributes.setAttribute("execute", "autocomplete");
     }
 
     public Attributes getAttributes() {
@@ -77,6 +82,14 @@ public class RichAutocompleteBean implements Serializable {
 
     public void setAttributes(Attributes attributes) {
         this.attributes = attributes;
+    }
+    
+    public Attributes getAjaxAttributes() {
+        return ajaxAttributes;
+    }
+    
+    public void setAjaxAttributes(Attributes ajaxAttributes) {
+        this.ajaxAttributes = ajaxAttributes;
     }
 
     public List<String> autocomplete(String prefix) {

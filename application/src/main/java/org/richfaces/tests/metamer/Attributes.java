@@ -81,6 +81,17 @@ public final class Attributes implements Map<String, Attribute>, Serializable {
     private Class<?> beanClass;
 
     /**
+     * Constructor for empty Attributes.
+     * 
+     * @param beanClass
+     *            class object of a managed bean
+     */
+    private Attributes(Class<?> beanClass) {
+        this.beanClass = beanClass;
+        attributes = new TreeMap<String, Attribute>();
+    }
+    
+    /**
      * Constructor for class Attributes.
      * 
      * @param componentClass
@@ -89,9 +100,9 @@ public final class Attributes implements Map<String, Attribute>, Serializable {
      *            class object of a managed bean
      */
     private Attributes(Class<?> componentClass, Class<?> beanClass, boolean loadFromClass) {
-        logger.debug("creating attributes map for " + componentClass);
-
         this.beanClass = beanClass;
+        
+        logger.debug("creating attributes map for " + componentClass);
 
         if (!loadFromClass && richfacesAttributes == null) {
             loadRichFacesComponents();
@@ -179,6 +190,17 @@ public final class Attributes implements Map<String, Attribute>, Serializable {
      */
     public static Attributes getBehaviorAttributesFromClass(Class<? extends BehaviorBase> clazz, Class<?> beanClass) {
         return new Attributes(clazz, beanClass, true);
+    }
+    
+    /**
+     * Factory method for creating empty instance of class Attributes.
+     * Needs to be filled with attributes explicitly.
+     *
+     * @param beanClass
+     *            class object of a managed bean
+     */
+    public static Attributes getEmptyAttributes(Class<?> beanClass) {
+        return new Attributes(beanClass);
     }
 
     /**
