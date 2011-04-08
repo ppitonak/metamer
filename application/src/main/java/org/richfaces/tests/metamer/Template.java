@@ -47,6 +47,7 @@ public enum Template {
     HDATATABLE("hDataTable", "JSF Data Table", "containerHDataTable:2:"),
     HPANELGRID("hPanelGrid", "JSF Panel Grid", "containerHPanelGrid:"),
     UIREPEAT("uiRepeat", "UI Repeat", "containerUiRepeat:1:"),
+    A4JREGION("a4jRegion", "A4J Region", "containerA4JRegion:"),
     A4JREPEAT("a4jRepeat", "A4J Repeat", "containerA4JRepeat:1:");
     /**
      * identifier of a template
