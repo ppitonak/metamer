@@ -146,6 +146,7 @@ public class RichBean implements Serializable {
         components.put("richMenuGroup", "Rich Menu Group");
         components.put("richMenuItem", "Rich Menu Item");
         components.put("richMenuSeparator", "Rich Menu Separator");
+        components.put("richMessage", "Rich Message");
         components.put("richPanel", "Rich Panel");
         components.put("richPanelMenu", "Rich Panel Menu");
         components.put("richPanelMenuGroup", "Rich Panel Menu Group");
