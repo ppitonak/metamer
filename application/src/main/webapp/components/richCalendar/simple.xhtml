@@ -158,6 +158,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                                tabindex="#{richCalendarBean.attributes['tabindex'].value}"
                                timeZone="#{richCalendarBean.timeZone}"
                                todayControlMode="#{richCalendarBean.attributes['todayControlMode'].value}"
+                               validator="#{richCalendarBean.validateDate}"
                                validatorMessage="#{richCalendarBean.attributes['validatorMessage'].value}"
                                value="#{richCalendarBean.attributes['value'].value}"
                                valueChangeListener="#{richCalendarBean.valueChangeListener}"
@@ -168,7 +169,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                                >
                     <a4j:ajax event="change" render="output, phasesPanel" />
                 </rich:calendar>
-                <rich:message id="msg" for="calendar"/>
+                <rich:message id="msg" for="calendar" showDetail="true" showSummary="true"/>
             </div>
 
             <br/><br/>

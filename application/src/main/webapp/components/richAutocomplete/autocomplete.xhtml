@@ -91,7 +91,9 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                                var="#{richAutocompleteBean.attributes['var'].value}"
                                >
 
-                <a4j:ajax event="change" render="output"/>
+                <a4j:ajax event="change"
+                	render="#{richAutocompleteBean.ajaxAttributes['render'].value}"
+                	execute="#{richAutocompleteBean.ajaxAttributes['execute'].value}" />
 
             </rich:autocomplete>
 
@@ -102,6 +104,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 
         <ui:define name="outOfTemplateAfter">
             <metamer:attributes value="#{richAutocompleteBean.attributes}" id="attributes" />
+            <metamer:attributes value="#{richAutocompleteBean.ajaxAttributes}" id="ajaxAttributes" />
         </ui:define>
 
     </ui:composition>

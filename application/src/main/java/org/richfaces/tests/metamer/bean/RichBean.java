@@ -34,6 +34,7 @@ import javax.el.ValueExpression;
 import javax.faces.FacesException;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import javax.faces.event.AjaxBehaviorEvent;
@@ -145,6 +146,7 @@ public class RichBean implements Serializable {
         components.put("richMenuGroup", "Rich Menu Group");
         components.put("richMenuItem", "Rich Menu Item");
         components.put("richMenuSeparator", "Rich Menu Separator");
+        components.put("richMessage", "Rich Message");
         components.put("richPanel", "Rich Panel");
         components.put("richPanelMenu", "Rich Panel Menu");
         components.put("richPanelMenuGroup", "Rich Panel Menu Group");
@@ -337,7 +339,9 @@ public class RichBean implements Serializable {
     }
 
     public String invalidateSession() {
-        Object session = FacesContext.getCurrentInstance().getExternalContext().getSession(true);
+        ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
+
+        Object session = ec.getSession(false);
 
         if (session == null) {
             return "/index";
@@ -345,7 +349,7 @@ public class RichBean implements Serializable {
 
         if (session instanceof HttpSession) {
             ((HttpSession) session).invalidate();
-            return FacesContext.getCurrentInstance().getViewRoot().getViewId() + "?faces-redirect=true";
+            return FacesContext.getCurrentInstance().getViewRoot().getViewId();
         }
 
         throw new IllegalStateException();
@@ -408,7 +412,7 @@ public class RichBean implements Serializable {
      */
     public void itemChangeListener(ItemChangeEvent event) {
         logToPage("* item changed: " + (event.getOldItem() == null ? null : event.getOldItem().getId()) + " -> "
-            + event.getNewItem().getId());
+                + event.getNewItem().getId());
     }
 
     /**

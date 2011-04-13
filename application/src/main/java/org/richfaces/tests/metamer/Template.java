@@ -19,7 +19,6 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  *******************************************************************************/
-
 package org.richfaces.tests.metamer;
 
 /**
@@ -30,24 +29,34 @@ package org.richfaces.tests.metamer;
  * @version $Revision$
  */
 public enum Template {
-    PLAIN ("plain", "Plain", ""),
-    REDDIV ("redDiv", "Red div", ""),
-    BLUEDIV ("blueDiv", "Blue div", ""),
-    RICHDATATABLE ("richDataTable", "Rich Data Table", "containerRichDataTable:2:"),
-    HDATATABLE ("hDataTable", "JSF Data Table", "containerHDataTable:2:"),
-    UIREPEAT ("uiRepeat", "UI Repeat", "containerUiRepeat:1:"),
-    A4JREPEAT ("a4jRepeat", "A4J Repeat", "containerA4JRepeat:1:");
 
+    PLAIN("plain", "Plain", ""),
+    REDDIV("redDiv", "Red div", ""),
+    BLUEDIV("blueDiv", "Blue div", ""),
+    RICHACCORDION("richAccordion", "Rich Accordion", ""),
+    RICHCOLLAPSIBLEPANEL("richCollapsiblePanel", "Rich Collapsible Panel", ""),
+    RICHCOLLAPSIBLESUBTABLE("richCollapsibleSubTable", "Rich Collapsible Sub Table", "containerRichCollapsibleSubTable:2:"),
+    RICHDATATABLE("richDataTable", "Rich Data Table", "containerRichDataTable:2:"),
+    RICHDATAGRID("richDataGrid", "Rich Data Grid", "containerRichDataGrid:1:"),
+    RICHEXTENDEDDATATABLE("richExtendedDataTable", "Rich Extended Data Table", "containerRichExtendedDataTable:2:"),
+    RICHLIST("richList", "Rich List", "containerRichList:2:"),
+    RICHPANEL("richPanel", "Rich Panel", ""),
+    RICHPOPUPPANEL("richPopupPanel", "Rich Popup Panel", ""),
+    RICHTABPANEL("richTabPanel", "Rich Tab Panel", ""),
+    RICHTOGGLEPANEL("richTogglePanel", "Rich Toggle Panel", ""),
+    HDATATABLE("hDataTable", "JSF Data Table", "containerHDataTable:2:"),
+    HPANELGRID("hPanelGrid", "JSF Panel Grid", "containerHPanelGrid:"),
+    UIREPEAT("uiRepeat", "UI Repeat", "containerUiRepeat:1:"),
+    A4JREGION("a4jRegion", "A4J Region", "containerA4JRegion:"),
+    A4JREPEAT("a4jRepeat", "A4J Repeat", "containerA4JRepeat:1:");
     /**
      * identifier of a template
      */
     private String name;
-
     /**
      * human-readable name of the template
      */
     private String desc;
-    
     /**
      * prefix of the component nested in this template
      */
@@ -80,7 +89,7 @@ public enum Template {
     public String getDesc() {
         return desc;
     }
-    
+
     /**
      * Returns the prefix of component nested in this template
      * @return
