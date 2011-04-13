@@ -23,13 +23,18 @@ package org.richfaces.tests.metamer.bean;
 
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.TimeZone;
 
 import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
 import javax.faces.event.ValueChangeEvent;
+import javax.faces.validator.ValidatorException;
 import javax.validation.constraints.Future;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
@@ -162,5 +167,22 @@ public class RichCalendarBean implements Serializable {
         }
 
         RichBean.logToPage("* value changed: " + oldDate + " -> " + newDate);
+    }
+
+    public void validateDate(FacesContext context, UIComponent component, Object value) throws ValidatorException {
+        if (value == null) {
+            return;
+        }
+
+        Calendar cal = Calendar.getInstance();
+        cal.setTime((Date) value);
+        int componentYear = cal.get(Calendar.YEAR);
+
+        FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Date too far in the past.",
+                "Select a date from year 1991 or newer.");
+
+        if (componentYear < 1991) {
+            FacesContext.getCurrentInstance().addMessage("form:calendar", message);
+        }
     }
 }
