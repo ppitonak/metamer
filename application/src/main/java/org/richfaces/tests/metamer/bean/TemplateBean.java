@@ -33,15 +33,12 @@ import javax.faces.model.SelectItem;
 
 import org.richfaces.tests.metamer.Template;
 import org.richfaces.tests.metamer.TemplatesList;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 @ManagedBean
 @SessionScoped
 public class TemplateBean implements Serializable {
 
     private static final long serialVersionUID = 5078700314562231363L;
-    private static Logger logger = LoggerFactory.getLogger(TemplateBean.class);
     private TemplatesList templates;
     private int templateIndex = 0;
     private boolean renderForm;
