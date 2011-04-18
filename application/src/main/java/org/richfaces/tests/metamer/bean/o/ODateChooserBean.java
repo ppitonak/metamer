@@ -41,14 +41,14 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * Managed bean for o:calendar.
+ * Managed bean for o:dateChooser.
  *
  * @author <a href="mailto:ppitonak@redhat.com">Pavol Pitonak</a>
  * @version $Revision$
  */
-@ManagedBean(name = "oCalendarBean")
+@ManagedBean(name = "oDateChooserBean")
 @ViewScoped
-public class OCalendarBean implements Serializable {
+public class ODateChooserBean implements Serializable {
 
     private static final long serialVersionUID = -1L;
     private static Logger logger;
@@ -105,45 +105,5 @@ public class OCalendarBean implements Serializable {
 
     public void setToDate(Date toDate) {
         this.toDate = toDate;
-    }
-
-    /**
-     * A value change listener that logs to the page old and new value.
-     *
-     * @param event
-     *            an event representing the activation of a user interface component
-     */
-    public void valueChangeListener(ValueChangeEvent event) {
-        SimpleDateFormat sdf = new SimpleDateFormat("MMM d, yyyy hh:mm");
-        sdf.setTimeZone(timeZone);
-
-        String oldDate = "null";
-        String newDate = "null";
-
-        if (event.getOldValue() != null) {
-            oldDate = sdf.format((Date) event.getOldValue());
-        }
-        if (event.getNewValue() != null) {
-            newDate = sdf.format((Date) event.getNewValue());
-        }
-
-        RichBean.logToPage("* value changed: " + oldDate + " -> " + newDate);
-    }
-
-    public void validateDate(FacesContext context, UIComponent component, Object value) throws ValidatorException {
-        if (value == null) {
-            return;
-        }
-
-        Calendar cal = Calendar.getInstance();
-        cal.setTime((Date) value);
-        int componentYear = cal.get(Calendar.YEAR);
-
-        FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Date too far in the past.",
-                "Select a date from year 1991 or newer.");
-
-        if (componentYear < 1991) {
-            FacesContext.getCurrentInstance().addMessage("form:calendar", message);
-        }
     }
 }

@@ -117,6 +117,7 @@ public class RichBean implements Serializable {
         components.put("hDataTable", "JSF Data Table");
         components.put("uiRepeat", "UI Repeat");
         components.put("oCalendar", "Open Calendar");
+        components.put("oDateChooser", "Open Date Chooser");
         components.put("richAccordion", "Rich Accordion");
         components.put("richAccordionItem", "Rich Accordion Item");
         components.put("richAutocomplete", "Rich Autocomplete");
