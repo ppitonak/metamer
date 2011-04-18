@@ -46,6 +46,11 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                         timeZone="GMT"
                         >
                 <a4j:ajax event="change" render="output"/>
+                <o:dateRanges>
+                    <o:simpleDateRange fromDate="#{oCalendarBean.fromDate}"
+                                       toDate="#{oCalendarBean.toDate}"
+                                       dayStyle="background: yellow;"/>
+                </o:dateRanges>
             </o:calendar>
 
             <br/><br/>

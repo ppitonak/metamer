@@ -35,9 +35,6 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ValueChangeEvent;
 import javax.faces.validator.ValidatorException;
-import javax.validation.constraints.Future;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Past;
 import org.richfaces.tests.metamer.bean.RichBean;
 
 import org.slf4j.Logger;
@@ -57,9 +54,8 @@ public class OCalendarBean implements Serializable {
     private static Logger logger;
     private Date date = new Date();
     private TimeZone timeZone = TimeZone.getTimeZone("UTC");
-    private Date date1;
-    private Date date2;
-    private Date date3;
+    private Date fromDate;
+    private Date toDate;
 
     /**
      * Initializes the managed bean.
@@ -68,6 +64,13 @@ public class OCalendarBean implements Serializable {
     public void init() {
         logger = LoggerFactory.getLogger(getClass());
         logger.debug("initializing bean " + getClass().getName());
+        Calendar cal = Calendar.getInstance(timeZone);
+        cal.set(Calendar.DAY_OF_MONTH, 1);
+        cal.set(Calendar.MONTH, 2);
+        cal.set(Calendar.YEAR, 2011);
+        fromDate = cal.getTime();
+        cal.set(Calendar.DAY_OF_MONTH, 31);
+        toDate = cal.getTime();
     }
 
     public Date getDate() {
@@ -86,32 +89,20 @@ public class OCalendarBean implements Serializable {
         this.timeZone = timeZone;
     }
 
-    @Past
-    @NotNull
-    public Date getDate1() {
-        return date1;
+    public Date getFromDate() {
+        return fromDate;
     }
 
-    public void setDate1(Date date1) {
-        this.date1 = date1;
+    public void setFromDate(Date fromDate) {
+        this.fromDate = fromDate;
     }
 
-    @Future
-    @NotNull
-    public Date getDate2() {
-        return date2;
+    public Date getToDate() {
+        return toDate;
     }
 
-    public void setDate2(Date date2) {
-        this.date2 = date2;
-    }
-
-    public Date getDate3() {
-        return date3;
-    }
-
-    public void setDate3(Date date3) {
-        this.date3 = date3;
+    public void setToDate(Date toDate) {
+        this.toDate = toDate;
     }
 
     /**
