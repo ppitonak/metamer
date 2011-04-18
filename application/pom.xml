@@ -72,7 +72,6 @@
         </dependency>
 
         <dependency>
-<<<<<<< HEAD
             <groupId>org.icefaces</groupId>
             <artifactId>icefaces</artifactId>
             <version>2.0.1</version>
@@ -86,7 +85,9 @@
             <groupId>org.icefaces</groupId>
             <artifactId>icefaces-compat</artifactId>
             <version>2.0.1</version>
-=======
+        </dependency>
+
+        <dependency>
             <groupId>org.openfaces</groupId>
             <artifactId>openfaces</artifactId>
             <version>3.0</version>
@@ -106,7 +107,6 @@
             <groupId>jfree</groupId>
             <artifactId>jfreechart</artifactId>
             <version>1.0.13</version>
->>>>>>> openfaces
         </dependency>
         
 
@@ -587,8 +587,6 @@
             </dependencies>
         </profile>
         <profile>
-<<<<<<< HEAD
-=======
             <id>mojarra_2_1-development</id>
             <dependencies>
                 <dependency>
@@ -604,7 +602,6 @@
             </dependencies>
         </profile>
         <profile>
->>>>>>> openfaces
             <id>jee-development</id>
             <dependencies>
                 <dependency>
