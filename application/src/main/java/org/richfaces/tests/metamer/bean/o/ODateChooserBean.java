@@ -22,20 +22,13 @@
 package org.richfaces.tests.metamer.bean.o;
 
 import java.io.Serializable;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.TimeZone;
 
 import javax.annotation.PostConstruct;
-import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
-import javax.faces.component.UIComponent;
-import javax.faces.context.FacesContext;
-import javax.faces.event.ValueChangeEvent;
-import javax.faces.validator.ValidatorException;
-import org.richfaces.tests.metamer.bean.RichBean;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
