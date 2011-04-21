@@ -21,9 +21,14 @@
  *******************************************************************************/
 package org.richfaces.tests.metamer.bean;
 
+import java.io.Serializable;
+
 import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
+import javax.faces.event.ActionEvent;
 
 import org.richfaces.component.UIRichMessages;
 import org.richfaces.tests.metamer.Attributes;
@@ -38,8 +43,10 @@ import org.slf4j.LoggerFactory;
  */
 @ManagedBean(name = "richMessagesBean")
 @ViewScoped
-public class RichMessagesBean {
+public class RichMessagesBean implements Serializable {
     
+    /** Generated UID */
+    private static final long serialVersionUID = 4893769498631480379L;
     private static Logger logger;
     private Attributes attributes;
     
@@ -52,10 +59,24 @@ public class RichMessagesBean {
         logger.info("initializing bean " + getClass().getName());
         attributes = Attributes.getComponentAttributesFromFacesConfig(UIRichMessages.class, getClass());
         
+        simpleInput1 = "10";
+        simpleInput2 = "10";
+        
         attributes.setAttribute("ajaxRendered", true);
         attributes.setAttribute("rendered", true);
         attributes.setAttribute("for", "simpleInput1");
         attributes.setAttribute("showSummary", true);
+    }
+    
+    public void generateFacesError(ActionEvent event) {
+        
+        logger.info(" ### Just called generateFacesError()");
+        
+        FacesContext.getCurrentInstance().addMessage(null, 
+            new FacesMessage(FacesMessage.SEVERITY_ERROR, "Generated error message", "Generated error message"));
+        
+        FacesContext.getCurrentInstance().addMessage(null, 
+            new FacesMessage(FacesMessage.SEVERITY_WARN, "Generated warning message", "Generated warning message"));
     }
 
     public Attributes getAttributes() {

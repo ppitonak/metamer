@@ -27,7 +27,9 @@ import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 
 /**
- * Simple bean with property with more than one validation
+ * Simple bean with property with more than one validation.
+ * This is not very logic validation, but its useful for testing 
+ * rich:messages component - where need more validation messages per input
  *
  * @author <a href="mailto:jjamrich@redhat.com">Jan Jamrich</a>
  * @version $Revision$
@@ -54,7 +56,7 @@ public class MultipleValidationRulesBean extends Validable<Integer> {
 
     @Override
     public String getDescription() {
-        return "Integer between 5 and 150, but at less than 3 digits";
+        return "Integer between 5 and 150, but less than 3 digits";
     }
 
     @Override
