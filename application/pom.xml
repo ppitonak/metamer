@@ -40,6 +40,15 @@
             <url>http://nexus.qa.jboss.com:8081/nexus/content/repositories/releases</url>
         </repository>
     </distributionManagement>
+    
+    <repositories>
+        <repository>
+            <id>prime-repo</id>
+            <name>Prime Technology Maven Repository</name>
+            <url>http://repository.prime.com.tr</url>
+            <layout>default</layout>
+        </repository>
+    </repositories>
 
     <properties>
         <jetty.port>8080</jetty.port>
@@ -63,7 +72,7 @@
         <dependency>
             <groupId>org.primefaces</groupId>
             <artifactId>primefaces</artifactId>
-            <version>2.2</version>
+            <version>2.2.1</version>
         </dependency>
 
         <dependency>
@@ -530,44 +539,44 @@
                     <scope>provided</scope>
                 </dependency>
 		
-				<dependency>
-					<groupId>org.apache.myfaces.core</groupId>
-					<artifactId>myfaces-api</artifactId>
-					<scope>runtime</scope>
-				</dependency>
-				<dependency>
-					<groupId>org.apache.myfaces.core</groupId>
-					<artifactId>myfaces-impl</artifactId>
-					<scope>runtime</scope>
-				</dependency>
-			</dependencies>
-		</profile>
-		<profile>
-			<id>jee-development</id>
-			<dependencies>
-				<dependency>
-					<groupId>com.sun.faces</groupId>
-					<artifactId>jsf-api</artifactId>
-					<scope>provided</scope>
-				</dependency>
-				<dependency>
-					<groupId>com.sun.faces</groupId>
-					<artifactId>jsf-impl</artifactId>
-					<scope>provided</scope>
-				</dependency>
-				<dependency>
-					<groupId>javax.validation</groupId>
-					<artifactId>validation-api</artifactId>
-					<scope>provided</scope>
-				</dependency>
-				<dependency>
-					<groupId>org.hibernate</groupId>
-					<artifactId>hibernate-validator</artifactId>
-					<version>4.1.0.Final</version>
-					<scope>provided</scope>
-				</dependency>
-			</dependencies>
-		</profile>
+                <dependency>
+                    <groupId>org.apache.myfaces.core</groupId>
+                    <artifactId>myfaces-api</artifactId>
+                    <scope>runtime</scope>
+                </dependency>
+                <dependency>
+                    <groupId>org.apache.myfaces.core</groupId>
+                    <artifactId>myfaces-impl</artifactId>
+                    <scope>runtime</scope>
+                </dependency>
+            </dependencies>
+        </profile>
+        <profile>
+            <id>jee-development</id>
+            <dependencies>
+                <dependency>
+                    <groupId>com.sun.faces</groupId>
+                    <artifactId>jsf-api</artifactId>
+                    <scope>provided</scope>
+                </dependency>
+                <dependency>
+                    <groupId>com.sun.faces</groupId>
+                    <artifactId>jsf-impl</artifactId>
+                    <scope>provided</scope>
+                </dependency>
+                <dependency>
+                    <groupId>javax.validation</groupId>
+                    <artifactId>validation-api</artifactId>
+                    <scope>provided</scope>
+                </dependency>
+                <dependency>
+                    <groupId>org.hibernate</groupId>
+                    <artifactId>hibernate-validator</artifactId>
+                    <version>4.1.0.Final</version>
+                    <scope>provided</scope>
+                </dependency>
+            </dependencies>
+        </profile>
     </profiles>
 </project>
 
