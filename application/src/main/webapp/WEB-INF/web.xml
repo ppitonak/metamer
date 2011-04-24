@@ -24,6 +24,10 @@
         <param-name>org.richfaces.fileUpload.maxRequestSize</param-name>
         <param-value>2097152</param-value>
     </context-param>
+    <context-param>
+        <param-name>org.primefaces.component.captcha.PRIVATE_KEY</param-name>
+        <param-value>6LfVwMMSAAAAAP2Yvl4BP3HNVVUdanbwbihgmDZL</param-value>
+    </context-param>
     <filter>
         <filter-name>Test Identity Filter</filter-name>
         <filter-class>org.richfaces.tests.metamer.TestIdentityFilter</filter-class>
