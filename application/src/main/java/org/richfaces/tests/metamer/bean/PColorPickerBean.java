@@ -21,30 +21,28 @@
  *******************************************************************************/
 package org.richfaces.tests.metamer.bean;
 
+import java.awt.Color;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
-import org.richfaces.tests.metamer.model.Employee;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * Managed bean for p:captcha.
+ * Managed bean for p:colorPicker.
  *
  * @author <a href="mailto:ppitonak@redhat.com">Pavol Pitonak</a>
  * @version $Revision$
  */
 @ManagedBean
 @ViewScoped
-public class PCarouselBean implements Serializable {
+public class PColorPickerBean implements Serializable {
 
     private static Logger logger;
-    private List<Employee> employees;
+    private Color color;
 
     /**
      * Initializes the managed bean.
@@ -53,19 +51,13 @@ public class PCarouselBean implements Serializable {
     public void init() {
         logger = LoggerFactory.getLogger(getClass());
         logger.debug("initializing bean " + getClass().getName());
-
-        employees = new ArrayList<Employee>(5);
-        List<Employee> allEmployees = Model.unmarshallEmployees();
-        for (int i = 0; i < 5; i++) {
-            employees.add(allEmployees.get(i));
-        }
     }
 
-    public List<Employee> getEmployees() {
-        return employees;
+    public Color getColor() {
+        return color;
     }
 
-    public void setEmployees(List<Employee> employees) {
-        this.employees = employees;
+    public void setColor(Color color) {
+        this.color = color;
     }
 }

@@ -37,10 +37,13 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 
         <ui:define name="component">
 
-            <p:stackedColumnChart value="#{chartBean.births}" var="birth" xfield="#{birth.year}">
-                <p:chartSeries label="Boys" value="#{birth.boys}"/>
-                <p:chartSeries label="Girls" value="#{birth.girls}"/>
-            </p:stackedColumnChart>
+            <p:colorPicker id="colorPicker" value="#{pColorPickerBean.color}"/>
+
+
+            <br/>
+            <br/>
+            <h:commandButton value="Submit"/>
+            output: <h:outputText id="output" value="#{pColorPickerBean.color}"/>
 
         </ui:define>
 
