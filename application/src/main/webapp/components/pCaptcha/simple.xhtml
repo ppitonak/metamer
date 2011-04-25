@@ -36,14 +36,10 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
         </ui:define>
 
         <ui:define name="component">
-            <p:autoComplete id="autocomplete"
-                            value="#{pAutoCompleteBean.value}"
-                            completeMethod="#{pAutoCompleteBean.complete}"
-                            >
-            </p:autoComplete>
+            <p:captcha publicKey="6LfVwMMSAAAAAKT0SlhtqH9cwcNR9lV2xzelV5Mu" value="#{pCaptchaBean.value}"/>
 
-            <br/><br/>
-            Your selection: <h:outputText id="output" value="#{pAutoCompleteBean.value}"/>
+            <br/>
+            <p:commandButton id="button" value="Submit"/>
 
         </ui:define>
 
