@@ -27,24 +27,21 @@ import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
-import org.richfaces.component.UIAccordion;
-import org.richfaces.tests.metamer.Attributes;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * Managed bean for rich:accordion.
+ * Managed bean for p:captcha.
  *
  * @author <a href="mailto:ppitonak@redhat.com">Pavol Pitonak</a>
  * @version $Revision$
  */
-@ManagedBean(name = "richAccordionBean")
+@ManagedBean
 @ViewScoped
-public class RichAccordionBean implements Serializable {
+public class PCaptchaBean implements Serializable {
 
-    private static final long serialVersionUID = -1L;
     private static Logger logger;
-    private Attributes attributes;
+    private String value;
 
     /**
      * Initializes the managed bean.
@@ -53,22 +50,13 @@ public class RichAccordionBean implements Serializable {
     public void init() {
         logger = LoggerFactory.getLogger(getClass());
         logger.debug("initializing bean " + getClass().getName());
-
-        attributes = Attributes.getComponentAttributesFromFacesConfig(UIAccordion.class, getClass());
-
-        attributes.setAttribute("activeItem", "item1");
-        attributes.setAttribute("rendered", true);
-
-        // will be tested in another way
-        attributes.remove("converter");
-        attributes.remove("itemChangeListener");
     }
 
-    public Attributes getAttributes() {
-        return attributes;
+    public String getValue() {
+        return value;
     }
 
-    public void setAttributes(Attributes attributes) {
-        this.attributes = attributes;
+    public void setValue(String value) {
+        this.value = value;
     }
 }

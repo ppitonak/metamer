@@ -22,29 +22,29 @@
 package org.richfaces.tests.metamer.bean;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import org.richfaces.tests.metamer.model.Employee;
 
-import org.richfaces.component.UIAccordion;
-import org.richfaces.tests.metamer.Attributes;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * Managed bean for rich:accordion.
+ * Managed bean for p:captcha.
  *
  * @author <a href="mailto:ppitonak@redhat.com">Pavol Pitonak</a>
  * @version $Revision$
  */
-@ManagedBean(name = "richAccordionBean")
+@ManagedBean
 @ViewScoped
-public class RichAccordionBean implements Serializable {
+public class PCarouselBean implements Serializable {
 
-    private static final long serialVersionUID = -1L;
     private static Logger logger;
-    private Attributes attributes;
+    private List<Employee> employees;
 
     /**
      * Initializes the managed bean.
@@ -54,21 +54,18 @@ public class RichAccordionBean implements Serializable {
         logger = LoggerFactory.getLogger(getClass());
         logger.debug("initializing bean " + getClass().getName());
 
-        attributes = Attributes.getComponentAttributesFromFacesConfig(UIAccordion.class, getClass());
-
-        attributes.setAttribute("activeItem", "item1");
-        attributes.setAttribute("rendered", true);
-
-        // will be tested in another way
-        attributes.remove("converter");
-        attributes.remove("itemChangeListener");
+        employees = new ArrayList<Employee>(5);
+        List<Employee> allEmployees = Model.unmarshallEmployees();
+        for (int i = 0; i < 5; i++) {
+            employees.add(allEmployees.get(i));
+        }
     }
 
-    public Attributes getAttributes() {
-        return attributes;
+    public List<Employee> getEmployees() {
+        return employees;
     }
 
-    public void setAttributes(Attributes attributes) {
-        this.attributes = attributes;
+    public void setEmployees(List<Employee> employees) {
+        this.employees = employees;
     }
 }
