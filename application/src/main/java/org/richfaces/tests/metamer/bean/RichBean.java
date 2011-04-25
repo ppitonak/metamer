@@ -119,11 +119,17 @@ public class RichBean implements Serializable {
         components.put("pAccordionPanel", "Prime Accordion Panel");
         components.put("pAjaxStatus", "Prime Ajax Status");
         components.put("pAutoComplete", "Prime AutoComplete");
+        components.put("pBarChart", "Prime Bar Chart");
         components.put("pBreadCrumb", "Prime BreadCrumb");
         components.put("pCalendar", "Prime Calendar");
         components.put("pCaptcha", "Prime Captcha");
         components.put("pCarousel", "Prime Carousel");
+        components.put("pColumnChart", "Prime Column Chart");
         components.put("pEditor", "Prime Editor");
+        components.put("pLineChart", "Prime Line Chart");
+        components.put("pPieChart", "Prime Pie Chart");
+        components.put("pStackedBarChart", "Prime Stacked Bar Chart");
+        components.put("pStackedColumnChart", "Prime Stacked Column Chart");
         components.put("richAccordion", "Rich Accordion");
         components.put("richAccordionItem", "Rich Accordion Item");
         components.put("richAutocomplete", "Rich Autocomplete");
