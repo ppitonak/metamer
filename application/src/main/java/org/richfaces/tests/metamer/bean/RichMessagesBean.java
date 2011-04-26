@@ -47,6 +47,10 @@ public class RichMessagesBean implements Serializable {
     
     /** Generated UID */
     private static final long serialVersionUID = 4893769498631480379L;
+    // id for input element to bound some FacesMessage to it
+    private static final String INPUT1_ID = "form:simpleInput1";
+    private static final String INPUT2_ID = "form:simpleInput2";
+    
     private static Logger logger;
     private Attributes attributes;
     
@@ -73,10 +77,31 @@ public class RichMessagesBean implements Serializable {
         logger.info(" ### Just called generateFacesError()");
         
         FacesContext.getCurrentInstance().addMessage(null, 
-            new FacesMessage(FacesMessage.SEVERITY_ERROR, "Generated error message", "Generated error message"));
+            new FacesMessage(FacesMessage.SEVERITY_ERROR, 
+                "Generated error message without binding to any component (global)", 
+                "Generated error message without binding to any component (global)"));
         
         FacesContext.getCurrentInstance().addMessage(null, 
-            new FacesMessage(FacesMessage.SEVERITY_WARN, "Generated warning message", "Generated warning message"));
+            new FacesMessage(FacesMessage.SEVERITY_WARN, 
+                "Generated warning message without binding to any component (global)", 
+                "Generated warning message without binding to any component (global)"));
+        
+        // Message bound to component on page
+        FacesContext.getCurrentInstance().addMessage(INPUT1_ID, 
+            new FacesMessage(FacesMessage.SEVERITY_ERROR, "Generated error message for Input 1", 
+                "Generated error message for Input 1"));
+        
+        FacesContext.getCurrentInstance().addMessage(INPUT1_ID, 
+            new FacesMessage(FacesMessage.SEVERITY_WARN, "Generated warning message for Input 1", 
+                "Generated warning message for Input 1"));
+        
+        FacesContext.getCurrentInstance().addMessage(INPUT2_ID, 
+            new FacesMessage(FacesMessage.SEVERITY_ERROR, "Generated error message for Input 2", 
+                "Generated error message for Input 2"));
+        
+        FacesContext.getCurrentInstance().addMessage(INPUT2_ID, 
+            new FacesMessage(FacesMessage.SEVERITY_WARN, "Generated warning message for Input 2", 
+                "Generated warning message for Input 2"));
     }
 
     public Attributes getAttributes() {
