@@ -78,6 +78,7 @@ public class RichBean implements Serializable {
     @PostConstruct
     public void init() {
         logger = LoggerFactory.getLogger(RichBean.class);
+        logger.info("initializing bean " + getClass().getName());
         createSkinList();
         createComponentsMap();
 
@@ -136,6 +137,7 @@ public class RichBean implements Serializable {
         components.put("richExtendedDataTable", "Rich Extended Data Table");
         components.put("richFileUpload", "Rich File Upload");
         components.put("richFunctions", "Rich Functions");
+        components.put("richGraphValidator", "Rich Graph Validator");
         components.put("richHashParam", "Rich Hash Parameter");
         components.put("richInplaceInput", "Rich Inplace Input");
         components.put("richInplaceSelect", "Rich Inplace Select");
