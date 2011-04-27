@@ -21,6 +21,8 @@
  *******************************************************************************/
 package org.richfaces.tests.metamer.bean;
 
+import java.io.Serializable;
+
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
@@ -38,8 +40,10 @@ import org.slf4j.LoggerFactory;
  */
 @ManagedBean(name = "richMessageBean")
 @ViewScoped
-public class RichMessageBean {
+public class RichMessageBean implements Serializable {
 
+    /** Generated UID */
+    private static final long serialVersionUID = -5058242586244822846L;
     private static Logger logger;
     private Attributes attributes;
     private String simpleInput1;
