@@ -70,6 +70,25 @@ public class RichMessagesBean implements Serializable {
         attributes.setAttribute("rendered", true);
         attributes.setAttribute("for", "simpleInput1");
         attributes.setAttribute("showSummary", true);
+        
+        // add attributes with missing appropriate annotation 
+        attributes.setAttribute("lang", null);
+        attributes.setAttribute("dir", null);
+        attributes.setAttribute("style", null);
+        attributes.setAttribute("styleClass", null);
+        attributes.setAttribute("title", null);
+        
+        attributes.setAttribute("onclick", null);
+        attributes.setAttribute("ondblclick", null);
+        attributes.setAttribute("onkeydown", null);
+        attributes.setAttribute("onkeypress", null);
+        attributes.setAttribute("onkeyup", null);        
+        attributes.setAttribute("onmousedown", null);
+        attributes.setAttribute("onmousemove", null);        
+        attributes.setAttribute("onmouseup", null);
+        attributes.setAttribute("onmouseout", null);
+        attributes.setAttribute("onmouseover", null);
+        
     }
     
     public void generateFacesError(ActionEvent event) {
