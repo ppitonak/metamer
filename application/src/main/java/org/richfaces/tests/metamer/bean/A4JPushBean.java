@@ -23,17 +23,17 @@ package org.richfaces.tests.metamer.bean;
 
 import java.io.Serializable;
 import java.util.Date;
-//import java.util.EventListener;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
-import javax.faces.event.ActionEvent;
+import org.richfaces.application.push.MessageException;
+import org.richfaces.application.push.TopicKey;
 
-//import org.ajax4jsf.event.PushEventListener;
+import org.richfaces.application.push.TopicsContext;
 import org.richfaces.component.UIPush;
 import org.richfaces.tests.metamer.Attributes;
+import org.richfaces.tests.metamer.Message;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -49,19 +49,10 @@ public class A4JPushBean implements Serializable {
 
     private static final long serialVersionUID = 4810889475400649809L;
     private static Logger logger;
+    private transient TopicsContext topicsContext;
     private Attributes attributes;
-    private int counter = 0;
-//    private transient volatile PushEventListener listener;
-    @ManagedProperty(value = "#{a4jPushEventProcuder}")
-    private transient A4JPushEventProcuder pushEventProducer;
-
-    public A4JPushEventProcuder getPushEventProducer() {
-        return pushEventProducer;
-    }
-
-    public void setPushEventProducer(A4JPushEventProcuder pushEventProducer) {
-        this.pushEventProducer = pushEventProducer;
-    }
+    private String username;
+    private String message;
 
     /**
      * Initializes the managed bean.
@@ -71,15 +62,17 @@ public class A4JPushBean implements Serializable {
         logger = LoggerFactory.getLogger(getClass());
         logger.debug("initializing bean " + getClass().getName());
 
-        attributes = Attributes.getComponentAttributesFromClass(UIPush.class, getClass());
-        attributes.setAttribute("interval", 1000);
-        attributes.setAttribute("action", "increaseCounterAction");
-        attributes.setAttribute("actionListener", "increaseCounterActionListener");
-        attributes.setAttribute("rendered", true);
-        attributes.setAttribute("enabled", true);
+        topicsContext = TopicsContext.lookup();
 
-        // will be set on page and cannot be changed
-        attributes.remove("eventProducer");
+        attributes = Attributes.getComponentAttributesFromClass(UIPush.class, getClass());
+//        attributes.setAttribute("interval", 1000);
+//        attributes.setAttribute("action", "increaseCounterAction");
+//        attributes.setAttribute("actionListener", "increaseCounterActionListener");
+//        attributes.setAttribute("rendered", true);
+//        attributes.setAttribute("enabled", true);
+//
+//        // will be set on page and cannot be changed
+//        attributes.remove("eventProducer");
     }
 
     /**
@@ -101,33 +94,40 @@ public class A4JPushBean implements Serializable {
         this.attributes = attributes;
     }
 
-//    public void setListener(EventListener listener) {
-//        this.listener = (PushEventListener) listener;
-//        pushEventProducer.registerListener(this.listener);
-//    }
-    public int getCounter() {
-        return counter;
+    public String getUsername() {
+        return username;
     }
 
-    public String increaseCounterAction() {
-        counter++;
-        return null;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
-    public String decreaseCounterAction() {
-        counter--;
-        return null;
+    public String getMessage() {
+        return message;
     }
 
-    public void increaseCounterActionListener(ActionEvent event) {
-        counter++;
+    public void setMessage(String message) {
+        this.message = message;
     }
 
-    public void decreaseCounterActionListener(ActionEvent event) {
-        counter--;
+    public void setTopicsContext(TopicsContext topicsContext) {
+        this.topicsContext = topicsContext;
     }
 
-    public Date getDate() {
-        return new Date();
+    private TopicsContext getTopicsContext() {
+        if (topicsContext == null) {
+            topicsContext = TopicsContext.lookup();
+        }
+        return topicsContext;
+    }
+
+    public void send() {
+        try {
+            logger.info("sending message \"" + message + "\" by user " + username);
+            Message msg = new Message(message, username, new Date().toString());
+            getTopicsContext().publish(new TopicKey("metamer", "xxx"), msg);
+        } catch (MessageException messageException) {
+            logger.error("Could not send message \"" + message + "\" by user " + username + ".", messageException);
+        }
     }
 }

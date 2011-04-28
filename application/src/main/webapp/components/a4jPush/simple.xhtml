@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:f="http://java.sun.com/jsf/core"
       xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:a4j="http://richfaces.org/a4j"
-      xmlns:metamer="http://java.sun.com/jsf/composite/metamer">
+      xmlns:rich="http://richfaces.org/rich" xmlns:metamer="http://java.sun.com/jsf/composite/metamer"
+      xmlns:h="http://java.sun.com/jsf/html">
 
     <!--
 JBoss, Home of Professional Open Source
@@ -36,46 +37,22 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
             </f:metadata>
         </ui:define>
 
-        <ui:define name="head"/>
+        <ui:define name="head">
+            <h:outputScript library="script" name="push.js"/>
+        </ui:define>
 
         <ui:define name="component">
 
-            <h:panelGroup id="time">
-                <h:outputText value="Server: " />
-                <h:outputText id="serverDate" value="#{a4jPushBean.date}" title="#{a4jPushBean.date.time}">
-                    <f:convertDateTime pattern="dd.MM.yyyy HH:mm:ss.SSS" />
-                </h:outputText>
-                ***
-                <metamer:clientTime id="clientDate" label="Client: " />
-                ***
-                <h:outputText value="Counter: " />
-                <h:outputText id="outputCounter" value="#{a4jPushBean.counter}"/>
-            </h:panelGroup>
+            <ul class="push-list"></ul>
 
-            <a4j:push id="push"
-                      action="#{a4jPushBean.attributes.action}"
-                      actionListener="#{a4jPushBean.attributes.actionListener}"
-                      bypassUpdates="#{a4jPushBean.attributes['bypassUpdates'].value}"
-                      enabled="#{a4jPushBean.attributes['enabled'].value}"
-                      eventProducer="#{a4jPushBean.setListener}"
-                      hasActiveBehavior="#{a4jPushBean.attributes['hasActiveBehavior'].value}"
-                      immediate="#{a4jPushBean.attributes['immediate'].value}"
-                      interval="#{a4jPushBean.attributes['interval'].value}"
-                      onbeforedomupdate="#{a4jPushBean.attributes['onbeforedomupdate'].value}"
-                      onbegin="#{a4jPushBean.attributes['onbegin'].value}"
-                      oncomplete="#{a4jPushBean.attributes['oncomplete'].value}"
-                      ondataavailable="#{a4jPushBean.attributes['ondataavailable'].value}"
-                      rendered="#{a4jPushBean.attributes['rendered'].value}"
-                      value="#{a4jPushBean.attributes['value'].value}"
-                      >
-                <a4j:ajax render="time" />
-                <f:param name="testParam" value="testValue" />
-                <f:param name="testParam1" value="testValue1" />
+            <a4j:push address="xxx@metamer" onerror="alert('Error: ' + event.rf.data)" 
+                      ondataavailable="updateList(event.rf.data)" >
             </a4j:push>
+
         </ui:define>
 
         <ui:define name="outOfTemplateAfter">
-            <metamer:attributes value="#{a4jPushBean.attributes}" id="attributes" />
+            <ui:remove><metamer:attributes value="#{a4jPushBean.attributes}" id="attributes" /></ui:remove>
         </ui:define>
 
     </ui:composition>
