@@ -67,12 +67,8 @@ public class RichMessageBean implements Serializable {
         attributes.setAttribute("ajaxRendered", true); // make sense for a4j:commandButton submit
 
         // workaround for missing attribute def from rich.taglib.xml 
-        // to get it in list of attrs in metamer        
-        attributes.setAttribute("childCount", 0);
-        attributes.setAttribute("children", null);
-        attributes.setAttribute("dir", null); // direction
-        attributes.setAttribute("facets", null);
-        attributes.setAttribute("family", null);
+        // to get it in list of attrs in metamer 
+        attributes.setAttribute("dir", null); // direction       
         attributes.setAttribute("lang", null);
         attributes.setAttribute("onclick", null);
         attributes.setAttribute("ondblclick", null);
@@ -84,9 +80,6 @@ public class RichMessageBean implements Serializable {
         attributes.setAttribute("onmouseout", null);
         attributes.setAttribute("onmouseover", null);
         attributes.setAttribute("onmouseup", null);
-        // attributes.setAttribute("parent", null);
-        attributes.setAttribute("rendererType", null);
-        attributes.setAttribute("rendersChildren", null);
         attributes.setAttribute("style", null);
         attributes.setAttribute("styleClass", null);
         attributes.setAttribute("title", null);

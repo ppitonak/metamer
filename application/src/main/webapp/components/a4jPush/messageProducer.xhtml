@@ -27,10 +27,6 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 
     <ui:composition template="/templates/template.xhtml">
 
-        <f:metadata>
-            <f:event type="preRenderView" listener="#{a4jPushEventProcuder.produceEvent}" />
-        </f:metadata>
-
         <ui:define name="head">
         </ui:define>
 
@@ -38,7 +34,15 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
         </ui:define>
 
         <ui:define name="component">
-            <h:button value="Generate push event" />
+            <h:panelGrid id="inputs" columns="2">
+                <h:outputLabel id="nameLabel" value="Your name:" for="nameInput"/>
+                <h:inputText id="nameInput" value="#{a4jPushBean.username}" />
+                <h:outputLabel id="messageLabel" value="Your message:" for="messageInput"/>
+                <h:inputText id="messageInput" value="#{a4jPushBean.message}" />
+            </h:panelGrid>
+
+            <br/>
+            <h:commandButton id="submitButton" value="Send Message" action="#{a4jPushBean.send}" />
         </ui:define>
 
         <ui:define name="outOfTemplateAfter">

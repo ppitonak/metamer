@@ -52,6 +52,7 @@
 
     <properties>
         <jetty.port>8080</jetty.port>
+        <hornetq.version>2.1.2.Final</hornetq.version>
     </properties>
 
     <dependencies>
@@ -99,6 +100,35 @@
             <groupId>commons-lang</groupId>
             <artifactId>commons-lang</artifactId>
             <version>2.5</version>
+        </dependency>
+
+        <dependency>
+            <groupId>javax.jms</groupId>
+            <artifactId>jms</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.hornetq</groupId>
+            <artifactId>hornetq-core</artifactId>
+            <version>${hornetq.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.hornetq</groupId>
+            <artifactId>hornetq-jms</artifactId>
+            <version>${hornetq.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.hornetq</groupId>
+            <artifactId>hornetq-logging</artifactId>
+            <version>${hornetq.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.atmosphere</groupId>
+            <artifactId>atmosphere-runtime</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.jboss.netty</groupId>
+            <artifactId>netty</artifactId>
+            <version>3.2.2.Final</version>
         </dependency>
 
         <dependency>
@@ -548,6 +578,21 @@
                     <groupId>org.apache.myfaces.core</groupId>
                     <artifactId>myfaces-impl</artifactId>
                     <scope>runtime</scope>
+                </dependency>
+            </dependencies>
+        </profile>
+        <profile>
+            <id>mojarra_2_1-development</id>
+            <dependencies>
+                <dependency>
+                    <groupId>com.sun.faces</groupId>
+                    <artifactId>jsf-api</artifactId>
+                    <version>2.1.0-b11</version>
+                </dependency>
+                <dependency>
+                    <groupId>com.sun.faces</groupId>
+                    <artifactId>jsf-impl</artifactId>
+                    <version>2.1.0-b11</version>
                 </dependency>
             </dependencies>
         </profile>
