@@ -28,14 +28,12 @@ import static org.testng.Assert.assertFalse;
 import static org.testng.Assert.assertTrue;
 
 import org.jboss.test.selenium.dom.Event;
-import org.jboss.test.selenium.encapsulated.JavaScript;
 import org.jboss.test.selenium.locator.Attribute;
 import org.jboss.test.selenium.locator.AttributeLocator;
 import org.jboss.test.selenium.locator.ElementLocator;
 import org.jboss.test.selenium.locator.ExtendedLocator;
 import org.jboss.test.selenium.locator.JQueryLocator;
 import org.jboss.test.selenium.waiting.EventFiredCondition;
-import org.jboss.test.selenium.waiting.ajax.JavaScriptCondition;
 import org.richfaces.tests.metamer.ftest.AbstractMetamerTest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -50,6 +48,8 @@ import org.testng.annotations.Test;
 public abstract class AbstractRichMessageTest extends AbstractMetamerTest {
     
     private static Logger logger = LoggerFactory.getLogger(AbstractRichMessageTest.class);
+    
+    protected RichMessageComponentAttributes attributes = new RichMessageComponentAttributes(); 
     
     // controls 
     protected JQueryLocator wrongValuesBtn = pjq("input[type=button][id$=setWrongValuesButton]");
@@ -73,7 +73,7 @@ public abstract class AbstractRichMessageTest extends AbstractMetamerTest {
         selenium.waitForPageToLoad();
         
         // generate validation message 
-        generateValidationMessages();
+        generateValidationMessages(false);
 
         assertTrue(selenium.getAttribute(attr).contains(value), "Attribute " + attribute + " should contain \"" + value
                 + "\".");        
@@ -96,7 +96,7 @@ public abstract class AbstractRichMessageTest extends AbstractMetamerTest {
         guardHttp(selenium).type(eventInput, value);
         
         // generate validation messages
-        generateValidationMessages();
+        generateValidationMessages(false);
 
         selenium.fireEvent(element, event);
 
@@ -119,23 +119,33 @@ public abstract class AbstractRichMessageTest extends AbstractMetamerTest {
         selenium.type(ref(attributesRoot, "input[id$=" + attribute + "Input]"), styleClass);
         selenium.waitForPageToLoad();
         
-        generateValidationMessages();
+        generateValidationMessages(false);
 
         JQueryLocator elementWhichHasntThatClass = jq(element.getRawLocator() + ":not(.{0})").format(styleClass);
         assertTrue(selenium.isElementPresent(element));
         assertFalse(selenium.isElementPresent(elementWhichHasntThatClass));
     }
     
-    public void generateValidationMessages() {        
+    /**
+     * Set wrong values into appropriate inputs and generate validation
+     * messages by submitting form.
+     * 
+     * There are 2 possible ways how to submit: by h:commandButton
+     * or by a4j:commandButton. Switch between them is done by 'byAjax' param
+     * 
+     * @param Boolean <b>byAjax</b> - use to choose submit button type used to submit form 
+     */
+    public void generateValidationMessages(Boolean byAjax) {        
         waitModel.until(elementPresent.locator(wrongValuesBtn));
-        selenium.click(wrongValuesBtn);
-        waitModel.until(elementPresent.locator(hCommandBtn));
-        selenium.click(hCommandBtn);
+        selenium.click(wrongValuesBtn);        
+        if (byAjax) {
+            waitModel.until(elementPresent.locator(a4jCommandBtn));
+            selenium.click(a4jCommandBtn);
+        } else {
+            waitModel.until(elementPresent.locator(hCommandBtn));
+            selenium.click(hCommandBtn);
+        }
         selenium.waitForPageToLoad();
-    }
-    
-    private AttributeLocator<?> getAttributeLocator(RichMessageAttributes attribute) {        
-        return mainMessage.getAttribute(new Attribute(attribute.toString()));
     }
     
     private JQueryLocator getInput4Attribute(RichMessageAttributes attribute) {
@@ -154,14 +164,14 @@ public abstract class AbstractRichMessageTest extends AbstractMetamerTest {
         // firstly, remove value from attribute for and generate message
         selenium.type(getInput4Attribute(RichMessageAttributes.FOR), "");        
         selenium.waitForPageToLoad();  
-        generateValidationMessages();        
+        generateValidationMessages(false);        
         // assertFalse(selenium.isElementPresent(mainMessage));
         waitGui.until(isNotDisplayed.locator(mainMessage));
         
         // now set for attribute back to "simpleInput2"
         selenium.type(getInput4Attribute(RichMessageAttributes.FOR), "simpleInput2");
         selenium.waitForPageToLoad();
-        generateValidationMessages();
+        generateValidationMessages(false);
         waitGui.until(elementPresent.locator(mainMessage));
     }
     
@@ -172,13 +182,32 @@ public abstract class AbstractRichMessageTest extends AbstractMetamerTest {
     @Test
     public void testAjaxRendered(){
         // with set to false, element with id$=simpleInputMsg shouldn't appear
+        
+        // by default is ajaxRendered set to true
+        generateValidationMessages(true);
+        waitGui.until(elementPresent.locator(mainMessage));
+        
+        // then disable ajaxRendered
+        attributes.setAjaxRendered(Boolean.FALSE);
+        generateValidationMessages(true);
+        waitGui.until(isNotDisplayed.locator(mainMessage));        
     }
     
     /**
      * This attribute could disable displaying message
      */
+    @Test
     public void testRendered(){
         // with set to false, element with id$=simpleInputMsg shouldn't appear
+        
+        attributes.setRendered(Boolean.TRUE);
+        generateValidationMessages(false);
+        waitGui.until(elementPresent.locator(mainMessage));
+        
+        // now disable rendering message
+        attributes.setRendered(Boolean.FALSE);
+        generateValidationMessages(false);
+        waitGui.until(isNotDisplayed.locator(mainMessage));
     }
     
     /**
@@ -187,6 +216,14 @@ public abstract class AbstractRichMessageTest extends AbstractMetamerTest {
     @Test
     public void testShowSummary() {
         // span with class=rf-msg-sum should appear when set to true
+        
+        JQueryLocator summary = mainMessage.getChild(pjq("span.rf-msg-sum"));
+        
+        attributes.setShowSummary(Boolean.TRUE);
+        waitGui.until(elementPresent.locator(summary));
+        
+        attributes.setShowSummary(Boolean.FALSE);
+        waitGui.until(isNotDisplayed.locator(summary));
     }
     
     /**
@@ -194,7 +231,15 @@ public abstract class AbstractRichMessageTest extends AbstractMetamerTest {
      */
     @Test
     public void testShowDetail() {
-        // span with class=rf-msg-det should appear when set to true        
+        // span with class=rf-msg-det should appear when set to true
+        
+        JQueryLocator detail = mainMessage.getChild(pjq("span.rf-msg-det"));
+        
+        attributes.setShowDetail(Boolean.TRUE);
+        waitGui.until(elementPresent.locator(detail));
+        
+        attributes.setShowDetail(Boolean.FALSE);
+        waitGui.until(isNotDisplayed.locator(detail));
     }
     
     @Test

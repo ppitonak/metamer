@@ -10,8 +10,9 @@ package org.richfaces.tests.metamer.ftest.richMessage;
  * @author <a href="mailto:jjamrich@redhat.com">Jan Jamrich</a>
  * @version $Revision$
  */
-public enum RichMessageAttributes  {
+public enum RichMessageAttributes {
     AJAX_RENDERED   ("ajaxRendered"),
+    RENDERED        ("rendered"),
     DIR             ("dir"),
     FOR             ("for"),
     LANG            ("lang"),
@@ -31,4 +32,3 @@ public enum RichMessageAttributes  {
         return value;
     }    
 } 
-
