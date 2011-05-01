@@ -28,6 +28,10 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import org.primefaces.component.chart.pie.PieChart;
+import org.primefaces.component.chart.series.ChartSeries;
+import org.primefaces.model.chart.CartesianChartModel;
+import org.primefaces.model.chart.PieChartModel;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -112,8 +116,8 @@ public class ChartBean implements Serializable {
         }
     }
     private static Logger logger;
-    private List<Sale> sales;
-    private List<BirthData> births;
+    private PieChartModel sales;
+    private CartesianChartModel births;
 
     /**
      * Initializes the managed bean.
@@ -123,25 +127,36 @@ public class ChartBean implements Serializable {
         logger = LoggerFactory.getLogger(getClass());
         logger.debug("initializing bean " + getClass().getName());
 
-        sales = new ArrayList<Sale>(4);
-        sales.add(new Sale("Brand 1", 540));
-        sales.add(new Sale("Brand 2", 325));
-        sales.add(new Sale("Brand 3", 702));
-        sales.add(new Sale("Brand 4", 367));
+        births = new CartesianChartModel();
+        ChartSeries birthsBoys = new ChartSeries("boys");
+        birthsBoys.set("2006", 120);
+        birthsBoys.set("2007", 134);
+        birthsBoys.set("2008", 100);
+        birthsBoys.set("2009", 91);
+        birthsBoys.set("2010", 87);
 
-        births = new ArrayList<BirthData>(5);
-        births.add(new BirthData(2006, 120, 52));
-        births.add(new BirthData(2007, 134, 46));
-        births.add(new BirthData(2008, 100, 94));
-        births.add(new BirthData(2009, 91, 102));
-        births.add(new BirthData(2010, 87, 88));
+        ChartSeries birthsGirls = new ChartSeries("girls");
+        birthsGirls.set("2006", 52);
+        birthsGirls.set("2007", 46);
+        birthsGirls.set("2008", 94);
+        birthsGirls.set("2009", 102);
+        birthsGirls.set("2010", 88);
+
+        births.addSeries(birthsGirls);
+        births.addSeries(birthsBoys);
+
+        sales = new PieChartModel();
+        sales.set("Brand 1", 540);
+        sales.set("Brand 2", 325);
+        sales.set("Brand 3", 702);
+        sales.set("Brand 4", 367);
     }
 
-    public List<Sale> getSales() {
+    public PieChartModel getSales() {
         return sales;
     }
 
-    public List<BirthData> getBirths() {
+    public CartesianChartModel getBirths() {
         return births;
     }
 }

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:f="http://java.sun.com/jsf/core"
       xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://primefaces.prime.com.tr/ui">
 
     <!--
@@ -36,12 +36,8 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
         </ui:define>
 
         <ui:define name="component">
-
-            <p:lineChart value="#{chartBean.births}" var="birth" xfield="#{birth.year}">
-                <p:chartSeries label="Boys" value="#{birth.boys}"/>
-                <p:chartSeries label="Girls" value="#{birth.girls}"/>
-            </p:lineChart>
-
+            <p:lineChart id="lineChart" model="#{chartBean.births}"
+                         width="400px" height="250px"/>
         </ui:define>
 
         <ui:define name="outOfTemplateAfter"></ui:define>
