@@ -36,10 +36,14 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
         </ui:define>
 
         <ui:define name="component">
-            <p:captcha publicKey="6LfVwMMSAAAAAKT0SlhtqH9cwcNR9lV2xzelV5Mu" value="#{pCaptchaBean.value}"/>
+            <h:inputText id="input" value="#{pCaptchaBean.text}"/>
+            <br/>
+            <p:captcha id="captcha" value="#{pCaptchaBean.value}"/>
 
             <br/>
-            <p:commandButton id="button" value="Submit"/>
+            <h:commandButton id="button" value="Submit"/>
+            <br/><br/>
+            output: #{pCaptchaBean.text}
 
         </ui:define>
 

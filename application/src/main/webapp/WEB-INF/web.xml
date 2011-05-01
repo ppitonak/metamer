@@ -29,8 +29,12 @@ xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns
         <param-value>2097152</param-value>
     </context-param>
     <context-param>
-        <param-name>org.primefaces.component.captcha.PRIVATE_KEY</param-name>
+        <param-name>primefaces.PRIVATE_CAPTCHA_KEY</param-name>
         <param-value>6LfVwMMSAAAAAP2Yvl4BP3HNVVUdanbwbihgmDZL</param-value>
+    </context-param>
+    <context-param>
+        <param-name>primefaces.PUBLIC_CAPTCHA_KEY</param-name>
+        <param-value>6LfVwMMSAAAAAKT0SlhtqH9cwcNR9lV2xzelV5Mu</param-value>
     </context-param>
     <context-param>
         <param-name>org.richfaces.push.jms.connectionUsername</param-name>
