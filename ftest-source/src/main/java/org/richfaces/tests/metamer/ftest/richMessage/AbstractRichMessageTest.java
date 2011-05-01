@@ -144,8 +144,8 @@ public abstract class AbstractRichMessageTest extends AbstractMetamerTest {
         } else {
             waitModel.until(elementPresent.locator(hCommandBtn));
             selenium.click(hCommandBtn);
+            selenium.waitForPageToLoad();
         }
-        selenium.waitForPageToLoad();
     }
     
     private JQueryLocator getInput4Attribute(RichMessageAttributes attribute) {
@@ -217,12 +217,14 @@ public abstract class AbstractRichMessageTest extends AbstractMetamerTest {
     public void testShowSummary() {
         // span with class=rf-msg-sum should appear when set to true
         
-        JQueryLocator summary = mainMessage.getChild(pjq("span.rf-msg-sum"));
+        JQueryLocator summary = mainMessage.getDescendant(jq("span.rf-msg-sum"));
         
         attributes.setShowSummary(Boolean.TRUE);
-        waitGui.until(elementPresent.locator(summary));
+        generateValidationMessages(false);
+        waitModel.until(elementPresent.locator(summary));
         
         attributes.setShowSummary(Boolean.FALSE);
+        generateValidationMessages(false);
         waitGui.until(isNotDisplayed.locator(summary));
     }
     
@@ -233,12 +235,14 @@ public abstract class AbstractRichMessageTest extends AbstractMetamerTest {
     public void testShowDetail() {
         // span with class=rf-msg-det should appear when set to true
         
-        JQueryLocator detail = mainMessage.getChild(pjq("span.rf-msg-det"));
+        JQueryLocator detail = mainMessage.getDescendant(jq("span.rf-msg-det"));
         
         attributes.setShowDetail(Boolean.TRUE);
+        generateValidationMessages(false);
         waitGui.until(elementPresent.locator(detail));
         
         attributes.setShowDetail(Boolean.FALSE);
+        generateValidationMessages(false);
         waitGui.until(isNotDisplayed.locator(detail));
     }
     
