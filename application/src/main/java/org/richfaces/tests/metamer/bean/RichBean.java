@@ -128,6 +128,7 @@ public class RichBean implements Serializable {
         components.put("pColorPicker", "Prime Color Picker");
         components.put("pColumnChart", "Prime Column Chart");
         components.put("pCommandButton", "Prime Command Button");
+        components.put("pCommandLink", "Prime Command Link");
         components.put("pEditor", "Prime Editor");
         components.put("pLineChart", "Prime Line Chart");
         components.put("pPieChart", "Prime Pie Chart");

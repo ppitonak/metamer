@@ -38,18 +38,18 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
         <ui:define name="component">
 
             <h:panelGrid id="panel" columns="2">
-                <h:inputText id="input" value="#{pButtonBean.input}" />
+                <h:inputText id="input" value="#{pLinkBean.input}" />
 
-                <p:commandButton id="pCommandButton"
-                                 action="#{richBean.dummyAction}"
-                                 actionListener="#{richBean.dummyActionListener}"
-                                 value="Submit"
-                                 update="output"
-                                 />
+                <p:commandLink id="pCommandButton"
+                               action="#{richBean.dummyAction}"
+                               actionListener="#{richBean.dummyActionListener}"
+                               value="Submit"
+                               update="output"
+                               />
             </h:panelGrid>
 
             <h:panelGrid id="outputs" columns="2">
-                output: <h:outputText value="#{pButtonBean.input}" id="output" />
+                output: <h:outputText value="#{pLinkBean.input}" id="output" />
             </h:panelGrid>
         </ui:define>
 

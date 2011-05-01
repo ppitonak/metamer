@@ -31,14 +31,14 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * Managed bean for p:commandButton.
+ * Managed bean for p:commandLink.
  * 
  * @author <a href="mailto:ppitonak@redhat.com">Pavol Pitonak</a>
  * @version $Revision$
  */
-@ManagedBean(name = "pButtonBean")
+@ManagedBean(name = "pLinkBean")
 @ViewScoped
-public class PCommandButtonBean implements Serializable {
+public class PCommandLinkBean implements Serializable {
 
     private static Logger logger;
     private String input;
