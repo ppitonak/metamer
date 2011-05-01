@@ -35,10 +35,18 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
             </f:metadata>
         </ui:define>
 
+        <ui:define name="head">
+            <script type="text/javascript">
+                var chartStyle = {
+                    border : { color : 0xff0000, size : 3 },
+                    legend : { display : "left" }
+                }
+            </script>
+        </ui:define>
+
         <ui:define name="component">
 
-            <p:pieChart id="pieChart" model="#{chartBean.sales}"
-                        />
+            <p:pieChart id="pieChart" model="#{chartBean.sales}" style="chartStyle"/>
 
         </ui:define>
 
