@@ -26,7 +26,6 @@ import java.util.HashSet;
 import javax.faces.application.Application;
 import javax.faces.context.FacesContext;
 import javax.faces.event.AbortProcessingException;
-import javax.faces.event.PostConstructApplicationEvent;
 import javax.faces.event.PreDestroyApplicationEvent;
 import javax.faces.event.SystemEvent;
 import javax.faces.event.SystemEventListener;
@@ -75,7 +74,7 @@ public class HornetQInitializer implements SystemEventListener {
             serverType = e.getMessage();
         }
 
-        if (serverType != null && serverType.contains("Tomcat") && event instanceof PostConstructApplicationEvent) {
+        if (serverType != null && serverType.contains("Tomcat")) {
             try {
                 startHornetQ();
             } catch (Exception e) {

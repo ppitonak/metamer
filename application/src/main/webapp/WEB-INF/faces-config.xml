@@ -4,6 +4,7 @@
  xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd">
     
     <application>
+        <!--  
         <system-event-listener>
             <system-event-listener-class>org.richfaces.tests.metamer.listener.HornetQInitializer</system-event-listener-class>
             <system-event-class>javax.faces.event.PostConstructApplicationEvent</system-event-class>
@@ -12,6 +13,7 @@
             <system-event-listener-class>org.richfaces.tests.metamer.listener.TopicsInitializer</system-event-listener-class>
             <system-event-class>javax.faces.event.PostConstructApplicationEvent</system-event-class>
         </system-event-listener>
+        -->
     </application>
     
     <lifecycle>

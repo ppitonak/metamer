@@ -22,17 +22,14 @@
 package org.richfaces.tests.metamer.bean;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
-import org.primefaces.component.chart.pie.PieChart;
+
 import org.primefaces.component.chart.series.ChartSeries;
 import org.primefaces.model.chart.CartesianChartModel;
 import org.primefaces.model.chart.PieChartModel;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
