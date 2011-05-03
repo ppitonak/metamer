@@ -19,11 +19,10 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  *******************************************************************************/
-package org.richfaces.tests.metamer.bean;
+package org.richfaces.tests.metamer.bean.p;
 
+import java.awt.Color;
 import java.io.Serializable;
-import java.util.Date;
-import java.util.TimeZone;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
@@ -33,19 +32,17 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * Managed bean for rich:calendar.
+ * Managed bean for p:colorPicker.
  *
  * @author <a href="mailto:ppitonak@redhat.com">Pavol Pitonak</a>
  * @version $Revision$
  */
-@ManagedBean(name = "pCalendarBean")
+@ManagedBean
 @ViewScoped
-public class PCalendarBean implements Serializable {
+public class PColorPickerBean implements Serializable {
 
-    private static final long serialVersionUID = -1L;
     private static Logger logger;
-    private TimeZone timeZone = TimeZone.getTimeZone("UTC");
-    private Date value;
+    private Color color;
 
     /**
      * Initializes the managed bean.
@@ -56,19 +53,11 @@ public class PCalendarBean implements Serializable {
         logger.debug("initializing bean " + getClass().getName());
     }
 
-    public Date getValue() {
-        return value;
+    public Color getColor() {
+        return color;
     }
 
-    public void setValue(Date value) {
-        this.value = value;
-    }
-
-    public TimeZone getTimeZone() {
-        return timeZone;
-    }
-
-    public void setTimeZone(TimeZone timeZone) {
-        this.timeZone = timeZone;
+    public void setColor(Color color) {
+        this.color = color;
     }
 }

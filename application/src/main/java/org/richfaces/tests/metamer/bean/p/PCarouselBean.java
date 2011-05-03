@@ -19,37 +19,33 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  *******************************************************************************/
-package org.richfaces.tests.metamer.bean;
+package org.richfaces.tests.metamer.bean.p;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
+import org.richfaces.tests.metamer.bean.Model;
+import org.richfaces.tests.metamer.model.Employee;
 
-import org.richfaces.tests.metamer.model.Capital;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * Managed bean for p:autoComplete.
+ * Managed bean for p:captcha.
  *
  * @author <a href="mailto:ppitonak@redhat.com">Pavol Pitonak</a>
  * @version $Revision$
  */
-@ManagedBean(name = "pAutoCompleteBean")
+@ManagedBean
 @ViewScoped
-public class PAutoCompleteBean implements Serializable {
+public class PCarouselBean implements Serializable {
 
-    private static final long serialVersionUID = -1L;
     private static Logger logger;
-    @ManagedProperty(value = "#{model.capitals}")
-    private List<Capital> capitals;
-    private String value;
+    private List<Employee> employees;
 
     /**
      * Initializes the managed bean.
@@ -58,36 +54,19 @@ public class PAutoCompleteBean implements Serializable {
     public void init() {
         logger = LoggerFactory.getLogger(getClass());
         logger.debug("initializing bean " + getClass().getName());
-    }
 
-    public String getValue() {
-        return value;
-    }
-
-    public void setValue(String value) {
-        this.value = value;
-    }
-
-    public List<String> complete(String prefix) {
-        ArrayList<String> result = new ArrayList<String>();
-        if (prefix.length() > 0) {
-            Iterator<Capital> iterator = capitals.iterator();
-            while (iterator.hasNext()) {
-                Capital elem = ((Capital) iterator.next());
-                if ((elem.getState() != null && elem.getState().toLowerCase().indexOf(prefix.toLowerCase()) == 0)
-                        || "".equals(prefix)) {
-                    result.add(elem.getState());
-                }
-            }
-        } else {
-            for (int i = 0; i < capitals.size(); i++) {
-                result.add(capitals.get(i).getState());
-            }
+        employees = new ArrayList<Employee>(5);
+        List<Employee> allEmployees = Model.unmarshallEmployees();
+        for (int i = 0; i < 5; i++) {
+            employees.add(allEmployees.get(i));
         }
-        return result;
     }
 
-    public void setCapitals(List<Capital> capitals) {
-        this.capitals = capitals;
+    public List<Employee> getEmployees() {
+        return employees;
+    }
+
+    public void setEmployees(List<Employee> employees) {
+        this.employees = employees;
     }
 }

@@ -85,6 +85,26 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                     </h:panelGrid>
                 </rich:tab>
 
+                <rich:tab id="primeComponentsTab" header="Prime">
+                    <h:panelGrid id="primeComponents" columns="3" columnClasses="valign-top,valign-top,valign-top">
+
+                        <rich:list id="primeComponentsList1" value="#{richBean.primeComponents.entrySet().toArray()}"
+                                   var="entry" rows="30" style="width: 350px">
+                            <h:link outcome="/components/p/#{entry.key}/list" value="#{entry.value}" styleClass="link"/>
+                        </rich:list>
+
+                        <rich:list id="primeComponentsList2" value="#{richBean.primeComponents.entrySet().toArray()}"
+                                   var="entry" first="30" rows="30" style="width: 350px">
+                            <h:link outcome="/components/p/#{entry.key}/list" value="#{entry.value}" styleClass="link"/>
+                        </rich:list>
+
+                        <rich:list id="primeComponentsList3" value="#{richBean.primeComponents.entrySet().toArray()}"
+                                   var="entry" first="60" rows="30" style="width: 350px">
+                            <h:link outcome="/components/p/#{entry.key}/list" value="#{entry.value}" styleClass="link"/>
+                        </rich:list>
+                    </h:panelGrid>
+                </rich:tab>
+
                 <rich:tab id="otherComponentsTab" header="Other">
                     <h:panelGrid id="otherComponents" columns="3" columnClasses="valign-top,valign-top,valign-top">
 

@@ -19,32 +19,29 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  *******************************************************************************/
-package org.richfaces.tests.metamer.bean;
+package org.richfaces.tests.metamer.bean.p;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
-import org.richfaces.tests.metamer.model.Employee;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * Managed bean for p:captcha.
- *
+ * Managed bean for p:commandLink.
+ * 
  * @author <a href="mailto:ppitonak@redhat.com">Pavol Pitonak</a>
  * @version $Revision$
  */
-@ManagedBean
+@ManagedBean(name = "pLinkBean")
 @ViewScoped
-public class PCarouselBean implements Serializable {
+public class PCommandLinkBean implements Serializable {
 
     private static Logger logger;
-    private List<Employee> employees;
+    private String input;
 
     /**
      * Initializes the managed bean.
@@ -53,19 +50,24 @@ public class PCarouselBean implements Serializable {
     public void init() {
         logger = LoggerFactory.getLogger(getClass());
         logger.debug("initializing bean " + getClass().getName());
-
-        employees = new ArrayList<Employee>(5);
-        List<Employee> allEmployees = Model.unmarshallEmployees();
-        for (int i = 0; i < 5; i++) {
-            employees.add(allEmployees.get(i));
-        }
     }
 
-    public List<Employee> getEmployees() {
-        return employees;
+    /**
+     * Getter for input.
+     * 
+     * @return value entered by a user
+     */
+    public String getInput() {
+        return input;
     }
 
-    public void setEmployees(List<Employee> employees) {
-        this.employees = employees;
+    /**
+     * Setter for input.
+     * 
+     * @param input
+     *            value which user entered into text input on the page
+     */
+    public void setInput(String input) {
+        this.input = input;
     }
 }

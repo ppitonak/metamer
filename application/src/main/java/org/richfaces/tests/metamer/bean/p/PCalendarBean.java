@@ -19,9 +19,11 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  *******************************************************************************/
-package org.richfaces.tests.metamer.bean;
+package org.richfaces.tests.metamer.bean.p;
 
 import java.io.Serializable;
+import java.util.Date;
+import java.util.TimeZone;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
@@ -31,18 +33,19 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * Managed bean for p:captcha.
+ * Managed bean for rich:calendar.
  *
  * @author <a href="mailto:ppitonak@redhat.com">Pavol Pitonak</a>
  * @version $Revision$
  */
-@ManagedBean
+@ManagedBean(name = "pCalendarBean")
 @ViewScoped
-public class PCaptchaBean implements Serializable {
+public class PCalendarBean implements Serializable {
 
+    private static final long serialVersionUID = -1L;
     private static Logger logger;
-    private String value;
-    private String text;
+    private TimeZone timeZone = TimeZone.getTimeZone("UTC");
+    private Date value;
 
     /**
      * Initializes the managed bean.
@@ -53,19 +56,19 @@ public class PCaptchaBean implements Serializable {
         logger.debug("initializing bean " + getClass().getName());
     }
 
-    public String getValue() {
+    public Date getValue() {
         return value;
     }
 
-    public void setValue(String value) {
+    public void setValue(Date value) {
         this.value = value;
     }
 
-    public String getText() {
-        return text;
+    public TimeZone getTimeZone() {
+        return timeZone;
     }
 
-    public void setText(String text) {
-        this.text = text;
+    public void setTimeZone(TimeZone timeZone) {
+        this.timeZone = timeZone;
     }
 }

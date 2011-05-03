@@ -19,30 +19,37 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  *******************************************************************************/
-package org.richfaces.tests.metamer.bean;
+package org.richfaces.tests.metamer.bean.p;
 
-import java.awt.Color;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 
+import org.richfaces.tests.metamer.model.Capital;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * Managed bean for p:colorPicker.
+ * Managed bean for p:autoComplete.
  *
  * @author <a href="mailto:ppitonak@redhat.com">Pavol Pitonak</a>
  * @version $Revision$
  */
-@ManagedBean
+@ManagedBean(name = "pAutoCompleteBean")
 @ViewScoped
-public class PColorPickerBean implements Serializable {
+public class PAutoCompleteBean implements Serializable {
 
+    private static final long serialVersionUID = -1L;
     private static Logger logger;
-    private Color color;
+    @ManagedProperty(value = "#{model.capitals}")
+    private List<Capital> capitals;
+    private String value;
 
     /**
      * Initializes the managed bean.
@@ -53,11 +60,34 @@ public class PColorPickerBean implements Serializable {
         logger.debug("initializing bean " + getClass().getName());
     }
 
-    public Color getColor() {
-        return color;
+    public String getValue() {
+        return value;
     }
 
-    public void setColor(Color color) {
-        this.color = color;
+    public void setValue(String value) {
+        this.value = value;
+    }
+
+    public List<String> complete(String prefix) {
+        ArrayList<String> result = new ArrayList<String>();
+        if (prefix.length() > 0) {
+            Iterator<Capital> iterator = capitals.iterator();
+            while (iterator.hasNext()) {
+                Capital elem = ((Capital) iterator.next());
+                if ((elem.getState() != null && elem.getState().toLowerCase().indexOf(prefix.toLowerCase()) == 0)
+                        || "".equals(prefix)) {
+                    result.add(elem.getState());
+                }
+            }
+        } else {
+            for (int i = 0; i < capitals.size(); i++) {
+                result.add(capitals.get(i).getState());
+            }
+        }
+        return result;
+    }
+
+    public void setCapitals(List<Capital> capitals) {
+        this.capitals = capitals;
     }
 }

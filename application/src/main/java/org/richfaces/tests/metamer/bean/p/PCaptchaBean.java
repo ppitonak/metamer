@@ -19,7 +19,7 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  *******************************************************************************/
-package org.richfaces.tests.metamer.bean;
+package org.richfaces.tests.metamer.bean.p;
 
 import java.io.Serializable;
 
@@ -31,17 +31,18 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * Managed bean for p:commandLink.
- * 
+ * Managed bean for p:captcha.
+ *
  * @author <a href="mailto:ppitonak@redhat.com">Pavol Pitonak</a>
  * @version $Revision$
  */
-@ManagedBean(name = "pLinkBean")
+@ManagedBean
 @ViewScoped
-public class PCommandLinkBean implements Serializable {
+public class PCaptchaBean implements Serializable {
 
     private static Logger logger;
-    private String input;
+    private String value;
+    private String text;
 
     /**
      * Initializes the managed bean.
@@ -52,22 +53,19 @@ public class PCommandLinkBean implements Serializable {
         logger.debug("initializing bean " + getClass().getName());
     }
 
-    /**
-     * Getter for input.
-     * 
-     * @return value entered by a user
-     */
-    public String getInput() {
-        return input;
+    public String getValue() {
+        return value;
     }
 
-    /**
-     * Setter for input.
-     * 
-     * @param input
-     *            value which user entered into text input on the page
-     */
-    public void setInput(String input) {
-        this.input = input;
+    public void setValue(String value) {
+        this.value = value;
+    }
+
+    public String getText() {
+        return text;
+    }
+
+    public void setText(String text) {
+        this.text = text;
     }
 }
