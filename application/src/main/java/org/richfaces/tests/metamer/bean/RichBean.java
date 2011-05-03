@@ -310,6 +310,10 @@ public class RichBean implements Serializable {
         return otherComponents;
     }
 
+    public Map<String, String> getPrimeComponents() {
+        return primeComponents;
+    }
+
     public String getContainer() {
         return container;
     }
