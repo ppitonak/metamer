@@ -29,7 +29,7 @@ import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 
 import org.apache.commons.lang.CharUtils;
-import org.richfaces.tests.metamer.bean.RichTreeModelRecursiveAdaptorBean;
+import org.richfaces.tests.metamer.bean.rich.RichTreeModelRecursiveAdaptorBean;
 
 import com.google.common.base.Strings;
 

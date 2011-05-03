@@ -27,7 +27,7 @@ import java.util.Collections;
 
 import org.jboss.test.selenium.request.RequestType;
 import org.richfaces.component.SortOrder;
-import org.richfaces.tests.metamer.bean.RichColumnBean;
+import org.richfaces.tests.metamer.bean.rich.RichColumnBean;
 import org.richfaces.tests.metamer.ftest.annotations.Inject;
 import org.richfaces.tests.metamer.ftest.annotations.Use;
 import org.richfaces.tests.metamer.model.Capital;

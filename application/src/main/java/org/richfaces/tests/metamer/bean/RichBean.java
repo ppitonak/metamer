@@ -25,7 +25,6 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.TreeMap;
 
 import javax.annotation.PostConstruct;
@@ -67,7 +66,10 @@ public class RichBean implements Serializable {
     private boolean reTests;
     private boolean log;
     private String component;
-    private Map<String, String> components; // [a4jCommandLink; A4J Command Link]
+    private Map<String, String> a4jComponents; // [a4jCommandLink; A4J Command Link]
+    private Map<String, String> richComponents;
+    private Map<String, String> otherComponents;
+    private Map<String, String> openComponents;
     private String container;
 
     public enum Skinning {
@@ -95,80 +97,87 @@ public class RichBean implements Serializable {
     }
 
     private void createComponentsMap() {
-        components = new TreeMap<String, String>();
+        a4jComponents = new TreeMap<String, String>();
+        richComponents = new TreeMap<String, String>();
+        otherComponents = new TreeMap<String, String>();
+        openComponents = new TreeMap<String, String>();
 
-        components.put("a4jActionListener", "A4J Action Listener");
-        components.put("a4jAjax", "A4J Ajax");
-        components.put("a4jAttachQueue", "A4J Attach Queue");
-        components.put("a4jCommandLink", "A4J Command Link");
-        components.put("a4jCommandButton", "A4J Command Button");
-        components.put("a4jJSFunction", "A4J JavaScript Function");
-        components.put("a4jLog", "A4J Log");
-        components.put("a4jMediaOutput", "A4J Media Output");
-        components.put("a4jOutputPanel", "A4J Output Panel");
-        components.put("a4jParam", "A4J Action Parameter");
-        components.put("a4jPoll", "A4J Poll");
-        components.put("a4jPush", "A4J Push");
-        components.put("a4jQueue", "A4J Queue");
-        components.put("a4jRegion", "A4J Region");
-        components.put("a4jRepeat", "A4J Repeat");
-        components.put("a4jStatus", "A4J Status");
-        components.put("expressionLanguage", "Expression Language");
-        components.put("commandButton", "JSF Command Button");
-        components.put("hDataTable", "JSF Data Table");
-        components.put("uiRepeat", "UI Repeat");
-        components.put("oCalendar", "Open Calendar");
-        components.put("oDateChooser", "Open Date Chooser");
-        components.put("richAccordion", "Rich Accordion");
-        components.put("richAccordionItem", "Rich Accordion Item");
-        components.put("richAutocomplete", "Rich Autocomplete");
-        components.put("richCalendar", "Rich Calendar");
-        components.put("richCollapsiblePanel", "Rich Collapsible Panel");
-        components.put("richCollapsibleSubTable", "Rich Collapsible Sub Table");
-        components.put("richCollapsibleSubTableToggler", "Rich Collapsible Sub Table Toggler");
-        components.put("richColumn", "Rich Column");
-        components.put("richColumnGroup", "Rich Column Group");
-        components.put("richComponentControl", "Rich Component Control");
-        components.put("richDataGrid", "Rich Data Grid");
-        components.put("richDataScroller", "Rich Data Scroller");
-        components.put("richDataTable", "Rich Data Table");
-        components.put("richDragSource", "Rich Drag Source");
-        components.put("richDragIndicator", "Rich Drag Indicator");
-        components.put("richDropTarget", "Rich Drop Target");
-        components.put("richDropDownMenu", "Rich Drop Down Menu");
-        components.put("richExtendedDataTable", "Rich Extended Data Table");
-        components.put("richFileUpload", "Rich File Upload");
-        components.put("richFunctions", "Rich Functions");
-        components.put("richGraphValidator", "Rich Graph Validator");
-        components.put("richHashParam", "Rich Hash Parameter");
-        components.put("richInplaceInput", "Rich Inplace Input");
-        components.put("richInplaceSelect", "Rich Inplace Select");
-        components.put("richInputNumberSlider", "Rich Input Number Slider");
-        components.put("richInputNumberSpinner", "Rich Input Number Spinner");
-        components.put("richJQuery", "Rich jQuery");
-        components.put("richList", "Rich List");
-        components.put("richMenuGroup", "Rich Menu Group");
-        components.put("richMenuItem", "Rich Menu Item");
-        components.put("richMenuSeparator", "Rich Menu Separator");
-        components.put("richMessage", "Rich Message");
-        components.put("richMessages", "Rich Messages");
-        components.put("richPanel", "Rich Panel");
-        components.put("richPanelMenu", "Rich Panel Menu");
-        components.put("richPanelMenuGroup", "Rich Panel Menu Group");
-        components.put("richPanelMenuItem", "Rich Panel Menu Item");
-        components.put("richPopupPanel", "Rich Popup Panel");
-        components.put("richProgressBar", "Rich Progress Bar");
-        components.put("richSelect", "Rich Select");
-        components.put("richTab", "Rich Tab");
-        components.put("richTabPanel", "Rich Tab Panel");
-        components.put("richToggleControl", "Rich Toggle Control");
-        components.put("richTogglePanel", "Rich Toggle Panel");
-        components.put("richTogglePanelItem", "Rich Toggle Panel Item");
-        components.put("richToolbar", "Rich Toolbar");
-        components.put("richToolbarGroup", "Rich Toolbar Group");
-        components.put("richTooltip", "Rich Tooltip");
-        components.put("richTree", "Rich Tree");
-        components.put("richValidator", "Rich Validator");
+        a4jComponents.put("a4jActionListener", "A4J Action Listener");
+        a4jComponents.put("a4jAjax", "A4J Ajax");
+        a4jComponents.put("a4jAttachQueue", "A4J Attach Queue");
+        a4jComponents.put("a4jCommandLink", "A4J Command Link");
+        a4jComponents.put("a4jCommandButton", "A4J Command Button");
+        a4jComponents.put("a4jJSFunction", "A4J JavaScript Function");
+        a4jComponents.put("a4jLog", "A4J Log");
+        a4jComponents.put("a4jMediaOutput", "A4J Media Output");
+        a4jComponents.put("a4jOutputPanel", "A4J Output Panel");
+        a4jComponents.put("a4jParam", "A4J Action Parameter");
+        a4jComponents.put("a4jPoll", "A4J Poll");
+        a4jComponents.put("a4jPush", "A4J Push");
+        a4jComponents.put("a4jQueue", "A4J Queue");
+        a4jComponents.put("a4jRegion", "A4J Region");
+        a4jComponents.put("a4jRepeat", "A4J Repeat");
+        a4jComponents.put("a4jStatus", "A4J Status");
+
+        otherComponents.put("expressionLanguage", "Expression Language");
+        otherComponents.put("commandButton", "JSF Command Button");
+        otherComponents.put("hDataTable", "JSF Data Table");
+        otherComponents.put("uiRepeat", "UI Repeat");
+
+        richComponents.put("richAccordion", "Rich Accordion");
+        richComponents.put("richAccordionItem", "Rich Accordion Item");
+        richComponents.put("richAutocomplete", "Rich Autocomplete");
+        richComponents.put("richCalendar", "Rich Calendar");
+        richComponents.put("richCollapsiblePanel", "Rich Collapsible Panel");
+        richComponents.put("richCollapsibleSubTable", "Rich Collapsible Sub Table");
+        richComponents.put("richCollapsibleSubTableToggler", "Rich Collapsible Sub Table Toggler");
+        richComponents.put("richColumn", "Rich Column");
+        richComponents.put("richColumnGroup", "Rich Column Group");
+        richComponents.put("richComponentControl", "Rich Component Control");
+        richComponents.put("richDataGrid", "Rich Data Grid");
+        richComponents.put("richDataScroller", "Rich Data Scroller");
+        richComponents.put("richDataTable", "Rich Data Table");
+        richComponents.put("richDragSource", "Rich Drag Source");
+        richComponents.put("richDragIndicator", "Rich Drag Indicator");
+        richComponents.put("richDropTarget", "Rich Drop Target");
+        richComponents.put("richDropDownMenu", "Rich Drop Down Menu");
+        richComponents.put("richExtendedDataTable", "Rich Extended Data Table");
+        richComponents.put("richFileUpload", "Rich File Upload");
+        richComponents.put("richFunctions", "Rich Functions");
+        richComponents.put("richGraphValidator", "Rich Graph Validator");
+        richComponents.put("richHashParam", "Rich Hash Parameter");
+        richComponents.put("richInplaceInput", "Rich Inplace Input");
+        richComponents.put("richInplaceSelect", "Rich Inplace Select");
+        richComponents.put("richInputNumberSlider", "Rich Input Number Slider");
+        richComponents.put("richInputNumberSpinner", "Rich Input Number Spinner");
+        richComponents.put("richJQuery", "Rich jQuery");
+        richComponents.put("richList", "Rich List");
+        richComponents.put("richMenuGroup", "Rich Menu Group");
+        richComponents.put("richMenuItem", "Rich Menu Item");
+        richComponents.put("richMenuSeparator", "Rich Menu Separator");
+        richComponents.put("richMessage", "Rich Message");
+        richComponents.put("richMessages", "Rich Messages");
+        richComponents.put("richPanel", "Rich Panel");
+        richComponents.put("richPanelMenu", "Rich Panel Menu");
+        richComponents.put("richPanelMenuGroup", "Rich Panel Menu Group");
+        richComponents.put("richPanelMenuItem", "Rich Panel Menu Item");
+        richComponents.put("richPopupPanel", "Rich Popup Panel");
+        richComponents.put("richProgressBar", "Rich Progress Bar");
+        richComponents.put("richSelect", "Rich Select");
+        richComponents.put("richTab", "Rich Tab");
+        richComponents.put("richTabPanel", "Rich Tab Panel");
+        richComponents.put("richToggleControl", "Rich Toggle Control");
+        richComponents.put("richTogglePanel", "Rich Toggle Panel");
+        richComponents.put("richTogglePanelItem", "Rich Toggle Panel Item");
+        richComponents.put("richToolbar", "Rich Toolbar");
+        richComponents.put("richToolbarGroup", "Rich Toolbar Group");
+        richComponents.put("richTooltip", "Rich Tooltip");
+        richComponents.put("richTree", "Rich Tree");
+        richComponents.put("richValidator", "Rich Validator");
+
+        openComponents.put("oCalendar", "Open Calendar");
+        openComponents.put("oDateChooser", "Open Date Chooser");
+
     }
 
     private void createSkinList() {
@@ -270,53 +279,20 @@ public class RichBean implements Serializable {
         return component;
     }
 
-    public Set<String> getComponentList() {
-        return components.keySet();
-    }
-
-    /**
-     * @return the components
-     */
-    public Map<String, String> getComponents() {
-        return components;
-    }
-
-    /**
-     * @param components
-     *            the components to set
-     */
-    public void setComponents(Map<String, String> components) {
-        this.components = components;
-    }
-
-    public List<String> getRichComponents() {
-        List<String> richComponents = new ArrayList<String>();
-        for (String aComponent : components.keySet()) {
-            if (aComponent.startsWith("rich")) {
-                richComponents.add(aComponent);
-            }
-        }
+    public Map<String, String> getRichComponents() {
         return richComponents;
     }
 
-    public List<String> getA4JComponents() {
-        List<String> a4jComponents = new ArrayList<String>();
-        for (String aComponent : components.keySet()) {
-            if (aComponent.startsWith("a4j")) {
-                a4jComponents.add(aComponent);
-            }
-        }
+    public Map<String, String> getA4jComponents() {
         return a4jComponents;
     }
 
-    public List<String> getOtherComponents() {
-        List<String> otherComponents = new ArrayList<String>();
-        for (String aComponent : components.keySet()) {
-            if (!aComponent.startsWith("rich") && !aComponent.startsWith("a4j")) {
-                otherComponents.add(aComponent);
-            }
-        }
+    public Map<String, String> getOtherComponents() {
         return otherComponents;
+    }
+
+    public Map<String, String> getOpenComponents() {
+        return openComponents;
     }
 
     public String getContainer() {

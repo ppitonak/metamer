@@ -38,7 +38,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
 
-import org.richfaces.tests.metamer.bean.RichTreeModelRecursiveAdaptorBean;
+import org.richfaces.tests.metamer.bean.rich.RichTreeModelRecursiveAdaptorBean;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
