@@ -23,7 +23,7 @@ package org.richfaces.tests.metamer.model.treeAdaptor;
 
 import java.io.Serializable;
 
-import org.richfaces.tests.metamer.bean.RichTreeModelRecursiveAdaptorBean;
+import org.richfaces.tests.metamer.bean.rich.RichTreeModelRecursiveAdaptorBean;
 
 /**
  * @author <a href="mailto:lfryc@redhat.com">Lukas Fryc</a>

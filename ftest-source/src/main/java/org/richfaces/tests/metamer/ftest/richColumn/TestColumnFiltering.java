@@ -31,7 +31,7 @@ import java.util.Iterator;
 
 import org.jboss.test.selenium.dom.Event;
 import org.jboss.test.selenium.locator.JQueryLocator;
-import org.richfaces.tests.metamer.bean.RichColumnBean;
+import org.richfaces.tests.metamer.bean.rich.RichColumnBean;
 import org.richfaces.tests.metamer.model.Capital;
 import org.testng.annotations.Test;
 
@@ -43,14 +43,13 @@ import com.google.common.collect.Collections2;
  * @version $Revision$
  */
 public class TestColumnFiltering extends AbstractColumnModelTest {
+
     @Override
     public URL getTestUrl() {
         return buildUrl(contextPath, "faces/components/richColumn/filtering.xhtml");
     }
-
     JQueryLocator stateNameToFilter = pjq("input:text[id$=stateNameToFilter]");
     private final static String stateName = "Maryland";
-
     JQueryLocator tableWithFilter = pjq("table.rf-dt[id$=richDataTable1]");
     JQueryLocator tableWithFilterExpression = pjq("table.rf-dt[id$=richDataTable2]");
 
@@ -77,17 +76,16 @@ public class TestColumnFiltering extends AbstractColumnModelTest {
 
             richColumnBean.setStateNameToFilter(namePart);
             Collection<Capital> expectedCapitals = Collections2.filter(capitals, new Predicate<Capital>() {
+
                 @Override
                 public boolean apply(Capital capital) {
                     return richColumnBean.getStateNameFilter().accept(capital);
                 }
-
             });
 
             assertEqualsCapitals(actualCapitals, expectedCapitals);
         }
     }
-
     RichColumnBean richColumnBean = new RichColumnBean();
 
     private void assertEqualsCapitals(Collection<Capital> actualCapitals, Collection<Capital> expectedCapitals) {

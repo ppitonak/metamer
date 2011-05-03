@@ -1,9 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app version="2.5" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
+<web-app version="3.0" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
+    
     <display-name>metamer</display-name>
+    
     <welcome-file-list>
         <welcome-file>faces/index.xhtml</welcome-file>
     </welcome-file-list>
+    
     <context-param>
         <param-name>javax.faces.PROJECT_STAGE</param-name>
         <param-value>Development</param-value>
@@ -24,14 +28,19 @@
         <param-name>org.richfaces.fileUpload.maxRequestSize</param-name>
         <param-value>2097152</param-value>
     </context-param>
-    <filter>
-        <filter-name>Test Identity Filter</filter-name>
-        <filter-class>org.richfaces.tests.metamer.TestIdentityFilter</filter-class>
-    </filter>
-    <filter-mapping>
-        <filter-name>Test Identity Filter</filter-name>
-        <servlet-name>Faces Servlet</servlet-name>
-    </filter-mapping>
+    <context-param>
+        <param-name>org.richfaces.push.jms.connectionUsername</param-name>
+        <param-value>guest</param-value>
+    </context-param>
+    <context-param>
+        <param-name>org.richfaces.push.jms.connectionPassword</param-name>
+        <param-value>guest</param-value>
+    </context-param>
+    <context-param>
+        <param-name>javax.faces.FACELETS_SKIP_COMMENTS</param-name>
+        <param-value>true</param-value>
+    </context-param>
+    
     <servlet>
         <servlet-name>Faces Servlet</servlet-name>
         <servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
@@ -45,18 +54,6 @@
         <servlet-name>Faces Servlet</servlet-name>
         <url-pattern>/faces/*</url-pattern>
     </servlet-mapping>
-    <!-- More efficient, in an AJAX environment, to have server side state saving -->
-    <context-param>
-        <param-name>javax.faces.STATE_SAVING_METHOD</param-name>
-        <param-value>server</param-value>
-    </context-param>
-
-    <!-- HTML comments become components unless they're stripped -->
-    <context-param>
-        <param-name>javax.faces.FACELETS_SKIP_COMMENTS</param-name>
-        <param-value>true</param-value>
-    </context-param>
-
     <!-- Many of the ICEfaces Components make use of the Resource Servlet -->
     <servlet>
         <servlet-name>Resource Servlet</servlet-name>
@@ -68,4 +65,24 @@
         <servlet-name>Resource Servlet</servlet-name>
         <url-pattern>/xmlhttp/*</url-pattern>
     </servlet-mapping>
+    
+    <filter>
+        <filter-name>PushFilter</filter-name>
+        <filter-class>org.richfaces.webapp.PushFilter</filter-class>
+        <async-supported>true</async-supported>
+    </filter>
+    <filter-mapping>
+        <filter-name>PushFilter</filter-name>
+        <servlet-name>Faces Servlet</servlet-name>
+    </filter-mapping>
+    <filter>
+        <filter-name>Test Identity Filter</filter-name>
+        <filter-class>org.richfaces.tests.metamer.TestIdentityFilter</filter-class>
+        <async-supported>true</async-supported>
+    </filter>
+    <filter-mapping>
+        <filter-name>Test Identity Filter</filter-name>
+        <servlet-name>Faces Servlet</servlet-name>
+    </filter-mapping>
+    
 </web-app>

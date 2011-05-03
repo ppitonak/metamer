@@ -69,8 +69,7 @@ public final class VersionBean {
             InputStream inStream = getClass().getClassLoader().getResourceAsStream("version.properties");
             properties.load(inStream);
         } catch (Exception e) {
-            LOGGER
-                .warn(
+            LOGGER.warn(
                     "Unable to load version.properties using PomVersion.class.getClassLoader().getResourceAsStream(...)",
                     e);
         }
@@ -114,7 +113,7 @@ public final class VersionBean {
         }
 
         fullVersion = implementationTitle + " by " + implementationVendor + ", version " + implementationVersion
-            + " SVN r. " + scmRevision;
+                + " SVN r. " + scmRevision;
         return fullVersion;
     }
 
@@ -157,23 +156,23 @@ public final class VersionBean {
     }
 
     public String getJsfVersion() {
-        
-        
+
+
         if (jsfVersion != null) {
             return jsfVersion;
         }
-        
+
         FacesContext facesContext = FacesContext.getCurrentInstance();
-        
+
         if (facesContext == null) {
             return UNKNOWN_JSF;
         }
-        
+
         jsfVersion = UNKNOWN_JSF;
 
         Class<?> applicationClass = facesContext.getApplication().getClass();
         Package pack = applicationClass.getPackage();
-        
+
         if (pack.getImplementationTitle() != null) {
             jsfVersion = pack.getImplementationTitle();
             if (pack.getImplementationVersion() != null) {
@@ -185,8 +184,7 @@ public final class VersionBean {
     }
 
     public String getBrowserVersion() {
-        HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext()
-            .getRequest();
+        HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
         return request.getHeader("user-agent");
     }
 
@@ -222,13 +220,13 @@ public final class VersionBean {
         return result;
     }
 
-    private static String getTomcatVersionInfo() {
+    public static String getTomcatVersionInfo() {
         String result = (String) new InfoObtainer() {
 
             @Override
             protected Object obtainInfo() throws ClassNotFoundException, IllegalAccessException,
-                InstantiationException, SecurityException, NoSuchMethodException, IllegalArgumentException,
-                InvocationTargetException {
+                    InstantiationException, SecurityException, NoSuchMethodException, IllegalArgumentException,
+                    InvocationTargetException {
 
                 Class<?> clazz = Class.forName("org.apache.catalina.util.ServerInfo");
                 return clazz.getMethod("getServerInfo").invoke(null);
@@ -238,7 +236,7 @@ public final class VersionBean {
         return result.replace("/", " ");
     }
 
-    private static String getJBossASVersionInfo() {
+    public static String getJBossASVersionInfo() {
         String versionNumber = (String) new JBossASVersionInfoObtainer("getVersionNumber").getInfo();
         String buildNumber = (String) new JBossASVersionInfoObtainer("getBuildID").getInfo();
 
@@ -246,7 +244,7 @@ public final class VersionBean {
             return null;
         }
 
-        StringBuffer buffer = new StringBuffer();
+        StringBuilder buffer = new StringBuilder();
         buffer.append("JBoss AS ");
         buffer.append(versionNumber);
 
@@ -259,6 +257,7 @@ public final class VersionBean {
     }
 
     private static class JBossASVersionInfoObtainer extends InfoObtainer {
+
         private String methodName;
 
         public JBossASVersionInfoObtainer(String methodName) {
@@ -268,7 +267,7 @@ public final class VersionBean {
 
         @Override
         protected Object obtainInfo() throws ClassNotFoundException, IllegalAccessException, InstantiationException,
-            SecurityException, NoSuchMethodException, IllegalArgumentException, InvocationTargetException {
+                SecurityException, NoSuchMethodException, IllegalArgumentException, InvocationTargetException {
 
             Class<?> clazz = Class.forName("org.jboss.bootstrap.impl.as.server.ASVersion");
             Object classInstance = clazz.getMethod("getInstance").invoke(null);
@@ -277,9 +276,10 @@ public final class VersionBean {
     }
 
     private abstract static class InfoObtainer {
+
         protected abstract Object obtainInfo() throws ClassNotFoundException, IllegalAccessException,
-            InstantiationException, SecurityException, NoSuchMethodException, IllegalArgumentException,
-            InvocationTargetException;
+                InstantiationException, SecurityException, NoSuchMethodException, IllegalArgumentException,
+                InvocationTargetException;
 
         public final Object getInfo() {
             try {
@@ -302,12 +302,11 @@ public final class VersionBean {
         }
     }
 
-    private static class FailToRetrieveInfo extends RuntimeException {
+    public static class FailToRetrieveInfo extends RuntimeException {
 
         public FailToRetrieveInfo(String message, Throwable cause) {
             super(message, cause);
         }
-
     }
 
     private static String fail(String message, Exception e) {
