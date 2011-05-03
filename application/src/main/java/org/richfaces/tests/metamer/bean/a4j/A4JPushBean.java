@@ -34,6 +34,8 @@ import org.richfaces.application.push.TopicsContext;
 import org.richfaces.component.UIPush;
 import org.richfaces.tests.metamer.Attributes;
 import org.richfaces.tests.metamer.Message;
+import org.richfaces.tests.metamer.listener.HornetQInitializer;
+import org.richfaces.tests.metamer.listener.TopicsInitializer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -61,6 +63,11 @@ public class A4JPushBean implements Serializable {
     public void init() {
         logger = LoggerFactory.getLogger(getClass());
         logger.debug("initializing bean " + getClass().getName());
+
+        // TODO refactor
+        // set up messaging
+        new HornetQInitializer().processEvent(null);
+        new TopicsInitializer().processEvent(null);
 
         topicsContext = TopicsContext.lookup();
 
