@@ -30,7 +30,6 @@ import javax.faces.event.SystemEvent;
 import javax.faces.event.SystemEventListener;
 import javax.servlet.http.HttpServletRequest;
 
-import org.richfaces.application.push.EventAbortedException;
 import org.richfaces.application.push.Session;
 import org.richfaces.application.push.SessionPreSubscriptionEvent;
 import org.richfaces.application.push.SessionSubscriptionEvent;
@@ -67,7 +66,7 @@ public class TopicsInitializer implements SystemEventListener {
 
         topic.addTopicListener(new SessionTopicListener() {
 
-            public void processUnsubscriptionEvent(SessionUnsubscriptionEvent event) throws EventAbortedException {
+            public void processUnsubscriptionEvent(SessionUnsubscriptionEvent event) {
                 logger.info("unsubscibe from JMS topic");
                 TopicKey topicKey = event.getTopicKey();
                 Session session = event.getSession();
@@ -75,7 +74,7 @@ public class TopicsInitializer implements SystemEventListener {
                         topicKey.getTopicAddress()));
             }
 
-            public void processSubscriptionEvent(SessionSubscriptionEvent event) throws EventAbortedException {
+            public void processSubscriptionEvent(SessionSubscriptionEvent event) {
                 logger.info("subscibe to JMS topic");
                 TopicKey topicKey = event.getTopicKey();
                 Session session = event.getSession();
@@ -87,7 +86,7 @@ public class TopicsInitializer implements SystemEventListener {
                         topicKey.getTopicAddress(), hsr.getRemoteAddr()));
             }
 
-            public void processPreSubscriptionEvent(SessionPreSubscriptionEvent event) throws EventAbortedException {
+            public void processPreSubscriptionEvent(SessionPreSubscriptionEvent event) {
                 logger.info("presubscription to JMS topic");
                 ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
             }

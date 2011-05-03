@@ -30,7 +30,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import org.richfaces.tests.metamer.bean.RichTreeModelRecursiveAdaptorBean;
+import org.richfaces.tests.metamer.bean.rich.RichTreeModelRecursiveAdaptorBean;
 
 /**
  * @author <a href="mailto:lfryc@redhat.com">Lukas Fryc</a>
