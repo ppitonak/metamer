@@ -64,7 +64,6 @@ public abstract class RichMessagesTest extends AbstractRichMessageTest {
      * Attribute 'for' change behavior: only messages bound to element with
      * id specified in 'for' should be displayed
      */
-    @Test
     public void testFor() {
         
         // firstly reset to null
@@ -107,7 +106,6 @@ public abstract class RichMessagesTest extends AbstractRichMessageTest {
      * (with label "Messages2 - without 'for' but 'globalOnly' attribute instead")
      * This is the reason why used "mainMsg2" instead of  getTestElemLocator()
      */
-    @Test
     public void testGlobalOnly() {
         // firstly set for attribute to null
         attributes.setFor("");

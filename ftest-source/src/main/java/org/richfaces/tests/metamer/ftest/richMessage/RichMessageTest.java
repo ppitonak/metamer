@@ -24,7 +24,6 @@ package org.richfaces.tests.metamer.ftest.richMessage;
 import static org.jboss.test.selenium.locator.LocatorFactory.jq;
 
 import org.jboss.test.selenium.locator.JQueryLocator;
-import org.testng.annotations.Test;
 
 
 /**
@@ -45,7 +44,6 @@ public abstract class RichMessageTest extends AbstractRichMessageTest {
      * Attribute 'for' change behavior: only messages bound to element with
      * id specified in 'for' should be displayed
      */
-    @Test
     public void testFor() {
         
         // firstly, remove value from attribute for and generate message

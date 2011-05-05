@@ -37,7 +37,6 @@ import org.jboss.test.selenium.waiting.EventFiredCondition;
 import org.richfaces.tests.metamer.ftest.AbstractMetamerTest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.testng.annotations.Test;
 
 /**
  *  Common test case for rich:message component
@@ -177,7 +176,6 @@ public abstract class AbstractRichMessageTest extends AbstractMetamerTest {
      * ajaxRendered attribute change behavior: messages are displayed
      * after action performed by a4j:button (not only by h:command*)
      */
-    @Test
     public void testAjaxRendered(){
         // with set to false, element with id$=simpleInputMsg shouldn't appear
         
@@ -194,7 +192,6 @@ public abstract class AbstractRichMessageTest extends AbstractMetamerTest {
     /**
      * This attribute could disable displaying message
      */
-    @Test
     public void testRendered(){
         // with set to false, element with id$=simpleInputMsg shouldn't appear
         
@@ -211,7 +208,6 @@ public abstract class AbstractRichMessageTest extends AbstractMetamerTest {
     /**
      * Attribute for managing display Summary
      */
-    @Test
     public void testShowSummary() {
         // span with class=rf-msg-sum should appear when set to true
         
@@ -227,7 +223,6 @@ public abstract class AbstractRichMessageTest extends AbstractMetamerTest {
     /**
      * Attribute for managing display Detail
      */
-    @Test
     public void testShowDetail() {
         // span with class=rf-msg-det should appear when set to true
         
@@ -240,78 +235,63 @@ public abstract class AbstractRichMessageTest extends AbstractMetamerTest {
         waitGui.until(isNotDisplayed.locator(getDetailElemLocator()));
     }
     
-    @Test
     public void testTitle() {
         testHtmlAttribute(getTestElemLocator(), RichMessageAttributes.TITLE, "Title test");
     }
     
-    @Test
     public void testDir(){
         testHtmlAttribute(getTestElemLocator(), RichMessageAttributes.DIR, "rtl");
     }
     
-    @Test
     public void testLang(){
         testHtmlAttribute(getTestElemLocator(), RichMessageAttributes.LANG, "US.en");
     }
     
-    @Test
     public void testStyle(){
         testHtmlAttribute(getTestElemLocator(), RichMessageAttributes.STYLE, "color: blue;");
     }
     
-    @Test
     public void testStyleClass() {
         // attribute styleClass is propagated as class attribute in target HTML element 
         testStyleClass(getTestElemLocator(), RichMessageAttributes.STYLE_CLASS.toString());
     }
     
-    @Test
     public void testOnClick() {
         testFireEvent(Event.CLICK, getTestElemLocator());
     }
     
-    @Test
     public void testOnDblClick() {
         testFireEvent(Event.DBLCLICK, getTestElemLocator());
     }
     
-    @Test
     public void testOnKeyDown() {
         testFireEvent(Event.KEYDOWN, getTestElemLocator());
     }
     
-    @Test
     public void testOnKeyPress() {
         testFireEvent(Event.KEYPRESS, getTestElemLocator());
     }
     
-    @Test
     public void testOnKeyUp() {
         testFireEvent(Event.KEYUP, getTestElemLocator());
     }
     
-    @Test
     public void testOnMouseDown() {
         testFireEvent(Event.MOUSEDOWN, getTestElemLocator());
     }
     
-    @Test
     public void testOnMouseMove() {
         testFireEvent(Event.MOUSEMOVE, getTestElemLocator());
     }
     
-    @Test
     public void testOnMouseOut() {
         testFireEvent(Event.MOUSEOUT, getTestElemLocator());
     }
     
-    @Test
     public void testOnMouseOver() {
         testFireEvent(Event.MOUSEOVER, getTestElemLocator());
     }
     
-    @Test
     public void testOnMouseUp() {
         testFireEvent(Event.MOUSEUP, getTestElemLocator());
     }
