@@ -277,12 +277,24 @@ public class RichBean implements Serializable {
         return richComponents;
     }
 
+    public Object[] getRichComponentsList() {
+        return richComponents.keySet().toArray();
+    }
+
     public Map<String, String> getA4jComponents() {
         return a4jComponents;
     }
 
+    public Object[] getA4jComponentsList() {
+        return a4jComponents.keySet().toArray();
+    }
+
     public Map<String, String> getOtherComponents() {
         return otherComponents;
+    }
+
+    public Object[] getOtherComponentsList() {
+        return otherComponents.keySet().toArray();
     }
 
     public String getContainer() {
