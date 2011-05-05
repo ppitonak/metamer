@@ -46,5 +46,13 @@ public class RichMessageComponentAttributes extends AbstractComponentAttributes 
     public void setShowSummary(Boolean showSummary){
         setProperty("showSummary", showSummary);
     }
+    
+    public void setFor(String forAttribute){
+        setProperty("for", forAttribute);
+    }
+    
+    public void setGlobalOnly(Boolean globalOnly){
+        setProperty("globalOnly", globalOnly);
+    }
 
 }

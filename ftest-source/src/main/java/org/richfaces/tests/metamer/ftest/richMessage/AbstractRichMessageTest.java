@@ -58,10 +58,27 @@ public abstract class AbstractRichMessageTest extends AbstractMetamerTest {
     protected JQueryLocator a4jCommandBtn = pjq("input[id$=a4jButton]");
     
     // component's locators
-    protected JQueryLocator mainMessage = pjq("span[id$=simpleInputMsg]");
-    protected JQueryLocator message4Input1 = pjq("span[id$=simpleInputMsg1]");
-    protected JQueryLocator message4Input2 = pjq("span[id$=simpleInputMsg2]");
-    protected JQueryLocator messages = pjq("span[id$=msgs]");
+    protected static JQueryLocator message4Input1 = pjq("span[id$=simpleInputMsg1]");
+    protected static JQueryLocator message4Input2 = pjq("span[id$=simpleInputMsg2]");
+    protected static JQueryLocator messages = pjq("span[id$=msgs]");
+    
+    /**
+     * Because of message and messages have many attributes very similar,
+     * this method helps test method distinguish between metamer
+     * page for rich:message and rich:messages (there are different element IDs
+     * per page and for messages there are messages container rendered
+     * conditionally) 
+     * @return ElementLocator for container with rich:message(s)
+     */
+    public abstract JQueryLocator getTestElemLocator();
+    
+    /**
+     * This method implementation specific for rich:message and rich:messages
+     * help distinguish between them, and return correct locator
+     * @return JQueryLocator for container with summary or detail of message(s) component
+     */
+    public abstract JQueryLocator getSummaryElemLocator();
+    public abstract JQueryLocator getDetailElemLocator();
     
     public void testHtmlAttribute(ElementLocator<?> element, RichMessageAttributes attribute, String value) {        
         
@@ -76,7 +93,7 @@ public abstract class AbstractRichMessageTest extends AbstractMetamerTest {
         generateValidationMessages(false);
 
         assertTrue(selenium.getAttribute(attr).contains(value), "Attribute " + attribute + " should contain \"" + value
-                + "\".");        
+                + "\".");
     }
     
     /**
@@ -148,32 +165,13 @@ public abstract class AbstractRichMessageTest extends AbstractMetamerTest {
         }
     }
     
-    private JQueryLocator getInput4Attribute(RichMessageAttributes attribute) {
-        return pjq("input[id$=" + attribute + "Input]");
+    protected void waitForAttribute(RichMessageAttributes attr) {
+        waitGui.until(attributeEquals
+            .locator(getTestElemLocator().getAttribute(new Attribute(attr.toString())))
+            .text(attr.toString()));        
     }
     
     // ==================== test methods ====================
-    
-    /**
-     * Attribute 'for' change behavior: only messages bound to element with
-     * id specified in 'for' should be displayed
-     */
-    @Test
-    public void testFor() {
-        
-        // firstly, remove value from attribute for and generate message
-        selenium.type(getInput4Attribute(RichMessageAttributes.FOR), "");        
-        selenium.waitForPageToLoad();  
-        generateValidationMessages(false);        
-        // assertFalse(selenium.isElementPresent(mainMessage));
-        waitGui.until(isNotDisplayed.locator(mainMessage));
-        
-        // now set for attribute back to "simpleInput2"
-        selenium.type(getInput4Attribute(RichMessageAttributes.FOR), "simpleInput2");
-        selenium.waitForPageToLoad();
-        generateValidationMessages(false);
-        waitGui.until(elementPresent.locator(mainMessage));
-    }
     
     /**
      * ajaxRendered attribute change behavior: messages are displayed
@@ -185,12 +183,12 @@ public abstract class AbstractRichMessageTest extends AbstractMetamerTest {
         
         // by default is ajaxRendered set to true
         generateValidationMessages(true);
-        waitGui.until(elementPresent.locator(mainMessage));
+        waitGui.until(elementPresent.locator(getTestElemLocator()));
         
         // then disable ajaxRendered
         attributes.setAjaxRendered(Boolean.FALSE);
         generateValidationMessages(true);
-        waitGui.until(isNotDisplayed.locator(mainMessage));        
+        waitGui.until(isNotDisplayed.locator(getTestElemLocator()));        
     }
     
     /**
@@ -202,12 +200,12 @@ public abstract class AbstractRichMessageTest extends AbstractMetamerTest {
         
         attributes.setRendered(Boolean.TRUE);
         generateValidationMessages(false);
-        waitGui.until(elementPresent.locator(mainMessage));
+        waitGui.until(elementPresent.locator(getTestElemLocator()));
         
         // now disable rendering message
         attributes.setRendered(Boolean.FALSE);
         generateValidationMessages(false);
-        waitGui.until(isNotDisplayed.locator(mainMessage));
+        waitGui.until(isNotDisplayed.locator(getTestElemLocator()));
     }
     
     /**
@@ -217,15 +215,13 @@ public abstract class AbstractRichMessageTest extends AbstractMetamerTest {
     public void testShowSummary() {
         // span with class=rf-msg-sum should appear when set to true
         
-        JQueryLocator summary = mainMessage.getDescendant(jq("span.rf-msg-sum"));
-        
         attributes.setShowSummary(Boolean.TRUE);
         generateValidationMessages(false);
-        waitModel.until(elementPresent.locator(summary));
+        waitModel.until(elementPresent.locator(getSummaryElemLocator()));
         
         attributes.setShowSummary(Boolean.FALSE);
         generateValidationMessages(false);
-        waitGui.until(isNotDisplayed.locator(summary));
+        waitGui.until(isNotDisplayed.locator(getSummaryElemLocator()));
     }
     
     /**
@@ -235,91 +231,89 @@ public abstract class AbstractRichMessageTest extends AbstractMetamerTest {
     public void testShowDetail() {
         // span with class=rf-msg-det should appear when set to true
         
-        JQueryLocator detail = mainMessage.getDescendant(jq("span.rf-msg-det"));
-        
         attributes.setShowDetail(Boolean.TRUE);
         generateValidationMessages(false);
-        waitGui.until(elementPresent.locator(detail));
+        waitGui.until(elementPresent.locator(getDetailElemLocator()));
         
         attributes.setShowDetail(Boolean.FALSE);
         generateValidationMessages(false);
-        waitGui.until(isNotDisplayed.locator(detail));
+        waitGui.until(isNotDisplayed.locator(getDetailElemLocator()));
     }
     
     @Test
     public void testTitle() {
-        testHtmlAttribute(mainMessage, RichMessageAttributes.TITLE, "Title test");
+        testHtmlAttribute(getTestElemLocator(), RichMessageAttributes.TITLE, "Title test");
     }
     
     @Test
     public void testDir(){
-        testHtmlAttribute(mainMessage, RichMessageAttributes.DIR, "rtl");
+        testHtmlAttribute(getTestElemLocator(), RichMessageAttributes.DIR, "rtl");
     }
     
     @Test
     public void testLang(){
-        testHtmlAttribute(mainMessage, RichMessageAttributes.LANG, "US.en");
+        testHtmlAttribute(getTestElemLocator(), RichMessageAttributes.LANG, "US.en");
     }
     
     @Test
     public void testStyle(){
-        testHtmlAttribute(mainMessage, RichMessageAttributes.STYLE, "color: blue;");
+        testHtmlAttribute(getTestElemLocator(), RichMessageAttributes.STYLE, "color: blue;");
     }
     
     @Test
     public void testStyleClass() {
         // attribute styleClass is propagated as class attribute in target HTML element 
-        testStyleClass(mainMessage, RichMessageAttributes.STYLE_CLASS.toString());
+        testStyleClass(getTestElemLocator(), RichMessageAttributes.STYLE_CLASS.toString());
     }
     
     @Test
     public void testOnClick() {
-        testFireEvent(Event.CLICK, mainMessage);
+        testFireEvent(Event.CLICK, getTestElemLocator());
     }
     
     @Test
     public void testOnDblClick() {
-        testFireEvent(Event.DBLCLICK, mainMessage);
+        testFireEvent(Event.DBLCLICK, getTestElemLocator());
     }
     
     @Test
     public void testOnKeyDown() {
-        testFireEvent(Event.KEYDOWN, mainMessage);
+        testFireEvent(Event.KEYDOWN, getTestElemLocator());
     }
     
     @Test
     public void testOnKeyPress() {
-        testFireEvent(Event.KEYPRESS, mainMessage);
+        testFireEvent(Event.KEYPRESS, getTestElemLocator());
     }
     
     @Test
     public void testOnKeyUp() {
-        testFireEvent(Event.KEYUP, mainMessage);
+        testFireEvent(Event.KEYUP, getTestElemLocator());
     }
     
     @Test
     public void testOnMouseDown() {
-        testFireEvent(Event.MOUSEDOWN, mainMessage);
+        testFireEvent(Event.MOUSEDOWN, getTestElemLocator());
     }
     
     @Test
     public void testOnMouseMove() {
-        testFireEvent(Event.MOUSEMOVE, mainMessage);
+        testFireEvent(Event.MOUSEMOVE, getTestElemLocator());
     }
     
     @Test
     public void testOnMouseOut() {
-        testFireEvent(Event.MOUSEOUT, mainMessage);
+        testFireEvent(Event.MOUSEOUT, getTestElemLocator());
     }
     
     @Test
     public void testOnMouseOver() {
-        testFireEvent(Event.MOUSEOVER, mainMessage);
+        testFireEvent(Event.MOUSEOVER, getTestElemLocator());
     }
     
     @Test
     public void testOnMouseUp() {
-        testFireEvent(Event.MOUSEUP, mainMessage);
+        testFireEvent(Event.MOUSEUP, getTestElemLocator());
     }
     
 }

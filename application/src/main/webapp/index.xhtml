@@ -48,19 +48,19 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                 <rich:tab id="a4jComponentsTab" header="A4J">
                     <h:panelGrid id="a4jComponents" columns="3" columnClasses="valign-top,valign-top,valign-top">
 
-                        <rich:list id="a4jComponentsList1" value="#{richBean.a4jComponents.entrySet().toArray()}" 
+                        <rich:list id="a4jComponentsList1" value="#{richBean.a4jComponentsList}" 
                                    var="entry" rows="30" style="width: 350px">
-                            <h:link outcome="/components/#{entry.key}/list" value="#{entry.value}" styleClass="link"/>
+                            <h:link outcome="/components/#{entry}/list" value="#{richBean.a4jComponents[entry]}" styleClass="link"/>
                         </rich:list>
 
-                        <rich:list id="a4jComponentsList2" value="#{richBean.a4jComponents.entrySet().toArray()}" 
+                        <rich:list id="a4jComponentsList2" value="#{richBean.a4jComponentsList}" 
                                    var="entry" first="30" rows="30" style="width: 350px">
-                            <h:link outcome="/components/#{entry.key}/list" value="#{entry.value}" styleClass="link"/>
+                            <h:link outcome="/components/#{entry}/list" value="#{richBean.a4jComponents[entry]}" styleClass="link"/>
                         </rich:list>
 
-                        <rich:list id="a4jComponentsList3" value="#{richBean.a4jComponents.entrySet().toArray()}" 
+                        <rich:list id="a4jComponentsList3" value="#{richBean.a4jComponentsList}" 
                                    var="entry" first="60" rows="30" style="width: 350px">
-                            <h:link outcome="/components/#{entry.key}/list" value="#{entry.value}" styleClass="link"/>
+                            <h:link outcome="/components/#{entry.key}/list" value="#{richBean.a4jComponents[entry]}" styleClass="link"/>
                         </rich:list>
                     </h:panelGrid>
                 </rich:tab>
@@ -68,19 +68,19 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                 <rich:tab id="richComponentsTab" header="Rich">
                     <h:panelGrid id="richComponents" columns="3" columnClasses="valign-top,valign-top,valign-top">
 
-                        <rich:list id="richComponentsList1" value="#{richBean.richComponents.entrySet().toArray()}" 
+                        <rich:list id="richComponentsList1" value="#{richBean.richComponentsList}" 
                                    var="entry" rows="30" style="width: 350px">
-                            <h:link outcome="/components/#{entry.key}/list" value="#{entry.value}" styleClass="link"/>
+                            <h:link outcome="/components/#{entry}/list" value="#{richBean.richComponents[entry]}" styleClass="link"/>
                         </rich:list>
 
-                        <rich:list id="richComponentsList2" value="#{richBean.richComponents.entrySet().toArray()}" 
+                        <rich:list id="richComponentsList2" value="#{richBean.richComponentsList}" 
                                    var="entry" first="30" rows="30" style="width: 350px">
-                            <h:link outcome="/components/#{entry.key}/list" value="#{entry.value}" styleClass="link"/>
+                            <h:link outcome="/components/#{entry}/list" value="#{richBean.richComponents[entry]}" styleClass="link"/>
                         </rich:list>
 
-                        <rich:list id="richComponentsList3" value="#{richBean.richComponents.entrySet().toArray()}" 
+                        <rich:list id="richComponentsList3" value="#{richBean.richComponentsList}" 
                                    var="entry" first="60" rows="30" style="width: 350px">
-                            <h:link outcome="/components/#{entry.key}/list" value="#{entry.value}" styleClass="link"/>
+                            <h:link outcome="/components/#{entry}/list" value="#{richBean.richComponents[entry]}" styleClass="link"/>
                         </rich:list>
                     </h:panelGrid>
                 </rich:tab>
@@ -88,19 +88,19 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                 <rich:tab id="primeComponentsTab" header="Prime">
                     <h:panelGrid id="primeComponents" columns="3" columnClasses="valign-top,valign-top,valign-top">
 
-                        <rich:list id="primeComponentsList1" value="#{richBean.primeComponents.entrySet().toArray()}"
+                        <rich:list id="primeComponentsList1" value="#{richBean.primeComponentsList}"
                                    var="entry" rows="30" style="width: 350px">
-                            <h:link outcome="/components/p/#{entry.key}/list" value="#{entry.value}" styleClass="link"/>
+                            <h:link outcome="/components/p/#{entry}/list" value="#{richBean.primeComponents[entry]}" styleClass="link"/>
                         </rich:list>
 
-                        <rich:list id="primeComponentsList2" value="#{richBean.primeComponents.entrySet().toArray()}"
+                        <rich:list id="primeComponentsList2" value="#{richBean.primeComponentsList}"
                                    var="entry" first="30" rows="30" style="width: 350px">
-                            <h:link outcome="/components/p/#{entry.key}/list" value="#{entry.value}" styleClass="link"/>
+                            <h:link outcome="/components/p/#{entry}/list" value="#{richBean.primeComponents[entry]}" styleClass="link"/>
                         </rich:list>
 
-                        <rich:list id="primeComponentsList3" value="#{richBean.primeComponents.entrySet().toArray()}"
+                        <rich:list id="primeComponentsList3" value="#{richBean.primeComponentsList}"
                                    var="entry" first="60" rows="30" style="width: 350px">
-                            <h:link outcome="/components/p/#{entry.key}/list" value="#{entry.value}" styleClass="link"/>
+                            <h:link outcome="/components/p/#{entry}/list" value="#{richBean.primeComponents[entry]}" styleClass="link"/>
                         </rich:list>
                     </h:panelGrid>
                 </rich:tab>
@@ -108,19 +108,19 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                 <rich:tab id="otherComponentsTab" header="Other">
                     <h:panelGrid id="otherComponents" columns="3" columnClasses="valign-top,valign-top,valign-top">
 
-                        <rich:list id="otherComponentsList1" value="#{richBean.otherComponents.entrySet().toArray()}" 
+                        <rich:list id="otherComponentsList1" value="#{richBean.otherComponentsList}" 
                                    var="entry" rows="30" style="width: 350px">
-                            <h:link outcome="/components/#{entry.key}/list" value="#{entry.value}" styleClass="link"/>
+                            <h:link outcome="/components/#{entry}/list" value="#{richBean.otherComponents[entry]}" styleClass="link"/>
                         </rich:list>
 
-                        <rich:list id="otherComponentsList2" value="#{richBean.otherComponents.entrySet().toArray()}" 
+                        <rich:list id="otherComponentsList2" value="#{richBean.otherComponentsList}" 
                                    var="entry" first="30" rows="30" style="width: 350px">
-                            <h:link outcome="/components/#{entry.key}/list" value="#{entry.value}" styleClass="link"/>
+                            <h:link outcome="/components/#{entry}/list" value="#{richBean.otherComponents[entry]}" styleClass="link"/>
                         </rich:list>
 
-                        <rich:list id="otherComponentsList3" value="#{richBean.otherComponents.entrySet().toArray()}" 
+                        <rich:list id="otherComponentsList3" value="#{richBean.otherComponentsList}" 
                                    var="entry" first="60" rows="30" style="width: 350px">
-                            <h:link outcome="/components/#{entry.key}/list" value="#{entry.value}" styleClass="link"/>
+                            <h:link outcome="/components/#{entry}/list" value="#{richBean.otherComponents[entry]}" styleClass="link"/>
                         </rich:list>
                     </h:panelGrid>
                 </rich:tab>

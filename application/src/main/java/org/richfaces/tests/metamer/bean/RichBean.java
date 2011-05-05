@@ -302,16 +302,32 @@ public class RichBean implements Serializable {
         return richComponents;
     }
 
+    public Object[] getRichComponentsList() {
+        return richComponents.keySet().toArray();
+    }
+
     public Map<String, String> getA4jComponents() {
         return a4jComponents;
+    }
+
+    public Object[] getA4jComponentsList() {
+        return a4jComponents.keySet().toArray();
     }
 
     public Map<String, String> getOtherComponents() {
         return otherComponents;
     }
 
+    public Object[] getOtherComponentsList() {
+        return otherComponents.keySet().toArray();
+    }
+
     public Map<String, String> getPrimeComponents() {
         return primeComponents;
+    }
+
+    public Object[] getPrimeComponentsList() {
+        return primeComponents.keySet().toArray();
     }
 
     public String getContainer() {
@@ -422,7 +438,19 @@ public class RichBean implements Serializable {
      *            an event representing the activation of a user interface component
      */
     public void valueChangeListener(ValueChangeEvent event) {
-        logToPage("* value changed: " + event.getOldValue() + " -> " + event.getNewValue());
+        logToPage("*1 value changed: " + event.getOldValue() + " -> " + event.getNewValue());
+    }
+
+    /**
+     * A change event listener that logs to the page old and new value.
+     * This is 2nd ValueChacgeListener. Use 2 different listeners is 
+     * useful when testing more than one listener definition for one component
+     * 
+     * @param event
+     *            an event representing the activation of a user interface component
+     */
+    public void changeEventListener(ValueChangeEvent event) {
+        logToPage("*2 value changed: " + event.getOldValue() + " -> " + event.getNewValue());
     }
 
     public boolean getExecuteChecker() {
