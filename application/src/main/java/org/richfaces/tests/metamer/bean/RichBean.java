@@ -393,7 +393,19 @@ public class RichBean implements Serializable {
      *            an event representing the activation of a user interface component
      */
     public void valueChangeListener(ValueChangeEvent event) {
-        logToPage("* value changed: " + event.getOldValue() + " -> " + event.getNewValue());
+        logToPage("*1 value changed: " + event.getOldValue() + " -> " + event.getNewValue());
+    }
+    
+    /**
+     * A change event listener that logs to the page old and new value.
+     * This is 2nd ValueChacgeListener. Use 2 different listeners is 
+     * useful when testing more than one listener definition for one component
+     * 
+     * @param event
+     *            an event representing the activation of a user interface component
+     */
+    public void changeEventListener(ValueChangeEvent event) {
+        logToPage("*2 value changed: " + event.getOldValue() + " -> " + event.getNewValue());
     }
 
     public boolean getExecuteChecker() {
