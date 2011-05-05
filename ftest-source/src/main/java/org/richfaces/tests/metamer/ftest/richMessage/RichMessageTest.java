@@ -21,38 +21,45 @@
  *******************************************************************************/
 package org.richfaces.tests.metamer.ftest.richMessage;
 
-import static org.jboss.test.selenium.utils.URLUtils.buildUrl;
-
-import java.net.URL;
+import static org.jboss.test.selenium.locator.LocatorFactory.jq;
 
 import org.jboss.test.selenium.locator.JQueryLocator;
+import org.testng.annotations.Test;
+
 
 /**
- * Test case for page /faces/components/richMessage/csv.xhtml
+ * Abstract class with list of tests appropriate for rich:message component
  *
  * @author <a href="mailto:jjamrich@redhat.com">Jan Jamrich</a>
  * @version $Revision$
  */
-public class TestRichMessageCSV extends RichMessageTest {
+public abstract class RichMessageTest extends AbstractRichMessageTest {
     
-    @Override
-    public URL getTestUrl() {
-        return buildUrl(contextPath, "faces/components/richMessage/csv.xhtml");
-    }
-
-    @Override
-    public JQueryLocator getTestElemLocator() {
-        return mainMessage;
-    }
-
-    @Override
-    public JQueryLocator getSummaryElemLocator() {
-        return summary;
-    }
-
-    @Override
-    public JQueryLocator getDetailElemLocator() {
-        return detail;
-    }
+    // locator for main rich:message component (tested element)
+    protected static JQueryLocator mainMessage = pjq("span[id$=simpleInputMsg]");
     
+    protected JQueryLocator summary = getTestElemLocator().getDescendant(jq("span.rf-msg-sum"));
+    protected JQueryLocator detail = getTestElemLocator().getDescendant(jq("span.rf-msg-det"));
+    
+    /**
+     * Attribute 'for' change behavior: only messages bound to element with
+     * id specified in 'for' should be displayed
+     */
+    @Test
+    public void testFor() {
+        
+        // firstly, remove value from attribute for and generate message
+        attributes.setFor("");
+        
+        generateValidationMessages(false);        
+        // assertFalse(selenium.isElementPresent(getTestElemLocator()));
+        waitGui.until(isNotDisplayed.locator(getTestElemLocator()));
+        
+        // now set for attribute back to "simpleInput2"
+        attributes.setFor("simpleInput2");
+        
+        generateValidationMessages(false);
+        waitGui.until(elementPresent.locator(getTestElemLocator()));
+    }
+
 }

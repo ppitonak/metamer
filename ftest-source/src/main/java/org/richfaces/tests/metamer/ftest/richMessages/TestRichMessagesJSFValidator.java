@@ -19,7 +19,7 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  *******************************************************************************/
-package org.richfaces.tests.metamer.ftest.richMessage;
+package org.richfaces.tests.metamer.ftest.richMessages;
 
 import static org.jboss.test.selenium.utils.URLUtils.buildUrl;
 
@@ -28,21 +28,21 @@ import java.net.URL;
 import org.jboss.test.selenium.locator.JQueryLocator;
 
 /**
- * Test case for page /faces/components/richMessage/csv.xhtml
+ * Test case for page /faces/components/richMessages/jsfValidator.xhtml
  *
  * @author <a href="mailto:jjamrich@redhat.com">Jan Jamrich</a>
  * @version $Revision$
  */
-public class TestRichMessageCSV extends RichMessageTest {
+public class TestRichMessagesJSFValidator extends RichMessagesTest {
     
     @Override
     public URL getTestUrl() {
-        return buildUrl(contextPath, "faces/components/richMessage/csv.xhtml");
+        return buildUrl(contextPath, "faces/components/richMessages/jsfValidator.xhtml");
     }
 
     @Override
     public JQueryLocator getTestElemLocator() {
-        return mainMessage;
+        return mainMsg1;
     }
 
     @Override

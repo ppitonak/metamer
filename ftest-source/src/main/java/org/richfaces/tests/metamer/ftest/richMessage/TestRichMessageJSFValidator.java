@@ -25,13 +25,15 @@ import static org.jboss.test.selenium.utils.URLUtils.buildUrl;
 
 import java.net.URL;
 
+import org.jboss.test.selenium.locator.JQueryLocator;
+
 /**
  * Test case for page /faces/components/richMessage/jsfValidator.xhtml
  *
  * @author <a href="mailto:jjamrich@redhat.com">Jan Jamrich</a>
  * @version $Revision$
  */
-public class TestRichMessageJSFValidator extends AbstractRichMessageTest {
+public class TestRichMessageJSFValidator extends RichMessageTest {
 
     /* (non-Javadoc)
      * @see org.richfaces.tests.metamer.ftest.AbstractMetamerTest#getTestUrl()
@@ -39,6 +41,21 @@ public class TestRichMessageJSFValidator extends AbstractRichMessageTest {
     @Override
     public URL getTestUrl() {
         return buildUrl(contextPath, "faces/components/richMessage/jsfValidator.xhtml");
+    }
+    
+    @Override
+    public JQueryLocator getTestElemLocator() {
+        return mainMessage;
+    }
+
+    @Override
+    public JQueryLocator getSummaryElemLocator() {
+        return summary;
+    }
+
+    @Override
+    public JQueryLocator getDetailElemLocator() {
+        return detail;
     }
 
 }
