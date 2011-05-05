@@ -144,6 +144,7 @@ public class RichBean implements Serializable {
         primeComponents.put("pEditor", "Prime Editor");
         primeComponents.put("pInplace", "Prime Inplace");
         primeComponents.put("pLineChart", "Prime Line Chart");
+        primeComponents.put("pPanel", "Prime Panel");
         primeComponents.put("pPieChart", "Prime Pie Chart");
         primeComponents.put("pStackedBarChart", "Prime Stacked Bar Chart");
         primeComponents.put("pStackedColumnChart", "Prime Stacked Column Chart");
