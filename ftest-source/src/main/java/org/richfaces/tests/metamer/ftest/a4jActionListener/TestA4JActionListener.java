@@ -55,7 +55,7 @@ public class TestA4JActionListener extends AbstractMetamerTest {
     public void testInvokeListenerByType() {
         final String hashCodeRegExp = "@[0-9a-fA-F]{1,}$";
         final String msg = "Implementation of ActionListener created and called: "
-            + "org.richfaces.tests.metamer.bean.A4JActionListenerBean$ActionListenerImpl";
+            + "org.richfaces.tests.metamer.bean.a4j.A4JActionListenerBean$ActionListenerImpl";
 
         selenium.click(invokeButtonType);
         waitGui.until(elementPresent.locator(message));

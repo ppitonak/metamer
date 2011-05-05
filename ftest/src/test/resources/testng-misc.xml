@@ -18,6 +18,8 @@
             <package name="org.richfaces.tests.metamer.ftest.richMenuItem" />
             <package name="org.richfaces.tests.metamer.ftest.richMenuSeparator" />
             <package name="org.richfaces.tests.metamer.ftest.richToggleControl" />
+            <package name="org.richfaces.tests.metamer.ftest.richMessage" />
+            <package name="org.richfaces.tests.metamer.ftest.richMessages" />
         </packages>
     </test>
 
