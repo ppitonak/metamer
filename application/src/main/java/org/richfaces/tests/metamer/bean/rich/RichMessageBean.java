@@ -54,11 +54,11 @@ public class RichMessageBean implements Serializable {
         logger = LoggerFactory.getLogger(getClass());
         logger.info("initializing bean " + getClass().getName());
         attributes = Attributes.getComponentAttributesFromFacesConfig(UIRichMessage.class, getClass());
-       
+
         // setting up incorrect values to fire-up validator
         simpleInput1 = "-5";
         simpleInput2 = "-5";
-        
+
         // to get working this component example correctly is required that for
         // property has been initialized
         attributes.setAttribute("for", "simpleInput1");

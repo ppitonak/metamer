@@ -73,7 +73,7 @@ public class TestRichInplaceInputFAjax extends AbstractMetamerTest {
         assertEquals(selenium.getText(output), "new value", "Output did not change.");
 
         String listenerText = selenium.getText(jq("div#phasesPanel li:eq(3)"));
-        assertEquals(listenerText, "* value changed: RichFaces 4 -> new value", "Value change listener was not invoked.");
+        assertEquals(listenerText, "*1 value changed: RichFaces 4 -> new value", "Value change listener was not invoked.");
 
         phaseInfo.assertPhases(PhaseId.RESTORE_VIEW, PhaseId.APPLY_REQUEST_VALUES, PhaseId.PROCESS_VALIDATIONS,
                 PhaseId.UPDATE_MODEL_VALUES, PhaseId.INVOKE_APPLICATION, PhaseId.RENDER_RESPONSE);
