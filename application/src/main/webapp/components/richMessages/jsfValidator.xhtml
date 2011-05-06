@@ -39,102 +39,102 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                 </f:viewParam>
             </f:metadata>
         </ui:define>
-        
-        <ui:define name="component">
-        	<script type="text/javascript">
-        	function setCorrectValues() {
-            	$('input[id$=simpleInput1]').val('10');
-            	$('input[id$=simpleInput2]').val('10');
-            }
 
-            function setWrongValues() {
-            	$('input[id$=simpleInput1]').val('200');
-            	$('input[id$=simpleInput2]').val('200');
-            }
+        <ui:define name="component">
+            <script type="text/javascript">
+            function setCorrectValues() {
+            $('input[id$=simpleInput1]').val('10');
+            $('input[id$=simpleInput2]').val('10');
+        }
+
+        function setWrongValues() {
+            $('input[id$=simpleInput1]').val('200');
+            $('input[id$=simpleInput2]').val('200');
+        }
             </script>
 
             <input id="setCorrectValuesButton" type="button" value="set correct values" onclick="setCorrectValues()"/>
             <input id="setWrongValuesButton" type="button" value="set wrong values" onclick="setWrongValues()"/>
-        
+
             <fieldset title="Msgs1 - with for attribute" >
-				<legend>Messages1 - with 'for' attribute</legend>
-				<rich:messages id="msgs1"
-	            			   for="#{richMessagesBean.attributes['for'].value}"
-	            			   ajaxRendered="#{richMessagesBean.attributes['ajaxRendered'].value}"            			   
-	            			   keepTransient="#{richMessagesBean.attributes['keepTransient'].value}"
-	            			   rendered="#{richMessagesBean.attributes['rendered'].value}"
-	            			   showDetail="#{richMessagesBean.attributes['showDetail'].value}"
-	            			   showSummary="#{richMessagesBean.attributes['showSummary'].value}"
-	            			   dir="#{richMessagesBean.attributes['dir'].value}"
-		               		   lang="#{richMessagesBean.attributes['lang'].value}"
-	            			   style="#{richMessagesBean.attributes['style'].value}"
-	            			   styleClass="#{richMessagesBean.attributes['styleClass'].value}"
-	            			   title="#{richMessagesBean.attributes['title'].value}"
-	            			   onclick="#{richMessagesBean.attributes['onclick'].value}"
-	                		   ondblclick="#{richMessagesBean.attributes['ondblclick'].value}"
-	                           onkeydown="#{richMessagesBean.attributes['onkeydown'].value}"
-	                           onkeypress="#{richMessagesBean.attributes['onkeypress'].value}"
-	                           onkeyup="#{richMessagesBean.attributes['onkeyup'].value}"
-	                           onmousedown="#{richMessagesBean.attributes['onmousedown'].value}"
-	                           onmousemove="#{richMessagesBean.attributes['onmousemove'].value}"
-	                           onmouseout="#{richMessagesBean.attributes['onmouseout'].value}"
-	                           onmouseover="#{richMessagesBean.attributes['onmouseover'].value}"
-	                           onmouseup="#{richMessagesBean.attributes['onmouseup'].value}"
-            	/>
-			</fieldset>
-			
-			<br/>
-			            
-            <fieldset title="Msgs2 - with globalOnly attribute">
-            	<legend>Messages2 - without 'for' but 'globalOnly' attribute instead</legend>
-            	<rich:messages id="msgs2"
-	            			   ajaxRendered="#{richMessagesBean.attributes['ajaxRendered'].value}"
-	            			   globalOnly="#{richMessagesBean.attributes['globalOnly'].value}"
-	            			   keepTransient="#{richMessagesBean.attributes['keepTransient'].value}"
-	            			   rendered="#{richMessagesBean.attributes['rendered'].value}"
-	            			   showDetail="#{richMessagesBean.attributes['showDetail'].value}"
-	            			   showSummary="#{richMessagesBean.attributes['showSummary'].value}"
-	            			   dir="#{richMessagesBean.attributes['dir'].value}"
-	            			   lang="#{richMessagesBean.attributes['lang'].value}"            			               			   
-	            			   style="#{richMessagesBean.attributes['style'].value}"
-	            			   styleClass="#{richMessagesBean.attributes['styleClass'].value}"
-	            			   title="#{richMessagesBean.attributes['title'].value}"
-	            			   onclick="#{richMessagesBean.attributes['onclick'].value}"
-	                		   ondblclick="#{richMessagesBean.attributes['ondblclick'].value}"
-	                           onkeydown="#{richMessagesBean.attributes['onkeydown'].value}"
-	                           onkeypress="#{richMessagesBean.attributes['onkeypress'].value}"
-	                           onkeyup="#{richMessagesBean.attributes['onkeyup'].value}"
-	                           onmousedown="#{richMessagesBean.attributes['onmousedown'].value}"
-	                           onmousemove="#{richMessagesBean.attributes['onmousemove'].value}"
-	                           onmouseout="#{richMessagesBean.attributes['onmouseout'].value}"
-	                           onmouseover="#{richMessagesBean.attributes['onmouseover'].value}"
-	                           onmouseup="#{richMessagesBean.attributes['onmouseup'].value}"
-            	/>
+                <legend>Messages1 - with 'for' attribute</legend>
+                <rich:messages id="msgs1"
+                               for="#{richMessagesBean.attributes['for'].value}"
+                               ajaxRendered="#{richMessagesBean.attributes['ajaxRendered'].value}"            			   
+                               keepTransient="#{richMessagesBean.attributes['keepTransient'].value}"
+                               rendered="#{richMessagesBean.attributes['rendered'].value}"
+                               showDetail="#{richMessagesBean.attributes['showDetail'].value}"
+                               showSummary="#{richMessagesBean.attributes['showSummary'].value}"
+                               dir="#{richMessagesBean.attributes['dir'].value}"
+                               lang="#{richMessagesBean.attributes['lang'].value}"
+                               style="#{richMessagesBean.attributes['style'].value}"
+                               styleClass="#{richMessagesBean.attributes['styleClass'].value}"
+                               title="#{richMessagesBean.attributes['title'].value}"
+                               onclick="#{richMessagesBean.attributes['onclick'].value}"
+                               ondblclick="#{richMessagesBean.attributes['ondblclick'].value}"
+                               onkeydown="#{richMessagesBean.attributes['onkeydown'].value}"
+                               onkeypress="#{richMessagesBean.attributes['onkeypress'].value}"
+                               onkeyup="#{richMessagesBean.attributes['onkeyup'].value}"
+                               onmousedown="#{richMessagesBean.attributes['onmousedown'].value}"
+                               onmousemove="#{richMessagesBean.attributes['onmousemove'].value}"
+                               onmouseout="#{richMessagesBean.attributes['onmouseout'].value}"
+                               onmouseover="#{richMessagesBean.attributes['onmouseover'].value}"
+                               onmouseup="#{richMessagesBean.attributes['onmouseup'].value}"
+                               />
             </fieldset>
-                            	 
+
+            <br/>
+
+            <fieldset title="Msgs2 - with globalOnly attribute">
+                <legend>Messages2 - without 'for' but 'globalOnly' attribute instead</legend>
+                <rich:messages id="msgs2"
+                               ajaxRendered="#{richMessagesBean.attributes['ajaxRendered'].value}"
+                               globalOnly="#{richMessagesBean.attributes['globalOnly'].value}"
+                               keepTransient="#{richMessagesBean.attributes['keepTransient'].value}"
+                               rendered="#{richMessagesBean.attributes['rendered'].value}"
+                               showDetail="#{richMessagesBean.attributes['showDetail'].value}"
+                               showSummary="#{richMessagesBean.attributes['showSummary'].value}"
+                               dir="#{richMessagesBean.attributes['dir'].value}"
+                               lang="#{richMessagesBean.attributes['lang'].value}"            			               			   
+                               style="#{richMessagesBean.attributes['style'].value}"
+                               styleClass="#{richMessagesBean.attributes['styleClass'].value}"
+                               title="#{richMessagesBean.attributes['title'].value}"
+                               onclick="#{richMessagesBean.attributes['onclick'].value}"
+                               ondblclick="#{richMessagesBean.attributes['ondblclick'].value}"
+                               onkeydown="#{richMessagesBean.attributes['onkeydown'].value}"
+                               onkeypress="#{richMessagesBean.attributes['onkeypress'].value}"
+                               onkeyup="#{richMessagesBean.attributes['onkeyup'].value}"
+                               onmousedown="#{richMessagesBean.attributes['onmousedown'].value}"
+                               onmousemove="#{richMessagesBean.attributes['onmousemove'].value}"
+                               onmouseout="#{richMessagesBean.attributes['onmouseout'].value}"
+                               onmouseover="#{richMessagesBean.attributes['onmouseover'].value}"
+                               onmouseup="#{richMessagesBean.attributes['onmouseup'].value}"
+                               />
+            </fieldset>
+
             <h:panelGrid columns="3">
-            	<h:outputLabel for="simpleInput1" value="#{multipleValidationRulesBean.description}" />
+                <h:outputLabel for="simpleInput1" value="#{multipleValidationRulesBean.description}" />
                 <h:inputText id="simpleInput1" value="#{richMessagesBean.simpleInput1}" label="Input 1" >                	
-                	<f:validateLongRange minimum="5" maximum="150" />
-                	<f:validateLength maximum="2" /> 
+                    <f:validateLongRange minimum="5" maximum="150" />
+                    <f:validateLength maximum="2" /> 
                 </h:inputText>
                 <rich:message id="simpleInputMsg1" ajaxRendered="true" for="simpleInput1" />            
-            
-            	<h:outputLabel for="simpleInput2" value="#{multipleValidationRulesBean.description}" />
+
+                <h:outputLabel for="simpleInput2" value="#{multipleValidationRulesBean.description}" />
                 <h:inputText id="simpleInput2" value="#{richMessagesBean.simpleInput2}" label="Input 2" >
-                	<f:validateLongRange minimum="5" maximum="150" />
-                	<f:validateLength maximum="2" />
+                    <f:validateLongRange minimum="5" maximum="150" />
+                    <f:validateLength maximum="2" />
                 </h:inputText>
                 <rich:message id="simpleInputMsg2" ajaxRendered="true" for="simpleInput2" />
             </h:panelGrid>
-            
+
             <br/>
-            
+
             <h:commandButton id="hButton" value="h:commandButton" style="margin-right: 10px;"/>
             <a4j:commandButton id="a4jButton" value="a4j:commandButton"/>
             <a4j:commandButton id="generateMsgsBtn" value="Generate Msgs" 
-            				   actionListener="#{richMessagesBean.generateFacesError}" />
-            
+                               actionListener="#{richMessagesBean.generateFacesError}" />
+
             <br/>
             <rich:messages id="msgs" />
 

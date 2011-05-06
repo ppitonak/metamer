@@ -78,20 +78,20 @@ public class TestImage extends AbstractMetamerTest {
             }
         }
 
-        for (int x = 151; x < 300; x++) {
+        for (int x = 150; x < 300; x++) {
             for (int y = 0; y < 60; y++) {
                 assertEquals(bufferedImage.getRGB(x, y), Color.RED.getRGB(), "Top-right quadrant should be red [" + x + ", " + y + "].");
             }
         }
 
         for (int x = 0; x < 150; x++) {
-            for (int y = 61; y < 120; y++) {
+            for (int y = 60; y < 120; y++) {
                 assertEquals(bufferedImage.getRGB(x, y), Color.BLUE.getRGB(), "Bottom-left quadrant should be blue [" + x + ", " + y + "].");
             }
         }
 
-        for (int x = 151; x < 300; x++) {
-            for (int y = 61; y < 120; y++) {
+        for (int x = 150; x < 300; x++) {
+            for (int y = 60; y < 120; y++) {
                 assertEquals(bufferedImage.getRGB(x, y), Color.GREEN.getRGB(), "Bottom-right quadrant should be yellow [" + x + ", " + y + "].");
             }
         }
