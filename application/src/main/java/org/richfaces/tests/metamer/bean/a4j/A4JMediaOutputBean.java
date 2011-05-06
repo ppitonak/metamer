@@ -106,7 +106,7 @@ public class A4JMediaOutputBean implements Serializable {
             graphics2D.fillRect(paintData.getWidth() / 2, 0, paintData.getWidth() / 2, paintData.getHeight() / 2);
 
             graphics2D.setColor(Color.BLUE);
-            graphics2D.fillRect(0, paintData.getWidth() / 2, paintData.getWidth() / 2, paintData.getHeight() / 2);
+            graphics2D.fillRect(0, paintData.getHeight() / 2, paintData.getWidth() / 2, paintData.getHeight() / 2);
 
             graphics2D.setColor(Color.GREEN);
             graphics2D.fillRect(paintData.getWidth() / 2, paintData.getHeight() / 2, paintData.getWidth() / 2, paintData.getHeight() / 2);
