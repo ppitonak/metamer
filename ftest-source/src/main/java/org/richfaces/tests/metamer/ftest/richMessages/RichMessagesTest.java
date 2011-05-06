@@ -25,8 +25,6 @@ import static org.jboss.test.selenium.locator.LocatorFactory.jq;
 
 import org.jboss.test.selenium.locator.JQueryLocator;
 import org.richfaces.tests.metamer.ftest.richMessage.AbstractRichMessageTest;
-import org.testng.annotations.Test;
-
 
 /**
  * Abstract class with list of tests appropriate for rich:messages component
@@ -35,48 +33,49 @@ import org.testng.annotations.Test;
  * @version $Revision$
  */
 public abstract class RichMessagesTest extends AbstractRichMessageTest {
-    
+
     // locator for main rich:message component (tested element)
     protected static JQueryLocator mainMsg1 = pjq("span[id$=msgs1]");
     protected static JQueryLocator mainMsg2 = pjq("span[id$=msgs2]");
-    
-    // locators for 
+    // locators for summary and detail in container
     protected JQueryLocator summary = getTestElemLocator().getDescendant(jq("span.rf-msgs-sum"));
     protected JQueryLocator detail = getTestElemLocator().getDescendant(jq("span.rf-msgs-det"));
-      
     protected JQueryLocator generateMsgsBtn = pjq("input[id$=generateMsgsBtn]");
-    
+
     // Methods for error and warning message locators
     private JQueryLocator getErrorMsg(JQueryLocator testElem) {
         return testElem.getDescendant(jq("span.rf-msgs-err"));
-    }    
+    }
+
     private JQueryLocator getWarnMsg(JQueryLocator testElem) {
-        return testElem.getDescendant(jq("span.rf-msgs-wrn"));        
-    }    
+        return testElem.getDescendant(jq("span.rf-msgs-wrn"));
+    }
+
     private JQueryLocator getErrorMsg() {
         return getErrorMsg(getTestElemLocator());
-    }    
+    }
+
     private JQueryLocator getWarnMsg() {
         return getWarnMsg(getTestElemLocator());
     }
-    
+
     /**
      * Attribute 'for' change behavior: only messages bound to element with
      * id specified in 'for' should be displayed
      */
     public void testFor() {
-        
+
         // firstly reset to null
         attributes.setFor("");
-        
+
         // generate faces message by btn
         selenium.click(generateMsgsBtn);
-        
+
         // no messages for simpleInput1 or simpleInput2 should appear
         waitGui.until(countEquals.count(0).locator(getTestElemLocator().getChild(jq("span[id$=msgs1:form:simpleInput1]"))));
         waitGui.until(countEquals.count(0).locator(getTestElemLocator().getChild(jq("span[id$=msgs1:form:simpleInput2]"))));
-        
-        attributes.setFor("simpleInput1");        
+
+        attributes.setFor("simpleInput1");
         // generate faces messages by btn
         selenium.click(generateMsgsBtn);
         // only messages for simpleInput1 should appear:
@@ -85,17 +84,17 @@ public abstract class RichMessagesTest extends AbstractRichMessageTest {
         waitModel.until(countEquals.count(1).locator(getErrorMsg()));
         // one type warning
         waitModel.until(countEquals.count(1).locator(getWarnMsg()));
-         
-        attributes.setFor("simpleInput2");        
+
+        attributes.setFor("simpleInput2");
         // generate faces messages by btn
-        selenium.click(generateMsgsBtn);        
+        selenium.click(generateMsgsBtn);
         // only 2 messages for simpleInput2
         waitModel.until(countEquals.count(2).locator(getTestElemLocator().getChild(jq("span[id$=msgs1:form:simpleInput2]"))));
         // only 2 messages should appear
         waitModel.until(countEquals.count(1).locator(getErrorMsg()));
         waitModel.until(countEquals.count(1).locator(getWarnMsg()));
     }
-    
+
     /**
      * globalOnly change behavior of displaying messages.
      * When <b>true</b> only messages not bound to any input are displayed
@@ -109,12 +108,12 @@ public abstract class RichMessagesTest extends AbstractRichMessageTest {
     public void testGlobalOnly() {
         // firstly set for attribute to null
         attributes.setFor("");
-        
+
         // then set globalOnly attribute
         attributes.setGlobalOnly(Boolean.FALSE);
-        
+
         selenium.click(generateMsgsBtn);
-        
+
         // All messages should appear: 
         //  for simpleInput1
         waitModel.until(countEquals.count(2).locator(mainMsg2.getChild(jq("span[id$=:msgs2:form:simpleInput1]"))));

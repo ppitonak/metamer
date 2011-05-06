@@ -30,29 +30,28 @@ import org.richfaces.tests.metamer.ftest.AbstractComponentAttributes;
  * @version $Revision$
  */
 public class RichMessageComponentAttributes extends AbstractComponentAttributes {
-    
+
     public void setRendered(Boolean rendered) {
         setProperty("rendered", rendered);
     }
-    
+
     public void setAjaxRendered(Boolean rendered) {
         setProperty("ajaxRendered", rendered);
     }
-    
-    public void setShowDetail(Boolean showDetail){
+
+    public void setShowDetail(Boolean showDetail) {
         setProperty("showDetail", showDetail);
     }
-    
-    public void setShowSummary(Boolean showSummary){
+
+    public void setShowSummary(Boolean showSummary) {
         setProperty("showSummary", showSummary);
     }
-    
-    public void setFor(String forAttribute){
+
+    public void setFor(String forAttribute) {
         setProperty("for", forAttribute);
     }
-    
-    public void setGlobalOnly(Boolean globalOnly){
+
+    public void setGlobalOnly(Boolean globalOnly) {
         setProperty("globalOnly", globalOnly);
     }
-
 }

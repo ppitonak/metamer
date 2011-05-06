@@ -58,107 +58,105 @@ public class TestRichMessageJSR303 extends RichMessageTest {
     public JQueryLocator getDetailElemLocator() {
         return detail;
     }
-    
+
     // list of called test methods
-    
     @Test
-    public void testFor(){
+    public void testFor() {
         super.testFor();
     }
-    
+
     @Test
     public void testAjaxRendered() {
         super.testAjaxRendered();
     }
-    
+
     @Test
     public void testRendered() {
         super.testRendered();
     }
-    
+
     @Test
-    public void testShowSummary(){
-        super.testShowSummary();        
+    public void testShowSummary() {
+        super.testShowSummary();
     }
-    
+
     @Test
-    public void testShowDetail(){
+    public void testShowDetail() {
         super.testShowDetail();
     }
-    
+
     @Test
-    public void testTitle(){
+    public void testTitle() {
         super.testTitle();
     }
-    
+
     @Test
-    public void testDir(){
+    public void testDir() {
         super.testDir();
     }
-    
+
     @Test
-    public void testLang(){
+    public void testLang() {
         super.testLang();
     }
-    
+
     @Test
-    public void testStyle(){
+    public void testStyle() {
         super.testStyle();
     }
-    
+
     @Test
-    public void testStyleClass(){
+    public void testStyleClass() {
         super.testStyleClass();
     }
-    
+
     @Test
     public void testOnClick() {
         super.testOnClick();
     }
-    
+
     @Test
     public void testOnDblClick() {
         super.testOnDblClick();
     }
-    
+
     @Test
     public void testOnKeyDown() {
         super.testOnKeyDown();
     }
-    
+
     @Test
     public void testOnKeyPress() {
         super.testOnKeyPress();
     }
-    
+
     @Test
     public void testOnKeyUp() {
         super.testOnKeyUp();
     }
-    
+
     @Test
     public void testOnMouseDown() {
         super.testOnMouseDown();
     }
-    
+
     @Test
     public void testOnMouseMove() {
         super.testOnMouseMove();
     }
-    
+
     @Test
     public void testOnMouseOut() {
         super.testOnMouseOut();
     }
-    
+
     @Test
     public void testOnMouseOver() {
         super.testOnMouseOver();
     }
-    
+
     @Test
     public void testOnMouseUp() {
         super.testOnMouseUp();
     }
-
 }

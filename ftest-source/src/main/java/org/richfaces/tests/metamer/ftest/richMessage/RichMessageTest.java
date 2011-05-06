@@ -25,7 +25,6 @@ import static org.jboss.test.selenium.locator.LocatorFactory.jq;
 
 import org.jboss.test.selenium.locator.JQueryLocator;
 
-
 /**
  * Abstract class with list of tests appropriate for rich:message component
  *
@@ -33,31 +32,29 @@ import org.jboss.test.selenium.locator.JQueryLocator;
  * @version $Revision$
  */
 public abstract class RichMessageTest extends AbstractRichMessageTest {
-    
+
     // locator for main rich:message component (tested element)
     protected static JQueryLocator mainMessage = pjq("span[id$=simpleInputMsg]");
-    
     protected JQueryLocator summary = getTestElemLocator().getDescendant(jq("span.rf-msg-sum"));
     protected JQueryLocator detail = getTestElemLocator().getDescendant(jq("span.rf-msg-det"));
-    
+
     /**
      * Attribute 'for' change behavior: only messages bound to element with
      * id specified in 'for' should be displayed
      */
     public void testFor() {
-        
+
         // firstly, remove value from attribute for and generate message
         attributes.setFor("");
-        
-        generateValidationMessages(false);        
+
+        generateValidationMessages(false);
         // assertFalse(selenium.isElementPresent(getTestElemLocator()));
         waitGui.until(isNotDisplayed.locator(getTestElemLocator()));
-        
+
         // now set for attribute back to "simpleInput2"
         attributes.setFor("simpleInput2");
-        
+
         generateValidationMessages(false);
         waitGui.until(elementPresent.locator(getTestElemLocator()));
     }
-
 }
