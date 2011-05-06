@@ -118,7 +118,7 @@ public class PhaseInfo {
             for (int i = 1; i <= count; i++) {
                 String description = selenium.getText(phasesItems.getNthChildElement(i));
 
-                if (!description.startsWith("* ")) {
+                if (!description.startsWith("*")) {
                     set = new LinkedHashSet<String>();
                     map.put(getPhaseId(description), set);
                 } else {

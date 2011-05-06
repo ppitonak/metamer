@@ -230,7 +230,7 @@ public class TestRichSlider extends AbstractSliderTest {
 
         phaseInfo.assertPhases(PhaseId.RESTORE_VIEW, PhaseId.APPLY_REQUEST_VALUES, PhaseId.PROCESS_VALIDATIONS,
                 PhaseId.UPDATE_MODEL_VALUES, PhaseId.INVOKE_APPLICATION, PhaseId.RENDER_RESPONSE);
-        phaseInfo.assertListener(PhaseId.APPLY_REQUEST_VALUES, "value changed: 2 -> -10");
+        phaseInfo.assertListener(PhaseId.APPLY_REQUEST_VALUES, "1 value changed: 2 -> -10");
     }
 
     @Test
