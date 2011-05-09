@@ -177,6 +177,7 @@ public class RichBean implements Serializable {
 
         openComponents.put("oCalendar", "Open Calendar");
         openComponents.put("oChart", "Open Chart");
+        openComponents.put("oConfirmation", "Open Confirmation");
         openComponents.put("oDateChooser", "Open Date Chooser");
         openComponents.put("oInputText", "Open Input Text");
         openComponents.put("oSpinner", "Open Spinner");
