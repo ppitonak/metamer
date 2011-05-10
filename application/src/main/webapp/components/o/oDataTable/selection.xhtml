@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"   xmlns:o="http://openfaces.org/">
+
+    <!--
+JBoss, Home of Professional Open Source
+Copyright 2010-2011, Red Hat, Inc. and individual contributors
+by the @authors tag. See the copyright.txt in the distribution for a
+full listing of individual contributors.
+
+This is free software; you can redistribute it and/or modify it
+under the terms of the GNU Lesser General Public License as
+published by the Free Software Foundation; either version 2.1 of
+the License, or (at your option) any later version.
+
+This software is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public
+License along with this software; if not, write to the Free
+Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
+02110-1301 USA, or see the FSF site: http://www.fsf.org.
+    -->
+
+    <ui:composition template="/templates/template.xhtml">
+        <ui:param name="componentId" value="dataTable" />
+
+        <ui:define name="view">
+            <f:metadata>
+                <f:viewParam name="templates" value="#{templateBean.templates}">
+                    <f:converter converterId="templatesListConverter" />
+                </f:viewParam>
+            </f:metadata>
+        </ui:define>
+
+        <ui:define name="head">
+        </ui:define>
+
+        <ui:define name="outOfTemplateBefore">
+        </ui:define>
+
+        <ui:define name="component">
+            <o:inputTextFilter for="dataTable" expression="#{record.name},#{record.title}"
+                               promptText="Search for name or title"
+                               autoFilterDelay="500"/>
+            <br/><br/>
+
+            <o:dataTable id="dataTable"
+                         value="#{model.employees}"
+                         var="record"
+                         pageSize="20"
+                         >
+
+                <o:scrolling/>
+                <o:multipleRowSelection/>
+                
+                <o:selectionColumn>
+                    <f:facet name="header">
+                        <o:selectAllCheckbox />
+                    </f:facet>
+                </o:selectionColumn>
+
+                <o:column id="columnSex" sortingExpression="#{record.sex}">
+                    <f:facet name="header">
+                        <h:outputText id="columnHeaderSex" value="Sex"  />
+                    </f:facet>
+
+                    <h:graphicImage library="images" name="#{record.sex == 'MALE' ? 'male.png' : 'female.png'}" alt="#{record.sex}" />
+
+                    <f:facet name="footer">
+                        <h:outputText id="columnFooterSex" value="Sex" />
+                    </f:facet>
+                </o:column>
+
+
+                <o:column id="columnName" sortingExpression="#{record.name}">
+                    <f:facet name="header">
+                        <h:outputText id="columnHeaderName" value="Name" />
+                    </f:facet>
+
+                    <h:outputText value="#{record.name}" />
+                    <f:facet name="footer">
+                        <h:outputText id="columnFooterState" value="Name" />
+                    </f:facet>
+                </o:column>
+
+                <o:column id="columnTitle" sortingExpression="#{record.title}">
+                    <f:facet name="header">
+                        <h:outputText id="columnHeaderTitle" value="Title" />
+                    </f:facet>
+
+                    <h:outputText value="#{record.title}" />
+                    <f:facet name="footer">
+                        <h:outputText id="columnFooterTitle" value="Title" />
+                    </f:facet>
+                </o:column>
+
+                <o:column id="columnNumberOfKids" sortingExpression="#{record.numberOfKids}">
+                    <f:facet name="header">
+                        <h:outputText id="columnHeaderNumberOfKids" value="Number of Kids" />
+                    </f:facet>
+
+                    <h:outputText value="#{record.numberOfKids}" />
+                    <f:facet name="footer">
+                        <h:outputText id="columnFooterNumberOfKids" value="Number of Kids" />
+                    </f:facet>
+                </o:column>
+
+                <f:facet name="below">
+                    <h:panelGroup id="panelGroup">
+                        <o:dataTablePaginator id="paginator" showIfOnePage="true"/>
+                    </h:panelGroup>
+                </f:facet>
+            </o:dataTable>
+        </ui:define>
+
+        <ui:define name="outOfTemplateAfter">
+        </ui:define>
+
+    </ui:composition>
+</html>
