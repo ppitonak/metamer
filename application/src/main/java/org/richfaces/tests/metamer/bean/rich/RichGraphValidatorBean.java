@@ -33,10 +33,13 @@ import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 import javax.validation.constraints.AssertTrue;
 import javax.validation.constraints.NotNull;
+import javax.validation.groups.Default;
 
 import org.hibernate.validator.constraints.NotEmpty;
 import org.richfaces.component.UIGraphValidator;
+import org.richfaces.tests.metamer.Attribute;
 import org.richfaces.tests.metamer.Attributes;
+import org.richfaces.tests.metamer.validation.groups.ValidationGroupAllComponents;
 import org.richfaces.tests.metamer.validation.groups.ValidationGroupBooleanInputs;
 import org.richfaces.tests.metamer.validation.groups.ValidationGroupNumericInputs;
 import org.slf4j.Logger;
@@ -114,15 +117,17 @@ public class RichGraphValidatorBean implements Serializable, Cloneable {
         attributes.setAttribute("type", "org.richfaces.BeanValidator");
     }
     
-    @AssertTrue(message = "One of following inputs doesn't contain smile or numeric value 10!")
-    public boolean isAllInputsCorrect(){
+    @AssertTrue(message = "One of following inputs doesn't contain smile or numeric value "
+                    + REQUIRED_INT_VALUE + "!",
+                groups = {Default.class, ValidationGroupAllComponents.class})
+    public boolean isAllInputsCorrect() {
         
         return autocompleteInput.contains(smile)
             && inplaceSelect.contains(smile)
             && inplaceInput.contains(smile)
             && select.contains(smile)
-            && inputNumberSlider.equals(new Integer(10))
-            && inputNumberSpinner.equals(new Integer(10))
+            && inputNumberSlider.equals(new Integer(REQUIRED_INT_VALUE))
+            && inputNumberSpinner.equals(new Integer(REQUIRED_INT_VALUE))
             && inputText.contains(smile)
             && inputSecret.contains(smile)
             && inputTextarea.contains(smile)
@@ -135,18 +140,18 @@ public class RichGraphValidatorBean implements Serializable, Cloneable {
             && selectOneRadio.contains(smile);
     }
     
-    @AssertTrue(message = "One of following inputs doesn't contain smile",
+    @AssertTrue(message = "One of following numeric inputs doesn't contain value " 
+                    + REQUIRED_INT_VALUE + "!",
                 groups = {ValidationGroupNumericInputs.class})
     public boolean isAllTextInputsCorrect() {
-        return inputNumberSlider.equals(new Integer(10))
-            && inputNumberSpinner.equals(new Integer(10));            
+        return inputNumberSlider.equals(new Integer(REQUIRED_INT_VALUE))
+            && inputNumberSpinner.equals(new Integer(REQUIRED_INT_VALUE));
     }
     
-    @AssertTrue(message = "One of following inputs doesn't contain smile",
+    @AssertTrue(message = "Select Boolean Checkbox isn't checked!",
         groups = {ValidationGroupBooleanInputs.class})
     public boolean isAllBooleanInputsCorrect() {
-        return inputNumberSlider.equals(new Integer(10))
-            && inputNumberSpinner.equals(new Integer(10));            
+        return selectBooleanCheckbox.booleanValue();
     }
     
     public void anotherActionOnAllComponents() {
@@ -165,8 +170,15 @@ public class RichGraphValidatorBean implements Serializable, Cloneable {
         return result;
     }
     
-    public Class<?> getValidationGroups() {
-        return ValidationGroupNumericInputs.class;
+    public Class<?>[] getValidationGroups() throws ClassNotFoundException {
+        Attribute groups = attributes.get("groups");        
+        Class<?> group;
+        if (groups.getValue() != null && !"".equals(groups.getValue())) {
+            group = Class.forName(groups.getValue().toString());
+        } else {
+            group = Default.class;
+        }
+        return new Class[]{group};        
     }
 
     public Attributes getAttributes() {

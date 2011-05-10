@@ -55,14 +55,16 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 					|| richGraphValidatorBean.attributes['summary'].value==''}" >
 				<rich:graphValidator id="gv1"
 									 value="#{richGraphValidatorBean}"
-									 groups="#{richGraphValidatorBean.attributes['groups'].value}"
+									 groups="#{richGraphValidatorBean.validationGroups}"
 									 type="#{richGraphValidatorBean.attributes['type'].value}"
 									 rendered="#{richGraphValidatorBean.attributes['rendered'].value}" >										
 					<rich:panel header="Many rich components within rich:graphValidator" style="width:500px">
+						<rich:messages for="gv1" />
 						<rich:messages globalOnly="true" />
 						<h:panelGrid columns="3">
 							<h:outputText for="inplaceSelect" value="Inplace Select" />
-							<rich:inplaceSelect id="inplaceSelect" value="#{richGraphValidatorBean.inplaceSelect}" >
+							<rich:inplaceSelect id="inplaceSelect" value="#{richGraphValidatorBean.inplaceSelect}"
+												defaultLabel="Write smile here..." >
 								<f:selectItems value="#{richGraphValidatorBean.selectItems}" />
 							</rich:inplaceSelect>
 							<rich:message for="inplaceSelect" />

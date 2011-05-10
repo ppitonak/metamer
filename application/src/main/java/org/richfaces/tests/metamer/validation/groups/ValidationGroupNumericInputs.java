@@ -22,11 +22,11 @@
 package org.richfaces.tests.metamer.validation.groups;
 
 /**
- * Implementation test
+ * Validation Group for Numeric Inputs
  *
  * @author <a href="mailto:jjamrich@redhat.com">Jan Jamrich</a>
  * @version $Revision$
  */
-public class ValidationGroupNumericInputs implements ValidableGroupNumericInputs {
+public interface ValidationGroupNumericInputs {
 
 }
