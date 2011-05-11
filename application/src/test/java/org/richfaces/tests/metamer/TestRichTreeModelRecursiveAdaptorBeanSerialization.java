@@ -51,9 +51,9 @@ import com.google.common.io.NullOutputStream;
  */
 public class TestRichTreeModelRecursiveAdaptorBeanSerialization {
 
-    private Set<Integer> notEquals = new TreeSet<Integer>();
-
     PrintStream sysout;
+    
+    private Set<Integer> notEquals = new TreeSet<Integer>();
 
     @BeforeClass
     public void redirectOut() {
