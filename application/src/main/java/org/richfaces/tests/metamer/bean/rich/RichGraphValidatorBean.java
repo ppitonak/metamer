@@ -23,6 +23,8 @@ package org.richfaces.tests.metamer.bean.rich;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -106,6 +108,8 @@ public class RichGraphValidatorBean implements Serializable, Cloneable {
     @NotNull
     @NotEmpty
     private String selectOneRadio = smile;
+    @NotNull
+    private Date calendar = new Date(System.currentTimeMillis());
     
     @PostConstruct
     public void init(){
@@ -118,7 +122,7 @@ public class RichGraphValidatorBean implements Serializable, Cloneable {
     }
     
     @AssertTrue(message = "One of following inputs doesn't contain smile or numeric value "
-                    + REQUIRED_INT_VALUE + "!",
+                    + REQUIRED_INT_VALUE + " or date is from future!",
                 groups = {Default.class, ValidationGroupAllComponents.class})
     public boolean isAllInputsCorrect() {
         
@@ -137,7 +141,8 @@ public class RichGraphValidatorBean implements Serializable, Cloneable {
             && !selectManyListbox.isEmpty()
             && selectOneMenu.contains(smile)
             && !selectManyMenu.isEmpty()
-            && selectOneRadio.contains(smile);
+            && selectOneRadio.contains(smile)
+            && !calendar.after(new Date(System.currentTimeMillis()));
     }
     
     @AssertTrue(message = "One of following numeric inputs doesn't contain value " 
@@ -167,6 +172,27 @@ public class RichGraphValidatorBean implements Serializable, Cloneable {
         result.add(new SelectItem("d", "Defg"));
         result.add(new SelectItem(smile, smile));
         
+        return result;
+    }
+    
+    public List<String> autocomplete(String prefix) {
+        ArrayList<String> result = new ArrayList<String>();
+        if ((prefix == null) || (prefix.length() == 0)) {            
+            for (int i = 0; i < 10; i++) {
+                result.add(getSelectItems().get(i).getLabel());
+            }
+
+        } else {
+            Iterator<SelectItem> iterator = selectItems.iterator();
+            while (iterator.hasNext()) {
+                SelectItem elem = ((SelectItem) iterator.next());
+                if ((elem.getLabel() != null && elem.getLabel().toLowerCase().indexOf(prefix.toLowerCase()) == 0)
+                    || "".equals(prefix)) {
+                    result.add(elem.getLabel());
+                }
+            }
+        }
+
         return result;
     }
     
@@ -326,5 +352,13 @@ public class RichGraphValidatorBean implements Serializable, Cloneable {
 
     public void setSelectOneRadio(String selectOneRadio) {
         this.selectOneRadio = selectOneRadio;
+    }
+
+    public Date getCalendar() {
+        return calendar;
+    }
+
+    public void setCalendar(Date calendar) {
+        this.calendar = calendar;
     }
 }
