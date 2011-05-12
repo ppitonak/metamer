@@ -43,17 +43,12 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 
         <ui:define name="component">
 
-            <p:dataGrid id="pDataGrid" value="#{model.capitals}" var="record" columns="3" rows="12"
-                        paginator="true">
-
-                <f:facet name="header">
-                    <h:outputText value="header" />
-                </f:facet>
-
-                <h:outputText value="#{record.state}" style="font-weight: bold;" />
-                <br />
-                <h:outputText value="#{record.name}" />
-
+            <p:dataGrid id="pDataGrid" value="#{model.capitals}" var="record" columns="3" rows="9"
+                        paginator="true"
+                        paginatorTemplate="{FirstPageLink} xxx {PreviousPageLink} xxx {PageLinks} xxx {NextPageLink} {LastPageLink}">
+                <p:panel header="#{record.state}">
+                    <h:outputText value="#{record.name}" />
+                </p:panel>
             </p:dataGrid>
         </ui:define>
 

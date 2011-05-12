@@ -43,7 +43,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
         <ui:define name="component">
             <p:dataList id="list" value="#{model.employees}" var="item"
                         type="ordered" itemType="i" rows="10" first="15">
-                #{item.name} - #{item.title}
+                <b>#{item.name}</b> - #{item.title}
             </p:dataList>
         </ui:define>
 
