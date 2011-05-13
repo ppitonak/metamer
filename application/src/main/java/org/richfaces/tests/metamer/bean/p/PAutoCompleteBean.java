@@ -30,6 +30,7 @@ import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
+import org.primefaces.event.SelectEvent;
 
 import org.richfaces.tests.metamer.model.Capital;
 import org.slf4j.Logger;
@@ -89,5 +90,9 @@ public class PAutoCompleteBean implements Serializable {
 
     public void setCapitals(List<Capital> capitals) {
         this.capitals = capitals;
+    }
+
+    public void handleSelect(SelectEvent event) {
+        value = (String) event.getObject();
     }
 }

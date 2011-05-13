@@ -39,6 +39,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
             <p:autoComplete id="autocomplete"
                             value="#{pAutoCompleteBean.value}"
                             completeMethod="#{pAutoCompleteBean.complete}"
+                            onSelectUpdate="output" selectListener="#{pAutoCompleteBean.handleSelect}"
                             >
             </p:autoComplete>
 
