@@ -39,10 +39,10 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 
         <ui:define name="component">
             <o:suggestionField id="suggestionField" value="#{oSuggestionFieldBean.value}"
-                               suggestionMode="custom">
+                               suggestionMode="custom" suggestionMinChars="1">
                 <o:dropDownItems value="#{oSuggestionFieldBean.capitals}"/>
 
-                <a4j:ajax event="change" render="output"/>
+                <o:ajax event="change" render="output"/>
 
             </o:suggestionField>
 
