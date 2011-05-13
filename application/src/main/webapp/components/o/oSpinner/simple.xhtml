@@ -45,20 +45,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                 <f:ajax event="change" render="output1"/>
             </o:spinner>
 
-            <br/>
-
-            <o:spinner id="input2" value="#{oSpinnerBean.value2}" promptText="click here to edit"
-                       minValue="100" maxValue="200" step="2">
-                <a4j:ajax render="output2"/>
-            </o:spinner>
-
-            <br/>
-
-            <o:spinner id="input3" value="#{oSpinnerBean.value3}" promptText="click here to edit"
-                       minValue="0" maxValue="1" step="0.1">
-                <o:ajax render="output3"/>
-            </o:spinner>
-
+      
             <br/><br/>
 
             <h:panelGrid id="outputs" columns="2">
