@@ -28,6 +28,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
 import org.primefaces.component.chart.series.ChartSeries;
+import org.primefaces.event.ItemSelectEvent;
 import org.primefaces.model.chart.CartesianChartModel;
 import org.primefaces.model.chart.PieChartModel;
 import org.slf4j.Logger;
@@ -86,5 +87,10 @@ public class ChartBean implements Serializable {
 
     public CartesianChartModel getBirths() {
         return births;
+    }
+
+    public void itemSelectListener(ItemSelectEvent event) {
+        logger.info("Item index: " + event.getItemIndex() + ", series index: "
+                + event.getSeriesIndex());
     }
 }
