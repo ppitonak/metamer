@@ -40,7 +40,11 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
         </ui:define>
 
         <ui:define name="component">
-            <p:editor/>
+            <p:tree value="#{pTreeBean.root}" var="node" selectionMode="checkbox">
+                <p:treeNode>
+                    <h:outputText value="#{node}"/>
+                </p:treeNode>
+            </p:tree>
         </ui:define>
 
         <ui:define name="outOfTemplateAfter">
