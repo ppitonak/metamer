@@ -153,8 +153,9 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 							<rich:message for="selectOneRadio" />							
 							
 						</h:panelGrid>
-						<a4j:commandButton value="Apply changes"
-							action="#{richGraphValidatorBean.anotherActionOnAllComponents}" />
+						<a4j:commandButton id="applyChanges"
+                                           value="Apply changes" 
+                                           action="#{richGraphValidatorBean.anotherActionOnAllComponents}" />
 					</rich:panel>
 				</rich:graphValidator>
 			</ui:fragment>
