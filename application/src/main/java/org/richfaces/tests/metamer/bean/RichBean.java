@@ -154,6 +154,7 @@ public class RichBean implements Serializable {
         primeComponents.put("pSpinner", "Prime Spinner");
         primeComponents.put("pStackedBarChart", "Prime Stacked Bar Chart");
         primeComponents.put("pStackedColumnChart", "Prime Stacked Column Chart");
+        primeComponents.put("pTabView", "Prime Tab View");
         primeComponents.put("pTree", "Prime Tree");
 
         richComponents.put("richAccordion", "Rich Accordion");
