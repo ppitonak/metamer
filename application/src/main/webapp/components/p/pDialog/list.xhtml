@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://primefaces.prime.com.tr/ui">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets" 
+      xmlns:metamer="http://java.sun.com/jsf/composite/metamer">
 
     <!--
 JBoss, Home of Professional Open Source
@@ -25,28 +25,18 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 02110-1301 USA, or see the FSF site: http://www.fsf.org.
     -->
 
-    <ui:composition template="/templates/template.xhtml">
+    <ui:composition template="/templates/list.xhtml">
 
-        <ui:define name="view">
-            <f:metadata>
-                <f:viewParam name="templates" value="#{templateBean.templates}">
-                    <f:converter converterId="templatesListConverter" />
-                </f:viewParam>
-            </f:metadata>
-        </ui:define>
+        <ui:define name="pageTitle">Prime Dialog</ui:define>
 
-        <ui:define name="component">
-            <p:carousel value="#{pCarouselBean.employees}" var="employee" >
+        <ui:define name="links">
 
-                #{employee.name}<br/>
-                #{employee.title}<br/>
-                #{employee.email}"
-
-            </p:carousel>
+            <metamer:testPageLink id="simple" outcome="simple" value="Simple">
+                Page that contains <b>p:dialog</b>.
+            </metamer:testPageLink>
 
         </ui:define>
-
-        <ui:define name="outOfTemplateAfter"></ui:define>
 
     </ui:composition>
+
 </html>

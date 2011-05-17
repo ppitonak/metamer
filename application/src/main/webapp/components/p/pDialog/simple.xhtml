@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
       xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://primefaces.prime.com.tr/ui">
 
     <!--
@@ -25,6 +26,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 02110-1301 USA, or see the FSF site: http://www.fsf.org.
     -->
 
+
     <ui:composition template="/templates/template.xhtml">
 
         <ui:define name="view">
@@ -35,18 +37,24 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
             </f:metadata>
         </ui:define>
 
-        <ui:define name="component">
-            <p:carousel value="#{pCarouselBean.employees}" var="employee" >
-
-                #{employee.name}<br/>
-                #{employee.title}<br/>
-                #{employee.email}"
-
-            </p:carousel>
-
+        <ui:define name="outOfTemplateBefore">
         </ui:define>
 
-        <ui:define name="outOfTemplateAfter"></ui:define>
+        <ui:define name="component">
+
+            <a href="#" onclick="dialog.show()">Show</a>
+            <a href="#" onclick="dialog.hide()">Hide</a>
+
+            <p:dialog header="Panel Header" widgetVar="dialog" closable="true">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus a neque turpis, at cursus nunc.
+                Vestibulum et tincidunt metus. Suspendisse viverra aliquet nunc, non placerat justo commodo a. Pellentesque
+                non lacus ut mi consectetur blandit nec sed orci. Praesent tempus aliquet sapien vitae condimentum. Aenean
+                nec ligula egestas erat convallis pharetra. 
+            </p:dialog>
+        </ui:define>
+
+        <ui:define name="outOfTemplateAfter">
+        </ui:define>
 
     </ui:composition>
 </html>
