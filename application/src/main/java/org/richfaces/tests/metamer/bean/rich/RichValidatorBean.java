@@ -46,6 +46,8 @@ public class RichValidatorBean implements Serializable {
     private static Logger logger;
     private Attributes attributes;
     private String stringValue = "RichFaces";
+    private String regExp = "\\d{3}";
+    private String regexpValue = "100";
 
     /**
      * Initializes the managed bean.
@@ -72,5 +74,21 @@ public class RichValidatorBean implements Serializable {
 
     public void setStringValue(String stringValue) {
         this.stringValue = stringValue;
+    }
+
+    public String getRegexpValue() {
+        return regexpValue;
+    }
+
+    public void setRegexpValue(String regexpValue) {
+        this.regexpValue = regexpValue;
+    }
+
+    public String getRegExp() {
+        return regExp;
+    }
+
+    public void setRegExp(String regExp) {
+        this.regExp = regExp;
     }
 }
