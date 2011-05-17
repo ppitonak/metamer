@@ -136,11 +136,11 @@ public class RichGraphValidatorBean implements Serializable, Cloneable {
             && inputSecret.contains(smile)
             && inputTextarea.contains(smile)
             && selectBooleanCheckbox.booleanValue()
-            && !selectManyCheckbox.isEmpty()
+            && selectManyCheckbox.contains(smile)
             && selectOneListbox.contains(smile)
-            && !selectManyListbox.isEmpty()
+            && selectManyListbox.contains(smile)
             && selectOneMenu.contains(smile)
-            && !selectManyMenu.isEmpty()
+            && selectManyMenu.contains(smile)
             && selectOneRadio.contains(smile)
             && !calendar.after(new Date(System.currentTimeMillis()));
     }
