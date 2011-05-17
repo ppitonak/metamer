@@ -37,11 +37,11 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 
         <ui:define name="component">
             <p:carousel value="#{pCarouselBean.employees}" var="employee">
-                <h:panelGrid columns="2">
-                    Name: #{employee.name}
-                    Title: #{employee.title}
-                    Email: #{employee.email}                    
-                </h:panelGrid>
+
+                #{employee.name}<br/>
+                #{employee.title}<br/>
+                #{employee.email}"
+
             </p:carousel>
 
         </ui:define>

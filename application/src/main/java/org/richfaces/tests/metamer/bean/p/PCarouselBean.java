@@ -57,7 +57,7 @@ public class PCarouselBean implements Serializable {
 
         employees = new ArrayList<Employee>(5);
         List<Employee> allEmployees = Model.unmarshallEmployees();
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < 10; i++) {
             employees.add(allEmployees.get(i));
         }
     }
