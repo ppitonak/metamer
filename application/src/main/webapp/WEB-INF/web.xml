@@ -78,7 +78,16 @@ xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns
         <servlet-name>Comet Servlet</servlet-name>
         <url-pattern>/primefaces_comet/*</url-pattern>
     </servlet-mapping>
-    
+
+    <filter>
+        <filter-name>PrimeFaces FileUpload Filter</filter-name>
+        <filter-class>org.primefaces.webapp.filter.FileUploadFilter</filter-class>
+        <async-supported>true</async-supported>
+    </filter>
+    <filter-mapping>
+        <filter-name>PrimeFaces FileUpload Filter</filter-name>
+        <servlet-name>Faces Servlet</servlet-name>
+    </filter-mapping>
     <filter>
         <filter-name>PushFilter</filter-name>
         <filter-class>org.richfaces.webapp.PushFilter</filter-class>
