@@ -59,8 +59,8 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 									 type="#{richGraphValidatorBean.attributes['type'].value}"
 									 rendered="#{richGraphValidatorBean.attributes['rendered'].value}" >										
 					<rich:panel id="gv1h" header="Many rich components within rich:graphValidator" style="width:800px">
-						<rich:messages id="messages4gv1" for="gv1" />
-						<rich:messages id="globalMessages" globalOnly="true" />
+						<rich:messages for="gv1" />
+						<rich:messages id="gv1_globalMessages" globalOnly="true" />
 						<h:panelGrid columns="6">
 							<h:outputText for="inplaceSelect" value="Inplace Select" />
 							<rich:inplaceSelect id="inplaceSelect" value="#{richGraphValidatorBean.inplaceSelect}" >
@@ -104,7 +104,8 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 							<rich:message for="inputSecret" />
 							
 							<h:outputText for="calendar" value="Calendar" />
-							<rich:calendar id="calendar" value="#{richGraphValidatorBean.calendar}" enableManualInput="true" />
+							<rich:calendar id="calendar" value="#{richGraphValidatorBean.calendar}" 
+										   enableManualInput="true" />
 							<rich:message for="calendar" />
 							
 							<h:column/>
@@ -168,9 +169,9 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 									 rendered="#{richGraphValidatorBean.attributes['rendered'].value}"
 									 summary="#{richGraphValidatorBean.attributes['summary'].value}"
 									 type="#{richGraphValidatorBean.attributes['type'].value}" >
-					<rich:panel header="Change password" style="width:500px">
+					<rich:panel id="gv2h" header="Many rich components within rich:graphValidator" style="width:800px">
 						<rich:messages for="gv2" />
-						<rich:messages globalOnly="true" />
+						<rich:messages id="gv2_globalMessages" globalOnly="true" />
 						<h:panelGrid columns="6">
 							<h:outputText for="gv2_inplaceSelect" value="Inplace Select" />
 							<rich:inplaceSelect id="gv2_inplaceSelect" value="#{richGraphValidatorBean.inplaceSelect}" >
@@ -214,7 +215,8 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 							<rich:message for="gv2_inputSecret" />
 							
 							<h:outputText for="gv2_calendar" value="Calendar" />
-							<rich:calendar id="gv2_calendar" value="#{richGraphValidatorBean.calendar}" enableManualInput="true" />
+							<rich:calendar id="gv2_calendar" value="#{richGraphValidatorBean.calendar}" 
+										   enableManualInput="true" />
 							<rich:message for="gv2_calendar" />
 							
 							<h:column/>
