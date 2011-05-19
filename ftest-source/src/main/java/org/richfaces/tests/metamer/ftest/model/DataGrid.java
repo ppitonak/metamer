@@ -21,9 +21,8 @@
  *******************************************************************************/
 package org.richfaces.tests.metamer.ftest.model;
 
+import static org.jboss.test.selenium.locator.LocatorFactory.jq;
 import static org.jboss.test.selenium.locator.reference.ReferencedLocator.ref;
-import static org.jboss.test.selenium.locator.reference.ReferencedLocator.referenceInferred;
-import static org.jboss.test.selenium.locator.LocatorFactory.*;
 
 import java.util.Iterator;
 

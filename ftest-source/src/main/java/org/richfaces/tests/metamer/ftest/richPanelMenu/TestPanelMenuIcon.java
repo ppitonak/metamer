@@ -32,41 +32,41 @@ import org.testng.annotations.Test;
  */
 public class TestPanelMenuIcon extends AbstractPanelMenuTest {
 
-    private static String CUSTOM_URL = "/resources/images/loading.gif";
+    private static String customURL = "/resources/images/loading.gif";
 
     @Test
     public void testGroupCollapsedLeftIcon() {
-        attributes.setGroupCollapsedLeftIcon(CUSTOM_URL);
+        attributes.setGroupCollapsedLeftIcon(customURL);
         group2.toggle();
         verifyIcon(group24.getLeftIcon());
     }
 
     @Test
     public void testGroupCollapsedRightIcon() {
-        attributes.setGroupCollapsedRightIcon(CUSTOM_URL);
+        attributes.setGroupCollapsedRightIcon(customURL);
         group2.toggle();
         verifyIcon(group24.getRightIcon());
     }
 
     @Test
     public void testGroupDisabledLeftIcon() {
-        attributes.setGroupDisabledLeftIcon(CUSTOM_URL);
+        attributes.setGroupDisabledLeftIcon(customURL);
         group2.toggle();
         assertTrue(group26.getLeftIcon().isCustomURL());
-        assertTrue(group26.getLeftIcon().getCustomURL().endsWith(CUSTOM_URL));
+        assertTrue(group26.getLeftIcon().getCustomURL().endsWith(customURL));
         verifyIcon(group26.getLeftIcon());
     }
 
     @Test
     public void testDisabledRightIcon() {
-        attributes.setGroupDisabledRightIcon(CUSTOM_URL);
+        attributes.setGroupDisabledRightIcon(customURL);
         group2.toggle();
         verifyIcon(group26.getRightIcon());
     }
 
     @Test
     public void testGroupExpandedLeftIcon() {
-        attributes.setGroupExpandedLeftIcon(CUSTOM_URL);
+        attributes.setGroupExpandedLeftIcon(customURL);
         group2.toggle();
         group24.toggle();
         verifyIcon(group24.getLeftIcon());
@@ -74,7 +74,7 @@ public class TestPanelMenuIcon extends AbstractPanelMenuTest {
 
     @Test
     public void testGroupExpandedRightIcon() {
-        attributes.setGroupExpandedRightIcon(CUSTOM_URL);
+        attributes.setGroupExpandedRightIcon(customURL);
         group2.toggle();
         group24.toggle();
         verifyIcon(group24.getRightIcon());
@@ -82,96 +82,96 @@ public class TestPanelMenuIcon extends AbstractPanelMenuTest {
 
     @Test
     public void testItemDisabledLeftIcon() {
-        attributes.setItemDisabledLeftIcon(CUSTOM_URL);
+        attributes.setItemDisabledLeftIcon(customURL);
         group2.toggle();
         verifyIcon(item25.getLeftIcon());
     }
 
     @Test
     public void testItemDisabledRightIcon() {
-        attributes.setItemDisabledRightIcon(CUSTOM_URL);
+        attributes.setItemDisabledRightIcon(customURL);
         group2.toggle();
         verifyIcon(item25.getRightIcon());
     }
 
     @Test
     public void testItemLeftIcon() {
-        attributes.setItemLeftIcon(CUSTOM_URL);
+        attributes.setItemLeftIcon(customURL);
         group2.toggle();
         verifyIcon(item22.getLeftIcon());
     }
 
     @Test
     public void testItemRightIcon() {
-        attributes.setItemRightIcon(CUSTOM_URL);
+        attributes.setItemRightIcon(customURL);
         group2.toggle();
         verifyIcon(item22.getRightIcon());
     }
 
     @Test
     public void testTopGroupCollapsedLeftIcon() {
-        attributes.setTopGroupCollapsedLeftIcon(CUSTOM_URL);
+        attributes.setTopGroupCollapsedLeftIcon(customURL);
         verifyIcon(group1.getLeftIcon());
     }
 
     @Test
     public void testTopGroupCollapsedRightIcon() {
-        attributes.setTopGroupCollapsedRightIcon(CUSTOM_URL);
+        attributes.setTopGroupCollapsedRightIcon(customURL);
         verifyIcon(group1.getRightIcon());
     }
 
     @Test
     public void testTopGroupDisabledLeftIcon() {
-        attributes.setTopGroupDisabledLeftIcon(CUSTOM_URL);
+        attributes.setTopGroupDisabledLeftIcon(customURL);
         verifyIcon(group4.getLeftIcon());
     }
 
     @Test
     public void testTopGroupDisabledRightIcon() {
-        attributes.setTopGroupDisabledRightIcon(CUSTOM_URL);
+        attributes.setTopGroupDisabledRightIcon(customURL);
         verifyIcon(group4.getRightIcon());
     }
 
     @Test
     public void testTopGroupExpandedLeftIcon() {
-        attributes.setTopGroupExpandedLeftIcon(CUSTOM_URL);
+        attributes.setTopGroupExpandedLeftIcon(customURL);
         group1.toggle();
         verifyIcon(group1.getLeftIcon());
     }
 
     @Test
     public void testTopGroupExpandedRightIcon() {
-        attributes.setTopGroupExpandedRightIcon(CUSTOM_URL);
+        attributes.setTopGroupExpandedRightIcon(customURL);
         group1.toggle();
         verifyIcon(group1.getRightIcon());
     }
 
     @Test
     public void testTopItemDisabledLeftIcon() {
-        attributes.setTopItemDisabledLeftIcon(CUSTOM_URL);
+        attributes.setTopItemDisabledLeftIcon(customURL);
         verifyIcon(item4.getLeftIcon());
     }
 
     @Test
     public void testTopItemDisabledRightIcon() {
-        attributes.setTopItemDisabledRightIcon(CUSTOM_URL);
+        attributes.setTopItemDisabledRightIcon(customURL);
         verifyIcon(item4.getRightIcon());
     }
 
     @Test
     public void testTopItemLeftIcon() {
-        attributes.setTopItemLeftIcon(CUSTOM_URL);
+        attributes.setTopItemLeftIcon(customURL);
         verifyIcon(item3.getLeftIcon());
     }
 
     @Test
     public void testTopItemRightIcon() {
-        attributes.setTopItemRightIcon(CUSTOM_URL);
+        attributes.setTopItemRightIcon(customURL);
         verifyIcon(item3.getRightIcon());
     }
 
     private void verifyIcon(Icon icon) {
         assertTrue(icon.isCustomURL());
-        assertTrue(icon.getCustomURL().endsWith(CUSTOM_URL));
+        assertTrue(icon.getCustomURL().endsWith(customURL));
     }
 }

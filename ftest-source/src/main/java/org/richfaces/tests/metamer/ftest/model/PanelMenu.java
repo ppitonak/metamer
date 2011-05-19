@@ -21,6 +21,9 @@ import org.richfaces.PanelMenuMode;
 public class PanelMenu extends AbstractModel<JQueryLocator> implements Model {
 
     AjaxSelenium selenium = AjaxSeleniumProxy.getInstance();
+    
+    PanelMenuMode groupMode;
+    PanelMenuMode itemMode;
 
     private ReferencedLocator<JQueryLocator> topItems = ref(root, "> .rf-pm-top-itm");
     private ReferencedLocator<JQueryLocator> topGroups = ref(root, "> .rf-pm-top-gr");
@@ -28,9 +31,6 @@ public class PanelMenu extends AbstractModel<JQueryLocator> implements Model {
     private ReferencedLocator<JQueryLocator> anySelectedGroup = ref(root, "div[class*=rf-pm][class*=-gr-sel]");
     private ReferencedLocator<JQueryLocator> anyDisabledItem = ref(root, "div[class*=rf-pm-][class*=-itm-dis]");
     private ReferencedLocator<JQueryLocator> anyDisabledGroup = ref(root, "div[class*=rf-pm-][class*=-gr-dis]");
-
-    PanelMenuMode groupMode;
-    PanelMenuMode itemMode;
 
     public PanelMenu(JQueryLocator root) {
         super(root);
@@ -289,13 +289,13 @@ public class PanelMenu extends AbstractModel<JQueryLocator> implements Model {
     }
 
     public abstract class Icon extends AbstractModel<JQueryLocator> {
+        
+        ReferencedLocator<JQueryLocator> img = ref(root, "> img");
+        AttributeLocator<?> imgSrc = img.getAttribute(SRC);
 
         public Icon(JQueryLocator root) {
             super(root);
         }
-
-        ReferencedLocator<JQueryLocator> img = ref(root, "> img");
-        AttributeLocator<?> imgSrc = img.getAttribute(SRC);
 
         public abstract ElementLocator<JQueryLocator> getIcon();
 

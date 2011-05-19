@@ -21,6 +21,9 @@
  */
 package org.jboss.cheiron.retriever;
 
+import static org.jboss.test.selenium.encapsulated.JavaScript.js;
+import static org.jboss.test.selenium.utils.text.SimplifiedFormat.format;
+
 import java.awt.Color;
 
 import org.apache.commons.lang.Validate;
@@ -31,12 +34,8 @@ import org.jboss.test.selenium.framework.AjaxSeleniumProxy;
 import org.jboss.test.selenium.locator.ElementLocator;
 import org.jboss.test.selenium.utils.ColorUtils;
 import org.jboss.test.selenium.waiting.conversion.Convertor;
-import org.jboss.test.selenium.waiting.conversion.PassOnConvertor;
 import org.jboss.test.selenium.waiting.retrievers.AbstractRetriever;
 import org.jboss.test.selenium.waiting.retrievers.Retriever;
-
-import static org.jboss.test.selenium.utils.text.SimplifiedFormat.format;
-import static org.jboss.test.selenium.encapsulated.JavaScript.js;
 
 /**
  * @author <a href="mailto:lfryc@redhat.com">Lukas Fryc</a>

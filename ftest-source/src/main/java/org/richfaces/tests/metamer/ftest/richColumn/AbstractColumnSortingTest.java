@@ -53,6 +53,10 @@ public abstract class AbstractColumnSortingTest extends AbstractColumnModelTest 
             case descending:
                 Collections.sort(capitals, Collections.reverseOrder(RichColumnBean.STATE_NAME_LENGTH_COMPARATOR));
                 break;
+                
+            default:
+                // default case required by checkstyle
+                break;
         }
 
         for (int i = 0; i < capitals.size(); i++) {

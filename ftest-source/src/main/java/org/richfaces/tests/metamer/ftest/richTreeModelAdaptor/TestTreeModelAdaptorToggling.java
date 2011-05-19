@@ -43,11 +43,11 @@ public class TestTreeModelAdaptorToggling extends TestTreeToggling {
 
     @Inject
     @Use(enumeration = true)
-    public RecursiveModelRepresentation representation;
+    private RecursiveModelRepresentation representation;
 
     @Inject
     @Use(booleans = { true, false })
-    public boolean recursiveLeafChildrenNullable;
+    private boolean recursiveLeafChildrenNullable;
 
     @BeforeClass
     public void setupTreeModelTesting() {

@@ -1,4 +1,6 @@
+package org.richfaces.tests.metamer.ftest.richCollapsibleSubTableToggler;
 /*******************************************************************************
+
  * JBoss, Home of Professional Open Source
  * Copyright 2010-2011, Red Hat, Inc. and individual contributors
  * by the @authors tag. See the copyright.txt in the distribution for a
@@ -19,12 +21,7 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  *******************************************************************************/
-package org.richfaces.tests.metamer.ftest.richCollapsibleSubTableToggler;
 
-/**
- * @author <a href="mailto:lfryc@redhat.com">Lukas Fryc</a>
- * @version $Revision$
- */
 import static org.jboss.test.selenium.dom.Event.DBLCLICK;
 import static org.jboss.test.selenium.dom.Event.MOUSEDOWN;
 import static org.jboss.test.selenium.dom.Event.MOUSEUP;
@@ -47,10 +44,17 @@ import org.richfaces.tests.metamer.ftest.model.CollapsibleSubTableToggler;
 import org.richfaces.tests.metamer.ftest.model.DataTable;
 import org.testng.annotations.Test;
 
+/**
+ * @author <a href="mailto:lfryc@redhat.com">Lukas Fryc</a>
+ * @version $Revision$
+ */
 public class TestCollapsibleSubTableToggler extends AbstractMetamerTest {
 
-    private final static String IMAGE_URL = "/resources/images/star.png";
-    private final static String LABEL = "Label";
+    private static final String IMAGE_URL = "/resources/images/star.png";
+    private static final String LABEL = "Label";
+    
+    CollapsibleSubTableTogglerAttributes attributes = new CollapsibleSubTableTogglerAttributes();
+    DataTable dataTable = new DataTable(pjq("table.rf-dt"));
 
     JQueryLocator link = jq("a");
     JQueryLocator image = jq("img");
@@ -65,9 +69,6 @@ public class TestCollapsibleSubTableToggler extends AbstractMetamerTest {
     public URL getTestUrl() {
         return buildUrl(contextPath, "faces/components/richCollapsibleSubTableToggler/simple.xhtml");
     }
-
-    CollapsibleSubTableTogglerAttributes attributes = new CollapsibleSubTableTogglerAttributes();
-    DataTable dataTable = new DataTable(pjq("table.rf-dt"));
 
     @Test
     @Use(field = "event", value = "events")

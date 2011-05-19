@@ -50,12 +50,7 @@ public class TestAutocompleteByKeys extends AbstractMetamerTest {
 
     AutocompleteAttributes attributes = new AutocompleteAttributes();
     Autocomplete autocomplete = new Autocomplete();
-
-    @Override
-    public URL getTestUrl() {
-        return buildUrl(contextPath, "faces/components/richAutocomplete/autocomplete.xhtml");
-    }
-
+    
     @Inject
     @Use(booleans = { true, false })
     Boolean autofill;
@@ -67,6 +62,11 @@ public class TestAutocompleteByKeys extends AbstractMetamerTest {
     List<Capital> capitals = Model.unmarshallCapitals();
 
     StringBuilder partialInput;
+
+    @Override
+    public URL getTestUrl() {
+        return buildUrl(contextPath, "faces/components/richAutocomplete/autocomplete.xhtml");
+    }
 
     @BeforeMethod
     public void prepareProperties() {

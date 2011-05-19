@@ -48,12 +48,7 @@ import org.testng.annotations.Test;
  * @version $Revision$
  */
 public class TestCollapsibleSubTableSorting extends AbstractCollapsibleSubTableTest {
-
-    @Override
-    public URL getTestUrl() {
-        return buildUrl(contextPath, "faces/components/richCollapsibleSubTable/sorting-using-column.xhtml");
-    }
-
+    
     @Inject
     @Use(enumeration = true)
     SortMode sortMode;
@@ -61,6 +56,10 @@ public class TestCollapsibleSubTableSorting extends AbstractCollapsibleSubTableT
     int rows = 0;
 
     List<Column> sortPriority = new LinkedList<Column>();
+    @Override
+    public URL getTestUrl() {
+        return buildUrl(contextPath, "faces/components/richCollapsibleSubTable/sorting-using-column.xhtml");
+    }
 
     @BeforeMethod
     public void prepare() {
