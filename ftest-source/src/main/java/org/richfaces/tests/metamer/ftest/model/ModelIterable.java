@@ -3,7 +3,6 @@ package org.richfaces.tests.metamer.ftest.model;
 import java.lang.reflect.Constructor;
 import java.util.Iterator;
 
-import org.apache.commons.lang.ArrayUtils;
 import org.jboss.test.selenium.locator.ExtendedLocator;
 
 public class ModelIterable<E extends ExtendedLocator<E>, T extends AbstractModel<E>> implements Iterable<T> {
@@ -43,8 +42,9 @@ public class ModelIterable<E extends ExtendedLocator<E>, T extends AbstractModel
         public T next() {
             ExtendedLocator<E> locator = iterator.next();
 
-            try {
-                constructorLoop: for (Constructor<?> constructor : classT.getConstructors()) {
+            try { 
+            constructorLoop:
+                for (Constructor<?> constructor : classT.getConstructors()) {
                     if (ExtendedLocator.class.isAssignableFrom(constructor.getParameterTypes()[0])) {
                         if (constructorParamTypes.length == constructor.getParameterTypes().length - 1) {
                             Object[] params = new Object[constructorParamTypes.length + 1];

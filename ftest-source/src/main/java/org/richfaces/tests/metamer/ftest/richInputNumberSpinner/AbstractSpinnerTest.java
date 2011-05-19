@@ -25,15 +25,12 @@ import static org.jboss.test.selenium.guard.request.RequestTypeGuardFactory.guar
 import static org.jboss.test.selenium.guard.request.RequestTypeGuardFactory.guardXhr;
 import static org.testng.Assert.assertEquals;
 
-
-
 import org.jboss.test.selenium.encapsulated.JavaScript;
 import org.jboss.test.selenium.locator.ElementLocator;
 import org.jboss.test.selenium.locator.JQueryLocator;
 import org.richfaces.tests.metamer.ftest.AbstractMetamerTest;
 import org.richfaces.tests.metamer.ftest.annotations.Inject;
 import org.richfaces.tests.metamer.ftest.annotations.Use;
-import org.testng.annotations.Test;
 
 /**
  * Abstract test case for rich:inputNumberSpinner.

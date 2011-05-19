@@ -83,17 +83,14 @@ public class TestExtendedDataTableSelection extends AbstractDataTableTest {
     public void testMultiSelectionUsingControl() {
         Collection<Integer> forSelection = order(2, 5, 29, 16, 13, 21);
 
-        try {
-            for (int s : forSelection) {
-                selection.click(s, CTRL);
+        for (int s : forSelection) {
+            selection.click(s, CTRL);
 
-                assertEquals(selection.getPrevious(), selected);
-                selected.add(s);
-                assertEquals(selection.getCurrent(), selected);
-            }
-        } catch (RuntimeException e) {
-            throw e;
+            assertEquals(selection.getPrevious(), selected);
+            selected.add(s);
+            assertEquals(selection.getCurrent(), selected);
         }
+        
     }
 
     @Test
@@ -238,6 +235,8 @@ public class TestExtendedDataTableSelection extends AbstractDataTableTest {
                 case SHIFT:
                     selenium.shiftKeyUp();
                     break;
+                default:
+                    break;
             }
         }
 
@@ -248,6 +247,8 @@ public class TestExtendedDataTableSelection extends AbstractDataTableTest {
                     break;
                 case SHIFT:
                     selenium.shiftKeyDown();
+                    break;
+                default:
                     break;
             }
         }

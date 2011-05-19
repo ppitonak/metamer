@@ -21,7 +21,6 @@
  *******************************************************************************/
 package org.richfaces.tests.metamer.ftest.a4jLog;
 
-import java.awt.event.KeyEvent;
 import static org.jboss.test.selenium.locator.LocatorFactory.jq;
 import static org.jboss.test.selenium.locator.option.OptionLocatorFactory.optionLabel;
 import static org.jboss.test.selenium.utils.URLUtils.buildUrl;

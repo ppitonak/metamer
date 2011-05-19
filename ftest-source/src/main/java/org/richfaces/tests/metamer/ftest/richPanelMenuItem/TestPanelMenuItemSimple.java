@@ -22,9 +22,9 @@ import org.testng.annotations.Test;
  */
 public class TestPanelMenuItemSimple extends AbstractMetamerTest {
 
-    private static String SAMPLE_IMAGE = "/resources/images/loading.gif";
-    private static String CHEVRON_DOWN = "chevronDown";
-    private static String CHEVRON_DOWN_CLASS = "rf-ico-chevron-down";
+    private static String sampleImage = "/resources/images/loading.gif";
+    private static String chevronDown = "chevronDown";
+    private static String chevronDownClass = "rf-ico-chevron-down";
 
     PanelMenuItemAttributes attributes = new PanelMenuItemAttributes();
     PanelMenu menu = new PanelMenu(pjq("div.rf-pm[id$=panelMenu]"));
@@ -83,7 +83,7 @@ public class TestPanelMenuItemSimple extends AbstractMetamerTest {
 
     @Test
     public void testLeftDisabledIcon() {
-        attributes.setLeftDisabledIcon(SAMPLE_IMAGE);
+        attributes.setLeftDisabledIcon(sampleImage);
 
         assertTrue(leftIcon.isTransparent());
         assertFalse(leftIcon.isCustomURL());
@@ -91,14 +91,14 @@ public class TestPanelMenuItemSimple extends AbstractMetamerTest {
         attributes.setDisabled(true);
 
         assertTrue(leftIcon.isCustomURL());
-        assertTrue(leftIcon.getCustomURL().endsWith(SAMPLE_IMAGE));
+        assertTrue(leftIcon.getCustomURL().endsWith(sampleImage));
     }
 
     @Test
     public void testLeftIcon() {
-        attributes.setLeftIcon(CHEVRON_DOWN);
+        attributes.setLeftIcon(chevronDown);
 
-        assertTrue(leftIcon.containsClass(CHEVRON_DOWN_CLASS));
+        assertTrue(leftIcon.containsClass(chevronDownClass));
 
         attributes.setDisabled(true);
 
@@ -133,7 +133,7 @@ public class TestPanelMenuItemSimple extends AbstractMetamerTest {
 
     @Test
     public void testRightDisabledIcon() {
-        attributes.setRightDisabledIcon(SAMPLE_IMAGE);
+        attributes.setRightDisabledIcon(sampleImage);
 
         assertTrue(rightIcon.isTransparent());
         assertFalse(rightIcon.isCustomURL());
@@ -141,15 +141,15 @@ public class TestPanelMenuItemSimple extends AbstractMetamerTest {
         attributes.setDisabled(true);
 
         assertTrue(rightIcon.isCustomURL());
-        assertTrue(rightIcon.getCustomURL().endsWith(SAMPLE_IMAGE));
+        assertTrue(rightIcon.getCustomURL().endsWith(sampleImage));
     }
 
     @Test
     @IssueTracking("https://issues.jboss.org/browse/RF-10519")
     public void testRightIcon() {
-        attributes.setRightIcon(CHEVRON_DOWN);
+        attributes.setRightIcon(chevronDown);
 
-        assertTrue(rightIcon.containsClass(CHEVRON_DOWN_CLASS));
+        assertTrue(rightIcon.containsClass(chevronDownClass));
 
         attributes.setDisabled(true);
 

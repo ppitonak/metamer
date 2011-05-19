@@ -16,9 +16,9 @@ import org.testng.annotations.Test;
  */
 public class TestPanelMenuGroupSimple extends AbstractPanelMenuGroupTest {
 
-    private static String SAMPLE_IMAGE = "/resources/images/loading.gif";
-    private static String CHEVRON_DOWN = "chevronDown";
-    private static String CHEVRON_DOWN_CLASS = "rf-ico-chevron-down";
+    private static String sampleImage = "/resources/images/loading.gif";
+    private static String chevronDown = "chevronDown";
+    private static String chevronDownClass = "rf-ico-chevron-down";
 
     @Test
     public void testData() {
@@ -60,7 +60,7 @@ public class TestPanelMenuGroupSimple extends AbstractPanelMenuGroupTest {
 
     @Test
     public void testLeftDisabledIcon() {
-        attributes.setLeftDisabledIcon(SAMPLE_IMAGE);
+        attributes.setLeftDisabledIcon(sampleImage);
 
         assertTrue(leftIcon.isTransparent());
         assertFalse(leftIcon.isCustomURL());
@@ -68,16 +68,16 @@ public class TestPanelMenuGroupSimple extends AbstractPanelMenuGroupTest {
         attributes.setDisabled(true);
 
         assertTrue(leftIcon.isCustomURL());
-        assertTrue(leftIcon.getCustomURL().endsWith(SAMPLE_IMAGE));
+        assertTrue(leftIcon.getCustomURL().endsWith(sampleImage));
     }
 
     @Test
     public void testLeftCollapsedIcon() {
-        attributes.setLeftCollapsedIcon(CHEVRON_DOWN);
+        attributes.setLeftCollapsedIcon(chevronDown);
 
         topGroup.toggle();
 
-        assertTrue(leftIcon.containsClass(CHEVRON_DOWN_CLASS));
+        assertTrue(leftIcon.containsClass(chevronDownClass));
 
         attributes.setDisabled(true);
 
@@ -86,9 +86,9 @@ public class TestPanelMenuGroupSimple extends AbstractPanelMenuGroupTest {
 
     @Test
     public void testLeftExpandedIcon() {
-        attributes.setLeftExpandedIcon(CHEVRON_DOWN);
+        attributes.setLeftExpandedIcon(chevronDown);
 
-        assertTrue(leftIcon.containsClass(CHEVRON_DOWN_CLASS));
+        assertTrue(leftIcon.containsClass(chevronDownClass));
 
         attributes.setDisabled(true);
 
@@ -118,7 +118,7 @@ public class TestPanelMenuGroupSimple extends AbstractPanelMenuGroupTest {
 
     @Test
     public void testRightDisabledIcon() {
-        attributes.setRightDisabledIcon(SAMPLE_IMAGE);
+        attributes.setRightDisabledIcon(sampleImage);
 
         assertTrue(rightIcon.isTransparent());
         assertFalse(rightIcon.isCustomURL());
@@ -126,14 +126,14 @@ public class TestPanelMenuGroupSimple extends AbstractPanelMenuGroupTest {
         attributes.setDisabled(true);
 
         assertTrue(rightIcon.isCustomURL());
-        assertTrue(rightIcon.getCustomURL().endsWith(SAMPLE_IMAGE));
+        assertTrue(rightIcon.getCustomURL().endsWith(sampleImage));
     }
 
     @Test
     public void testRightExpandedIcon() {
-        attributes.setRightExpandedIcon(CHEVRON_DOWN);
+        attributes.setRightExpandedIcon(chevronDown);
 
-        assertTrue(rightIcon.containsClass(CHEVRON_DOWN_CLASS));
+        assertTrue(rightIcon.containsClass(chevronDownClass));
 
         attributes.setDisabled(true);
 
@@ -142,11 +142,11 @@ public class TestPanelMenuGroupSimple extends AbstractPanelMenuGroupTest {
 
     @Test
     public void testRightCollapsedIcon() {
-        attributes.setRightCollapsedIcon(CHEVRON_DOWN);
+        attributes.setRightCollapsedIcon(chevronDown);
 
         topGroup.toggle();
 
-        assertTrue(rightIcon.containsClass(CHEVRON_DOWN_CLASS));
+        assertTrue(rightIcon.containsClass(chevronDownClass));
 
         attributes.setDisabled(true);
 

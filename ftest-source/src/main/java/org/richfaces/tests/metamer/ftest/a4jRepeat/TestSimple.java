@@ -91,7 +91,7 @@ public class TestSimple extends AbstractMetamerTest {
     @Test
     @IssueTracking("https://issues.jboss.org/browse/RF-10589")
     @Use(field = "rows", ints = { -2, -1, 0, 1, ELEMENTS_TOTAL / 2, ELEMENTS_TOTAL - 1, ELEMENTS_TOTAL,
-        ELEMENTS_TOTAL + 1 })
+            ELEMENTS_TOTAL + 1 })
     public void testRowsAttribute() {
         verifyRepeat();
     }

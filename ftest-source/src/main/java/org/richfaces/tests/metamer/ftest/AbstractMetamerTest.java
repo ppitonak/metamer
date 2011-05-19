@@ -79,6 +79,11 @@ import org.testng.annotations.BeforeMethod;
  * @version $Revision$
  */
 public abstract class AbstractMetamerTest extends AbstractTestCase {
+    
+    /**
+     * timeout in miliseconds
+     */
+    public static final long TIMEOUT = 5000;
 
     protected JQueryLocator time = jq("span[id$=requestTime]");
     protected JQueryLocator renderChecker = jq("span[id$=renderChecker]");
@@ -90,10 +95,7 @@ public abstract class AbstractMetamerTest extends AbstractTestCase {
     protected PhaseInfo phaseInfo = new PhaseInfo();
     protected LocatorReference<JQueryLocator> attributesRoot = new LocatorReference<JQueryLocator>(
             pjq("span[id$=:attributes:panel]"));
-    /**
-     * timeout in miliseconds
-     */
-    public static final long TIMEOUT = 5000;
+    
     @Inject
     @Templates({ "plain", "richAccordion", "richDataTable", "richCollapsibleSubTable", "richExtendedDataTable",
         "richDataGrid", "richList", "richCollapsiblePanel", "richPanel", "richTabPanel", "richTogglePanel",

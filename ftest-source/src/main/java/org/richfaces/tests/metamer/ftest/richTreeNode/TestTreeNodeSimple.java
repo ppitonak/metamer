@@ -75,17 +75,22 @@ public class TestTreeNodeSimple extends AbstractMetamerTest {
     TreeNodeModel treeNode = tree.getNode(1);
     TreeNodeModel subTreeNode = treeNode.getNode(1);
     TreeNodeModel leaf = subTreeNode.getNode(1);
+    
+    ElementLocator<?> iconImage = treeNode.getIcon();
+    AttributeLocator<?> imageSrc = iconImage.getAttribute(SRC);
+    AttributeRetriever retrieveImageSrc = retrieveAttribute.attributeLocator(imageSrc);
+
 
     @Inject
     @Use(empty = true)
     Event event = CLICK;
-    Event[] events = new Event[] { CLICK, DBLCLICK, MOUSEDOWN, MOUSEMOVE, MOUSEOUT,
+    Event[] events = new Event[] {CLICK, DBLCLICK, MOUSEDOWN, MOUSEMOVE, MOUSEOUT,
         MOUSEOVER, MOUSEUP };
 
     @Inject
     @Use(empty = true)
     SwitchType toggleType;
-    SwitchType[] toggleTypes = new SwitchType[] { SwitchType.ajax, SwitchType.server };
+    SwitchType[] toggleTypes = new SwitchType[] {SwitchType.ajax, SwitchType.server };
 
     @BeforeMethod
     public void init() {
@@ -122,10 +127,6 @@ public class TestTreeNodeSimple extends AbstractMetamerTest {
         assertEquals(selenium.getCount(append(tree.getAnyNode().getIcon(), JQ_SAMPLE_CLASS)), 0);
         assertEquals(selenium.getCount(not(tree.getAnyNode().getIcon(), JQ_SAMPLE_CLASS)), 4);
     }
-
-    ElementLocator<?> iconImage = treeNode.getIcon();
-    AttributeLocator<?> imageSrc = iconImage.getAttribute(SRC);
-    AttributeRetriever retrieveImageSrc = retrieveAttribute.attributeLocator(imageSrc);
 
     @Test
     public void testIconCollapsed() {

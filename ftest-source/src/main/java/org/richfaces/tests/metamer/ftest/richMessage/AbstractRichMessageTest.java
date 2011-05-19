@@ -46,18 +46,20 @@ import org.slf4j.LoggerFactory;
  */
 public abstract class AbstractRichMessageTest extends AbstractMetamerTest {
 
+    // component's locators
+    protected static JQueryLocator message4Input1 = pjq("span[id$=simpleInputMsg1]");
+    protected static JQueryLocator message4Input2 = pjq("span[id$=simpleInputMsg2]");
+    protected static JQueryLocator messages = pjq("span[id$=msgs]");
+    
     private static Logger logger = LoggerFactory.getLogger(AbstractRichMessageTest.class);
+    
     protected RichMessageComponentAttributes attributes = new RichMessageComponentAttributes();
     // controls 
     protected JQueryLocator wrongValuesBtn = pjq("input[type=button][id$=setWrongValuesButton]");
     protected JQueryLocator correctValuesBtn = pjq("input[type=button][id$=setCorrectValuesButton]");
     protected JQueryLocator hCommandBtn = pjq("input[id$=hButton]");
     protected JQueryLocator a4jCommandBtn = pjq("input[id$=a4jButton]");
-    // component's locators
-    protected static JQueryLocator message4Input1 = pjq("span[id$=simpleInputMsg1]");
-    protected static JQueryLocator message4Input2 = pjq("span[id$=simpleInputMsg2]");
-    protected static JQueryLocator messages = pjq("span[id$=msgs]");
-
+    
     /**
      * Because of message and messages have many attributes very similar,
      * this method helps test method distinguish between metamer
@@ -165,7 +167,9 @@ public abstract class AbstractRichMessageTest extends AbstractMetamerTest {
     }
 
     protected void waitForAttribute(RichMessageAttributes attr) {
-        waitGui.until(attributeEquals.locator(getTestElemLocator().getAttribute(new Attribute(attr.toString()))).text(attr.toString()));
+        waitGui.until(attributeEquals.locator(
+            getTestElemLocator().getAttribute(new Attribute(attr.toString())))
+            .text(attr.toString()));
     }
 
     // ==================== test methods ====================
