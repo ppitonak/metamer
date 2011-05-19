@@ -46,27 +46,32 @@ import org.jboss.test.selenium.waiting.selenium.SeleniumWaiting;
  * @author <a href="mailto:lfryc@redhat.com">Lukas Fryc</a>
  * @version $Revision$
  */
-public class WaitFactory {
+public final class WaitFactory {
+    /** elementPresent waiting */
+    public static final ElementPresent ELEMENT_PRESENT = ElementPresent.getInstance();
+    
     /**
      * Waits for GUI interaction, such as rendering
      */
-    public static AjaxWaiting waitGui = waitAjax().interval(WAIT_GUI_INTERVAL).timeout(getSeleniumTimeout(GUI));
+    public static final AjaxWaiting WAIT_GUI = waitAjax().interval(WAIT_GUI_INTERVAL).timeout(getSeleniumTimeout(GUI));
     /**
      * Waits for AJAX interaction with server - not computationally difficult
      */
-    public static AjaxWaiting waitAjax = waitAjax().interval(WAIT_AJAX_INTERVAL).timeout(getSeleniumTimeout(AJAX));
+    public static final AjaxWaiting WAIT_AJAX = waitAjax().interval(WAIT_AJAX_INTERVAL).timeout(getSeleniumTimeout(AJAX));
     /**
      * Waits for computationally difficult requests
      */
-    public static SeleniumWaiting waitModel = waitSelenium().interval(WAIT_MODEL_INTERVAL).timeout(
+    public static final SeleniumWaiting WAIT_MODEL = waitSelenium().interval(WAIT_MODEL_INTERVAL).timeout(
         getSeleniumTimeout(MODEL));
     
-    public static ElementPresent elementPresent = ElementPresent.getInstance();
-    public static TextEquals textEquals = TextEquals.getInstance();
-    public static StyleEquals styleEquals = StyleEquals.getInstance();
-    public static AttributePresent attributePresent = AttributePresent.getInstance();
-    public static AttributeEquals attributeEquals = AttributeEquals.getInstance();
-    public static AlertPresent alertPresent = AlertPresent.getInstance();
-    public static AlertEquals alertEquals = AlertEquals.getInstance();
-    public static CountEquals countEquals = CountEquals.getInstance();
+    public static final TextEquals TEXT_EQUALS = TextEquals.getInstance();
+    public static final StyleEquals STYLE_EQUALS = StyleEquals.getInstance();
+    public static final AttributePresent ATTRIBUTE_PRESENT = AttributePresent.getInstance();
+    public static final AttributeEquals ATTRIBUTE_EQUALS = AttributeEquals.getInstance();
+    public static final AlertPresent ALERT_PRESENT = AlertPresent.getInstance();
+    public static final AlertEquals ALERT_EQUALS = AlertEquals.getInstance();
+    public static final CountEquals COUNT_EQUALS = CountEquals.getInstance();
+    
+    private WaitFactory() { };
+    
 }

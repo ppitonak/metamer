@@ -49,10 +49,6 @@ public abstract class DataTableFilteringTest extends AbstractDataTableTest {
     private static final String[] FILTER_TITLES = new String[] { "Director", null, "CEO" };
     private static final Integer[] FILTER_NUMBER_OF_KIDS = new Integer[] { 2, 100, 0, 5 };
     
-    public ExpectedEmployee filterEmployee;
-    public List<Employee> expectedEmployees;
-    public int rows;
-    
     JQueryLocator selectSex = jq("select");
     JQueryLocator inputName = jq("input");
     JQueryLocator inputTitle = jq("input");
@@ -60,6 +56,10 @@ public abstract class DataTableFilteringTest extends AbstractDataTableTest {
     JQueryLocator inputNumberOfKids2 = jq("input");
 
     FilteringDataTable filtering = new FilteringDataTable();
+    
+    private ExpectedEmployee filterEmployee;
+    private List<Employee> expectedEmployees;
+    private int rows;
     
     @BeforeMethod
     public void setup() {

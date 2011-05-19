@@ -96,15 +96,15 @@ public class TestNestedRegion extends AbstractMetamerTest {
         }
 
         if (execute.isComponentBased()) {
-            expectedChanges.add(execute.componentBase);
+            expectedChanges.add(execute.getComponentBase());
         }
     }
 
     private void obtainActualChanges() {
         actualChanges = EnumSet.noneOf(Component.class);
-        for (Component component : Component.values()) {
-            if (component.isChanged()) {
-                actualChanges.add(component);
+        for (Component currentComponent : Component.values()) {
+            if (currentComponent.isChanged()) {
+                actualChanges.add(currentComponent);
             }
         }
     }
