@@ -64,17 +64,17 @@
         <dependency>
             <groupId>org.icefaces</groupId>
             <artifactId>icefaces</artifactId>
-            <version>2.0.1</version>
+            <version>2.0.2</version>
         </dependency>
         <dependency>
             <groupId>org.icefaces</groupId>
             <artifactId>icefaces-ace</artifactId>
-            <version>2.0.1</version>
+            <version>2.0.2</version>
         </dependency>
         <dependency>
             <groupId>org.icefaces</groupId>
             <artifactId>icefaces-compat</artifactId>
-            <version>2.0.1</version>
+            <version>2.0.2</version>
         </dependency>
         
 
