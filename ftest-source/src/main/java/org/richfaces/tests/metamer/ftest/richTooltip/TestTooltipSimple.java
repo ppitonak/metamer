@@ -171,7 +171,9 @@ public class TestTooltipSimple extends AbstractMetamerTest {
                 case LEFT:
                     assertEquals(tooltipPosition.getX() + tooltipDimension.getWidth(), eventPosition.getX()
                             - horizontalOffset);
+                    break;
                 default:
+                    break;
             }
         }
 
@@ -183,7 +185,9 @@ public class TestTooltipSimple extends AbstractMetamerTest {
                 case TOP:
                     assertEquals(tooltipPosition.getY() + tooltipDimension.getHeight(), eventPosition.getY()
                             - verticalOffset);
+                    break;
                 default:
+                    break;
             }
         }
     }

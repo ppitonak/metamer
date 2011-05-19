@@ -37,15 +37,15 @@ import org.richfaces.tests.metamer.ftest.model.AbstractModel;
  */
 public class ListModel extends AbstractModel<JQueryLocator> {
 
-    public ListModel(JQueryLocator root) {
-        super(root);
-    }
-
     ListType type;
     
     ReferencedLocator<JQueryLocator> rows = ref(root, "li");
 
     private AjaxSelenium selenium = AjaxSeleniumProxy.getInstance();
+    
+    public ListModel(JQueryLocator root) {
+        super(root);
+    }
 
     public ListType getType() {
         return type;
@@ -83,6 +83,10 @@ public class ListModel extends AbstractModel<JQueryLocator> {
                 return jq("li.rf-ulst-itm");
             case definitions:
                 return jq("dd.rf-dlst-dfn");
+            default:
+                // default case required by checkstyle. 
+                // Kept Exception throw as without 'default'
+                break;
         }
         throw new IllegalStateException();
     }

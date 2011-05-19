@@ -47,6 +47,12 @@ public class TestTreeModelAdaptorSimple extends AbstractMetamerTest {
     protected TreeAttributes treeAttributes = new TreeAttributes(jq("span[id*=treeAttributes]"));
     protected TreeModel tree = new TreeModel(pjq("div.rf-tr[id$=richTree]"));
     protected TreeNodeModel treeNode;
+    
+    private ModelAdaptorAttributes modelAdaptorAttributes = new ModelAdaptorAttributes(
+        pjq("span[id$=:listAttributes:panel]"));
+    private RecursiveModelAdaptorAttributes recursiveModelAdaptorAttributes = new RecursiveModelAdaptorAttributes(
+        pjq("span[id$=:recursiveAttributes:panel]"));
+
 
     @Override
     public URL getTestUrl() {
@@ -87,12 +93,7 @@ public class TestTreeModelAdaptorSimple extends AbstractMetamerTest {
             }
         }
     }
-
-    private ModelAdaptorAttributes modelAdaptorAttributes = new ModelAdaptorAttributes(
-        pjq("span[id$=:listAttributes:panel]"));
-    private RecursiveModelAdaptorAttributes recursiveModelAdaptorAttributes = new RecursiveModelAdaptorAttributes(
-        pjq("span[id$=:recursiveAttributes:panel]"));
-
+    
     private class ModelAdaptorAttributes extends AbstractComponentAttributes {
 
         public <T extends ExtendedLocator<JQueryLocator>> ModelAdaptorAttributes(T root) {

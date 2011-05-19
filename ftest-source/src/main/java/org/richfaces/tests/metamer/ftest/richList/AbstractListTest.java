@@ -27,11 +27,11 @@ import org.richfaces.tests.metamer.model.Employee;
 import org.testng.annotations.BeforeMethod;
 
 public abstract class AbstractListTest extends AbstractMetamerTest {
-    protected static List<Employee> EMPLOYESS = Model.unmarshallEmployees();
-    protected static final int ELEMENTS_TOTAL = EMPLOYESS.size();
-    protected static final Event[] events = { CLICK, DBLCLICK, KEYDOWN, KEYPRESS, KEYUP, MOUSEDOWN, MOUSEMOVE,
+    protected static List<Employee> employees = Model.unmarshallEmployees();
+    protected static final int ELEMENTS_TOTAL = employees.size();
+    protected static final Event[] EVENTS = { CLICK, DBLCLICK, KEYDOWN, KEYPRESS, KEYUP, MOUSEDOWN, MOUSEMOVE,
         MOUSEOUT, MOUSEOVER, MOUSEUP };
-    protected static final Integer[] ints = { -1, 0, 1, ELEMENTS_TOTAL / 2, ELEMENTS_TOTAL - 1, ELEMENTS_TOTAL,
+    protected static final Integer[] INTS = { -1, 0, 1, ELEMENTS_TOTAL / 2, ELEMENTS_TOTAL - 1, ELEMENTS_TOTAL,
         ELEMENTS_TOTAL + 1 };
 
     ListModel list;
@@ -126,7 +126,7 @@ public abstract class AbstractListTest extends AbstractMetamerTest {
             expectedEnd = rows - 1;
         }
 
-        expectedEmployees = EMPLOYESS.subList(expectedBegin, expectedBegin + displayedRows);
+        expectedEmployees = employees.subList(expectedBegin, expectedBegin + displayedRows);
     }
 
     private int minMax(int min, int value, int max) {

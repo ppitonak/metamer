@@ -27,7 +27,6 @@ import org.richfaces.tests.metamer.bean.Model;
 import org.richfaces.tests.metamer.ftest.AbstractMetamerTest;
 import org.richfaces.tests.metamer.model.Capital;
 import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.Test;
 
 /**
  * @author <a href="mailto:lfryc@redhat.com">Lukas Fryc</a>

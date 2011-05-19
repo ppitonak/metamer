@@ -42,7 +42,7 @@ import org.jboss.test.selenium.waiting.conditions.StyleEquals;
 import org.jboss.test.selenium.waiting.conditions.TextEquals;
 import org.jboss.test.selenium.waiting.selenium.SeleniumWaiting;
 
-/**
+/** 
  * @author <a href="mailto:lfryc@redhat.com">Lukas Fryc</a>
  * @version $Revision$
  */

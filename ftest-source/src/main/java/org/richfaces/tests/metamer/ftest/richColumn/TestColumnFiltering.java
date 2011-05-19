@@ -44,15 +44,17 @@ import com.google.common.collect.Collections2;
  */
 public class TestColumnFiltering extends AbstractColumnModelTest {
 
+    private static final String STATE_NAME = "Maryland";
+    JQueryLocator stateNameToFilter = pjq("input:text[id$=stateNameToFilter]");
+    JQueryLocator tableWithFilter = pjq("table.rf-dt[id$=richDataTable1]");
+    JQueryLocator tableWithFilterExpression = pjq("table.rf-dt[id$=richDataTable2]");
+    RichColumnBean richColumnBean = new RichColumnBean();
+    
     @Override
     public URL getTestUrl() {
         return buildUrl(contextPath, "faces/components/richColumn/filtering.xhtml");
     }
-    JQueryLocator stateNameToFilter = pjq("input:text[id$=stateNameToFilter]");
-    private final static String stateName = "Maryland";
-    JQueryLocator tableWithFilter = pjq("table.rf-dt[id$=richDataTable1]");
-    JQueryLocator tableWithFilterExpression = pjq("table.rf-dt[id$=richDataTable2]");
-
+    
     @Test
     public void testFilterAttribute() {
         model.setRoot(tableWithFilter);
@@ -66,8 +68,8 @@ public class TestColumnFiltering extends AbstractColumnModelTest {
     }
 
     public void testFiltering() {
-        for (int i = 1; i <= stateName.length(); i++) {
-            String namePart = stateName.substring(0, i);
+        for (int i = 1; i <= STATE_NAME.length(); i++) {
+            String namePart = STATE_NAME.substring(0, i);
 
             selenium.type(stateNameToFilter, namePart);
             guardXhr(selenium).fireEvent(stateNameToFilter, Event.KEYUP);
@@ -86,8 +88,7 @@ public class TestColumnFiltering extends AbstractColumnModelTest {
             assertEqualsCapitals(actualCapitals, expectedCapitals);
         }
     }
-    RichColumnBean richColumnBean = new RichColumnBean();
-
+    
     private void assertEqualsCapitals(Collection<Capital> actualCapitals, Collection<Capital> expectedCapitals) {
         assertEquals(actualCapitals.size(), expectedCapitals.size());
 

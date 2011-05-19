@@ -27,14 +27,13 @@ import org.jboss.test.selenium.locator.reference.LocatorReference;
 import org.jboss.test.selenium.locator.reference.ReferencedLocator;
 import org.jboss.test.selenium.waiting.retrievers.Retriever;
 
+/**
+ * Queue Model
+ * @version $Revision$
+ */
 public class QueueModel {
-
-    private AjaxSelenium selenium = AjaxSeleniumProxy.getInstance();
-
-    private Boolean event2Present = null;
-
+    
     List<Long> deviations = new ArrayList<Long>();
-
     LocatorReference<JQueryLocator> form = new LocatorReference<JQueryLocator>(null);
 
     ReferencedLocator<JQueryLocator> input1 = ref(form, "input:text[id$=input1]");
@@ -61,6 +60,10 @@ public class QueueModel {
     Retriever<Long> retrieveEvent2Time = longAdapter(RETRIEVE_ATTRIBUTE.attributeLocator(event2Time));
     Retriever<Long> retrieveBeginTime = longAdapter(RETRIEVE_ATTRIBUTE.attributeLocator(beginTime));
     Retriever<Long> retrieveCompleteTime = longAdapter(RETRIEVE_ATTRIBUTE.attributeLocator(completeTime));
+    
+    private AjaxSelenium selenium = AjaxSeleniumProxy.getInstance();
+
+    private Boolean event2Present = null;
 
     public QueueModel() {
         this(pjq(""));

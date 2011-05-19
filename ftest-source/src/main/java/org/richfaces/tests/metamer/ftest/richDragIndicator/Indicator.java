@@ -121,6 +121,9 @@ public class Indicator extends AbstractModel<JQueryLocator> {
                 verifyCustomClass(acceptClass, false);
                 verifyCustomClass(rejectClass, true);
                 break;
+            default:
+                // default case required by checkstyle
+                break;
         }
     }
 

@@ -47,19 +47,19 @@ import org.testng.annotations.Test;
 public class TestTreeModelAdaptorSelection extends TestTreeSelection {
 
     @Inject
-    PathsCrate paths;
-    PathsCrate pathsForListModel = new PathsCrate("listModel", new Integer[][] { { 2, 1, 3 }, { 3, 3, 2, 2 } });
-    PathsCrate pathsForMapModel = new PathsCrate("mapModel", new Integer[][] { { 2, 1, 5 }, { 3, 3, 2, 6 } });
-    PathsCrate pathsForRecursiveModel = new PathsCrate("recursiveModel", new Integer[][] { { 4, 1, 10, 2 },
-        { 1, 4, 3, 11, 4 } });
-
-    @Inject
     @Use(enumeration = true)
     public RecursiveModelRepresentation representation;
 
     @Inject
     @Use(booleans = { true, false })
     public boolean recursiveLeafChildrenNullable;
+    
+    @Inject
+    PathsCrate paths;
+    PathsCrate pathsForListModel = new PathsCrate("listModel", new Integer[][] { { 2, 1, 3 }, { 3, 3, 2, 2 } });
+    PathsCrate pathsForMapModel = new PathsCrate("mapModel", new Integer[][] { { 2, 1, 5 }, { 3, 3, 2, 6 } });
+    PathsCrate pathsForRecursiveModel = new PathsCrate("recursiveModel", new Integer[][] { { 4, 1, 10, 2 },
+        { 1, 4, 3, 11, 4 } });
 
     public URL getTestUrl() {
         return buildUrl(contextPath, "http://localhost:8080/metamer/faces/components/richTree/treeAdaptors.xhtml");

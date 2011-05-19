@@ -56,19 +56,19 @@ import org.testng.annotations.Test;
  */
 public class TestDropTarget extends AbstractDragNDropTest {
 
-    private DropTargetAttributes attributes = new DropTargetAttributes();
-
-    @Override
-    public URL getTestUrl() {
-        return buildUrl(contextPath, "faces/components/richDropTarget/simple.xhtml");
-    }
-
     TextRetriever retrieveDrop1 = retrieveText.locator(drop1);
     TextRetriever retrieveDrop2 = retrieveText.locator(drop2);
 
     JQueryLocator clientId = jq("span[id$=:clientId]");
     JQueryLocator dragValue = jq("span[id$=:dragValue]");
     JQueryLocator dropValue = jq("span[id$=:dropValue]");
+
+    private DropTargetAttributes attributes = new DropTargetAttributes();
+
+    @Override
+    public URL getTestUrl() {
+        return buildUrl(contextPath, "faces/components/richDropTarget/simple.xhtml");
+    }
 
     @Test
     public void testAcceptedTypes() {

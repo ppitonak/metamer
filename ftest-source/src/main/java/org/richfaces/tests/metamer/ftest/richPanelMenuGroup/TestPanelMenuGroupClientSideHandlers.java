@@ -40,6 +40,8 @@ import org.testng.annotations.Test;
  * @version $Revision$
  */
 public class TestPanelMenuGroupClientSideHandlers extends AbstractPanelMenuGroupTest {
+    
+    PanelMenu.Group group1 = menu.getGroupContains("Group 1");
 
     @Inject
     @Use(empty = true)
@@ -59,8 +61,7 @@ public class TestPanelMenuGroupClientSideHandlers extends AbstractPanelMenuGroup
     public URL getTestUrl() {
         return buildUrl(contextPath, "faces/components/richPanelMenuGroup/simple.xhtml");
     }
-    PanelMenu.Group group1 = menu.getGroupContains("Group 1");
-
+    
     @Test
     @Use(field = "event", value = "ajaxCollapsionEvents")
     public void testClientSideCollapsionEvent() {
