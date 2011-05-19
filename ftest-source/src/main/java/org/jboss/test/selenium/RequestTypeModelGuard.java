@@ -34,7 +34,7 @@ import org.jboss.test.selenium.request.RequestType;
  * @author <a href="mailto:lfryc@redhat.com">Lukas Fryc</a>
  * @version $Revision$
  */
-public class RequestTypeModelGuard implements MethodHandler {
+public final class RequestTypeModelGuard implements MethodHandler {
     private RequestTypeGuard guard;
 
     private RequestTypeModelGuard(RequestTypeGuard guard) {

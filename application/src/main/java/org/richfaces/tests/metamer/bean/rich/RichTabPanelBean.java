@@ -50,6 +50,7 @@ public class RichTabPanelBean implements Serializable {
     private Attributes attributes;
     
     private List<UITab> tabs = new ArrayList<UITab>();
+    private List<TabBean> tabBeans = new ArrayList<TabBean>();
 
     /**
      * Initializes the managed bean.
@@ -85,6 +86,18 @@ public class RichTabPanelBean implements Serializable {
         
         tabs.add(tab);
     }
+    
+    public void generateNewTab() {
+        
+        System.out.println(" ###### adding new tabBean... ");
+        
+        int i = tabBeans.size();
+        String idBase = "tab" + (i + 6); // there is already 5 tabs
+        tabBeans.add(new TabBean(idBase, idBase, idBase + " header", 
+            "Content of dynamicaly created " + idBase));
+        
+        System.out.println(" Now is tabBeans list " + tabBeans.size() + " long");
+    }
 
     public Attributes getAttributes() {
         return attributes;
@@ -100,5 +113,61 @@ public class RichTabPanelBean implements Serializable {
 
     public void setTabs(List<UITab> tabs) {
         this.tabs = tabs;
+    }
+    
+    public class TabBean {
+        private String tabId;
+        private String tabName;
+        private String tabHeader;
+        private String tabContentText;
+        
+        public TabBean(String tabId, String tabName, String tabHeader, 
+                        String tabContentText){
+            this.tabId = tabId;
+            this.tabName = tabName;
+            this.tabHeader = tabHeader;
+            this.tabContentText = tabContentText;
+        }
+
+        public String getTabId() {
+            return tabId;
+        }
+
+        public void setTabId(String tabId) {
+            this.tabId = tabId;
+        }
+
+        public String getTabName() {
+            return tabName;
+        }
+
+        public void setTabName(String tabName) {
+            this.tabName = tabName;
+        }
+
+        public String getTabHeader() {
+            return tabHeader;
+        }
+
+        public void setTabHeader(String tabHeader) {
+            this.tabHeader = tabHeader;
+        }
+
+        public String getTabContentText() {
+            return tabContentText;
+        }
+
+        public void setTabContentText(String tabContentText) {
+            this.tabContentText = tabContentText;
+        }
+        
+    }
+
+    public List<TabBean> getTabBeans() {
+        return tabBeans;
+    }
+
+    public void setTabBeans(List<TabBean> tabBeans) {
+        this.tabBeans = tabBeans;
     }
 }

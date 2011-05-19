@@ -64,18 +64,26 @@ import org.testng.annotations.Test;
  * @version $Revision$
  */
 public class TestTreeSimple extends AbstractMetamerTest {
+    
+    private static final String IMAGE_URL = "/resources/images/loading.gif";
+    
+    SeleniumCondition treeNodeExpanded = new SeleniumCondition() {
 
-    private final static String IMAGE_URL = "/resources/images/loading.gif";
+        @Override
+        public boolean isTrue() {
+            return treeNode.isExpanded();
+        }
+    };
 
     @Inject
     @Use(empty = true)
     Event eventToFire;
-    Event[] eventsToFire = new Event[] { MOUSEDOWN, MOUSEUP, MOUSEOVER, MOUSEOUT };
+    Event[] eventsToFire = new Event[] {MOUSEDOWN, MOUSEUP, MOUSEOVER, MOUSEOUT};
 
     @Inject
     @Use(empty = true)
     Event domEvent;
-    Event[] domEvents = { CLICK, DBLCLICK, KEYDOWN, KEYPRESS, KEYUP, MOUSEDOWN, MOUSEMOVE, MOUSEOUT, MOUSEOVER, MOUSEUP };
+    Event[] domEvents = {CLICK, DBLCLICK, KEYDOWN, KEYPRESS, KEYUP, MOUSEDOWN, MOUSEMOVE, MOUSEOUT, MOUSEOVER, MOUSEUP};
 
     TreeModel tree = new TreeModel(pjq("div.rf-tr[id$=richTree]"));
     TreeNodeModel treeNode;
@@ -333,14 +341,6 @@ public class TestTreeSimple extends AbstractMetamerTest {
         }
     }
 
-    SeleniumCondition treeNodeExpanded = new SeleniumCondition() {
-
-        @Override
-        public boolean isTrue() {
-            return treeNode.isExpanded();
-        }
-    };
-
     private void fireEvent(ElementLocator<?> target, Event eventToFire, Event eventToSetup) {
         RequestType requestType = (eventToFire == eventToSetup) ? RequestType.XHR : RequestType.NONE;
         if (eventToFire == MOUSEDOWN) {
@@ -381,7 +381,9 @@ public class TestTreeSimple extends AbstractMetamerTest {
                         treeNode2.expand();
                     }
                 }
+                break;
             default:
+                break;
         }
     }
 }

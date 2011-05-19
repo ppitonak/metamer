@@ -324,21 +324,21 @@ public class MatrixConfigurator extends TestMethodSelector implements IInvokedMe
         }
         
         if (useAnnotation.decimals().length > 0) {
-        	if (parameterType == double.class || parameterType == Double.class) {
-        	    result.addAll(Arrays.asList(ArrayUtils.toObject(useAnnotation.decimals())));
-        	}
+            if (parameterType == double.class || parameterType == Double.class) {
+                result.addAll(Arrays.asList(ArrayUtils.toObject(useAnnotation.decimals())));
+            }
         }
         
         if (useAnnotation.strings().length > 0) {
-        	if (parameterType == String.class) {
-        	    result.addAll(Arrays.asList(useAnnotation.strings()));
-        	}
+            if (parameterType == String.class) {
+                result.addAll(Arrays.asList(useAnnotation.strings()));
+            }
         }
         
         if (useAnnotation.booleans().length > 0) {
-        	if (parameterType == boolean.class || parameterType == Boolean.class) {
-        	    result.addAll(Arrays.asList(ArrayUtils.toObject(useAnnotation.booleans())));
-        	}
+            if (parameterType == boolean.class || parameterType == Boolean.class) {
+                result.addAll(Arrays.asList(ArrayUtils.toObject(useAnnotation.booleans())));
+            }
         }
         
         if (useAnnotation.enumeration()) {

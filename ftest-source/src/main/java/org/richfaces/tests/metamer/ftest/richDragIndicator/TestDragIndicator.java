@@ -39,9 +39,9 @@ import org.testng.annotations.Test;
  */
 public class TestDragIndicator extends AbstractDragNDropTest {
 
-    private final static String ACCEPT_CLASS = "sample-accept-class";
-    private final static String REJECT_CLASS = "sample-reject-class";
-    private final static String DRAGGING_CLASS = "sample-dragging-class";
+    private static final String ACCEPT_CLASS = "sample-accept-class";
+    private static final String REJECT_CLASS = "sample-reject-class";
+    private static final String DRAGGING_CLASS = "sample-dragging-class";
 
     private DragIndicatorAttributes attributes = new DragIndicatorAttributes();
 

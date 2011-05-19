@@ -8,13 +8,13 @@ import org.jboss.test.selenium.locator.reference.ReferencedLocator;
 
 public class CollapsibleSubTableToggler extends AbstractModel<JQueryLocator> {
 
+    ReferencedLocator<JQueryLocator> collapsedTogglers = ref(root, "> span[id$=collapsed]");
+    ReferencedLocator<JQueryLocator> expandedTogglers = ref(root, "> span[id$=expanded]");
+    
     public CollapsibleSubTableToggler(JQueryLocator root) {
         super(root);
     }
-
-    ReferencedLocator<JQueryLocator> collapsedTogglers = ref(root, "> span[id$=collapsed]");
-    ReferencedLocator<JQueryLocator> expandedTogglers = ref(root, "> span[id$=expanded]");
-
+    
     public ExtendedLocator<JQueryLocator> getCollapsed() {
         return collapsedTogglers;
     }
