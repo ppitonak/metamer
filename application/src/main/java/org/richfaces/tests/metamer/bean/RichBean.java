@@ -121,6 +121,7 @@ public class RichBean implements Serializable {
         a4jComponents.put("a4jStatus", "A4J Status");
 
         iceComponents.put("iceSelectInputDate", "ICE Select Input Date");
+        iceComponents.put("iceSingleSubmit", "ICE Single Submit");
 
         otherComponents.put("expressionLanguage", "Expression Language");
         otherComponents.put("commandButton", "JSF Command Button");
