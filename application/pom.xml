@@ -51,10 +51,6 @@
             <id>org.openfaces</id>
             <url>http://repository.openfaces.org/repository</url>
         </repository>
-        <repository>
-            <id>jfree</id>
-            <url>http://www.ibiblio.org/maven/jfree/</url>
-        </repository>
     </repositories>
 
     <dependencies>
