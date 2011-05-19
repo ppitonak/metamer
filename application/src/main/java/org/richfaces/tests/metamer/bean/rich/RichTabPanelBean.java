@@ -21,15 +21,19 @@
  *******************************************************************************/
 package org.richfaces.tests.metamer.bean.rich;
 
-import org.richfaces.component.UITabPanel;
-import org.richfaces.tests.metamer.Attributes;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
-import java.io.Serializable;
+
+import org.richfaces.component.UITab;
+import org.richfaces.component.UITabPanel;
+import org.richfaces.tests.metamer.Attributes;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Managed bean for rich:tabPanel.
@@ -44,6 +48,8 @@ public class RichTabPanelBean implements Serializable {
     private static final long serialVersionUID = -1L;
     private static Logger logger;
     private Attributes attributes;
+    
+    private List<UITab> tabs = new ArrayList<UITab>();
 
     /**
      * Initializes the managed bean.
@@ -66,6 +72,19 @@ public class RichTabPanelBean implements Serializable {
         attributes.setAttribute("bypassUpdates", null);
         attributes.get("bypassUpdates").setType(Boolean.class);
     }
+    
+    public void createNewTab() {
+        
+        UITab tab = new UITab();
+        int index = tabs.size() + 6; // there is already 5 tabs
+        
+        tab.setHeader("tab" + index + " header");
+        tab.setId("tab" + index);
+        tab.setName("tab" + index);
+        tab.setRender("tab" + index);
+        
+        tabs.add(tab);
+    }
 
     public Attributes getAttributes() {
         return attributes;
@@ -73,5 +92,13 @@ public class RichTabPanelBean implements Serializable {
 
     public void setAttributes(Attributes attributes) {
         this.attributes = attributes;
+    }
+
+    public List<UITab> getTabs() {
+        return tabs;
+    }
+
+    public void setTabs(List<UITab> tabs) {
+        this.tabs = tabs;
     }
 }

@@ -180,10 +180,15 @@ public class RichBean implements Serializable {
         openComponents.put("oConfirmation", "Open Confirmation");
         openComponents.put("oDataTable", "Open Data Table");
         openComponents.put("oDateChooser", "Open Date Chooser");
+        openComponents.put("oFoldingPanel", "Open Folding Panel");
         openComponents.put("oForEach", "Open For Each");
         openComponents.put("oInputText", "Open Input Text");
+        openComponents.put("oLayeredPane", "Open Layered Pane");
+        openComponents.put("oPopupLayer", "Open Popup Layer");
         openComponents.put("oSpinner", "Open Spinner");
         openComponents.put("oSuggestionField", "Open Suggestion Field");
+        openComponents.put("oTabbedPane", "Open Tabbed Pane");
+        openComponents.put("oValidation", "Open Validation");
     }
 
     private void createSkinList() {

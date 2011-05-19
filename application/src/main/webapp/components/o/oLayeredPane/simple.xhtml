@@ -40,20 +40,23 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
         </ui:define>
 
         <ui:define name="component">
-            <o:spinner id="input1" value="#{oSpinnerBean.value1}" promptText="click here to edit"
-                       minValue="0" maxValue="100">
-                <f:ajax event="change" render="output1"/>
-            </o:spinner>
+            <o:layeredPane id="layeredPane" loadingMode="client">
+                <o:subPanel>
+                    content 1
+                </o:subPanel>
+                <o:subPanel>
+                    content 2
+                </o:subPanel>
+                <o:subPanel>
+                    content 3
+                </o:subPanel>
+                <o:subPanel>
+                    content 4
+                </o:subPanel>
+            </o:layeredPane>
 
-      
-            <br/><br/>
-
-            <h:panelGrid id="outputs" columns="2">
-                output1: <h:outputText id="output1" value="#{oSpinnerBean.value1}"/>
-                output2: <h:outputText id="output2" value="#{oSpinnerBean.value2}"/>
-                output3: <h:outputText id="output3" value="#{oSpinnerBean.value3}"/>
-            </h:panelGrid>
-
+            <o:spinner value="0" minValue="0" maxValue="2"
+           onchange="O$('form:layeredPane').setSelectedIndex(this.getValue());"/>
         </ui:define>
 
         <ui:define name="outOfTemplateAfter"/>

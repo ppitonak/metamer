@@ -40,19 +40,12 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
         </ui:define>
 
         <ui:define name="component">
-            <o:spinner id="input1" value="#{oSpinnerBean.value1}" promptText="click here to edit"
-                       minValue="0" maxValue="100">
-                <f:ajax event="change" render="output1"/>
-            </o:spinner>
-
-      
-            <br/><br/>
-
-            <h:panelGrid id="outputs" columns="2">
-                output1: <h:outputText id="output1" value="#{oSpinnerBean.value1}"/>
-                output2: <h:outputText id="output2" value="#{oSpinnerBean.value2}"/>
-                output3: <h:outputText id="output3" value="#{oSpinnerBean.value3}"/>
-            </h:panelGrid>
+            <o:foldingPanel caption="Simple panel" style="width: 500px">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus a neque turpis, at cursus nunc.
+                Vestibulum et tincidunt metus. Suspendisse viverra aliquet nunc, non placerat justo commodo a. Pellentesque
+                non lacus ut mi consectetur blandit nec sed orci. Praesent tempus aliquet sapien vitae condimentum. Aenean
+                nec ligula egestas erat convallis pharetra. 
+            </o:foldingPanel>
 
         </ui:define>
 

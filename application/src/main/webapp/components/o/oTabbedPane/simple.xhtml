@@ -40,19 +40,22 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
         </ui:define>
 
         <ui:define name="component">
-            <o:spinner id="input1" value="#{oSpinnerBean.value1}" promptText="click here to edit"
-                       minValue="0" maxValue="100">
-                <f:ajax event="change" render="output1"/>
-            </o:spinner>
 
-      
-            <br/><br/>
+            <o:tabbedPane id="layeredPane" loadingMode="client">
+                <o:subPanel caption="tab 1">
+                    content 1
+                </o:subPanel>
+                <o:subPanel caption="tab 2">
+                    content 2
+                </o:subPanel>
+                <o:subPanel caption="tab 3">
+                    content 3
+                </o:subPanel>
+                <o:subPanel caption="tab 4">
+                    content 4
+                </o:subPanel>
+            </o:tabbedPane>
 
-            <h:panelGrid id="outputs" columns="2">
-                output1: <h:outputText id="output1" value="#{oSpinnerBean.value1}"/>
-                output2: <h:outputText id="output2" value="#{oSpinnerBean.value2}"/>
-                output3: <h:outputText id="output3" value="#{oSpinnerBean.value3}"/>
-            </h:panelGrid>
 
         </ui:define>
 

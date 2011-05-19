@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"  xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:a4j="http://richfaces.org/a4j"
-      xmlns:h="http://java.sun.com/jsf/html" xmlns:o="http://openfaces.org/">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:a4j="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich"
+      xmlns:metamer="http://java.sun.com/jsf/composite/metamer" xmlns:o="http://openfaces.org/">
 
     <!--
 JBoss, Home of Professional Open Source
@@ -40,22 +40,38 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
         </ui:define>
 
         <ui:define name="component">
-            <o:spinner id="input1" value="#{oSpinnerBean.value1}" promptText="click here to edit"
-                       minValue="0" maxValue="100">
-                <f:ajax event="change" render="output1"/>
-            </o:spinner>
+            <o:clientValidationSupport
+                clientValidation="onSubmit"
+                useDefaultClientValidationPresentation="true"
+                useDefaultServerValidationPresentation="true">
+            </o:clientValidationSupport>
 
-      
-            <br/><br/>
+            <h:panelGrid columns="2">
 
-            <h:panelGrid id="outputs" columns="2">
-                output1: <h:outputText id="output1" value="#{oSpinnerBean.value1}"/>
-                output2: <h:outputText id="output2" value="#{oSpinnerBean.value2}"/>
-                output3: <h:outputText id="output3" value="#{oSpinnerBean.value3}"/>
+                <h:outputLabel for="decimalMinMax" value="#{decimalMinMaxBean.description}" />
+                <h:inputText id="decimalMinMax" value="#{decimalMinMaxBean.value}"
+                             label="#{decimalMinMaxBean.label}" converter="#{decimalMinMaxBean.converter}">
+                    <f:validateDoubleRange minimum="2.5" maximum="9.688"/>
+                </h:inputText>
+
+                <h:outputLabel for="stringSize" value="#{stringSizeBean.description}" />
+                <h:inputText id="stringSize" value="#{stringSizeBean.value}" label="#{stringSizeBean.label}">
+                    <f:validateLength minimum="3" maximum="5"/>
+                </h:inputText>
+
             </h:panelGrid>
 
+            <br/>
+
+            <h:commandButton id="hButton" value="h:commandButton" style="margin-right: 10px;"/>
+            <a4j:commandButton id="a4jButton" value="a4j:commandButton"/>
+
+            <br/>
+            <rich:messages id="msgs"/>
         </ui:define>
 
-        <ui:define name="outOfTemplateAfter"/>
+        <ui:define name="outOfTemplateAfter">
+        </ui:define>
+
     </ui:composition>
 </html>
