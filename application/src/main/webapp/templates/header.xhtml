@@ -54,15 +54,6 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 
                 <h:selectBooleanCheckbox id="a4jLogCheckbox" value="false" onchange="showOrHideLog()" />
 
-                <h:outputLabel id="a4jStatusLabel" value="Status" for="a4jStatusPanel"/>
-                <a4j:outputPanel id="a4jStatusPanel" ajaxRendered="true">
-                    <a4j:status id="a4jStatus" onstop="updateLog('#{phasesBean.phases}')">
-                        <f:facet name="start">
-                            <h:outputText value="WORKING" style="color: red;" />
-                        </f:facet>
-                    </a4j:status>
-                </a4j:outputPanel>
-
                 <h:outputLabel id="localeLabel" value="Locale" for="locale" />
                 <h:outputText id="locale" value="#{facesContext.viewRoot.locale}" />
 
