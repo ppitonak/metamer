@@ -21,9 +21,10 @@
  *******************************************************************************/
 package org.richfaces.tests.metamer.ftest;
 
+import static java.util.Arrays.asList;
+
 import java.io.File;
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -32,8 +33,6 @@ import org.apache.commons.lang.StringUtils;
 import org.jboss.test.selenium.listener.FailureLoggingTestListener;
 import org.richfaces.tests.metamer.ftest.annotations.IssueTracking;
 import org.testng.ITestResult;
-
-import static java.util.Arrays.asList;
 
 /**
  * @author <a href="mailto:lfryc@redhat.com">Lukas Fryc</a>

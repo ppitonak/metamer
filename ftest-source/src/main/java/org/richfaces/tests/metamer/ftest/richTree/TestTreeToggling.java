@@ -45,15 +45,15 @@ public class TestTreeToggling extends AbstractMetamerTest {
 
     private static final int TOP_LEVEL_NODES = 4;
 
-    protected int[][] paths = new int[][] { { 3, 2, 1 }, { 2, 4, 1 } };
-
+    protected int[][] paths = new int[][] {{3, 2, 1 }, {2, 4, 1 }};
     protected TreeAttributes treeAttributes = new TreeAttributes(jq("span[id*=attributes]"));
-    private TreeModel tree = new TreeModel(pjq("div.rf-tr[id$=richTree]"));
-    private TreeNodeModel treeNode;
-
+    
     @Inject
     @Use(enumeration = true)
     SwitchType toggleType = SwitchType.ajax;
+    
+    private TreeModel tree = new TreeModel(pjq("div.rf-tr[id$=richTree]"));
+    private TreeNodeModel treeNode;
 
     @Override
     public URL getTestUrl() {

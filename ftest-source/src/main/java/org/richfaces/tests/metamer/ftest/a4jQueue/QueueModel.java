@@ -7,7 +7,7 @@ import static org.jboss.test.selenium.dom.Event.KEYPRESS;
 import static org.jboss.test.selenium.locator.Attribute.TITLE;
 import static org.jboss.test.selenium.locator.reference.ReferencedLocator.ref;
 import static org.jboss.test.selenium.utils.text.SimplifiedFormat.format;
-import static org.jboss.test.selenium.waiting.WaitFactory.waitAjax;
+import static org.jboss.test.selenium.waiting.WaitFactory.WAIT_AJAX;
 import static org.jboss.test.selenium.waiting.retrievers.RetrieverFactory.RETRIEVE_ATTRIBUTE;
 import static org.jboss.test.selenium.waiting.retrievers.RetrieverFactory.RETRIEVE_TEXT;
 import static org.richfaces.tests.metamer.ftest.AbstractMetamerTest.pjq;
@@ -27,14 +27,13 @@ import org.jboss.test.selenium.locator.reference.LocatorReference;
 import org.jboss.test.selenium.locator.reference.ReferencedLocator;
 import org.jboss.test.selenium.waiting.retrievers.Retriever;
 
+/**
+ * Queue Model
+ * @version $Revision$
+ */
 public class QueueModel {
-
-    private AjaxSelenium selenium = AjaxSeleniumProxy.getInstance();
-
-    private Boolean event2Present = null;
-
+    
     List<Long> deviations = new ArrayList<Long>();
-
     LocatorReference<JQueryLocator> form = new LocatorReference<JQueryLocator>(null);
 
     ReferencedLocator<JQueryLocator> input1 = ref(form, "input:text[id$=input1]");
@@ -61,6 +60,10 @@ public class QueueModel {
     Retriever<Long> retrieveEvent2Time = longAdapter(RETRIEVE_ATTRIBUTE.attributeLocator(event2Time));
     Retriever<Long> retrieveBeginTime = longAdapter(RETRIEVE_ATTRIBUTE.attributeLocator(beginTime));
     Retriever<Long> retrieveCompleteTime = longAdapter(RETRIEVE_ATTRIBUTE.attributeLocator(completeTime));
+    
+    private AjaxSelenium selenium = AjaxSeleniumProxy.getInstance();
+
+    private Boolean event2Present = null;
 
     public QueueModel() {
         this(pjq(""));
@@ -127,7 +130,7 @@ public class QueueModel {
 
     private void assertChangeIfNotEqualToOldValue(Retriever<Integer> retrieveCount, Integer eventCount, String eventType) {
         if (!eventCount.equals(retrieveCount.getValue())) {
-            assertEquals(waitAjax.failWith(eventType).waitForChangeAndReturn(retrieveCount), eventCount);
+            assertEquals(WAIT_AJAX.failWith(eventType).waitForChangeAndReturn(retrieveCount), eventCount);
         } else {
             assertEquals(retrieveCount.retrieve(), eventCount);
         }
@@ -149,8 +152,8 @@ public class QueueModel {
 
     public void checkTimes(Input event, long requestDelay) {
         Retriever<Long> retrieveEventTime = (event == Input.FIRST) ? retrieveEvent1Time : retrieveEvent2Time;
-        long eventTime = waitAjax.waitForChangeAndReturn(retrieveEventTime);
-        long beginTime = waitAjax.waitForChangeAndReturn(retrieveBeginTime);
+        long eventTime = WAIT_AJAX.waitForChangeAndReturn(retrieveEventTime);
+        long beginTime = WAIT_AJAX.waitForChangeAndReturn(retrieveBeginTime);
         long actualDelay = beginTime - eventTime;
         long deviation = Math.abs(actualDelay - requestDelay);
         long maxDeviation = Math.max(300, requestDelay / 2);

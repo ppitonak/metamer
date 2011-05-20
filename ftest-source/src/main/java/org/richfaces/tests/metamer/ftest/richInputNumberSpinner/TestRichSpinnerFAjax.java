@@ -21,13 +21,10 @@
  *******************************************************************************/
 package org.richfaces.tests.metamer.ftest.richInputNumberSpinner;
 
-import static org.jboss.test.selenium.guard.request.RequestTypeGuardFactory.guardXhr;
 import static org.jboss.test.selenium.utils.URLUtils.buildUrl;
 
 import java.net.URL;
 
-import org.jboss.test.selenium.encapsulated.JavaScript;
-import org.jboss.test.selenium.locator.ElementLocator;
 import org.richfaces.tests.metamer.ftest.annotations.Use;
 import org.testng.annotations.Test;
 

@@ -76,11 +76,11 @@ public class NestedRegionModel {
     public enum Component {
         OUTER("Outer"), REGION("Region"), NESTED("Nested region"), DECORATION("Decoration"), INSERTION("Insertion");
 
-        public final JQueryLocator select;
-        public final JQueryLocator output;
-        public final JQueryLocator input;
-        public final JQueryLocator link;
-        public final OptionLocator<?> executeOption;
+        private final JQueryLocator select;
+        private final JQueryLocator output;
+        private final JQueryLocator input;
+        private final JQueryLocator link;
+        private final OptionLocator<?> executeOption;
 
         private Component(String name) {
             String id = name.substring(0, 1).toLowerCase() + WordUtils.capitalize(name).replace(" ", "").substring(1);
@@ -108,8 +108,8 @@ public class NestedRegionModel {
             Component.OUTER), COMPONENT_REGION(Component.REGION), COMPONENT_NESTED(Component.NESTED), COMPONENT_DECORATION(
             Component.DECORATION), COMPONENT_INSERTION(Component.INSERTION);
 
-        public final OptionLocator<?> option;
-        public final Component componentBase;
+        private final OptionLocator<?> option;
+        private final Component componentBase;
 
         private Execute(String label) {
             this.option = optionLabel(label);
@@ -123,6 +123,10 @@ public class NestedRegionModel {
 
         public boolean isComponentBased() {
             return componentBase != null;
+        }
+        
+        public Component getComponentBase() {
+            return componentBase;
         }
     }
 }

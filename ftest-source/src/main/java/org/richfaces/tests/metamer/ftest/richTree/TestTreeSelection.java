@@ -50,14 +50,9 @@ import org.testng.annotations.Test;
 @Use(field = "selectionPaths", value = "")
 public class TestTreeSelection extends AbstractMetamerTest {
 
-    protected Integer[][] selectionPaths = new Integer[][] { { 2, 3 }, { 3, 4 }, { 4, 1, 1 }, { 4 }, { 4, 1 },
-        { 1, 5 }, { 2, 3, 3 } };
-
-    @Override
-    public URL getTestUrl() {
-        return buildUrl(contextPath, "faces/components/richTree/simple.xhtml");
-    }
-
+    protected Integer[][] selectionPaths = new Integer[][] {{2, 3}, {3, 4}, {4, 1, 1}, {4}, {4, 1},
+        {1, 5 }, {2, 3, 3 } };
+    
     protected TreeAttributes treeAttributes = new TreeAttributes(jq("span[id*=attributes]"));
     protected TreeModel tree = new TreeModel(pjq("div.rf-tr[id$=richTree]"));
     protected TreeNodeModel treeNode;
@@ -65,14 +60,20 @@ public class TestTreeSelection extends AbstractMetamerTest {
     @Inject
     @Use(value = "selectionTypes")
     SwitchType selectionType;
-    SwitchType[] selectionTypes = new SwitchType[] { SwitchType.ajax, SwitchType.client };
-    SwitchType[] eventEnabledSelectionTypes = new SwitchType[] { SwitchType.ajax };
+    SwitchType[] selectionTypes = new SwitchType[] {SwitchType.ajax, SwitchType.client};
+    SwitchType[] eventEnabledSelectionTypes = new SwitchType[] {SwitchType.ajax};
 
     JQueryLocator expandAll = jq("input:submit[id$=expandAll]");
     JQueryLocator selection = jq("span[id$=selection]");
     JQueryLocator clientId = jq("span[id$=selectionEventClientId]");
     JQueryLocator newSelection = jq("span[id$=selectionEventNewSelection]");
     JQueryLocator oldSelection = jq("span[id$=selectionEventOldSelection]");
+
+
+    @Override
+    public URL getTestUrl() {
+        return buildUrl(contextPath, "faces/components/richTree/simple.xhtml");
+    }
 
     @BeforeMethod
     public void testInitialize() {

@@ -48,18 +48,19 @@ import org.testng.annotations.Test;
  * @version $Revision$
  */
 public class TestTreeModelAdaptorLazyLoading extends AbstractMetamerTest {
+    
+    protected TreeAttributes treeAttributes = new TreeAttributes(jq("span[id*=treeAttributes]"));
+    protected TreeModel tree = new TreeModel(pjq("div.rf-tr[id$=richTree]"));
+    protected TreeNodeModel treeNode;
+    
+    protected Integer[][] paths = new Integer[][] {{1, 1, 1, 8, 1}, {4, 4, 11, 4}};
+
+    JQueryLocator lazyInitialized = pjq("span[id$=lazyInitialized]");
+    
     @Override
     public URL getTestUrl() {
         return buildUrl(contextPath, "faces/components/richTree/treeAdaptors.xhtml");
     }
-
-    protected TreeAttributes treeAttributes = new TreeAttributes(jq("span[id*=treeAttributes]"));
-    protected TreeModel tree = new TreeModel(pjq("div.rf-tr[id$=richTree]"));
-    protected TreeNodeModel treeNode;
-
-    JQueryLocator lazyInitialized = pjq("span[id$=lazyInitialized]");
-
-    protected Integer[][] paths = new Integer[][] { { 1, 1, 1, 8, 1 }, { 4, 4, 11, 4 } };
 
     @Test
     public void testLazyLoading() {

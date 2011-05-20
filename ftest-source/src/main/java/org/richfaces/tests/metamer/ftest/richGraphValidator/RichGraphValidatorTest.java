@@ -25,6 +25,8 @@ import static org.jboss.test.selenium.locator.LocatorFactory.jq;
 import static org.jboss.test.selenium.utils.URLUtils.buildUrl;
 
 import java.net.URL;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import org.jboss.test.selenium.locator.JQueryLocator;
 import org.jboss.test.selenium.locator.option.OptionValueLocator;
@@ -40,12 +42,16 @@ import org.testng.annotations.Test;
 public class RichGraphValidatorTest extends AbstractMetamerTest {
 
     private static final String SMILE = ":-)";
-    private static final GraphValidatorAttributes attributes = new GraphValidatorAttributes();
     
-    private static final String[] groups = {"", "javax.validation.groups.Default", 
+    private static final String[] GROUPS = {"", "javax.validation.groups.Default", 
         "org.richfaces.tests.metamer.validation.groups.ValidationGroupAllComponents",
         "org.richfaces.tests.metamer.validation.groups.ValidationGroupBooleanInputs", 
         "org.richfaces.tests.metamer.validation.groups.ValidationGroupNumericInputs"};
+    
+    private static final int BOOLEAN_INPUTS_GROUP = 3;
+    private static final int NUMERIC_INPUTS_GROUP = 4;
+    
+    private GraphValidatorAttributes attributes = new GraphValidatorAttributes();
     
     private JQueryLocator autocomplete = pjq("input[id$=autocompleteInput]");
     private JQueryLocator inputSecret = pjq("input[id$=inputSecret]");
@@ -61,7 +67,8 @@ public class RichGraphValidatorTest extends AbstractMetamerTest {
     private JQueryLocator inputNumberSliderInput = pjq("span[id$=inputNumberSlider] input.rf-insl-inp");
     private JQueryLocator inputNumberSpinnerInput = pjq("span[id$=inputNumberSpinner] input.rf-insp-inp");
     
-    private JQueryLocator globalMessagesContainer = pjq("span[id$=globalMessages]");
+    private JQueryLocator globalMessagesContainer = pjq("span[id$=_globalMessages]");
+    private JQueryLocator errorMessagesContainer = pjq("span.rf-msgs");
     private JQueryLocator header = pjq("div.rf-p-hdr[id$=gv1h_header]");
     
     private OptionValueLocator optionSmile = new OptionValueLocator(SMILE);
@@ -75,16 +82,16 @@ public class RichGraphValidatorTest extends AbstractMetamerTest {
     
     @Test
     public void testGroups() {
-        for (int i=0; i<groups.length; ++i) {
-            attributes.setGroups(groups[i]);
+        for (int i=0; i<GROUPS.length; ++i) {
+            attributes.setGroups(GROUPS[i]);
             
             setAllValidatedFields();
             
-            if (i==3) {
+            if (i == BOOLEAN_INPUTS_GROUP) {
                 // only Boolean inputs validated
                 allFieldsSetToWrong();
                 selenium.check(selectBooleanCheckbox, true);
-            } else if (i==4) {
+            } else if (i == NUMERIC_INPUTS_GROUP) {
                 // only numeric inputs validated
                 allFieldsSetToWrong();
                 selenium.type(inputNumberSliderInput, "10");
@@ -97,14 +104,23 @@ public class RichGraphValidatorTest extends AbstractMetamerTest {
             // wait for success validation
             waitGui.until(textEquals
                 .locator(globalMessagesContainer.getDescendant(jq("span.rf-msgs-sum")))
-                .text("Action sucessfully done!"));            
+                    .text("Action sucessfully done!"));            
         }
     }
     
     @Test
     public void testSummary() {
+        String msg = "My own validation message!";
+        attributes.setSummary(msg);
+        
         setAllValidatedFields();
-        // !!! Seems that there is bug - no content rendered when set summary attr
+        allFieldsSetToWrong();
+        
+        selenium.click(applyChangesBtn);
+        
+        waitGui.until(textEquals
+            .locator(errorMessagesContainer.getDescendant(jq("span.rf-msgs-sum")))
+                .text(msg));            
     }
 
     @Test
@@ -120,7 +136,7 @@ public class RichGraphValidatorTest extends AbstractMetamerTest {
         // wait for success validation
         waitGui.until(textEquals
             .locator(globalMessagesContainer.getDescendant(jq("span.rf-msgs-sum")))
-            .text("Action sucessfully done!"));
+                .text("Action sucessfully done!"));
     }
     
     @Test
@@ -132,7 +148,7 @@ public class RichGraphValidatorTest extends AbstractMetamerTest {
         waitGui.until(isNotDisplayed.locator(header));
     }
     
-    private void setAllValidatedFields(){
+    private void setAllValidatedFields() {
         // inputSecret don't keed entered value after submit
         selenium.type(inputSecret, SMILE);
         
@@ -143,17 +159,21 @@ public class RichGraphValidatorTest extends AbstractMetamerTest {
     }
     
     private void allFieldsSetToWrong() {
-        selenium.type(inplaceSelect, "---");
-        selenium.type(inplaceInput, "---");
+        String wrongString = "---";
+        SimpleDateFormat sdf = new SimpleDateFormat("MMM dd, yyyy");
+        String wrongDate = sdf.format(new Date(System.currentTimeMillis() + 24*60*60*1000));
+        
+        selenium.type(inplaceSelect, wrongString);
+        selenium.type(inplaceInput, wrongString);
         selenium.type(inputNumberSpinnerInput, "10");
         selenium.check(selectBooleanCheckbox, false);
-        selenium.type(inputSecret, "---");
+        selenium.type(inputSecret, wrongString);
         
         selenium.type(inputNumberSliderInput, "15");
         selenium.type(inputNumberSpinnerInput, "15");
-        selenium.type(autocomplete, "---");
-        selenium.type(inputText, "---");
-        selenium.type(calendar, "");        
-        selenium.type(inputTextArea, "---");
+        selenium.type(autocomplete, wrongString);
+        selenium.type(inputText, wrongString);
+        selenium.type(calendar, wrongDate);     
+        selenium.type(inputTextArea, wrongString);
     }
 }
