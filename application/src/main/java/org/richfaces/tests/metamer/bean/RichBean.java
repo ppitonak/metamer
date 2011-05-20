@@ -120,6 +120,7 @@ public class RichBean implements Serializable {
         a4jComponents.put("a4jRepeat", "A4J Repeat");
         a4jComponents.put("a4jStatus", "A4J Status");
 
+        iceComponents.put("iceOutputConnectionStatus", "ICE Output Connection Status");
         iceComponents.put("iceSelectInputDate", "ICE Select Input Date");
         iceComponents.put("iceSingleSubmit", "ICE Single Submit");
 
