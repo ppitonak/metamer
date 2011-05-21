@@ -37,13 +37,13 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
         </ui:define>
 
         <ui:define name="head">
+            <link rel='stylesheet' type='text/css' href='/metamer/xmlhttp/css/xp/xp.css'/>
         </ui:define>
 
         <ui:define name="component">
             <icecore:singleSubmit/>
             <ice:selectInputDate
                 id ="iceSelectInputDate"
-
                 value="#{iceSelectInputDateBean.date}">
                 <f:convertDateTime pattern="MMM d, yyyy HH:mm"
                                    timeZone="#{iceSelectInputDateBean.timeZone}"/>
