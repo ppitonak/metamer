@@ -121,6 +121,7 @@ public class RichBean implements Serializable {
         a4jComponents.put("a4jStatus", "A4J Status");
 
         iceComponents.put("aceFileEntry", "ACE File Entry");
+        iceComponents.put("iceDataTable", "ICE Data Table");
         iceComponents.put("iceOutputConnectionStatus", "ICE Output Connection Status");
         iceComponents.put("iceOutputProgress", "ICE Output Progress");
         iceComponents.put("icePanelCollapsible", "ICE Panel Collapsible");
