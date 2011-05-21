@@ -126,6 +126,7 @@ public class RichBean implements Serializable {
         iceComponents.put("iceSelectInputDate", "ICE Select Input Date");
         iceComponents.put("iceSelectInputText", "ICE Select Input Text");
         iceComponents.put("iceSingleSubmit", "ICE Single Submit");
+        iceComponents.put("iceTree", "ICE Tree");
 
         otherComponents.put("expressionLanguage", "Expression Language");
         otherComponents.put("commandButton", "JSF Command Button");
