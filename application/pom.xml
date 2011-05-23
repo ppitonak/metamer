@@ -26,7 +26,14 @@
     <artifactId>metamer</artifactId>
     <packaging>war</packaging>
     <name>Metamer: RichFaces Testing Application</name>
-	
+
+    <repositories>
+        <repository>
+            <id>ICEsoft Release Repository</id>
+            <url>http://anonsvn.icefaces.org/repo/maven2/releases</url>
+        </repository>
+    </repositories>
+    
     <distributionManagement>
         <snapshotRepository>
             <id>jboss-qa-snapshots</id>
