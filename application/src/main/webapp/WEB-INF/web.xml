@@ -73,6 +73,7 @@ xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns
     <servlet>
         <servlet-name>Comet Servlet</servlet-name>
         <servlet-class>org.primefaces.comet.PrimeFacesCometServlet</servlet-class>
+        <async-supported>true</async-supported>
     </servlet>
     <servlet-mapping>
         <servlet-name>Comet Servlet</servlet-name>
